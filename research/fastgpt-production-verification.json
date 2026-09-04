@@ -1,0 +1,185 @@
+{
+  "base_url": "https://www.cnps.ai",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/",
+      "type": "text/html; charset=utf-8",
+      "bytes": 19587,
+      "contains_fastgpt": true
+    },
+    {
+      "path": "/fastgpt/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt",
+      "type": "text/html; charset=utf-8",
+      "bytes": 10669,
+      "contains_fastgpt": true
+    },
+    {
+      "path": "/fastgpt/cases/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt/cases",
+      "type": "text/html; charset=utf-8",
+      "bytes": 8201
+    },
+    {
+      "path": "/fastgpt/cases/it-support/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt/cases/it-support",
+      "type": "text/html; charset=utf-8",
+      "bytes": 4881
+    },
+    {
+      "path": "/fastgpt/solutions/rfq-intake/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt/solutions/rfq-intake",
+      "type": "text/html; charset=utf-8",
+      "bytes": 5633
+    },
+    {
+      "path": "/fastgpt/contact/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt/contact",
+      "type": "text/html; charset=utf-8",
+      "bytes": 5754,
+      "draft_not_sent_notice": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth",
+      "type": "text/html; charset=utf-8",
+      "bytes": 75999
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth.md",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth.md",
+      "type": "text/markdown; charset=utf-8",
+      "bytes": 62359,
+      "matches_source": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth.pdf",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth.pdf",
+      "type": "application/pdf",
+      "bytes": 98787,
+      "matches_source": true,
+      "valid_pdf_header": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-iterations.md",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-iterations.md",
+      "type": "text/markdown; charset=utf-8",
+      "bytes": 12038,
+      "matches_source": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-revisions.zip",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-revisions.zip",
+      "type": "application/zip",
+      "bytes": 629538,
+      "matches_source": true
+    },
+    {
+      "path": "/resources/fastgpt-buyer-guide-en.md",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-buyer-guide-en.md",
+      "type": "text/markdown; charset=utf-8",
+      "bytes": 4662,
+      "matches_source": true
+    },
+    {
+      "path": "/resources",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources",
+      "type": "text/html; charset=utf-8",
+      "bytes": 14426
+    },
+    {
+      "path": "/case-studies",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/case-studies",
+      "type": "text/html; charset=utf-8",
+      "bytes": 14105
+    },
+    {
+      "path": "/request-quote",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/request-quote",
+      "type": "text/html; charset=utf-8",
+      "bytes": 13941
+    },
+    {
+      "path": "/downloads/cnps-ai-global-expansion.md",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/downloads/cnps-ai-global-expansion.md",
+      "type": "text/markdown; charset=utf-8",
+      "bytes": 66848
+    },
+    {
+      "path": "/downloads/cnps-ai-global-expansion.pdf",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/downloads/cnps-ai-global-expansion.pdf",
+      "type": "application/pdf",
+      "bytes": 1552950,
+      "valid_pdf_header": true
+    },
+    {
+      "path": "/products",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/products",
+      "type": "text/html; charset=utf-8",
+      "bytes": 95416
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/privacy",
+      "type": "text/html; charset=utf-8",
+      "bytes": 36181
+    },
+    {
+      "path": "/brand/cnps-mark.png",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/brand/cnps-mark.png",
+      "type": "image/png",
+      "bytes": 42174
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/sitemap.xml",
+      "type": "application/xml",
+      "bytes": 5197,
+      "includes_fastgpt": true
+    },
+    {
+      "path": "/fastgpt-assets/site.js",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt-assets/site.js",
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 4382
+    },
+    {
+      "path": "/fastgpt-assets/style.css",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt-assets/style.css",
+      "type": "text/css; charset=utf-8",
+      "bytes": 12999
+    }
+  ],
+  "verified_at": "2026-09-04T01:29:33.618016+00:00",
+  "deployment_id": "dpl_CQnCva64KPBnv6jdEB2H4qGFHSxK",
+  "deployment_url": "https://cnps-mo5up27wp-aipy.vercel.app",
+  "source_commit": "ddbec1fa995d5512380e29a14ea2507ac344faec",
+  "report_chapters": 28,
+  "pdf_pages": 30,
+  "report_revisions": 23,
+  "report_sha256": "ac50debc6ae37fc1e2c84ae4fe43400b246d5b593327560576085978d07fbbe7"
+}
