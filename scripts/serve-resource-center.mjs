@@ -1,0 +1,3 @@
+import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const root=path.resolve('dist');
+http.createServer((req,res)=>{let u=new URL(req.url,'http://localhost').pathname;if(u==='/')u='/index.html';else if(fs.existsSync(path.join(root,u,'index.html')))u=path.join(u,'index.html');else if(!path.extname(u))u=u.replace(/\/$/,'')+'.html';const p=path.join(root,u);if(!p.startsWith(root)||!fs.existsSync(p)){res.writeHead(404);return res.end('Not found')}res.setHeader('Content-Type',p.endsWith('.html')?'text/html; charset=utf-8':p.endsWith('.xml')?'application/xml':'text/plain; charset=utf-8');fs.createReadStream(p).pipe(res)}).listen(4173,'127.0.0.1',()=>console.log('http://127.0.0.1:4173'));

@@ -1,0 +1,16 @@
+{
+  "html_pages": 15,
+  "internal_links_checked": 169,
+  "broken_links": [],
+  "report_revisions": 23,
+  "report_sha256": "ac50debc6ae37fc1e2c84ae4fe43400b246d5b593327560576085978d07fbbe7",
+  "pdf_pages": 30,
+  "ui_checks": [
+    "1280px desktop inspected",
+    "390px mobile inspected, no horizontal document overflow",
+    "manufacturing filter returns 2 cases",
+    "RFQ workflow prefilled",
+    "synthetic inquiry generates draft for sales@cnps.ai; no email sent",
+    "fieldset disabled until JS is ready"
+  ]
+}

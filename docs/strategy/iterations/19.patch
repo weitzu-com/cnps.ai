@@ -1,0 +1,19 @@
+--- v18
++++ v19
+@@ -474,6 +474,16 @@
+ 合作经济安排应以净收入和实际责任划分为基础。线索介绍、实施、培训、保修分别计价，避免项目出问题时无人负责。涉及客户资料共享时，先明确客户知情、访问范围和使用目的。
+ 
+ 每季度查看伙伴带来的有效机会、成交毛利、交付质量和客户留存。关系数量不是成果。对长期不能履行支持承诺的伙伴及时停止新的项目分配，并安排客户服务交接。
++
++### 伙伴首轮沟通与服务节奏
++
++伙伴研究先从公开企业资料确认客户类型、技术能力、服务地区和既有产品线。初次沟通提供一个与其业务直接相关的资料或试点设想，说明双方各自承担的工作；避免未经同意把客户名单交给供应商。
++
++沟通草稿：We are exploring a small pilot for teams that need reliable answers from technical documents. Your integration experience may complement product sourcing and evaluation work from CNPS. Would it be useful to compare one clearly scoped customer requirement and the delivery responsibilities?
++
++本方案只提供草稿，没有发送外联信息。后续实际外联由账号负责人安排，先核对当地营销规则、渠道条款与接收者偏好，不把 GitHub 用户邮箱抓取成群发名单。
++
++内部服务目标可先设为收到邮件后一个工作日内进行首次人工回复；这不是现有公开 SLA。若团队无法稳定达到，就先减少渠道投入。对于客户主动询盘，在约定时间跟进；没有明确下一步时最多进行有限提醒并尊重停止联系的要求。
+ 
+ <!-- pagebreak -->
+ 

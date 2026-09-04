@@ -1,0 +1,13 @@
+--- v13
++++ v14
+@@ -392,6 +392,10 @@
+ 建议 CRM 字段为企业名称、联系人、工作邮箱、国家时区、来源、场景、现有系统、资料准备状态、预计启动时间、预算区间、负责人、下一步和预计日期。不要在营销表单收集客户生产数据或密钥。
+ 
+ 建议打分：场景吻合 25 分、资料可用 20 分、业务负责人 20 分、时间窗口 15 分、预算路径 10 分、技术可交付 10 分。达到 70 分可以进入 SQL 评审；分数只是内部排序工具，不能自动决定客户是否值得服务。
++
++归因事件建议依次为 case_view、proposal_intent、brief_prepared、email_open_requested、inquiry_received、sql_accepted、pilot_signed、cash_received。前四项是浏览器行为，后四项必须由收件系统或销售核实。当前页面只把有限的 UTM 参数带入草稿，没有部署分析服务，也没有把联系方式发给第三方统计工具。
++
++字段规范示例：utm_source=x/github/partner，utm_medium=organic/repository/referral，utm_campaign=fastgpt-pilot，utm_content=technical-docs-demo。来源参数不能夹带邮箱、企业机密或自由文本。每个真实商机保存首次来源、自述来源与最后触点，定期查看三者差异。
+ 
+ 建议工作日一个工作日内给人工首响，由真实排班能力决定是否公开承诺。第一封回复应复述客户问题、提出两三个关键缺口并约定下一步。复杂问题明确给出预计反馈时间，不用自动邮件制造“销售已处理”的错觉。
+ 

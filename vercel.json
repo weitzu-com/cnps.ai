@@ -1,0 +1,33 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --ignore-scripts",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {"source":"/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"},{"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"},{"key":"Permissions-Policy","value":"camera=(), microphone=(), geolocation=()"}]}
+  ],
+  "rewrites": [
+    {"source":"/_next/:path*","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/_next/:path*"},
+    {"source":"/brand/:path*","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/brand/:path*"},
+    {"source":"/products/:path*","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/products/:path*"},
+    {"source":"/products","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/products"},
+    {"source":"/about","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/about"},
+    {"source":"/contact","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/contact"},
+    {"source":"/faq","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/faq"},
+    {"source":"/how-it-works","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/how-it-works"},
+    {"source":"/languages","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/languages"},
+    {"source":"/privacy","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/privacy"},
+    {"source":"/pro-plan","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/pro-plan"},
+    {"source":"/returns","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/returns"},
+    {"source":"/shipping","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/shipping"},
+    {"source":"/support","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/support"},
+    {"source":"/technology","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/technology"},
+    {"source":"/terms","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/terms"},
+    {"source":"/use-cases/:path*","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/use-cases/:path*"},
+    {"source":"/use-cases","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/use-cases"},
+    {"source":"/wholesale","destination":"https://cnps-2ieeg1m07-aipy.vercel.app/wholesale"}
+  ]
+}

@@ -1,0 +1,19 @@
+--- v20
++++ v21
+@@ -627,6 +627,16 @@
+ 
+ 研究时间为 2026-09-03。X 使用公开可索引页面，不能覆盖全部帖子、回复和删除内容。GitHub 资料用于验证技术路径；没有把 Star、浏览量、融资或演示视频换算成销售额。来源中的市场和性能主张只在其原有范围内使用。
+ 
++### 研究判定与被排除内容
++
++本次从公开检索发现线索，再回到官方 GitHub、厂商原文或官方监管页面复核。网页发布日期与检索日期分开记录；旧案例可以解释长期商业机制，但不代表当前价格或最新产品状态。Qwen3 与 DeepSeek-R1 在本文中是已核对的案例对象，没有宣称是截至研究日的最新模型。
++
++不采纳的证据包括：X 自动生成的趋势总结、未回到原始文件的机器人收入及毛利帖子、缺乏测试条件的性能横向比较，以及当前无法确认的 CNPS 授权关系。公开抓取曾把主站解析为商城；随后直接 HTTP 请求与实际页面确认主站正常返回产品站，报告以直接确认结果为准。
++
++引用内容仅做短摘要和分析，不整篇转载文章、文档或厂商图片。外部品牌与链接用于识别资料来源，不构成合作或背书。上游许可证只约束相应代码与素材，CNPS 对原始内容没有额外权利。
++
++补充规则来源：[CE 标志](https://europa.eu/youreurope/business/product-rules-compliance/general-product-compliance/ce-marking/index_en.htm)、[数据保护说明](https://commission.europa.eu/law/law-topic/data-protection/data-protection-explained_en)、[AI Act 现行说明](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)。具体项目按签约时的官方规则重新核对，尤其避免沿用已变化的时间表。
++
+ <!-- pagebreak -->
+ 
+ ## 第 32 页｜决策清单与发布维护

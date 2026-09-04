@@ -1,0 +1,19 @@
+--- v20
++++ v21
+@@ -382,6 +382,16 @@
+ 发布频次可从每周 3 条 X 原创、1 篇实用网站内容、1 次样例更新起步。这是团队容量假设。优先确保每条都有真实样例或具体知识，宁可减少频次也不要制造没有内容的“每日发布”。
+ 
+ 联合活动应以一项工作为主题，例如“From a parts inquiry to a reviewable RFQ brief”。报名后不自动订阅营销列表，演示数据使用合成或已获授权资料。没有客户许可时，不能把销售对话截图作为案例。
++
++### 首批 X 英文草稿
++
++**Technical documents:** A useful knowledge assistant should show where an answer came from—and say when the documents do not contain it. Our FastGPT pilot approach starts with your workflow, an agreed test set and human review. Explore the approach at cnps.ai/fastgpt/.
++
++**RFQ intake:** An RFQ arrives with a missing part number and an unclear quantity. The useful AI output is a structured brief with the gaps flagged. Pricing and delivery commitments stay with your sales team. See the CNPS FastGPT pilot approach.
++
++**Support:** A fast answer is only useful if it is right. For a support pilot, measure answer quality, appropriate handoff, review time and cost together. CNPS helps scope that evaluation around one workflow.
++
++以上仅为待发布草稿，发布前按平台当时长度限制精简并添加对应场景链接。每条配一个真实可复核的合成样例或已授权演示，不能添加不存在的客户成效。销售邮件也只用于回复主动询盘或已有合法联系，不自动群发。
+ 
+ <div class="page-break"></div>
+ 

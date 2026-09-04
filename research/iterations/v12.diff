@@ -1,0 +1,21 @@
+--- v11
++++ v12
+@@ -353,6 +353,18 @@
+ 技术要求是可抓取 HTML、唯一 title 与 description、canonical、站点地图、正文内链、合适的语言标记和真实的结构化数据。仅使用页面确实展示的组织或服务信息，不生成假评分、虚构评价或没有价格依据的商品 Offer。[Google Search Essentials](https://developers.google.com/search/docs/essentials)。
+ 
+ AI 检索友好意味着定义清晰、来源可追溯、段落可独立理解、发布日期可见。可以提供 Markdown 与简明 llms.txt，但不能承诺任何搜索引擎或 AI 一定收录、推荐或提高排名。提交站点地图后应在真实索引和询盘数据中验证。
++
++### 首批搜索主题与页面映射
++
++| 买方搜索意图 | 页面主题 | 应回答的具体问题 |
++| --- | --- | --- |
++| FastGPT implementation partner | 合作与实施入口 | 谁负责交付与支持 |
++| AI for technical documentation | 技术资料场景页 | 如何验证出处与版本 |
++| RFQ intake automation | RFQ 场景页 | 如何处理缺失字段和人审 |
++| support ticket triage AI | 客服场景页 | 哪些请求必须转交人工 |
++| private AI knowledge base | 部署与采购说明 | 哪些数据会经过外部服务 |
++
++避免为“best”“cheapest”制造无依据比较。搜索报告每月检查展示、点击、落地页和询盘质量，先修复页面不可抓取、404 或 CTA 失效等实际问题。不同语言只有在内容、支持与 hreflang 配对完善后上线独立版本。
+ 
+ <div class="page-break"></div>
+ 

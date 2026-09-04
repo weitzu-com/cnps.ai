@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-03",
+  "report_sha256": "cb516a24dcd4ff69b71a16710d5b743bbca5c520b063dab7560a02612fa66fbb",
+  "revision_count": 22,
+  "logical_sections": 32,
+  "a4_pages": 34,
+  "main_site_html_pages": 28,
+  "combined_html_pages": 43,
+  "internal_link_references_checked": 883,
+  "missing_internal_links": 0,
+  "responsive_widths": [
+    375,
+    414,
+    768,
+    1024,
+    1440
+  ],
+  "responsive_route_checks": 25,
+  "page_errors": 0,
+  "email_draft_sent": false,
+  "email_draft_encoding": "verified with synthetic example",
+  "revision_replay": "22 before/after hashes matched baseline and final document",
+  "legacy_deployment": "dpl_DDnaWFVdpc1xaUNwVmsE9G6hg9QZ",
+  "legacy_dependency": "Existing product/support/policy routes retain the prior immutable deployment. Do not delete it until migrated."
+}

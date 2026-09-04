@@ -1,0 +1,13 @@
+.env
+.env.local
+ai-usage-monitor.config.local.json
+logs/ai-usage-monitor/
+__pycache__/
+node_modules/
+dist/
+.vercel
+.env*
+
+research/raw/
+output/playwright/
+output/qa/

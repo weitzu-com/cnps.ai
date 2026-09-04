@@ -1,0 +1,9 @@
+{
+  "name": "cnps-ai-resource-center",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {"build": "node scripts/build-resource-center.mjs", "serve": "node scripts/serve-resource-center.mjs"},
+  "engines": {"node": ">=22"},
+  "dependencies": {"marked": "^17.0.1"}
+}

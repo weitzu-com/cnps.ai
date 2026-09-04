@@ -1,0 +1,17 @@
+--- v10
++++ v11
+@@ -301,6 +301,14 @@
+ 不承诺未验证的“一键导入”。涉及具体 FastGPT workflow JSON 时，要记录确切版本并执行一次干净环境导入；未通过的资产只能称为设计样例。Issue 模板应去除凭据和客户资料，引导真正的产品问题。
+ 
+ 贡献上游时以修复文档、提供复现和改进测试为主。避免在无关 issue 填广告或抓取开发者邮箱群发。GitHub 明确限制垃圾推广和虚假互动，相关规范见第 28 章 P03。
++
++### 样例仓库验收与转化
++
++建议结构为 examples/、datasets/synthetic/、evaluation/、docs/、SECURITY.md、LICENSE 和 .env.example。环境示例只含变量名和安全占位，不含真实凭据。每次 release 记录上游版本、兼容范围、已通过样本数、失败项和维护负责人。
++
++README 服务入口示例：Need help adapting this workflow to your company documents and systems? Discuss a scoped pilot with CNPS. 链接使用 utm_source=github、utm_medium=repository、utm_campaign=fastgpt-pilot。指标是合格企业对话和样例复现问题，不是 star 增速。
++
++目前交付的是发布素材与评测规范；还没有把示例仓库发布到 GitHub，也没有宣称完成真实 FastGPT 环境的导入和模型评测。这项工作属于九十天计划第 15-30 天的工程门槛。
+ 
+ <div class="page-break"></div>
+ 
