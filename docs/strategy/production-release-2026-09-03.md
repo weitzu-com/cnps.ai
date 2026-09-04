@@ -3,8 +3,9 @@
 发布完成：2026-09-03（America/New_York）。
 
 - 正式域名：https://www.cnps.ai
-- 发布 ID：dpl_CQnCva64KPBnv6jdEB2H4qGFHSxK
-- 不变部署地址：https://cnps-mo5up27wp-aipy.vercel.app
+- 最新发布 ID：dpl_HKyUPwL8vRadmR4H5nFKFaZiCLbm（含旧页收录兼容修复）
+- 初次合并发布 ID：dpl_CQnCva64KPBnv6jdEB2H4qGFHSxK
+- 最新不变部署地址：https://cnps-cuud47zts-aipy.vercel.app
 - 网站代码版本：ddbec1f（初次内容提交为 74c46b9）
 - 合并站点：43 个 HTML 页面。
 - FastGPT 方案：28 章，30 页 A4 PDF，初稿后的 23 轮实质修订。
@@ -39,3 +40,7 @@ vercel deploy --prebuilt --prod --skip-domain --yes --scope aipy
 # 核验返回的部署地址后，使用该部署 ID 执行：
 vercel promote DEPLOYMENT_ID --scope aipy --yes
 ```
+
+## 旧页搜索收录兼容修复
+
+主方案生产复核确认 Markdown 和 PDF 与本地文件逐字节一致。随后发现旧产品和内容路由转发了旧部署的 `X-Robots-Tag: noindex`。在 `vercel.json` 为原有 17 条公开内容路由显式设置 `X-Robots-Tag: index, follow`，保留全部目录首页映射和原有转发顺序。正式发布后复核 14 个重点路径全部 HTTP 200；原产品列表、TicNote 详情、use-cases、about 和 privacy 均只返回 `index, follow`，没有同时带入 noindex。主方案、资料中心和 FastGPT 页没有 noindex，MD/PDF 与本地逐字节一致。证据见 `docs/strategy/production-verification.json`。此修复不改变报告正文、修订记录或 FastGPT 页面。

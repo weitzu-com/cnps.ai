@@ -1,0 +1,104 @@
+{
+  "verified_at": "2026-09-04T01:38:56.322921+00:00",
+  "deployment_id": "dpl_HKyUPwL8vRadmR4H5nFKFaZiCLbm",
+  "deployment_url": "https://cnps-cuud47zts-aipy.vercel.app",
+  "base_url": "https://www.cnps.ai",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "robots": null,
+      "bytes": 19587
+    },
+    {
+      "path": "/products",
+      "status": 200,
+      "robots": [
+        "index, follow"
+      ],
+      "bytes": 95416
+    },
+    {
+      "path": "/products/ticnote",
+      "status": 200,
+      "robots": [
+        "index, follow"
+      ],
+      "bytes": 66693
+    },
+    {
+      "path": "/use-cases",
+      "status": 200,
+      "robots": [
+        "index, follow"
+      ],
+      "bytes": 34365
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "robots": [
+        "index, follow"
+      ],
+      "bytes": 34979
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "robots": [
+        "index, follow"
+      ],
+      "bytes": 36181
+    },
+    {
+      "path": "/resources",
+      "status": 200,
+      "robots": null,
+      "bytes": 14426
+    },
+    {
+      "path": "/case-studies",
+      "status": 200,
+      "robots": null,
+      "bytes": 14105
+    },
+    {
+      "path": "/request-quote",
+      "status": 200,
+      "robots": null,
+      "bytes": 13941
+    },
+    {
+      "path": "/resources/china-ai-export-playbook",
+      "status": 200,
+      "robots": null,
+      "bytes": 85784
+    },
+    {
+      "path": "/resources/cnps-ai-revisions",
+      "status": 200,
+      "robots": null,
+      "bytes": 21834
+    },
+    {
+      "path": "/fastgpt",
+      "status": 200,
+      "robots": null,
+      "bytes": 10669
+    },
+    {
+      "path": "/downloads/cnps-ai-global-expansion.md",
+      "status": 200,
+      "robots": null,
+      "bytes": 66848,
+      "matches_source": true
+    },
+    {
+      "path": "/downloads/cnps-ai-global-expansion.pdf",
+      "status": 200,
+      "robots": null,
+      "bytes": 1552950,
+      "matches_source": true
+    }
+  ]
+}
