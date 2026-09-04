@@ -33,3 +33,13 @@
 PDF SHA-256：`1a014cd6bc0b36a0a01148942fb383759228fc548b753b5ae5990d662e4b483f`。
 
 本记录描述内容和构建检查。具体生产发布响应另记于同目录发布记录。
+
+## 正式发布
+
+已发布至 https://www.cnps.ai/resources/fastgpt-cnps-global-growth-bilingual 。正式域名12项检查全部HTTP 200，本次校验的11个静态文件与本地哈希一致；产品页保持可索引。
+
+- 内容提交：`ccd3347`
+- 部署：`dpl_BwS73nyiEyXFmC2EV7a7HeNJG3Dc`
+- 部署地址：https://cnps-2vkucu613-aipy.vercel.app
+- 核对时间：2026-09-04T02:50:39.863498+00:00
+- 逐项响应：`fastgpt-bilingual-production-verification.json`

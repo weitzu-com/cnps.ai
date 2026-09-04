@@ -1,0 +1,132 @@
+{
+  "base": "https://www.cnps.ai",
+  "checked_at": "2026-09-04T02:50:39.863498+00:00",
+  "pdf_pages": 63,
+  "chapters": 28,
+  "paired_blocks": 239,
+  "checks": [
+    {
+      "path": "/resources/fastgpt-cnps-global-growth-bilingual",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth-bilingual",
+      "bytes": 239986,
+      "content_type": "text/html; charset=utf-8",
+      "robots": null,
+      "sha256": "55adef3b69f7601e742cc979ac54eb9a0e373069220c4f188d35918a2f55048f",
+      "matches_local": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth-bilingual.md",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth-bilingual.md",
+      "bytes": 148459,
+      "content_type": "text/markdown; charset=utf-8",
+      "robots": null,
+      "sha256": "a7a382a6243a386d42f16f0da9105ca229dee57aa16f1acce70f8db0f9ac98d0",
+      "matches_local": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth-bilingual.pdf",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth-bilingual.pdf",
+      "bytes": 229404,
+      "content_type": "application/pdf",
+      "robots": null,
+      "sha256": "1a014cd6bc0b36a0a01148942fb383759228fc548b753b5ae5990d662e4b483f",
+      "matches_local": true
+    },
+    {
+      "path": "/fastgpt-assets/bilingual.css",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt-assets/bilingual.css",
+      "bytes": 6084,
+      "content_type": "text/css; charset=utf-8",
+      "robots": null,
+      "sha256": "7172007f2e6a6f0189d4a16f28b56d3e76cf6f644196abe5d98254df06e2eb69",
+      "matches_local": true
+    },
+    {
+      "path": "/fastgpt-assets/bilingual.js",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt-assets/bilingual.js",
+      "bytes": 792,
+      "content_type": "application/javascript; charset=utf-8",
+      "robots": null,
+      "sha256": "a098426e95f847ed87b0346f97f34c8592dedad56a2436619227a6a1d76497be",
+      "matches_local": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth",
+      "bytes": 76291,
+      "content_type": "text/html; charset=utf-8",
+      "robots": null,
+      "sha256": "20837d64e7e3c3ad2814b472d7fe1c95a49c7a402b481819150232c0e48f89d1",
+      "matches_local": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth.md",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources/fastgpt-cnps-global-growth.md",
+      "bytes": 62359,
+      "content_type": "text/markdown; charset=utf-8",
+      "robots": null,
+      "sha256": "ac50debc6ae37fc1e2c84ae4fe43400b246d5b593327560576085978d07fbbe7",
+      "matches_local": true
+    },
+    {
+      "path": "/fastgpt",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/fastgpt",
+      "bytes": 10720,
+      "content_type": "text/html; charset=utf-8",
+      "robots": null,
+      "sha256": "2fa6182062ba7f32159a6d8d3be6e0818894447bc435d9a2917dc7b316dc7ee8",
+      "matches_local": true
+    },
+    {
+      "path": "/resources",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/resources",
+      "bytes": 14450,
+      "content_type": "text/html; charset=utf-8",
+      "robots": null,
+      "sha256": "0d0d57920a9d8882292efcd80bae5ccd4fa76010a6bb5d6d18965184487c6d02",
+      "matches_local": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/sitemap.xml",
+      "bytes": 5285,
+      "content_type": "application/xml",
+      "robots": null,
+      "sha256": "74ac8e6afde42f6cb1a54ea3b08b83166df6421436e9a80d15a571813bb64c22",
+      "matches_local": true
+    },
+    {
+      "path": "/products",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/products",
+      "bytes": 95416,
+      "content_type": "text/html; charset=utf-8",
+      "robots": "index, follow",
+      "sha256": "a6268ba44f61399fc997b4a669615ed0b3cbeeee19829a795888c74800173c43"
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "final_url": "https://www.cnps.ai/",
+      "bytes": 19587,
+      "content_type": "text/html; charset=utf-8",
+      "robots": null,
+      "sha256": "941039b0fffee141055c18a1afc6553293aa6b4c48c23cbda8f195469cafc285",
+      "matches_local": true
+    }
+  ],
+  "deployment_id": "dpl_BwS73nyiEyXFmC2EV7a7HeNJG3Dc",
+  "deployment_url": "https://cnps-2vkucu613-aipy.vercel.app",
+  "source_commit": "ccd3347",
+  "source_revisions_preserved": 23
+}
