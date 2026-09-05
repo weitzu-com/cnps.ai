@@ -1,6 +1,6 @@
 {
-  "pages": 230,
-  "pagesPerLanguage": 78,
+  "pages": 231,
+  "pagesPerLanguage": 79,
   "languages": [
     "en",
     "zh",
@@ -39,6 +39,7 @@
     "/fastgpt/cases/parts-data",
     "/fastgpt/cases/service-intake",
     "/fastgpt/cases/supplier-shortlist",
+    "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
     "/fastgpt/contact",
     "/fastgpt/solutions/rfq-intake",
     "/fastgpt/solutions/support-triage",
@@ -87,7 +88,8 @@
     "/wholesale"
   ],
   "aliases": {
-    "/resources/fastgpt-cnps-global-growth-bilingual": "/resources/fastgpt-cnps-global-growth"
+    "/resources/fastgpt-cnps-global-growth-bilingual": "/resources/fastgpt-cnps-global-growth",
+    "/fastgpt/compare": "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise"
   },
   "oldRoutes": [
     "",
@@ -123,6 +125,8 @@
     "/fastgpt/cases/parts-data",
     "/fastgpt/cases/service-intake",
     "/fastgpt/cases/supplier-shortlist",
+    "/fastgpt/compare",
+    "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
     "/fastgpt/contact",
     "/fastgpt/solutions/rfq-intake",
     "/fastgpt/solutions/support-triage",

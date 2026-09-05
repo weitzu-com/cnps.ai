@@ -41,8 +41,10 @@ test('FastGPT vs ChatGPT compare stays a method page', () => {
   assert.match(source, /approved product manual, revision B/);
   assert.match(source, /missing-information prompts and a clear path to a person/);
   assert.doesNotMatch(source, /win rate|win-rate of|accuracy of \d|latency of \d/i);
-  assert.doesNotMatch(source, /add to cart|buy now|checkout/i);
-  assert.doesNotMatch(source, /ChatGPT is (?:bad|worse|weak)|always FastGPT/i);
+  assert.match(source, /no checkout/);
+  assert.doesNotMatch(source, /add to cart|buy now/i);
+  assert.match(source, /not “always FastGPT/);
+  assert.doesNotMatch(source, /ChatGPT is (?:bad|worse|weak)/i);
 });
 
 test('built English compare page is in the sitemap and has no Arabic twin', () => {

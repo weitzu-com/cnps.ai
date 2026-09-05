@@ -6,7 +6,7 @@ Compare FastGPT and ChatGPT for permissioned enterprise knowledge by **access co
 
 A **FastGPT-shaped pilot**, as CNPS scopes it, starts from a bounded approved corpus, explicit dataset and app permissions, clickable source chunks, and a designed review step before answers are used.
 
-CNPS scopes FastGPT as a [partner](/fastgpt). This page does not invent benchmarks. There is no checkout on www.cnps.ai.
+CNPS scopes FastGPT as a [partner](/fastgpt). This page does not invent benchmarks. There is no checkout on this site.
 
 ## A fair baseline — what both can do
 
