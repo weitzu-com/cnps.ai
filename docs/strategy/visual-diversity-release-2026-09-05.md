@@ -47,3 +47,13 @@
 发布前回退点：`dpl_EEMb6cHHt44gsf8AgxQsoQvNDcoq`，`https://cnps-p6l6926eb-aipy.vercel.app`。
 
 按候选部署核验、正式域名切换、线上浏览器确认的顺序发布。正式部署信息将在完成后追加。
+
+### 正式发布完成
+
+- 实现提交：`c9c26b8`，已推送 GitHub `main`。
+- 正式部署：`dpl_7LMKS8iqexeHLKppgeqsym15vZAp`。
+- 固定部署：`https://cnps-ngqk5dq23-aipy.vercel.app`。
+- 候选与正式域名各 69 项 HTTP 检查通过，HTML 及资源字节与验收构建一致。一次临时 TLS EOF 仅对该文章重试后通过，记录保留于生产核验文件。
+- 正式浏览器确认中文/阿语博客为 6 图 6 身份，英文首页为 7 图 7 身份，中文案例为 9 个独立语义图；零图片错误、横向溢出或 JS 错误。
+- 发布证据：`visual-diversity-candidate-http.json`、`visual-diversity-production-http.json`、`visual-diversity-production-browser.json`。
+- 访问：`https://www.cnps.ai/zh/blogs`、`https://www.cnps.ai/zh`、`https://www.cnps.ai/zh/case-studies`。
