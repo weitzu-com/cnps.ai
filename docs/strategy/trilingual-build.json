@@ -1,6 +1,6 @@
 {
-  "pages": 228,
-  "pagesPerLanguage": 76,
+  "pages": 230,
+  "pagesPerLanguage": 78,
   "languages": [
     "en",
     "zh",
@@ -43,6 +43,8 @@
     "/fastgpt/solutions/rfq-intake",
     "/fastgpt/solutions/support-triage",
     "/fastgpt/solutions/technical-knowledge",
+    "/guides",
+    "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/how-it-works",
     "/languages",
     "/privacy",
@@ -125,6 +127,8 @@
     "/fastgpt/solutions/rfq-intake",
     "/fastgpt/solutions/support-triage",
     "/fastgpt/solutions/technical-knowledge",
+    "/guides",
+    "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/how-it-works",
     "/languages",
     "/privacy",
