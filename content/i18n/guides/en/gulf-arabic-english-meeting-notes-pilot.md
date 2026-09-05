@@ -96,12 +96,12 @@ Data residency and PDPL questions belong to counsel and the security owner. Ask 
 
 **Someone objects. What do we do?** Stop recording. Offer unrecorded minutes or a later session with a different list. Do not continue “without using their name,” and do not keep a partial file. An objection ends capture for that session.
 
-**Cloud or on-prem?** Ask where audio and text are processed, who can reach them, and how deletion is proven. If the security owner requires a residency option you do not have, do not start Week 1 on that stack. This page does not certify a topology.
+**Cloud or on-prem?** Ask where audio and text are processed, who can reach them, and how deletion is proven. If you lack a required residency option, do not start Week 1 on that stack. This page does not certify a topology.
 
-**When should we buy devices?** After the scorecard and action-ownership rule pass on representative meetings. If correction time or consent handling fails, fix the workflow first. Devices come from the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products) or a quotation; this site does not take payment.
+**When should we buy devices?** After the scorecard and action-ownership rule pass. If correction or consent fails, fix the workflow first. Devices come from the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products) or a quotation; this site does not take payment.
 
 **Pods or Lite?** Do not decide from a method page. Open the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products) or [Equip my team](/products) and confirm the exact SKU. This guide will not rank them.
 
 ## Request a scoped next step
 
-If you want help designing the two-week pack — languages, destination, sample size, or a device shortlist after the workflow passes — [contact CNPS](/contact) or [request a quotation](/request-quote?solution=meeting-ai). Share country, team size, languages, whether guests are external, and whether you already capture meetings. For hardware after the protocol holds, use [Equip my team](/products) or the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). Purchases complete on shop.cnps.ai.
+If you want help designing the two-week pack — languages, destination, sample size, or a device shortlist after the workflow passes — [contact CNPS](/contact) or [request a quotation](/request-quote?solution=meeting-ai). Share country, team size, languages and whether guests are external. For hardware after the protocol holds, use [Equip my team](/products) or the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). Purchases complete on shop.cnps.ai.
