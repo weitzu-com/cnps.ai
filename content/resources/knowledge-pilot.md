@@ -27,6 +27,8 @@ Document who updates content, approves access, reviews incorrect answers and han
 
 [Dify](https://github.com/langgenius/dify), [RAGFlow](https://github.com/infiniflow/ragflow), [Qwen3](https://github.com/QwenLM/Qwen3) and [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1) are research starting points. Check the exact release and license. Dify includes additional conditions; model variants and hosted services can have different terms.
 
+For a method compare of FastGPT-shaped workflows and ChatGPT company knowledge — permissions, citations and review, not a model score — see [FastGPT vs ChatGPT for permissioned enterprise knowledge](/fastgpt/compare/fastgpt-vs-chatgpt-enterprise).
+
 ## What to share with CNPS
 
 Describe the business task, document types, countries, languages, users, data constraints and target date. Begin with non-sensitive information. Implementation capabilities and commercial scope are agreed separately.
