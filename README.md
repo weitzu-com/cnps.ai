@@ -2,14 +2,11 @@
 
 Official website for [CNPS.AI](https://www.cnps.ai). Shop remains at [shop.cnps.ai](https://shop.cnps.ai).
 
-## Content centers
+## Three-language website
 
-- `/resources`: English buyer guides and the Chinese global expansion playbook.
-- `/case-studies`: Evidence-labeled AI application and hardware references.
-- `/solutions`: Five procurement and evaluation paths.
-- `/request-quote`: Review a structured brief and open an email draft; no server submission.
-- `/fastgpt/`: The separately authored FastGPT specialist center.
-- `/resources/fastgpt-cnps-global-growth/`: FastGPT strategy, Markdown, PDF and revision evidence.
+The complete website is available at `/en`, `/zh` and `/ar`. Arabic uses RTL layout. All 68 content routes have all three languages; each language also has a 404 page. Original unprefixed URLs redirect to the corresponding edition.
+
+Products, solutions, case references, buyer guides, support/policy pages, the 32-chapter CNPS strategy and 28-chapter FastGPT playbook share one design and navigation system. Historical Markdown, PDF and revision evidence remain downloadable. `/request-quote`, `/contact` and `/fastgpt/contact` are localized inquiry forms with the existing HubSpot configuration and reviewed email fallback.
 
 ## Build
 
@@ -17,13 +14,17 @@ Use Node.js 22 or newer. Run `npm ci --ignore-scripts` then `npm run build`. The
 
 The main build reads `content/catalog.mjs`, `content/resources/`, `docs/strategy/` and selectively merges the authored FastGPT output from `site/fastgpt`, `site/fastgpt-assets` and `site/resources/fastgpt-*`. It never merges the other center's root homepage or routing files.
 
+FastGPT HubSpot configuration, field mapping, CTA attribution and verification are documented in [docs/fastgpt-hubspot.md](docs/fastgpt-hubspot.md). Run `npm test` for the submission and attribution checks. Only public form identifiers are included in the browser build; no HubSpot API token is required.
+
 The main strategy has 32 logical pages and 22 real revisions after its baseline. `docs/strategy/iterations` contains the baseline, sequential patches and a manifest with SHA-256 hashes. The source Markdown is the maintained document; the A4 PDF is an additional reading format.
 
-## Existing product site
+## Design and localization
 
-The original production source was not present in this repository. Existing product, policy and support routes are forwarded by `vercel.json` to the verified immutable deployment `https://cnps-2ieeg1m07-aipy.vercel.app`. Do not remove that deployment or enable protection on it until those routes have been migrated. This dependency is deliberate and must be included in future deployment reviews.
+`web/ui.mjs`, `web/assets/site.css` and `web/site.mjs` own the interface, behavior and localized system messages. `scripts/build-trilingual.mjs` runs after the original asset/report builders, requires complete translations and writes the final localized site. Content is maintained in `content/i18n/`. Translation counts and source parity are recorded beside the reports.
 
-The old deployment `dpl_DDnaWFVdpc1xaUNwVmsE9G6hg9QZ` is the rollback reference for the original site. Content publishing does not require DNS changes.
+The previous public product, support and policy pages have been migrated into `content/i18n/legacy-pages.json`. New pages no longer proxy the old HTML deployment. Only legacy `/brand` and `/_next` asset URLs are retained as compatibility rewrites for historical references. Current product photography and fonts are self-hosted under `/assets`; font licenses are included.
+
+Release architecture and validation are documented in [docs/strategy/trilingual-release-2026-09-05.md](docs/strategy/trilingual-release-2026-09-05.md). Deployment uses the existing Vercel project and needs no DNS changes.
 
 ## Editorial and data rules
 

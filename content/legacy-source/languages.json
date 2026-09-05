@@ -1,0 +1,20 @@
+{
+  "path": "/languages",
+  "source_url": "https://www.cnps.ai/languages",
+  "text": "- Home\n- /Languages\nLanguages\n\n# Transcription supports 120+ languages.\nFigures below are the language counts published on the shop. This page does not invent a language list.\n\nTicNote: transcription supports 120+ languages. Summaries and mind maps are produced in the TicNote app.\nAR Smart Glasses: 40 languages / 90 accents.\nINMO GO3: online translation 78 source / 98+ target languages; offline translation 9 languages.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "/products/ar-smart-glasses",
+      "start": 18
+    },
+    {
+      "href": "/products/inmo-go3",
+      "start": 21
+    }
+  ]
+}

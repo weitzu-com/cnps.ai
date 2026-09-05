@@ -1,0 +1,20 @@
+{
+  "path": "/wholesale",
+  "source_url": "https://www.cnps.ai/wholesale",
+  "text": "- Home\n- /Wholesale\nWholesale\n\n# Ask about wholesale\nThe shop points wholesale requests to the contact details. No volume prices are published.\n\nEmail sales@cnps.ai with the products you want to discuss: TicNote card, Lite, Pods WiFi, Pods 4G, AR Smart Glasses, or INMO GO3.\nPhone: +8618354639099. Address: Yunhe Road 336, Dongying, Shandong 257091, China.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "mailto:sales@cnps.ai",
+      "start": 18
+    },
+    {
+      "href": "tel:+8618354639099",
+      "start": 24
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "path": "/contact",
+  "source_url": "https://www.cnps.ai/contact",
+  "text": "- Home\n- /Contact\nContact\n\n# Sales and wholesale\nWrite or call the addresses published on shop.cnps.ai.\n\nEmailsales@cnps.ai\nPhone+8618354639099\nAddressYunhe Road 336, Dongying, Shandong 257091, China\nPrivacy policy contacts also list iweibing@gmail.com and +86 400 088 0546.SubjectMessageOpen email to sales@cnps.ai",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "mailto:sales@cnps.ai",
+      "start": 17
+    },
+    {
+      "href": "tel:+8618354639099",
+      "start": 20
+    },
+    {
+      "href": "mailto:iweibing@gmail.com",
+      "start": 27
+    }
+  ]
+}

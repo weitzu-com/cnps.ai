@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "ar-smart-glasses",
+    "images": [
+      {
+        "path": "/assets/products/ar-smart-glasses-1.png",
+        "alt": "AR Smart Glasses wearable display",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ChatGPTImageMay30_2026_01_12_26PM_6.png?v=1780117964&width=960"
+      },
+      {
+        "path": "/assets/products/ar-smart-glasses-2.png",
+        "alt": "AR Smart Glasses three-quarter view",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ChatGPTImageMay30_2026_01_12_26PM_5.png?v=1780117964&width=960"
+      },
+      {
+        "path": "/assets/products/ar-smart-glasses-3.png",
+        "alt": "AR Smart Glasses side profile",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ChatGPTImageMay30_2026_01_12_25PM_4.png?v=1780117964&width=960"
+      }
+    ],
+    "shop": "https://shop.cnps.ai/products/ar-smart-glasses"
+  },
+  {
+    "slug": "inmo-go3",
+    "images": [
+      {
+        "path": "/assets/products/inmo-go3-1.jpg",
+        "alt": "INMO GO3 AI smart glasses",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/inmogo3-4.jpg?v=1784703211&width=960"
+      },
+      {
+        "path": "/assets/products/inmo-go3-2.jpg",
+        "alt": "INMO GO3 MicroLED AR glasses",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/inmo_go3-10.jpg?v=1784703390&width=960"
+      },
+      {
+        "path": "/assets/products/inmo-go3-3.jpg",
+        "alt": "INMO GO3 wearable display",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/inmo_go3-9.jpg?v=1784703383&width=960"
+      },
+      {
+        "path": "/assets/products/inmo-go3-4.jpg",
+        "alt": "INMO GO3 side view",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/inmo_go3-8.jpg?v=1784703377&width=960"
+      }
+    ],
+    "shop": "https://shop.cnps.ai/products/inmo-go3-ai-smart-glasses-53g-microled-ar-glasses-with-ai-translator-hot-swap-battery-camera"
+  },
+  {
+    "slug": "ticnote-pods-wifi",
+    "images": [
+      {
+        "path": "/assets/products/ticnote-pods-wifi-1.jpg",
+        "alt": "TicNote Pods WiFi in Navy Blue",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-pods-ai-voice-recorder-earbuds-enterprise-1990853_5e41f0a2-47ec-481b-8978-34ebdec702dc.jpg?v=1787847217&width=960"
+      },
+      {
+        "path": "/assets/products/ticnote-pods-wifi-2.jpg",
+        "alt": "TicNote Pods WiFi in Pearl White",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-pods-ai-voice-recorder-earbuds-enterprise-4640450_7d9bef3f-a62d-4adf-8f27-64e922271856.jpg?v=1787847217&width=960"
+      },
+      {
+        "path": "/assets/products/ticnote-pods-wifi-3.jpg",
+        "alt": "TicNote Pods WiFi open-ear earbuds",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-pods-ai-voice-recorder-earbuds-enterprise-7909120_6601664b-436a-4130-b1ec-80ec8b7cee4d.jpg?v=1787847217&width=960"
+      }
+    ],
+    "shop": "https://shop.cnps.ai/products/ticnote-pods-wifi-ai-transcription-earbuds"
+  },
+  {
+    "slug": "ticnote-lite",
+    "images": [
+      {
+        "path": "/assets/products/ticnote-lite-1.jpg",
+        "alt": "TicNote Lite AI Voice Recorder",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-lite-ai-voice-recorder-with-1-year-pro-plan-4562432.jpg?v=1787847213&width=960"
+      }
+    ],
+    "shop": "https://shop.cnps.ai/products/ticnote-lite-ai-voice-recorder"
+  },
+  {
+    "slug": "ticnote-pods-4g",
+    "images": [
+      {
+        "path": "/assets/products/ticnote-pods-4g-1.jpg",
+        "alt": "TicNote Pods 4G wearable recorder earbuds",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-pods-4g-wearable-ai-voice-recorder-built-in-4g-auto-meeting-notes-360-omnidirectional-pickup-10m-range-enc-7674598_2650766c-a314-4659-86d2-10947636eb74.jpg?v=1787849555&width=960"
+      },
+      {
+        "path": "/assets/products/ticnote-pods-4g-2.jpg",
+        "alt": "TicNote Pods 4G in Navy Blue",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-pods-ai-voice-recorder-earbuds-enterprise-1990853_a90b735f-172b-4756-afee-394137bbb502.jpg?v=1787849555&width=960"
+      }
+    ],
+    "shop": "https://shop.cnps.ai/products/ticnote-pods-special-offer"
+  },
+  {
+    "slug": "ticnote",
+    "images": [
+      {
+        "path": "/assets/products/ticnote-1.png",
+        "alt": "TicNote AI Voice Recorder card, front view",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-ai-voice-recorder-enterprise-2789404.png?v=1787847211&width=960"
+      },
+      {
+        "path": "/assets/products/ticnote-2.jpg",
+        "alt": "TicNote AI Voice Recorder card in hand",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-ai-voice-recorder-enterprise-3317356.jpg?v=1787847211&width=960"
+      },
+      {
+        "path": "/assets/products/ticnote-3.png",
+        "alt": "TicNote AI Voice Recorder in Gray",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-ai-voice-recorder-enterprise-1795767.png?v=1787847211&width=960"
+      },
+      {
+        "path": "/assets/products/ticnote-4.jpg",
+        "alt": "TicNote AI Voice Recorder in Gold",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-ai-voice-recorder-enterprise-3626962.jpg?v=1787847211&width=960"
+      },
+      {
+        "path": "/assets/products/ticnote-5.jpg",
+        "alt": "TicNote AI Voice Recorder in Blue",
+        "source": "https://cdn.shopify.com/s/files/1/0774/5581/8930/files/ticnote-ai-voice-recorder-enterprise-9764287.jpg?v=1787847211&width=960"
+      }
+    ],
+    "shop": "https://shop.cnps.ai/products/ticnote-ai-voice-recorder"
+  }
+]

@@ -1,0 +1,2062 @@
+{
+  "validated_at": "2026-09-05",
+  "source": "content/reports/fastgpt-bilingual/parallel-content.json",
+  "source_sha256": "e3a334aeff8965b65d28926604bcaafb4f057ae01395c672111a05daf43862ea",
+  "source_research_date": "2026-09-03",
+  "source_revisions": 23,
+  "source_total_blocks": 267,
+  "source_substantive_blocks": 239,
+  "source_pagebreak_blocks": 28,
+  "coverage": "Every source block preserved in source order in all three locales. Chinese and English substantive content extracted verbatim. All Arabic substantive content translated; no chapter or paragraph summarized or omitted.",
+  "checks": {
+    "complete_source_block_coverage": true,
+    "all_28_stable_chapter_anchors": true,
+    "arabic_numeric_token_multisets_match_every_english_block": true,
+    "arabic_source_url_multisets_match_every_english_block": true,
+    "arabic_table_row_and_column_shapes_match": true,
+    "arabic_list_item_counts_match": true
+  },
+  "intentional_differences": [
+    "Localized introductory edition note added to each language to preserve the historical research date and source revision count.",
+    "Added stable source-block comments and chapter-01 through chapter-28 HTML anchors.",
+    "Arabic translates the English-messaging, X-draft and template examples; headings clarify that these are Arabic renderings of the English originals.",
+    "Arabic code-diagram labels localized while preserving its flow and system identifiers.",
+    "Proper names, repository paths, API/event identifiers, source URLs, numeric values and source dates retained."
+  ],
+  "files": [
+    {
+      "language": "en",
+      "path": "content/i18n/reports/fastgpt-cnps-global-growth.en.md",
+      "sha256": "a9500d1b07d3c757fbed783c6b4974387ea685e75857bb213eeef907ae528a67",
+      "characters": 85306,
+      "source_blocks": 267,
+      "substantive_blocks": 239,
+      "chapters": 28,
+      "page_breaks": 28,
+      "anchors": [
+        "chapter-01",
+        "chapter-02",
+        "chapter-03",
+        "chapter-04",
+        "chapter-05",
+        "chapter-06",
+        "chapter-07",
+        "chapter-08",
+        "chapter-09",
+        "chapter-10",
+        "chapter-11",
+        "chapter-12",
+        "chapter-13",
+        "chapter-14",
+        "chapter-15",
+        "chapter-16",
+        "chapter-17",
+        "chapter-18",
+        "chapter-19",
+        "chapter-20",
+        "chapter-21",
+        "chapter-22",
+        "chapter-23",
+        "chapter-24",
+        "chapter-25",
+        "chapter-26",
+        "chapter-27",
+        "chapter-28"
+      ]
+    },
+    {
+      "language": "zh",
+      "path": "content/i18n/reports/fastgpt-cnps-global-growth.zh.md",
+      "sha256": "85eaf2539ae716c8cdc86110778cc34fdc83646da8d7996a7fd1f0740c8342b7",
+      "characters": 36199,
+      "source_blocks": 267,
+      "substantive_blocks": 239,
+      "chapters": 28,
+      "page_breaks": 28,
+      "anchors": [
+        "chapter-01",
+        "chapter-02",
+        "chapter-03",
+        "chapter-04",
+        "chapter-05",
+        "chapter-06",
+        "chapter-07",
+        "chapter-08",
+        "chapter-09",
+        "chapter-10",
+        "chapter-11",
+        "chapter-12",
+        "chapter-13",
+        "chapter-14",
+        "chapter-15",
+        "chapter-16",
+        "chapter-17",
+        "chapter-18",
+        "chapter-19",
+        "chapter-20",
+        "chapter-21",
+        "chapter-22",
+        "chapter-23",
+        "chapter-24",
+        "chapter-25",
+        "chapter-26",
+        "chapter-27",
+        "chapter-28"
+      ]
+    },
+    {
+      "language": "ar",
+      "path": "content/i18n/reports/fastgpt-cnps-global-growth.ar.md",
+      "sha256": "90556af35b871275df6d06853e9f31013e00daefe5d553e6719c67b070ea60ea",
+      "characters": 76265,
+      "source_blocks": 267,
+      "substantive_blocks": 239,
+      "chapters": 28,
+      "page_breaks": 28,
+      "anchors": [
+        "chapter-01",
+        "chapter-02",
+        "chapter-03",
+        "chapter-04",
+        "chapter-05",
+        "chapter-06",
+        "chapter-07",
+        "chapter-08",
+        "chapter-09",
+        "chapter-10",
+        "chapter-11",
+        "chapter-12",
+        "chapter-13",
+        "chapter-14",
+        "chapter-15",
+        "chapter-16",
+        "chapter-17",
+        "chapter-18",
+        "chapter-19",
+        "chapter-20",
+        "chapter-21",
+        "chapter-22",
+        "chapter-23",
+        "chapter-24",
+        "chapter-25",
+        "chapter-26",
+        "chapter-27",
+        "chapter-28"
+      ]
+    }
+  ],
+  "per_block": [
+    {
+      "id": "b000",
+      "chapter": 0,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b001",
+      "chapter": 0,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b002",
+      "chapter": 0,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b003",
+      "chapter": 0,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b004",
+      "chapter": 0,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b005",
+      "chapter": 0,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b006",
+      "chapter": 0,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b007",
+      "chapter": 0,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b009",
+      "chapter": 1,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b010",
+      "chapter": 1,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b011",
+      "chapter": 1,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b012",
+      "chapter": 1,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b013",
+      "chapter": 1,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b014",
+      "chapter": 1,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b015",
+      "chapter": 1,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b016",
+      "chapter": 1,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b017",
+      "chapter": 1,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b019",
+      "chapter": 2,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b020",
+      "chapter": 2,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b021",
+      "chapter": 2,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b022",
+      "chapter": 2,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b023",
+      "chapter": 2,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b025",
+      "chapter": 3,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b026",
+      "chapter": 3,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b027",
+      "chapter": 3,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b028",
+      "chapter": 3,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b029",
+      "chapter": 3,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b030",
+      "chapter": 3,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b031",
+      "chapter": 3,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b032",
+      "chapter": 3,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b033",
+      "chapter": 3,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b035",
+      "chapter": 4,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b036",
+      "chapter": 4,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b037",
+      "chapter": 4,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b038",
+      "chapter": 4,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b039",
+      "chapter": 4,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b041",
+      "chapter": 5,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b042",
+      "chapter": 5,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b043",
+      "chapter": 5,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b044",
+      "chapter": 5,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b045",
+      "chapter": 5,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b046",
+      "chapter": 5,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b047",
+      "chapter": 5,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b048",
+      "chapter": 5,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b050",
+      "chapter": 6,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b051",
+      "chapter": 6,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b052",
+      "chapter": 6,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b053",
+      "chapter": 6,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b054",
+      "chapter": 6,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b055",
+      "chapter": 6,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b056",
+      "chapter": 6,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b057",
+      "chapter": 6,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b059",
+      "chapter": 7,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b060",
+      "chapter": 7,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b061",
+      "chapter": 7,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b062",
+      "chapter": 7,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b063",
+      "chapter": 7,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b064",
+      "chapter": 7,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b065",
+      "chapter": 7,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b066",
+      "chapter": 7,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b067",
+      "chapter": 7,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b069",
+      "chapter": 8,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b070",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b071",
+      "chapter": 8,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b072",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b073",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b074",
+      "chapter": 8,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b075",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b076",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b077",
+      "chapter": 8,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b078",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b079",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b080",
+      "chapter": 8,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b082",
+      "chapter": 9,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b083",
+      "chapter": 9,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b084",
+      "chapter": 9,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b085",
+      "chapter": 9,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b086",
+      "chapter": 9,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b087",
+      "chapter": 9,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b088",
+      "chapter": 9,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b089",
+      "chapter": 9,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b091",
+      "chapter": 10,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b092",
+      "chapter": 10,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b093",
+      "chapter": 10,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b094",
+      "chapter": 10,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b095",
+      "chapter": 10,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b096",
+      "chapter": 10,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b097",
+      "chapter": 10,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b098",
+      "chapter": 10,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b100",
+      "chapter": 11,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b101",
+      "chapter": 11,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b102",
+      "chapter": 11,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b103",
+      "chapter": 11,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b104",
+      "chapter": 11,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b106",
+      "chapter": 12,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b107",
+      "chapter": 12,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b108",
+      "chapter": 12,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b109",
+      "chapter": 12,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b110",
+      "chapter": 12,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b112",
+      "chapter": 13,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b113",
+      "chapter": 13,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b114",
+      "chapter": 13,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b115",
+      "chapter": 13,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b116",
+      "chapter": 13,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b117",
+      "chapter": 13,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b118",
+      "chapter": 13,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b119",
+      "chapter": 13,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b121",
+      "chapter": 14,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b122",
+      "chapter": 14,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b123",
+      "chapter": 14,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b124",
+      "chapter": 14,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b125",
+      "chapter": 14,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b126",
+      "chapter": 14,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b127",
+      "chapter": 14,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b128",
+      "chapter": 14,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b129",
+      "chapter": 14,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b130",
+      "chapter": 14,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b132",
+      "chapter": 15,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b133",
+      "chapter": 15,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b134",
+      "chapter": 15,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b135",
+      "chapter": 15,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b136",
+      "chapter": 15,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b137",
+      "chapter": 15,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b138",
+      "chapter": 15,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b139",
+      "chapter": 15,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b141",
+      "chapter": 16,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b142",
+      "chapter": 16,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b143",
+      "chapter": 16,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b144",
+      "chapter": 16,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b145",
+      "chapter": 16,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b146",
+      "chapter": 16,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b148",
+      "chapter": 17,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b149",
+      "chapter": 17,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b150",
+      "chapter": 17,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b151",
+      "chapter": 17,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b152",
+      "chapter": 17,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b153",
+      "chapter": 17,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b154",
+      "chapter": 17,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b155",
+      "chapter": 17,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b157",
+      "chapter": 18,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b158",
+      "chapter": 18,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b159",
+      "chapter": 18,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b160",
+      "chapter": 18,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b161",
+      "chapter": 18,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b162",
+      "chapter": 18,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b163",
+      "chapter": 18,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b164",
+      "chapter": 18,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b165",
+      "chapter": 18,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b166",
+      "chapter": 18,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b168",
+      "chapter": 19,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b169",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b170",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b171",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b172",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b173",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b174",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b175",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b176",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b177",
+      "chapter": 19,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b178",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b179",
+      "chapter": 19,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b181",
+      "chapter": 20,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b182",
+      "chapter": 20,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b183",
+      "chapter": 20,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b184",
+      "chapter": 20,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b185",
+      "chapter": 20,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b186",
+      "chapter": 20,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b188",
+      "chapter": 21,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b189",
+      "chapter": 21,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b190",
+      "chapter": 21,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b191",
+      "chapter": 21,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b192",
+      "chapter": 21,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b193",
+      "chapter": 21,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b194",
+      "chapter": 21,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b195",
+      "chapter": 21,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b196",
+      "chapter": 21,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b198",
+      "chapter": 22,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b199",
+      "chapter": 22,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b200",
+      "chapter": 22,
+      "type": "code",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b201",
+      "chapter": 22,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b202",
+      "chapter": 22,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b203",
+      "chapter": 22,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b204",
+      "chapter": 22,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b205",
+      "chapter": 22,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b206",
+      "chapter": 22,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b208",
+      "chapter": 23,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b209",
+      "chapter": 23,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b210",
+      "chapter": 23,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b211",
+      "chapter": 23,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b212",
+      "chapter": 23,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b213",
+      "chapter": 23,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b214",
+      "chapter": 23,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b215",
+      "chapter": 23,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b216",
+      "chapter": 23,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b217",
+      "chapter": 23,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b218",
+      "chapter": 23,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b220",
+      "chapter": 24,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b221",
+      "chapter": 24,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b222",
+      "chapter": 24,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b223",
+      "chapter": 24,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b224",
+      "chapter": 24,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b225",
+      "chapter": 24,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b226",
+      "chapter": 24,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b227",
+      "chapter": 24,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b228",
+      "chapter": 24,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b229",
+      "chapter": 24,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b231",
+      "chapter": 25,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b232",
+      "chapter": 25,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b233",
+      "chapter": 25,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b234",
+      "chapter": 25,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b235",
+      "chapter": 25,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b236",
+      "chapter": 25,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b237",
+      "chapter": 25,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b238",
+      "chapter": 25,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b240",
+      "chapter": 26,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b241",
+      "chapter": 26,
+      "type": "table",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b242",
+      "chapter": 26,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b243",
+      "chapter": 26,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b244",
+      "chapter": 26,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b246",
+      "chapter": 27,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b247",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b248",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b249",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b250",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b251",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b252",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b253",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b254",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b255",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b256",
+      "chapter": 27,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b258",
+      "chapter": 28,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b259",
+      "chapter": 28,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b260",
+      "chapter": 28,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b261",
+      "chapter": 28,
+      "type": "list",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b262",
+      "chapter": 28,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b263",
+      "chapter": 28,
+      "type": "list",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b264",
+      "chapter": 28,
+      "type": "heading",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b265",
+      "chapter": 28,
+      "type": "list",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    },
+    {
+      "id": "b266",
+      "chapter": 28,
+      "type": "paragraph",
+      "arabic_present": true,
+      "numeric_tokens_match_english": true,
+      "source_urls_match_english": true
+    }
+  ]
+}

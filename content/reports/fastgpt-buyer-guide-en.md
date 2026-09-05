@@ -52,6 +52,6 @@ The [CNPS FastGPT reference library](https://www.cnps.ai/fastgpt/cases/) contain
 
 ## Request a scoped discussion
 
-Use the [inquiry page](https://www.cnps.ai/fastgpt/contact/) to prepare an email, or contact [sales@cnps.ai](mailto:sales@cnps.ai). The inquiry tool prepares a draft in your browser; you still choose whether to send it in your email application.
+Use the [inquiry page](https://www.cnps.ai/fastgpt/contact/?utm_source=buyer-guide-en&utm_medium=download&utm_campaign=fastgpt&utm_content=pilot-inquiry&source=buyer-guide-en&content=pilot-inquiry) to submit your pilot brief securely to CNPS via HubSpot, or contact [sales@cnps.ai](mailto:sales@cnps.ai). If online submission is unavailable, the form preserves your brief and lets you review, copy, download or open an email draft. You choose whether to send that draft in your email application.
 
 For the detailed research and execution plan, read the [global growth playbook](https://www.cnps.ai/resources/fastgpt-cnps-global-growth/).

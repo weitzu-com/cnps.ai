@@ -1,0 +1,12 @@
+{
+  "portalId": "25732190",
+  "formId": "d4c5da57-db3b-46a4-8829-7ca5d334a1a4",
+  "fields": {
+    "name": "firstname",
+    "email": "email",
+    "company": "company",
+    "region": "country",
+    "message": "message",
+    "subject": "subject"
+  }
+}

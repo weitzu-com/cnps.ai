@@ -1,15 +1,4 @@
 'use strict';
-const trackingKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
-const currentQuery = new URLSearchParams(location.search);
-let tracking = {};
-try {
-  const saved = JSON.parse(sessionStorage.getItem('cnps-fastgpt-attribution') || '{}');
-  for (const key of trackingKeys) if (/^[a-zA-Z0-9_.-]{1,80}$/.test(saved[key] || '')) tracking[key] = saved[key];
-  for (const key of trackingKeys) if (/^[a-zA-Z0-9_.-]{1,80}$/.test(currentQuery.get(key) || '')) tracking[key] = currentQuery.get(key);
-  sessionStorage.setItem('cnps-fastgpt-attribution', JSON.stringify(tracking));
-} catch {
-  for (const key of trackingKeys) if (/^[a-zA-Z0-9_.-]{1,80}$/.test(currentQuery.get(key) || '')) tracking[key] = currentQuery.get(key);
-}
 const filterButtons = [...document.querySelectorAll('[data-filter]')];
 for (const button of filterButtons) {
   button.addEventListener('click', () => {
@@ -23,44 +12,93 @@ for (const button of filterButtons) {
   });
 }
 const form = document.getElementById('inquiry-form');
-if (form) {
-  form.querySelector('fieldset').disabled = false;
+if (form) form.addEventListener('submit', event => event.preventDefault());
+if (form) initializeInquiry().catch(() => {
+  document.getElementById('inquiry-status').textContent = 'The inquiry form could not load. Please email sales@cnps.ai directly.';
+});
+async function initializeInquiry() {
+  const {clean, workflows, buildBrief, buildSubmission, submitInquiry, validateConfig} = await import('./inquiry.mjs');
+  const fieldset = form.querySelector('fieldset');
+  const submitButton = document.getElementById('submit-inquiry');
+  const status = document.getElementById('inquiry-status');
+  const output = document.getElementById('brief-output');
+  const briefStatus = document.getElementById('brief-status');
   const params = new URLSearchParams(location.search);
-  const workflows = ['technical-knowledge', 'support-triage', 'rfq-intake', 'another-workflow'];
-  if (workflows.includes(params.get('workflow'))) form.elements.workflow.value = params.get('workflow');
-  let brief = '';
-  const clean = (value, max = 300) => String(value || '').replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, '').slice(0, max).trim();
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const values = Object.fromEntries(new FormData(form));
-    const selected = form.elements.workflow.selectedOptions[0].textContent;
-    const attribution = [...trackingKeys, 'case']
-      .map(key => [key, key === 'case' ? params.get(key) : tracking[key]])
-      .filter(([, value]) => value && /^[a-zA-Z0-9_.-]{1,80}$/.test(value))
-      .map(([key, value]) => `${key}: ${value}`).join('\n');
-    brief = `Hello CNPS,\n\nI would like to discuss a FastGPT implementation pilot.\n\nName: ${clean(values.name, 100)}\nWork email: ${clean(values.email, 254)}\nCompany: ${clean(values.company, 150)}\nCountry / region: ${clean(values.region, 100)}\nWorkflow: ${selected}\n\nWhat we would like to improve:\n${clean(values.need, 1600)}\n\nSystems and preferred timeline:\n${clean(values.systems) || 'To discuss'}\n\nPlease contact me to discuss scope, data requirements and an acceptance plan.\n\nPrepared at https://www.cnps.ai/fastgpt/contact/\n${attribution}`;
+  if (Object.hasOwn(workflows, params.get('workflow'))) form.elements.workflow.value = params.get('workflow');
+  let brief = '', pending = false, submitted = false, config = null;
+  // Fetch only public configuration; loading the page never submits a lead.
+  const configReady = fetch('/fastgpt-assets/hubspot-config.json', {signal: AbortSignal.timeout(5000)})
+    .then(response => { if (!response.ok) throw new Error('configuration-unavailable'); return response.json(); })
+    .then(value => { config = validateConfig(value); if (!pending && !submitted) submitButton.textContent = 'Send pilot inquiry ↗'; })
+    .catch(() => {
+      status.textContent = 'Online submission is currently unavailable. You can prepare an email draft below.';
+      submitButton.textContent = 'Prepare inquiry email ↗';
+    });
+  const tracking = () => window.cnpsFastgptAttribution?.getTracking() || Object.fromEntries(params);
+  const values = () => ({...Object.fromEntries(new FormData(form)), consent: form.elements.consent.checked});
+  function showDraft(details, message) {
+    brief = buildBrief(details, tracking());
     document.getElementById('brief-text').value = brief;
-    const subject = `FastGPT pilot inquiry — ${clean(values.company, 100)}`;
-    document.getElementById('email-draft').href = `mailto:sales@cnps.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(brief)}`;
-    document.getElementById('brief-output').hidden = false;
-    document.getElementById('brief-status').textContent = 'Brief prepared locally. No inquiry has been sent.';
+    document.getElementById('email-draft').href = `mailto:sales@cnps.ai?subject=${encodeURIComponent(`FastGPT pilot inquiry — ${clean(details.company, 100)}`)}&body=${encodeURIComponent(brief)}`;
+    output.hidden = false;
+    briefStatus.textContent = message;
     document.getElementById('brief-text').focus();
+  }
+  function validBrief() {
+    // Preparing a local email does not require consent to HubSpot processing.
+    return [...form.querySelectorAll('input:not([type="checkbox"]), select, textarea:not([readonly])')].every(field => field.reportValidity());
+  }
+  document.getElementById('prepare-email').addEventListener('click', () => {
+    if (pending || !validBrief()) return;
+    showDraft(values(), submitted ? 'This inquiry was already submitted. Send another email only if you need to follow up.' : 'Brief prepared locally. No email has been sent.');
+  });
+  form.addEventListener('input', () => {
+    if (pending) return;
+    submitted = false; submitButton.disabled = false;
+    submitButton.textContent = config ? 'Send pilot inquiry ↗' : 'Prepare inquiry email ↗';
+    output.hidden = true; status.textContent = '';
+  });
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (pending || submitted || !form.reportValidity()) return;
+    const details = values();
+    pending = true; fieldset.disabled = true; form.setAttribute('aria-busy', 'true');
+    output.hidden = true; status.textContent = 'Sending your inquiry…'; submitButton.textContent = 'Sending…';
+    let fallbackMessage = '';
+    try {
+      await configReady;
+      if (!config) throw new Error('unconfigured');
+      const payload = buildSubmission(details, tracking(), {pageUri: location.href, pageName: document.title}, config);
+      await submitInquiry(config, payload);
+      submitted = true;
+      status.textContent = 'Thank you. Your pilot inquiry has been submitted to CNPS. We will follow up using your work email.';
+      submitButton.textContent = 'Inquiry submitted';
+    } catch (error) {
+      const unavailable = error.message === 'unconfigured';
+      status.textContent = unavailable ? 'Online submission is currently unavailable. Your inquiry has not been submitted. Please review and send the email draft below.' : 'We could not confirm your submission. Your details are preserved below. You can send an email draft instead; if the request reached us, we will treat it as the same inquiry.';
+      fallbackMessage = unavailable ? 'Brief prepared locally. No inquiry has been submitted.' : 'Submission was not confirmed. No fallback email has been sent.';
+      submitButton.textContent = config ? 'Retry submission ↗' : 'Prepare inquiry email ↗';
+    } finally {
+      pending = false; fieldset.disabled = false; submitButton.disabled = submitted; form.removeAttribute('aria-busy');
+      if (fallbackMessage) showDraft(details, fallbackMessage);
+      else status.focus();
+    }
   });
   document.getElementById('copy-brief').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(brief);
-      document.getElementById('brief-status').textContent = 'Copied. Paste into your email and send to sales@cnps.ai.';
+      briefStatus.textContent = 'Copied. Paste into your email and send to sales@cnps.ai.';
     } catch {
       document.getElementById('brief-text').select();
-      document.getElementById('brief-status').textContent = 'Select and copy the inquiry text above.';
+      briefStatus.textContent = 'Select and copy the inquiry text above.';
     }
   });
   document.getElementById('download-brief').addEventListener('click', () => {
-    const url = URL.createObjectURL(new Blob([brief], { type: 'text/plain;charset=utf-8' }));
+    const url = URL.createObjectURL(new Blob([brief], {type: 'text/plain;charset=utf-8'}));
     const a = document.createElement('a');
     a.href = url; a.download = 'cnps-fastgpt-inquiry.txt'; a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    document.getElementById('brief-status').textContent = 'Brief downloaded. It has not been sent to CNPS.';
+    briefStatus.textContent = 'Brief downloaded. No email has been sent.';
   });
+  fieldset.disabled = false;
 }

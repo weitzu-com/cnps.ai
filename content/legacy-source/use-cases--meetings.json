@@ -1,0 +1,32 @@
+{
+  "path": "/use-cases/meetings",
+  "source_url": "https://www.cnps.ai/use-cases/meetings",
+  "text": "- Home\n- /Use cases\n- /Meetings\nMeetings\n\n# Put the recorder on the table. Everyone can see it.\nA card-sized recorder for meetings, lectures, and calls. Transcripts and summaries in the TicNote app.\n\nCapture: record meetings on the card or earbuds. Understand: transcription in 120+ languages, summaries and mind maps in the app. Act: ask the recording questions and pull out action items.\nSee TicNote, Lite, and compare models.Buy TicNote",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "/use-cases",
+      "start": 7
+    },
+    {
+      "href": "/products/ticnote",
+      "start": 23
+    },
+    {
+      "href": "/products/ticnote-lite",
+      "start": 26
+    },
+    {
+      "href": "/products/compare",
+      "start": 29
+    },
+    {
+      "href": "https://shop.cnps.ai/products/ticnote-ai-voice-recorder",
+      "start": 31
+    }
+  ]
+}

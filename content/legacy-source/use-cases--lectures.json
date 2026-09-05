@@ -1,0 +1,28 @@
+{
+  "path": "/use-cases/lectures",
+  "source_url": "https://www.cnps.ai/use-cases/lectures",
+  "text": "- Home\n- /Use cases\n- /Lectures\nLectures\n\n# 64GB on the card; hours of class without a laptop.\nThe TicNote card has 64GB (about 434 hours). A lighter TicNote recorder is also listed for meetings and lectures.\n\nRecord lectures on the card or earbuds. Transcripts and summaries land in the TicNote app. Transcription supports 120+ languages.\nCompare TicNote and TicNote Lite.Buy TicNote",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "/use-cases",
+      "start": 7
+    },
+    {
+      "href": "/products/ticnote",
+      "start": 23
+    },
+    {
+      "href": "/products/ticnote-lite",
+      "start": 27
+    },
+    {
+      "href": "https://shop.cnps.ai/products/ticnote-ai-voice-recorder",
+      "start": 29
+    }
+  ]
+}

@@ -1,0 +1,1313 @@
+{
+  "en": {
+    "cases": [
+      {
+        "slug": "dify-japan",
+        "title": "Dify in Japan: moving from experiments to enterprise workflows",
+        "category": "Applications",
+        "label": "Vendor-published customer case",
+        "region": "Japan",
+        "technology": "Dify / Kakaku.com",
+        "summary": "A public customer story connects workflow building with company-wide adoption and governance.",
+        "facts": "Dify’s published Kakaku.com story describes adopting Dify Enterprise to organize AI application development. Its GitHub repository provides workflow, retrieval and self-hosting documentation. The story is a vendor account, not an independent audit.",
+        "lesson": "The useful buying question is how a workflow becomes usable by a team: who owns it, who can access data, and how errors are escalated. CNPS suggests starting with one document or support workflow and an agreed evaluation set.",
+        "limits": "This is not a CNPS delivery. Reported adoption does not establish the result of a new customer project. Dify licensing includes additional conditions for multi-tenant use and frontend branding.",
+        "evaluation": [
+          "Use authorized documents and a fixed question set.",
+          "Measure citation correctness and human correction time.",
+          "Test permissions and refusal on missing evidence."
+        ],
+        "sources": [
+          [
+            "Dify customer story",
+            "https://dify.ai/ja/blog/kakaku-accelerates-ai-adoption-with-dify-fast-secure-and-scalable"
+          ],
+          [
+            "Dify GitHub",
+            "https://github.com/langgenius/dify"
+          ],
+          [
+            "Dify license",
+            "https://github.com/langgenius/dify/blob/main/LICENSE"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "qwen-deepseek",
+        "title": "Qwen and DeepSeek: make the first evaluation accessible",
+        "category": "Applications",
+        "label": "Open-source and distribution reference",
+        "region": "Global developer ecosystem",
+        "technology": "Qwen3 / DeepSeek-R1",
+        "summary": "English technical materials and public evaluation channels lower the effort required to try a model.",
+        "facts": "Qwen3 and DeepSeek-R1 maintain public repositories with model and usage information. Qwen’s official X post links a model announcement to local use and an online experience. A public Arena-related X post records DeepSeek-R1 entering an international evaluation channel.",
+        "lesson": "A buyer needs a reproducible task, a specific model version and a cost boundary. Evaluate candidate models against the same documents and questions, including questions that should be refused.",
+        "limits": "These references do not prove revenue, current model superiority or performance on your data. Check the exact model checkpoint, license, infrastructure and service terms.",
+        "evaluation": [
+          "Fix the dataset, prompts and model versions.",
+          "Compare correctness, citations, latency and cost per completed task.",
+          "Test the target language and realistic concurrency."
+        ],
+        "sources": [
+          [
+            "Qwen3 GitHub",
+            "https://github.com/QwenLM/Qwen3"
+          ],
+          [
+            "DeepSeek-R1 GitHub",
+            "https://github.com/deepseek-ai/DeepSeek-R1"
+          ],
+          [
+            "Qwen on X · 13 Aug 2025",
+            "https://x.com/Alibaba_Qwen/status/1955782109702078559"
+          ],
+          [
+            "Arena distribution signal · 20 Jan 2025",
+            "https://x.com/ml_angelopoulos/status/1881419890940338288"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "ragflow-documents",
+        "title": "RAGFlow: evaluate the document layer first",
+        "category": "Applications",
+        "label": "Open-source technical reference",
+        "region": "Global developer ecosystem",
+        "technology": "RAGFlow",
+        "summary": "A practical reference for retrieval workflows that need traceable answers from complex documents.",
+        "facts": "The RAGFlow repository describes document processing, retrieval and source citations, with self-hosting instructions. It is a technical source for assessing a document workflow, not evidence of a CNPS customer deployment.",
+        "lesson": "Product manuals contain version differences, units and exceptions. Before choosing a model, identify which document is authoritative and how outdated information will be removed.",
+        "limits": "Document support listed in a repository does not guarantee extraction quality on a specific scan or table. Compute needs and dependency versions should be validated for the selected release.",
+        "evaluation": [
+          "Include tables, scans and conflicting document versions.",
+          "Check whether the cited passage supports the exact answer.",
+          "Test updates, removals and access boundaries."
+        ],
+        "sources": [
+          [
+            "RAGFlow GitHub",
+            "https://github.com/infiniflow/ragflow"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "seeed-intflow",
+        "title": "Seeed and Intflow: a local solution built on edge hardware",
+        "category": "Hardware",
+        "label": "Vendor-published deployment reference",
+        "region": "South Korea, Europe and Japan",
+        "technology": "Seeed / Intflow EdgeFarm",
+        "summary": "A livestock monitoring reference shows the partnership between application expertise and edge devices.",
+        "facts": "A Seeed case-study collection hosted by PNY describes Intflow’s livestock monitoring solution and lists deployments in South Korea, Spain, Japan, Austria and Poland. It identifies a Seeed reComputer device in the solution.",
+        "lesson": "The transferable pattern is a local specialist owning the application and site relationship while a hardware supplier supports the device platform. Scope the full system, including the cameras and ongoing service.",
+        "limits": "The material is vendor-published. Its claimed improvements are not used here as a forecast. It does not establish a CNPS distribution relationship or suitability for a new site.",
+        "evaluation": [
+          "Define the animals or objects and the observation conditions.",
+          "Use representative footage with agreed ground truth.",
+          "Calculate total cost per camera and per site."
+        ],
+        "sources": [
+          [
+            "Seeed case-study collection, hosted by PNY",
+            "https://edgeai.pny.eu/wp-content/uploads/2024/03/Seeed-Studio-succes-stories-pny-webonly.pdf"
+          ],
+          [
+            "Seeed partner program",
+            "https://www.seeedstudio.com/blog/2022/04/22/edge-ai-partner-program-accelerate-your-next-gen-ai-product-deliver-ai-solutions-across-industries-together/"
+          ]
+        ],
+        "solution": "edge-vision"
+      },
+      {
+        "slug": "seeed-engineering",
+        "title": "Seeed: connect a hardware demonstration to engineering documentation",
+        "category": "Hardware",
+        "label": "Official engineering and X reference",
+        "region": "Global developer ecosystem",
+        "technology": "reComputer / Seeed Wiki",
+        "summary": "A demonstration becomes useful for procurement when its configuration and engineering path are visible.",
+        "facts": "Seeed’s official X post describes a four-camera edge setup. Its public Wiki repository and customization service provide separate engineering and lifecycle references, from requirements to verification and production.",
+        "lesson": "A short video can introduce a possibility. The procurement page should then provide a system diagram, device list, environment assumptions and a test plan that an engineer can assess.",
+        "limits": "The X post is a demonstration claim. It does not establish independent performance measurements or a ready-made CNPS solution. Compatibility must be checked on the chosen configuration.",
+        "evaluation": [
+          "List the camera interfaces, compute module and software versions.",
+          "Measure end-to-end latency, not just model inference.",
+          "Test failure recovery and sustained operation."
+        ],
+        "sources": [
+          [
+            "Seeed on X · 26 Dec 2025",
+            "https://x.com/seeedstudio/status/2004492392658035139"
+          ],
+          [
+            "Seeed Wiki source",
+            "https://github.com/Seeed-Studio/wiki-documents"
+          ],
+          [
+            "Seeed customization process",
+            "https://www.seeed.cc/jetson-odm"
+          ]
+        ],
+        "solution": "edge-vision"
+      },
+      {
+        "slug": "xiaozhi-voice",
+        "title": "XiaoZhi ESP32: the device is the beginning of the service",
+        "category": "Hardware",
+        "label": "Open-source technical reference",
+        "region": "Multilingual developer ecosystem",
+        "technology": "XiaoZhi / ESP32",
+        "summary": "Open firmware makes a voice prototype approachable, while backend and lifecycle choices determine its usefulness.",
+        "facts": "The XiaoZhi ESP32 repository provides voice-interface firmware and multilingual documentation. Its README describes model and MCP connections. The repository is a firmware reference, not a complete product supply or service contract.",
+        "lesson": "For a reception or exhibit prototype, start with one task and authorized content. Specify the microphone, network and backend along with the enclosure, then test the actual acoustic environment.",
+        "limits": "The firmware license does not cover every cloud service, voice, product design or trademark. A demonstration does not establish production reliability, child suitability or regulatory conformity.",
+        "evaluation": [
+          "Test noise, interruption, latency and network loss.",
+          "Document speech and model service charges.",
+          "Plan firmware recovery, key rotation and service shutdown."
+        ],
+        "sources": [
+          [
+            "XiaoZhi ESP32 GitHub",
+            "https://github.com/78/xiaozhi-esp32"
+          ]
+        ],
+        "solution": "voice-prototypes"
+      },
+      {
+        "slug": "unitree-sdk",
+        "title": "Unitree: verify developer access before choosing a robot",
+        "category": "Hardware",
+        "label": "Official SDK reference",
+        "region": "Global research ecosystem",
+        "technology": "Unitree SDK2",
+        "summary": "Public SDKs help research buyers prepare better questions about editions, compatibility and support.",
+        "facts": "Unitree publishes SDK2 and a developer documentation center. These provide a starting point for evaluating software interfaces and supported workflows.",
+        "lesson": "Procurement should name the exact robot edition, permissions, accessories and software environment. Include training, spares and the local operator in the requirement, not only the robot body.",
+        "limits": "A public SDK does not mean all editions provide identical development access. International demonstration videos are not proof of autonomous productivity or a CNPS customer order.",
+        "evaluation": [
+          "Obtain written confirmation of the SKU and SDK permissions.",
+          "Start with simulation and supervised tests.",
+          "Agree on emergency stops, workspace and support ownership."
+        ],
+        "sources": [
+          [
+            "Unitree SDK2",
+            "https://github.com/unitreerobotics/unitree_sdk2"
+          ],
+          [
+            "Unitree developer center",
+            "https://support.unitree.com/home/en/developer/"
+          ],
+          [
+            "Overseas media signal on X · 14 Apr 2026",
+            "https://x.com/sz_mediagroup/status/2044007763345584334"
+          ]
+        ],
+        "solution": "robotics-research"
+      },
+      {
+        "slug": "ufactory-xarm",
+        "title": "UFACTORY xArm: specify the workcell, not just the arm",
+        "category": "Hardware",
+        "label": "Official SDK reference",
+        "region": "Global research and integration ecosystem",
+        "technology": "UFACTORY / xArm Python SDK",
+        "summary": "A developer-facing SDK is one input to an integration decision that also needs tooling and site conditions.",
+        "facts": "The xArm Python SDK repository provides interfaces, documentation and examples for UFACTORY robots. It is a direct technical reference for software integration.",
+        "lesson": "For a controlled pick-and-place pilot, define the workpiece, gripper, payload, reach, cycle and camera arrangement. Measure repeatable performance with representative objects.",
+        "limits": "An SDK is not a complete safety design or a production-ready workcell. This reference does not establish a CNPS partnership or a guaranteed task result.",
+        "evaluation": [
+          "Record successful attempts and all failures.",
+          "Include tool, fixture, camera and integration costs.",
+          "Assign a qualified owner for site safety and maintenance."
+        ],
+        "sources": [
+          [
+            "UFACTORY xArm Python SDK",
+            "https://github.com/xArm-Developer/xArm-Python-SDK"
+          ]
+        ],
+        "solution": "robotics-research"
+      },
+      {
+        "slug": "meeting-devices",
+        "title": "From an individual recorder to a team procurement plan",
+        "category": "Hardware",
+        "label": "CNPS product evaluation guide",
+        "region": "Availability confirmed by destination",
+        "technology": "TicNote and selected wearables",
+        "summary": "Use the existing CNPS product catalog as a starting point, then verify what a team actually needs.",
+        "facts": "The CNPS product site lists TicNote recording devices and wearables and provides a wholesale contact. Current product and subscription details should be checked on the exact listing and in the quotation.",
+        "lesson": "A team pilot should test real meeting languages and noise, time spent correcting notes, export requirements and account ownership. Include the subscription and support process in the comparison.",
+        "limits": "This is a procurement guide, not a completed customer case. No enterprise feature, bulk discount, authorization or regional availability is implied without confirmation.",
+        "evaluation": [
+          "Choose a small representative group.",
+          "Measure active use and net time saved after corrections.",
+          "Confirm subscription reassignment and warranty handling."
+        ],
+        "sources": [
+          [
+            "CNPS products",
+            "https://www.cnps.ai/products"
+          ],
+          [
+            "Compare listed models",
+            "https://www.cnps.ai/products/compare"
+          ],
+          [
+            "Wholesale information",
+            "https://www.cnps.ai/wholesale"
+          ]
+        ],
+        "solution": "meeting-ai"
+      }
+    ],
+    "resources": [
+      {
+        "slug": "ai-procurement-checklist",
+        "title": "The business buyer’s AI procurement checklist",
+        "category": "Procurement",
+        "audience": "Procurement and project owners",
+        "description": "Define the task, evidence, complete cost and responsibility before comparing a quotation."
+      },
+      {
+        "slug": "meeting-device-pilot",
+        "title": "Plan an AI meeting device pilot",
+        "category": "Hardware",
+        "audience": "Team managers and distributors",
+        "description": "Check subscription ownership, real language performance, exports and ongoing support."
+      },
+      {
+        "slug": "knowledge-pilot",
+        "title": "Scope a document-grounded AI assistant",
+        "category": "Applications",
+        "audience": "IT leaders and service providers",
+        "description": "Prepare a fixed evaluation set, document permissions, citations and a useful acceptance test."
+      },
+      {
+        "slug": "edge-ai-survey",
+        "title": "The edge AI site survey",
+        "category": "Hardware",
+        "audience": "Integrators and site owners",
+        "description": "Capture the camera, lighting, network and operating conditions needed for a site evaluation."
+      },
+      {
+        "slug": "voice-prototype",
+        "title": "A voice device prototype specification",
+        "category": "Hardware",
+        "audience": "Product and OEM teams",
+        "description": "Connect the hardware bill of materials with backend, language and maintenance requirements."
+      },
+      {
+        "slug": "robotics-procurement",
+        "title": "Robotics procurement: configuration and SDK access",
+        "category": "Hardware",
+        "audience": "Labs and integration teams",
+        "description": "Confirm the exact edition, developer permissions, accessories and support responsibilities."
+      },
+      {
+        "slug": "rfq-template",
+        "title": "A practical B2B request for quotation",
+        "category": "Procurement",
+        "audience": "Buyers ready to share requirements",
+        "description": "Use a structured brief to request a product quotation or discuss a scoped evaluation."
+      },
+      {
+        "slug": "china-ai-export-playbook",
+        "title": "China AI: the CNPS global expansion playbook",
+        "category": "Research",
+        "audience": "Partners and business planners",
+        "description": "The complete strategy: 32 logical chapters, source references and a transparent revision record."
+      }
+    ],
+    "solutions": [
+      {
+        "slug": "meeting-ai",
+        "category": "Hardware",
+        "title": "AI meeting devices for teams",
+        "short": "Compare recorders, subscription ownership and team workflows before a bulk purchase.",
+        "question": "Which device fits our team?",
+        "deliverable": "A clearer device and subscription shortlist",
+        "input": "Destination country, team size, meeting languages, recording environment and target date.",
+        "checks": [
+          "Compare the exact SKU and included subscription.",
+          "Test transcription and the time needed to correct notes.",
+          "Check export formats, account ownership and reassignment.",
+          "Confirm regional availability, warranty and bulk terms."
+        ],
+        "boundaries": "Team administration and enterprise features vary by product. Confirm them for the selected model before ordering.",
+        "action": "Request a device quotation",
+        "cases": [
+          "meeting-devices"
+        ],
+        "resource": "meeting-device-pilot"
+      },
+      {
+        "slug": "knowledge-assistants",
+        "category": "Applications",
+        "title": "Knowledge assistants grounded in your documents",
+        "short": "Define a private knowledge or support workflow around real questions, permissions and evidence.",
+        "question": "Can AI answer from our documents?",
+        "deliverable": "A scoped knowledge assistant evaluation",
+        "input": "Authorized sample documents, target languages, expected users, hosting requirements and a business owner.",
+        "checks": [
+          "Build an evaluation set with expected answers.",
+          "Verify citations, model version and refusal behavior.",
+          "Test document permissions and update procedures.",
+          "Compare full running cost and human review time."
+        ],
+        "boundaries": "Implementation scope and software licensing need to be agreed. Open-source availability does not establish unrestricted resale rights.",
+        "action": "Discuss a knowledge pilot",
+        "cases": [
+          "dify-japan",
+          "qwen-deepseek",
+          "ragflow-documents"
+        ],
+        "resource": "knowledge-pilot"
+      },
+      {
+        "slug": "edge-vision",
+        "category": "Hardware",
+        "title": "Edge AI for a defined camera task",
+        "short": "Plan the whole site: cameras, compute, network, installation and a measurable acceptance test.",
+        "question": "Will edge AI work at our site?",
+        "deliverable": "A site requirement and evaluation brief",
+        "input": "Camera types, site layout, lighting, objects to detect, network conditions and the operational owner.",
+        "checks": [
+          "Agree on the detection task and ground truth.",
+          "Record false alarms, misses and end-to-end latency.",
+          "Test lighting changes, disconnection and recovery.",
+          "Include installation, storage and support in the cost."
+        ],
+        "boundaries": "Hardware capability and demonstration videos do not guarantee performance in your environment. A representative site test is needed.",
+        "action": "Discuss a site evaluation",
+        "cases": [
+          "seeed-intflow",
+          "seeed-engineering"
+        ],
+        "resource": "edge-ai-survey"
+      },
+      {
+        "slug": "voice-prototypes",
+        "category": "Hardware",
+        "title": "Voice interfaces, from idea to prototype",
+        "short": "Scope an ESP32-based voice device together with the backend services it needs to keep working.",
+        "question": "How do we prototype a voice device?",
+        "deliverable": "A prototype scope and dependency checklist",
+        "input": "One intended task, users, languages, acoustic conditions, expected volume and maintenance owner.",
+        "checks": [
+          "Specify microphones, speakers, power and network.",
+          "Map speech, model and content service dependencies.",
+          "Test interruption, noise and network loss.",
+          "Plan firmware recovery, credentials and service cost."
+        ],
+        "boundaries": "A working prototype is not a mass-production commitment. Product testing, supply and commercial rights must be assessed separately.",
+        "action": "Discuss a voice prototype",
+        "cases": [
+          "xiaozhi-voice"
+        ],
+        "resource": "voice-prototype"
+      },
+      {
+        "slug": "robotics-research",
+        "category": "Hardware",
+        "title": "Robotics for research and controlled pilots",
+        "short": "Clarify the exact hardware, SDK access, accessories and local support before procurement.",
+        "question": "What does our robotics lab need?",
+        "deliverable": "A configuration and support checklist",
+        "input": "Research task, exact platform, payload, workspace, developer access, destination and trained operator.",
+        "checks": [
+          "Confirm the SKU and developer permissions in writing.",
+          "Check operating system and SDK compatibility.",
+          "Include tools, fixtures, spare parts and training.",
+          "Define supervised testing and emergency procedures."
+        ],
+        "boundaries": "References to SDKs do not mean every product edition has the same access. Site safety and integration require qualified owners.",
+        "action": "Discuss a robotics requirement",
+        "cases": [
+          "unitree-sdk",
+          "ufactory-xarm"
+        ],
+        "resource": "robotics-procurement"
+      }
+    ]
+  },
+  "zh": {
+    "cases": [
+      {
+        "slug": "dify-japan",
+        "title": "Dify 在日本：从实验走向企业工作流程",
+        "category": "Applications",
+        "label": "厂商发布的客户案例",
+        "region": "日本",
+        "technology": "Dify / Kakaku.com",
+        "summary": "公开客户故事将流程构建与全公司采用和治理联系起来。",
+        "facts": "Dify 发布的 Kakaku.com 案例介绍了采用 Dify Enterprise 组织 AI 应用开发的过程。其 GitHub 仓库提供工作流、检索和自托管文档。这是厂商叙述，不是独立审计。",
+        "lesson": "采购时应关注流程如何被团队实际使用：谁负责、谁能访问数据、错误如何升级处理。CNPS 建议从一个文档或支持流程及约定的评估题集开始。",
+        "limits": "这不是 CNPS 交付项目。已报告的采用情况不能证明新客户项目的结果。Dify 许可对多租户使用及前端品牌标识有附加条件。",
+        "evaluation": [
+          "使用授权文档和固定题集。",
+          "衡量引用正确性及人工修正时间。",
+          "测试权限与证据不足时的拒答。"
+        ],
+        "sources": [
+          [
+            "Dify 客户案例",
+            "https://dify.ai/ja/blog/kakaku-accelerates-ai-adoption-with-dify-fast-secure-and-scalable"
+          ],
+          [
+            "Dify GitHub 仓库",
+            "https://github.com/langgenius/dify"
+          ],
+          [
+            "Dify 许可证",
+            "https://github.com/langgenius/dify/blob/main/LICENSE"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "qwen-deepseek",
+        "title": "Qwen 与 DeepSeek：降低首次评估门槛",
+        "category": "Applications",
+        "label": "开源与传播渠道参考",
+        "region": "全球开发者生态",
+        "technology": "Qwen3 / DeepSeek-R1",
+        "summary": "英文技术资料与公开评估渠道降低了试用模型所需的投入。",
+        "facts": "Qwen3 和 DeepSeek-R1 均维护公开仓库，提供模型和使用信息。Qwen 官方 X 帖子将模型发布与本地使用及在线体验相连接。一条与 Arena 相关的公开 X 帖子记录了 DeepSeek-R1 进入国际评估渠道。",
+        "lesson": "买家需要可复现的任务、明确的模型版本及成本边界。使用相同文档和问题评估候选模型，并包含应当拒答的问题。",
+        "limits": "这些参考不能证明收入、当前模型优势或在您数据上的表现。请核对确切模型检查点、许可、基础设施及服务条款。",
+        "evaluation": [
+          "固定数据集、提示词和模型版本。",
+          "比较正确性、引用、延迟和每项完成任务的成本。",
+          "测试目标语言与真实并发使用。"
+        ],
+        "sources": [
+          [
+            "Qwen3 GitHub 仓库",
+            "https://github.com/QwenLM/Qwen3"
+          ],
+          [
+            "DeepSeek-R1 GitHub 仓库",
+            "https://github.com/deepseek-ai/DeepSeek-R1"
+          ],
+          [
+            "Qwen 的 X 帖子 · 2025年8月13日",
+            "https://x.com/Alibaba_Qwen/status/1955782109702078559"
+          ],
+          [
+            "Arena 传播信号 · 2025年1月20日",
+            "https://x.com/ml_angelopoulos/status/1881419890940338288"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "ragflow-documents",
+        "title": "RAGFlow：优先评估文档处理层",
+        "category": "Applications",
+        "label": "开源技术参考",
+        "region": "全球开发者生态",
+        "technology": "RAGFlow",
+        "summary": "为需要从复杂文档生成可追溯答案的检索流程提供实用参考。",
+        "facts": "RAGFlow 仓库介绍了文档处理、检索、来源引用和自托管方法。它是评估文档流程的技术来源，不是 CNPS 客户部署的证据。",
+        "lesson": "产品手册包含版本差异、单位与例外。在选择模型前，应确定权威文档以及如何移除过时信息。",
+        "limits": "仓库列出的文档支持范围不保证特定扫描件或表格的提取质量。应按选定版本验证算力需求与依赖版本。",
+        "evaluation": [
+          "纳入表格、扫描件和相互冲突的文档版本。",
+          "检查引用段落能否支持具体答案。",
+          "测试更新、删除及访问边界。"
+        ],
+        "sources": [
+          [
+            "RAGFlow GitHub 仓库",
+            "https://github.com/infiniflow/ragflow"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "seeed-intflow",
+        "title": "Seeed 与 Intflow：基于边缘硬件的本地行业方案",
+        "category": "Hardware",
+        "label": "厂商发布的部署参考",
+        "region": "韩国、欧洲与日本",
+        "technology": "Seeed / Intflow EdgeFarm",
+        "summary": "畜牧监测参考展示了应用专业能力与边缘设备的合作方式。",
+        "facts": "PNY 托管的 Seeed 案例集介绍了 Intflow 的畜牧监测方案，列出韩国、西班牙、日本、奥地利和波兰的部署，并指出方案使用了 Seeed reComputer 设备。",
+        "lesson": "可借鉴的模式是：本地行业专家负责应用和现场客户关系，硬件供应商支持设备平台。应规划完整系统，包括摄像头与持续服务。",
+        "limits": "材料由厂商发布，此处不将其宣称的改善效果用作预测。它不能证明 CNPS 拥有分销关系，也不能证明适用于新现场。",
+        "evaluation": [
+          "明确动物或识别对象及观察条件。",
+          "使用具有代表性的影像及约定的真实标注。",
+          "计算每台摄像头和每个现场的总成本。"
+        ],
+        "sources": [
+          [
+            "PNY 托管的 Seeed 案例集",
+            "https://edgeai.pny.eu/wp-content/uploads/2024/03/Seeed-Studio-succes-stories-pny-webonly.pdf"
+          ],
+          [
+            "Seeed 合作伙伴计划",
+            "https://www.seeedstudio.com/blog/2022/04/22/edge-ai-partner-program-accelerate-your-next-gen-ai-product-deliver-ai-solutions-across-industries-together/"
+          ]
+        ],
+        "solution": "edge-vision"
+      },
+      {
+        "slug": "seeed-engineering",
+        "title": "Seeed：从硬件演示连接到工程文档",
+        "category": "Hardware",
+        "label": "官方工程资料与 X 参考",
+        "region": "全球开发者生态",
+        "technology": "reComputer / Seeed Wiki",
+        "summary": "展示配置与工程实施路径后，演示才更有助于采购决策。",
+        "facts": "Seeed 官方 X 帖子介绍了四摄像头边缘配置。其公开 Wiki 仓库及定制服务分别提供工程与生命周期资料，覆盖需求、验证和生产。",
+        "lesson": "短视频可以介绍可能性。采购页面随后应提供系统图、设备清单、环境假设及供工程师评估的测试计划。",
+        "limits": "X 帖子属于演示声明，不能证明独立性能测量或现成的 CNPS 方案。应按选定配置检查兼容性。",
+        "evaluation": [
+          "列出摄像头接口、计算模块与软件版本。",
+          "测量端到端延迟，不只测模型推理。",
+          "测试故障恢复与持续运行。"
+        ],
+        "sources": [
+          [
+            "Seeed 的 X 帖子 · 2025年12月26日",
+            "https://x.com/seeedstudio/status/2004492392658035139"
+          ],
+          [
+            "Seeed Wiki 源码",
+            "https://github.com/Seeed-Studio/wiki-documents"
+          ],
+          [
+            "Seeed 定制流程",
+            "https://www.seeed.cc/jetson-odm"
+          ]
+        ],
+        "solution": "edge-vision"
+      },
+      {
+        "slug": "xiaozhi-voice",
+        "title": "小智 ESP32：设备只是服务的起点",
+        "category": "Hardware",
+        "label": "开源技术参考",
+        "region": "多语言开发者生态",
+        "technology": "小智 / ESP32",
+        "summary": "开放固件让语音原型更易实现，而后端和生命周期选择决定其实用性。",
+        "facts": "小智 ESP32 仓库提供语音交互固件及多语言文档，README 介绍模型与 MCP 连接。它是固件参考，不是完整的产品供货或服务合同。",
+        "lesson": "接待或展览原型应从一项任务与授权内容开始。除外壳外，还应明确麦克风、网络及后端，并测试真实声学环境。",
+        "limits": "固件许可不覆盖所有云服务、声音、产品设计或商标。演示不能证明量产可靠性、儿童适用性或法规符合性。",
+        "evaluation": [
+          "测试噪声、打断、延迟与断网。",
+          "记录语音和模型服务费用。",
+          "规划固件恢复、密钥轮换与服务终止。"
+        ],
+        "sources": [
+          [
+            "小智 ESP32 GitHub 仓库",
+            "https://github.com/78/xiaozhi-esp32"
+          ]
+        ],
+        "solution": "voice-prototypes"
+      },
+      {
+        "slug": "unitree-sdk",
+        "title": "Unitree：选购机器人前核实开发权限",
+        "category": "Hardware",
+        "label": "官方 SDK 参考",
+        "region": "全球科研生态",
+        "technology": "Unitree SDK2",
+        "summary": "公开 SDK 帮助科研买家更准确地询问版本、兼容性与支持。",
+        "facts": "Unitree 发布了 SDK2 及开发者文档中心，可作为评估软件接口和受支持流程的起点。",
+        "lesson": "采购需求应注明机器人确切版本、权限、配件与软件环境，并包含培训、备件及本地操作人员。",
+        "limits": "公开 SDK 不意味着所有版本都有相同开发权限。海外演示视频不能证明自主生产效率，也不是 CNPS 客户订单的证据。",
+        "evaluation": [
+          "取得型号与 SDK 权限的书面确认。",
+          "从仿真和有人监督的测试开始。",
+          "约定急停、工作空间与支持责任。"
+        ],
+        "sources": [
+          [
+            "Unitree SDK2",
+            "https://github.com/unitreerobotics/unitree_sdk2"
+          ],
+          [
+            "Unitree 开发者中心",
+            "https://support.unitree.com/home/en/developer/"
+          ],
+          [
+            "海外媒体 X 信号 · 2026年4月14日",
+            "https://x.com/sz_mediagroup/status/2044007763345584334"
+          ]
+        ],
+        "solution": "robotics-research"
+      },
+      {
+        "slug": "ufactory-xarm",
+        "title": "UFACTORY xArm：定义整个工作站",
+        "category": "Hardware",
+        "label": "官方 SDK 参考",
+        "region": "全球科研与系统集成生态",
+        "technology": "UFACTORY / xArm Python SDK",
+        "summary": "面向开发者的 SDK 只是集成决策的一项输入，还需明确工装及现场条件。",
+        "facts": "xArm Python SDK 仓库为 UFACTORY 机器人提供接口、文档和示例，是软件集成的直接技术参考。",
+        "lesson": "受控抓取放置试点应明确工件、夹具、负载、工作半径、节拍和摄像头布局，使用代表性物体测量可重复表现。",
+        "limits": "SDK 不是完整的安全设计或可投产工作站。本参考不代表 CNPS 合作伙伴关系，也不保证任务结果。",
+        "evaluation": [
+          "记录成功次数及全部失败。",
+          "计入工具、工装、摄像头与集成成本。",
+          "指定现场安全与维护的合格负责人。"
+        ],
+        "sources": [
+          [
+            "UFACTORY xArm Python SDK",
+            "https://github.com/xArm-Developer/xArm-Python-SDK"
+          ]
+        ],
+        "solution": "robotics-research"
+      },
+      {
+        "slug": "meeting-devices",
+        "title": "从个人录音设备到团队采购计划",
+        "category": "Hardware",
+        "label": "CNPS 产品评估指南",
+        "region": "供货情况按目的地确认",
+        "technology": "TicNote 及精选可穿戴设备",
+        "summary": "从现有 CNPS 产品目录出发，再核实团队的实际需要。",
+        "facts": "CNPS 产品网站列有 TicNote 录音设备及可穿戴设备，并提供批发联系入口。最新产品和订阅细节应以确切商品页面与报价确认为准。",
+        "lesson": "团队试点应测试真实会议语言和噪声、修正纪要耗时、导出需求及账号归属，并将订阅和支持流程纳入比较。",
+        "limits": "这是采购指南，不是已完成客户案例。未经确认，不暗示任何企业功能、批量折扣、授权或地区供货能力。",
+        "evaluation": [
+          "选择有代表性的小组。",
+          "衡量实际使用情况及修正后的净节省时间。",
+          "确认订阅转移与保修处理。"
+        ],
+        "sources": [
+          [
+            "CNPS 产品",
+            "https://www.cnps.ai/products"
+          ],
+          [
+            "比较在售型号",
+            "https://www.cnps.ai/products/compare"
+          ],
+          [
+            "批发信息",
+            "https://www.cnps.ai/wholesale"
+          ]
+        ],
+        "solution": "meeting-ai"
+      }
+    ],
+    "resources": [
+      {
+        "slug": "ai-procurement-checklist",
+        "title": "企业买家的 AI 采购清单",
+        "category": "Procurement",
+        "audience": "采购与项目负责人",
+        "description": "比较报价前，明确任务、证据、完整成本与责任。"
+      },
+      {
+        "slug": "meeting-device-pilot",
+        "title": "规划 AI 会议设备试点",
+        "category": "Hardware",
+        "audience": "团队管理者与经销商",
+        "description": "核对订阅归属、真实语言表现、导出与持续支持。"
+      },
+      {
+        "slug": "knowledge-pilot",
+        "title": "定义基于文档的 AI 助手",
+        "category": "Applications",
+        "audience": "IT 负责人和服务商",
+        "description": "准备固定评估题集、文档权限、引用与实用验收测试。"
+      },
+      {
+        "slug": "edge-ai-survey",
+        "title": "边缘 AI 现场调查表",
+        "category": "Hardware",
+        "audience": "集成商与现场负责人",
+        "description": "记录现场评估所需的摄像头、光照、网络和运行条件。"
+      },
+      {
+        "slug": "voice-prototype",
+        "title": "语音设备原型需求书",
+        "category": "Hardware",
+        "audience": "产品与 OEM 团队",
+        "description": "将硬件物料清单与后端、语言及维护要求连接起来。"
+      },
+      {
+        "slug": "robotics-procurement",
+        "title": "机器人采购：配置与 SDK 权限",
+        "category": "Hardware",
+        "audience": "实验室与集成团队",
+        "description": "确认确切版本、开发权限、配件与支持责任。"
+      },
+      {
+        "slug": "rfq-template",
+        "title": "实用 B2B 询价模板",
+        "category": "Procurement",
+        "audience": "准备提供需求的买家",
+        "description": "使用结构化说明申请产品报价或讨论范围明确的评估。"
+      },
+      {
+        "slug": "china-ai-export-playbook",
+        "title": "中国 AI：CNPS 全球拓展行动方案",
+        "category": "Research",
+        "audience": "合作伙伴与业务规划者",
+        "description": "详细战略方案：32个逻辑章节，附来源参考与透明修订记录。"
+      }
+    ],
+    "solutions": [
+      {
+        "slug": "meeting-ai",
+        "category": "Hardware",
+        "title": "面向团队的 AI 会议设备",
+        "short": "批量采购前，比较录音设备、订阅归属与团队工作流程。",
+        "question": "哪款设备适合我们的团队？",
+        "deliverable": "更清晰的设备与订阅候选清单",
+        "input": "目的地国家、团队人数、会议语言、录音环境与目标日期。",
+        "checks": [
+          "比较确切型号及包含的订阅。",
+          "测试转写质量，以及修正纪要所需的时间。",
+          "确认导出格式、账号归属与转移方式。",
+          "确认地区供货、保修与批量采购条款。"
+        ],
+        "boundaries": "团队管理和企业功能因产品而异。下单前应按所选型号逐项确认。",
+        "action": "申请设备报价",
+        "cases": [
+          "meeting-devices"
+        ],
+        "resource": "meeting-device-pilot"
+      },
+      {
+        "slug": "knowledge-assistants",
+        "category": "Applications",
+        "title": "以企业文档为依据的知识助手",
+        "short": "围绕真实问题、访问权限与来源依据，定义私有知识或支持流程。",
+        "question": "AI 能依据我们的文档回答吗？",
+        "deliverable": "范围明确的知识助手评估",
+        "input": "已获授权的示例文档、目标语言、预计用户、部署要求与业务负责人。",
+        "checks": [
+          "建立包含参考答案的评估题集。",
+          "核验引用、模型版本与拒答行为。",
+          "测试文档权限和更新流程。",
+          "比较完整运行成本与人工审核时间。"
+        ],
+        "boundaries": "实施范围与软件许可需另行约定。开源可用并不代表拥有无限制转售权。",
+        "action": "讨论知识助手试点",
+        "cases": [
+          "dify-japan",
+          "qwen-deepseek",
+          "ragflow-documents"
+        ],
+        "resource": "knowledge-pilot"
+      },
+      {
+        "slug": "edge-vision",
+        "category": "Hardware",
+        "title": "针对明确摄像任务的边缘 AI",
+        "short": "规划完整现场系统：摄像头、算力、网络、安装及可衡量的验收测试。",
+        "question": "边缘 AI 能在我们的现场运行吗？",
+        "deliverable": "现场需求与评估说明",
+        "input": "摄像头类型、现场布局、光照、识别对象、网络条件与运营负责人。",
+        "checks": [
+          "约定检测任务和真实标注依据。",
+          "记录误报、漏报与端到端延迟。",
+          "测试光照变化、断网与恢复。",
+          "将安装、存储与支持计入成本。"
+        ],
+        "boundaries": "硬件能力与演示视频不能保证在您的环境中达到同样效果，需要具有代表性的现场测试。",
+        "action": "讨论现场评估",
+        "cases": [
+          "seeed-intflow",
+          "seeed-engineering"
+        ],
+        "resource": "edge-ai-survey"
+      },
+      {
+        "slug": "voice-prototypes",
+        "category": "Hardware",
+        "title": "语音交互：从想法到原型",
+        "short": "同时规划基于 ESP32 的语音设备及维持其运行所需的后端服务。",
+        "question": "如何制作语音设备原型？",
+        "deliverable": "原型范围与依赖项清单",
+        "input": "一项预期任务、用户、语言、声学条件、预计用量与维护负责人。",
+        "checks": [
+          "明确麦克风、扬声器、电源与网络。",
+          "梳理语音、模型和内容服务依赖。",
+          "测试打断、噪声与断网。",
+          "规划固件恢复、凭据管理和服务成本。"
+        ],
+        "boundaries": "原型可用不等于承诺量产。产品测试、供货与商业权利须分别评估。",
+        "action": "讨论语音原型",
+        "cases": [
+          "xiaozhi-voice"
+        ],
+        "resource": "voice-prototype"
+      },
+      {
+        "slug": "robotics-research",
+        "category": "Hardware",
+        "title": "面向科研与受控试点的机器人",
+        "short": "采购前明确硬件版本、SDK 权限、配件与本地支持。",
+        "question": "我们的机器人实验室需要什么？",
+        "deliverable": "配置与支持核对清单",
+        "input": "研究任务、确切平台、负载、工作空间、开发权限、目的地与受训操作人员。",
+        "checks": [
+          "书面确认型号与开发权限。",
+          "检查操作系统与 SDK 兼容性。",
+          "计入工具、工装、备件与培训。",
+          "定义有人监督的测试及应急流程。"
+        ],
+        "boundaries": "公开 SDK 不代表每个产品版本都有相同权限。现场安全和集成需要合格负责人。",
+        "action": "讨论机器人需求",
+        "cases": [
+          "unitree-sdk",
+          "ufactory-xarm"
+        ],
+        "resource": "robotics-procurement"
+      }
+    ]
+  },
+  "ar": {
+    "cases": [
+      {
+        "slug": "dify-japan",
+        "title": "Dify في اليابان: من التجارب إلى سير العمل المؤسسي",
+        "category": "Applications",
+        "label": "قصة عميل نشرها المورّد",
+        "region": "اليابان",
+        "technology": "Dify / Kakaku.com",
+        "summary": "تربط قصة عميل منشورة بين بناء سير العمل والتبني والحوكمة على مستوى الشركة.",
+        "facts": "تصف قصة Kakaku.com المنشورة لدى Dify اعتماد Dify Enterprise لتنظيم تطوير تطبيقات الذكاء الاصطناعي. ويوفر مستودع GitHub وثائق لسير العمل والاسترجاع والاستضافة الذاتية. القصة رواية من المورّد وليست تدقيقاً مستقلاً.",
+        "lesson": "السؤال المفيد للمشتري هو كيف يصبح سير العمل قابلاً للاستخدام الجماعي: من يملكه، ومن يصل إلى البيانات، وكيف تُصعّد الأخطاء؟ تقترح CNPS البدء بسير عمل واحد للمستندات أو الدعم ومجموعة تقييم متفق عليها.",
+        "limits": "هذا ليس مشروعاً نفذته CNPS. لا تثبت بيانات التبني المعلنة نتيجة مشروع عميل جديد. يتضمن ترخيص Dify شروطاً إضافية للاستخدام متعدد المستأجرين والعلامة التجارية للواجهة.",
+        "evaluation": [
+          "استخدم مستندات مصرحاً بها ومجموعة أسئلة ثابتة.",
+          "قس دقة الاستشهادات ووقت التصحيح البشري.",
+          "اختبر الصلاحيات والامتناع عن الإجابة عند غياب الأدلة."
+        ],
+        "sources": [
+          [
+            "قصة عميل Dify",
+            "https://dify.ai/ja/blog/kakaku-accelerates-ai-adoption-with-dify-fast-secure-and-scalable"
+          ],
+          [
+            "مستودع Dify على GitHub",
+            "https://github.com/langgenius/dify"
+          ],
+          [
+            "ترخيص Dify",
+            "https://github.com/langgenius/dify/blob/main/LICENSE"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "qwen-deepseek",
+        "title": "Qwen وDeepSeek: تسهيل التقييم الأول",
+        "category": "Applications",
+        "label": "مرجع للمصدر المفتوح وقنوات الانتشار",
+        "region": "منظومة المطورين العالمية",
+        "technology": "Qwen3 / DeepSeek-R1",
+        "summary": "تخفض المواد التقنية بالإنجليزية وقنوات التقييم العامة الجهد اللازم لتجربة نموذج.",
+        "facts": "يحتفظ Qwen3 وDeepSeek-R1 بمستودعات عامة تضم معلومات النماذج والاستخدام. ويربط منشور Qwen الرسمي على X إعلان نموذج بالاستخدام المحلي والتجربة عبر الإنترنت. ويسجل منشور عام مرتبط بـArena دخول DeepSeek-R1 إلى قناة تقييم دولية.",
+        "lesson": "يحتاج المشتري إلى مهمة قابلة لإعادة الإنتاج وإصدار محدد للنموذج وحدود للتكلفة. قيّم النماذج المرشحة بالمستندات والأسئلة نفسها، بما فيها أسئلة ينبغي الامتناع عن إجابتها.",
+        "limits": "لا تثبت هذه المراجع الإيرادات أو التفوق الحالي للنموذج أو الأداء على بياناتك. تحقق من نقطة التحقق المحددة للنموذج وترخيصه والبنية التحتية وشروط الخدمة.",
+        "evaluation": [
+          "ثبت مجموعة البيانات والتعليمات وإصدارات النماذج.",
+          "قارن الصحة والاستشهادات وزمن الاستجابة والتكلفة لكل مهمة مكتملة.",
+          "اختبر اللغة المستهدفة والاستخدام المتزامن الواقعي."
+        ],
+        "sources": [
+          [
+            "Qwen3 على GitHub",
+            "https://github.com/QwenLM/Qwen3"
+          ],
+          [
+            "DeepSeek-R1 على GitHub",
+            "https://github.com/deepseek-ai/DeepSeek-R1"
+          ],
+          [
+            "Qwen على X · 13 أغسطس 2025",
+            "https://x.com/Alibaba_Qwen/status/1955782109702078559"
+          ],
+          [
+            "إشارة انتشار عبر Arena · 20 يناير 2025",
+            "https://x.com/ml_angelopoulos/status/1881419890940338288"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "ragflow-documents",
+        "title": "RAGFlow: قيّم طبقة المستندات أولاً",
+        "category": "Applications",
+        "label": "مرجع تقني مفتوح المصدر",
+        "region": "منظومة المطورين العالمية",
+        "technology": "RAGFlow",
+        "summary": "مرجع عملي لسير عمل الاسترجاع الذي يحتاج إلى إجابات قابلة للتتبع من مستندات معقدة.",
+        "facts": "يصف مستودع RAGFlow معالجة المستندات والاسترجاع والاستشهاد بالمصادر، مع تعليمات للاستضافة الذاتية. إنه مصدر تقني لتقييم سير عمل المستندات، وليس دليلاً على نشر لدى عميل لـCNPS.",
+        "lesson": "تحتوي أدلة المنتجات على اختلافات بين الإصدارات ووحدات واستثناءات. قبل اختيار نموذج، حدد المستند المعتمد وكيفية إزالة المعلومات القديمة.",
+        "limits": "لا يضمن دعم المستندات المعلن في مستودع جودة الاستخراج من مسح ضوئي أو جدول بعينه. ينبغي التحقق من احتياجات الحوسبة وإصدارات الاعتماديات للإصدار المختار.",
+        "evaluation": [
+          "أدرج الجداول والمستندات الممسوحة والإصدارات المتعارضة.",
+          "تحقق من أن المقطع المستشهد به يدعم الإجابة المحددة.",
+          "اختبر التحديثات والحذف وحدود الوصول."
+        ],
+        "sources": [
+          [
+            "RAGFlow على GitHub",
+            "https://github.com/infiniflow/ragflow"
+          ]
+        ],
+        "solution": "knowledge-assistants"
+      },
+      {
+        "slug": "seeed-intflow",
+        "title": "Seeed وIntflow: حل محلي مبني على أجهزة الحوسبة الطرفية",
+        "category": "Hardware",
+        "label": "مرجع نشر أصدره المورّد",
+        "region": "كوريا الجنوبية وأوروبا واليابان",
+        "technology": "Seeed / Intflow EdgeFarm",
+        "summary": "يوضح مرجع مراقبة الماشية التعاون بين الخبرة التطبيقية والأجهزة الطرفية.",
+        "facts": "تصف مجموعة دراسات حالات Seeed المستضافة لدى PNY حل Intflow لمراقبة الماشية، وتذكر عمليات نشر في كوريا الجنوبية وإسبانيا واليابان والنمسا وبولندا. وتحدد جهاز Seeed reComputer ضمن الحل.",
+        "lesson": "النمط القابل للاستفادة هو تولّي متخصص محلي التطبيق والعلاقة مع الموقع، مع دعم مورّد الأجهزة لمنصة الجهاز. حدد نطاق النظام كاملاً، بما يشمل الكاميرات والخدمة المستمرة.",
+        "limits": "المادة منشورة من المورّد، ولا نستخدم التحسينات المعلنة فيها كتوقعات. وهي لا تثبت علاقة توزيع مع CNPS أو ملاءمة موقع جديد.",
+        "evaluation": [
+          "حدد الحيوانات أو الأجسام وظروف المراقبة.",
+          "استخدم لقطات تمثل الواقع مع بيانات مرجعية متفق عليها.",
+          "احسب التكلفة الإجمالية لكل كاميرا ولكل موقع."
+        ],
+        "sources": [
+          [
+            "مجموعة حالات Seeed المستضافة لدى PNY",
+            "https://edgeai.pny.eu/wp-content/uploads/2024/03/Seeed-Studio-succes-stories-pny-webonly.pdf"
+          ],
+          [
+            "برنامج شركاء Seeed",
+            "https://www.seeedstudio.com/blog/2022/04/22/edge-ai-partner-program-accelerate-your-next-gen-ai-product-deliver-ai-solutions-across-industries-together/"
+          ]
+        ],
+        "solution": "edge-vision"
+      },
+      {
+        "slug": "seeed-engineering",
+        "title": "Seeed: ربط عرض الأجهزة بالوثائق الهندسية",
+        "category": "Hardware",
+        "label": "مرجع هندسي رسمي ومنشور على X",
+        "region": "منظومة المطورين العالمية",
+        "technology": "reComputer / Seeed Wiki",
+        "summary": "يصبح العرض مفيداً للشراء عندما تتضح إعداداته ومسار تنفيذه الهندسي.",
+        "facts": "يصف منشور Seeed الرسمي على X إعداداً طرفياً بأربع كاميرات. ويوفر مستودع Wiki العام وخدمة التخصيص مراجع مستقلة للهندسة ودورة الحياة، من المتطلبات إلى التحقق والإنتاج.",
+        "lesson": "يمكن لمقطع قصير تقديم احتمال تقني. ثم ينبغي أن توفر صفحة الشراء مخطط النظام وقائمة الأجهزة وافتراضات البيئة وخطة اختبار يمكن للمهندس تقييمها.",
+        "limits": "منشور X ادعاء عرض توضيحي. لا يثبت قياسات أداء مستقلة أو حلاً جاهزاً من CNPS. يجب التحقق من التوافق على التكوين المختار.",
+        "evaluation": [
+          "حدد واجهات الكاميرات ووحدة الحوسبة وإصدارات البرمجيات.",
+          "قس زمن الاستجابة الكلي، وليس استدلال النموذج وحده.",
+          "اختبر التعافي من الأعطال والتشغيل المستمر."
+        ],
+        "sources": [
+          [
+            "Seeed على X · 26 ديسمبر 2025",
+            "https://x.com/seeedstudio/status/2004492392658035139"
+          ],
+          [
+            "مصدر Seeed Wiki",
+            "https://github.com/Seeed-Studio/wiki-documents"
+          ],
+          [
+            "عملية التخصيص لدى Seeed",
+            "https://www.seeed.cc/jetson-odm"
+          ]
+        ],
+        "solution": "edge-vision"
+      },
+      {
+        "slug": "xiaozhi-voice",
+        "title": "XiaoZhi ESP32: الجهاز بداية الخدمة",
+        "category": "Hardware",
+        "label": "مرجع تقني مفتوح المصدر",
+        "region": "منظومة مطورين متعددة اللغات",
+        "technology": "XiaoZhi / ESP32",
+        "summary": "تسهّل البرامج الثابتة المفتوحة بناء نموذج صوتي أولي، بينما تحدد خيارات الخلفية ودورة الحياة فائدته.",
+        "facts": "يوفر مستودع XiaoZhi ESP32 برامج ثابتة للواجهات الصوتية ووثائق متعددة اللغات. ويصف ملف README اتصالات النماذج وMCP. المستودع مرجع للبرنامج الثابت، وليس عقد توريد منتج كامل أو خدمة.",
+        "lesson": "لنموذج استقبال أو معرض، ابدأ بمهمة واحدة ومحتوى مصرح به. حدد الميكروفون والشبكة والخلفية إلى جانب الغلاف، ثم اختبر البيئة الصوتية الفعلية.",
+        "limits": "لا يشمل ترخيص البرنامج الثابت جميع الخدمات السحابية أو الأصوات أو تصاميم المنتجات أو العلامات التجارية. ولا يثبت العرض موثوقية الإنتاج أو الملاءمة للأطفال أو الامتثال التنظيمي.",
+        "evaluation": [
+          "اختبر الضوضاء والمقاطعة وزمن الاستجابة وانقطاع الشبكة.",
+          "وثّق رسوم خدمات الصوت والنموذج.",
+          "خطط لاستعادة البرنامج الثابت وتدوير المفاتيح وإيقاف الخدمة."
+        ],
+        "sources": [
+          [
+            "XiaoZhi ESP32 على GitHub",
+            "https://github.com/78/xiaozhi-esp32"
+          ]
+        ],
+        "solution": "voice-prototypes"
+      },
+      {
+        "slug": "unitree-sdk",
+        "title": "Unitree: تحقق من صلاحيات التطوير قبل اختيار روبوت",
+        "category": "Hardware",
+        "label": "مرجع SDK رسمي",
+        "region": "منظومة البحث العالمية",
+        "technology": "Unitree SDK2",
+        "summary": "تساعد حزم SDK العامة المشترين البحثيين على إعداد أسئلة أدق عن الإصدارات والتوافق والدعم.",
+        "facts": "تنشر Unitree حزمة SDK2 ومركز وثائق للمطورين. ويوفران نقطة انطلاق لتقييم واجهات البرمجيات ومسارات العمل المدعومة.",
+        "lesson": "ينبغي أن تحدد متطلبات الشراء إصدار الروبوت الدقيق والصلاحيات والملحقات وبيئة البرمجيات. أدرج التدريب وقطع الغيار والمشغّل المحلي، إلى جانب جسم الروبوت.",
+        "limits": "لا تعني حزمة SDK العامة أن جميع الإصدارات تتيح صلاحيات تطوير متطابقة. ولا تثبت عروض الفيديو الدولية إنتاجية مستقلة أو طلب عميل لدى CNPS.",
+        "evaluation": [
+          "احصل على تأكيد مكتوب لرمز المنتج وصلاحيات SDK.",
+          "ابدأ بالمحاكاة والاختبارات الخاضعة للإشراف.",
+          "اتفق على إيقاف الطوارئ ومساحة العمل ومسؤولية الدعم."
+        ],
+        "sources": [
+          [
+            "Unitree SDK2",
+            "https://github.com/unitreerobotics/unitree_sdk2"
+          ],
+          [
+            "مركز مطوري Unitree",
+            "https://support.unitree.com/home/en/developer/"
+          ],
+          [
+            "إشارة إعلامية خارجية على X · 14 أبريل 2026",
+            "https://x.com/sz_mediagroup/status/2044007763345584334"
+          ]
+        ],
+        "solution": "robotics-research"
+      },
+      {
+        "slug": "ufactory-xarm",
+        "title": "UFACTORY xArm: حدد خلية العمل كاملة",
+        "category": "Hardware",
+        "label": "مرجع SDK رسمي",
+        "region": "منظومة البحث والتكامل العالمية",
+        "technology": "UFACTORY / xArm Python SDK",
+        "summary": "حزمة SDK الموجهة للمطورين أحد مدخلات قرار التكامل، الذي يحتاج أيضاً إلى الأدوات وظروف الموقع.",
+        "facts": "يوفر مستودع xArm Python SDK واجهات ووثائق وأمثلة لروبوتات UFACTORY، وهو مرجع تقني مباشر لتكامل البرمجيات.",
+        "lesson": "لتجربة التقاط ووضع خاضعة للتحكم، حدد قطعة العمل والقابض والحمولة والمدى وزمن الدورة وترتيب الكاميرات. قس الأداء القابل للتكرار بأجسام تمثل الاستخدام الفعلي.",
+        "limits": "حزمة SDK ليست تصميماً كاملاً للسلامة ولا خلية عمل جاهزة للإنتاج. لا يثبت هذا المرجع شراكة مع CNPS أو نتيجة مضمونة للمهمة.",
+        "evaluation": [
+          "سجل المحاولات الناجحة وجميع الإخفاقات.",
+          "أدرج تكاليف الأدوات والتجهيزات والكاميرا والتكامل.",
+          "عيّن مسؤولاً مؤهلاً لسلامة الموقع والصيانة."
+        ],
+        "sources": [
+          [
+            "UFACTORY xArm Python SDK",
+            "https://github.com/xArm-Developer/xArm-Python-SDK"
+          ]
+        ],
+        "solution": "robotics-research"
+      },
+      {
+        "slug": "meeting-devices",
+        "title": "من مسجل فردي إلى خطة شراء لفريق",
+        "category": "Hardware",
+        "label": "دليل CNPS لتقييم المنتجات",
+        "region": "يُؤكد التوافر بحسب الوجهة",
+        "technology": "TicNote وأجهزة مختارة قابلة للارتداء",
+        "summary": "استخدم كتالوج CNPS الحالي نقطة انطلاق، ثم تحقق مما يحتاجه الفريق فعلياً.",
+        "facts": "يعرض موقع منتجات CNPS أجهزة تسجيل TicNote وأجهزة قابلة للارتداء، ويوفر جهة اتصال للبيع بالجملة. ينبغي التحقق من تفاصيل المنتج والاشتراك الحالية في صفحة المنتج المحدد وعرض السعر.",
+        "lesson": "ينبغي أن تختبر تجربة الفريق لغات الاجتماعات الفعلية والضوضاء ووقت تصحيح الملاحظات ومتطلبات التصدير وملكية الحساب. أدرج الاشتراك وعملية الدعم في المقارنة.",
+        "limits": "هذا دليل شراء وليس حالة عميل مكتملة. لا يُفترض وجود خصائص مؤسسية أو خصومات كمية أو تفويض أو توافر إقليمي دون تأكيد.",
+        "evaluation": [
+          "اختر مجموعة صغيرة تمثل المستخدمين.",
+          "قس الاستخدام الفعلي وصافي الوقت الموفر بعد التصحيحات.",
+          "أكد إعادة تعيين الاشتراك ومعالجة الضمان."
+        ],
+        "sources": [
+          [
+            "منتجات CNPS",
+            "https://www.cnps.ai/products"
+          ],
+          [
+            "مقارنة الطرز المعروضة",
+            "https://www.cnps.ai/products/compare"
+          ],
+          [
+            "معلومات البيع بالجملة",
+            "https://www.cnps.ai/wholesale"
+          ]
+        ],
+        "solution": "meeting-ai"
+      }
+    ],
+    "resources": [
+      {
+        "slug": "ai-procurement-checklist",
+        "title": "قائمة شراء الذكاء الاصطناعي للمشتري المؤسسي",
+        "category": "Procurement",
+        "audience": "مسؤولو المشتريات والمشروعات",
+        "description": "حدد المهمة والأدلة والتكلفة الكاملة والمسؤوليات قبل مقارنة عرض السعر."
+      },
+      {
+        "slug": "meeting-device-pilot",
+        "title": "خطط لتجربة أجهزة الاجتماعات بالذكاء الاصطناعي",
+        "category": "Hardware",
+        "audience": "مديرو الفرق والموزعون",
+        "description": "تحقق من ملكية الاشتراك والأداء الفعلي للغات والتصدير والدعم المستمر."
+      },
+      {
+        "slug": "knowledge-pilot",
+        "title": "حدد نطاق مساعد ذكاء اصطناعي يستند إلى المستندات",
+        "category": "Applications",
+        "audience": "قادة تقنية المعلومات ومقدمو الخدمات",
+        "description": "أعد مجموعة تقييم ثابتة وصلاحيات المستندات والاستشهادات واختبار قبول مفيداً."
+      },
+      {
+        "slug": "edge-ai-survey",
+        "title": "استبيان موقع الذكاء الاصطناعي الطرفي",
+        "category": "Hardware",
+        "audience": "المكاملون ومسؤولو المواقع",
+        "description": "سجل الكاميرات والإضاءة والشبكة وظروف التشغيل اللازمة لتقييم الموقع."
+      },
+      {
+        "slug": "voice-prototype",
+        "title": "مواصفات نموذج أولي لجهاز صوتي",
+        "category": "Hardware",
+        "audience": "فرق المنتجات والتصنيع للمعدات الأصلية",
+        "description": "اربط قائمة مكونات الأجهزة بمتطلبات الخلفية واللغة والصيانة."
+      },
+      {
+        "slug": "robotics-procurement",
+        "title": "شراء الروبوتات: التكوين وصلاحيات SDK",
+        "category": "Hardware",
+        "audience": "المختبرات وفرق التكامل",
+        "description": "أكد الإصدار الدقيق وصلاحيات التطوير والملحقات ومسؤوليات الدعم."
+      },
+      {
+        "slug": "rfq-template",
+        "title": "طلب عملي لعرض سعر بين الشركات",
+        "category": "Procurement",
+        "audience": "المشترون المستعدون لمشاركة المتطلبات",
+        "description": "استخدم موجزاً منظماً لطلب عرض سعر لمنتج أو مناقشة تقييم محدد النطاق."
+      },
+      {
+        "slug": "china-ai-export-playbook",
+        "title": "الذكاء الاصطناعي الصيني: خطة CNPS للتوسع العالمي",
+        "category": "Research",
+        "audience": "الشركاء ومخططو الأعمال",
+        "description": "استراتيجية مفصلة في 32 فصلاً منطقياً، مع مراجع المصادر وسجل مراجعات شفاف."
+      }
+    ],
+    "solutions": [
+      {
+        "slug": "meeting-ai",
+        "category": "Hardware",
+        "title": "أجهزة اجتماعات بالذكاء الاصطناعي للفرق",
+        "short": "قارن أجهزة التسجيل وملكية الاشتراكات وسير عمل الفريق قبل الشراء بكميات كبيرة.",
+        "question": "أي جهاز يناسب فريقنا؟",
+        "deliverable": "قائمة أوضح بالأجهزة والاشتراكات المرشحة",
+        "input": "بلد الوجهة، وحجم الفريق، ولغات الاجتماعات، وبيئة التسجيل، والموعد المستهدف.",
+        "checks": [
+          "قارن رمز المنتج الدقيق والاشتراك المشمول.",
+          "اختبر التفريغ النصي والوقت اللازم لتصحيح الملاحظات.",
+          "تحقق من صيغ التصدير وملكية الحساب وإعادة تعيينه.",
+          "أكد التوافر الإقليمي والضمان وشروط الشراء بالجملة."
+        ],
+        "boundaries": "تختلف إدارة الفرق وخصائص المؤسسات باختلاف المنتج. أكدها للطراز المختار قبل الطلب.",
+        "action": "اطلب عرض سعر للأجهزة",
+        "cases": [
+          "meeting-devices"
+        ],
+        "resource": "meeting-device-pilot"
+      },
+      {
+        "slug": "knowledge-assistants",
+        "category": "Applications",
+        "title": "مساعدون معرفيون يستندون إلى مستنداتك",
+        "short": "حدد سير عمل للمعرفة الخاصة أو الدعم انطلاقاً من أسئلة حقيقية وصلاحيات وصول وأدلة.",
+        "question": "هل يستطيع الذكاء الاصطناعي الإجابة من مستنداتنا؟",
+        "deliverable": "تقييم محدد النطاق لمساعد معرفي",
+        "input": "مستندات نموذجية مصرح باستخدامها، واللغات المستهدفة، وعدد المستخدمين المتوقع، ومتطلبات الاستضافة، ومسؤول العمل.",
+        "checks": [
+          "أنشئ مجموعة تقييم مع إجابات مرجعية.",
+          "تحقق من الاستشهادات وإصدار النموذج وسلوك الامتناع عن الإجابة.",
+          "اختبر صلاحيات المستندات وإجراءات التحديث.",
+          "قارن التكلفة التشغيلية الكاملة ووقت المراجعة البشرية."
+        ],
+        "boundaries": "يجب الاتفاق على نطاق التنفيذ وتراخيص البرمجيات. الإتاحة مفتوحة المصدر لا تعني حقوق إعادة بيع غير مقيدة.",
+        "action": "ناقش تجربة مساعد معرفي",
+        "cases": [
+          "dify-japan",
+          "qwen-deepseek",
+          "ragflow-documents"
+        ],
+        "resource": "knowledge-pilot"
+      },
+      {
+        "slug": "edge-vision",
+        "category": "Hardware",
+        "title": "ذكاء اصطناعي طرفي لمهمة كاميرا محددة",
+        "short": "خطط للموقع كاملاً: الكاميرات والحوسبة والشبكة والتركيب واختبار قبول قابل للقياس.",
+        "question": "هل يعمل الذكاء الاصطناعي الطرفي في موقعنا؟",
+        "deliverable": "موجز لمتطلبات الموقع وتقييمه",
+        "input": "أنواع الكاميرات، وتخطيط الموقع، والإضاءة، والأجسام المطلوب اكتشافها، وظروف الشبكة، والمسؤول التشغيلي.",
+        "checks": [
+          "اتفق على مهمة الاكتشاف والبيانات المرجعية المؤكدة.",
+          "سجل الإنذارات الكاذبة والحالات الفائتة وزمن الاستجابة من البداية إلى النهاية.",
+          "اختبر تغير الإضاءة وانقطاع الاتصال واستعادته.",
+          "أدرج التركيب والتخزين والدعم ضمن التكلفة."
+        ],
+        "boundaries": "لا تضمن قدرات الأجهزة أو مقاطع العرض الأداء في بيئتك. يلزم اختبار ميداني يمثل الظروف الفعلية.",
+        "action": "ناقش تقييم الموقع",
+        "cases": [
+          "seeed-intflow",
+          "seeed-engineering"
+        ],
+        "resource": "edge-ai-survey"
+      },
+      {
+        "slug": "voice-prototypes",
+        "category": "Hardware",
+        "title": "واجهات صوتية من الفكرة إلى النموذج الأولي",
+        "short": "حدد نطاق جهاز صوتي قائم على ESP32 مع خدمات الخلفية اللازمة لاستمرار تشغيله.",
+        "question": "كيف نبني نموذجاً أولياً لجهاز صوتي؟",
+        "deliverable": "نطاق للنموذج الأولي وقائمة بالاعتماديات",
+        "input": "مهمة مقصودة واحدة، والمستخدمون، واللغات، والظروف الصوتية، وحجم الاستخدام المتوقع، ومسؤول الصيانة.",
+        "checks": [
+          "حدد الميكروفونات ومكبرات الصوت والطاقة والشبكة.",
+          "احصر الاعتماد على خدمات الصوت والنماذج والمحتوى.",
+          "اختبر المقاطعة والضوضاء وفقدان الشبكة.",
+          "خطط لاستعادة البرنامج الثابت وإدارة بيانات الاعتماد وتكلفة الخدمات."
+        ],
+        "boundaries": "النموذج الأولي العامل ليس التزاماً بالإنتاج الكمي. يجب تقييم اختبارات المنتج والتوريد والحقوق التجارية كلٌّ على حدة.",
+        "action": "ناقش نموذجاً صوتياً أولياً",
+        "cases": [
+          "xiaozhi-voice"
+        ],
+        "resource": "voice-prototype"
+      },
+      {
+        "slug": "robotics-research",
+        "category": "Hardware",
+        "title": "روبوتات للبحث والتجارب الخاضعة للإشراف",
+        "short": "حدد الأجهزة الدقيقة وصلاحيات SDK والملحقات والدعم المحلي قبل الشراء.",
+        "question": "ماذا يحتاج مختبر الروبوتات لدينا؟",
+        "deliverable": "قائمة تحقق للتكوين والدعم",
+        "input": "المهمة البحثية، والمنصة الدقيقة، والحمولة، ومساحة العمل، وصلاحيات التطوير، والوجهة، ومشغل مدرب.",
+        "checks": [
+          "احصل على تأكيد مكتوب لرمز المنتج وصلاحيات المطور.",
+          "تحقق من توافق نظام التشغيل وSDK.",
+          "أدرج الأدوات والتجهيزات وقطع الغيار والتدريب.",
+          "حدد الاختبارات الخاضعة للإشراف وإجراءات الطوارئ."
+        ],
+        "boundaries": "الإشارة إلى SDK لا تعني أن جميع إصدارات المنتج توفر الصلاحيات نفسها. تتطلب سلامة الموقع والتكامل مسؤولين مؤهلين.",
+        "action": "ناقش متطلبات الروبوتات",
+        "cases": [
+          "unitree-sdk",
+          "ufactory-xarm"
+        ],
+        "resource": "robotics-procurement"
+      }
+    ]
+  }
+}

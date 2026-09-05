@@ -1,0 +1,48 @@
+{
+  "path": "/support",
+  "source_url": "https://www.cnps.ai/support",
+  "text": "- Home\n- /Support\nSupport\n\n# Talk to CNPS.AI\nThere is no separate help desk URL on the shop. Use the contacts published there.\n\nEmail sales@cnps.ai or call +8618354639099.\nWholesale inquiries are welcome through the wholesale page or the same sales address.\nCheckout, order tracking, and cart stay on shop.cnps.ai. Policy pages dated August 28, 2026: shipping, returns, privacy, terms.\nCommon product questions are on the FAQ.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "mailto:sales@cnps.ai",
+      "start": 18
+    },
+    {
+      "href": "tel:+8618354639099",
+      "start": 22
+    },
+    {
+      "href": "/wholesale",
+      "start": 27
+    },
+    {
+      "href": "https://shop.cnps.ai",
+      "start": 33
+    },
+    {
+      "href": "/shipping",
+      "start": 36
+    },
+    {
+      "href": "/returns",
+      "start": 39
+    },
+    {
+      "href": "/privacy",
+      "start": 42
+    },
+    {
+      "href": "/terms",
+      "start": 45
+    },
+    {
+      "href": "/faq",
+      "start": 50
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "page_count": 25,
+  "locale_count": 3,
+  "all_titles_descriptions_and_bodies_complete": true,
+  "links_match_all_pages": true,
+  "numeric_differences": [],
+  "checks": [
+    {
+      "path": "/pro-plan",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 451
+    },
+    {
+      "path": "/pro-plan",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 737
+    },
+    {
+      "path": "/privacy",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 887
+    },
+    {
+      "path": "/privacy",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 2051
+    },
+    {
+      "path": "/faq",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 624
+    },
+    {
+      "path": "/faq",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1225
+    },
+    {
+      "path": "/languages",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 230
+    },
+    {
+      "path": "/languages",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 385
+    },
+    {
+      "path": "/wholesale",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 233
+    },
+    {
+      "path": "/wholesale",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 403
+    },
+    {
+      "path": "/use-cases",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 198
+    },
+    {
+      "path": "/use-cases",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 368
+    },
+    {
+      "path": "/products/ar-smart-glasses",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 875
+    },
+    {
+      "path": "/products/ar-smart-glasses",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1823
+    },
+    {
+      "path": "/returns",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 524
+    },
+    {
+      "path": "/returns",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1244
+    },
+    {
+      "path": "/how-it-works",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 286
+    },
+    {
+      "path": "/how-it-works",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 597
+    },
+    {
+      "path": "/products/inmo-go3",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 689
+    },
+    {
+      "path": "/products/inmo-go3",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1051
+    },
+    {
+      "path": "/use-cases/lectures",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 293
+    },
+    {
+      "path": "/use-cases/lectures",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 433
+    },
+    {
+      "path": "/products/ticnote-pods-wifi",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 491
+    },
+    {
+      "path": "/products/ticnote-pods-wifi",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 882
+    },
+    {
+      "path": "/technology",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 633
+    },
+    {
+      "path": "/technology",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1090
+    },
+    {
+      "path": "/use-cases/meetings",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 295
+    },
+    {
+      "path": "/use-cases/meetings",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 489
+    },
+    {
+      "path": "/shipping",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 672
+    },
+    {
+      "path": "/shipping",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1258
+    },
+    {
+      "path": "/terms",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 653
+    },
+    {
+      "path": "/terms",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1592
+    },
+    {
+      "path": "/products/ticnote-lite",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 392
+    },
+    {
+      "path": "/products/ticnote-lite",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 578
+    },
+    {
+      "path": "/products/ticnote-pods-4g",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 672
+    },
+    {
+      "path": "/products/ticnote-pods-4g",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1166
+    },
+    {
+      "path": "/products",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1607
+    },
+    {
+      "path": "/products",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 2450
+    },
+    {
+      "path": "/support",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 326
+    },
+    {
+      "path": "/support",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 548
+    },
+    {
+      "path": "/contact",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 250
+    },
+    {
+      "path": "/contact",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 389
+    },
+    {
+      "path": "/about",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 521
+    },
+    {
+      "path": "/about",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 818
+    },
+    {
+      "path": "/use-cases/calls",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 319
+    },
+    {
+      "path": "/use-cases/calls",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 517
+    },
+    {
+      "path": "/products/compare",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 1581
+    },
+    {
+      "path": "/products/compare",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 2268
+    },
+    {
+      "path": "/products/ticnote",
+      "locale": "zh",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 606
+    },
+    {
+      "path": "/products/ticnote",
+      "locale": "ar",
+      "source_links_match": true,
+      "numbers_match": true,
+      "characters": 917
+    }
+  ],
+  "english_cleanups": [
+    "/pro-plan",
+    "/privacy",
+    "/languages",
+    "/wholesale",
+    "/use-cases",
+    "/products/ar-smart-glasses",
+    "/returns",
+    "/how-it-works",
+    "/products/inmo-go3",
+    "/use-cases/lectures",
+    "/products/ticnote-pods-wifi",
+    "/technology",
+    "/use-cases/meetings",
+    "/shipping",
+    "/terms",
+    "/products/ticnote-lite",
+    "/products/ticnote-pods-4g",
+    "/products",
+    "/support",
+    "/contact",
+    "/about",
+    "/use-cases/calls",
+    "/products/compare",
+    "/products/ticnote"
+  ],
+  "intentional_changes": [
+    "Removed extraction-only $/$ tokens from all affected English bodies; translations omit these tokens.",
+    "Normalized stuck price/From text and adjacent link spacing without changing values.",
+    "Translated August to numeric month 8 in Chinese; normalized date tokens in numeric comparison.",
+    "Rebuilt malformed nested link/headings on use-cases index in all three locales while preserving all three link targets, headings and descriptions."
+  ],
+  "sha256": "aadd1da229b9f9abe200079dc6b5a0f8f5673ea5ebaf6cb30bb9c9eb7f02c385"
+}

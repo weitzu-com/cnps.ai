@@ -1,0 +1,28 @@
+{
+  "path": "/use-cases/calls",
+  "source_url": "https://www.cnps.ai/use-cases/calls",
+  "text": "- Home\n- /Use cases\n- /Calls\nCalls\n\n# Phone and virtual meetings, then a transcript you can search.\nRecord calls on the card or earbuds. Notes land in the TicNote app.\n\nOpen-ear earbuds that record and transcribe on the go are listed as TicNote Pods WiFi. Open-ear 4G earbuds that record and transcribe without Wi-Fi are listed as TicNote Pods 4G (North America).\nSee Pods WiFi and Pods 4G.Buy Pods WiFi",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "/use-cases",
+      "start": 7
+    },
+    {
+      "href": "/products/ticnote-pods-wifi",
+      "start": 23
+    },
+    {
+      "href": "/products/ticnote-pods-4g",
+      "start": 27
+    },
+    {
+      "href": "https://shop.cnps.ai/products/ticnote-pods-wifi-ai-transcription-earbuds",
+      "start": 29
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { marked } from 'marked';
 import { solutions, cases, resources } from '../content/catalog.mjs';
+import { applyFastgptAttribution } from './lib/fastgpt-attribution.mjs';
 
 const root=process.cwd(), out=path.join(root,'dist'), resourceDir=path.join(root,'content/resources');
 fs.rmSync(out,{recursive:true,force:true}); fs.mkdirSync(out,{recursive:true});
@@ -52,3 +53,4 @@ fs.copyFileSync(path.join(root,'docs/strategy/iterations/manifest.json'),path.jo
 write('/resources/cnps-ai-revisions',shell({title:'CNPS global expansion revision record',description:'Twenty-two actual revisions, with findings, changes and document hashes.',pathName:'/resources/cnps-ai-revisions',content:'<section class="section"><div class="wrap article-main" lang="zh-CN">'+marked.parse(log)+'<a class="btn" download href="/downloads/cnps-ai-iteration-log.md">Download the revision log</a></div></section>'}));
 
 const pdf=path.join(root,'output/pdf/cnps-ai-global-expansion.pdf');if(fs.existsSync(pdf))fs.copyFileSync(pdf,path.join(out,'downloads/cnps-ai-global-expansion.pdf'));
+console.log(JSON.stringify(applyFastgptAttribution(out)));

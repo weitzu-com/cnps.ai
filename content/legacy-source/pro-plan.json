@@ -1,0 +1,28 @@
+{
+  "path": "/pro-plan",
+  "source_url": "https://www.cnps.ai/pro-plan",
+  "text": "- Home\n- /Pro plan\nPro plan\n\n# A year of extra minutes and features, sold as a bundle on specific SKUs.\nPro is a variant on the TicNote card and TicNote Lite listings — not a separate product handle.\n\nEligible hardware includes 600 minutes per month. Unbound free accounts include 300 minutes per month. Pro plans add more, for example 2,100 minutes per month on 1-Year Pro listings.\n\n\n | Listing | Pro variant | Price\n | TicNote Gray / Gold | with 1-Year Pro Plan | $199.99\n | TicNote Blue | with 1-Year Pro Plan | $189.99\n | TicNote Lite | With One Year Pro Plan | $119.99\nDigital TicNote plans: a refund may be requested within 30 days only when the service has not been used or activated. See returns.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "/products/ticnote",
+      "start": 28
+    },
+    {
+      "href": "/products/ticnote",
+      "start": 37
+    },
+    {
+      "href": "/products/ticnote-lite",
+      "start": 46
+    },
+    {
+      "href": "/returns",
+      "start": 54
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "path": "/returns",
+  "source_url": "https://www.cnps.ai/returns",
+  "text": "- Home\n- /Returns\nReturns\n\n# Refunds and cancellations\nPolicy dated August 28, 2026. Contact CNPS.AI before sending any item back.\n\nContact iweibing@gmail.com before sending any item back. Include your order number, the product name, and a clear description of the issue. Returns sent without written instructions might not be accepted.\nYou may request cancellation before an order is dispatched. Once fulfillment or shipment has started, the request is handled under the return terms that apply to the product and destination.\nIf an item arrives damaged, defective, or different from what you ordered, contact CNPS.AI promptly and keep the product, accessories, packaging, and shipping label.\nReturn eligibility for physical products depends on the product-specific terms, product condition, destination, and mandatory consumer law. Ear-worn products and other hygiene-sensitive goods may have additional restrictions after opening or use.\nFor TicNote digital-service plans sold with eligible products, a refund may be requested within 30 days only when the service has not been used or activated. Activated or used digital services are not refundable except where required by applicable law.\nApproved refunds are issued to the original payment method. Original shipping, return shipping, duties, taxes, and payment charges are refundable only when confirmed by CNPS.AI or required by applicable law.\nSource: shop refund policy.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "mailto:iweibing@gmail.com",
+      "start": 18
+    },
+    {
+      "href": "https://shop.cnps.ai/policies/refund-policy",
+      "start": 34
+    }
+  ]
+}

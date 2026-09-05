@@ -25,299 +25,385 @@
       ]
     },
     {
-      "source": "/products",
+      "source": "/assets/fonts/:path*",
       "headers": [
         {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/about",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/contact",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/faq",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/how-it-works",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/languages",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/privacy",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/pro-plan",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/returns",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/shipping",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/support",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/technology",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/terms",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/use-cases",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/wholesale",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/products/:path*",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
-      "source": "/use-cases/:path*",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }
   ],
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
-      "destination": "/index"
-    },
-    {
-      "source": "/fastgpt/cases/document-review",
-      "destination": "/fastgpt/cases/document-review/index"
-    },
-    {
-      "source": "/fastgpt/cases/education-support",
-      "destination": "/fastgpt/cases/education-support/index"
-    },
-    {
-      "source": "/fastgpt/cases/governed-knowledge",
-      "destination": "/fastgpt/cases/governed-knowledge/index"
-    },
-    {
-      "source": "/fastgpt/cases",
-      "destination": "/fastgpt/cases/index"
-    },
-    {
-      "source": "/fastgpt/cases/it-support",
-      "destination": "/fastgpt/cases/it-support/index"
-    },
-    {
-      "source": "/fastgpt/cases/logistics-support",
-      "destination": "/fastgpt/cases/logistics-support/index"
-    },
-    {
-      "source": "/fastgpt/cases/parts-data",
-      "destination": "/fastgpt/cases/parts-data/index"
-    },
-    {
-      "source": "/fastgpt/cases/service-intake",
-      "destination": "/fastgpt/cases/service-intake/index"
-    },
-    {
-      "source": "/fastgpt/cases/supplier-shortlist",
-      "destination": "/fastgpt/cases/supplier-shortlist/index"
-    },
-    {
-      "source": "/fastgpt/contact",
-      "destination": "/fastgpt/contact/index"
-    },
-    {
-      "source": "/fastgpt",
-      "destination": "/fastgpt/index"
-    },
-    {
-      "source": "/fastgpt/solutions/rfq-intake",
-      "destination": "/fastgpt/solutions/rfq-intake/index"
-    },
-    {
-      "source": "/fastgpt/solutions/support-triage",
-      "destination": "/fastgpt/solutions/support-triage/index"
-    },
-    {
-      "source": "/fastgpt/solutions/technical-knowledge",
-      "destination": "/fastgpt/solutions/technical-knowledge/index"
-    },
-    {
-      "source": "/resources/fastgpt-cnps-global-growth",
-      "destination": "/resources/fastgpt-cnps-global-growth/index"
-    },
-    {
-      "source": "/products",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/products"
+      "destination": "/en",
+      "permanent": true
     },
     {
       "source": "/about",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/about"
+      "destination": "/en/about",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies",
+      "destination": "/en/case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/dify-japan",
+      "destination": "/en/case-studies/dify-japan",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/meeting-devices",
+      "destination": "/en/case-studies/meeting-devices",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/qwen-deepseek",
+      "destination": "/en/case-studies/qwen-deepseek",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/ragflow-documents",
+      "destination": "/en/case-studies/ragflow-documents",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/seeed-engineering",
+      "destination": "/en/case-studies/seeed-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/seeed-intflow",
+      "destination": "/en/case-studies/seeed-intflow",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/ufactory-xarm",
+      "destination": "/en/case-studies/ufactory-xarm",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/unitree-sdk",
+      "destination": "/en/case-studies/unitree-sdk",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/xiaozhi-voice",
+      "destination": "/en/case-studies/xiaozhi-voice",
+      "permanent": true
     },
     {
       "source": "/contact",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/contact"
+      "destination": "/en/contact",
+      "permanent": true
     },
     {
       "source": "/faq",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/faq"
+      "destination": "/en/faq",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt",
+      "destination": "/en/fastgpt",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases",
+      "destination": "/en/fastgpt/cases",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/document-review",
+      "destination": "/en/fastgpt/cases/document-review",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/education-support",
+      "destination": "/en/fastgpt/cases/education-support",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/governed-knowledge",
+      "destination": "/en/fastgpt/cases/governed-knowledge",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/it-support",
+      "destination": "/en/fastgpt/cases/it-support",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/logistics-support",
+      "destination": "/en/fastgpt/cases/logistics-support",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/parts-data",
+      "destination": "/en/fastgpt/cases/parts-data",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/service-intake",
+      "destination": "/en/fastgpt/cases/service-intake",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/cases/supplier-shortlist",
+      "destination": "/en/fastgpt/cases/supplier-shortlist",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/contact",
+      "destination": "/en/fastgpt/contact",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/solutions/rfq-intake",
+      "destination": "/en/fastgpt/solutions/rfq-intake",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/solutions/support-triage",
+      "destination": "/en/fastgpt/solutions/support-triage",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/solutions/technical-knowledge",
+      "destination": "/en/fastgpt/solutions/technical-knowledge",
+      "permanent": true
     },
     {
       "source": "/how-it-works",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/how-it-works"
+      "destination": "/en/how-it-works",
+      "permanent": true
     },
     {
       "source": "/languages",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/languages"
+      "destination": "/en/languages",
+      "permanent": true
     },
     {
       "source": "/privacy",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/privacy"
+      "destination": "/en/privacy",
+      "permanent": true
     },
     {
       "source": "/pro-plan",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/pro-plan"
+      "destination": "/en/pro-plan",
+      "permanent": true
+    },
+    {
+      "source": "/products",
+      "destination": "/en/products",
+      "permanent": true
+    },
+    {
+      "source": "/products/ar-smart-glasses",
+      "destination": "/en/products/ar-smart-glasses",
+      "permanent": true
+    },
+    {
+      "source": "/products/compare",
+      "destination": "/en/products/compare",
+      "permanent": true
+    },
+    {
+      "source": "/products/inmo-go3",
+      "destination": "/en/products/inmo-go3",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote",
+      "destination": "/en/products/ticnote",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote-lite",
+      "destination": "/en/products/ticnote-lite",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote-pods-4g",
+      "destination": "/en/products/ticnote-pods-4g",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote-pods-wifi",
+      "destination": "/en/products/ticnote-pods-wifi",
+      "permanent": true
+    },
+    {
+      "source": "/request-quote",
+      "destination": "/en/request-quote",
+      "permanent": true
+    },
+    {
+      "source": "/resources",
+      "destination": "/en/resources",
+      "permanent": true
+    },
+    {
+      "source": "/resources/ai-procurement-checklist",
+      "destination": "/en/resources/ai-procurement-checklist",
+      "permanent": true
+    },
+    {
+      "source": "/resources/china-ai-export-playbook",
+      "destination": "/zh/resources/china-ai-export-playbook",
+      "permanent": true
+    },
+    {
+      "source": "/resources/cnps-ai-revisions",
+      "destination": "/en/resources/cnps-ai-revisions",
+      "permanent": true
+    },
+    {
+      "source": "/resources/edge-ai-survey",
+      "destination": "/en/resources/edge-ai-survey",
+      "permanent": true
+    },
+    {
+      "source": "/resources/fastgpt-cnps-global-growth",
+      "destination": "/en/resources/fastgpt-cnps-global-growth",
+      "permanent": true
+    },
+    {
+      "source": "/resources/fastgpt-cnps-global-growth-bilingual",
+      "destination": "/en/resources/fastgpt-cnps-global-growth",
+      "permanent": true
+    },
+    {
+      "source": "/resources/knowledge-pilot",
+      "destination": "/en/resources/knowledge-pilot",
+      "permanent": true
+    },
+    {
+      "source": "/resources/meeting-device-pilot",
+      "destination": "/en/resources/meeting-device-pilot",
+      "permanent": true
+    },
+    {
+      "source": "/resources/rfq-template",
+      "destination": "/en/resources/rfq-template",
+      "permanent": true
+    },
+    {
+      "source": "/resources/robotics-procurement",
+      "destination": "/en/resources/robotics-procurement",
+      "permanent": true
+    },
+    {
+      "source": "/resources/voice-prototype",
+      "destination": "/en/resources/voice-prototype",
+      "permanent": true
     },
     {
       "source": "/returns",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/returns"
+      "destination": "/en/returns",
+      "permanent": true
     },
     {
       "source": "/shipping",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/shipping"
+      "destination": "/en/shipping",
+      "permanent": true
+    },
+    {
+      "source": "/solutions",
+      "destination": "/en/solutions",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/edge-vision",
+      "destination": "/en/solutions/edge-vision",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/knowledge-assistants",
+      "destination": "/en/solutions/knowledge-assistants",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/meeting-ai",
+      "destination": "/en/solutions/meeting-ai",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/robotics-research",
+      "destination": "/en/solutions/robotics-research",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/voice-prototypes",
+      "destination": "/en/solutions/voice-prototypes",
+      "permanent": true
     },
     {
       "source": "/support",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/support"
+      "destination": "/en/support",
+      "permanent": true
     },
     {
       "source": "/technology",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/technology"
+      "destination": "/en/technology",
+      "permanent": true
     },
     {
       "source": "/terms",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/terms"
+      "destination": "/en/terms",
+      "permanent": true
     },
     {
       "source": "/use-cases",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/use-cases"
+      "destination": "/en/use-cases",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/calls",
+      "destination": "/en/use-cases/calls",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/lectures",
+      "destination": "/en/use-cases/lectures",
+      "permanent": true
+    },
+    {
+      "source": "/use-cases/meetings",
+      "destination": "/en/use-cases/meetings",
+      "permanent": true
     },
     {
       "source": "/wholesale",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/wholesale"
+      "destination": "/en/wholesale",
+      "permanent": true
     },
     {
-      "source": "/_next/:path*",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/_next/:path*"
+      "source": "/en/resources/fastgpt-cnps-global-growth-bilingual",
+      "destination": "/en/resources/fastgpt-cnps-global-growth",
+      "permanent": true
     },
+    {
+      "source": "/zh/resources/fastgpt-cnps-global-growth-bilingual",
+      "destination": "/zh/resources/fastgpt-cnps-global-growth",
+      "permanent": true
+    },
+    {
+      "source": "/ar/resources/fastgpt-cnps-global-growth-bilingual",
+      "destination": "/ar/resources/fastgpt-cnps-global-growth",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
     {
       "source": "/brand/:path*",
       "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/brand/:path*"
     },
     {
-      "source": "/products/:path*",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/products/:path*"
-    },
-    {
-      "source": "/use-cases/:path*",
-      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/use-cases/:path*"
+      "source": "/_next/:path*",
+      "destination": "https://cnps-2ieeg1m07-aipy.vercel.app/_next/:path*"
     }
   ]
 }

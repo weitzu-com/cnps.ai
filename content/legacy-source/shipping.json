@@ -1,0 +1,20 @@
+{
+  "path": "/shipping",
+  "source_url": "https://www.cnps.ai/shipping",
+  "text": "- Home\n- /Shipping\nShipping\n\n# Ships internationally from China\nPolicy dated August 28, 2026. Methods and charges appear at checkout on shop.cnps.ai after a delivery address is entered.\n\nCNPS.AI ships only to destinations that are available when you enter your delivery address at checkout. A country appearing in the market list does not guarantee that every product or carrier service is available to every address.\nOrders may be shipped internationally from China. Currency on the shop is USD. Import duties, taxes, customs charges, brokerage fees, and local handling charges may apply. Unless checkout explicitly states that duties or taxes are included, these charges are the recipient's responsibility.\nMany products contain lithium batteries or wireless components. Carrier or destination-country restrictions can limit a shipping method or prevent shipment.\n\n## Destinations listed on the shop\n\n- United Arab Emirates (AE)\n- Austria (AT)\n- Australia (AU)\n- Belgium (BE)\n- Canada (CA)\n- Switzerland (CH)\n- Czechia (CZ)\n- Germany (DE)\n- Denmark (DK)\n- Spain (ES)\n- Finland (FI)\n- France (FR)\n- United Kingdom (GB)\n- Hong Kong (HK)\n- Ireland (IE)\n- Israel (IL)\n- Italy (IT)\n- Japan (JP)\n- South Korea (KR)\n- Malaysia (MY)\n- Netherlands (NL)\n- Norway (NO)\n- New Zealand (NZ)\n- Poland (PL)\n- Portugal (PT)\n- Sweden (SE)\n- Singapore (SG)\n- United States (US)\nSource: shop shipping policy. Questions: iweibing@gmail.com.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "https://shop.cnps.ai/policies/shipping-policy",
+      "start": 167
+    },
+    {
+      "href": "mailto:iweibing@gmail.com",
+      "start": 170
+    }
+  ]
+}

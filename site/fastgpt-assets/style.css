@@ -6,3 +6,5 @@
 @media print{.site-header,.site-footer,.report-toc,.page-intro,.skip{display:none}.wrap{width:100%}.report-layout{display:block}.report-body{max-width:none;font-size:10pt}.report-body h2{font-size:17pt}.chapter-break{break-before:page;border:0;margin:0}.report-body .table-wrap{overflow:visible}.report-body table{min-width:0}a{color:inherit}.report-body pre{white-space:pre-wrap}body{background:#fff}}
 
 fieldset{margin:0;padding:0;border:0;min-width:0}
+
+.consent{display:flex;align-items:flex-start;gap:.7rem}.consent input{width:1.2rem;min-height:1.2rem;flex:none;margin-top:.2rem}.consent span{min-width:0}button:disabled{opacity:.65;cursor:wait}#inquiry-status{overflow-wrap:anywhere;color:var(--deep)}#inquiry-status:empty{display:none}

@@ -1,0 +1,24 @@
+{
+  "path": "/use-cases",
+  "source_url": "https://www.cnps.ai/use-cases",
+  "text": "- Home\n- /Use cases\nUse cases\n\n# Wherever you work\nMeetings, lectures, and calls — the three rooms named on the shop homepage.\n\n\n## Meetings\nPut the recorder on the table. Everyone can see it.\n\n## Lectures\n64GB on the card; hours of class without a laptop.\n\n## Calls\nPhone and virtual meetings, then a transcript you can search.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "/use-cases/meetings",
+      "start": 15
+    },
+    {
+      "href": "/use-cases/lectures",
+      "start": 19
+    },
+    {
+      "href": "/use-cases/calls",
+      "start": 23
+    }
+  ]
+}

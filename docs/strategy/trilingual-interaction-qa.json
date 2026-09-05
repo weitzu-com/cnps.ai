@@ -1,0 +1,83 @@
+{
+  "results": [
+    {
+      "lang": "en",
+      "case": "draft_without_consent",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "case": "mocked_success_no_marketing",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "case": "mocked_failure_preserves_fields",
+      "passed": true
+    },
+    {
+      "lang": "en",
+      "case": "search_and_filter",
+      "passed": true
+    },
+    {
+      "lang": "zh",
+      "case": "draft_without_consent",
+      "passed": true
+    },
+    {
+      "lang": "zh",
+      "case": "mocked_success_no_marketing",
+      "passed": true
+    },
+    {
+      "lang": "zh",
+      "case": "mocked_failure_preserves_fields",
+      "passed": true
+    },
+    {
+      "lang": "zh",
+      "case": "search_and_filter",
+      "passed": true
+    },
+    {
+      "lang": "ar",
+      "case": "draft_without_consent",
+      "passed": true
+    },
+    {
+      "lang": "ar",
+      "case": "mocked_success_no_marketing",
+      "passed": true
+    },
+    {
+      "lang": "ar",
+      "case": "mocked_failure_preserves_fields",
+      "passed": true
+    },
+    {
+      "lang": "ar",
+      "case": "search_and_filter",
+      "passed": true
+    },
+    {
+      "case": "same_page_language_query_anchor",
+      "passed": true
+    },
+    {
+      "case": "mobile_menu_keyboard",
+      "passed": true
+    },
+    {
+      "case": "reduced_motion",
+      "passed": true
+    },
+    {
+      "case": "no_js_safe_fallback",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "mockedPostCount": 6,
+  "livePosts": 0
+}

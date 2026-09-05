@@ -1,0 +1,90 @@
+{
+  "createdAt": "2026-09-05T06:52:49.071Z",
+  "base": "http://127.0.0.1:4175",
+  "method": "Isolated browser tests; every HubSpot POST intercepted and mocked. No actual inquiry sent.",
+  "campaign": [
+    {
+      "name": "Fresh campaign clears old content, term and case",
+      "storedCampaign": {
+        "utm_source": "linkedin",
+        "utm_medium": "social",
+        "utm_campaign": "new"
+      },
+      "cta": "/en/request-quote?utm_source=linkedin&utm_medium=social&utm_campaign=new&source=home&content=cta-1",
+      "pass": true
+    },
+    {
+      "name": "Website default preserves real external campaign",
+      "storedCampaign": {
+        "utm_source": "x",
+        "utm_medium": "social",
+        "utm_campaign": "old",
+        "utm_content": "old-post",
+        "utm_term": "old-term"
+      },
+      "cta": "/ar/request-quote?utm_source=x&utm_medium=social&utm_campaign=old&utm_content=old-post&utm_term=old-term&source=fastgpt-cases-parts-data&content=cta-2&case=parts-data",
+      "pass": true
+    },
+    {
+      "name": "Marked same-campaign navigation preserves optional fields and infers workflow",
+      "storedCampaign": {
+        "utm_source": "x",
+        "utm_medium": "social",
+        "utm_campaign": "old",
+        "utm_content": "old-post",
+        "utm_term": "old-term"
+      },
+      "cta": "/zh/request-quote?utm_source=x&utm_medium=social&utm_campaign=old&utm_content=old-post&utm_term=old-term&source=fastgpt-solutions-technical-knowledge&content=cta-2&workflow=technical-knowledge",
+      "pass": true
+    },
+    {
+      "name": "Fresh same-name campaign clears absent optional fields",
+      "storedCampaign": {
+        "utm_source": "x",
+        "utm_medium": "social",
+        "utm_campaign": "old"
+      },
+      "cta": "/en/request-quote?utm_source=x&utm_medium=social&utm_campaign=old&source=home&content=cta-1",
+      "pass": true
+    }
+  ],
+  "forms": [
+    {
+      "locale": "en",
+      "labelDuringConfig": "Send inquiry",
+      "labelAfterConfig": "Send inquiry",
+      "whitespaceRejected": true,
+      "localizedValidation": "Enter a value, not just spaces.",
+      "validSubmissionCount": 1,
+      "immediateDuplicatePrevented": true,
+      "consentLocalized": true,
+      "marketingSubscriptions": 0,
+      "pass": true
+    },
+    {
+      "locale": "zh",
+      "labelDuringConfig": "发送询盘",
+      "labelAfterConfig": "发送询盘",
+      "whitespaceRejected": true,
+      "localizedValidation": "请填写有效内容，不能仅为空格。",
+      "validSubmissionCount": 1,
+      "immediateDuplicatePrevented": true,
+      "consentLocalized": true,
+      "marketingSubscriptions": 0,
+      "pass": true
+    },
+    {
+      "locale": "ar",
+      "labelDuringConfig": "إرسال الاستفسار",
+      "labelAfterConfig": "إرسال الاستفسار",
+      "whitespaceRejected": true,
+      "localizedValidation": "أدخل قيمة فعلية، لا مسافات فقط.",
+      "validSubmissionCount": 1,
+      "immediateDuplicatePrevented": true,
+      "consentLocalized": true,
+      "marketingSubscriptions": 0,
+      "pass": true
+    }
+  ],
+  "pass": true
+}

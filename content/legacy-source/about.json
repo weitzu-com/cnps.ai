@@ -1,0 +1,24 @@
+{
+  "path": "/about",
+  "source_url": "https://www.cnps.ai/about",
+  "text": "- Home\n- /About\nAbout\n\n# CNPS.AI\nWho we are, restated from the shop — without extra history.\n\nCNPS.AI is operated from Dongying, Shandong, China, at Yunhe Road 336, Dongying, Shandong 257091, China.\nThis site is the official English marketing website at www.cnps.ai. Purchases are completed on shop.cnps.ai, a Shopify store. CNPS.AI sells TicNote recorders and earbuds, plus AR glasses, through that shop.\nTicNote hardware is listed with vendor TicNote. CNPS.AI is the vendor of the two glasses SKUs: AR Smart Glasses (CNPS-PVG1) and INMO GO3 (IMG301).\nCNPS.AI (cnps.ai) is not CNAPS.AI (cnaps.ai) and is not the California Native Plant Society (cnps.org).\nSales: sales@cnps.ai, +8618354639099.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "https://shop.cnps.ai",
+      "start": 20
+    },
+    {
+      "href": "mailto:sales@cnps.ai",
+      "start": 29
+    },
+    {
+      "href": "tel:+8618354639099",
+      "start": 32
+    }
+  ]
+}

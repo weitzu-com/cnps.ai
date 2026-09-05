@@ -1,0 +1,24 @@
+{
+  "path": "/technology",
+  "source_url": "https://www.cnps.ai/technology",
+  "text": "- Home\n- /Technology\nTechnology\n\n# Capture. Understand. Act.\nHardware and app facts published on shop.cnps.ai — nothing beyond those listings.\n\n\n- \n\n## Capture\nRecord meetings, lectures, and calls on the card or earbuds.\n- \n\n## Understand\nTranscription in 120+ languages, summaries and mind maps in the app.\n- \n\n## Act\nAsk the recording questions and pull out action items.\n\n\n## TicNote hardware\n\n- Card: 64GB (about 434 hours). See TicNote.\n- Pods: 32GB case and 256MB on the earbuds. See Pods WiFi and Pods 4G.\n- Lite is listed as a lighter recorder for meetings and lectures.\n\n\n## Wearable displays\n\n- AR Smart Glasses: diffractive optical lens micro-display, anti-glare coating, quad-core ARM 1.5 GHz, dual directional stereo, capacitive temple touch. Vendor CNPS.AI, SKU CNPS-PVG1.\n- INMO GO3: 53g, binocular green MicroLED + diffractive waveguide, 640×480, up to 1500 nits, FOV 30°, dual-core CPU, RTOS, 256MB + 64GB, 4 mic + 2 speaker, 270 mAh unit / 1300 mAh case, BT 5.4, Wi-Fi 2.4G. Vendor CNPS.AI, SKU IMG301.",
+  "images": [],
+  "links": [
+    {
+      "href": "/",
+      "start": 4
+    },
+    {
+      "href": "/products/ticnote",
+      "start": 38
+    },
+    {
+      "href": "/products/ticnote-pods-wifi",
+      "start": 43
+    },
+    {
+      "href": "/products/ticnote-pods-4g",
+      "start": 47
+    }
+  ]
+}
