@@ -1,0 +1,20 @@
+{
+  "results": [
+    {
+      "url": "https://www.cnps.ai/zh",
+      "title": "科技有度。 智能有为。 | CNPS.AI",
+      "language": "zh-CN",
+      "direction": "ltr",
+      "overflow": false
+    },
+    {
+      "url": "https://www.cnps.ai/ar",
+      "title": "ذكاءٌ له غاية. وتقنيةٌ تخدم الإنسان. | CNPS.AI",
+      "language": "ar",
+      "direction": "rtl",
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "postRequests": 0
+}

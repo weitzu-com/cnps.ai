@@ -1,0 +1,415 @@
+{
+  "base": "https://www.cnps.ai",
+  "phase": "production",
+  "verified_at": "2026-09-05T06:59:20.845805+00:00",
+  "deployment_id": "dpl_CVY4zyNYZkEeYdDYnFnmRPPXomfH",
+  "source_commit": "e99ac71",
+  "checks": [
+    {
+      "path": "/en",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en",
+      "bytes": 13958,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/en/case-studies",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/case-studies",
+      "bytes": 13555,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/en/fastgpt",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/fastgpt",
+      "bytes": 12647,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/en/privacy",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/privacy",
+      "bytes": 8829,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/en/products",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/products",
+      "bytes": 9582,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/en/products/ticnote",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/products/ticnote",
+      "bytes": 9135,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/en/request-quote",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/request-quote",
+      "bytes": 9677,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/en/resources/china-ai-export-playbook",
+      "kind": "page",
+      "lang": "en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/resources/china-ai-export-playbook",
+      "bytes": 102422,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh",
+      "bytes": 13515,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh/case-studies",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/case-studies",
+      "bytes": 12796,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh/fastgpt",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/fastgpt",
+      "bytes": 12056,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh/privacy",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/privacy",
+      "bytes": 8454,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh/products",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/products",
+      "bytes": 9485,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh/products/ticnote",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/products/ticnote",
+      "bytes": 9099,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh/request-quote",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/request-quote",
+      "bytes": 9525,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/zh/resources/china-ai-export-playbook",
+      "kind": "page",
+      "lang": "zh",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/resources/china-ai-export-playbook",
+      "bytes": 86064,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar",
+      "bytes": 16335,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar/case-studies",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar/case-studies",
+      "bytes": 15878,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar/fastgpt",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar/fastgpt",
+      "bytes": 15446,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar/privacy",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar/privacy",
+      "bytes": 10503,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar/products",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar/products",
+      "bytes": 10669,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar/products/ticnote",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar/products/ticnote",
+      "bytes": 10499,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar/request-quote",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar/request-quote",
+      "bytes": 10917,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/ar/resources/china-ai-export-playbook",
+      "kind": "page",
+      "lang": "ar",
+      "status": 200,
+      "url": "https://www.cnps.ai/ar/resources/china-ai-export-playbook",
+      "bytes": 139932,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/",
+      "kind": "redirect",
+      "destination": "/en",
+      "status": 200,
+      "url": "https://www.cnps.ai/en",
+      "bytes": 13958,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/fastgpt/contact",
+      "kind": "redirect",
+      "destination": "/en/fastgpt/contact",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/fastgpt/contact",
+      "bytes": 9478,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/products",
+      "kind": "redirect",
+      "destination": "/en/products",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/products",
+      "bytes": 9582,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/resources/china-ai-export-playbook",
+      "kind": "redirect",
+      "destination": "/zh/resources/china-ai-export-playbook",
+      "status": 200,
+      "url": "https://www.cnps.ai/zh/resources/china-ai-export-playbook",
+      "bytes": 86064,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/resources/fastgpt-cnps-global-growth-bilingual",
+      "kind": "redirect",
+      "destination": "/en/resources/fastgpt-cnps-global-growth",
+      "status": 200,
+      "url": "https://www.cnps.ai/en/resources/fastgpt-cnps-global-growth",
+      "bytes": 103526,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/downloads/en/china-ai-export-playbook.md",
+      "kind": "download",
+      "source": "content/i18n/reports/china-ai-export-playbook.en.md",
+      "status": 200,
+      "url": "https://www.cnps.ai/downloads/en/china-ai-export-playbook.md",
+      "bytes": 82646,
+      "robots": null,
+      "sha256": "3300557a579189edb6833cf54db4ce12291ec7af065f34c16027047baaafaceb",
+      "matches_source": true,
+      "passed": true
+    },
+    {
+      "path": "/downloads/en/fastgpt-cnps-global-growth.md",
+      "kind": "download",
+      "source": "content/i18n/reports/fastgpt-cnps-global-growth.en.md",
+      "status": 200,
+      "url": "https://www.cnps.ai/downloads/en/fastgpt-cnps-global-growth.md",
+      "bytes": 85433,
+      "robots": null,
+      "sha256": "a9500d1b07d3c757fbed783c6b4974387ea685e75857bb213eeef907ae528a67",
+      "matches_source": true,
+      "passed": true
+    },
+    {
+      "path": "/downloads/zh/china-ai-export-playbook.md",
+      "kind": "download",
+      "source": "content/i18n/reports/china-ai-export-playbook.zh.md",
+      "status": 200,
+      "url": "https://www.cnps.ai/downloads/zh/china-ai-export-playbook.md",
+      "bytes": 66848,
+      "robots": null,
+      "sha256": "cb516a24dcd4ff69b71a16710d5b743bbca5c520b063dab7560a02612fa66fbb",
+      "matches_source": true,
+      "passed": true
+    },
+    {
+      "path": "/downloads/zh/fastgpt-cnps-global-growth.md",
+      "kind": "download",
+      "source": "content/i18n/reports/fastgpt-cnps-global-growth.zh.md",
+      "status": 200,
+      "url": "https://www.cnps.ai/downloads/zh/fastgpt-cnps-global-growth.md",
+      "bytes": 70755,
+      "robots": null,
+      "sha256": "85eaf2539ae716c8cdc86110778cc34fdc83646da8d7996a7fd1f0740c8342b7",
+      "matches_source": true,
+      "passed": true
+    },
+    {
+      "path": "/downloads/ar/china-ai-export-playbook.md",
+      "kind": "download",
+      "source": "content/i18n/reports/china-ai-export-playbook.ar.md",
+      "status": 200,
+      "url": "https://www.cnps.ai/downloads/ar/china-ai-export-playbook.md",
+      "bytes": 118510,
+      "robots": null,
+      "sha256": "b3144404893a60cb46d618964b60b719129076f0ecfc89b31724347c32833996",
+      "matches_source": true,
+      "passed": true
+    },
+    {
+      "path": "/downloads/ar/fastgpt-cnps-global-growth.md",
+      "kind": "download",
+      "source": "content/i18n/reports/fastgpt-cnps-global-growth.ar.md",
+      "status": 200,
+      "url": "https://www.cnps.ai/downloads/ar/fastgpt-cnps-global-growth.md",
+      "bytes": 125032,
+      "robots": null,
+      "sha256": "90556af35b871275df6d06853e9f31013e00daefe5d553e6719c67b070ea60ea",
+      "matches_source": true,
+      "passed": true
+    },
+    {
+      "path": "/assets/site.css",
+      "kind": "asset",
+      "status": 200,
+      "url": "https://www.cnps.ai/assets/site.css",
+      "bytes": 23622,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/assets/site.mjs",
+      "kind": "asset",
+      "status": 200,
+      "url": "https://www.cnps.ai/assets/site.mjs",
+      "bytes": 15506,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/fastgpt-assets/hubspot-config.json",
+      "kind": "asset",
+      "status": 200,
+      "url": "https://www.cnps.ai/fastgpt-assets/hubspot-config.json",
+      "bytes": 249,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "kind": "asset",
+      "status": 200,
+      "url": "https://www.cnps.ai/sitemap.xml",
+      "bytes": 92436,
+      "robots": null,
+      "passed": true
+    },
+    {
+      "path": "/this-page-does-not-exist-cnps-qa",
+      "kind": "notfound",
+      "status": 404,
+      "passed": true
+    }
+  ],
+  "total": 40,
+  "failed": []
+}

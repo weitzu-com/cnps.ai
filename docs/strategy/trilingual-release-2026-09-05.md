@@ -34,4 +34,10 @@
 
 发布前正式版本（回滚参考）：dpl_BwS73nyiEyXFmC2EV7a7HeNJG3Dc / https://cnps-2vkucu613-aipy.vercel.app 。
 
-新版正式部署ID与生产网址验证将在发布完成后补入此记录。
+新版已发布：dpl_CVY4zyNYZkEeYdDYnFnmRPPXomfH / https://cnps-bisf1kf7y-aipy.vercel.app 。网站源码提交为 e99ac71ea6bcdc1a9f5330903c79aaffaed656b7。
+
+正式入口：[中文](https://www.cnps.ai/zh)、[English](https://www.cnps.ai/en)、[العربية](https://www.cnps.ai/ar)。根域官网入口默认英文，以保持海外B2B访客的默认语言；切换语言留在当前内容。
+
+候选部署 298 项线上核验全部通过（207语言页面、72个旧入口/别名跳转、6份译文Markdown、12个资源与附件及未知页面404）。正式域名 40 项重点复核全部通过，无误设 noindex，六份报告Markdown与本地译文逐字节一致。
+
+浏览器表单测试全部拦截并模拟响应，未向HubSpot发送真实测试联系人；因此本记录不宣称实际客户线索已送达。三项独立审查发现的回归——活动来源串联、加载期按钮动作文字、清理后空白字段——均已修复并复测通过。
