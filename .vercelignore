@@ -17,3 +17,5 @@ site/robots.txt
 site/llms.txt
 output/playwright
 output/qa
+
+web/assets/editorial/originals

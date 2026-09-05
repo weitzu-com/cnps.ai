@@ -1,3 +1,5 @@
+import './motion.mjs';
+import './experience.mjs';
 import {ui} from '/assets/ui.mjs';
 const locale=document.body.dataset.locale||'en',t=ui(locale);
 const menu=document.querySelector('.menu-toggle'), mobile=document.getElementById('mobile-nav');
@@ -5,7 +7,7 @@ function closeMenu(){if(menu){menu.setAttribute('aria-expanded','false');menu.se
 menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?t.close:t.menu);mobile.hidden=!open;});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeMenu();document.querySelectorAll('.language-switch[open]').forEach(d=>d.open=false);}});
 document.addEventListener('click',event=>{document.querySelectorAll('.language-switch[open]').forEach(d=>{if(!d.contains(event.target))d.open=false;});});
-matchMedia('(min-width:1024px)').addEventListener('change',event=>{if(event.matches)closeMenu();});
+matchMedia('(min-width:1280px)').addEventListener('change',event=>{if(event.matches)closeMenu();});
 const query=new URLSearchParams(location.search);
 const campaignKeys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
 const trackingKeys=[...campaignKeys,'source','content','case','workflow'];
@@ -24,6 +26,8 @@ if(caseMatch&&cleanId(caseMatch[1]))details.case=caseMatch[1];if(workflowMatch&&
 for(const a of document.querySelectorAll('a[data-language]')){
  const u=new URL(a.href);for(const [key,value]of Object.entries({...campaign,...safeQuery,...pick(Object.fromEntries(query),['solution','product'])}))u.searchParams.set(key,value);u.hash=location.hash;a.href=u.pathname+u.search+u.hash;
 }
+const syncLanguageHash=()=>document.querySelectorAll('a[data-language]').forEach(a=>{const u=new URL(a.href);u.hash=location.hash;a.href=u.pathname+u.search+u.hash;});
+addEventListener('hashchange',syncLanguageHash);document.addEventListener('cnps:section-change',syncLanguageHash);
 let ctaCount=0;
 for(const a of document.querySelectorAll('a[href]')){
  let u;try{u=new URL(a.href,location.href);}catch{continue;}if(u.origin!==location.origin||a.dataset.language||!/^\/(en|zh|ar)(\/|$)/.test(u.pathname))continue;
@@ -56,7 +60,7 @@ if(report){
 }
 const canvas=document.querySelector('.orb-canvas');
 if(canvas){
- const ctx=canvas.getContext('2d'),toggle=document.querySelector('[data-orbit-toggle]'),reduced=matchMedia('(prefers-reduced-motion:reduce)');let paused=reduced.matches,visible=true,angle=.6,frame=0,last=0,width=0,height=0,dpr=1,pointer=0;
+ const ctx=canvas.getContext('2d'),toggle=document.querySelector('[data-orbit-toggle]'),reduced=matchMedia('(prefers-reduced-motion:reduce)');let paused=reduced.matches||document.documentElement.dataset.motion==='paused',visible=true,angle=.6,frame=0,last=0,width=0,height=0,dpr=1,pointer=0;
  const points=[];for(let lat=-80;lat<=80;lat+=8)for(let lon=0;lon<360;lon+=10){const la=lat*Math.PI/180,lo=lon*Math.PI/180;points.push([Math.cos(la)*Math.cos(lo),Math.sin(la),Math.cos(la)*Math.sin(lo)]);}
  function size(){const box=canvas.getBoundingClientRect();width=box.width;height=box.height;dpr=Math.min(devicePixelRatio||1,2);canvas.width=width*dpr;canvas.height=height*dpr;draw();}
  function project([x,y,z]){const a=angle+pointer,rx=x*Math.cos(a)-z*Math.sin(a),rz=x*Math.sin(a)+z*Math.cos(a),ry=y*.94-rz*.24,zz=y*.24+rz*.94;const f=1+zz*.1,r=width*.34;return[width/2+rx*r*f,height/2+ry*r*f,zz];}
@@ -66,8 +70,8 @@ if(canvas){
   for(let i=0;i<3;i++){const a=angle*1.4+i*2.094,x=width/2+Math.cos(a)*width*.45,y=height/2+Math.sin(a)*height*.29;ctx.save();ctx.translate(width/2,height/2);ctx.rotate(-.28+i*.35);ctx.beginPath();ctx.ellipse(0,0,width*.44,height*.28,0,0,Math.PI*2);ctx.strokeStyle='rgba(108,229,223,.13)';ctx.lineWidth=1;ctx.stroke();ctx.restore();ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fillStyle='#9bf3e9';ctx.shadowColor='#6ce5df';ctx.shadowBlur=14;ctx.fill();ctx.shadowBlur=0;}}
  function tick(time){frame=0;if(paused||!visible||document.hidden)return;if(time-last>40){angle+=.003;draw();last=time;}frame=requestAnimationFrame(tick);}
  function start(){if(!frame&&!paused&&visible&&!document.hidden)frame=requestAnimationFrame(tick);}
- function state(){toggle.textContent=paused?t.resume:t.pause;toggle.setAttribute('aria-pressed',String(paused));if(paused){cancelAnimationFrame(frame);frame=0;draw();}else start();}
- toggle.addEventListener('click',()=>{paused=!paused;state();});reduced.addEventListener('change',e=>{paused=e.matches;state();});new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible)start();}).observe(canvas);document.addEventListener('visibilitychange',start);canvas.parentElement.addEventListener('pointermove',e=>{if(paused)return;const box=canvas.getBoundingClientRect();pointer=((e.clientX-box.left)/box.width-.5)*.12;});new ResizeObserver(size).observe(canvas);size();state();
+ function state(){toggle.disabled=reduced.matches;toggle.title=reduced.matches?t.reducedMotion:'';toggle.textContent=paused?t.resume:t.pause;toggle.setAttribute('aria-pressed',String(paused));if(paused){cancelAnimationFrame(frame);frame=0;draw();}else start();}
+ toggle.addEventListener('click',()=>{document.dispatchEvent(new CustomEvent('cnps:motion-request',{detail:{paused:!paused}}));});document.addEventListener('cnps:motion-change',e=>{paused=e.detail.paused;state();});new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible)start();}).observe(canvas);document.addEventListener('visibilitychange',start);canvas.parentElement.addEventListener('pointermove',e=>{if(paused)return;const box=canvas.getBoundingClientRect();pointer=((e.clientX-box.left)/box.width-.5)*.12;});new ResizeObserver(size).observe(canvas);size();state();
 }
 const form=document.getElementById('inquiry-form');
 if(form){form.addEventListener('submit',e=>e.preventDefault());initializeForm().catch(()=>{document.getElementById('inquiry-status').textContent=t.unavailable;});}

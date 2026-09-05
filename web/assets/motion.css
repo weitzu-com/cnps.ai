@@ -1,0 +1,33 @@
+/* Motion is optional. Content has no hidden or translated default state. */
+[data-motion-toggle]{display:none;align-items:center;justify-content:center;gap:.5rem;min-block-size:2.75rem;min-inline-size:2.75rem;border:1px solid currentColor;border-radius:3rem;padding:.4rem .8rem;background:transparent;color:inherit;font-size:.8rem;line-height:1.5}
+html[data-motion] [data-motion-toggle]{display:inline-flex}
+[data-motion-toggle]:disabled{cursor:default;opacity:.6}
+.cnps-parallax-frame{overflow:hidden;isolation:isolate}
+
+@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  html[data-motion=active] .cnps-parallax-image{transform:translate3d(0,var(--cnps-parallax-y,0px),0) scale(1.045);transform-origin:center;transition:transform .25s linear}
+  html[data-motion=active] [data-tilt]{transform:perspective(1000px) rotateX(var(--cnps-tilt-x,0deg)) rotateY(var(--cnps-tilt-y,0deg));transform-origin:center;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .25s,box-shadow .3s}
+  html[data-motion=active] [data-tilt][data-tilt-active]{transition-duration:.12s}
+}
+
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  html[data-motion=active] :is(.catalog-card,.journal-card,.feature-product,.visual-story) img:not(.cnps-parallax-image){transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  html[data-motion=active] :is(.catalog-card,.journal-card,.feature-product):hover img:not(.cnps-parallax-image){transform:scale(1.035)}
+  html[data-motion=active] .visual-story:hover img:not(.cnps-parallax-image){transform:scale(1.018)}
+  html[data-motion=active] .intent .icon{transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  html[data-motion=active] .intent:hover .icon{transform:translateY(-3px)}
+}
+
+html[data-motion=paused]{scroll-behavior:auto}
+html[data-motion=paused] *,html[data-motion=paused] *::before,html[data-motion=paused] *::after{animation-play-state:paused!important;transition:none!important}
+html[data-motion=paused] :is([data-tilt],.cnps-parallax-image,.catalog-card:hover,.journal-card:hover,.btn:hover){transform:none!important}
+html[data-motion=paused] .btn .arrow{transform:none}
+html[dir=rtl][data-motion=paused] .btn .arrow{transform:scaleX(-1)}
+
+@media(prefers-reduced-motion:reduce){
+  .cnps-parallax-image,[data-tilt]{transform:none!important}
+}
+@media print{
+  [data-motion-toggle]{display:none!important}
+  .cnps-parallax-image,[data-tilt]{transform:none!important}
+}

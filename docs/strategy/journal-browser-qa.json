@@ -1,0 +1,1045 @@
+{
+  "base": "http://127.0.0.1:4176",
+  "layouts": [
+    {
+      "lang": "en",
+      "width": 375,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 375,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 375,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 375,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 375,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 375,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 414,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 414,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 414,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 414,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 414,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 414,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1024,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1024,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1024,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1024,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1024,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1024,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 375,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 375,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 375,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 375,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 375,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 375,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 414,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 414,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 414,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 414,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 414,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 414,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 768,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 768,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 768,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 768,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 768,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 768,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1024,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1024,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1024,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1024,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1024,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1024,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1440,
+      "route": "",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1440,
+      "route": "/products",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1440,
+      "route": "/solutions/edge-vision",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1440,
+      "route": "/request-quote",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1440,
+      "route": "/blogs",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "zh-CN",
+      "width": 1440,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "ltr",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 375,
+      "route": "",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 375,
+      "route": "/products",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 375,
+      "route": "/solutions/edge-vision",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 375,
+      "route": "/request-quote",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 375,
+      "route": "/blogs",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 375,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 414,
+      "route": "",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 414,
+      "route": "/products",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 414,
+      "route": "/solutions/edge-vision",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 414,
+      "route": "/request-quote",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 414,
+      "route": "/blogs",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 414,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 768,
+      "route": "",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 768,
+      "route": "/products",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 768,
+      "route": "/solutions/edge-vision",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 768,
+      "route": "/request-quote",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 768,
+      "route": "/blogs",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 768,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1024,
+      "route": "",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1024,
+      "route": "/products",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1024,
+      "route": "/solutions/edge-vision",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1024,
+      "route": "/request-quote",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1024,
+      "route": "/blogs",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1024,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1440,
+      "route": "",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1440,
+      "route": "/products",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1440,
+      "route": "/solutions/edge-vision",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1440,
+      "route": "/request-quote",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1440,
+      "route": "/blogs",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    },
+    {
+      "lang": "ar",
+      "width": 1440,
+      "route": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "dir": "rtl",
+      "overflow": false,
+      "missingImages": [],
+      "navOverlap": false
+    }
+  ],
+  "checks": [
+    {
+      "name": "en six full articles",
+      "pass": true
+    },
+    {
+      "name": "en category filter",
+      "pass": true
+    },
+    {
+      "name": "en empty search feedback",
+      "pass": true
+    },
+    {
+      "name": "en clear search",
+      "pass": true
+    },
+    {
+      "name": "en interactive workflow",
+      "pass": true
+    },
+    {
+      "name": "en workflow language anchor",
+      "pass": true
+    },
+    {
+      "name": "en keyboard workflow",
+      "pass": true
+    },
+    {
+      "name": "en article metadata",
+      "pass": true
+    },
+    {
+      "name": "en language preserves reading section",
+      "pass": true
+    },
+    {
+      "name": "en article progress",
+      "pass": true
+    },
+    {
+      "name": "en article inquiry attribution",
+      "pass": true
+    },
+    {
+      "name": "zh six full articles",
+      "pass": true
+    },
+    {
+      "name": "zh category filter",
+      "pass": true
+    },
+    {
+      "name": "zh empty search feedback",
+      "pass": true
+    },
+    {
+      "name": "zh clear search",
+      "pass": true
+    },
+    {
+      "name": "zh interactive workflow",
+      "pass": true
+    },
+    {
+      "name": "zh workflow language anchor",
+      "pass": true
+    },
+    {
+      "name": "zh keyboard workflow",
+      "pass": true
+    },
+    {
+      "name": "zh article metadata",
+      "pass": true
+    },
+    {
+      "name": "zh language preserves reading section",
+      "pass": true
+    },
+    {
+      "name": "zh article progress",
+      "pass": true
+    },
+    {
+      "name": "zh article inquiry attribution",
+      "pass": true
+    },
+    {
+      "name": "ar six full articles",
+      "pass": true
+    },
+    {
+      "name": "ar category filter",
+      "pass": true
+    },
+    {
+      "name": "ar empty search feedback",
+      "pass": true
+    },
+    {
+      "name": "ar clear search",
+      "pass": true
+    },
+    {
+      "name": "ar interactive workflow",
+      "pass": true
+    },
+    {
+      "name": "ar workflow language anchor",
+      "pass": true
+    },
+    {
+      "name": "ar keyboard workflow",
+      "pass": true
+    },
+    {
+      "name": "ar article metadata",
+      "pass": true
+    },
+    {
+      "name": "ar language preserves reading section",
+      "pass": true
+    },
+    {
+      "name": "ar article progress",
+      "pass": true
+    },
+    {
+      "name": "ar article inquiry attribution",
+      "pass": true
+    },
+    {
+      "name": "en knowledge-ai-pilot-that-earns-trust full article",
+      "pass": true
+    },
+    {
+      "name": "en meeting-ai-measure-the-finished-note full article",
+      "pass": true
+    },
+    {
+      "name": "en edge-ai-start-with-the-site full article",
+      "pass": true
+    },
+    {
+      "name": "en smart-glasses-one-field-task full article",
+      "pass": true
+    },
+    {
+      "name": "en from-ai-prototype-to-procurement full article",
+      "pass": true
+    },
+    {
+      "name": "en write-an-ai-rfq-suppliers-can-answer full article",
+      "pass": true
+    },
+    {
+      "name": "zh knowledge-ai-pilot-that-earns-trust full article",
+      "pass": true
+    },
+    {
+      "name": "zh meeting-ai-measure-the-finished-note full article",
+      "pass": true
+    },
+    {
+      "name": "zh edge-ai-start-with-the-site full article",
+      "pass": true
+    },
+    {
+      "name": "zh smart-glasses-one-field-task full article",
+      "pass": true
+    },
+    {
+      "name": "zh from-ai-prototype-to-procurement full article",
+      "pass": true
+    },
+    {
+      "name": "zh write-an-ai-rfq-suppliers-can-answer full article",
+      "pass": true
+    },
+    {
+      "name": "ar knowledge-ai-pilot-that-earns-trust full article",
+      "pass": true
+    },
+    {
+      "name": "ar meeting-ai-measure-the-finished-note full article",
+      "pass": true
+    },
+    {
+      "name": "ar edge-ai-start-with-the-site full article",
+      "pass": true
+    },
+    {
+      "name": "ar smart-glasses-one-field-task full article",
+      "pass": true
+    },
+    {
+      "name": "ar from-ai-prototype-to-procurement full article",
+      "pass": true
+    },
+    {
+      "name": "ar write-an-ai-rfq-suppliers-can-answer full article",
+      "pass": true
+    },
+    {
+      "name": "mobile journal navigation",
+      "pass": true
+    },
+    {
+      "name": "mobile menu Escape",
+      "pass": true
+    },
+    {
+      "name": "no JavaScript all workflows and navigation visible",
+      "pass": true
+    },
+    {
+      "name": "no JavaScript errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no live inquiry submission",
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "errors": [],
+  "postRequests": 0
+}

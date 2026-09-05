@@ -394,6 +394,16 @@
       "source": "/ar/resources/fastgpt-cnps-global-growth-bilingual",
       "destination": "/ar/resources/fastgpt-cnps-global-growth",
       "permanent": true
+    },
+    {
+      "source": "/blogs",
+      "destination": "/en/blogs",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/:path*",
+      "destination": "/en/blogs/:path*",
+      "permanent": true
     }
   ],
   "rewrites": [

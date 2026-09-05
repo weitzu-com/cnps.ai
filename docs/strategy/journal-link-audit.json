@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-09-05T10:00:54.111642+00:00",
+  "scope": "Generated dist snapshot; local destinations, anchors, assets, locale metadata and same-page language switches. No build or mutations to shared files.",
+  "counts": {
+    "html_pages": 228,
+    "locale_ar": 76,
+    "language_switch_links": 1368,
+    "html_local_references": 14339,
+    "locale_en": 76,
+    "locale_zh": 76,
+    "css_module_references": 69
+  },
+  "broken_local_references": [],
+  "broken_anchors": [],
+  "broken_asset_references": [],
+  "locale_metadata_errors": [],
+  "language_switch_errors": [],
+  "duplicate_html_ids": [],
+  "unexpected_cross_locale_links": []
+}
