@@ -381,6 +381,41 @@
       "permanent": true
     },
     {
+      "source": "/fastgpt/compare",
+      "destination": "/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
+      "permanent": true
+    },
+    {
+      "source": "/fastgpt/compare/:path*",
+      "destination": "/en/fastgpt/compare/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/en/fastgpt/compare",
+      "destination": "/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
+      "permanent": false
+    },
+    {
+      "source": "/zh/fastgpt/compare",
+      "destination": "/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
+      "permanent": false
+    },
+    {
+      "source": "/zh/fastgpt/compare/:path*",
+      "destination": "/en/fastgpt/compare/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/ar/fastgpt/compare",
+      "destination": "/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
+      "permanent": false
+    },
+    {
+      "source": "/ar/fastgpt/compare/:path*",
+      "destination": "/en/fastgpt/compare/:path*",
+      "permanent": false
+    },
+    {
       "source": "/guides",
       "destination": "/en/guides",
       "permanent": true
