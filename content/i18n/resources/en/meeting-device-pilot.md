@@ -32,4 +32,6 @@ For a distribution order, also clarify packaging, destination compatibility, war
 
 Provide the destination, estimated quantity, intended use, languages, timeline and whether you need samples first. CNPS’s existing catalog can help create a shortlist; a listed product is not a guarantee of suitability for every team.
 
+For a Gulf Arabic–English operating protocol — consent, a bilingual scorecard and action-item ownership — see the [meeting-notes pilot](/guides/gulf-arabic-english-meeting-notes-pilot).
+
 [Compare the existing products](/products/compare) · [Request a team quotation](/request-quote?solution=meeting-ai)

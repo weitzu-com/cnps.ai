@@ -381,6 +381,36 @@
       "permanent": true
     },
     {
+      "source": "/guides",
+      "destination": "/en/guides",
+      "permanent": true
+    },
+    {
+      "source": "/guides/:path*",
+      "destination": "/en/guides/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/zh/guides",
+      "destination": "/en/guides",
+      "permanent": false
+    },
+    {
+      "source": "/zh/guides/:path*",
+      "destination": "/en/guides/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/ar/guides",
+      "destination": "/en/guides",
+      "permanent": false
+    },
+    {
+      "source": "/ar/guides/:path*",
+      "destination": "/en/guides/:path*",
+      "permanent": false
+    },
+    {
       "source": "/en/resources/fastgpt-cnps-global-growth-bilingual",
       "destination": "/en/resources/fastgpt-cnps-global-growth",
       "permanent": true

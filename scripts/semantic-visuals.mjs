@@ -90,6 +90,7 @@ const maps = {
 const docs = {
  'ai-procurement-checklist': [words('AI procurement','AI 采购','شراء حلول الذكاء الاصطناعي'),words('Decision checklist','决策清单','قائمة اتخاذ القرار'),'checklist'],
  'meeting-device-pilot': [words('Meeting devices','会议设备','أجهزة الاجتماعات'),words('Pilot field guide','试点指南','دليل التجربة الميدانية'),'meeting'],
+ 'gulf-arabic-english-meeting-notes-pilot': [words('Gulf meeting notes','海湾会议纪要','محاضر اجتماعات خليجية'),words('Bilingual method','双语方法','منهج ثنائي اللغة'),'protocol'],
  'knowledge-pilot': [words('Knowledge assistants','知识助手','المساعدات المعرفية'),words('Pilot design','试点设计','تصميم التجربة'),'knowledge'],
  'edge-ai-survey': [words('Edge AI','边缘 AI','الذكاء الاصطناعي الطرفي'),words('Site survey','现场勘查','مسح الموقع'),'edge'],
  'voice-prototype': [words('Voice prototypes','语音原型','نماذج أولية صوتية'),words('Interaction brief','交互设计要点','موجز التفاعل'),'voice'],
@@ -111,6 +112,7 @@ function docIcon(kind){
   case 'rfq':return frame+p('M50 40h65m-65 20h65m-65 25h65m-65 25h65M79 40v70');
   case 'global':return circle(88,74,52,'sv-paper')+p('M36 74h104M45 49h86M45 99h86M88 22q-43 52 0 104m0-104q43 52 0 104')+circle(51,49,5,'sv-accent')+circle(111,99,5,'sv-accent');
   case 'growth':return box(22,30,51,38,5,'sv-paper')+box(104,80,51,38,5,'sv-accent')+p('M74 50h54v29M48 69v30h55')+circle(128,50,6,'sv-paper')+circle(48,99,6,'sv-paper');
+  case 'protocol':return frame+p('M52 42h56M52 58h40')+box(50,74,18,14,2,'sv-accent')+p('M76 81h32')+box(50,96,18,14,2)+p('M76 103h32')+box(50,118,18,14,2,'sv-soft')+p('M76 125h24');
   default:return frame;
  }
 }
