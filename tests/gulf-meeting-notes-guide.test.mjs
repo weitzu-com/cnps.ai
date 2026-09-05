@@ -24,6 +24,8 @@ test('Gulf meeting-notes guide stays a method page', () => {
   assert.doesNotMatch(source, /add to cart|buy now/i);
   assert.match(source, /shop\.cnps\.ai\/collections\/all-ticnote-products/);
   assert.match(source, /not legal counsel|not an opinion on PDPL/i);
+  assert.match(source, /runnable two-week pilot protocol, not another Arabic note-taker list/);
+  assert.doesNotMatch(source, /Munsit|MeetriX|CallScribe|Voiquyr|Spinach|Fellow|#1|best Arabic/i);
   assert.match(source, /covert recording/);
   assert.match(source, /Pods or Lite/);
 });

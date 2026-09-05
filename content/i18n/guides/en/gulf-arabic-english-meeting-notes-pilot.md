@@ -1,6 +1,6 @@
 # Run a Gulf Arabic–English meeting-notes pilot in two weeks
 
-A safe Gulf meeting-notes pilot is a sequence, not a shopping list. Set consent and access rules first. Then test real Arabic–English meetings — including mid-sentence code-switching — against a quality scorecard. Treat the workflow as successful only when corrected notes produce human-confirmed owners and deadlines. Choose hardware after that workflow passes, not before.
+This page is a runnable two-week pilot protocol, not another Arabic note-taker list. The Gulf sequence is a **visible hardware recorder**, consent and PDPL questions for counsel, a code-switch quality scorecard, and bilingual action items a person reviews. Set consent and access first. Test real Arabic–English meetings — including mid-sentence switches — on that scorecard. Success is only when corrected notes produce human-confirmed owners and deadlines. Hardware waits until that workflow passes. This method is not a “best tool” claim.
 
 Consent, in this protocol, means calendar-invite disclosure plus a spoken start-of-meeting script. Stop if anyone objects. Limit who can reach the audio, transcript and summary, and set a retention default before the first recording. This is an operating protocol for a team pilot. It is not legal counsel and not an opinion on PDPL or any other statute.
 
@@ -36,7 +36,7 @@ Design capture around the meetings you already run. Device choice is secondary.
 
 Pick three to five recurring sessions that mix Gulf Arabic and English the way your team speaks: an internal stand-up, a customer or partner call with external guests, and at least one working session where people switch languages mid-sentence. Note speaker count, room versus remote, and whether guests sit outside your organisation.
 
-Stay device-agnostic for the first pass. Use whatever already records with consent — a table recorder, earbuds, a laptop, a room system — as long as you can collect audio, a transcript and a summary inside the access list. Measure the whole path: capture, transfer, transcript, summary, correction, action extraction.
+Stay device-agnostic for the first pass. Use whatever already records with consent — a table recorder, earbuds, a laptop, a room system — as long as capture is visible and you can collect audio, a transcript and a summary inside the access list. Measure the whole path: capture, transfer, transcript, summary, correction, action extraction.
 
 After two or three sessions you will know whether capture is the bottleneck (distance, overlap, missing remote audio) or whether correction and ownership are. Only then consider a dedicated recorder. TicNote is one capture option; choose a SKU on the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). This page does not rank models and does not run checkout. Confirm destination, plan and listing before any order. Compare form factors on [AI meeting devices](/solutions/meeting-ai) and [Equip my team](/products) after the workflow passes.
 
