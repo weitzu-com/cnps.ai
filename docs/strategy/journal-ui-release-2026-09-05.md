@@ -41,3 +41,13 @@
 本次发布前正式部署：`dpl_CVY4zyNYZkEeYdDYnFnmRPPXomfH`，`https://cnps-bisf1kf7y-aipy.vercel.app`。
 
 流程：提交代码 → Vercel 生产构建 → 未绑定域名的候选部署 → HTTP 验证 → 切换正式域名 → 线上核验。保留现有 Cloudflare DNS 与 HubSpot 集成。
+
+### 已发布结果
+
+- 实现提交：`94000ea`（已推送 GitHub `main`）。
+- 新正式部署：`dpl_EEMb6cHHt44gsf8AgxQsoQvNDcoq`。
+- 固定部署 URL：`https://cnps-p6l6926eb-aipy.vercel.app`。
+- 候选部署与正式域名各 62 项 HTTP 检查通过；新博客、三语 RSS、旧页面、模块 MIME、图片字节与历史报告下载均正常。
+- 正式浏览器：中文首页、中文博客、阿语手机文章正常；无横向溢出、图片错误或 JS 错误。
+- 线上入口：`https://www.cnps.ai/blogs`、`https://www.cnps.ai/en/blogs`、`https://www.cnps.ai/zh/blogs`、`https://www.cnps.ai/ar/blogs`。
+- 证据：`journal-candidate-http.json`、`journal-production-http.json`、`journal-production-browser.json`。所有验收未发送真实询盘。

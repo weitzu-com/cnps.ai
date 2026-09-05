@@ -1,0 +1,503 @@
+{
+  "base": "https://www.cnps.ai",
+  "checks": 62,
+  "failed": 0,
+  "results": [
+    {
+      "path": "/en",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 26500,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 15871,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/products",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 10318,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/solutions/edge-vision",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 9299,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/case-studies",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18503,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/resources",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17370,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/request-quote",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 10425,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/resources/china-ai-export-playbook",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 103194,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18375,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs/meeting-ai-measure-the-finished-note",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18430,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs/edge-ai-start-with-the-site",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18261,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs/smart-glasses-one-field-task",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18519,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs/from-ai-prototype-to-procurement",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18922,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs/write-an-ai-rfq-suppliers-can-answer",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18712,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/en/blogs/feed.xml",
+      "status": 200,
+      "type": "application/xml",
+      "bytes": 3010,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 25702,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 15520,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/products",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 10218,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/solutions/edge-vision",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 9146,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/case-studies",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17602,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/resources",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 16683,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/request-quote",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 10258,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/resources/china-ai-export-playbook",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 86826,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs/knowledge-ai-pilot-that-earns-trust",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17698,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs/meeting-ai-measure-the-finished-note",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17551,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs/edge-ai-start-with-the-site",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17339,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs/smart-glasses-one-field-task",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17422,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs/from-ai-prototype-to-procurement",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17890,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs/write-an-ai-rfq-suppliers-can-answer",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 17705,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/zh/blogs/feed.xml",
+      "status": 200,
+      "type": "application/xml",
+      "bytes": 2952,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 30679,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 18614,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/products",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 11500,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/solutions/edge-vision",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 10787,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/case-studies",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 21167,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/resources",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 19737,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/request-quote",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 11751,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/resources/china-ai-export-playbook",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 140821,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs/knowledge-ai-pilot-that-earns-trust",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 22496,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs/meeting-ai-measure-the-finished-note",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 22425,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs/edge-ai-start-with-the-site",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 22352,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs/smart-glasses-one-field-task",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 22253,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs/from-ai-prototype-to-procurement",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 22895,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs/write-an-ai-rfq-suppliers-can-answer",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "bytes": 22518,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/ar/blogs/feed.xml",
+      "status": 200,
+      "type": "application/xml",
+      "bytes": 3697,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/site.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8",
+      "bytes": 23623,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/experience.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8",
+      "bytes": 11338,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/motion.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8",
+      "bytes": 2491,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/site.mjs",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 16056,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/experience.mjs",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 2715,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/motion.mjs",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8",
+      "bytes": 9408,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/editorial/knowledge-640.webp",
+      "status": 200,
+      "type": "image/webp",
+      "bytes": 15652,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/editorial/knowledge-1280.webp",
+      "status": 200,
+      "type": "image/webp",
+      "bytes": 40646,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/editorial/meeting-640.webp",
+      "status": 200,
+      "type": "image/webp",
+      "bytes": 23110,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/editorial/meeting-1280.webp",
+      "status": 200,
+      "type": "image/webp",
+      "bytes": 61382,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/editorial/edge-640.webp",
+      "status": 200,
+      "type": "image/webp",
+      "bytes": 27236,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/assets/editorial/edge-1280.webp",
+      "status": 200,
+      "type": "image/webp",
+      "bytes": 67536,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/blogs",
+      "status": 308,
+      "type": "text/plain",
+      "bytes": 15,
+      "location": "/en/blogs",
+      "issues": []
+    },
+    {
+      "path": "/blogs/knowledge-ai-pilot-that-earns-trust",
+      "status": 308,
+      "type": "text/plain",
+      "bytes": 15,
+      "location": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+      "issues": []
+    },
+    {
+      "path": "/blogs/feed.xml",
+      "status": 308,
+      "type": "text/plain",
+      "bytes": 15,
+      "location": "/en/blogs/feed.xml",
+      "issues": []
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "type": "application/xml",
+      "bytes": 103353,
+      "location": null,
+      "issues": []
+    },
+    {
+      "path": "/downloads/zh/china-ai-export-playbook.md",
+      "status": 200,
+      "type": "text/markdown; charset=utf-8",
+      "bytes": 66848,
+      "location": null,
+      "issues": []
+    }
+  ]
+}

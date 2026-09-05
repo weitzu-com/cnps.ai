@@ -4,9 +4,9 @@ Official website for [CNPS.AI](https://www.cnps.ai). Shop remains at [shop.cnps.
 
 ## Three-language website
 
-The complete website is available at `/en`, `/zh` and `/ar`. Arabic uses RTL layout. All 68 content routes have all three languages; each language also has a 404 page. Original unprefixed URLs redirect to the corresponding edition.
+The complete website is available at `/en`, `/zh` and `/ar`. Arabic uses RTL layout. All 75 content routes have all three languages; each language also has a 404 page. Original unprefixed URLs redirect to the corresponding edition.
 
-Products, solutions, case references, buyer guides, support/policy pages, the 32-chapter CNPS strategy and 28-chapter FastGPT playbook share one design and navigation system. Historical Markdown, PDF and revision evidence remain downloadable. `/request-quote`, `/contact` and `/fastgpt/contact` are localized inquiry forms with the existing HubSpot configuration and reviewed email fallback.
+Products, solutions, case references, buyer guides, the journal, support/policy pages, the 32-chapter CNPS strategy and 28-chapter FastGPT playbook share one design and navigation system. Historical Markdown, PDF and revision evidence remain downloadable. `/request-quote`, `/contact` and `/fastgpt/contact` are localized inquiry forms with the existing HubSpot configuration and reviewed email fallback.
 
 ## Build
 
@@ -25,6 +25,14 @@ The main strategy has 32 logical pages and 22 real revisions after its baseline.
 The previous public product, support and policy pages have been migrated into `content/i18n/legacy-pages.json`. New pages no longer proxy the old HTML deployment. Only legacy `/brand` and `/_next` asset URLs are retained as compatibility rewrites for historical references. Current product photography and fonts are self-hosted under `/assets`; font licenses are included.
 
 Release architecture and validation are documented in [docs/strategy/trilingual-release-2026-09-05.md](docs/strategy/trilingual-release-2026-09-05.md). Deployment uses the existing Vercel project and needs no DNS changes.
+
+## Journal and visual experience
+
+`/blogs` opens the English journal; `/en/blogs`, `/zh/blogs` and `/ar/blogs` contain six original, fully translated buyer articles. Each language has an RSS feed at `/LANG/blogs/feed.xml`. Edit `content/i18n/blogs.json` to maintain posts; all three locales are required. The builder creates article metadata, navigation, related links and sitemap entries.
+
+`web/experience.mjs` and `web/assets/experience.css` implement the workflow explorer and journal UI. `web/motion.mjs` and `web/assets/motion.css` provide optional motion with a global pause, reduced-motion support and offscreen cleanup. `scripts/editorial-components.mjs` shares visual components across page types. New conceptual illustrations use responsive WebP; originals are archived and excluded from publication.
+
+See [release and validation](docs/strategy/journal-ui-release-2026-09-05.md), [editorial policy](docs/strategy/blog-editorial-notes.md) and [image provenance and prompts](docs/strategy/editorial-image-provenance.md).
 
 ## Editorial and data rules
 
