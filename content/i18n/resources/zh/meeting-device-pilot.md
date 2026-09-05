@@ -32,4 +32,6 @@
 
 提供目的地、预计数量、用途、语言、时间安排，以及是否先要样品。CNPS 现有目录有助于建立候选清单；商品在售不代表适合所有团队。
 
+海湾地区阿英双语会议纪要的操作规程（知情同意、质量核对与行动项归属）见[英文方法页](/en/guides/gulf-arabic-english-meeting-notes-pilot)。
+
 [比较现有产品](/products/compare) · [申请团队报价](/request-quote?solution=meeting-ai)
