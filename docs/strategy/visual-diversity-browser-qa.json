@@ -1,0 +1,1034 @@
+{
+  "base": "http://127.0.0.1:4176",
+  "layouts": [
+    {
+      "l": "en",
+      "width": 375,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 375,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 375,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 375,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 375,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 375,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 414,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 414,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 414,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 414,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 414,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 414,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 768,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 768,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 768,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 768,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 768,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 768,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1024,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1024,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1024,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1024,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1024,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1024,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1440,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1440,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1440,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1440,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1440,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "en",
+      "width": 1440,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "en",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 375,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 375,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 375,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 375,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 375,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 375,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 414,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 414,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 414,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 414,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 414,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 414,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 768,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 768,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 768,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 768,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 768,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 768,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1024,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1024,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1024,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1024,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1024,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1024,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1440,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1440,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1440,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1440,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1440,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "zh",
+      "width": 1440,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "zh-CN",
+      "dir": "ltr"
+    },
+    {
+      "l": "ar",
+      "width": 375,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 375,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 375,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 375,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 375,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 375,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 414,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 414,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 414,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 414,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 414,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 414,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 768,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 768,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 768,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 768,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 768,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 768,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1024,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1024,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1024,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1024,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1024,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1024,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1440,
+      "route": "",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1440,
+      "route": "/blogs",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1440,
+      "route": "/solutions",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1440,
+      "route": "/case-studies",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1440,
+      "route": "/resources",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    {
+      "l": "ar",
+      "width": 1440,
+      "route": "/solutions/knowledge-assistants",
+      "overflow": false,
+      "broken": [],
+      "smallLabels": 0,
+      "lang": "ar",
+      "dir": "rtl"
+    }
+  ],
+  "checks": [
+    {
+      "name": "en unique six cover IDs",
+      "pass": true
+    },
+    {
+      "name": "en topic Applications",
+      "pass": true
+    },
+    {
+      "name": "en topic Hardware",
+      "pass": true
+    },
+    {
+      "name": "en topic Procurement",
+      "pass": true
+    },
+    {
+      "name": "en topic clears stale search",
+      "pass": true
+    },
+    {
+      "name": "en all posts restored",
+      "pass": true
+    },
+    {
+      "name": "en explorer semantic meeting",
+      "pass": true
+    },
+    {
+      "name": "en keyboard edge map",
+      "pass": true
+    },
+    {
+      "name": "en motion pause retained",
+      "pass": true
+    },
+    {
+      "name": "zh unique six cover IDs",
+      "pass": true
+    },
+    {
+      "name": "zh topic Applications",
+      "pass": true
+    },
+    {
+      "name": "zh topic Hardware",
+      "pass": true
+    },
+    {
+      "name": "zh topic Procurement",
+      "pass": true
+    },
+    {
+      "name": "zh topic clears stale search",
+      "pass": true
+    },
+    {
+      "name": "zh all posts restored",
+      "pass": true
+    },
+    {
+      "name": "zh explorer semantic meeting",
+      "pass": true
+    },
+    {
+      "name": "zh keyboard edge map",
+      "pass": true
+    },
+    {
+      "name": "zh motion pause retained",
+      "pass": true
+    },
+    {
+      "name": "ar unique six cover IDs",
+      "pass": true
+    },
+    {
+      "name": "ar topic Applications",
+      "pass": true
+    },
+    {
+      "name": "ar topic Hardware",
+      "pass": true
+    },
+    {
+      "name": "ar topic Procurement",
+      "pass": true
+    },
+    {
+      "name": "ar topic clears stale search",
+      "pass": true
+    },
+    {
+      "name": "ar all posts restored",
+      "pass": true
+    },
+    {
+      "name": "ar explorer semantic meeting",
+      "pass": true
+    },
+    {
+      "name": "ar keyboard edge map",
+      "pass": true
+    },
+    {
+      "name": "ar motion pause retained",
+      "pass": true
+    },
+    {
+      "name": "no-JS topic anchors and six posts",
+      "pass": true
+    },
+    {
+      "name": "no-JS anchors navigate",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    },
+    {
+      "name": "no live inquiry submissions",
+      "pass": true
+    }
+  ],
+  "failed": [],
+  "errors": [],
+  "postRequests": 0
+}

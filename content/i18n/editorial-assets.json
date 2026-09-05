@@ -1,0 +1,50 @@
+{
+  "knowledge": {
+    "file": "knowledge",
+    "alt": {
+      "en": "Concept illustration of glass document layers connected by cyan evidence paths",
+      "zh": "概念配图：玻璃文档层通过青色证据路径连接",
+      "ar": "صورة تصورية لطبقات مستندات زجاجية تربطها مسارات أدلة سماوية"
+    }
+  },
+  "meeting": {
+    "file": "meeting",
+    "alt": {
+      "en": "Concept meeting workspace with an unbranded recorder, headphones and notebook",
+      "zh": "概念配图：配有无品牌录音设备、耳机和笔记本的会议空间",
+      "ar": "صورة تصورية لمساحة اجتماع تضم مسجلاً بلا علامة تجارية وسماعات ودفتر ملاحظات"
+    }
+  },
+  "edge": {
+    "file": "edge",
+    "alt": {
+      "en": "Concept edge-compute module beside optical inspection equipment on a laboratory bench",
+      "zh": "概念配图：实验台上靠近光学检测设备的边缘计算模块",
+      "ar": "صورة تصورية لوحدة حوسبة طرفية بجوار معدات فحص بصري على طاولة مختبر"
+    }
+  },
+  "field-glasses": {
+    "file": "field-glasses",
+    "alt": {
+      "en": "Concept illustration of hands inspecting unbranded smart glasses beside a field notebook",
+      "zh": "概念配图：双手在现场记录本旁检查无品牌智能眼镜",
+      "ar": "صورة تصورية ليدين تفحصان نظارات ذكية بلا علامة تجارية بجوار دفتر ميداني"
+    }
+  },
+  "prototype-bench": {
+    "file": "prototype-bench",
+    "alt": {
+      "en": "Concept overhead view of a prototype bench with a circuit board, connectors and a caliper",
+      "zh": "概念配图：俯视原型工作台，摆有电路板、连接器和卡尺",
+      "ar": "صورة تصورية علوية لطاولة نماذج أولية تضم لوحة إلكترونية وموصلات وقدمة قياس"
+    }
+  },
+  "rfq-desk": {
+    "file": "rfq-desk",
+    "alt": {
+      "en": "Concept procurement desk with a sample box, requirements sheets and material samples",
+      "zh": "概念配图：采购桌面上的样品箱、需求文件和材料样品",
+      "ar": "صورة تصورية لمكتب شراء يضم صندوق عينة وأوراق متطلبات وعينات مواد"
+    }
+  }
+}

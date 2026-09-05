@@ -1,0 +1,3006 @@
+{
+  "captureUtc": "2026-09-05T10:16:32.177386+00:00",
+  "sourceGitCommit": "72edd87d51646bf5de810c30f812aa6b1f54dcba",
+  "scope": "Pre-change local production build dist HTML; English representative language. img elements counted even when an interactive panel is initially hidden; srcset 640/1280 derivatives normalize to one artwork identity. Logos and CSS/canvas vector art not part of bitmap counts. Same article cover reused on its own detail/card is legitimate across routes.",
+  "pages": [
+    {
+      "route": "/en",
+      "imageElementCount": 13,
+      "uniqueArtworkCount": 5,
+      "duplicateOccurrences": 8,
+      "artworkCounts": {
+        "/assets/products/inmo-go3-1.jpg": 2,
+        "/assets/products/ticnote-1.png": 2,
+        "/assets/editorial/knowledge.webp": 2,
+        "/assets/editorial/meeting.webp": 3,
+        "/assets/editorial/edge.webp": 4
+      },
+      "images": [
+        {
+          "src": "/assets/products/inmo-go3-1.jpg",
+          "identity": "/assets/products/inmo-go3-1.jpg",
+          "alt": "INMO GO3",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "hero-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "hero-art hero-stage",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "hero-display",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "stage-main",
+              "href": "/en/products/inmo-go3",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/products/ticnote-1.png",
+          "identity": "/assets/products/ticnote-1.png",
+          "alt": "TicNote",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "hero",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "hero-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "hero-art hero-stage",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "stage-satellite",
+              "href": "/en/products/ticnote",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/products/ticnote-1.png",
+          "identity": "/assets/products/ticnote-1.png",
+          "alt": "TicNote",
+          "class": "product-image",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "showcase",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "feature-product primary",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/products/inmo-go3-1.jpg",
+          "identity": "/assets/products/inmo-go3-1.jpg",
+          "alt": "INMO GO3",
+          "class": "product-image",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "showcase",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "feature-product",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "scene-photo",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section experience-section",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "workflow-explorer",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "section",
+              "class": "experience-panel",
+              "href": "",
+              "id": "experience-knowledge"
+            },
+            {
+              "tag": "div",
+              "class": "experience-photo",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "scene-photo",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section experience-section",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "workflow-explorer",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "section",
+              "class": "experience-panel",
+              "href": "",
+              "id": "experience-meeting"
+            },
+            {
+              "tag": "div",
+              "class": "experience-photo",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "scene-photo",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section experience-section",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "workflow-explorer",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "section",
+              "class": "experience-panel",
+              "href": "",
+              "id": "experience-edge"
+            },
+            {
+              "tag": "div",
+              "class": "experience-photo",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/dify-japan",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/seeed-intflow",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/xiaozhi-voice",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/meeting-ai-measure-the-finished-note",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of cameras, an edge computing device and connected industrial site zones.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/edge-ai-start-with-the-site",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs",
+      "imageElementCount": 7,
+      "uniqueArtworkCount": 4,
+      "duplicateOccurrences": 3,
+      "artworkCounts": {
+        "/assets/editorial/knowledge.webp": 3,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 2,
+        "/assets/products/inmo-go3-1.jpg": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "journal-hero",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container journal-hero-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "journal-hero-art",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three journal-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three journal-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/meeting-ai-measure-the-finished-note",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of cameras, an edge computing device and connected industrial site zones.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three journal-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/edge-ai-start-with-the-site",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/products/inmo-go3-1.jpg",
+          "identity": "/assets/products/inmo-go3-1.jpg",
+          "alt": "Conceptual illustration of smart glasses with a restrained digital work instruction overlay.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three journal-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/smart-glasses-one-field-task",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of a prototype becoming a documented, modular production system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three journal-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/from-ai-prototype-to-procurement",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Editorial illustration of a structured request for quotation with linked requirements and decision notes.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three journal-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/write-an-ai-rfq-suppliers-can-answer",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/solutions",
+      "imageElementCount": 5,
+      "uniqueArtworkCount": 2,
+      "duplicateOccurrences": 3,
+      "artworkCounts": {
+        "/assets/editorial/meeting.webp": 2,
+        "/assets/editorial/edge.webp": 3
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/solutions/meeting-ai",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/solutions/knowledge-assistants",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/solutions/edge-vision",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/solutions/voice-prototypes",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/solutions/robotics-research",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/case-studies",
+      "imageElementCount": 9,
+      "uniqueArtworkCount": 2,
+      "duplicateOccurrences": 7,
+      "artworkCounts": {
+        "/assets/editorial/edge.webp": 7,
+        "/assets/editorial/meeting.webp": 2
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/dify-japan",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/qwen-deepseek",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/ragflow-documents",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/seeed-intflow",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/seeed-engineering",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/xiaozhi-voice",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/unitree-sdk",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/ufactory-xarm",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/case-studies/meeting-devices",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/resources",
+      "imageElementCount": 9,
+      "uniqueArtworkCount": 3,
+      "duplicateOccurrences": 6,
+      "artworkCounts": {
+        "/assets/editorial/knowledge.webp": 4,
+        "/assets/editorial/meeting.webp": 2,
+        "/assets/editorial/edge.webp": 3
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/ai-procurement-checklist",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/meeting-device-pilot",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/knowledge-pilot",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/edge-ai-survey",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Better meeting workflows",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/voice-prototype",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/robotics-procurement",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/rfq-template",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/china-ai-export-playbook",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "section container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "card-image editorial-card-image",
+              "href": "/en/resources/fastgpt-cnps-global-growth",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/solutions/knowledge-assistants",
+      "imageElementCount": 1,
+      "uniqueArtworkCount": 1,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/edge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "page-hero has-scene",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "page-scene",
+              "href": "",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/solutions/edge-vision",
+      "imageElementCount": 1,
+      "uniqueArtworkCount": 1,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/edge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "page-hero has-scene",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "page-scene",
+              "href": "",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/case-studies/dify-japan",
+      "imageElementCount": 1,
+      "uniqueArtworkCount": 1,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/knowledge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "page-hero has-scene",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "page-scene",
+              "href": "",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/case-studies/seeed-intflow",
+      "imageElementCount": 1,
+      "uniqueArtworkCount": 1,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/edge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Intelligence at the edge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "page-hero has-scene",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "page-scene",
+              "href": "",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/resources/knowledge-pilot",
+      "imageElementCount": 0,
+      "uniqueArtworkCount": 0,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {},
+      "images": [],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/fastgpt",
+      "imageElementCount": 1,
+      "uniqueArtworkCount": 1,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/knowledge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Connected knowledge",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "page-hero has-scene",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "page-scene",
+              "href": "",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/social.png"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+      "imageElementCount": 4,
+      "uniqueArtworkCount": 4,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/knowledge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1,
+        "/assets/products/inmo-go3-1.jpg": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "blog-header container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "blog-cover",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/meeting-ai-measure-the-finished-note",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of cameras, an edge computing device and connected industrial site zones.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/edge-ai-start-with-the-site",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/products/inmo-go3-1.jpg",
+          "identity": "/assets/products/inmo-go3-1.jpg",
+          "alt": "Conceptual illustration of smart glasses with a restrained digital work instruction overlay.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/smart-glasses-one-field-task",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs/meeting-ai-measure-the-finished-note",
+      "imageElementCount": 4,
+      "uniqueArtworkCount": 4,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1,
+        "/assets/products/inmo-go3-1.jpg": 1,
+        "/assets/editorial/knowledge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "blog-header container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "blog-cover",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of cameras, an edge computing device and connected industrial site zones.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/edge-ai-start-with-the-site",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/products/inmo-go3-1.jpg",
+          "identity": "/assets/products/inmo-go3-1.jpg",
+          "alt": "Conceptual illustration of smart glasses with a restrained digital work instruction overlay.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/smart-glasses-one-field-task",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/editorial/meeting-1280.webp"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs/edge-ai-start-with-the-site",
+      "imageElementCount": 4,
+      "uniqueArtworkCount": 4,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/editorial/edge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/products/inmo-go3-1.jpg": 1,
+        "/assets/editorial/knowledge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of cameras, an edge computing device and connected industrial site zones.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "blog-header container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "blog-cover",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/meeting-ai-measure-the-finished-note",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/products/inmo-go3-1.jpg",
+          "identity": "/assets/products/inmo-go3-1.jpg",
+          "alt": "Conceptual illustration of smart glasses with a restrained digital work instruction overlay.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/smart-glasses-one-field-task",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/editorial/edge-1280.webp"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs/smart-glasses-one-field-task",
+      "imageElementCount": 4,
+      "uniqueArtworkCount": 4,
+      "duplicateOccurrences": 0,
+      "artworkCounts": {
+        "/assets/products/inmo-go3-1.jpg": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1,
+        "/assets/editorial/knowledge.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/products/inmo-go3-1.jpg",
+          "identity": "/assets/products/inmo-go3-1.jpg",
+          "alt": "Conceptual illustration of smart glasses with a restrained digital work instruction overlay.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "blog-header container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "blog-cover",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/meeting-ai-measure-the-finished-note",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of cameras, an edge computing device and connected industrial site zones.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/edge-ai-start-with-the-site",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/products/inmo-go3-1.jpg"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs/from-ai-prototype-to-procurement",
+      "imageElementCount": 4,
+      "uniqueArtworkCount": 3,
+      "duplicateOccurrences": 1,
+      "artworkCounts": {
+        "/assets/editorial/edge.webp": 1,
+        "/assets/editorial/knowledge.webp": 2,
+        "/assets/editorial/meeting.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of a prototype becoming a documented, modular production system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "blog-header container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "blog-cover",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Editorial illustration of a structured request for quotation with linked requirements and decision notes.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/write-an-ai-rfq-suppliers-can-answer",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/meeting-ai-measure-the-finished-note",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/editorial/edge-1280.webp"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs/write-an-ai-rfq-suppliers-can-answer",
+      "imageElementCount": 4,
+      "uniqueArtworkCount": 3,
+      "duplicateOccurrences": 1,
+      "artworkCounts": {
+        "/assets/editorial/knowledge.webp": 2,
+        "/assets/editorial/edge.webp": 1,
+        "/assets/editorial/meeting.webp": 1
+      },
+      "images": [
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Editorial illustration of a structured request for quotation with linked requirements and decision notes.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "main",
+              "class": "",
+              "href": "",
+              "id": "main"
+            },
+            {
+              "tag": "section",
+              "class": "blog-header container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "figure",
+              "class": "blog-cover",
+              "href": "",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/edge-1280.webp",
+          "identity": "/assets/editorial/edge.webp",
+          "alt": "Conceptual illustration of a prototype becoming a documented, modular production system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/from-ai-prototype-to-procurement",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/knowledge-1280.webp",
+          "identity": "/assets/editorial/knowledge.webp",
+          "alt": "Conceptual illustration of organized documents connected to a central AI knowledge system.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+              "id": ""
+            }
+          ]
+        },
+        {
+          "src": "/assets/editorial/meeting-1280.webp",
+          "identity": "/assets/editorial/meeting.webp",
+          "alt": "Editorial illustration of an AI recording device beside a meeting notebook and audio waveform.",
+          "class": "",
+          "ancestors": [
+            {
+              "tag": "section",
+              "class": "section white",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "container",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "div",
+              "class": "catalog-grid three",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "article",
+              "class": "journal-card catalog-card",
+              "href": "",
+              "id": ""
+            },
+            {
+              "tag": "a",
+              "class": "journal-image",
+              "href": "/en/blogs/meeting-ai-measure-the-finished-note",
+              "id": ""
+            }
+          ]
+        }
+      ],
+      "socialImageMeta": [
+        {
+          "property": "og:image",
+          "content": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp"
+        }
+      ]
+    }
+  ],
+  "blogImageAssignments": [
+    {
+      "slug": "knowledge-ai-pilot-that-earns-trust",
+      "key": "knowledge"
+    },
+    {
+      "slug": "meeting-ai-measure-the-finished-note",
+      "key": "meeting"
+    },
+    {
+      "slug": "edge-ai-start-with-the-site",
+      "key": "edge"
+    },
+    {
+      "slug": "smart-glasses-one-field-task",
+      "key": "glasses"
+    },
+    {
+      "slug": "from-ai-prototype-to-procurement",
+      "key": "prototype"
+    },
+    {
+      "slug": "write-an-ai-rfq-suppliers-can-answer",
+      "key": "rfq"
+    }
+  ],
+  "findings": [
+    {
+      "priority": "high",
+      "issue": "The generic /edge/ regex also matches the word knowledge. As a result, knowledge-assistants detail renders an edge-compute laboratory visual, and multiple knowledge catalog items are incorrectly assigned edge imagery.",
+      "recommendation": "Replace substring heuristics with explicit content/slug image identity mappings. Validate semantic relevance in addition to distinct file counts."
+    },
+    {
+      "priority": "high",
+      "issue": "Six distinct blog articles resolve to four visual identities. prototype aliases edge; rfq aliases knowledge.",
+      "recommendation": "Give each article a distinct intentional cover, shared only by that article thumbnail/detail/social preview. Do not solve by merely hue-shifting or cropping the same original."
+    },
+    {
+      "priority": "high",
+      "issue": "Blog index hero repeats knowledge cover also assigned to two different articles.",
+      "recommendation": "Use a dedicated editorial masthead visual or typographic/art direction composition with clear browse controls; retain rich unique covers in the article grid."
+    },
+    {
+      "priority": "high",
+      "issue": "Generic slug classifier collapses solution, reference-case and resource cards into knowledge, meeting or edge; same image can appear many times on a single page.",
+      "recommendation": "Map distinct content to meaningful visual subjects, use compact reference typography or topic diagrams where genuine photos are unavailable; preserve concept-versus-verified-evidence labeling."
+    },
+    {
+      "priority": "medium",
+      "issue": "Homepage repeats product lead photos in hero and catalog and repeats knowledge/meeting/edge between workflow explorer and journal teaser.",
+      "recommendation": "Keep real product imagery as evidence while use different verified product views across adjacent sections and reserve original workflow scenes for explorer; article teaser receives unique article artwork."
+    },
+    {
+      "priority": "medium",
+      "issue": "Detailed article reuse can recur in related-card area because different posts share artwork; cover SEO assignment is separate logic.",
+      "recommendation": "Update rendered cover, alt descriptions, OpenGraph and Twitter image mappings together; verify no own-cover duplicate among related cards."
+    }
+  ]
+}

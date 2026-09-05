@@ -17,3 +17,10 @@ const visibleScenes=new Set();
 const sceneObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)visibleScenes.add(entry.target);else visibleScenes.delete(entry.target);}updateScenes();},{threshold:.1});
 function updateScenes(){for(const scene of scenes)scene.dataset.sceneActive=String(!document.hidden&&visibleScenes.has(scene));}
 scenes.forEach(scene=>sceneObserver.observe(scene));document.addEventListener('visibilitychange',updateScenes);
+// Topic links remain useful anchors without JavaScript; enhance to filter + navigate.
+for(const a of document.querySelectorAll('[data-topic-jump]'))a.addEventListener('click',event=>{
+ const collection=document.getElementById('journal-collection');const filter=collection?.querySelector('[data-filter="'+a.dataset.topicJump+'"]');if(!filter)return;
+ event.preventDefault();collection.querySelector('[data-search-input]').value='';filter.click();
+ history.replaceState(null,'',location.pathname+location.search+'#journal-collection');document.dispatchEvent(new Event('cnps:section-change'));
+ collection.scrollIntoView({block:'start'});const count=collection.querySelector('.result-count');count.tabIndex=-1;count.focus({preventScroll:true});
+});

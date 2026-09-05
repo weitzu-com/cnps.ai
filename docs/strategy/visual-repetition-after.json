@@ -1,0 +1,1692 @@
+{
+  "captureUtc": "2026-09-05T10:45:08.754179+00:00",
+  "scope": "Independent static audit of rebuilt dist HTML in en/zh/ar. Bitmap identity normalizes 640/1280 derivative filenames; semantic visuals count explicit content IDs and hash actual SVG geometry. Same article identity across index, detail and language versions is intentional. Product detail gallery and its thumbnails are excluded from duplicate removal requirements. Layout and interaction are verified separately.",
+  "checks": [
+    {
+      "name": "/en bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs six unique cover registry IDs",
+      "passed": true
+    },
+    {
+      "name": "/en/solutions bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/solutions semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/resources bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/resources semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/knowledge-ai-pilot-that-earns-trust cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/knowledge-ai-pilot-that-earns-trust no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/meeting-ai-measure-the-finished-note cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/meeting-ai-measure-the-finished-note no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/edge-ai-start-with-the-site cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/edge-ai-start-with-the-site no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/smart-glasses-one-field-task cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/smart-glasses-one-field-task no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/from-ai-prototype-to-procurement cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/from-ai-prototype-to-procurement no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/write-an-ai-rfq-suppliers-can-answer cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/en/blogs/write-an-ai-rfq-suppliers-can-answer no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/en/solutions/edge-vision exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/solutions/knowledge-assistants exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/solutions/meeting-ai exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/solutions/robotics-research exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/solutions/voice-prototypes exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/dify-japan exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/meeting-devices exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/qwen-deepseek exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/ragflow-documents exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/seeed-engineering exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/seeed-intflow exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/ufactory-xarm exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/unitree-sdk exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/en/case-studies/xiaozhi-voice exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs six unique cover registry IDs",
+      "passed": true
+    },
+    {
+      "name": "/zh/solutions bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/solutions semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/resources bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/resources semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/knowledge-ai-pilot-that-earns-trust cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/knowledge-ai-pilot-that-earns-trust no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/meeting-ai-measure-the-finished-note cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/meeting-ai-measure-the-finished-note no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/edge-ai-start-with-the-site cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/edge-ai-start-with-the-site no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/smart-glasses-one-field-task cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/smart-glasses-one-field-task no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/from-ai-prototype-to-procurement cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/from-ai-prototype-to-procurement no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/write-an-ai-rfq-suppliers-can-answer cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/zh/blogs/write-an-ai-rfq-suppliers-can-answer no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/zh/solutions/edge-vision exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/solutions/knowledge-assistants exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/solutions/meeting-ai exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/solutions/robotics-research exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/solutions/voice-prototypes exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/dify-japan exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/meeting-devices exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/qwen-deepseek exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/ragflow-documents exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/seeed-engineering exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/seeed-intflow exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/ufactory-xarm exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/unitree-sdk exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/zh/case-studies/xiaozhi-voice exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs six unique cover registry IDs",
+      "passed": true
+    },
+    {
+      "name": "/ar/solutions bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/solutions semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/resources bitmap uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/resources semantic uniqueness",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/knowledge-ai-pilot-that-earns-trust cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/knowledge-ai-pilot-that-earns-trust no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/meeting-ai-measure-the-finished-note cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/meeting-ai-measure-the-finished-note no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/edge-ai-start-with-the-site cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/edge-ai-start-with-the-site no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/smart-glasses-one-field-task cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/smart-glasses-one-field-task no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/from-ai-prototype-to-procurement cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/from-ai-prototype-to-procurement no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/write-an-ai-rfq-suppliers-can-answer cover, alt, OG and JSON-LD agree with registry",
+      "passed": true
+    },
+    {
+      "name": "/ar/blogs/write-an-ai-rfq-suppliers-can-answer no repeated image among cover and related posts",
+      "passed": true
+    },
+    {
+      "name": "/ar/solutions/edge-vision exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/solutions/knowledge-assistants exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/solutions/meeting-ai exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/solutions/robotics-research exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/solutions/voice-prototypes exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/dify-japan exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/meeting-devices exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/qwen-deepseek exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/ragflow-documents exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/seeed-engineering exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/seeed-intflow exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/ufactory-xarm exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/unitree-sdk exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "/ar/case-studies/xiaozhi-voice exact semantic ID",
+      "passed": true
+    },
+    {
+      "name": "knowledge substring edge misclassification removed",
+      "passed": true
+    },
+    {
+      "name": "six unique originals and both six unique responsive derivative sets",
+      "passed": true
+    },
+    {
+      "name": "each blog owns a distinct registry identity",
+      "passed": true
+    },
+    {
+      "name": "old generic bitmap alias and keyFor substring heuristic removed",
+      "passed": true
+    },
+    {
+      "name": "unknown editorial key fails instead of recycling a default",
+      "passed": true
+    }
+  ],
+  "pages": [
+    {
+      "route": "/en",
+      "imageElementCount": 7,
+      "uniqueBitmapCount": 7,
+      "bitmapCounts": {
+        "/assets/products/inmo-go3-1.jpg": 1,
+        "/assets/products/ticnote-1.png": 1,
+        "/assets/products/ticnote-pods-wifi-1.jpg": 1,
+        "/assets/products/ticnote-lite-1.jpg": 1,
+        "/assets/editorial/knowledge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1
+      },
+      "semanticVisualCount": 6,
+      "uniqueSemanticCount": 6,
+      "semanticIds": {
+        "knowledge-assistants": 1,
+        "meeting-ai": 1,
+        "edge-vision": 1,
+        "dify-japan": 1,
+        "seeed-intflow": 1,
+        "xiaozhi-voice": 1
+      },
+      "uniqueGeometryCount": 6,
+      "semantics": [
+        {
+          "id": "knowledge-assistants",
+          "kind": "diagram",
+          "geometryHash": "b69f699ae82055c1e3d2f4be5f60b641baedd528661774f04d809910d50d587d"
+        },
+        {
+          "id": "meeting-ai",
+          "kind": "diagram",
+          "geometryHash": "9cbce99ff20940ddb000613740e35b2276a70ef71787cc4390eec49b6912306f"
+        },
+        {
+          "id": "edge-vision",
+          "kind": "diagram",
+          "geometryHash": "6bbb907e8e6e24a5392d81558142a015cb598140721b63f69edd4743e0b94ec2"
+        },
+        {
+          "id": "dify-japan",
+          "kind": "diagram",
+          "geometryHash": "59884a793c17152e7868c7cf3b69ef3af5dc51a8c89a3a5abaf142f3aa7202b9"
+        },
+        {
+          "id": "seeed-intflow",
+          "kind": "diagram",
+          "geometryHash": "aaf1e79145171463b8b572b5c3a0443f732fac4678cefa34073a45d12343e501"
+        },
+        {
+          "id": "xiaozhi-voice",
+          "kind": "diagram",
+          "geometryHash": "a928546baa027e10218733ab33b7294715402ff3c47c534bd2b0e2d2a42bb0d6"
+        }
+      ]
+    },
+    {
+      "route": "/en/blogs",
+      "imageElementCount": 6,
+      "uniqueBitmapCount": 6,
+      "bitmapCounts": {
+        "/assets/editorial/knowledge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1,
+        "/assets/editorial/field-glasses.webp": 1,
+        "/assets/editorial/prototype-bench.webp": 1,
+        "/assets/editorial/rfq-desk.webp": 1
+      },
+      "semanticVisualCount": 0,
+      "uniqueSemanticCount": 0,
+      "semanticIds": {},
+      "uniqueGeometryCount": 0,
+      "semantics": []
+    },
+    {
+      "route": "/en/solutions",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 5,
+      "uniqueSemanticCount": 5,
+      "semanticIds": {
+        "meeting-ai": 1,
+        "knowledge-assistants": 1,
+        "edge-vision": 1,
+        "voice-prototypes": 1,
+        "robotics-research": 1
+      },
+      "uniqueGeometryCount": 5,
+      "semantics": [
+        {
+          "id": "meeting-ai",
+          "kind": "diagram",
+          "geometryHash": "9cbce99ff20940ddb000613740e35b2276a70ef71787cc4390eec49b6912306f"
+        },
+        {
+          "id": "knowledge-assistants",
+          "kind": "diagram",
+          "geometryHash": "b69f699ae82055c1e3d2f4be5f60b641baedd528661774f04d809910d50d587d"
+        },
+        {
+          "id": "edge-vision",
+          "kind": "diagram",
+          "geometryHash": "6bbb907e8e6e24a5392d81558142a015cb598140721b63f69edd4743e0b94ec2"
+        },
+        {
+          "id": "voice-prototypes",
+          "kind": "diagram",
+          "geometryHash": "9efdd8e60f26cc89b844c515f03b6550190aaf01e0baaabbf21b9c8c2e3549d8"
+        },
+        {
+          "id": "robotics-research",
+          "kind": "diagram",
+          "geometryHash": "cbf238f64e51872b4794d004b8bd88dcd285d7891e5c45954cdbe876418c78e1"
+        }
+      ]
+    },
+    {
+      "route": "/en/case-studies",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 9,
+      "uniqueSemanticCount": 9,
+      "semanticIds": {
+        "dify-japan": 1,
+        "qwen-deepseek": 1,
+        "ragflow-documents": 1,
+        "seeed-intflow": 1,
+        "seeed-engineering": 1,
+        "xiaozhi-voice": 1,
+        "unitree-sdk": 1,
+        "ufactory-xarm": 1,
+        "meeting-devices": 1
+      },
+      "uniqueGeometryCount": 9,
+      "semantics": [
+        {
+          "id": "dify-japan",
+          "kind": "diagram",
+          "geometryHash": "59884a793c17152e7868c7cf3b69ef3af5dc51a8c89a3a5abaf142f3aa7202b9"
+        },
+        {
+          "id": "qwen-deepseek",
+          "kind": "diagram",
+          "geometryHash": "d4ecc7475c460c59d6fa2ca3b808bb9c6fa693cf3d301ac91414df03eea50e22"
+        },
+        {
+          "id": "ragflow-documents",
+          "kind": "diagram",
+          "geometryHash": "1d53d140908e5c1d5458433143802e2e20ae5bf77019f307133efdb8465f61c8"
+        },
+        {
+          "id": "seeed-intflow",
+          "kind": "diagram",
+          "geometryHash": "aaf1e79145171463b8b572b5c3a0443f732fac4678cefa34073a45d12343e501"
+        },
+        {
+          "id": "seeed-engineering",
+          "kind": "diagram",
+          "geometryHash": "cbb9a45c53681d76f9b9386d893d952fef2f1918fb2b0028a699432b4974c5f9"
+        },
+        {
+          "id": "xiaozhi-voice",
+          "kind": "diagram",
+          "geometryHash": "a928546baa027e10218733ab33b7294715402ff3c47c534bd2b0e2d2a42bb0d6"
+        },
+        {
+          "id": "unitree-sdk",
+          "kind": "diagram",
+          "geometryHash": "e393a14c7938ef2d516d3c2e742dd0bef3b728a7010cc103a1d70d2a80430726"
+        },
+        {
+          "id": "ufactory-xarm",
+          "kind": "diagram",
+          "geometryHash": "f6db732cd5848aec3efd94c4933d670e19e65721c2a4e29ea9070fbb7c8b37c4"
+        },
+        {
+          "id": "meeting-devices",
+          "kind": "diagram",
+          "geometryHash": "9dbd30bf1cda7cad3999532fc0a70182901e7dde3eb857582d2575ed62991b41"
+        }
+      ]
+    },
+    {
+      "route": "/en/resources",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 9,
+      "uniqueSemanticCount": 9,
+      "semanticIds": {
+        "ai-procurement-checklist": 1,
+        "meeting-device-pilot": 1,
+        "knowledge-pilot": 1,
+        "edge-ai-survey": 1,
+        "voice-prototype": 1,
+        "robotics-procurement": 1,
+        "rfq-template": 1,
+        "china-ai-export-playbook": 1,
+        "fastgpt-cnps-global-growth": 1
+      },
+      "uniqueGeometryCount": 9,
+      "semantics": [
+        {
+          "id": "ai-procurement-checklist",
+          "kind": "document",
+          "geometryHash": "5a87a75fc1b43e5898cad93dda04b5b2ae73b4da3ac80f2027fb1fb923893006"
+        },
+        {
+          "id": "meeting-device-pilot",
+          "kind": "document",
+          "geometryHash": "783d7813b889dd9cd3d8e8af7843ce661ea544ddb8442cefea51ffc87528585f"
+        },
+        {
+          "id": "knowledge-pilot",
+          "kind": "document",
+          "geometryHash": "5424100113aec187611acbbe7551839c121efa00e729d9ecc36842debd4b5347"
+        },
+        {
+          "id": "edge-ai-survey",
+          "kind": "document",
+          "geometryHash": "185e3a8bbb26bc779bf733d17a14e80f8f0ac70c4e524acd170c411da9275f34"
+        },
+        {
+          "id": "voice-prototype",
+          "kind": "document",
+          "geometryHash": "a1b2511a07d0735b34f9e943bea5d84545e4f5ba5e605213b773c92fb4a6de39"
+        },
+        {
+          "id": "robotics-procurement",
+          "kind": "document",
+          "geometryHash": "946af84c0fa28e7642048105e5827df0aa121d1aebecf54d7a9c6533107e16a2"
+        },
+        {
+          "id": "rfq-template",
+          "kind": "document",
+          "geometryHash": "0088191809ecbc1259d2bffc93ae2978a0092bcd0cb0b77c44d1557ff485c9c1"
+        },
+        {
+          "id": "china-ai-export-playbook",
+          "kind": "document",
+          "geometryHash": "ad38571e24e4259537393fb68ceed61483d5efdf2c9ceae4928a72efc08549b4"
+        },
+        {
+          "id": "fastgpt-cnps-global-growth",
+          "kind": "document",
+          "geometryHash": "8b27403e122cac01e8c48171c74cef0bd4b71be9a1b24abd646ed8625889dd89"
+        }
+      ]
+    },
+    {
+      "route": "/zh",
+      "imageElementCount": 7,
+      "uniqueBitmapCount": 7,
+      "bitmapCounts": {
+        "/assets/products/inmo-go3-1.jpg": 1,
+        "/assets/products/ticnote-1.png": 1,
+        "/assets/products/ticnote-pods-wifi-1.jpg": 1,
+        "/assets/products/ticnote-lite-1.jpg": 1,
+        "/assets/editorial/knowledge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1
+      },
+      "semanticVisualCount": 6,
+      "uniqueSemanticCount": 6,
+      "semanticIds": {
+        "knowledge-assistants": 1,
+        "meeting-ai": 1,
+        "edge-vision": 1,
+        "dify-japan": 1,
+        "seeed-intflow": 1,
+        "xiaozhi-voice": 1
+      },
+      "uniqueGeometryCount": 6,
+      "semantics": [
+        {
+          "id": "knowledge-assistants",
+          "kind": "diagram",
+          "geometryHash": "b69f699ae82055c1e3d2f4be5f60b641baedd528661774f04d809910d50d587d"
+        },
+        {
+          "id": "meeting-ai",
+          "kind": "diagram",
+          "geometryHash": "9cbce99ff20940ddb000613740e35b2276a70ef71787cc4390eec49b6912306f"
+        },
+        {
+          "id": "edge-vision",
+          "kind": "diagram",
+          "geometryHash": "6bbb907e8e6e24a5392d81558142a015cb598140721b63f69edd4743e0b94ec2"
+        },
+        {
+          "id": "dify-japan",
+          "kind": "diagram",
+          "geometryHash": "59884a793c17152e7868c7cf3b69ef3af5dc51a8c89a3a5abaf142f3aa7202b9"
+        },
+        {
+          "id": "seeed-intflow",
+          "kind": "diagram",
+          "geometryHash": "aaf1e79145171463b8b572b5c3a0443f732fac4678cefa34073a45d12343e501"
+        },
+        {
+          "id": "xiaozhi-voice",
+          "kind": "diagram",
+          "geometryHash": "a928546baa027e10218733ab33b7294715402ff3c47c534bd2b0e2d2a42bb0d6"
+        }
+      ]
+    },
+    {
+      "route": "/zh/blogs",
+      "imageElementCount": 6,
+      "uniqueBitmapCount": 6,
+      "bitmapCounts": {
+        "/assets/editorial/knowledge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1,
+        "/assets/editorial/field-glasses.webp": 1,
+        "/assets/editorial/prototype-bench.webp": 1,
+        "/assets/editorial/rfq-desk.webp": 1
+      },
+      "semanticVisualCount": 0,
+      "uniqueSemanticCount": 0,
+      "semanticIds": {},
+      "uniqueGeometryCount": 0,
+      "semantics": []
+    },
+    {
+      "route": "/zh/solutions",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 5,
+      "uniqueSemanticCount": 5,
+      "semanticIds": {
+        "meeting-ai": 1,
+        "knowledge-assistants": 1,
+        "edge-vision": 1,
+        "voice-prototypes": 1,
+        "robotics-research": 1
+      },
+      "uniqueGeometryCount": 5,
+      "semantics": [
+        {
+          "id": "meeting-ai",
+          "kind": "diagram",
+          "geometryHash": "9cbce99ff20940ddb000613740e35b2276a70ef71787cc4390eec49b6912306f"
+        },
+        {
+          "id": "knowledge-assistants",
+          "kind": "diagram",
+          "geometryHash": "b69f699ae82055c1e3d2f4be5f60b641baedd528661774f04d809910d50d587d"
+        },
+        {
+          "id": "edge-vision",
+          "kind": "diagram",
+          "geometryHash": "6bbb907e8e6e24a5392d81558142a015cb598140721b63f69edd4743e0b94ec2"
+        },
+        {
+          "id": "voice-prototypes",
+          "kind": "diagram",
+          "geometryHash": "9efdd8e60f26cc89b844c515f03b6550190aaf01e0baaabbf21b9c8c2e3549d8"
+        },
+        {
+          "id": "robotics-research",
+          "kind": "diagram",
+          "geometryHash": "cbf238f64e51872b4794d004b8bd88dcd285d7891e5c45954cdbe876418c78e1"
+        }
+      ]
+    },
+    {
+      "route": "/zh/case-studies",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 9,
+      "uniqueSemanticCount": 9,
+      "semanticIds": {
+        "dify-japan": 1,
+        "qwen-deepseek": 1,
+        "ragflow-documents": 1,
+        "seeed-intflow": 1,
+        "seeed-engineering": 1,
+        "xiaozhi-voice": 1,
+        "unitree-sdk": 1,
+        "ufactory-xarm": 1,
+        "meeting-devices": 1
+      },
+      "uniqueGeometryCount": 9,
+      "semantics": [
+        {
+          "id": "dify-japan",
+          "kind": "diagram",
+          "geometryHash": "59884a793c17152e7868c7cf3b69ef3af5dc51a8c89a3a5abaf142f3aa7202b9"
+        },
+        {
+          "id": "qwen-deepseek",
+          "kind": "diagram",
+          "geometryHash": "d4ecc7475c460c59d6fa2ca3b808bb9c6fa693cf3d301ac91414df03eea50e22"
+        },
+        {
+          "id": "ragflow-documents",
+          "kind": "diagram",
+          "geometryHash": "1d53d140908e5c1d5458433143802e2e20ae5bf77019f307133efdb8465f61c8"
+        },
+        {
+          "id": "seeed-intflow",
+          "kind": "diagram",
+          "geometryHash": "aaf1e79145171463b8b572b5c3a0443f732fac4678cefa34073a45d12343e501"
+        },
+        {
+          "id": "seeed-engineering",
+          "kind": "diagram",
+          "geometryHash": "cbb9a45c53681d76f9b9386d893d952fef2f1918fb2b0028a699432b4974c5f9"
+        },
+        {
+          "id": "xiaozhi-voice",
+          "kind": "diagram",
+          "geometryHash": "a928546baa027e10218733ab33b7294715402ff3c47c534bd2b0e2d2a42bb0d6"
+        },
+        {
+          "id": "unitree-sdk",
+          "kind": "diagram",
+          "geometryHash": "e393a14c7938ef2d516d3c2e742dd0bef3b728a7010cc103a1d70d2a80430726"
+        },
+        {
+          "id": "ufactory-xarm",
+          "kind": "diagram",
+          "geometryHash": "f6db732cd5848aec3efd94c4933d670e19e65721c2a4e29ea9070fbb7c8b37c4"
+        },
+        {
+          "id": "meeting-devices",
+          "kind": "diagram",
+          "geometryHash": "9dbd30bf1cda7cad3999532fc0a70182901e7dde3eb857582d2575ed62991b41"
+        }
+      ]
+    },
+    {
+      "route": "/zh/resources",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 9,
+      "uniqueSemanticCount": 9,
+      "semanticIds": {
+        "ai-procurement-checklist": 1,
+        "meeting-device-pilot": 1,
+        "knowledge-pilot": 1,
+        "edge-ai-survey": 1,
+        "voice-prototype": 1,
+        "robotics-procurement": 1,
+        "rfq-template": 1,
+        "china-ai-export-playbook": 1,
+        "fastgpt-cnps-global-growth": 1
+      },
+      "uniqueGeometryCount": 9,
+      "semantics": [
+        {
+          "id": "ai-procurement-checklist",
+          "kind": "document",
+          "geometryHash": "5a87a75fc1b43e5898cad93dda04b5b2ae73b4da3ac80f2027fb1fb923893006"
+        },
+        {
+          "id": "meeting-device-pilot",
+          "kind": "document",
+          "geometryHash": "783d7813b889dd9cd3d8e8af7843ce661ea544ddb8442cefea51ffc87528585f"
+        },
+        {
+          "id": "knowledge-pilot",
+          "kind": "document",
+          "geometryHash": "5424100113aec187611acbbe7551839c121efa00e729d9ecc36842debd4b5347"
+        },
+        {
+          "id": "edge-ai-survey",
+          "kind": "document",
+          "geometryHash": "185e3a8bbb26bc779bf733d17a14e80f8f0ac70c4e524acd170c411da9275f34"
+        },
+        {
+          "id": "voice-prototype",
+          "kind": "document",
+          "geometryHash": "a1b2511a07d0735b34f9e943bea5d84545e4f5ba5e605213b773c92fb4a6de39"
+        },
+        {
+          "id": "robotics-procurement",
+          "kind": "document",
+          "geometryHash": "946af84c0fa28e7642048105e5827df0aa121d1aebecf54d7a9c6533107e16a2"
+        },
+        {
+          "id": "rfq-template",
+          "kind": "document",
+          "geometryHash": "0088191809ecbc1259d2bffc93ae2978a0092bcd0cb0b77c44d1557ff485c9c1"
+        },
+        {
+          "id": "china-ai-export-playbook",
+          "kind": "document",
+          "geometryHash": "ad38571e24e4259537393fb68ceed61483d5efdf2c9ceae4928a72efc08549b4"
+        },
+        {
+          "id": "fastgpt-cnps-global-growth",
+          "kind": "document",
+          "geometryHash": "8b27403e122cac01e8c48171c74cef0bd4b71be9a1b24abd646ed8625889dd89"
+        }
+      ]
+    },
+    {
+      "route": "/ar",
+      "imageElementCount": 7,
+      "uniqueBitmapCount": 7,
+      "bitmapCounts": {
+        "/assets/products/inmo-go3-1.jpg": 1,
+        "/assets/products/ticnote-1.png": 1,
+        "/assets/products/ticnote-pods-wifi-1.jpg": 1,
+        "/assets/products/ticnote-lite-1.jpg": 1,
+        "/assets/editorial/knowledge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1
+      },
+      "semanticVisualCount": 6,
+      "uniqueSemanticCount": 6,
+      "semanticIds": {
+        "knowledge-assistants": 1,
+        "meeting-ai": 1,
+        "edge-vision": 1,
+        "dify-japan": 1,
+        "seeed-intflow": 1,
+        "xiaozhi-voice": 1
+      },
+      "uniqueGeometryCount": 6,
+      "semantics": [
+        {
+          "id": "knowledge-assistants",
+          "kind": "diagram",
+          "geometryHash": "b69f699ae82055c1e3d2f4be5f60b641baedd528661774f04d809910d50d587d"
+        },
+        {
+          "id": "meeting-ai",
+          "kind": "diagram",
+          "geometryHash": "9cbce99ff20940ddb000613740e35b2276a70ef71787cc4390eec49b6912306f"
+        },
+        {
+          "id": "edge-vision",
+          "kind": "diagram",
+          "geometryHash": "6bbb907e8e6e24a5392d81558142a015cb598140721b63f69edd4743e0b94ec2"
+        },
+        {
+          "id": "dify-japan",
+          "kind": "diagram",
+          "geometryHash": "59884a793c17152e7868c7cf3b69ef3af5dc51a8c89a3a5abaf142f3aa7202b9"
+        },
+        {
+          "id": "seeed-intflow",
+          "kind": "diagram",
+          "geometryHash": "aaf1e79145171463b8b572b5c3a0443f732fac4678cefa34073a45d12343e501"
+        },
+        {
+          "id": "xiaozhi-voice",
+          "kind": "diagram",
+          "geometryHash": "a928546baa027e10218733ab33b7294715402ff3c47c534bd2b0e2d2a42bb0d6"
+        }
+      ]
+    },
+    {
+      "route": "/ar/blogs",
+      "imageElementCount": 6,
+      "uniqueBitmapCount": 6,
+      "bitmapCounts": {
+        "/assets/editorial/knowledge.webp": 1,
+        "/assets/editorial/meeting.webp": 1,
+        "/assets/editorial/edge.webp": 1,
+        "/assets/editorial/field-glasses.webp": 1,
+        "/assets/editorial/prototype-bench.webp": 1,
+        "/assets/editorial/rfq-desk.webp": 1
+      },
+      "semanticVisualCount": 0,
+      "uniqueSemanticCount": 0,
+      "semanticIds": {},
+      "uniqueGeometryCount": 0,
+      "semantics": []
+    },
+    {
+      "route": "/ar/solutions",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 5,
+      "uniqueSemanticCount": 5,
+      "semanticIds": {
+        "meeting-ai": 1,
+        "knowledge-assistants": 1,
+        "edge-vision": 1,
+        "voice-prototypes": 1,
+        "robotics-research": 1
+      },
+      "uniqueGeometryCount": 5,
+      "semantics": [
+        {
+          "id": "meeting-ai",
+          "kind": "diagram",
+          "geometryHash": "9cbce99ff20940ddb000613740e35b2276a70ef71787cc4390eec49b6912306f"
+        },
+        {
+          "id": "knowledge-assistants",
+          "kind": "diagram",
+          "geometryHash": "b69f699ae82055c1e3d2f4be5f60b641baedd528661774f04d809910d50d587d"
+        },
+        {
+          "id": "edge-vision",
+          "kind": "diagram",
+          "geometryHash": "6bbb907e8e6e24a5392d81558142a015cb598140721b63f69edd4743e0b94ec2"
+        },
+        {
+          "id": "voice-prototypes",
+          "kind": "diagram",
+          "geometryHash": "9efdd8e60f26cc89b844c515f03b6550190aaf01e0baaabbf21b9c8c2e3549d8"
+        },
+        {
+          "id": "robotics-research",
+          "kind": "diagram",
+          "geometryHash": "cbf238f64e51872b4794d004b8bd88dcd285d7891e5c45954cdbe876418c78e1"
+        }
+      ]
+    },
+    {
+      "route": "/ar/case-studies",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 9,
+      "uniqueSemanticCount": 9,
+      "semanticIds": {
+        "dify-japan": 1,
+        "qwen-deepseek": 1,
+        "ragflow-documents": 1,
+        "seeed-intflow": 1,
+        "seeed-engineering": 1,
+        "xiaozhi-voice": 1,
+        "unitree-sdk": 1,
+        "ufactory-xarm": 1,
+        "meeting-devices": 1
+      },
+      "uniqueGeometryCount": 9,
+      "semantics": [
+        {
+          "id": "dify-japan",
+          "kind": "diagram",
+          "geometryHash": "59884a793c17152e7868c7cf3b69ef3af5dc51a8c89a3a5abaf142f3aa7202b9"
+        },
+        {
+          "id": "qwen-deepseek",
+          "kind": "diagram",
+          "geometryHash": "d4ecc7475c460c59d6fa2ca3b808bb9c6fa693cf3d301ac91414df03eea50e22"
+        },
+        {
+          "id": "ragflow-documents",
+          "kind": "diagram",
+          "geometryHash": "1d53d140908e5c1d5458433143802e2e20ae5bf77019f307133efdb8465f61c8"
+        },
+        {
+          "id": "seeed-intflow",
+          "kind": "diagram",
+          "geometryHash": "aaf1e79145171463b8b572b5c3a0443f732fac4678cefa34073a45d12343e501"
+        },
+        {
+          "id": "seeed-engineering",
+          "kind": "diagram",
+          "geometryHash": "cbb9a45c53681d76f9b9386d893d952fef2f1918fb2b0028a699432b4974c5f9"
+        },
+        {
+          "id": "xiaozhi-voice",
+          "kind": "diagram",
+          "geometryHash": "a928546baa027e10218733ab33b7294715402ff3c47c534bd2b0e2d2a42bb0d6"
+        },
+        {
+          "id": "unitree-sdk",
+          "kind": "diagram",
+          "geometryHash": "e393a14c7938ef2d516d3c2e742dd0bef3b728a7010cc103a1d70d2a80430726"
+        },
+        {
+          "id": "ufactory-xarm",
+          "kind": "diagram",
+          "geometryHash": "f6db732cd5848aec3efd94c4933d670e19e65721c2a4e29ea9070fbb7c8b37c4"
+        },
+        {
+          "id": "meeting-devices",
+          "kind": "diagram",
+          "geometryHash": "9dbd30bf1cda7cad3999532fc0a70182901e7dde3eb857582d2575ed62991b41"
+        }
+      ]
+    },
+    {
+      "route": "/ar/resources",
+      "imageElementCount": 0,
+      "uniqueBitmapCount": 0,
+      "bitmapCounts": {},
+      "semanticVisualCount": 9,
+      "uniqueSemanticCount": 9,
+      "semanticIds": {
+        "ai-procurement-checklist": 1,
+        "meeting-device-pilot": 1,
+        "knowledge-pilot": 1,
+        "edge-ai-survey": 1,
+        "voice-prototype": 1,
+        "robotics-procurement": 1,
+        "rfq-template": 1,
+        "china-ai-export-playbook": 1,
+        "fastgpt-cnps-global-growth": 1
+      },
+      "uniqueGeometryCount": 9,
+      "semantics": [
+        {
+          "id": "ai-procurement-checklist",
+          "kind": "document",
+          "geometryHash": "5a87a75fc1b43e5898cad93dda04b5b2ae73b4da3ac80f2027fb1fb923893006"
+        },
+        {
+          "id": "meeting-device-pilot",
+          "kind": "document",
+          "geometryHash": "783d7813b889dd9cd3d8e8af7843ce661ea544ddb8442cefea51ffc87528585f"
+        },
+        {
+          "id": "knowledge-pilot",
+          "kind": "document",
+          "geometryHash": "5424100113aec187611acbbe7551839c121efa00e729d9ecc36842debd4b5347"
+        },
+        {
+          "id": "edge-ai-survey",
+          "kind": "document",
+          "geometryHash": "185e3a8bbb26bc779bf733d17a14e80f8f0ac70c4e524acd170c411da9275f34"
+        },
+        {
+          "id": "voice-prototype",
+          "kind": "document",
+          "geometryHash": "a1b2511a07d0735b34f9e943bea5d84545e4f5ba5e605213b773c92fb4a6de39"
+        },
+        {
+          "id": "robotics-procurement",
+          "kind": "document",
+          "geometryHash": "946af84c0fa28e7642048105e5827df0aa121d1aebecf54d7a9c6533107e16a2"
+        },
+        {
+          "id": "rfq-template",
+          "kind": "document",
+          "geometryHash": "0088191809ecbc1259d2bffc93ae2978a0092bcd0cb0b77c44d1557ff485c9c1"
+        },
+        {
+          "id": "china-ai-export-playbook",
+          "kind": "document",
+          "geometryHash": "ad38571e24e4259537393fb68ceed61483d5efdf2c9ceae4928a72efc08549b4"
+        },
+        {
+          "id": "fastgpt-cnps-global-growth",
+          "kind": "document",
+          "geometryHash": "8b27403e122cac01e8c48171c74cef0bd4b71be9a1b24abd646ed8625889dd89"
+        }
+      ]
+    }
+  ],
+  "articleChecks": [
+    {
+      "route": "/en/blogs/knowledge-ai-pilot-that-earns-trust",
+      "passed": true,
+      "coverId": "knowledge",
+      "cover": {
+        "src": "/assets/editorial/knowledge-1280.webp",
+        "identity": "/assets/editorial/knowledge.webp",
+        "coverId": "knowledge",
+        "alt": "Concept illustration of glass document layers connected by cyan evidence paths",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/field-glasses.webp"
+      ]
+    },
+    {
+      "route": "/en/blogs/meeting-ai-measure-the-finished-note",
+      "passed": true,
+      "coverId": "meeting",
+      "cover": {
+        "src": "/assets/editorial/meeting-1280.webp",
+        "identity": "/assets/editorial/meeting.webp",
+        "coverId": "meeting",
+        "alt": "Concept meeting workspace with an unbranded recorder, headphones and notebook",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/meeting-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/meeting-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/en/blogs/edge-ai-start-with-the-site",
+      "passed": true,
+      "coverId": "edge",
+      "cover": {
+        "src": "/assets/editorial/edge-1280.webp",
+        "identity": "/assets/editorial/edge.webp",
+        "coverId": "edge",
+        "alt": "Concept edge-compute module beside optical inspection equipment on a laboratory bench",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/edge-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/edge-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/en/blogs/smart-glasses-one-field-task",
+      "passed": true,
+      "coverId": "field-glasses",
+      "cover": {
+        "src": "/assets/editorial/field-glasses-1280.webp",
+        "identity": "/assets/editorial/field-glasses.webp",
+        "coverId": "field-glasses",
+        "alt": "Concept illustration of hands inspecting unbranded smart glasses beside a field notebook",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/field-glasses-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/field-glasses-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/en/blogs/from-ai-prototype-to-procurement",
+      "passed": true,
+      "coverId": "prototype-bench",
+      "cover": {
+        "src": "/assets/editorial/prototype-bench-1280.webp",
+        "identity": "/assets/editorial/prototype-bench.webp",
+        "coverId": "prototype-bench",
+        "alt": "Concept overhead view of a prototype bench with a circuit board, connectors and a caliper",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/prototype-bench-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/prototype-bench-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/prototype-bench.webp",
+        "/assets/editorial/rfq-desk.webp",
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp"
+      ]
+    },
+    {
+      "route": "/en/blogs/write-an-ai-rfq-suppliers-can-answer",
+      "passed": true,
+      "coverId": "rfq-desk",
+      "cover": {
+        "src": "/assets/editorial/rfq-desk-1280.webp",
+        "identity": "/assets/editorial/rfq-desk.webp",
+        "coverId": "rfq-desk",
+        "alt": "Concept procurement desk with a sample box, requirements sheets and material samples",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/rfq-desk-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/rfq-desk-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/rfq-desk.webp",
+        "/assets/editorial/prototype-bench.webp",
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp"
+      ]
+    },
+    {
+      "route": "/zh/blogs/knowledge-ai-pilot-that-earns-trust",
+      "passed": true,
+      "coverId": "knowledge",
+      "cover": {
+        "src": "/assets/editorial/knowledge-1280.webp",
+        "identity": "/assets/editorial/knowledge.webp",
+        "coverId": "knowledge",
+        "alt": "概念配图：玻璃文档层通过青色证据路径连接",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/field-glasses.webp"
+      ]
+    },
+    {
+      "route": "/zh/blogs/meeting-ai-measure-the-finished-note",
+      "passed": true,
+      "coverId": "meeting",
+      "cover": {
+        "src": "/assets/editorial/meeting-1280.webp",
+        "identity": "/assets/editorial/meeting.webp",
+        "coverId": "meeting",
+        "alt": "概念配图：配有无品牌录音设备、耳机和笔记本的会议空间",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/meeting-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/meeting-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/zh/blogs/edge-ai-start-with-the-site",
+      "passed": true,
+      "coverId": "edge",
+      "cover": {
+        "src": "/assets/editorial/edge-1280.webp",
+        "identity": "/assets/editorial/edge.webp",
+        "coverId": "edge",
+        "alt": "概念配图：实验台上靠近光学检测设备的边缘计算模块",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/edge-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/edge-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/zh/blogs/smart-glasses-one-field-task",
+      "passed": true,
+      "coverId": "field-glasses",
+      "cover": {
+        "src": "/assets/editorial/field-glasses-1280.webp",
+        "identity": "/assets/editorial/field-glasses.webp",
+        "coverId": "field-glasses",
+        "alt": "概念配图：双手在现场记录本旁检查无品牌智能眼镜",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/field-glasses-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/field-glasses-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/zh/blogs/from-ai-prototype-to-procurement",
+      "passed": true,
+      "coverId": "prototype-bench",
+      "cover": {
+        "src": "/assets/editorial/prototype-bench-1280.webp",
+        "identity": "/assets/editorial/prototype-bench.webp",
+        "coverId": "prototype-bench",
+        "alt": "概念配图：俯视原型工作台，摆有电路板、连接器和卡尺",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/prototype-bench-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/prototype-bench-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/prototype-bench.webp",
+        "/assets/editorial/rfq-desk.webp",
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp"
+      ]
+    },
+    {
+      "route": "/zh/blogs/write-an-ai-rfq-suppliers-can-answer",
+      "passed": true,
+      "coverId": "rfq-desk",
+      "cover": {
+        "src": "/assets/editorial/rfq-desk-1280.webp",
+        "identity": "/assets/editorial/rfq-desk.webp",
+        "coverId": "rfq-desk",
+        "alt": "概念配图：采购桌面上的样品箱、需求文件和材料样品",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/rfq-desk-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/rfq-desk-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/rfq-desk.webp",
+        "/assets/editorial/prototype-bench.webp",
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp"
+      ]
+    },
+    {
+      "route": "/ar/blogs/knowledge-ai-pilot-that-earns-trust",
+      "passed": true,
+      "coverId": "knowledge",
+      "cover": {
+        "src": "/assets/editorial/knowledge-1280.webp",
+        "identity": "/assets/editorial/knowledge.webp",
+        "coverId": "knowledge",
+        "alt": "صورة تصورية لطبقات مستندات زجاجية تربطها مسارات أدلة سماوية",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/knowledge-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/field-glasses.webp"
+      ]
+    },
+    {
+      "route": "/ar/blogs/meeting-ai-measure-the-finished-note",
+      "passed": true,
+      "coverId": "meeting",
+      "cover": {
+        "src": "/assets/editorial/meeting-1280.webp",
+        "identity": "/assets/editorial/meeting.webp",
+        "coverId": "meeting",
+        "alt": "صورة تصورية لمساحة اجتماع تضم مسجلاً بلا علامة تجارية وسماعات ودفتر ملاحظات",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/meeting-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/meeting-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/ar/blogs/edge-ai-start-with-the-site",
+      "passed": true,
+      "coverId": "edge",
+      "cover": {
+        "src": "/assets/editorial/edge-1280.webp",
+        "identity": "/assets/editorial/edge.webp",
+        "coverId": "edge",
+        "alt": "صورة تصورية لوحدة حوسبة طرفية بجوار معدات فحص بصري على طاولة مختبر",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/edge-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/edge-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/ar/blogs/smart-glasses-one-field-task",
+      "passed": true,
+      "coverId": "field-glasses",
+      "cover": {
+        "src": "/assets/editorial/field-glasses-1280.webp",
+        "identity": "/assets/editorial/field-glasses.webp",
+        "coverId": "field-glasses",
+        "alt": "صورة تصورية ليدين تفحصان نظارات ذكية بلا علامة تجارية بجوار دفتر ميداني",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/field-glasses-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/field-glasses-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/field-glasses.webp",
+        "/assets/editorial/meeting.webp",
+        "/assets/editorial/edge.webp",
+        "/assets/editorial/knowledge.webp"
+      ]
+    },
+    {
+      "route": "/ar/blogs/from-ai-prototype-to-procurement",
+      "passed": true,
+      "coverId": "prototype-bench",
+      "cover": {
+        "src": "/assets/editorial/prototype-bench-1280.webp",
+        "identity": "/assets/editorial/prototype-bench.webp",
+        "coverId": "prototype-bench",
+        "alt": "صورة تصورية علوية لطاولة نماذج أولية تضم لوحة إلكترونية وموصلات وقدمة قياس",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/prototype-bench-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/prototype-bench-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/prototype-bench.webp",
+        "/assets/editorial/rfq-desk.webp",
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp"
+      ]
+    },
+    {
+      "route": "/ar/blogs/write-an-ai-rfq-suppliers-can-answer",
+      "passed": true,
+      "coverId": "rfq-desk",
+      "cover": {
+        "src": "/assets/editorial/rfq-desk-1280.webp",
+        "identity": "/assets/editorial/rfq-desk.webp",
+        "coverId": "rfq-desk",
+        "alt": "صورة تصورية لمكتب شراء يضم صندوق عينة وأوراق متطلبات وعينات مواد",
+        "inBlogCover": true
+      },
+      "ogImage": "https://www.cnps.ai/assets/editorial/rfq-desk-1280.webp",
+      "jsonLdImage": "https://www.cnps.ai/assets/editorial/rfq-desk-1280.webp",
+      "allImageIdentities": [
+        "/assets/editorial/rfq-desk.webp",
+        "/assets/editorial/prototype-bench.webp",
+        "/assets/editorial/knowledge.webp",
+        "/assets/editorial/meeting.webp"
+      ]
+    }
+  ],
+  "assetHashes": {
+    "knowledge": {
+      "640": {
+        "sha256": "634c71a64679a9bc56cd7246a7cdb324f9540d7598d43a94c9f0d10ff6f85c6f",
+        "bytes": 15652
+      },
+      "1280": {
+        "sha256": "333b4da7868e7400db37c477c512837c553f7d1771960872361caf8f0d9435ba",
+        "bytes": 40646
+      },
+      "original": {
+        "sha256": "ae34840981a384f01fcdd325f2f56eb7ccc37145a76257c22e72b0710835da3e",
+        "bytes": 1709828
+      }
+    },
+    "meeting": {
+      "640": {
+        "sha256": "11682dd1ee36151a360521dce9a072ef462d0ffc6ceb5970742ad9f64541f463",
+        "bytes": 23110
+      },
+      "1280": {
+        "sha256": "56075f23048d83f9b312254234fdd5abcdc952b12516e1af168830f4db7c1a97",
+        "bytes": 61382
+      },
+      "original": {
+        "sha256": "c3c32a1dc122e9e0e1790b961e238143896197c8555b7a00106f63f13681a0d0",
+        "bytes": 1990661
+      }
+    },
+    "edge": {
+      "640": {
+        "sha256": "2e5e686445859b3ac00370d07ec5fa20c7ab08ae84f6fd71c2365a6dd0c9a013",
+        "bytes": 27236
+      },
+      "1280": {
+        "sha256": "a45a89ef3f9ae87f35a8a61eaeac8cd0c492554749104de8c85769f4ac934a79",
+        "bytes": 67536
+      },
+      "original": {
+        "sha256": "661b6b6afccc096a1ba7b28ebea26d336e59e3b7ccb9277eb1f920d355b2fd74",
+        "bytes": 1910312
+      }
+    },
+    "field-glasses": {
+      "640": {
+        "sha256": "5b40f516917fa3603b7e5ca639b366bf1412a3cd1b64621ab113e8d1fc476c44",
+        "bytes": 33468
+      },
+      "1280": {
+        "sha256": "2839813891a3a77ea9dac2c0780662beaf36d971c39d2fc3f4c7bdd3ca9077a5",
+        "bytes": 100884
+      },
+      "original": {
+        "sha256": "37abae3b57a9e7c155c851f57a7ef5eb922d436a1bde1517fd8cad847e306c60",
+        "bytes": 2348038
+      }
+    },
+    "prototype-bench": {
+      "640": {
+        "sha256": "c4812f56bcec9d3ba7aef1f608f7f3a4559ac634d5e14a2976f7f3dbdf79e6e4",
+        "bytes": 21696
+      },
+      "1280": {
+        "sha256": "470c2435c779d70f40e51bad9db6f1493b5bde017ac58b6d7657938eb7ca9e0d",
+        "bytes": 114292
+      },
+      "original": {
+        "sha256": "28d5966de1af49a278b6877fffc9aeeb9b631584b5746f12ca450fb2ea85b1f8",
+        "bytes": 2877947
+      }
+    },
+    "rfq-desk": {
+      "640": {
+        "sha256": "ada457744260123cad86f3afbbe76f9a1fe8cbb110ce3ac4e8fad17d6a3531c1",
+        "bytes": 32082
+      },
+      "1280": {
+        "sha256": "b2a84c022c02804c73a4effe3441a1da6bf69033a98213204a9829bcc400a3a4",
+        "bytes": 90720
+      },
+      "original": {
+        "sha256": "89d3e84d99fc4f6d330b42056b056aea312172567943d2f23b241f36ac025a06",
+        "bytes": 2399606
+      }
+    }
+  },
+  "observations": [
+    {
+      "asset": "knowledge",
+      "inspection": "Layered translucent document panels and converging cyan paths; a conceptual knowledge/evidence visual with no hardware claim."
+    },
+    {
+      "asset": "meeting",
+      "inspection": "Dark conference table with silver recorder, headphones and open notebook; room setting distinct from all other covers."
+    },
+    {
+      "asset": "edge",
+      "inspection": "Finned metal edge computer with exposed ports on optical inspection bench; industrial laboratory subject distinct from prototype board."
+    },
+    {
+      "asset": "field-glasses",
+      "inspection": "Hands inspect black unbranded glasses beside a green field notebook on stone; tactile human scale and warm neutral materials."
+    },
+    {
+      "asset": "prototype-bench",
+      "inspection": "Overhead circuit board, leads and metal caliper on orange bench mat; different angle, composition and palette from edge computer."
+    },
+    {
+      "asset": "rfq-desk",
+      "inspection": "Warm procurement desk with open sample packaging, requirement sheets, pen and material swatches; commercial brief concept rather than knowledge stack."
+    },
+    {
+      "design": "Same palette alone is not used as evidence of duplication. Visual inspection of all six 640 px derivatives confirms different subjects and compositions; original-file hashes establish distinct binaries but are not the sole basis for that conclusion."
+    },
+    {
+      "semantics": "Solutions and reference cases use unique explanatory SVG diagrams. Resource cards use unique document icon geometry and localized cover titles. Their counts should not be presented to the user as newly generated photographs."
+    },
+    {
+      "social": "All 18 article pages use the registry cover for OpenGraph and BlogPosting JSON-LD. twitter:card is summary_large_image; there is no separate twitter:image override, so there is no competing stale Twitter-specific image assignment."
+    }
+  ],
+  "summary": {
+    "checks": 110,
+    "passed": 110,
+    "failed": []
+  }
+}
