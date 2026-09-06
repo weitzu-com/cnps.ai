@@ -32,6 +32,8 @@ For connected devices, ask what happens when the network fails or a service ends
 
 Record the inputs, configuration, test conditions, success metrics and failures. Include difficult examples. Agree on acceptance before running the test, and keep an explicit list of excluded work.
 
+For China recording hardware destined for UAE or KSA, use the [China→Gulf sourcing method](/guides/china-to-gulf-ai-recording-sourcing) after the workflow and sample gates — not a bulk PO from a brochure.
+
 ## Prepare your request
 
 Share your company, destination country, task, pilot quantity or user count, target timeline and main constraints. Availability, commercial terms and implementation scope are confirmed during quotation.

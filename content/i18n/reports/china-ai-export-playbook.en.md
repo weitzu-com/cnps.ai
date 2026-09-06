@@ -232,7 +232,7 @@ Such projects suit cooperation with local integrators. Customer contracts should
 
 ## Page 12 | Existing product entry points: TicNote and smart glasses
 
-CNPS already has recording-device and smart-glasses entry points, so completing business procurement information around these products should be a priority. Specifications, subscriptions, prices, and regional availability depend on the relevant SKU page and a confirmed written quotation. [Product catalog](https://www.cnps.ai/products) · [Model comparison](https://www.cnps.ai/products/compare)
+CNPS already has recording-device and smart-glasses entry points, so completing business procurement information around these products should be a priority. Specifications, subscriptions, prices, and regional availability depend on the relevant SKU page and a confirmed written quotation. [Product catalog](https://www.cnps.ai/products) · [Model comparison](https://www.cnps.ai/products/compare). For UAE/KSA recording hardware, use the [China→Gulf sourcing method](https://www.cnps.ai/en/guides/china-to-gulf-ai-recording-sourcing) before a bulk PO.
 
 Create separate guidance for a 10-person sales team, a 20-person training department, and channel sample purchases. Customers need to assess recording conditions, transcription languages, team accounts, export capabilities, subscription ownership, and after-sales responsibility. Enterprise buying is not necessarily a larger retail order: account administration and device reassignment may determine suitability.
 

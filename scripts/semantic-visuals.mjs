@@ -92,6 +92,7 @@ const docs = {
  'meeting-device-pilot': [words('Meeting devices','会议设备','أجهزة الاجتماعات'),words('Pilot field guide','试点指南','دليل التجربة الميدانية'),'meeting'],
  'gulf-arabic-english-meeting-notes-pilot': [words('Gulf meeting notes','海湾会议纪要','محاضر اجتماعات خليجية'),words('Bilingual method','双语方法','منهج ثنائي اللغة'),'protocol'],
  'gulf-meeting-consent-and-privacy-test': [words('Gulf meeting consent','海湾会议知情同意','موافقة اجتماعات خليجية'),words('Privacy test protocol','隐私测试规程','بروتوكول اختبار الخصوصية'),'checklist'],
+ 'china-to-gulf-ai-recording-sourcing': [words('China to Gulf sourcing','中国到海湾采购','التوريد من الصين إلى الخليج'),words('Recording hardware method','录音硬件方法','منهج أجهزة التسجيل'),'rfq'],
  'knowledge-pilot': [words('Knowledge assistants','知识助手','المساعدات المعرفية'),words('Pilot design','试点设计','تصميم التجربة'),'knowledge'],
  'edge-ai-survey': [words('Edge AI','边缘 AI','الذكاء الاصطناعي الطرفي'),words('Site survey','现场勘查','مسح الموقع'),'edge'],
  'voice-prototype': [words('Voice prototypes','语音原型','نماذج أولية صوتية'),words('Interaction brief','交互设计要点','موجز التفاعل'),'voice'],
