@@ -16,7 +16,7 @@ Name the exclusions in the same document. This protocol does not cover covert re
 
 ## Week 0 — Consent and privacy gate
 
-Week 0 is a gate: no capture until invite language, verbal script, access list, retention default and vendor questions are written down and accepted by the pilot owner.
+Week 0 is a gate: no capture until invite language, verbal script, access list, retention default and vendor questions are written down and accepted by the pilot owner. See also the [consent and privacy test](/guides/gulf-meeting-consent-and-privacy-test).
 
 **Calendar invite.** State that the session may be recorded to produce internal meeting notes; name the languages you expect (Gulf Arabic and English, including switching); say who will see audio, transcript and summary; and tell people how to object — reply to the invite, or say so at the start.
 
