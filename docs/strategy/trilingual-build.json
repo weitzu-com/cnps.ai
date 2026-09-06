@@ -1,6 +1,6 @@
 {
-  "pages": 232,
-  "pagesPerLanguage": 80,
+  "pages": 233,
+  "pagesPerLanguage": 81,
   "languages": [
     "en",
     "zh",
@@ -45,6 +45,7 @@
     "/fastgpt/solutions/support-triage",
     "/fastgpt/solutions/technical-knowledge",
     "/guides",
+    "/guides/china-to-gulf-ai-recording-sourcing",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/guides/gulf-meeting-consent-and-privacy-test",
     "/how-it-works",
@@ -132,6 +133,7 @@
     "/fastgpt/solutions/support-triage",
     "/fastgpt/solutions/technical-knowledge",
     "/guides",
+    "/guides/china-to-gulf-ai-recording-sourcing",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/guides/gulf-meeting-consent-and-privacy-test",
     "/how-it-works",
