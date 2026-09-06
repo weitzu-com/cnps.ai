@@ -8,6 +8,15 @@
       "title": "Gulf Arabic–English meeting-notes pilot: consent, quality, action items",
       "description": "A two-week Gulf pilot for Arabic–English meeting notes: consent script, bilingual quality scorecard, and action-item ownership — before you buy hardware.",
       "h1": "Run a Gulf Arabic–English meeting-notes pilot in two weeks"
+    },
+    {
+      "slug": "gulf-meeting-consent-and-privacy-test",
+      "locales": ["en"],
+      "category": "Procurement",
+      "audience": "UAE and KSA team leads freezing consent before a recorder rollout",
+      "title": "Consent and privacy test before a Gulf meeting-recorder rollout",
+      "description": "Freeze invite disclosure, a start script, stop-on-objection, access and retention, and vendor residency questions before you roll out meeting recorders in a Gulf enterprise.",
+      "h1": "Consent and privacy test before a Gulf meeting-recorder rollout"
     }
   ]
 }
