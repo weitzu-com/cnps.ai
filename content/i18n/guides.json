@@ -17,6 +17,15 @@
       "title": "Consent and privacy test before a Gulf meeting-recorder rollout",
       "description": "Freeze invite disclosure, a start script, stop-on-objection, access and retention, and vendor residency questions before you roll out meeting recorders in a Gulf enterprise.",
       "h1": "Consent and privacy test before a Gulf meeting-recorder rollout"
+    },
+    {
+      "slug": "china-to-gulf-ai-recording-sourcing",
+      "locales": ["en"],
+      "category": "Procurement",
+      "audience": "UAE and KSA teams and distributors sourcing China AI recording hardware",
+      "title": "Source China AI recording hardware for UAE/KSA without skipping the pilot",
+      "description": "Define the workflow, score China vendors on processing location and Gulf support, then sample against a bilingual meeting-notes scorecard before a bulk PO.",
+      "h1": "Source China AI recording hardware for UAE/KSA without skipping the pilot"
     }
   ]
 }
