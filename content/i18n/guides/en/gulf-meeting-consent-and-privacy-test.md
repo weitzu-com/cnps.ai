@@ -29,7 +29,7 @@ If any line is blank, the privacy test has not started. Keep confidential minute
 
 ## Invite language and start-of-meeting script
 
-Use one invite block and one spoken start. State that the session may be recorded to produce internal notes; name the languages you expect (Gulf Arabic and English, including switching); say who will see audio, transcript and summary; and tell people how to object — reply to the invite, or say so at the start. Then pause. The English and Arabic lines below are **examples**, not official translations. If your company already has approved notice text, use that instead.
+Use one invite block and one spoken start. State that the session may be recorded to produce internal notes; name the languages you expect (Gulf Arabic and English, including switching); say who will see audio, transcript and summary; and tell people how to object — reply to the invite, or say so at the start. Then pause. The English and Arabic lines below are examples, not official translations. If your company already has approved notice text, use that instead.
 
 **Invite example (English).** This session may be recorded to produce internal meeting notes in Gulf Arabic and English. Audio, transcript and summary will be available to the host, the designated reviewer and the pilot owner only. To object, reply to this invite or say so at the start. If anyone objects, we will stop recording.
 

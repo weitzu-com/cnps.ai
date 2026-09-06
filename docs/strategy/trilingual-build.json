@@ -1,6 +1,6 @@
 {
-  "pages": 231,
-  "pagesPerLanguage": 79,
+  "pages": 232,
+  "pagesPerLanguage": 80,
   "languages": [
     "en",
     "zh",
@@ -46,6 +46,7 @@
     "/fastgpt/solutions/technical-knowledge",
     "/guides",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
+    "/guides/gulf-meeting-consent-and-privacy-test",
     "/how-it-works",
     "/languages",
     "/privacy",
@@ -125,7 +126,6 @@
     "/fastgpt/cases/parts-data",
     "/fastgpt/cases/service-intake",
     "/fastgpt/cases/supplier-shortlist",
-    "/fastgpt/compare",
     "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
     "/fastgpt/contact",
     "/fastgpt/solutions/rfq-intake",
@@ -133,6 +133,7 @@
     "/fastgpt/solutions/technical-knowledge",
     "/guides",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
+    "/guides/gulf-meeting-consent-and-privacy-test",
     "/how-it-works",
     "/languages",
     "/privacy",
