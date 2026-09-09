@@ -1,6 +1,6 @@
 {
-  "pages": 239,
-  "pagesPerLanguage": 82,
+  "pages": 240,
+  "pagesPerLanguage": 83,
   "languages": [
     "en",
     "zh",
@@ -49,6 +49,7 @@
     "/guides/china-to-gulf-ai-recording-sourcing",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/guides/gulf-meeting-consent-and-privacy-test",
+    "/guides/uae-ksa-edge-ai-site-readiness",
     "/how-it-works",
     "/languages",
     "/privacy",
@@ -139,6 +140,7 @@
     "/guides/china-to-gulf-ai-recording-sourcing",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/guides/gulf-meeting-consent-and-privacy-test",
+    "/guides/uae-ksa-edge-ai-site-readiness",
     "/how-it-works",
     "/languages",
     "/privacy",
