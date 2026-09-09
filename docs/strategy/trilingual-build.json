@@ -1,6 +1,6 @@
 {
-  "pages": 238,
-  "pagesPerLanguage": 81,
+  "pages": 239,
+  "pagesPerLanguage": 82,
   "languages": [
     "en",
     "zh",
@@ -41,6 +41,7 @@
     "/fastgpt/cases/supplier-shortlist",
     "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
     "/fastgpt/contact",
+    "/fastgpt/guides/uae-first-pilot-documents-and-workflow",
     "/fastgpt/solutions/rfq-intake",
     "/fastgpt/solutions/support-triage",
     "/fastgpt/solutions/technical-knowledge",
@@ -91,7 +92,8 @@
   ],
   "aliases": {
     "/resources/fastgpt-cnps-global-growth-bilingual": "/resources/fastgpt-cnps-global-growth",
-    "/fastgpt/compare": "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise"
+    "/fastgpt/compare": "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
+    "/fastgpt/guides": "/fastgpt/guides/uae-first-pilot-documents-and-workflow"
   },
   "oldRoutes": [
     "",
@@ -129,6 +131,7 @@
     "/fastgpt/cases/supplier-shortlist",
     "/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
     "/fastgpt/contact",
+    "/fastgpt/guides/uae-first-pilot-documents-and-workflow",
     "/fastgpt/solutions/rfq-intake",
     "/fastgpt/solutions/support-triage",
     "/fastgpt/solutions/technical-knowledge",
