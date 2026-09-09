@@ -32,4 +32,6 @@ The bill of materials should include camera, lens, compute, storage, enclosure, 
 
 Share the country, number of sites and cameras, intended task, network conditions, target date and local integration owner. Do not upload personal or sensitive video in an initial inquiry.
 
+For UAE or KSA camera sites, complete the Gulf-named [UAE/KSA edge AI site readiness](/guides/uae-ksa-edge-ai-site-readiness) checklist before selecting hardware.
+
 [Discuss an edge AI evaluation](/request-quote?solution=edge-vision)

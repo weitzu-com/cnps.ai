@@ -53,6 +53,21 @@
         "en": "Source China AI recording hardware for UAE/KSA without skipping the pilot",
         "ar": "استورد أجهزة تسجيل بالذكاء الاصطناعي من الصين إلى الإمارات/السعودية دون تخطي التجربة"
       }
+    },
+    {
+      "slug": "uae-ksa-edge-ai-site-readiness",
+      "locales": ["en"],
+      "category": "Procurement",
+      "audience": "UAE and KSA integrators and site owners planning camera-based edge AI",
+      "title": {
+        "en": "UAE/KSA edge AI site readiness before you pick a box"
+      },
+      "description": {
+        "en": "Map lighting, FOV, network, power, latency budget, and who reviews exceptions on the real UAE/KSA site before selecting edge hardware."
+      },
+      "h1": {
+        "en": "UAE/KSA edge AI site readiness before you pick a box"
+      }
     }
   ]
 }
