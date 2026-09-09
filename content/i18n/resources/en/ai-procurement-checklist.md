@@ -34,6 +34,8 @@ Record the inputs, configuration, test conditions, success metrics and failures.
 
 For China recording hardware destined for UAE or KSA, use the [China→Gulf sourcing method](/guides/china-to-gulf-ai-recording-sourcing) after the workflow and sample gates — not a bulk PO from a brochure.
 
+For UAE or KSA camera sites, complete the [UAE/KSA edge AI site readiness](/guides/uae-ksa-edge-ai-site-readiness) checklist before selecting edge hardware.
+
 ## Prepare your request
 
 Share your company, destination country, task, pilot quantity or user count, target timeline and main constraints. Availability, commercial terms and implementation scope are confirmed during quotation.

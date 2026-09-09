@@ -32,4 +32,6 @@
 
 提供国家、现场数和摄像头数量、预期任务、网络条件、目标日期与本地集成负责人。初次询盘请勿上传个人或敏感视频。
 
+若现场在阿联酋或沙特，请先阅读英文页 [UAE/KSA edge AI site readiness](/en/guides/uae-ksa-edge-ai-site-readiness)，再选择硬件。
+
 [讨论边缘 AI 评估](/request-quote?solution=edge-vision)
