@@ -27,7 +27,7 @@
 
 تمثل [Dify](https://github.com/langgenius/dify) و[RAGFlow](https://github.com/infiniflow/ragflow) و[Qwen3](https://github.com/QwenLM/Qwen3) و[DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1) نقاط انطلاق للبحث. تحقق من الإصدار والترخيص المحددين. يتضمن Dify شروطاً إضافية، وقد تختلف شروط متغيرات النماذج والخدمات المستضافة.
 
-لمقارنة منهجية بين مسارات FastGPT ومعرفة الشركة في ChatGPT — الصلاحيات والاستشهادات والمراجعة، لا درجة النموذج — اقرأ [FastGPT مقابل ChatGPT لمعرفة مؤسسية ذات صلاحيات](/fastgpt/compare/fastgpt-vs-chatgpt-enterprise).
+لمقارنة منهجية بين مسارات FastGPT ومعرفة الشركة في ChatGPT — الصلاحيات والاستشهادات والمراجعة، لا درجة النموذج — اقرأ [FastGPT مقابل ChatGPT لمعرفة مؤسسية ذات صلاحيات](/fastgpt/compare/fastgpt-vs-chatgpt-enterprise). لحزمة تجربة أولى في الإمارات — مدونة معتمدة واحدة وسير عمل قابل للقياس ومجموعة أسئلة صعبة — اقرأ الصفحة الإنجليزية [Pick documents and one workflow for a UAE FastGPT first pilot](/en/fastgpt/guides/uae-first-pilot-documents-and-workflow).
 
 ## ما الذي تشاركه مع CNPS؟
 
