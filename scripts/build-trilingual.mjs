@@ -12,10 +12,13 @@ const products=json('content/i18n/product-assets.json');
 const legacy=json('content/i18n/legacy-pages.json');
 const posts=fs.existsSync('content/i18n/blogs.json')?json('content/i18n/blogs.json').posts:[];
 if(!dev && posts.length<6)throw Error('Expected at least 6 complete journal articles');
+const locText=(field,loc)=>{if(field==null)return '';if(typeof field==='string')return field;return field[loc]??field.en??'';};
+const itemLocales=item=>item.locales||['en'];
 const guides=fs.existsSync('content/i18n/guides.json')?json('content/i18n/guides.json').guides:[];
 for(const g of guides){
  if(!g.slug||!g.title||!g.description||!g.h1)throw Error('Incomplete guide metadata '+g.slug);
- for(const loc of (g.locales||['en'])){
+ for(const loc of itemLocales(g)){
+  if(!locText(g.title,loc)||!locText(g.description,loc)||!locText(g.h1,loc))throw Error('Incomplete guide '+loc+' metadata '+g.slug);
   const source=`content/i18n/guides/${loc}/${g.slug}.md`;
   if(!fs.existsSync(source))throw Error('Missing guide '+source);
  }
@@ -30,7 +33,8 @@ if(!dev && fastPages.length!==13)throw Error('Expected 13 complete FastGPT pages
 const compares=fs.existsSync('content/i18n/fastgpt-compare.json')?json('content/i18n/fastgpt-compare.json').compares:[];
 for(const x of compares){
  if(!x.slug||!x.title||!x.description||!x.h1)throw Error('Incomplete FastGPT compare '+x.slug);
- for(const loc of (x.locales||['en'])){
+ for(const loc of itemLocales(x)){
+  if(!locText(x.title,loc)||!locText(x.description,loc)||!locText(x.h1,loc))throw Error('Incomplete FastGPT compare '+loc+' metadata '+x.slug);
   const source=`content/i18n/fastgpt-compare/${loc}/${x.slug}.md`;
   if(!fs.existsSync(source))throw Error('Missing FastGPT compare '+source);
  }
@@ -76,12 +80,14 @@ for(const l of locales){
  const home=`<section class="hero"><div class="container"><div class="hero-grid"><div><p class="eyebrow">${t.heroEyebrow}</p><h1>${t.heroA}<span>${t.heroB}</span></h1><p class="hero-description">${t.heroText}</p><div class="actions">${link(l,'/solutions',t.exploreSolutions,'btn aqua')}${link(l,'/products',t.products,'text-link')}</div></div>${editorial.heroStage(l)}</div><div class="hero-baseline"><span>${t.orbitCaption}</span><span><span class="philosophy">敬天AI人</span> · ${t.purposeEn}</span></div></div></section><section class="section white"><div class="container">${sectionHeading(t.chooseTitle,t.chooseText)}<div class="intent-grid">${[['/products','hardware',t.chooseA,t.chooseAText],['/solutions','applications',t.chooseB,t.chooseBText],['/wholesale','partnership',t.chooseC,t.chooseCText]].map(([p,i,h,d])=>`<a class="intent" href="${route(l,p)}">${icon(i)}<h3>${h}${arrow}</h3><p>${d}</p></a>`).join('')}</div></div></section><section class="section"><div class="container"><div class="heading-row">${sectionHeading(t.showcaseTitle,t.showcaseText)}${link(l,'/products',t.compare,'text-link')}</div><div class="showcase"><article class="feature-product primary"><div class="feature-copy"><p class="eyebrow">${t.podsTag}</p><h3>TicNote Pods WiFi</h3><p>${t.podsText}</p>${link(l,'/products/ticnote-pods-wifi',t.open,'text-link')}</div>${productImage('ticnote-pods-wifi')}</article><article class="feature-product"><div class="feature-copy"><p class="eyebrow">${t.recorderTag}</p><h3>TicNote Lite</h3><p>${t.liteText}</p>${link(l,'/products/ticnote-lite',t.open,'text-link')}</div>${productImage('ticnote-lite')}</article><article class="feature-product dark"><div class="feature-copy"><p class="eyebrow">${t.knowledgeTag}</p><h3>FastGPT</h3><p>${t.knowledgeText}</p>${link(l,'/fastgpt',t.open,'text-link')}</div><div class="knowledge-art" aria-hidden="true">${[t.input,t.evidence,t.evaluate,t.delivery].map(x=>`<div class="knowledge-line"><span class="knowledge-dot"></span>${x}</div>`).join('')}</div></article></div></div></section>${editorial.explorer(l)}<section class="section white"><div class="container"><div class="heading-row">${sectionHeading(t.caseTitle,t.caseText)}${link(l,'/case-studies',t.allCases,'text-link')}</div><div class="catalog-grid three">${[c.cases[0],c.cases[3],c.cases[5]].map(x=>card(l,x,'cases')).join('')}</div><p class="notice">${t.caseNotice}</p></div></section><section class="section"><div class="container">${sectionHeading(t.processTitle,'')}<div class="steps">${[['01',t.processA,t.processAText],['02',t.processB,t.processBText],['03',t.processC,t.processCText]].map(([n,h,p])=>`<div class="step"><span class="step-number">${n}</span><h3>${h}</h3><p>${p}</p></div>`).join('')}</div></div></section>${editorial.journalTeaser(l)}<section class="section belief"><div class="container belief-grid"><div><div class="belief-mark" lang="zh-CN">敬天AI人</div><p>${t.purposeEn}</p></div>${sectionHeading(t.beliefTitle,t.beliefText)}</div></section>`;
  save(l,'',t.heroA+' '+t.heroB,t.heroText,home);
  save(l,'/solutions',t.solutions,t.solutionsText,hero(l,'/solutions',t.solutionsTitle,t.solutionsText)+`<section class="section container"><div class="catalog-grid">${c.solutions.map(x=>card(l,x,'solutions')).join('')}</div></section>`);
- for(const x of c.solutions){headingId=0;const body=`<h2>${t.delivery}</h2><p>${esc(x.deliverable)}</p><h2>${t.input}</h2><p>${esc(x.input)}</p><h2>${t.evaluate}</h2><ul>${x.checks.map(v=>`<li>${esc(v)}</li>`).join('')}</ul><h2>${t.limitation}</h2><p>${esc(x.boundaries)}</p><h2>${t.related}</h2><ul>${x.cases.map(s=>`<li><a href="${route(l,'/case-studies/'+s)}">${esc(c.cases.find(y=>y.slug===s).title)}</a></li>`).join('')}<li><a href="${route(l,'/resources/'+x.resource)}">${esc(c.resources.find(y=>y.slug===x.resource).title)}</a></li>${x.slug==='meeting-ai'&&guides[0]?`<li><a href="${l==='en'?route(l,'/guides/'+guides[0].slug):'/en/guides/'+guides[0].slug}">${esc(guides[0].title)}</a></li>`:''}</ul>`;save(l,'/solutions/'+x.slug,x.title,x.short,hero(l,'/solutions/'+x.slug,x.title,x.short,link(l,'/request-quote?solution='+x.slug,x.action),t[categoryKey[x.category]])+`<div class="container article-layout"><article class="prose">${body}</article>${side(l,'/request-quote?solution='+x.slug)}</div>`);}
+ for(const x of c.solutions){headingId=0;const body=`<h2>${t.delivery}</h2><p>${esc(x.deliverable)}</p><h2>${t.input}</h2><p>${esc(x.input)}</p><h2>${t.evaluate}</h2><ul>${x.checks.map(v=>`<li>${esc(v)}</li>`).join('')}</ul><h2>${t.limitation}</h2><p>${esc(x.boundaries)}</p><h2>${t.related}</h2><ul>${x.cases.map(s=>`<li><a href="${route(l,'/case-studies/'+s)}">${esc(c.cases.find(y=>y.slug===s).title)}</a></li>`).join('')}<li><a href="${route(l,'/resources/'+x.resource)}">${esc(c.resources.find(y=>y.slug===x.resource).title)}</a></li>${x.slug==='meeting-ai'&&guides[0]?`<li><a href="${itemLocales(guides[0]).includes(l)?route(l,'/guides/'+guides[0].slug):'/en/guides/'+guides[0].slug}">${esc(locText(guides[0].title,itemLocales(guides[0]).includes(l)?l:'en'))}</a></li>`:''}</ul>`;save(l,'/solutions/'+x.slug,x.title,x.short,hero(l,'/solutions/'+x.slug,x.title,x.short,link(l,'/request-quote?solution='+x.slug,x.action),t[categoryKey[x.category]])+`<div class="container article-layout"><article class="prose">${body}</article>${side(l,'/request-quote?solution='+x.slug)}</div>`);}
  save(l,'/case-studies',t.cases,t.caseText,hero(l,'/case-studies',t.caseTitle,t.caseText)+`<section class="section container" data-collection>${collectionTools(l,['Applications','Hardware'])}<div class="catalog-grid three">${c.cases.map(x=>card(l,x,'cases')).join('')}</div><p class="notice">${t.caseNotice}</p></section>`);
  for(const x of c.cases){const body=`<p class="tag">${esc(x.label)}</p><p>${esc(x.region)} · <bdi>${esc(x.technology)}</bdi></p><h2>${t.facts}</h2><p>${esc(x.facts)}</p><h2>${t.lesson}</h2><p>${esc(x.lesson)}</p><h2>${t.limitation}</h2><p>${esc(x.limits)}</p><h2>${t.evaluate}</h2><ul>${x.evaluation.map(v=>`<li>${esc(v)}</li>`).join('')}</ul><h2>${t.evidence}</h2><ul>${x.sources.map(([n,u])=>`<li><a href="${esc(u)}">${esc(n)} ↗</a></li>`).join('')}</ul>`;save(l,'/case-studies/'+x.slug,x.title,x.summary,hero(l,'/case-studies/'+x.slug,x.title,x.summary,'',t.cases)+`<div class="container article-layout"><article class="prose">${localLinks(body,l)}</article>${side(l,'/request-quote?solution='+x.solution)}</div>`);}
  const reportName=translations({en:'FastGPT × CNPS: Global growth and delivery',zh:'FastGPT × CNPS：出海增长与交付',ar:'FastGPT × CNPS: النمو العالمي وتسليم المشاريع'},l);
- const guideCards=guides.map(g=>({slug:g.slug,title:g.title,category:g.category,description:g.description,pathPrefix:'/guides/',absoluteHref:l==='en'?undefined:'/en/guides/'+g.slug}));
- const resourceItems=[...c.resources,{slug:'fastgpt-cnps-global-growth',title:reportName,category:'Research',description:t.translatedNote},...guideCards];
+ const localeCard=(item,pathPrefix,category=item.category)=>{const available=itemLocales(item),has=available.includes(l);return {slug:item.slug,title:locText(item.title,has?l:'en'),category:category||'Applications',description:locText(item.description,has?l:'en'),pathPrefix,absoluteHref:has?undefined:route('en',pathPrefix+item.slug)};};
+ const guideCards=guides.map(g=>localeCard(g,'/guides/','Procurement'));
+ const compareCards=compares.map(x=>localeCard(x,'/fastgpt/compare/',x.category||'Applications'));
+ const resourceItems=[...c.resources,...compareCards,{slug:'fastgpt-cnps-global-growth',title:reportName,category:'Research',description:t.translatedNote},...guideCards];
  save(l,'/resources',t.resources,t.resourcesText,hero(l,'/resources',t.resourcesTitle,t.resourcesText)+`<section class="section container" data-collection>${collectionTools(l,['Procurement','Hardware','Applications','Research'])}<div class="catalog-grid three">${resourceItems.map(x=>card(l,x,'resources')).join('')}</div></section>`);
  for(const x of c.resources.filter(x=>x.slug!=='china-ai-export-playbook')){const source=`content/i18n/resources/${l}/${x.slug}.md`;headingId=0;const text=read(source);const download=`/downloads/${l}/${x.slug}.md`;fs.mkdirSync(path.join(out,'downloads',l),{recursive:true});fs.writeFileSync(path.join(out,download),text);save(l,'/resources/'+x.slug,x.title,x.description,hero(l,'/resources/'+x.slug,x.title,x.description,`<div class="actions"><a class="btn" href="${download}" download>${t.download} ↓</a></div>`,t.procurement)+`<div class="container article-layout"><article class="prose">${markdown(text.replace(/^# .+\n/,''),l)}</article>${side(l)}</div>`);}
  save(l,'/products',t.products,t.productsText,hero(l,'/products',t.productsTitle,t.productsText,`<div class="actions">${link(l,'/products/compare',t.compare)}${link(l,'/request-quote',t.wholesale,'btn ghost')}</div>`)+`<section class="section container"><div class="catalog-grid three">${productsOrder.map(p=>productCard(l,p)).join('')}</div><p class="notice">${t.priceNote} ${t.checkout}</p></section>`);
@@ -111,34 +117,37 @@ for(const l of locales){
  const rss=`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CNPS ${t.blogs}</title><link>${root+route(l,'/blogs')}</link><description>${esc(t.journalText)}</description><language>${l==='zh'?'zh-CN':l}</language><atom:link href="${root+route(l,'/blogs/feed.xml')}" rel="self" type="application/rss+xml"/>${posts.map(p=>`<item><title>${esc(p.locales[l].title)}</title><link>${root+route(l,'/blogs/'+p.slug)}</link><guid isPermaLink="true">${root+route(l,'/blogs/'+p.slug)}</guid><pubDate>${new Date(p.date+'T12:00:00Z').toUTCString()}</pubDate><description>${esc(p.locales[l].description)}</description></item>`).join('')}</channel></rss>`;
  fs.mkdirSync(path.join(out,l,'blogs'),{recursive:true});fs.writeFileSync(path.join(out,l,'blogs/feed.xml'),rss);
 
- if(l==='en'){
-  const available=['en'];
-  save(l,'/guides',t.guides,t.guidesText,hero(l,'/guides',t.guidesTitle,t.guidesText,'',t.guides)+`<section class="section container" data-collection>${collectionTools(l,['Procurement'])}<div class="catalog-grid three">${guides.map(g=>card(l,{slug:g.slug,title:g.title,category:g.category,description:g.description,pathPrefix:'/guides/'},'guides')).join('')}</div></section>`,{availableLocales:available});
-  for(const g of guides){
+ const localeGuides=guides.filter(g=>itemLocales(g).includes(l));
+ const guideHubLocales=[...new Set(guides.flatMap(itemLocales))];
+ if(localeGuides.length){
+  save(l,'/guides',t.guides,t.guidesText,hero(l,'/guides',t.guidesTitle,t.guidesText,'',t.guides)+`<section class="section container" data-collection>${collectionTools(l,['Procurement'])}<div class="catalog-grid three">${localeGuides.map(g=>card(l,{slug:g.slug,title:locText(g.title,l),category:g.category,description:locText(g.description,l),pathPrefix:'/guides/'},'guides')).join('')}</div></section>`,{availableLocales:guideHubLocales});
+  for(const g of localeGuides){
    headingId=0;
-   const source=`content/i18n/guides/en/${g.slug}.md`;
+   const title=locText(g.title,l),description=locText(g.description,l),h1=locText(g.h1,l);
+   const source=`content/i18n/guides/${l}/${g.slug}.md`;
    const text=read(source);
-   const download=`/downloads/en/${g.slug}.md`;
-   fs.mkdirSync(path.join(out,'downloads','en'),{recursive:true});
+   const download=`/downloads/${l}/${g.slug}.md`;
+   fs.mkdirSync(path.join(out,'downloads',l),{recursive:true});
    fs.writeFileSync(path.join(out,download),text);
    let html=markdown(text.replace(/^# .+\n/,''),l);
    html=html.replace(/^(<p>[\s\S]*?)(?=<h2)/,'<div class="notice" role="note">$1</div>');
    const headings=[...html.matchAll(/<h2 id="([^"]+)">([\s\S]*?)<\/h2>/g)].map(m=>({id:m[1],title:m[2].replace(/<[^>]*>/g,'')}));
    const toc=headings.map(h=>`<a href="#${h.id}">${esc(h.title)}</a>`).join('');
    const meetingPost=posts.find(x=>x.slug==='meeting-ai-measure-the-finished-note');
-   const relatedItems=[['/resources/meeting-device-pilot',c.resources.find(x=>x.slug==='meeting-device-pilot')?.title],['/blogs/meeting-ai-measure-the-finished-note',meetingPost?.locales.en.title],['/solutions/meeting-ai',c.solutions.find(x=>x.slug==='meeting-ai')?.title]].filter(x=>x[1]);
-   const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/guides')}">${t.guides}</a><span aria-hidden="true">/</span><span>${esc(g.title)}</span></div><p class="eyebrow">${t.procurement}</p><h1 class="wide">${esc(g.h1)}</h1><p class="lead">${esc(g.description)}</p><div class="report-toolbar"><a class="btn" href="${download}" download>${t.download} ↓</a><button class="btn ghost" type="button" data-print>${t.print}</button>${link(l,'/request-quote?solution=meeting-ai',t.contact,'btn ghost')}</div></div></section>`;
-   const related=`<section class="section white"><div class="container"><div class="heading-row"><h2>${t.related}</h2>${link(l,'/guides',t.guides,'text-link')}</div><div class="catalog-grid three">${relatedItems.map(([p,title])=>`<article class="catalog-card"><span class="tag">${t.procurement}</span><h3><a href="${route(l,p)}">${esc(title)}</a></h3>${link(l,p,t.open,'text-link')}</article>`).join('')}</div></div></section>`;
-   save(l,'/guides/'+g.slug,g.title,g.description,header+`<div class="container report-layout"><details class="report-toc" open><summary>${t.contents} ⌄</summary><nav aria-label="${t.contents}">${toc}</nav></details><article class="prose report-prose">${html}</article></div>`+related,{report:true,availableLocales:available});
+   const relatedItems=[['/resources/meeting-device-pilot',c.resources.find(x=>x.slug==='meeting-device-pilot')?.title],['/blogs/meeting-ai-measure-the-finished-note',meetingPost?.locales[l]?.title||meetingPost?.locales.en.title],['/solutions/meeting-ai',c.solutions.find(x=>x.slug==='meeting-ai')?.title]].filter(x=>x[1]);
+   const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/guides')}">${t.guides}</a><span aria-hidden="true">/</span><span>${esc(title)}</span></div><p class="eyebrow">${t.procurement}</p><h1 class="wide">${esc(h1)}</h1><p class="lead">${esc(description)}</p><div class="report-toolbar"><a class="btn" href="${download}" download>${t.download} ↓</a><button class="btn ghost" type="button" data-print>${t.print}</button>${link(l,'/request-quote?solution=meeting-ai',t.contact,'btn ghost')}</div></div></section>`;
+   const related=`<section class="section white"><div class="container"><div class="heading-row"><h2>${t.related}</h2>${link(l,'/guides',t.guides,'text-link')}</div><div class="catalog-grid three">${relatedItems.map(([p,relTitle])=>`<article class="catalog-card"><span class="tag">${t.procurement}</span><h3><a href="${route(l,p)}">${esc(relTitle)}</a></h3>${link(l,p,t.open,'text-link')}</article>`).join('')}</div></div></section>`;
+   save(l,'/guides/'+g.slug,title,description,header+`<div class="container report-layout"><details class="report-toc" open><summary>${t.contents} ⌄</summary><nav aria-label="${t.contents}">${toc}</nav></details><article class="prose report-prose">${html}</article></div>`+related,{report:true,availableLocales:itemLocales(g)});
   }
-  for(const x of compares){
-   headingId=0;
-   const text=read(`content/i18n/fastgpt-compare/en/${x.slug}.md`);
-   let html=markdown(text.replace(/^# .+\n/,''),l);
-   html=html.replace(/^(<p>[\s\S]*?)(?=<h2)/,'<div class="notice" role="note">$1</div>');
-   const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/fastgpt')}">FastGPT</a><span aria-hidden="true">/</span><span>${esc(x.title)}</span></div><p class="eyebrow">CNPS × FASTGPT</p><h1 class="wide">${esc(x.h1)}</h1><p class="lead">${esc(x.description)}</p><div class="actions">${link(l,'/fastgpt/contact',t.contact)}${link(l,'/resources/fastgpt-cnps-global-growth',t.read,'btn ghost')}</div></div></section>`;
-   save(l,'/fastgpt/compare/'+x.slug,x.title,x.description,header+`<div class="container article-layout"><article class="prose">${html}</article>${side(l,'/fastgpt/contact')}</div>`,{availableLocales:['en'],localeFallback:'/fastgpt'});
-  }
+ }
+ for(const x of compares.filter(item=>itemLocales(item).includes(l))){
+  headingId=0;
+  const title=locText(x.title,l),description=locText(x.description,l),h1=locText(x.h1,l);
+  const text=read(`content/i18n/fastgpt-compare/${l}/${x.slug}.md`);
+  let html=markdown(text.replace(/^# .+\n/,''),l);
+  html=html.replace(/^(<p>[\s\S]*?)(?=<h2)/,'<div class="notice" role="note">$1</div>');
+  const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/fastgpt')}">FastGPT</a><span aria-hidden="true">/</span><span>${esc(title)}</span></div><p class="eyebrow">CNPS × FASTGPT</p><h1 class="wide">${esc(h1)}</h1><p class="lead">${esc(description)}</p><div class="actions">${link(l,'/fastgpt/contact',t.contact)}${link(l,'/resources/fastgpt-cnps-global-growth',t.read,'btn ghost')}</div></div></section>`;
+  save(l,'/fastgpt/compare/'+x.slug,title,description,header+`<div class="container article-layout"><article class="prose">${html}</article>${side(l,'/fastgpt/contact')}</div>`,{availableLocales:itemLocales(x),localeFallback:'/fastgpt'});
  }
 
  save(l,'/404',t.notFound,t.notFoundText,hero(l,'/404',t.notFound,t.notFoundText,link(l,'',t.home)));
@@ -154,17 +163,26 @@ for(const old of new Set([...oldPages,...paths])){
 fs.writeFileSync(path.join(out,'index.html'),'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/en"><link rel="canonical" href="https://www.cnps.ai/en"><title>CNPS.AI</title></head><body><a href="/en">English</a> · <a href="/zh">中文</a> · <a href="/ar">العربية</a></body></html>');
 fs.copyFileSync(path.join(out,'en/404.html'),path.join(out,'404.html'));
 function writeRedirect(from,to){const file=path.join(out,from+'.html');fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${to}"><link rel="canonical" href="${root+to}"><title>CNPS.AI</title></head><body><a href="${to}">CNPS.AI</a></body></html>`);}
-for(const g of guides){for(const loc of ['zh','ar']){writeRedirect('/'+loc+'/guides','/en/guides');writeRedirect('/'+loc+'/guides/'+g.slug,'/en/guides/'+g.slug);}}
+const guideHubLocales=[...new Set(guides.flatMap(itemLocales))];
+for(const loc of ['zh','ar']){
+ if(!guideHubLocales.includes(loc))writeRedirect('/'+loc+'/guides','/en/guides');
+ for(const g of guides){
+  if(!itemLocales(g).includes(loc))writeRedirect('/'+loc+'/guides/'+g.slug,'/en/guides/'+g.slug);
+ }
+}
 for(const x of compares){
- const dest='/en/fastgpt/compare/'+x.slug;
- writeRedirect('/fastgpt/compare',dest);
- writeRedirect('/en/fastgpt/compare',dest);
- for(const loc of ['zh','ar']){writeRedirect('/'+loc+'/fastgpt/compare',dest);writeRedirect('/'+loc+'/fastgpt/compare/'+x.slug,dest);}
+ const destEn='/en/fastgpt/compare/'+x.slug;
+ writeRedirect('/fastgpt/compare',destEn);
+ writeRedirect('/en/fastgpt/compare',destEn);
+ for(const loc of ['zh','ar']){
+  if(itemLocales(x).includes(loc))writeRedirect('/'+loc+'/fastgpt/compare','/'+loc+'/fastgpt/compare/'+x.slug);
+  else {writeRedirect('/'+loc+'/fastgpt/compare',destEn);writeRedirect('/'+loc+'/fastgpt/compare/'+x.slug,destEn);}
+ }
 }
 const sitemap=allPages.filter(x=>!x.path.endsWith('/404')).map(p=>{const suffix=p.path.replace(/^\/(en|zh|ar)/,'')||'/';const dest=suffix==='/'?'':suffix;const available=p.availableLocales||locales;const links=available.map(l=>`<xhtml:link rel="alternate" hreflang="${l==='zh'?'zh-CN':l}" href="${root+route(l,dest)}"/>`).join('');const xdef=available.includes('en')?`<xhtml:link rel="alternate" hreflang="x-default" href="${root+route('en',dest)}"/>`:'';return `<url><loc>${root+p.path}</loc>${links}${xdef}</url>`;}).join('\n');
 fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemap}\n</urlset>\n`);
 fs.writeFileSync(path.join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://www.cnps.ai/sitemap.xml\n');
-fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English method guides live at /en/guides. FastGPT method compares live at /en/fastgpt/compare. Industry references are distinguished from CNPS deliveries.\n');
+fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English and Arabic method guides live at /en/guides and /ar/guides. FastGPT method compares live at /en/fastgpt/compare and /ar/fastgpt/compare. Industry references are distinguished from CNPS deliveries.\n');
 fs.mkdirSync('docs/strategy',{recursive:true});
 fs.writeFileSync('docs/strategy/trilingual-build.json',JSON.stringify({pages:allPages.length,pagesPerLanguage:paths.size,languages:locales,paths:[...paths].sort(),aliases,oldRoutes:[...new Set([...oldPages,...paths])].sort()},null,2)+'\n');
 console.log(JSON.stringify({trilingualPages:allPages.length,pagesPerLanguage:paths.size,draft:dev}));
