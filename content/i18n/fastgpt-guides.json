@@ -1,0 +1,11 @@
+{
+  "guides": [
+    {
+      "slug": "uae-first-pilot-documents-and-workflow",
+      "locales": ["en"],
+      "title": "Pick documents and one workflow for a UAE FastGPT first pilot",
+      "description": "Choose one approved corpus, one measurable workflow, and a hard-question set for a UAE FastGPT knowledge-assistant pilot — measure checked answers, not first drafts.",
+      "h1": "Pick documents and one workflow for a UAE FastGPT first pilot"
+    }
+  ]
+}

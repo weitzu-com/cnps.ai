@@ -27,7 +27,7 @@
 
 [Dify](https://github.com/langgenius/dify)、[RAGFlow](https://github.com/infiniflow/ragflow)、[Qwen3](https://github.com/QwenLM/Qwen3) 与 [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1) 可作为研究起点。检查确切版本和许可。Dify 有附加条件；不同模型变体和托管服务可能采用不同条款。
 
-若要按方法比较 FastGPT 形态的流程与 ChatGPT 公司知识（权限、引用与审核，而不是模型分数），请阅读英文页 [FastGPT vs ChatGPT for permissioned enterprise knowledge](/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise)。
+若要按方法比较 FastGPT 形态的流程与 ChatGPT 公司知识（权限、引用与审核，而不是模型分数），请阅读英文页 [FastGPT vs ChatGPT for permissioned enterprise knowledge](/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise)。若要选择一套获准语料、一项可测量流程和一组难题作为阿联酋首次试点，请阅读英文页 [Pick documents and one workflow for a UAE FastGPT first pilot](/en/fastgpt/guides/uae-first-pilot-documents-and-workflow)。
 
 ## 向 CNPS 提供哪些信息
 

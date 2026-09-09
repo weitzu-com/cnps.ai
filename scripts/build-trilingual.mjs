@@ -31,12 +31,15 @@ for(const p of posts)for(const l of locales)if(!p.locales?.[l]?.body||!p.locales
 const fastPages=fs.existsSync('content/i18n/fastgpt-pages.json')?json('content/i18n/fastgpt-pages.json'):[];
 if(!dev && fastPages.length!==13)throw Error('Expected 13 complete FastGPT pages');
 const compares=fs.existsSync('content/i18n/fastgpt-compare.json')?json('content/i18n/fastgpt-compare.json').compares:[];
-for(const x of compares){
- if(!x.slug||!x.title||!x.description||!x.h1)throw Error('Incomplete FastGPT compare '+x.slug);
- for(const loc of itemLocales(x)){
-  if(!locText(x.title,loc)||!locText(x.description,loc)||!locText(x.h1,loc))throw Error('Incomplete FastGPT compare '+loc+' metadata '+x.slug);
-  const source=`content/i18n/fastgpt-compare/${loc}/${x.slug}.md`;
-  if(!fs.existsSync(source))throw Error('Missing FastGPT compare '+source);
+const fastgptGuides=fs.existsSync('content/i18n/fastgpt-guides.json')?json('content/i18n/fastgpt-guides.json').guides:[];
+for(const [kind,items] of [['compare',compares],['guides',fastgptGuides]]){
+ for(const x of items){
+  if(!x.slug||!x.title||!x.description||!x.h1)throw Error('Incomplete FastGPT '+kind+' '+x.slug);
+  for(const loc of itemLocales(x)){
+   if(!locText(x.title,loc)||!locText(x.description,loc)||!locText(x.h1,loc))throw Error('Incomplete FastGPT '+kind+' '+loc+' metadata '+x.slug);
+   const source=`content/i18n/fastgpt-${kind}/${loc}/${x.slug}.md`;
+   if(!fs.existsSync(source))throw Error('Missing FastGPT '+kind+' '+source);
+  }
  }
 }
 const translations=(obj,l)=>{if(obj?.[l]!==undefined)return obj[l];if(dev)return obj?.en||'';throw Error('Missing '+l+' translation');};
@@ -149,12 +152,23 @@ for(const l of locales){
   const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/fastgpt')}">FastGPT</a><span aria-hidden="true">/</span><span>${esc(title)}</span></div><p class="eyebrow">CNPS × FASTGPT</p><h1 class="wide">${esc(h1)}</h1><p class="lead">${esc(description)}</p><div class="actions">${link(l,'/fastgpt/contact',t.contact)}${link(l,'/resources/fastgpt-cnps-global-growth',t.read,'btn ghost')}</div></div></section>`;
   save(l,'/fastgpt/compare/'+x.slug,title,description,header+`<div class="container article-layout"><article class="prose">${html}</article>${side(l,'/fastgpt/contact')}</div>`,{availableLocales:itemLocales(x),localeFallback:'/fastgpt'});
  }
+ for(const x of fastgptGuides.filter(item=>itemLocales(item).includes(l))){
+  headingId=0;
+  const title=locText(x.title,l),description=locText(x.description,l),h1=locText(x.h1,l);
+  const text=read(`content/i18n/fastgpt-guides/${l}/${x.slug}.md`);
+  let html=markdown(text.replace(/^# .+\n/,''),l);
+  html=html.replace(/^(<p>[\s\S]*?)(?=<h2)/,'<div class="notice" role="note">$1</div>');
+  const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/fastgpt')}">FastGPT</a><span aria-hidden="true">/</span><span>${esc(title)}</span></div><p class="eyebrow">CNPS × FASTGPT</p><h1 class="wide">${esc(h1)}</h1><p class="lead">${esc(description)}</p><div class="actions">${link(l,'/fastgpt/contact',t.contact)}${link(l,'/resources/fastgpt-cnps-global-growth',t.read,'btn ghost')}</div></div></section>`;
+  save(l,'/fastgpt/guides/'+x.slug,title,description,header+`<div class="container article-layout"><article class="prose">${html}</article>${side(l,'/fastgpt/contact')}</div>`,{availableLocales:itemLocales(x),localeFallback:'/fastgpt'});
+ }
 
  save(l,'/404',t.notFound,t.notFoundText,hero(l,'/404',t.notFound,t.notFoundText,link(l,'',t.home)));
 }
 // Stable original URLs remain usable; language-prefixed pages own canonical content.
 const aliases={'/resources/fastgpt-cnps-global-growth-bilingual':'/resources/fastgpt-cnps-global-growth'};
-for(const x of compares)aliases['/fastgpt/compare']='/fastgpt/compare/'+x.slug;
+for(const [kind,items] of [['compare',compares],['guides',fastgptGuides]]){
+ for(const x of items)aliases['/fastgpt/'+kind]='/fastgpt/'+kind+'/'+x.slug;
+}
 for(const old of new Set([...oldPages,...paths])){
  if(!old||old==='/'||old==='/404')continue;
  const target=aliases[old]||old;if(!paths.has(target))throw Error('Unmapped legacy HTML route '+old);
@@ -170,19 +184,21 @@ for(const loc of ['zh','ar']){
   if(!itemLocales(g).includes(loc))writeRedirect('/'+loc+'/guides/'+g.slug,'/en/guides/'+g.slug);
  }
 }
-for(const x of compares){
- const destEn='/en/fastgpt/compare/'+x.slug;
- writeRedirect('/fastgpt/compare',destEn);
- writeRedirect('/en/fastgpt/compare',destEn);
- for(const loc of ['zh','ar']){
-  if(itemLocales(x).includes(loc))writeRedirect('/'+loc+'/fastgpt/compare','/'+loc+'/fastgpt/compare/'+x.slug);
-  else {writeRedirect('/'+loc+'/fastgpt/compare',destEn);writeRedirect('/'+loc+'/fastgpt/compare/'+x.slug,destEn);}
+for(const [kind,items] of [['compare',compares],['guides',fastgptGuides]]){
+ for(const x of items){
+  const destEn='/en/fastgpt/'+kind+'/'+x.slug;
+  writeRedirect('/fastgpt/'+kind,destEn);
+  writeRedirect('/en/fastgpt/'+kind,destEn);
+  for(const loc of ['zh','ar']){
+   if(itemLocales(x).includes(loc))writeRedirect('/'+loc+'/fastgpt/'+kind,'/'+loc+'/fastgpt/'+kind+'/'+x.slug);
+   else {writeRedirect('/'+loc+'/fastgpt/'+kind,destEn);writeRedirect('/'+loc+'/fastgpt/'+kind+'/'+x.slug,destEn);}
+  }
  }
 }
 const sitemap=allPages.filter(x=>!x.path.endsWith('/404')).map(p=>{const suffix=p.path.replace(/^\/(en|zh|ar)/,'')||'/';const dest=suffix==='/'?'':suffix;const available=p.availableLocales||locales;const links=available.map(l=>`<xhtml:link rel="alternate" hreflang="${l==='zh'?'zh-CN':l}" href="${root+route(l,dest)}"/>`).join('');const xdef=available.includes('en')?`<xhtml:link rel="alternate" hreflang="x-default" href="${root+route('en',dest)}"/>`:'';return `<url><loc>${root+p.path}</loc>${links}${xdef}</url>`;}).join('\n');
 fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemap}\n</urlset>\n`);
 fs.writeFileSync(path.join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://www.cnps.ai/sitemap.xml\n');
-fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English and Arabic method guides live at /en/guides and /ar/guides. FastGPT method compares live at /en/fastgpt/compare and /ar/fastgpt/compare. Industry references are distinguished from CNPS deliveries.\n');
+fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English and Arabic method guides live at /en/guides and /ar/guides. FastGPT method compares live at /en/fastgpt/compare and /ar/fastgpt/compare. FastGPT method guides live at /en/fastgpt/guides. Industry references are distinguished from CNPS deliveries.\n');
 fs.mkdirSync('docs/strategy',{recursive:true});
 fs.writeFileSync('docs/strategy/trilingual-build.json',JSON.stringify({pages:allPages.length,pagesPerLanguage:paths.size,languages:locales,paths:[...paths].sort(),aliases,oldRoutes:[...new Set([...oldPages,...paths])].sort()},null,2)+'\n');
 console.log(JSON.stringify({trilingualPages:allPages.length,pagesPerLanguage:paths.size,draft:dev}));
