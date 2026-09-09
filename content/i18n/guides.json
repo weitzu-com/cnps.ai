@@ -2,30 +2,57 @@
   "guides": [
     {
       "slug": "gulf-arabic-english-meeting-notes-pilot",
-      "locales": ["en"],
+      "locales": ["en", "ar"],
       "category": "Procurement",
       "audience": "UAE and KSA team leads running bilingual meetings",
-      "title": "Gulf Arabic–English meeting-notes pilot: consent, quality, action items",
-      "description": "A two-week Gulf pilot for Arabic–English meeting notes: consent script, bilingual quality scorecard, and action-item ownership — before you buy hardware.",
-      "h1": "Run a Gulf Arabic–English meeting-notes pilot in two weeks"
+      "title": {
+        "en": "Gulf Arabic–English meeting-notes pilot: consent, quality, action items",
+        "ar": "تجربة محاضر اجتماعات عربية خليجية–إنجليزية: الموافقة والجودة وبنود العمل"
+      },
+      "description": {
+        "en": "A two-week Gulf pilot for Arabic–English meeting notes: consent script, bilingual quality scorecard, and action-item ownership — before you buy hardware.",
+        "ar": "تجربة خليجية لأسبوعين لمحاضر عربية–إنجليزية: نص الموافقة، وبطاقة جودة ثنائية اللغة، وملكية بنود العمل — قبل شراء الأجهزة."
+      },
+      "h1": {
+        "en": "Run a Gulf Arabic–English meeting-notes pilot in two weeks",
+        "ar": "أدر تجربة محاضر اجتماعات عربية خليجية–إنجليزية في أسبوعين"
+      }
     },
     {
       "slug": "gulf-meeting-consent-and-privacy-test",
-      "locales": ["en"],
+      "locales": ["en", "ar"],
       "category": "Procurement",
       "audience": "UAE and KSA team leads freezing consent before a recorder rollout",
-      "title": "Consent and privacy test before a Gulf meeting-recorder rollout",
-      "description": "Freeze invite disclosure, a start script, stop-on-objection, access and retention, and vendor residency questions before you roll out meeting recorders in a Gulf enterprise.",
-      "h1": "Consent and privacy test before a Gulf meeting-recorder rollout"
+      "title": {
+        "en": "Consent and privacy test before a Gulf meeting-recorder rollout",
+        "ar": "اختبار الموافقة والخصوصية قبل طرح مسجّل اجتماعات في الخليج"
+      },
+      "description": {
+        "en": "Freeze invite disclosure, a start script, stop-on-objection, access and retention, and vendor residency questions before you roll out meeting recorders in a Gulf enterprise.",
+        "ar": "ثبّت الإفصاح في الدعوة، ونص البدء، وقاعدة التوقف عند الاعتراض، وقائمة الوصول والاحتفاظ، وأسئلة إقامة البيانات لدى المورّد قبل طرح مسجّلات الاجتماعات في مؤسسة خليجية."
+      },
+      "h1": {
+        "en": "Consent and privacy test before a Gulf meeting-recorder rollout",
+        "ar": "اختبار الموافقة والخصوصية قبل طرح مسجّل اجتماعات في الخليج"
+      }
     },
     {
       "slug": "china-to-gulf-ai-recording-sourcing",
-      "locales": ["en"],
+      "locales": ["en", "ar"],
       "category": "Procurement",
       "audience": "UAE and KSA teams and distributors sourcing China AI recording hardware",
-      "title": "Source China AI recording hardware for UAE/KSA without skipping the pilot",
-      "description": "Define the workflow, score China vendors on processing location and Gulf support, then sample against a bilingual meeting-notes scorecard before a bulk PO.",
-      "h1": "Source China AI recording hardware for UAE/KSA without skipping the pilot"
+      "title": {
+        "en": "Source China AI recording hardware for UAE/KSA without skipping the pilot",
+        "ar": "استورد أجهزة تسجيل بالذكاء الاصطناعي من الصين إلى الإمارات/السعودية دون تخطي التجربة"
+      },
+      "description": {
+        "en": "Define the workflow, score China vendors on processing location and Gulf support, then sample against a bilingual meeting-notes scorecard before a bulk PO.",
+        "ar": "حدّد مسار العمل، وقيّم مورّدي الصين وفق موقع المعالجة والدعم في الخليج، ثم اختبر عينة ببطاقة محاضر ثنائية اللغة قبل أمر شراء بالجملة."
+      },
+      "h1": {
+        "en": "Source China AI recording hardware for UAE/KSA without skipping the pilot",
+        "ar": "استورد أجهزة تسجيل بالذكاء الاصطناعي من الصين إلى الإمارات/السعودية دون تخطي التجربة"
+      }
     }
   ]
 }

@@ -407,12 +407,7 @@
     },
     {
       "source": "/ar/fastgpt/compare",
-      "destination": "/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
-      "permanent": false
-    },
-    {
-      "source": "/ar/fastgpt/compare/:path*",
-      "destination": "/en/fastgpt/compare/:path*",
+      "destination": "/ar/fastgpt/compare/fastgpt-vs-chatgpt-enterprise",
       "permanent": false
     },
     {
@@ -432,16 +427,6 @@
     },
     {
       "source": "/zh/guides/:path*",
-      "destination": "/en/guides/:path*",
-      "permanent": false
-    },
-    {
-      "source": "/ar/guides",
-      "destination": "/en/guides",
-      "permanent": false
-    },
-    {
-      "source": "/ar/guides/:path*",
       "destination": "/en/guides/:path*",
       "permanent": false
     },
