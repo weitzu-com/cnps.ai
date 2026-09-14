@@ -19,7 +19,7 @@ export const cases = [
 ];
 
 export const resources = [
- {slug:'ai-procurement-checklist',title:'The business buyer’s AI procurement checklist',category:'Procurement',audience:'Procurement and project owners',description:'Define the task, evidence, complete cost and responsibility before comparing a quotation.'},
+ {slug:'ai-procurement-checklist',title:'AI procurement checklist for enterprise buyers',category:'Procurement',audience:'Procurement and project owners',description:'China→buyer AI procurement checklist: freeze the job, match evidence to SKU and region, price TCO, pilot with acceptance, then enquire — CNPS.AI method.'},
  {slug:'meeting-device-pilot',title:'Plan an AI meeting device pilot',category:'Hardware',audience:'Team managers and distributors',description:'Check subscription ownership, real language performance, exports and ongoing support.'},
  {slug:'knowledge-pilot',title:'Scope a document-grounded AI assistant',category:'Applications',audience:'IT leaders and service providers',description:'Prepare a fixed evaluation set, document permissions, citations and a useful acceptance test.'},
  {slug:'edge-ai-survey',title:'The edge AI site survey',category:'Hardware',audience:'Integrators and site owners',description:'Capture the camera, lighting, network and operating conditions needed for a site evaluation.'},
