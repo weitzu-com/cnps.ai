@@ -178,7 +178,7 @@ for(const [kind,items] of [['compare',compares],['guides',fastgptGuides]]){
 for(const old of new Set([...oldPages,...paths])){
  if(!old||old==='/'||old==='/404')continue;
  const target=aliases[old]||old;if(!paths.has(target))throw Error('Unmapped legacy HTML route '+old);
- const l=old==='/resources/china-ai-export-playbook'?'zh':'en';const destination=route(l,target);const file=path.join(out,old+'.html');fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${destination}"><link rel="canonical" href="${root+destination}"><title>CNPS.AI</title></head><body><a href="${destination}">CNPS.AI</a></body></html>`);
+ const destination=route('en',target);const file=path.join(out,old+'.html');fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${destination}"><link rel="canonical" href="${root+destination}"><title>CNPS.AI</title></head><body><a href="${destination}">CNPS.AI</a></body></html>`);
 }
 fs.writeFileSync(path.join(out,'index.html'),'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/en"><link rel="canonical" href="https://www.cnps.ai/en"><title>CNPS.AI</title></head><body><a href="/en">English</a> · <a href="/zh">中文</a> · <a href="/ar">العربية</a></body></html>');
 fs.copyFileSync(path.join(out,'en/404.html'),path.join(out,'404.html'));

@@ -252,7 +252,7 @@
     },
     {
       "source": "/resources/china-ai-export-playbook",
-      "destination": "/zh/resources/china-ai-export-playbook",
+      "destination": "/en/resources/china-ai-export-playbook",
       "permanent": true
     },
     {
