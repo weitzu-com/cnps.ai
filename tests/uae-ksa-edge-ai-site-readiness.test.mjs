@@ -61,7 +61,8 @@ test('UAE/KSA edge AI site readiness guide stays a method page', () => {
   assert.match(arChecklist, /\/guides\/uae-ksa-edge-ai-site-readiness/);
   assert.doesNotMatch(arSurvey, /\/en\/guides\/uae-ksa-edge-ai-site-readiness/);
   assert.doesNotMatch(arChecklist, /\/en\/guides\/uae-ksa-edge-ai-site-readiness/);
-  assert.equal(vercelDest('/zh/guides/:path*'), '/en/guides/:path*');
+  assert.equal(vercelDest('/zh/guides/:slug'), '/en/guides/:slug');
+  assert.equal(vercelDest('/zh/guides/:path*'), undefined);
   assert.equal(vercelDest('/zh/guides'), undefined);
   assert.equal(vercelDest('/ar/guides/:path*'), undefined);
   assert.doesNotMatch(source, /add to cart|buy now/i);
@@ -153,6 +154,28 @@ test('resources hub lists edge readiness on EN and AR', () => {
   assert.match(en, /UAE\/KSA edge AI site readiness before you pick a box/);
   assert.match(ar, /href="\/ar\/guides\/uae-ksa-edge-ai-site-readiness"/);
   assert.match(ar, /جاهزية موقع الذكاء الاصطناعي الطرفي في الإمارات\/السعودية قبل اختيار الصندوق/);
+});
+
+test('Vercel ZH guide catch-all requires a slug and does not match the hub', () => {
+  // Vercel :path* is zero-or-more segments, so /zh/guides/:path* also matches /zh/guides.
+  // :slug is exactly one segment, so the inventory hub is served and only missing ZH articles 307 to EN.
+  function vercelMatches(source, pathname) {
+    const regex = new RegExp('^' + source
+      .replace(/\/:([A-Za-z0-9_]+)\*/g, '(?:/.*)?')
+      .replace(/\/:([A-Za-z0-9_]+)\+/g, '/.+')
+      .replace(/\/:([A-Za-z0-9_]+)/g, '/[^/]+')
+      + '$');
+    return regex.test(pathname);
+  }
+  assert.equal(vercelMatches('/zh/guides/:path*', '/zh/guides'), true);
+  assert.equal(vercelMatches('/zh/guides/:slug', '/zh/guides'), false);
+  assert.equal(vercelMatches('/zh/guides/:slug', '/zh/guides/uae-ksa-edge-ai-site-readiness'), true);
+  const rule = vercel.redirects.find((r) => r.source === '/zh/guides/:slug');
+  assert.ok(rule, 'slug-only ZH article redirect');
+  assert.equal(rule.destination, '/en/guides/:slug');
+  assert.equal(rule.permanent, false);
+  assert.equal(vercelMatches(rule.source, '/zh/guides'), false);
+  assert.equal(vercelMatches(rule.source, '/zh/guides/uae-ksa-edge-ai-site-readiness'), true);
 });
 
 test('Chinese guides hub is a real inventory page, not a redirect to EN', () => {

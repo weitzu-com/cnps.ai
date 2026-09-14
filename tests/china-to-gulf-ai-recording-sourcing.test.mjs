@@ -58,8 +58,9 @@ test('China→Gulf AI recording sourcing guide stays a method page', () => {
   assert.match(wholesale.body.en, /\/guides\/china-to-gulf-ai-recording-sourcing/);
   assert.match(wholesale.body.ar, /\/guides\/china-to-gulf-ai-recording-sourcing/);
   assert.match(playbook, /china-to-gulf-ai-recording-sourcing/);
-  assert.match(vercel, /"source": "\/zh\/guides\/:path\*"/);
-  assert.match(vercel, /"destination": "\/en\/guides\/:path\*"/);
+  assert.match(vercel, /"source": "\/zh\/guides\/:slug"/);
+  assert.match(vercel, /"destination": "\/en\/guides\/:slug"/);
+  assert.doesNotMatch(vercel, /"source": "\/zh\/guides\/:path\*"/);
   assert.doesNotMatch(vercel, /"source": "\/ar\/guides\/:path\*"/);
 });
 
