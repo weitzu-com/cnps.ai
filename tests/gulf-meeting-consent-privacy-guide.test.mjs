@@ -60,8 +60,9 @@ test('Gulf consent/privacy guide stays a method page', () => {
   assert.doesNotMatch(source, /PDPL (requires|mandates|prohibits|applies)|complies with PDPL|PDPL-compliant/i);
   assert.doesNotMatch(source, /Munsit|MeetriX|CallScribe|Voiquyr|Spinach|Fellow|#1|best Arabic/i);
   assert.match(pilot, /\/guides\/gulf-meeting-consent-and-privacy-test/);
-  assert.match(vercel, /"source": "\/zh\/guides\/:path\*"/);
-  assert.match(vercel, /"destination": "\/en\/guides\/:path\*"/);
+  assert.match(vercel, /"source": "\/zh\/guides\/:slug"/);
+  assert.match(vercel, /"destination": "\/en\/guides\/:slug"/);
+  assert.doesNotMatch(vercel, /"source": "\/zh\/guides\/:path\*"/);
   assert.doesNotMatch(vercel, /"source": "\/ar\/guides\/:path\*"/);
   assert.doesNotMatch(vercel, /"source": "\/ar\/guides"/);
 });

@@ -451,8 +451,8 @@
       "permanent": true
     },
     {
-      "source": "/zh/guides/:path*",
-      "destination": "/en/guides/:path*",
+      "source": "/zh/guides/:slug",
+      "destination": "/en/guides/:slug",
       "permanent": false
     },
     {
