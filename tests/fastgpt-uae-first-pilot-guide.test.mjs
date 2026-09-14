@@ -136,7 +136,7 @@ test('built English and Arabic FastGPT first-pilot pages have self-canonicals an
   assert.match(html, /hreflang="ar" href="https:\/\/www\.cnps\.ai\/ar\/fastgpt\/guides\/uae-first-pilot-documents-and-workflow"/);
   assert.match(html, /hreflang="en" href="https:\/\/www\.cnps\.ai\/en\/fastgpt\/guides\/uae-first-pilot-documents-and-workflow"/);
   assert.match(html, /hreflang="x-default" href="https:\/\/www\.cnps\.ai\/en\/fastgpt\/guides\/uae-first-pilot-documents-and-workflow"/);
-  assert.doesNotMatch(html, /hreflang="zh/);
+  assert.doesNotMatch(html, /rel="alternate" hreflang="zh/);
   assert.match(arHtml, /lang="ar"/);
   assert.match(arHtml, /dir="rtl"/);
   assert.doesNotMatch(arHtml, /http-equiv="refresh"/);

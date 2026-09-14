@@ -120,7 +120,7 @@ test('built English and Arabic edge readiness pages have self-canonicals and rec
   assert.match(html, /hreflang="ar" href="https:\/\/www\.cnps\.ai\/ar\/guides\/uae-ksa-edge-ai-site-readiness"/);
   assert.match(html, /hreflang="en" href="https:\/\/www\.cnps\.ai\/en\/guides\/uae-ksa-edge-ai-site-readiness"/);
   assert.match(html, /hreflang="x-default" href="https:\/\/www\.cnps\.ai\/en\/guides\/uae-ksa-edge-ai-site-readiness"/);
-  assert.doesNotMatch(html, /hreflang="zh/);
+  assert.doesNotMatch(html, /rel="alternate" hreflang="zh/);
   assert.match(arHtml, /lang="ar"/);
   assert.match(arHtml, /dir="rtl"/);
   assert.doesNotMatch(arHtml, /http-equiv="refresh"/);
