@@ -93,7 +93,7 @@ test('recorder vs glasses Arabic twin is MSA and mirrors EN structure', () => {
   assert.match(arSource, /\*\*الالتقاط\.\*\*/);
   assert.match(arSource, /\*\*المحضر\.\*\*/);
   assert.match(arSource, /\*\*الإجراءات\.\*\*/);
-  assert.match(arSource, /ليس كتالوجاً، ولا جدولاً لترتيب العلامات، ولا مسار دفع/);
+  assert.match(arSource, /وليست كتالوجاً، ولا جدولاً لترتيب العلامات، ولا مسار دفع/);
   assert.match(arSource, /ولا تخترع درجات للميكروفون أو البطارية/);
   assert.match(arSource, /\[تجربة محاضر اجتماعات عربية خليجية–إنجليزية\]\(\/guides\/gulf-arabic-english-meeting-notes-pilot\)/);
   assert.match(arSource, /\[اختبار الموافقة والخصوصية\]\(\/guides\/gulf-meeting-consent-and-privacy-test\)/);

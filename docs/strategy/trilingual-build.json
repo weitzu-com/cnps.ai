@@ -1,6 +1,6 @@
 {
-  "pages": 240,
-  "pagesPerLanguage": 83,
+  "pages": 245,
+  "pagesPerLanguage": 84,
   "languages": [
     "en",
     "zh",
@@ -49,6 +49,7 @@
     "/guides/china-to-gulf-ai-recording-sourcing",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/guides/gulf-meeting-consent-and-privacy-test",
+    "/guides/meeting-recorder-vs-smart-glasses-bilingual-notes",
     "/guides/uae-ksa-edge-ai-site-readiness",
     "/how-it-works",
     "/languages",
@@ -140,6 +141,7 @@
     "/guides/china-to-gulf-ai-recording-sourcing",
     "/guides/gulf-arabic-english-meeting-notes-pilot",
     "/guides/gulf-meeting-consent-and-privacy-test",
+    "/guides/meeting-recorder-vs-smart-glasses-bilingual-notes",
     "/guides/uae-ksa-edge-ai-site-readiness",
     "/how-it-works",
     "/languages",
