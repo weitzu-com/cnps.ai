@@ -437,12 +437,7 @@
     },
     {
       "source": "/ar/fastgpt/guides",
-      "destination": "/en/fastgpt/guides/uae-first-pilot-documents-and-workflow",
-      "permanent": false
-    },
-    {
-      "source": "/ar/fastgpt/guides/:path*",
-      "destination": "/en/fastgpt/guides/:path*",
+      "destination": "/ar/fastgpt/guides/uae-first-pilot-documents-and-workflow",
       "permanent": false
     },
     {
@@ -454,11 +449,6 @@
       "source": "/guides/:path*",
       "destination": "/en/guides/:path*",
       "permanent": true
-    },
-    {
-      "source": "/zh/guides",
-      "destination": "/en/guides",
-      "permanent": false
     },
     {
       "source": "/zh/guides/:path*",
