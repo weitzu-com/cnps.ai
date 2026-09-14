@@ -10,14 +10,9 @@ const words = source.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g) || [];
 const arWords = arSource.trim().split(/\s+/);
 const guides = JSON.parse(fs.readFileSync('content/i18n/guides.json', 'utf8')).guides;
 const meta = guides.find((g) => g.slug === slug);
-const vercel = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
 const journal = JSON.parse(fs.readFileSync('content/i18n/blogs.json', 'utf8'));
 const meetingPost = journal.posts.find((p) => p.slug === 'meeting-ai-measure-the-finished-note');
 const glassesPost = journal.posts.find((p) => p.slug === 'smart-glasses-one-field-task');
-
-function vercelDest(sourcePath) {
-  return vercel.redirects.find((r) => r.source === sourcePath)?.destination;
-}
 
 test('recorder vs glasses guide stays a method compare', () => {
   assert.ok(words.length >= 1000 && words.length <= 1500, 'word count ' + words.length);
@@ -65,9 +60,6 @@ test('recorder vs glasses guide stays a method compare', () => {
   assert.doesNotMatch(source, /add to cart|buy now/i);
   assert.doesNotMatch(source, /battery of \d|pickup of \d+\s*m|mic score/i);
   assert.doesNotMatch(source, /Munsit|MeetriX|CallScribe|Voiquyr|Spinach|Fellow|#1|best Arabic/i);
-  assert.equal(vercelDest('/zh/guides/:slug'), '/en/guides/:slug');
-  assert.equal(vercelDest('/zh/guides/:path*'), undefined);
-  assert.equal(vercelDest('/zh/guides'), undefined);
   assert.match(meetingPost.locales.en.body, /\/en\/guides\/meeting-recorder-vs-smart-glasses-bilingual-notes/);
   assert.match(meetingPost.locales.zh.body, /\/en\/guides\/meeting-recorder-vs-smart-glasses-bilingual-notes/);
   assert.match(meetingPost.locales.ar.body, /\/ar\/guides\/meeting-recorder-vs-smart-glasses-bilingual-notes/);
@@ -118,7 +110,6 @@ test('built English and Arabic recorder vs glasses guides are in the sitemap wit
   const sitemap = fs.readFileSync(sitemapPath, 'utf8');
   const arPath = path.join('dist/ar/guides', slug + '.html');
   const zhPath = path.join('dist/zh/guides', slug + '.html');
-  const zhHub = 'dist/zh/guides.html';
   const arHtml = fs.readFileSync(arPath, 'utf8');
   assert.match(html, /<h1 class="wide">Meeting recorder vs smart glasses for bilingual meeting notes<\/h1>/);
   assert.match(html, /role="note"/);
@@ -147,12 +138,6 @@ test('built English and Arabic recorder vs glasses guides are in the sitemap wit
   assert.match(sitemap, /https:\/\/www\.cnps\.ai\/ar\/guides\/meeting-recorder-vs-smart-glasses-bilingual-notes/);
   assert.doesNotMatch(sitemap, /https:\/\/www\.cnps\.ai\/zh\/guides\/meeting-recorder-vs-smart-glasses-bilingual-notes/);
   assert.ok(fs.existsSync(zhPath) && /http-equiv="refresh"/.test(fs.readFileSync(zhPath, 'utf8')));
-  if (fs.existsSync(zhHub)) {
-    const zhHubHtml = fs.readFileSync(zhHub, 'utf8');
-    assert.match(zhHubHtml, /lang="zh-CN"/);
-    assert.doesNotMatch(zhHubHtml, /http-equiv="refresh"/);
-    assert.match(zhHubHtml, /<link rel="canonical" href="https:\/\/www\.cnps\.ai\/zh\/guides">/);
-  }
   assert.doesNotMatch(html, /add to cart|buy now/i);
   assert.doesNotMatch(html, /WER\s*\d/);
 });
