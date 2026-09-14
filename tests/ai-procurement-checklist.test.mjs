@@ -46,9 +46,29 @@ test('EN AI procurement checklist uses GSC title, meta, and China→buyer body',
   assert.match(source, /\[CNPS\.AI\]\(https:\/\/www\.cnps\.ai\/\)/);
   assert.match(source, /sales@cnps\.ai/);
   assert.match(source, /\+86 183 5463 9099/);
+  assert.match(source, /!\[Eight China-to-buyer procurement steps from job freeze to enquiry — diagram, no fake seals\]\(\/assets\/resources\/ai-procurement-checklist-8-steps\.webp\)/);
+  assert.match(source, /!\[Two-column visual: evidence types versus total-cost lines — buyer method, no fake scores\]\(\/assets\/resources\/ai-procurement-checklist-evidence-tco\.webp\)/);
   assert.doesNotMatch(source, /enquiry volumes|accuracy %|word-error rate of \d/i);
   assert.doesNotMatch(source, /ISO 27001 certified|we hold FCC|we hold CE/i);
   assert.doesNotMatch(source, /The business buyer’s AI procurement checklist/);
+});
+
+test('REFRESH-04 editorial assets and inline binaries are in the published layout', () => {
+  const assets = JSON.parse(fs.readFileSync('content/i18n/editorial-assets.json', 'utf8'));
+  const cover = assets['ai-procurement-checklist'];
+  assert.equal(cover.file, 'ai-procurement-checklist');
+  assert.match(cover.alt.en, /no fake certificates/);
+  const files = [
+    'web/assets/editorial/originals/ai-procurement-checklist.png',
+    'web/assets/editorial/ai-procurement-checklist-640.webp',
+    'web/assets/editorial/ai-procurement-checklist-1280.webp',
+    'web/assets/resources/ai-procurement-checklist-8-steps.webp',
+    'web/assets/resources/ai-procurement-checklist-evidence-tco.webp'
+  ];
+  for (const file of files) {
+    assert.ok(fs.existsSync(file), 'missing ' + file);
+    assert.ok(fs.statSync(file).size > 1000, 'too small ' + file);
+  }
 });
 
 test('ZH/AR procurement checklist twins stay on prior copy until a later locale pass', () => {
@@ -58,6 +78,10 @@ test('ZH/AR procurement checklist twins stay on prior copy until a later locale 
   assert.match(arSource, /^# قائمة شراء الذكاء الاصطناعي للمشتري المؤسسي/m);
   assert.doesNotMatch(zhSource, /Define the business task, the evidence you will trust/);
   assert.doesNotMatch(arSource, /Define the business task, the evidence you will trust/);
+  assert.doesNotMatch(zhSource, /ai-procurement-checklist-8-steps/);
+  assert.doesNotMatch(arSource, /ai-procurement-checklist-8-steps/);
+  assert.doesNotMatch(zhSource, /ai-procurement-checklist-evidence-tco/);
+  assert.doesNotMatch(arSource, /ai-procurement-checklist-evidence-tco/);
 });
 
 test('built EN checklist has a single H1, shipped title/meta, and required links', () => {
@@ -84,6 +108,9 @@ test('built EN checklist has a single H1, shipped title/meta, and required links
   assert.match(html, /shop\.cnps\.ai\/collections\/all-ticnote-products/);
   assert.match(html, /www\.cnps\.ai\/en\/request-quote/);
   assert.match(html, /href="\/en"/);
+  assert.match(html, /property="og:image" content="https:\/\/www\.cnps\.ai\/assets\/editorial\/ai-procurement-checklist-1280\.webp"/);
+  assert.match(html, /src="\/assets\/resources\/ai-procurement-checklist-8-steps\.webp"/);
+  assert.match(html, /src="\/assets\/resources\/ai-procurement-checklist-evidence-tco\.webp"/);
   assert.match(sitemap, /https:\/\/www\.cnps\.ai\/en\/resources\/ai-procurement-checklist/);
   assert.doesNotMatch(html, /The business buyer’s AI procurement checklist/);
   assert.doesNotMatch(html, /add to cart|buy now/i);

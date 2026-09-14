@@ -89,3 +89,13 @@ Color palette: Warm parchment, ivory, kraft, ink navy, small natural silver acce
 Constraints: No readable text, no logos, no watermark, no people or hands, no address labels, no customer identity, no holograms, no glass document panels, no meeting room, no industrial machinery. Requirements sheets have faint simple rules and empty checkboxes only.
 ```
 
+## ai-procurement-checklist (REFRESH-04)
+
+- Date: 2026-09-15
+- Source: Grok-generated still-life hero plus two method diagrams; leizi retail-tone PASS
+- Concept only — not product evidence, not a SKU photograph, not certificates or scores
+- Original: `web/assets/editorial/originals/ai-procurement-checklist.png` (JPG-derived PNG from 1600×900 hero)
+- Responsive OG/hero: `web/assets/editorial/ai-procurement-checklist-640.webp` and `web/assets/editorial/ai-procurement-checklist-1280.webp`
+- Inline method diagrams: `web/assets/resources/ai-procurement-checklist-8-steps.webp` and `web/assets/resources/ai-procurement-checklist-evidence-tco.webp`
+- English alt (authoritative): Checklist clipboard and compact AI recorder on a dark desk — enterprise procurement method hero, no fake certificates
+

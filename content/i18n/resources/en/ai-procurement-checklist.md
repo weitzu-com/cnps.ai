@@ -14,6 +14,8 @@ If you already know you need a UAE/KSA recording path with bilingual meeting-not
 
 ## The eight China → buyer steps
 
+![Eight China-to-buyer procurement steps from job freeze to enquiry — diagram, no fake seals](/assets/resources/ai-procurement-checklist-8-steps.webp)
+
 ### 1. Freeze the job — not the model name
 
 Write the task in one paragraph before you open a catalog:
@@ -41,6 +43,8 @@ Match evidence type to what you are deciding. Do not treat a polished demo as pr
 | Your own pilot | Testing the actual requirement | Representative data, agreed acceptance, excluded work |
 
 An industry reference on this site is not a claim that CNPS delivered the project or represents the upstream vendor. Prefer evidence you can archive: document URL, date, SKU identifier, and who signed off.
+
+![Two-column visual: evidence types versus total-cost lines — buyer method, no fake scores](/assets/resources/ai-procurement-checklist-evidence-tco.webp)
 
 ### 3. Lock SKU, region, version, and subscription ownership
 
