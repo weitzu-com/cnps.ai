@@ -1,3 +1,130 @@
+Use this playbook to turn a China-origin AI interest into a **buyer-ready path**: freeze the job, pick a service package you can actually pilot, demand evidence that matches that decision, then move to a structured enquiry — not a demo-only conversation.
+
+CNPS.AI is a China-origin brand publishing TicNote recording hardware and related resources for overseas buyers. This page is the **decision edition** of the China AI export / global expansion research: it explains how overseas procurement works when the supply path starts in China. Amounts, conversion rates, and schedules labeled as planning assumptions in the chapters below are **not** CNPS historical performance or live quotations. Industry references (for example vendor-published cases) are not claims that CNPS delivered those projects.
+
+## Start here (first screen)
+
+### What you get from this playbook
+
+| You need… | Use this page for… | Then go next… |
+| --- | --- | --- |
+| A procurement sequence before any quote | Buyer gates: job → evidence → SKU/region → TCO → pilot → RFQ | Checklist linked below |
+| Which CNPS package to try first | Meeting devices first; knowledge / vision / voice / robotics only after capability checks | Chapters 12–13 in the report body |
+| Gulf recording hardware path | Bilingual meeting-notes gates without skipping the pilot | Gulf sourcing guide linked below |
+| Live retail SKUs | Form factors and published plan options | TicNote collection linked below |
+| A human reply on scope | Company, country, use, quantity, timeline | Request-quote linked below |
+
+### How to read without drowning in 32 pages
+
+Business leaders: skim **Pages 01–04, 13, 22, and 26–29** for categories, budgets, and resource limits. Sales leaders: focus **03, 12–17, 20–21, 25, and 30** for inquiry quality and handoff. Technical and delivery leaders: focus **05–11, 18, 21, and 23–24** for evidence, tests, and responsibilities. **Pages 31–32** hold the evidence directory and launch checklist.
+
+You do not need to finish every industry case chapter before you act. Treat application and hardware case pages as **reference patterns** (workflow, SDK, deployment) — not as CNPS partnership claims unless a quotation confirms supply.
+
+![Three roles — business, sales, technical — mapped to playbook chapter clusters, diagram only](/assets/resources/china-ai-export-playbook-read-map.webp)
+
+The numbers on the role cards (3 / 5 / 2) are chapter-cluster hints for business, sales, and technical readers — not inquiry volumes, accuracy scores, or other metrics.
+
+### Buyer-facing export path (short)
+
+1. **Freeze the outcome in your environment** — not the label “Chinese AI.” Procurement, IT, business, and finance each need an answer before an order survives.  
+2. **Choose the smallest chargeable unit** — a specific requirement, comparable candidates, an acceptance method, and a quotation with clear responsibilities.  
+3. **Prefer packages CNPS can productize early** — meeting-device evaluation sits highest on existing product foundation; knowledge-assistant and edge-vision need partner or limited pilots; voice prototypes and robotics stay configuration / partner inquiries until supply and support are confirmed.  
+4. **Separate evidence types** — vendor-named cases, open-source technical references, social publicity, and CNPS’s own authorized delivery cases prove different things. Do not merge them into “our customer success.”  
+5. **Run a pilot with written acceptance** before a bulk PO. Passing a finite sample proves whether to scale, change SKU, or stop — not that every future site will succeed.  
+6. **Send an enquiry sales can quote** — company, destination country, use, quantity or site count, timing, reply channel. Budget may be “need guidance.”
+
+When you want the step-by-step worksheet that pairs with this research edition, use the companion method page: [AI procurement checklist for enterprise buyers](https://www.cnps.ai/en/resources/ai-procurement-checklist).
+
+If your destination is UAE or KSA and the job is recording / meeting notes, keep the pilot gate and follow the region method once: [Source China AI recording hardware for UAE/KSA without skipping the pilot](https://www.cnps.ai/en/guides/china-to-gulf-ai-recording-sourcing).
+
+## Who this playbook is for
+
+Use it when you are:
+
+- An overseas **buyer, MSP, distributor, or integrator** evaluating China-origin AI applications or hardware through CNPS  
+- Choosing between a **standard SKU sample**, a **team pilot**, and a longer solution assessment  
+- Building an internal brief for leadership that separates **public facts**, **planning assumptions**, and **items still to confirm in quotation**
+
+Skip treating this as a finished commercial offer. Public pages must not invent brand authorization, inventory depth, enterprise subscription guarantees, overseas repair SLAs, or accuracy percentages CNPS has not published. Unconfirmed items belong in the quotation conversation.
+
+Brand context and product entry points live on [CNPS.AI](https://www.cnps.ai/). For published TicNote form factors and plan options before you assume an enterprise pack, compare the live store collection: [All TicNote Products](https://shop.cnps.ai/collections/all-ticnote-products).
+
+## What “China AI export” means here
+
+In this research, “China AI” covers Chinese supply chains, related development teams, and their global ecosystems. It does **not** automatically mean the registered jurisdiction or data-storage location of every referenced project. For any live deal you still check: contracting entity, destination-country fit, SKU-matched documents, data flows, and who owns after-sales.
+
+CNPS’s chargeable differentiation — when confirmed — centers on translating requirements into comparable specifications, organizing supply and technical evidence, lowering pilot startup cost, and clarifying delivery responsibilities. If you can buy an equivalent path directly from a manufacturer, ask what CNPS adds rather than paying a silent markup.
+
+## Five service packages (buyer view)
+
+These are recommended directions from the research edition, not automatic commitments. Formal quotes must state exclusions, delivery conditions, payment milestones, and acceptance criteria.
+
+| Package | Outcome you buy | First deliverable | Upgrade path |
+| --- | --- | --- | --- |
+| Meeting-device evaluation | Suitable devices and subscriptions for your team | Requirements check, sample plan, acceptance checklist | Team procurement or channel volume |
+| Knowledge-assistant pilot | Whether document retrieval is reliable on your materials | Data preparation, evaluation set, pilot plan | Integration / maintenance after capability confirmation |
+| Edge-vision evaluation | Technical feasibility on a bounded site | Site survey, BOM, validation plan | Single-site delivery, then replication |
+| Voice-device prototype | A testable interaction scope | Functional scope, firmware and backend inventory | Design validation → pilot production (only after supplier checks) |
+| Robotics procurement coordination | Model, rights, and support verified | Configuration sheet, risk list, partner plan | Lab delivery or integrator project |
+
+Under resource constraints, the research ranks **meeting devices** first for existing foundation and support burden, then limited knowledge-assistant pilots. Edge vision, voice, and robotics stay capped until authorization, staffing, and partners are real.
+
+## Evidence and assumption gate (keep this visible)
+
+- **Assumption labels stay.** Budget tables, funnel math, and example TCO figures in the chapters are planning illustrations — not forecasts, not live SKU prices.  
+- **Evidence categories stay separate.** A Dify / Kakaku-style vendor case supports that a named overseas adoption was published; it does not prove CNPS implementation capacity. SDK repositories prove interfaces exist; they do not prove your production task.  
+- **Truth incomplete, not false.** Prefer “confirm during quotation” over invented certificates, inquiry volumes, win rates, or “AI accuracy” claims.  
+- **North-star framing in the report:** contribution margin from paid orders originating in resources and cases — early monitoring may use qualified inquiries and paid pilots, but page views alone are not orders.
+
+## What to put in your first message
+
+A useful enquiry is a work item. Include at least:
+
+| Field | Why it matters |
+| --- | --- |
+| Company and reply contact | So a human can answer |
+| Destination country | SKU, logistics, compliance |
+| Intended use | Product vs solution routing |
+| Pilot quantity or user / site count | Sample vs project path |
+| Timeline | Queue and supply checks |
+| Constraints | Language, offline need, data questions; budget optional |
+
+Share those details through [Start a conversation](https://www.cnps.ai/en/request-quote), or email **sales@cnps.ai** / call **+86 183 5463 9099**. Expect candidate options, key unknowns, and proposed acceptance steps — not only a unit price.
+
+## FAQ
+
+### What is the CNPS China AI export / global expansion playbook?
+
+It is the English decision edition of CNPS research on how overseas buyers evaluate and procure China-origin AI applications and hardware. The long report retains research-date and revision history; this first screen is the buyer-facing map so you can act without reading every chapter first.
+
+### Is this a product catalog or a consulting brochure?
+
+Neither alone. Product entry points (including TicNote) remain on the site and store. The playbook explains **how to decide**: requirements, evidence, pilots, RFQs, TCO, compliance gates, and what CNPS should not claim publicly until confirmed. Commercial terms are set in quotation.
+
+### Why does the SERP / page talk about “China AI” if buyers do not buy a label?
+
+Buyers procure an outcome in their environment at acceptable cost and risk. The phrase “China AI” remains a search and research signal for supply-path origin; the body translates that into jobs, packages, and acceptance tests. Do not treat the label as a performance guarantee.
+
+### How is this different from the AI procurement checklist?
+
+The checklist is the **step worksheet** (job → evidence → SKU/region → TCO → compliance → pilot → support → enquiry). This playbook is the **research / expansion edition** behind that method: market selection, package priorities, evidence standards, RFQ design, and 90-day operating framing. Use the checklist to run a live buy; use this page to understand the system.
+
+### Can I skip the pilot if the position / demo looks strong?
+
+No. Ranking or a polished demonstration does not replace acceptance on your languages, rooms, data, or account rules. Agree metrics and excluded work before a bulk PO — especially on cross-border hardware where RMA and subscription ownership matter.
+
+### What should I not expect this page to invent?
+
+Do not expect published inquiry volumes, accuracy percentages, unverified certificates, guaranteed overseas repair SLAs, or claims that CNPS is the authorized dealer for every referenced upstream brand. Missing items are quotation blockers, not marketing footnotes.
+
+### Where do I go for UAE/KSA recording hardware specifically?
+
+After you freeze the meeting-notes job and sample size, follow the Gulf sourcing guide linked in the first-screen section above. That guide keeps the pilot gate for UAE/KSA; this playbook stays the wider China→buyer research frame.
+
+## Next step
+
+You now have a first-screen path: map your role to the right chapters, pick a package you can pilot, keep assumption and evidence labels honest, and send a structured enquiry when ready. Use the checklist for the live procurement sequence; use the Gulf guide when UAE/KSA recording is the job; open the TicNote collection for published SKUs; keep reading Pages 01–32 below when you need the full research edition.
+
 # CNPS.AI Global Expansion Plan for Chinese AI Applications and Hardware
 
 > Decision edition and public resource center plan · Research date: 2026-09-03 · Revision V22 (22 substantive revisions after the initial draft)

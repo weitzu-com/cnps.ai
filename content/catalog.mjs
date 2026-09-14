@@ -26,5 +26,5 @@ export const resources = [
  {slug:'voice-prototype',title:'A voice device prototype specification',category:'Hardware',audience:'Product and OEM teams',description:'Connect the hardware bill of materials with backend, language and maintenance requirements.'},
  {slug:'robotics-procurement',title:'Robotics procurement: configuration and SDK access',category:'Hardware',audience:'Labs and integration teams',description:'Confirm the exact edition, developer permissions, accessories and support responsibilities.'},
  {slug:'rfq-template',title:'A practical B2B request for quotation',category:'Procurement',audience:'Buyers ready to share requirements',description:'Use a structured brief to request a product quotation or discuss a scoped evaluation.'},
- {slug:'china-ai-export-playbook',title:'China AI: the CNPS global expansion playbook',category:'Research',audience:'Partners and business planners',description:'The detailed Chinese strategy: 32 logical pages, source references and a transparent revision record.'}
+ {slug:'china-ai-export-playbook',title:'China AI export playbook for overseas buyers',category:'Research',audience:'Partners and business planners',description:'China AI export playbook: freeze the job, pick a pilot package, demand SKU-matched evidence, then enquire — CNPS.AI buyer map to the full research edition.'}
 ];
