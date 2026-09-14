@@ -14,6 +14,7 @@ const catalog = JSON.parse(fs.readFileSync('content/i18n/catalog.json', 'utf8'))
 const enMeta = catalog.en.resources.find((r) => r.slug === slug);
 const zhMeta = catalog.zh.resources.find((r) => r.slug === slug);
 const arMeta = catalog.ar.resources.find((r) => r.slug === slug);
+const editorialAssets = JSON.parse(fs.readFileSync('content/i18n/editorial-assets.json', 'utf8'));
 
 function htmlH1s(html) {
   return [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)].map((m) =>
@@ -28,6 +29,10 @@ test('EN playbook catalog ships buyer-intent title and meta, not translated-edit
   assert.doesNotMatch(enMeta.description, /Complete translated edition/i);
   assert.equal(zhMeta.title, '中国 AI：CNPS 全球拓展行动方案');
   assert.equal(arMeta.title, 'الذكاء الاصطناعي الصيني: خطة CNPS للتوسع العالمي');
+  const cover = editorialAssets[slug];
+  assert.equal(cover.file, slug);
+  assert.match(cover.alt.en, /no fake certificates/);
+  assert.ok(cover.alt.zh && cover.alt.ar);
 });
 
 test('EN first-screen module sits above retained V22 long report', () => {
@@ -50,6 +55,11 @@ test('EN first-screen module sits above retained V22 long report', () => {
   assert.match(enSource, /https:\/\/www\.cnps\.ai\//);
   assert.match(enSource, /https:\/\/shop\.cnps\.ai\/collections\/all-ticnote-products/);
   assert.match(enSource, /https:\/\/www\.cnps\.ai\/en\/request-quote/);
+  assert.match(
+    enSource,
+    /!\[Three roles — business, sales, technical — mapped to playbook chapter clusters, diagram only\]\(\/assets\/resources\/china-ai-export-playbook-read-map\.webp\)/
+  );
+  assert.match(enSource, /chapter-cluster hints/);
   assert.doesNotMatch(enSource, /#1 in (the )?Gulf|market share|WER\s*\d|word-error rate of \d/i);
   assert.doesNotMatch(enSource.slice(0, v22), /\b\d{2,}\s*%\s*(accuracy|win rate)/i);
 });
@@ -59,6 +69,8 @@ test('ZH and AR retain V22 bodies without invented first-screen translations', (
   assert.match(arSource, /^# خطة CNPS\.AI للتوسع الدولي في تطبيقات الذكاء الاصطناعي الصينية وأجهزتها/m);
   assert.doesNotMatch(zhSource, /## Start here \(first screen\)/);
   assert.doesNotMatch(arSource, /## Start here \(first screen\)/);
+  assert.doesNotMatch(zhSource, /china-ai-export-playbook-read-map/);
+  assert.doesNotMatch(arSource, /china-ai-export-playbook-read-map/);
   assert.match(zhSource, /## 第 01 页/);
   assert.match(arSource, /## الصفحة 01 /);
   assert.equal((zhSource.match(/<!-- pagebreak -->/g) || []).length, 31);
@@ -89,6 +101,13 @@ test('built EN playbook uses new title/meta, first screen, single H1, and chapte
   assert.match(html, /href="\/en"/);
   assert.match(html, /href="https:\/\/shop\.cnps\.ai\/collections\/all-ticnote-products"/);
   assert.match(html, /href="https:\/\/www\.cnps\.ai\/en\/request-quote"/);
+  assert.match(
+    html,
+    /<meta property="og:image" content="https:\/\/www\.cnps\.ai\/assets\/editorial\/china-ai-export-playbook-1280\.webp">/
+  );
+  assert.match(html, /src="\/assets\/resources\/china-ai-export-playbook-read-map\.webp"/);
+  assert.doesNotMatch(zhHtml, /china-ai-export-playbook-read-map/);
+  assert.doesNotMatch(arHtml, /china-ai-export-playbook-read-map/);
   assert.match(html, /class="report-toolbar"/);
   assert.match(html, /href="\/downloads\/en\/china-ai-export-playbook\.md"/);
   assert.match(html, /href="\/en\/resources\/cnps-ai-revisions"/);

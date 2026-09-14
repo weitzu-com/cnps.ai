@@ -20,6 +20,10 @@ Business leaders: skim **Pages 01–04, 13, 22, and 26–29** for categories, bu
 
 You do not need to finish every industry case chapter before you act. Treat application and hardware case pages as **reference patterns** (workflow, SDK, deployment) — not as CNPS partnership claims unless a quotation confirms supply.
 
+![Three roles — business, sales, technical — mapped to playbook chapter clusters, diagram only](/assets/resources/china-ai-export-playbook-read-map.webp)
+
+The numbers on the role cards (3 / 5 / 2) are chapter-cluster hints for business, sales, and technical readers — not inquiry volumes, accuracy scores, or other metrics.
+
 ### Buyer-facing export path (short)
 
 1. **Freeze the outcome in your environment** — not the label “Chinese AI.” Procurement, IT, business, and finance each need an answer before an order survives.  
