@@ -71,6 +71,24 @@
         "en": "UAE/KSA edge AI site readiness before you pick a box",
         "ar": "جاهزية موقع الذكاء الاصطناعي الطرفي في الإمارات/السعودية قبل اختيار الصندوق"
       }
+    },
+    {
+      "slug": "meeting-recorder-vs-smart-glasses-bilingual-notes",
+      "locales": ["en", "ar"],
+      "category": "Procurement",
+      "audience": "UAE and KSA teams choosing recorder vs glasses form for bilingual notes",
+      "title": {
+        "en": "Meeting recorder vs smart glasses for bilingual meeting notes",
+        "ar": "مسجّل الاجتماعات مقابل النظارات الذكية لمحاضر ثنائية اللغة"
+      },
+      "description": {
+        "en": "Choose by form and consent optics first — visible recorder vs wearable glasses — then prove bilingual quality on a scorecard before bulk buy.",
+        "ar": "اختر أولاً حسب الشكل ومظهر الموافقة — مسجّل ظاهر مقابل نظارات تُرتدى — ثم أثبت الجودة الثنائية اللغة على بطاقة تقييم قبل الشراء بالجملة."
+      },
+      "h1": {
+        "en": "Meeting recorder vs smart glasses for bilingual meeting notes",
+        "ar": "مسجّل الاجتماعات مقابل النظارات الذكية لمحاضر ثنائية اللغة"
+      }
     }
   ]
 }
