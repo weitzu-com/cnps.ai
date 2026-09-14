@@ -91,6 +91,7 @@ const docs = {
  'ai-procurement-checklist': [words('AI procurement','AI 采购','شراء حلول الذكاء الاصطناعي'),words('Decision checklist','决策清单','قائمة اتخاذ القرار'),'checklist'],
  'meeting-device-pilot': [words('Meeting devices','会议设备','أجهزة الاجتماعات'),words('Pilot field guide','试点指南','دليل التجربة الميدانية'),'meeting'],
  'gulf-arabic-english-meeting-notes-pilot': [words('Gulf meeting notes','海湾会议纪要','محاضر اجتماعات خليجية'),words('Bilingual method','双语方法','منهج ثنائي اللغة'),'protocol'],
+ 'meeting-recorder-vs-smart-glasses-bilingual-notes': [words('Recorder vs glasses','录音笔与智能眼镜','مسجّل مقابل نظارات'),words('Form then quality','先形态后质量','الشكل ثم الجودة'),'meeting'],
  'gulf-meeting-consent-and-privacy-test': [words('Gulf meeting consent','海湾会议知情同意','موافقة اجتماعات خليجية'),words('Privacy test protocol','隐私测试规程','بروتوكول اختبار الخصوصية'),'checklist'],
  'china-to-gulf-ai-recording-sourcing': [words('China to Gulf sourcing','中国到海湾采购','التوريد من الصين إلى الخليج'),words('Recording hardware method','录音硬件方法','منهج أجهزة التسجيل'),'rfq'],
  'knowledge-pilot': [words('Knowledge assistants','知识助手','المساعدات المعرفية'),words('Pilot design','试点设计','تصميم التجربة'),'knowledge'],
