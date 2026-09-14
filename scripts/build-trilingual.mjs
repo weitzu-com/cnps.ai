@@ -91,7 +91,8 @@ for(const l of locales){
  const localeCard=(item,pathPrefix,category=item.category)=>{const available=itemLocales(item),has=available.includes(l);return {slug:item.slug,title:locText(item.title,has?l:'en'),category:category||'Applications',description:locText(item.description,has?l:'en'),pathPrefix,absoluteHref:has?undefined:route('en',pathPrefix+item.slug)};};
  const guideCards=guides.map(g=>localeCard(g,'/guides/','Procurement'));
  const compareCards=compares.map(x=>localeCard(x,'/fastgpt/compare/',x.category||'Applications'));
- const resourceItems=[...c.resources,...compareCards,{slug:'fastgpt-cnps-global-growth',title:reportName,category:'Research',description:t.translatedNote},...guideCards];
+ const fastgptGuideCards=fastgptGuides.map(x=>localeCard(x,'/fastgpt/guides/',x.category||'Applications'));
+ const resourceItems=[...c.resources,...compareCards,...fastgptGuideCards,{slug:'fastgpt-cnps-global-growth',title:reportName,category:'Research',description:t.translatedNote},...guideCards];
  save(l,'/resources',t.resources,t.resourcesText,hero(l,'/resources',t.resourcesTitle,t.resourcesText)+`<section class="section container" data-collection>${collectionTools(l,['Procurement','Hardware','Applications','Research'])}<div class="catalog-grid three">${resourceItems.map(x=>card(l,x,'resources')).join('')}</div></section>`);
  for(const x of c.resources.filter(x=>x.slug!=='china-ai-export-playbook')){const source=`content/i18n/resources/${l}/${x.slug}.md`;headingId=0;const text=read(source);const download=`/downloads/${l}/${x.slug}.md`;fs.mkdirSync(path.join(out,'downloads',l),{recursive:true});fs.writeFileSync(path.join(out,download),text);save(l,'/resources/'+x.slug,x.title,x.description,hero(l,'/resources/'+x.slug,x.title,x.description,`<div class="actions"><a class="btn" href="${download}" download>${t.download} ↓</a></div>`,t.procurement)+`<div class="container article-layout"><article class="prose">${markdown(text.replace(/^# .+\n/,''),l)}</article>${side(l)}</div>`);}
  save(l,'/products',t.products,t.productsText,hero(l,'/products',t.productsTitle,t.productsText,`<div class="actions">${link(l,'/products/compare',t.compare)}${link(l,'/request-quote',t.wholesale,'btn ghost')}</div>`)+`<section class="section container"><div class="catalog-grid three">${productsOrder.map(p=>productCard(l,p)).join('')}</div><p class="notice">${t.priceNote} ${t.checkout}</p></section>`);
@@ -122,9 +123,9 @@ for(const l of locales){
  fs.mkdirSync(path.join(out,l,'blogs'),{recursive:true});fs.writeFileSync(path.join(out,l,'blogs/feed.xml'),rss);
 
  const localeGuides=guides.filter(g=>itemLocales(g).includes(l));
- const guideHubLocales=[...new Set(guides.flatMap(itemLocales))];
- if(localeGuides.length){
-  save(l,'/guides',t.guides,t.guidesText,hero(l,'/guides',t.guidesTitle,t.guidesText,'',t.guides)+`<section class="section container" data-collection>${collectionTools(l,['Procurement'])}<div class="catalog-grid three">${localeGuides.map(g=>card(l,{slug:g.slug,title:locText(g.title,l),category:g.category,description:locText(g.description,l),pathPrefix:'/guides/'},'guides')).join('')}</div></section>`,{availableLocales:guideHubLocales});
+ const guideHubLocales=locales;
+ if(guides.length){
+  save(l,'/guides',t.guides,t.guidesText,hero(l,'/guides',t.guidesTitle,t.guidesText,'',t.guides)+`<section class="section container" data-collection>${collectionTools(l,['Procurement'])}<div class="catalog-grid three">${guides.map(g=>card(l,localeCard(g,'/guides/',g.category||'Procurement'),'guides')).join('')}</div></section>`,{availableLocales:guideHubLocales});
   for(const g of localeGuides){
    headingId=0;
    const title=locText(g.title,l),description=locText(g.description,l),h1=locText(g.h1,l);
@@ -182,9 +183,7 @@ for(const old of new Set([...oldPages,...paths])){
 fs.writeFileSync(path.join(out,'index.html'),'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/en"><link rel="canonical" href="https://www.cnps.ai/en"><title>CNPS.AI</title></head><body><a href="/en">English</a> · <a href="/zh">中文</a> · <a href="/ar">العربية</a></body></html>');
 fs.copyFileSync(path.join(out,'en/404.html'),path.join(out,'404.html'));
 function writeRedirect(from,to){const file=path.join(out,from+'.html');fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${to}"><link rel="canonical" href="${root+to}"><title>CNPS.AI</title></head><body><a href="${to}">CNPS.AI</a></body></html>`);}
-const guideHubLocales=[...new Set(guides.flatMap(itemLocales))];
 for(const loc of ['zh','ar']){
- if(!guideHubLocales.includes(loc))writeRedirect('/'+loc+'/guides','/en/guides');
  for(const g of guides){
   if(!itemLocales(g).includes(loc))writeRedirect('/'+loc+'/guides/'+g.slug,'/en/guides/'+g.slug);
  }
@@ -203,7 +202,7 @@ for(const [kind,items] of [['compare',compares],['guides',fastgptGuides]]){
 const sitemap=allPages.filter(x=>!x.path.endsWith('/404')).map(p=>{const suffix=p.path.replace(/^\/(en|zh|ar)/,'')||'/';const dest=suffix==='/'?'':suffix;const available=p.availableLocales||locales;const links=available.map(l=>`<xhtml:link rel="alternate" hreflang="${l==='zh'?'zh-CN':l}" href="${root+route(l,dest)}"/>`).join('');const xdef=available.includes('en')?`<xhtml:link rel="alternate" hreflang="x-default" href="${root+route('en',dest)}"/>`:'';return `<url><loc>${root+p.path}</loc>${links}${xdef}</url>`;}).join('\n');
 fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemap}\n</urlset>\n`);
 fs.writeFileSync(path.join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://www.cnps.ai/sitemap.xml\n');
-fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English and Arabic method guides live at /en/guides and /ar/guides. FastGPT method compares live at /en/fastgpt/compare and /ar/fastgpt/compare. FastGPT method guides live at /en/fastgpt/guides. Industry references are distinguished from CNPS deliveries.\n');
+fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English and Arabic method guides live at /en/guides and /ar/guides. FastGPT method compares live at /en/fastgpt/compare and /ar/fastgpt/compare. FastGPT method guides live at /en/fastgpt/guides and /ar/fastgpt/guides. Industry references are distinguished from CNPS deliveries.\n');
 fs.mkdirSync('docs/strategy',{recursive:true});
 fs.writeFileSync('docs/strategy/trilingual-build.json',JSON.stringify({pages:allPages.length,pagesPerLanguage:paths.size,languages:locales,paths:[...paths].sort(),aliases,oldRoutes:[...new Set([...oldPages,...paths])].sort()},null,2)+'\n');
 console.log(JSON.stringify({trilingualPages:allPages.length,pagesPerLanguage:paths.size,draft:dev}));

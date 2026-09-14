@@ -56,17 +56,20 @@
     },
     {
       "slug": "uae-ksa-edge-ai-site-readiness",
-      "locales": ["en"],
+      "locales": ["en", "ar"],
       "category": "Procurement",
       "audience": "UAE and KSA integrators and site owners planning camera-based edge AI",
       "title": {
-        "en": "UAE/KSA edge AI site readiness before you pick a box"
+        "en": "UAE/KSA edge AI site readiness before you pick a box",
+        "ar": "جاهزية موقع الذكاء الاصطناعي الطرفي في الإمارات/السعودية قبل اختيار الصندوق"
       },
       "description": {
-        "en": "Map lighting, FOV, network, power, latency budget, and who reviews exceptions on the real UAE/KSA site before selecting edge hardware."
+        "en": "Map lighting, FOV, network, power, latency budget, and who reviews exceptions on the real UAE/KSA site before selecting edge hardware.",
+        "ar": "ارسم الإضاءة وFOV والشبكة والطاقة وميزانية الكمون ومن يراجع الاستثناءات على الموقع الفعلي في الإمارات/السعودية قبل اختيار أجهزة الطرف."
       },
       "h1": {
-        "en": "UAE/KSA edge AI site readiness before you pick a box"
+        "en": "UAE/KSA edge AI site readiness before you pick a box",
+        "ar": "جاهزية موقع الذكاء الاصطناعي الطرفي في الإمارات/السعودية قبل اختيار الصندوق"
       }
     }
   ]
