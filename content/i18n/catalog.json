@@ -269,10 +269,10 @@
     "resources": [
       {
         "slug": "ai-procurement-checklist",
-        "title": "The business buyer’s AI procurement checklist",
+        "title": "AI procurement checklist for enterprise buyers",
         "category": "Procurement",
         "audience": "Procurement and project owners",
-        "description": "Define the task, evidence, complete cost and responsibility before comparing a quotation."
+        "description": "China→buyer AI procurement checklist: freeze the job, match evidence to SKU and region, price TCO, pilot with acceptance, then enquire — CNPS.AI method."
       },
       {
         "slug": "meeting-device-pilot",
