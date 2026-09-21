@@ -62,5 +62,13 @@
       "zh": "深色桌面、路线草图与紧凑 AI 录音设备 — 出海手册主图",
       "ar": "مكتب داكن مع مخطط مسار ومسجل ذكاء اصطناعي مدمج — صورة دليل التصدير"
     }
+  },
+  "ufactory-xarm-production-line-checklist": {
+    "file": "ufactory-xarm-production-line-checklist",
+    "alt": {
+      "en": "Checklist clipboard beside compact robot-arm base plate — readiness method, no fake certificates",
+      "zh": "清单夹与紧凑机械臂底板 — 就绪方法示意，无伪造证书",
+      "ar": "لوحة تحقق بجانب قاعدة ذراع روبوت مدمجة — طريقة الجاهزية، بلا شهادات مزيفة"
+    }
   }
 }

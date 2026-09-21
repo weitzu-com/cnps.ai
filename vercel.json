@@ -296,6 +296,21 @@
       "permanent": true
     },
     {
+      "source": "/resources/ufactory-xarm-production-line-checklist",
+      "destination": "/en/resources/ufactory-xarm-production-line-checklist",
+      "permanent": true
+    },
+    {
+      "source": "/zh/resources/ufactory-xarm-production-line-checklist",
+      "destination": "/en/resources/ufactory-xarm-production-line-checklist",
+      "permanent": false
+    },
+    {
+      "source": "/ar/resources/ufactory-xarm-production-line-checklist",
+      "destination": "/en/resources/ufactory-xarm-production-line-checklist",
+      "permanent": false
+    },
+    {
       "source": "/resources/voice-prototype",
       "destination": "/en/resources/voice-prototype",
       "permanent": true
