@@ -89,6 +89,15 @@ Color palette: Warm parchment, ivory, kraft, ink navy, small natural silver acce
 Constraints: No readable text, no logos, no watermark, no people or hands, no address labels, no customer identity, no holograms, no glass document panels, no meeting room, no industrial machinery. Requirements sheets have faint simple rules and empty checkboxes only.
 ```
 
+## ufactory-xarm-production-line-checklist (Daily SEO #19)
+
+- Date: 2026-09-21
+- Source: Attached hero still plus two method diagrams for the overseas production-line checklist; concept only
+- Original: `web/assets/editorial/originals/ufactory-xarm-production-line-checklist.jpg` (hero.jpg) and matching `.webp`
+- Responsive OG/hero: `web/assets/editorial/ufactory-xarm-production-line-checklist-640.webp` and `web/assets/editorial/ufactory-xarm-production-line-checklist-1280.webp`
+- Inline method diagrams: `web/assets/resources/ufactory-xarm-production-line-checklist-steps.webp` and `web/assets/resources/ufactory-xarm-production-line-checklist-owners.webp`
+- English alt (authoritative): Checklist clipboard beside compact robot-arm base plate — readiness method, no fake certificates
+
 ## ai-procurement-checklist (REFRESH-04)
 
 - Date: 2026-09-15

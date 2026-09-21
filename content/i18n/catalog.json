@@ -310,6 +310,13 @@
         "description": "Confirm the exact edition, developer permissions, accessories and support responsibilities."
       },
       {
+        "slug": "ufactory-xarm-production-line-checklist",
+        "title": "UFACTORY xArm production line checklist for overseas teams",
+        "category": "Hardware",
+        "audience": "Overseas labs and integration teams",
+        "description": "Overseas xArm production-line checklist: freeze workcell, mounting, workspace, payload/reach fields, SDK path, site safety — not a lab certificate."
+      },
+      {
         "slug": "rfq-template",
         "title": "A practical B2B request for quotation",
         "category": "Procurement",

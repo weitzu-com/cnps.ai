@@ -23,6 +23,10 @@ test('bare china-export playbook redirects to EN, matching sibling resources and
     vercelDest('/resources/ai-procurement-checklist'),
     '/en/resources/ai-procurement-checklist'
   );
+  assert.equal(
+    vercelDest('/resources/ufactory-xarm-production-line-checklist'),
+    '/en/resources/ufactory-xarm-production-line-checklist'
+  );
 });
 
 test('no unprefixed resource path permanently redirects to ZH', () => {
@@ -39,6 +43,15 @@ test('prefixed china-export and procurement routes stay on their locale (no verc
       assert.equal(vercelDest(`/${loc}/resources/${slug}`), undefined);
     }
   }
+  assert.equal(vercelDest('/en/resources/ufactory-xarm-production-line-checklist'), undefined);
+  assert.equal(
+    vercelDest('/zh/resources/ufactory-xarm-production-line-checklist'),
+    '/en/resources/ufactory-xarm-production-line-checklist'
+  );
+  assert.equal(
+    vercelDest('/ar/resources/ufactory-xarm-production-line-checklist'),
+    '/en/resources/ufactory-xarm-production-line-checklist'
+  );
 });
 
 test('built bare playbook alias points at EN; prefixed EN/ZH pages remain content', () => {
