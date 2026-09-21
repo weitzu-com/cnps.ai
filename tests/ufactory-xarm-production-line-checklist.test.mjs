@@ -61,7 +61,7 @@ test('editorial assets and inline binaries are in the published layout', () => {
   const assets = JSON.parse(fs.readFileSync('content/i18n/editorial-assets.json', 'utf8'));
   const cover = assets[slug];
   assert.equal(cover.file, slug);
-  assert.match(cover.alt.en, /no fake certificates/);
+  assert.match(cover.alt.en, /production-line freeze method, no certificates/);
   const files = [
     'web/assets/editorial/originals/ufactory-xarm-production-line-checklist.jpg',
     'web/assets/editorial/originals/ufactory-xarm-production-line-checklist.webp',

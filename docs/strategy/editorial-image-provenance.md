@@ -53,7 +53,7 @@ Use case: product-mockup. Asset type: premium editorial landscape image for an e
 
 ## ufactory-xarm-production-line-checklist (Daily SEO #19)
 
-Concept only — not a UFACTORY SKU photograph, certificate, partnership mark, or production-line evidence. Hero still plus two method diagrams. Responsive OG assets follow the 640 / 1280 WebP convention. Inline diagrams live under `web/assets/resources/`.
+ChatGPT regen 2026-09-21 replacing prior remake. Concept only — not a UFACTORY SKU photograph, certificate, partnership mark, or production-line evidence. Hero still plus two method diagrams. Responsive OG assets follow the 640 / 1280 WebP convention. Inline diagrams live under `web/assets/resources/`.
 
 ## china-ai-export-playbook (REFRESH-05)
 

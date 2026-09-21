@@ -92,11 +92,11 @@ Constraints: No readable text, no logos, no watermark, no people or hands, no ad
 ## ufactory-xarm-production-line-checklist (Daily SEO #19)
 
 - Date: 2026-09-21
-- Source: Attached hero still plus two method diagrams for the overseas production-line checklist; concept only
+- Source: ChatGPT regen 2026-09-21 replacing prior remake; attached hero still plus two method diagrams for the overseas production-line checklist; concept only
 - Original: `web/assets/editorial/originals/ufactory-xarm-production-line-checklist.jpg` (hero.jpg) and matching `.webp`
 - Responsive OG/hero: `web/assets/editorial/ufactory-xarm-production-line-checklist-640.webp` and `web/assets/editorial/ufactory-xarm-production-line-checklist-1280.webp`
 - Inline method diagrams: `web/assets/resources/ufactory-xarm-production-line-checklist-steps.webp` and `web/assets/resources/ufactory-xarm-production-line-checklist-owners.webp`
-- English alt (authoritative): Checklist clipboard beside compact robot-arm base plate — readiness method, no fake certificates
+- English alt (authoritative): Dark workcell desk: blank readiness checklist beside a bolted arm base plate and faint cell boundary — production-line freeze method, no certificates
 
 ## ai-procurement-checklist (REFRESH-04)
 
