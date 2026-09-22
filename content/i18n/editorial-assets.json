@@ -70,5 +70,13 @@
       "zh": "清单夹与紧凑机械臂底板 — 就绪方法示意，无伪造证书",
       "ar": "لوحة تحقق بجانب قاعدة ذراع روبوت مدمجة — طريقة الجاهزية، بلا شهادات مزيفة"
     }
+  },
+  "ai-procurement-checklist-public-sector": {
+    "file": "ai-procurement-checklist-public-sector",
+    "alt": {
+      "en": "Five-tab AI hardware evidence packet linked to named approval owners and a versioned device module, in navy and teal",
+      "zh": "五栏证据包与空白版本标签及责任人示意 — 公共部门采购方法主图",
+      "ar": "حزمة أدلة بخمس علامات مرتبطة بملاك الاعتماد وجهاز بإصدار فارغ"
+    }
   }
 }

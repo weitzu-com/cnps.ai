@@ -89,6 +89,15 @@ Color palette: Warm parchment, ivory, kraft, ink navy, small natural silver acce
 Constraints: No readable text, no logos, no watermark, no people or hands, no address labels, no customer identity, no holograms, no glass document panels, no meeting room, no industrial machinery. Requirements sheets have faint simple rules and empty checkboxes only.
 ```
 
+## ai-procurement-checklist-public-sector (Daily SEO #21)
+
+- Date: 2026-09-22
+- Source: image-tone PASS-with-soft; featured still plus required five-gate diagram; concept only
+- Original: `web/assets/editorial/originals/ai-procurement-checklist-public-sector.jpg` and matching `.png` / `.webp`
+- Responsive OG/hero: `web/assets/editorial/ai-procurement-checklist-public-sector-640.webp` and `web/assets/editorial/ai-procurement-checklist-public-sector-1280.webp`
+- Inline method diagram: `web/assets/resources/ai-procurement-checklist-public-sector-five-gates.webp`
+- English alt (authoritative): Five-tab AI hardware evidence packet linked to named approval owners and a versioned device module, in navy and teal
+
 ## ufactory-xarm-production-line-checklist (Daily SEO #19)
 
 - Date: 2026-09-21

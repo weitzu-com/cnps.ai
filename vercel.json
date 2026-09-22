@@ -311,6 +311,21 @@
       "permanent": false
     },
     {
+      "source": "/resources/ai-procurement-checklist-public-sector",
+      "destination": "/en/resources/ai-procurement-checklist-public-sector",
+      "permanent": true
+    },
+    {
+      "source": "/zh/resources/ai-procurement-checklist-public-sector",
+      "destination": "/en/resources/ai-procurement-checklist-public-sector",
+      "permanent": false
+    },
+    {
+      "source": "/ar/resources/ai-procurement-checklist-public-sector",
+      "destination": "/en/resources/ai-procurement-checklist-public-sector",
+      "permanent": false
+    },
+    {
       "source": "/resources/voice-prototype",
       "destination": "/en/resources/voice-prototype",
       "permanent": true
