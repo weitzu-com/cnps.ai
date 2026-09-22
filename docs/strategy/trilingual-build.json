@@ -1,6 +1,6 @@
 {
-  "pages": 246,
-  "pagesPerLanguage": 85,
+  "pages": 247,
+  "pagesPerLanguage": 86,
   "languages": [
     "en",
     "zh",
@@ -66,6 +66,7 @@
     "/request-quote",
     "/resources",
     "/resources/ai-procurement-checklist",
+    "/resources/ai-procurement-checklist-public-sector",
     "/resources/china-ai-export-playbook",
     "/resources/cnps-ai-revisions",
     "/resources/edge-ai-survey",
@@ -159,6 +160,7 @@
     "/request-quote",
     "/resources",
     "/resources/ai-procurement-checklist",
+    "/resources/ai-procurement-checklist-public-sector",
     "/resources/china-ai-export-playbook",
     "/resources/cnps-ai-revisions",
     "/resources/edge-ai-survey",
