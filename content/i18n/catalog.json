@@ -329,6 +329,13 @@
         "category": "Research",
         "audience": "Partners and business planners",
         "description": "China AI export playbook: freeze the job, pick a pilot package, demand SKU-matched evidence, then enquire — CNPS.AI buyer map to the full research edition."
+      },
+      {
+        "slug": "ai-procurement-checklist-public-sector",
+        "title": "AI procurement checklist for public sector: China-origin hardware path",
+        "category": "Procurement",
+        "audience": "Public-sector procurement and project owners",
+        "description": "Public-sector AI hardware checklist: verify entity, SKU, data, subcontractors, destination evidence, service path, change control, audit, exit and pilot."
       }
     ],
     "solutions": [

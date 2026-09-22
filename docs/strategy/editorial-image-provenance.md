@@ -51,6 +51,10 @@ Actual generation prompt:
 Use case: product-mockup. Asset type: premium editorial landscape image for an enterprise edge AI procurement website. Primary request: precision small aluminum edge-compute module on a spotless industrial laboratory bench, carefully machined fins and discreet ports, optical inspection equipment softly blurred in the background. Original concept illustration, NOT an actual product photograph or customer installation. Style: refined photorealistic concept render, disciplined industrial editorial art direction, credible materials, realistic scale. Composition: wide landscape 1536x1024, low close camera, focal device in foreground, orderly spacious lab composition with depth. Lighting: soft broad daylight with a restrained cyan practical light and silver highlights. Palette: dark navy #081B29, cool silver #F3F7F8, subtle cyan #6CE5DF. Materials: brushed aluminum, matte dark polymer, clean metal bench. Constraints: no people, text, letters, logos, recognizable brands, watermark or visible customer names. Avoid robots, holographic dashboards, impossible mechanics, exaggerated glowing sci-fi.
 ```
 
+## ai-procurement-checklist-public-sector (Daily SEO #21)
+
+Image-tone PASS-with-soft 2026-09-22. Concept only — not a SKU photograph, certificate, approval, or public-sector delivery. Featured still plus the five-gate inline diagram. Optional evidence/owners diagram was deferred and is not shipped. Responsive OG assets follow the 640 / 1280 WebP convention. The inline diagram lives under `web/assets/resources/`.
+
 ## ufactory-xarm-production-line-checklist (Daily SEO #19)
 
 ChatGPT regen 2026-09-21 replacing prior remake. Concept only — not a UFACTORY SKU photograph, certificate, partnership mark, or production-line evidence. Hero still plus two method diagrams. Responsive OG assets follow the 640 / 1280 WebP convention. Inline diagrams live under `web/assets/resources/`.

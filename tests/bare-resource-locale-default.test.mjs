@@ -27,6 +27,10 @@ test('bare china-export playbook redirects to EN, matching sibling resources and
     vercelDest('/resources/ufactory-xarm-production-line-checklist'),
     '/en/resources/ufactory-xarm-production-line-checklist'
   );
+  assert.equal(
+    vercelDest('/resources/ai-procurement-checklist-public-sector'),
+    '/en/resources/ai-procurement-checklist-public-sector'
+  );
 });
 
 test('no unprefixed resource path permanently redirects to ZH', () => {
@@ -51,6 +55,15 @@ test('prefixed china-export and procurement routes stay on their locale (no verc
   assert.equal(
     vercelDest('/ar/resources/ufactory-xarm-production-line-checklist'),
     '/en/resources/ufactory-xarm-production-line-checklist'
+  );
+  assert.equal(vercelDest('/en/resources/ai-procurement-checklist-public-sector'), undefined);
+  assert.equal(
+    vercelDest('/zh/resources/ai-procurement-checklist-public-sector'),
+    '/en/resources/ai-procurement-checklist-public-sector'
+  );
+  assert.equal(
+    vercelDest('/ar/resources/ai-procurement-checklist-public-sector'),
+    '/en/resources/ai-procurement-checklist-public-sector'
   );
 });
 
