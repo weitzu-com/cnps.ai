@@ -8,6 +8,24 @@ const out='dist', dev=process.argv.includes('--draft'), root='https://www.cnps.a
 const read=p=>fs.readFileSync(p,'utf8');
 const json=p=>JSON.parse(read(p));
 const catalog=json('content/i18n/catalog.json');
+// Solution detail pages must carry the same substantive sections in every locale so no language ships a thin page.
+const solutionTextFields=['title','short','question','deliverable','input','boundaries','action'];
+const solutionListFields=['overview','scenarios','checks','steps','mistakes','faq'];
+for(const s of catalog.en.solutions){
+ for(const loc of locales){
+  const x=catalog[loc].solutions.find(y=>y.slug===s.slug);
+  if(!x)throw Error('Missing '+loc+' solution '+s.slug);
+  for(const f of solutionTextFields)if(!x[f])throw Error('Incomplete solution '+loc+' '+s.slug+' '+f);
+  for(const f of solutionListFields){
+   if(!Array.isArray(x[f])||!x[f].length)throw Error('Incomplete solution '+loc+' '+s.slug+' '+f);
+   if(x[f].length!==s[f].length)throw Error('Solution '+s.slug+' '+f+' differs between en and '+loc);
+   for(const item of x[f]){
+    const values=typeof item==='string'?[item]:f==='faq'?[item.question,item.answer]:[item.title,item.text];
+    if(values.some(v=>!v||!String(v).trim()))throw Error('Empty solution '+loc+' '+s.slug+' '+f+' entry');
+   }
+  }
+ }
+}
 const products=json('content/i18n/product-assets.json');
 const legacy=json('content/i18n/legacy-pages.json');
 const posts=fs.existsSync('content/i18n/blogs.json')?json('content/i18n/blogs.json').posts:[];
@@ -95,8 +113,26 @@ for(const l of locales){
  const productImage=(slug,cls='product-image')=>`<img class="${cls}" src="${products.find(x=>x.slug===slug).images[0].path}" alt="${esc(translations(legacy.find(x=>x.path==='/products/'+slug).title,l))}" width="640" height="480" loading="lazy">`;
  const home=`<section class="hero"><div class="container"><div class="hero-grid"><div><p class="eyebrow">${t.heroEyebrow}</p><h1>${t.heroA}<span>${t.heroB}</span></h1><p class="hero-description">${t.heroText}</p><div class="actions">${link(l,'/solutions',t.exploreSolutions,'btn aqua')}${link(l,'/products',t.products,'text-link')}</div></div>${editorial.heroStage(l)}</div><div class="hero-baseline"><span>${t.orbitCaption}</span><span><span class="philosophy">敬天AI人</span> · ${t.purposeEn}</span></div></div></section><section class="section white"><div class="container">${sectionHeading(t.chooseTitle,t.chooseText)}<div class="intent-grid">${[['/products','hardware',t.chooseA,t.chooseAText],['/solutions','applications',t.chooseB,t.chooseBText],['/wholesale','partnership',t.chooseC,t.chooseCText]].map(([p,i,h,d])=>`<a class="intent" href="${route(l,p)}">${icon(i)}<h3>${h}${arrow}</h3><p>${d}</p></a>`).join('')}</div></div></section><section class="section"><div class="container"><div class="heading-row">${sectionHeading(t.showcaseTitle,t.showcaseText)}${link(l,'/products',t.compare,'text-link')}</div><div class="showcase"><article class="feature-product primary"><div class="feature-copy"><p class="eyebrow">${t.podsTag}</p><h3>TicNote Pods WiFi</h3><p>${t.podsText}</p>${link(l,'/products/ticnote-pods-wifi',t.open,'text-link')}</div>${productImage('ticnote-pods-wifi')}</article><article class="feature-product"><div class="feature-copy"><p class="eyebrow">${t.recorderTag}</p><h3>TicNote Lite</h3><p>${t.liteText}</p>${link(l,'/products/ticnote-lite',t.open,'text-link')}</div>${productImage('ticnote-lite')}</article><article class="feature-product dark"><div class="feature-copy"><p class="eyebrow">${t.knowledgeTag}</p><h3>FastGPT</h3><p>${t.knowledgeText}</p>${link(l,'/fastgpt',t.open,'text-link')}</div><div class="knowledge-art" aria-hidden="true">${[t.input,t.evidence,t.evaluate,t.delivery].map(x=>`<div class="knowledge-line"><span class="knowledge-dot"></span>${x}</div>`).join('')}</div></article></div></div></section>${editorial.explorer(l)}<section class="section white"><div class="container"><div class="heading-row">${sectionHeading(t.caseTitle,t.caseText)}${link(l,'/case-studies',t.allCases,'text-link')}</div><div class="catalog-grid three">${[c.cases[0],c.cases[3],c.cases[5]].map(x=>card(l,x,'cases')).join('')}</div><p class="notice">${t.caseNotice}</p></div></section><section class="section"><div class="container">${sectionHeading(t.processTitle,'')}<div class="steps">${[['01',t.processA,t.processAText],['02',t.processB,t.processBText],['03',t.processC,t.processCText]].map(([n,h,p])=>`<div class="step"><span class="step-number">${n}</span><h3>${h}</h3><p>${p}</p></div>`).join('')}</div></div></section>${methodBlock}${editorial.journalTeaser(l)}<section class="section belief"><div class="container belief-grid"><div><div class="belief-mark" lang="zh-CN">敬天AI人</div><p>${t.purposeEn}</p></div>${sectionHeading(t.beliefTitle,t.beliefText)}</div></section>`;
  save(l,'',t.heroA+' '+t.heroB,t.heroText,home);
- save(l,'/solutions',t.solutions,t.solutionsText,hero(l,'/solutions',t.solutionsTitle,t.solutionsText)+`<section class="section container"><div class="catalog-grid">${c.solutions.map(x=>card(l,x,'solutions')).join('')}</div></section>`);
- for(const x of c.solutions){headingId=0;const body=`<h2>${t.delivery}</h2><p>${esc(x.deliverable)}</p><h2>${t.input}</h2><p>${esc(x.input)}</p><h2>${t.evaluate}</h2><ul>${x.checks.map(v=>`<li>${esc(v)}</li>`).join('')}</ul><h2>${t.limitation}</h2><p>${esc(x.boundaries)}</p><h2>${t.related}</h2><ul>${x.cases.map(s=>`<li><a href="${route(l,'/case-studies/'+s)}">${esc(c.cases.find(y=>y.slug===s).title)}</a></li>`).join('')}<li><a href="${route(l,'/resources/'+x.resource)}">${esc(c.resources.find(y=>y.slug===x.resource).title)}</a></li>${x.slug==='meeting-ai'&&guides[0]?`<li><a href="${itemLocales(guides[0]).includes(l)?route(l,'/guides/'+guides[0].slug):'/en/guides/'+guides[0].slug}">${esc(locText(guides[0].title,itemLocales(guides[0]).includes(l)?l:'en'))}</a></li>`:''}${x.slug==='edge-vision'&&edgeGuide?`<li><a href="${itemLocales(edgeGuide).includes(l)?route(l,'/guides/'+edgeGuide.slug):'/en/guides/'+edgeGuide.slug}">${esc(locText(edgeGuide.title,itemLocales(edgeGuide).includes(l)?l:'en'))}</a></li>`:''}</ul>`;save(l,'/solutions/'+x.slug,x.title,x.short,hero(l,'/solutions/'+x.slug,x.title,x.short,link(l,'/request-quote?solution='+x.slug,x.action),t[categoryKey[x.category]])+`<div class="container article-layout"><article class="prose">${body}</article>${side(l,'/request-quote?solution='+x.slug)}</div>`);}
+ const solutionsIntro=`<section class="section white"><div class="container">${sectionHeading(t.solutionsIntroTitle,t.solutionsIntroA)}<p class="notice">${t.solutionsIntroB}</p></div></section>`;
+ const solutionsMethod=`<section class="section"><div class="container">${sectionHeading(t.solutionsMethodTitle,t.processTitle)}<div class="steps">${[['01',t.processA,t.processAText],['02',t.processB,t.processBText],['03',t.processC,t.processCText]].map(([n,h,p])=>`<div class="step"><span class="step-number">${n}</span><h3>${h}</h3><p>${p}</p></div>`).join('')}</div><p class="notice">${t.solutionsIntroC}</p><p class="notice">${t.caseNotice}</p></div></section>`;
+ save(l,'/solutions',t.solutions,t.solutionsText,hero(l,'/solutions',t.solutionsTitle,t.solutionsText)+solutionsIntro+`<section class="section container"><div class="catalog-grid">${c.solutions.map(x=>card(l,{...x,label:x.question},'solutions')).join('')}</div></section>`+solutionsMethod);
+ const titledList=(items,tag)=>`<${tag}>${items.map(i=>`<li><strong>${esc(i.title)}</strong><br>${esc(i.text)}</li>`).join('')}</${tag}>`;
+ const titledSections=items=>items.map(i=>`<h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>`).join('');
+ for(const x of c.solutions){
+  headingId=0;
+  const related=`<ul>${x.cases.map(s=>`<li><a href="${route(l,'/case-studies/'+s)}">${esc(c.cases.find(y=>y.slug===s).title)}</a></li>`).join('')}<li><a href="${route(l,'/resources/'+x.resource)}">${esc(c.resources.find(y=>y.slug===x.resource).title)}</a></li>${x.slug==='meeting-ai'&&guides[0]?`<li><a href="${itemLocales(guides[0]).includes(l)?route(l,'/guides/'+guides[0].slug):'/en/guides/'+guides[0].slug}">${esc(locText(guides[0].title,itemLocales(guides[0]).includes(l)?l:'en'))}</a></li>`:''}${x.slug==='edge-vision'&&edgeGuide?`<li><a href="${itemLocales(edgeGuide).includes(l)?route(l,'/guides/'+edgeGuide.slug):'/en/guides/'+edgeGuide.slug}">${esc(locText(edgeGuide.title,itemLocales(edgeGuide).includes(l)?l:'en'))}</a></li>`:''}</ul><p class="notice">${t.caseNotice}</p>`;
+  const body=x.overview.map(p=>`<p>${esc(p)}</p>`).join('')
+   +`<h2>${t.scenarios}</h2>${titledSections(x.scenarios)}`
+   +`<h2>${t.delivery}</h2><p>${esc(x.deliverable)}</p><h2>${t.input}</h2><p>${esc(x.input)}</p>`
+   +`<h2>${t.evaluate}</h2><ul>${x.checks.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`
+   +`<h2>${t.evaluationSteps}</h2>${titledList(x.steps,'ol')}`
+   +`<h2>${t.mistakes}</h2>${titledList(x.mistakes,'ul')}`
+   +`<h2>${t.limitation}</h2><p>${esc(x.boundaries)}</p>`
+   +`<h2>${t.faq}</h2>${x.faq.map(f=>`<h3>${esc(f.question)}</h3><p>${esc(f.answer)}</p>`).join('')}`
+   +`<h2>${t.related}</h2>${related}`;
+  const faq=x.faq.map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}}));
+  save(l,'/solutions/'+x.slug,x.title,x.short,hero(l,'/solutions/'+x.slug,x.title,x.short,link(l,'/request-quote?solution='+x.slug,x.action),t[categoryKey[x.category]])+`<div class="container article-layout"><article class="prose">${body}</article>${side(l,'/request-quote?solution='+x.slug)}</div>`,{faq});
+ }
  save(l,'/case-studies',t.cases,t.caseText,hero(l,'/case-studies',t.caseTitle,t.caseText)+`<section class="section container" data-collection>${collectionTools(l,['Applications','Hardware'])}<div class="catalog-grid three">${c.cases.map(x=>card(l,x,'cases')).join('')}</div><p class="notice">${t.caseNotice}</p></section>`);
  for(const x of c.cases){const body=`<p class="tag">${esc(x.label)}</p><p>${esc(x.region)} · <bdi>${esc(x.technology)}</bdi></p><h2>${t.facts}</h2><p>${esc(x.facts)}</p><h2>${t.lesson}</h2><p>${esc(x.lesson)}</p><h2>${t.limitation}</h2><p>${esc(x.limits)}</p><h2>${t.evaluate}</h2><ul>${x.evaluation.map(v=>`<li>${esc(v)}</li>`).join('')}</ul><h2>${t.evidence}</h2><ul>${x.sources.map(([n,u])=>`<li><a href="${esc(u)}">${esc(n)} ↗</a></li>`).join('')}</ul>`;save(l,'/case-studies/'+x.slug,x.title,x.summary,hero(l,'/case-studies/'+x.slug,x.title,x.summary,'',t.cases)+`<div class="container article-layout"><article class="prose">${localLinks(body,l)}</article>${side(l,'/request-quote?solution='+x.solution)}</div>`);}
  const reportName=translations({en:'FastGPT × CNPS: Global growth and delivery',zh:'FastGPT × CNPS：出海增长与交付',ar:'FastGPT × CNPS: النمو العالمي وتسليم المشاريع'},l);
