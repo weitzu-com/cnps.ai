@@ -67,3 +67,27 @@ Grok + leizi PASS 2026-09-15. Concept only — not a SKU photograph, certificate
 - Responsive OG assets: `web/assets/editorial/china-ai-export-playbook-640.webp` and `web/assets/editorial/china-ai-export-playbook-1280.webp`
 - Inline EN read-map: `web/assets/resources/china-ai-export-playbook-read-map.webp`
 
+
+## ticnote-api-assistants, ticnote-card-lite-pods, ticnote-budget-lineup (journal mirrors, 2026-09-27)
+
+Three original covers for the TicNote journal articles mirrored from shop.cnps.ai (`ticnote-api-skill-claude-chatgpt-gemini`, `ticnote-card-vs-lite-vs-pods`, `ai-voice-recorder-under-150-ticnote-lineup`). Generated in three separate calls with the Cursor built-in image tool during the cloud-agent PR run; no reference images, stock photography or product photos were used. Each image was visually inspected for absence of text, logos, people and recognizable products.
+
+They are AI-generated conceptual editorial images. The recorders, earbud cases and laptop are generic unbranded props and must not be read as TicNote product photography, published dimensions, colours or performance evidence; the ruler in the flat lay carries incidental scale marks only. The three product pages keep the verified shop-derived photography for SKU claims.
+
+Originals are 1152 × 864 PNG and were copied unchanged into `web/assets/editorial/originals/`. Responsive WebP variants were encoded with ffmpeg/libwebp at quality 84, compression level 6, after a centered 3:2 crop (1152 × 768, 48 px removed top and bottom) so they match the journal's 1280 × 853 / 640 × 427 convention used by `picture()`. No compositing or content edits.
+
+| Image | 640w bytes | 1280w bytes | English alt (see `content/i18n/editorial-assets.json` for zh/ar) |
+| --- | ---: | ---: | --- |
+| ticnote-api-assistants | 23,174 | 64,638 | Concept desk with an unbranded card recorder, a laptop showing blank chat bubbles and a brass key on a notebook |
+| ticnote-card-lite-pods | 26,804 | 146,346 | Concept flat lay of an unbranded card recorder, a smaller pocket recorder and an open earbud case beside a ruler and blank tags |
+| ticnote-budget-lineup | 31,732 | 86,308 | Concept desk with an open notebook showing a blank pencil grid, two unbranded recorders, blank kraft tags and an earbud case set apart |
+
+Actual generation prompts (abridged to the controlling constraints; palette and composition lines match the earlier journal covers):
+
+```text
+ticnote-api-assistants — photorealistic-natural, landscape 4:3. Dark walnut desk in soft daylight. Foreground: one slim unbranded matte-graphite card-sized recorder lying flat. Center-left: open laptop whose screen shows only abstract blurred unreadable chat-bubble shapes in grey and muted teal. Beside it a small brass key on a dark lanyard on a closed navy notebook (a credential kept like a password). No text, letters, numbers, logos, watermark, people, hands, holograms, glowing sci-fi effects or recognizable brand products. Original conceptual illustration, not a real product photo.
+
+ticnote-card-lite-pods — photorealistic-natural, true straight-down overhead flat lay, landscape 4:3. Pale grey linen workbench. Left to right: flat card-sized unbranded recorder in matte slate grey; smaller lighter unbranded pocket recorder in matte off-white; open unbranded earbud charging case in matte navy with two open-ear earbuds. Below: brushed-steel ruler and three blank kraft tags with twine. No text, letters, numbers, logos, watermark, people, hands, screens with content, glowing effects or recognizable brand products.
+
+ticnote-budget-lineup — photorealistic-natural, landscape 4:3. Warm oak desk, late-afternoon light. Open A5 notebook with blank cream pages and a hand-drawn empty three-column pencil grid (lines only). One slim unbranded card-sized recorder in matte gold-beige across the right page; a smaller unbranded pocket recorder in matte charcoal, a pencil and a stack of blank kraft price tags beside it. Soft-focus white earbud case set apart at the far edge (a step-up option). No text, letters, numbers, currency symbols, coins, logos, watermark, people, hands, screens, glowing effects or recognizable brand products.
+```

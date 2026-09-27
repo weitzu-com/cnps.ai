@@ -78,5 +78,29 @@
       "zh": "五栏证据包与空白版本标签及责任人示意 — 公共部门采购方法主图",
       "ar": "حزمة أدلة بخمس علامات مرتبطة بملاك الاعتماد وجهاز بإصدار فارغ"
     }
+  },
+  "ticnote-api-assistants": {
+    "file": "ticnote-api-assistants",
+    "alt": {
+      "en": "Concept desk with an unbranded card recorder, a laptop showing blank chat bubbles and a brass key on a notebook",
+      "zh": "概念配图：桌面上的无品牌卡片录音器、显示空白对话气泡的笔记本电脑，以及放在笔记本上的黄铜钥匙",
+      "ar": "صورة تصورية لمكتب يضم مسجّلاً بحجم البطاقة بلا علامة تجارية وحاسوباً محمولاً تظهر عليه فقاعات محادثة فارغة ومفتاحاً نحاسياً فوق دفتر"
+    }
+  },
+  "ticnote-card-lite-pods": {
+    "file": "ticnote-card-lite-pods",
+    "alt": {
+      "en": "Concept flat lay of an unbranded card recorder, a smaller pocket recorder and an open earbud case beside a ruler and blank tags",
+      "zh": "概念配图：无品牌卡片录音器、更小的口袋录音器和打开的耳机盒平铺在尺子与空白标签旁",
+      "ar": "صورة تصورية مسطّحة لمسجّل بحجم البطاقة بلا علامة تجارية ومسجّل جيب أصغر وعلبة سماعات مفتوحة بجوار مسطرة وبطاقات كرافت فارغة"
+    }
+  },
+  "ticnote-budget-lineup": {
+    "file": "ticnote-budget-lineup",
+    "alt": {
+      "en": "Concept desk with an open notebook showing a blank pencil grid, two unbranded recorders, blank kraft tags and an earbud case set apart",
+      "zh": "概念配图：桌面上翻开的笔记本画着空白铅笔表格，旁边是两台无品牌录音器、空白牛皮纸标签，以及放在一旁的耳机盒",
+      "ar": "صورة تصورية لمكتب يضم دفتراً مفتوحاً برسم شبكة فارغة بالقلم الرصاص ومسجّلَين بلا علامة تجارية وبطاقات كرافت فارغة وعلبة سماعات موضوعة جانباً"
+    }
   }
 }
