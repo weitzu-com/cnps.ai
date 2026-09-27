@@ -1,0 +1,111 @@
+{
+  "/request-quote": {
+    "title": {
+      "en": "Request a quote for devices, distribution or a pilot",
+      "zh": "索取报价：设备、渠道批量或试点",
+      "ar": "اطلب عرض سعر للأجهزة أو التوزيع أو تجربة تجريبية"
+    },
+    "description": {
+      "en": "Request a quotation from CNPS.AI for intelligent devices, distribution volumes or a clearly scoped AI pilot. Tell us the product, destination and quantity so we can confirm availability, the exact variant and terms.",
+      "zh": "向 CNPS.AI 索取智能硬件、渠道批量或范围明确的 AI 试点的报价。告诉我们产品、目的地和数量，以便确认供应情况、准确型号与条款。",
+      "ar": "اطلب عرض سعر من CNPS.AI للأجهزة الذكية أو كميات التوزيع أو تجربة ذكاء اصطناعي محددة النطاق. أخبرنا بالمنتج والوجهة والكمية لنؤكد التوفر والإصدار المحدد والشروط."
+    },
+    "h1": {
+      "en": "Request a quotation for devices or a pilot.",
+      "zh": "为设备或试点索取报价。",
+      "ar": "اطلب عرض سعر للأجهزة أو لتجربة تجريبية."
+    },
+    "lead": {
+      "en": "Share the product, solution or volume you want priced and we will reply with availability, the exact variant and the information still needed for a formal quotation.",
+      "zh": "说明需要报价的产品、方案或数量，我们会回复目的地供应情况、准确型号，以及正式报价还需补充的信息。",
+      "ar": "شارك المنتج أو الحل أو الكمية التي تريد تسعيرها، وسنرد بالتوفر والإصدار المحدد والمعلومات المتبقية اللازمة لعرض سعر رسمي."
+    },
+    "intro": {
+      "en": "Use this form when you already know what you need priced. Prices, destination supply and exact editions are confirmed in the quotation, not on this page.",
+      "zh": "如果你已明确需要报价的内容，请使用此表单。价格、目的地供应和准确版本以报价为准，而非本页。",
+      "ar": "استخدم هذا النموذج إذا كنت تعرف مسبقاً ما تريد تسعيره. تُؤكَّد الأسعار والتوفر في وجهتك والإصدارات المحددة في عرض السعر، وليس في هذه الصفحة."
+    }
+  },
+  "/contact": {
+    "title": {
+      "en": "Contact CNPS.AI about devices, wholesale or support",
+      "zh": "联系 CNPS.AI：设备、批发与支持",
+      "ar": "تواصل مع CNPS.AI بشأن الأجهزة أو الجملة أو الدعم"
+    },
+    "description": {
+      "en": "Contact the CNPS.AI team about Chinese intelligent devices and AI applications: product questions, wholesale and distribution, support, or a first exploratory conversation. We reply to your work email.",
+      "zh": "联系 CNPS.AI 团队，咨询中国智能硬件与 AI 应用：产品问题、渠道与批发、支持，或首次探索性沟通。我们会通过工作邮箱回复。",
+      "ar": "تواصل مع فريق CNPS.AI بشأن الأجهزة الذكية وتطبيقات الذكاء الاصطناعي من الصين: أسئلة المنتجات، البيع بالجملة والتوزيع، الدعم، أو محادثة استكشافية أولى. نرد عبر بريدك الإلكتروني للعمل."
+    },
+    "h1": {
+      "en": "Start a conversation with CNPS.AI.",
+      "zh": "与 CNPS.AI 开始一次沟通。",
+      "ar": "ابدأ محادثة مع CNPS.AI."
+    },
+    "lead": {
+      "en": "For general questions, wholesale and distribution enquiries, or when you are not yet sure which product or solution fits your team.",
+      "zh": "适用于一般咨询、渠道与批发合作，或尚不确定哪款产品或方案适合团队的情况。",
+      "ar": "للأسئلة العامة واستفسارات الجملة والتوزيع، أو إذا لم تحدد بعد المنتج أو الحل المناسب لفريقك."
+    },
+    "intro": {
+      "en": "If you already have a specific product and quantity in mind, the quotation form is the faster route. FastGPT knowledge-base projects have their own form.",
+      "zh": "如果已经明确具体产品和数量，报价表单会更快。FastGPT 知识库项目请使用专用表单。",
+      "ar": "إذا كان لديك منتج وكمية محددان، فنموذج عرض السعر هو الطريق الأسرع. ولمشاريع قاعدة معرفة FastGPT نموذج خاص بها."
+    },
+    "links": [
+      {
+        "path": "/request-quote",
+        "label": {
+          "en": "Request a quote",
+          "zh": "索取报价",
+          "ar": "اطلب عرض سعر"
+        }
+      },
+      {
+        "path": "/fastgpt/contact",
+        "label": {
+          "en": "FastGPT pilot form",
+          "zh": "FastGPT 试点表单",
+          "ar": "نموذج تجربة FastGPT"
+        }
+      }
+    ]
+  },
+  "/fastgpt/contact": {
+    "title": {
+      "en": "Discuss a FastGPT knowledge-base pilot",
+      "zh": "洽谈 FastGPT 知识库试点",
+      "ar": "ناقش تجربة قاعدة معرفة FastGPT"
+    },
+    "description": {
+      "en": "Discuss a FastGPT pilot with CNPS.AI: technical knowledge search, support triage or RFQ intake answered from your approved documents. Share the workflow, document sources and timeline so we can scope an evaluation set.",
+      "zh": "与 CNPS.AI 洽谈 FastGPT 试点：基于已批准文档的技术知识检索、支持工单分流或询价收集。说明工作流、文档来源和时间安排，以便我们界定评估集。",
+      "ar": "ناقش تجربة FastGPT مع CNPS.AI: البحث في المعرفة التقنية أو فرز تذاكر الدعم أو استقبال طلبات عروض الأسعار استناداً إلى مستنداتك المعتمدة. شارك سير العمل ومصادر المستندات والجدول الزمني لنحدد مجموعة التقييم."
+    },
+    "h1": {
+      "en": "Plan a FastGPT knowledge-base pilot.",
+      "zh": "规划一次 FastGPT 知识库试点。",
+      "ar": "خطّط لتجربة قاعدة معرفة FastGPT."
+    },
+    "lead": {
+      "en": "Tell us which documents the assistant should answer from, who will use it and how you will judge a correct answer.",
+      "zh": "请说明助手应依据哪些文档作答、由谁使用，以及如何判定回答是否正确。",
+      "ar": "أخبرنا بالمستندات التي يجب أن يجيب منها المساعد، ومن سيستخدمه، وكيف ستحكم على صحة الإجابة."
+    },
+    "intro": {
+      "en": "This form is for FastGPT knowledge-base and workflow projects only. Device and wholesale enquiries belong on the general contact form.",
+      "zh": "此表单仅用于 FastGPT 知识库与工作流项目。设备与批发咨询请使用一般联系表单。",
+      "ar": "هذا النموذج مخصص لمشاريع قاعدة المعرفة وسير العمل في FastGPT فقط. أما استفسارات الأجهزة والجملة فمكانها نموذج التواصل العام."
+    },
+    "links": [
+      {
+        "path": "/contact",
+        "label": {
+          "en": "General contact form",
+          "zh": "一般联系表单",
+          "ar": "نموذج التواصل العام"
+        }
+      }
+    ]
+  }
+}
