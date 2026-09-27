@@ -345,6 +345,24 @@
         "title": "AI meeting devices for teams",
         "short": "Compare recorders, subscription ownership and team workflows before a bulk purchase.",
         "question": "Which device fits our team?",
+        "overview": [
+          "This page is for managers and distributors preparing to buy AI recording devices, such as the TicNote range, for a team. Trying one recorder yourself is easy. A team purchase raises a different set of questions: who owns the subscription, who reviews the notes, where exports go and what happens to an account when someone leaves. We suggest answering them with a small, measurable pilot before choosing a model and quantity.",
+          "CNPS provides the selection and pilot method, checks destination availability and issues a formal quotation. Transcription performance, enterprise features and bulk terms depend on the exact model and the written quote. We do not substitute vendor demonstrations or other people’s experience for your own test results."
+        ],
+        "scenarios": [
+          {
+            "title": "Project meetings across languages",
+            "text": "Teams that switch between Chinese, English or Arabic need to confirm how the device transcribes real accents and technical terms, and whether the correction time is acceptable."
+          },
+          {
+            "title": "Field visits and customer calls",
+            "text": "Sales or engineering staff record conversations in noisy places. Test distance, noise and battery behavior, and agree how people are informed and give consent to recording."
+          },
+          {
+            "title": "Distributors configuring bulk orders",
+            "text": "Channel partners need to confirm destination compatibility, subscription activation, warranty handling and replacement procedures before shipping, and write them into the supply terms."
+          }
+        ],
         "deliverable": "A clearer device and subscription shortlist",
         "input": "Destination country, team size, meeting languages, recording environment and target date.",
         "checks": [
@@ -353,7 +371,53 @@
           "Check export formats, account ownership and reassignment.",
           "Confirm regional availability, warranty and bulk terms."
         ],
+        "steps": [
+          {
+            "title": "Choose the pilot group and meeting sample",
+            "text": "Pick three to five people who represent typical users, covering real languages, room sizes and remote calls. Record how long notes take today before the pilot starts, so you have a baseline."
+          },
+          {
+            "title": "Compare candidate models on the same meetings",
+            "text": "Test the candidate devices and their included subscriptions on the same sample. Record missed statements, name errors, action-item errors and the minutes needed to reach a usable note."
+          },
+          {
+            "title": "Check data flow and account ownership",
+            "text": "Go through export formats, storage location, sharing and deletion. Confirm whether subscriptions can be reassigned, whether team administration exists and who controls recordings after a departure."
+          },
+          {
+            "title": "Build the shortlist and request a quotation",
+            "text": "Summarize models, quantity, destination, languages and timing into a quotation request. CNPS verifies availability and bulk terms and quotes in writing for the exact model."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "Treating transcription speed as time saved",
+            "text": "A fast transcript is not a usable note. Only when correction, distribution and action-item follow-up are counted can you tell whether the team actually saved time."
+          },
+          {
+            "title": "Inferring team administration from consumer features",
+            "text": "Account transfer, central management and enterprise features vary by model and plan. Confirm them in writing for the selected model before ordering instead of assuming them."
+          },
+          {
+            "title": "Ignoring recording notice and consent",
+            "text": "Countries and meeting settings have different recording requirements. Agree the notice, the consent record and the handling of sensitive content before the pilot starts."
+          }
+        ],
         "boundaries": "Team administration and enterprise features vary by product. Confirm them for the selected model before ordering.",
+        "faq": [
+          {
+            "question": "Can CNPS guarantee a device’s transcription accuracy?",
+            "answer": "No. Accuracy depends on language, accent, noise and terminology, and published figures do not replace your own meeting sample. We suggest testing on real meetings using the steps above."
+          },
+          {
+            "question": "Do we need a pilot before a bulk purchase?",
+            "answer": "We recommend a representative pilot with a few devices. It exposes subscription ownership, export and noise issues before you commit to a quantity, at far lower cost than bulk returns."
+          },
+          {
+            "question": "What information is needed for a quotation?",
+            "answer": "Destination country, expected quantity, main use, meeting languages, expected timing and whether you want samples first. Specific details make availability checks and term confirmation faster."
+          }
+        ],
         "action": "Request a device quotation",
         "cases": [
           "meeting-devices"
@@ -366,6 +430,24 @@
         "title": "Knowledge assistants grounded in your documents",
         "short": "Define a private knowledge or support workflow around real questions, permissions and evidence.",
         "question": "Can AI answer from our documents?",
+        "overview": [
+          "This page is for IT leaders, service providers and business owners who want AI to answer questions from their own documents. Product manuals, internal policies and support knowledge bases can all become source material. What determines the value is not the model name, but whether the question set is real, permissions are clear and citations can be checked.",
+          "CNPS helps define the evaluation scope, prepare the evaluation set and agree acceptance, and can discuss implementation with open-source options such as FastGPT where appropriate. Public projects such as Dify, RAGFlow, Qwen and DeepSeek are research starting points, not CNPS customer deliveries. Implementation scope and software licensing are agreed separately."
+        ],
+        "scenarios": [
+          {
+            "title": "Product manual and technical support Q&A",
+            "text": "After-sales or support teams need accurate answers from manuals in several versions, with the source visible. Evaluate how version conflicts are handled and whether citations truly support the answer."
+          },
+          {
+            "title": "Internal policy and process lookup",
+            "text": "Staff ask about expenses, approvals or compliance steps. Evaluate permission boundaries: each role should only retrieve the documents it is allowed to see, and outdated policies must be retired promptly."
+          },
+          {
+            "title": "First-pass triage of multilingual inquiries",
+            "text": "Export teams receive inquiries in Chinese, English or Arabic and need a first answer from product materials before human review. Evaluate target-language performance and refusal behavior."
+          }
+        ],
         "deliverable": "A scoped knowledge assistant evaluation",
         "input": "Authorized sample documents, target languages, expected users, hosting requirements and a business owner.",
         "checks": [
@@ -374,7 +456,53 @@
           "Test document permissions and update procedures.",
           "Compare full running cost and human review time."
         ],
+        "steps": [
+          {
+            "title": "Fix one task and a business owner",
+            "text": "Choose one workflow, one set of authorized documents and one person accountable for answer quality. Identify outdated and conflicting versions and decide first which document is authoritative."
+          },
+          {
+            "title": "Build the evaluation set before tuning",
+            "text": "Follow the resource method: everyday factual questions, cross-document comparisons, questions that should be refused for lack of evidence, and permission tests. Agree the set and thresholds before seeing results."
+          },
+          {
+            "title": "Compare candidates on the same set",
+            "text": "Fix documents, prompts and model versions. Business reviewers compare correctness, citation support, refusals and latency, and record the time needed to correct each answer by hand."
+          },
+          {
+            "title": "Settle operations and cost before expanding",
+            "text": "Document who updates content, approves access, reviews wrong answers and handles model changes, and map every external model call. Count hosting, inference, ingestion, support and human review before scaling."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "Replacing your own data test with public leaderboards",
+            "text": "Rankings reflect general tasks, not your documents, terminology and language. Performance on the same evaluation set is the basis for selection."
+          },
+          {
+            "title": "Swapping hard questions after seeing results",
+            "text": "Removing failures from the set distorts the evaluation. Keep failed results and separate tuning questions from held-out tests, so you know how the assistant will behave in production."
+          },
+          {
+            "title": "Equating open-source availability with free commercial use",
+            "text": "Open-source licenses carry additional conditions, such as multi-tenant and branding restrictions. Check the license of the exact version and the hosting terms before launch."
+          }
+        ],
         "boundaries": "Implementation scope and software licensing need to be agreed. Open-source availability does not establish unrestricted resale rights.",
+        "faq": [
+          {
+            "question": "How many documents do we need to start?",
+            "answer": "Start with the authorized documents one workflow needs; a few dozen is often enough for a meaningful evaluation set. A small, authoritative scope is worth more than a large, uncleaned archive."
+          },
+          {
+            "question": "Will the evaluation send our documents to third parties?",
+            "answer": "It depends on the deployment and the model services chosen. Even a self-hosted application may send data to external model or speech services. We suggest evaluating with non-sensitive documents first and mapping every data flow."
+          },
+          {
+            "question": "Does CNPS handle implementation?",
+            "answer": "CNPS first helps define scope, the evaluation set and acceptance. Implementation capacity, commercial scope and software licensing are agreed separately for each requirement and are not included by default in the evaluation."
+          }
+        ],
         "action": "Discuss a knowledge pilot",
         "cases": [
           "dify-japan",
@@ -389,6 +517,24 @@
         "title": "Edge AI for a defined camera task",
         "short": "Plan the whole site: cameras, compute, network, installation and a measurable acceptance test.",
         "question": "Will edge AI work at our site?",
+        "overview": [
+          "This page is for integrators and site owners who need a camera recognition task deployed at a factory, farm, campus or commercial site. Edge AI keeps recognition on site, but whether it works depends on the whole system: cameras, compute, network, installation, storage and operations, not just the compute rating of one board.",
+          "CNPS helps organize site requirements, run a representative site test and produce an evaluation brief. Deployment references published by vendors such as Seeed show what is possible, but they are not CNPS deliveries and do not guarantee the same result under your lighting, distances and network conditions."
+        ],
+        "scenarios": [
+          {
+            "title": "Safety and compliance monitoring on production lines or in warehouses",
+            "text": "Detect missing protective equipment, boundary crossing or unusual dwelling. Evaluate whether the false-alarm rate lets staff trust alerts over time, and how the system performs at night and in backlight."
+          },
+          {
+            "title": "Continuous observation in farming and agriculture",
+            "text": "Count animals or crops, or recognize behavior and condition. Evaluate the long-term effect of dust, humidity and changing light on the cameras and compute units."
+          },
+          {
+            "title": "Local recognition at network-constrained sites",
+            "text": "Remote sites, or sites that cannot send video to the cloud, need local recognition with only results uploaded. Evaluate behavior during disconnection, recovery and local storage capacity."
+          }
+        ],
         "deliverable": "A site requirement and evaluation brief",
         "input": "Camera types, site layout, lighting, objects to detect, network conditions and the operational owner.",
         "checks": [
@@ -397,7 +543,53 @@
           "Test lighting changes, disconnection and recovery.",
           "Include installation, storage and support in the cost."
         ],
+        "steps": [
+          {
+            "title": "Agree the detection task and ground truth",
+            "text": "State in one sentence what to detect, under which conditions and who acts on an alert. Agree how ground truth is produced and which false-alarm and miss levels are acceptable at acceptance."
+          },
+          {
+            "title": "Complete the site survey and collect representative footage",
+            "text": "Use the edge AI site survey to record camera types, mounting positions, lighting, distances, network and power. Collect footage at different times of day, including the worst conditions."
+          },
+          {
+            "title": "Test candidate configurations on real footage",
+            "text": "Compare camera and compute combinations on the same footage. Record false alarms, misses and end-to-end latency, and simulate lighting changes, disconnection and device restarts."
+          },
+          {
+            "title": "Cost the full system and write the evaluation brief",
+            "text": "Include installation, cabling, storage, spares, support and operating staff in the cost per camera and per site. The brief becomes the shared basis for the quotation and acceptance."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "Judging site performance from demonstration videos",
+            "text": "Demonstrations are usually filmed under ideal lighting and distance. Your site has to be tested under its worst conditions to know whether the system will keep running."
+          },
+          {
+            "title": "Comparing only model inference time",
+            "text": "End-to-end latency includes capture, transmission, inference and alert delivery. Only the full chain tells you whether an alert arrives in time for someone to act."
+          },
+          {
+            "title": "Leaving out installation and operating costs",
+            "text": "The board price is a small part. Cabling, enclosures, storage, spares and remote maintenance often decide whether a project is sustainable."
+          }
+        ],
         "boundaries": "Hardware capability and demonstration videos do not guarantee performance in your environment. A representative site test is needed.",
+        "faq": [
+          {
+            "question": "Do we have to buy equipment before evaluating?",
+            "answer": "Usually not. Complete the site survey and footage collection first, then test with a small number of representative devices. Buying in volume before the task and acceptance criteria are clear carries more risk."
+          },
+          {
+            "question": "Can CNPS supply a ready-made recognition solution?",
+            "answer": "CNPS provides requirement organization, the site evaluation method and hardware sourcing. Whether a recognition task is feasible depends on your site conditions and must be shown by a representative test, not by applying a template."
+          },
+          {
+            "question": "What accuracy can we expect?",
+            "answer": "We do not promise accuracy before testing. False alarms, misses and latency should be measured on your real footage and judged against acceptance criteria agreed in advance."
+          }
+        ],
         "action": "Discuss a site evaluation",
         "cases": [
           "seeed-intflow",
@@ -411,6 +603,24 @@
         "title": "Voice interfaces, from idea to prototype",
         "short": "Scope an ESP32-based voice device together with the backend services it needs to keep working.",
         "question": "How do we prototype a voice device?",
+        "overview": [
+          "This page is for product teams, OEMs and exhibition owners who want to prototype a voice interaction device on low-cost hardware such as the ESP32. Open firmware puts a first prototype within reach, but the device is only the start of a service: speech recognition, models, content and credential management decide whether it keeps working.",
+          "CNPS helps define the prototype scope, map dependencies and plan tests. Open-source projects such as XiaoZhi ESP32 are technical references, not a CNPS product supply or service contract. A working prototype is not a mass-production commitment; product testing, supply and commercial rights are assessed separately."
+        ],
+        "scenarios": [
+          {
+            "title": "Reception or exhibition Q&A terminal",
+            "text": "Visitors ask about exhibits, directions or opening hours by voice. Evaluate wake-up and recognition in noise, interruption handling and who is responsible for content updates."
+          },
+          {
+            "title": "Voice companion prototype for an existing product",
+            "text": "Add a voice entry point to a current product and check whether users accept it. Evaluate the acoustic fit of microphone and enclosure, latency and the service cost of each conversation."
+          },
+          {
+            "title": "Multilingual reception",
+            "text": "Serve Chinese, English or Arabic speakers. Evaluate recognition in each language, speech synthesis quality and language switching, and whether the content is authorized."
+          }
+        ],
         "deliverable": "A prototype scope and dependency checklist",
         "input": "One intended task, users, languages, acoustic conditions, expected volume and maintenance owner.",
         "checks": [
@@ -419,7 +629,53 @@
           "Test interruption, noise and network loss.",
           "Plan firmware recovery, credentials and service cost."
         ],
+        "steps": [
+          {
+            "title": "Fix one task and authorized content",
+            "text": "Do one thing only, such as answering questions about a single product line. Prepare authorized content and expected questions, and state the intended users and volume."
+          },
+          {
+            "title": "Specify hardware and the dependency list",
+            "text": "Use the voice prototype specification to list microphone, speaker, power and network needs, and map the provider, region and billing of every speech, model and content service."
+          },
+          {
+            "title": "Test in the real acoustic environment",
+            "text": "Test noise, distance, interruption and network loss where the device will actually be used. Record recognition errors, response latency and recovery instead of demonstrating in a quiet office."
+          },
+          {
+            "title": "Plan the lifecycle before discussing the next step",
+            "text": "Agree firmware recovery, credential rotation, service shutdown and content updates, and estimate the monthly service cost per device. Then discuss product testing, supply and commercial rights."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "Counting only hardware cost",
+            "text": "ESP32 boards are inexpensive, but recognition, model and synthesis services bill by usage. Record the cost per conversation during the prototype so it does not escape control after rollout."
+          },
+          {
+            "title": "Rolling out after a quiet-room demonstration",
+            "text": "Exhibition halls, receptions and street fronts differ enormously in noise and echo. A prototype untested in its target environment is not a basis for deployment."
+          },
+          {
+            "title": "Ignoring license and trademark boundaries",
+            "text": "The firmware’s open-source license does not cover the cloud services, voices, product design or trademarks used. Check each item before a public release."
+          }
+        ],
         "boundaries": "A working prototype is not a mass-production commitment. Product testing, supply and commercial rights must be assessed separately.",
+        "faq": [
+          {
+            "question": "Will CNPS manufacture the voice device for us?",
+            "answer": "In the prototype phase CNPS helps define scope, dependencies and tests. Mass production involves product testing, supply, certification and commercial rights, which are assessed and agreed separately after the prototype is validated."
+          },
+          {
+            "question": "Is the prototype suitable for children or the public?",
+            "answer": "A working demonstration does not establish content safety, child suitability or regulatory conformity. Assess content boundaries, privacy and safety specifically before a public deployment."
+          },
+          {
+            "question": "Does the device work when the network is down?",
+            "answer": "It depends on the architecture. Most voice functions rely on backend services, so the device needs clear prompts and recovery behavior during disconnection. This case must be covered in testing."
+          }
+        ],
         "action": "Discuss a voice prototype",
         "cases": [
           "xiaozhi-voice"
@@ -432,6 +688,24 @@
         "title": "Robotics for research and controlled pilots",
         "short": "Clarify the exact hardware, SDK access, accessories and local support before procurement.",
         "question": "What does our robotics lab need?",
+        "overview": [
+          "This page is for people planning to buy quadruped robots, robotic arms or similar platforms for university labs, research institutes or corporate innovation teams. Public SDKs and demonstration videos make robotics research look more accessible, but procurement has to state the exact edition, developer access, accessories, training and who provides local support.",
+          "CNPS helps prepare the configuration and support checklist and verifies supply and destination terms. Public materials such as Unitree SDK2 and the UFACTORY xArm SDK are evaluation starting points; they do not mean every product edition has the same access, and they are not CNPS customer orders. Site safety and integration need qualified owners."
+        ],
+        "scenarios": [
+          {
+            "title": "Locomotion control and perception research",
+            "text": "Labs need to validate algorithms on a real platform. Evaluate whether the chosen edition opens low-level control interfaces and whether the operating system and SDK versions are compatible."
+          },
+          {
+            "title": "Controlled grasping and assembly pilots",
+            "text": "Use an arm to pick, place or assemble a limited set of workpieces. Evaluate the workpiece, gripper, payload, reach and camera arrangement, and record repeatable success rates."
+          },
+          {
+            "title": "Teaching and talent development",
+            "text": "Several students share one platform in turns. Evaluate training, spare parts, emergency procedures and supervised operating rules, not only the robot body."
+          }
+        ],
         "deliverable": "A configuration and support checklist",
         "input": "Research task, exact platform, payload, workspace, developer access, destination and trained operator.",
         "checks": [
@@ -440,7 +714,53 @@
           "Include tools, fixtures, spare parts and training.",
           "Define supervised testing and emergency procedures."
         ],
+        "steps": [
+          {
+            "title": "Write down the research task and the exact platform",
+            "text": "Derive requirements from the task: payload, workspace, sensors, developer access and destination. Robots with the same name can have different access by edition, so name the exact model."
+          },
+          {
+            "title": "Confirm SDK access and compatibility in writing",
+            "text": "Ask the supplier for written confirmation of developer access, supported operating systems and SDK versions for the selected edition, and check them against the lab’s existing software environment."
+          },
+          {
+            "title": "Start with simulation and supervised tests",
+            "text": "Validate the workflow in simulation first, then run supervised tests inside a bounded workspace. Record successful attempts and every failure, and agree emergency stops and procedures."
+          },
+          {
+            "title": "Put the full configuration into the procurement request",
+            "text": "Use the robotics procurement resource to list tools, fixtures, spares, training, shipping and local support, name the owners for safety and maintenance, then request a quotation."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "Assuming a public SDK applies to every edition",
+            "text": "Education, standard and developer editions may open different interfaces. Obtain written confirmation for the exact edition before purchasing."
+          },
+          {
+            "title": "Buying only the robot body",
+            "text": "Grippers, fixtures, cameras, spares, training and shipping often decide whether the project can start. Missing any one of them can leave equipment idle for months."
+          },
+          {
+            "title": "Inferring autonomy from demonstration videos",
+            "text": "International demonstration videos show possibilities, not proof of autonomous productivity. Whether your research task succeeds depends on your algorithms, scenario and operating skills."
+          }
+        ],
         "boundaries": "References to SDKs do not mean every product edition has the same access. Site safety and integration require qualified owners.",
+        "faq": [
+          {
+            "question": "Which robotics platforms can CNPS provide?",
+            "answer": "CNPS verifies the exact editions, accessories and destination terms that can be supplied for your requirement and prepares the configuration list. Supply and access for any platform are subject to written confirmation from the supplier."
+          },
+          {
+            "question": "What site conditions should we prepare in advance?",
+            "answer": "A bounded workspace, emergency stops and guarding, qualified operators and a maintenance owner. Put these in place before the equipment arrives rather than afterwards."
+          },
+          {
+            "question": "Can we rent or trial a platform first?",
+            "answer": "Trial and rental options depend on the platform and region. State the research task and timeline in your inquiry so feasible evaluation options can be verified together."
+          }
+        ],
         "action": "Discuss a robotics requirement",
         "cases": [
           "unitree-sdk",
@@ -782,6 +1102,24 @@
         "title": "面向团队的 AI 会议设备",
         "short": "批量采购前，比较录音设备、订阅归属与团队工作流程。",
         "question": "哪款设备适合我们的团队？",
+        "overview": [
+          "这一页面向准备为团队采购 AI 录音设备（如 TicNote 系列）的管理者与经销商。个人试用一台录音笔很容易，但团队采购要回答另一组问题：订阅归谁、纪要谁来审、导出去哪里、成员离职后账号如何处理。我们建议先用一个小规模、可衡量的试点回答这些问题，再决定型号与数量。",
+          "CNPS 提供的是选型与试点方法、目的地供货核实与正式报价；转写表现、企业功能与批量条款以确切型号和书面报价为准。我们不会用厂商演示或他人的使用体验替代你们自己的测试结果。"
+        ],
+        "scenarios": [
+          {
+            "title": "跨语言的项目例会",
+            "text": "团队在中文、英文或阿拉伯语之间切换开会，需要先确认设备在真实口音与专业术语下的转写表现，以及纠错所需时间是否可接受。"
+          },
+          {
+            "title": "外勤与客户拜访记录",
+            "text": "销售或工程人员在噪声环境中记录沟通内容。需要测试距离、噪声与电量表现，并明确录音告知与取得同意的流程。"
+          },
+          {
+            "title": "经销商为客户配置批量订单",
+            "text": "渠道伙伴需要在出货前确认目的地兼容性、订阅激活方式、保修处理与更换流程，并把这些写进供货条款。"
+          }
+        ],
         "deliverable": "更清晰的设备与订阅候选清单",
         "input": "目的地国家、团队人数、会议语言、录音环境与目标日期。",
         "checks": [
@@ -790,7 +1128,53 @@
           "确认导出格式、账号归属与转移方式。",
           "确认地区供货、保修与批量采购条款。"
         ],
+        "steps": [
+          {
+            "title": "确定试点小组与会议样本",
+            "text": "选择 3–5 位能代表典型用户的成员，覆盖真实语言、会议室大小与远程通话场景。试点前先记录现有做纪要的耗时，作为对比基线。"
+          },
+          {
+            "title": "在同一批会议上比较候选型号",
+            "text": "用同样的会议样本测试候选设备与所含订阅，记录遗漏发言、姓名错误与行动项错误，以及修正到可用纪要所需的分钟数。"
+          },
+          {
+            "title": "核对数据流程与账号归属",
+            "text": "逐项检查导出格式、存储位置、分享与删除方式，确认订阅能否转移、是否有团队管理功能，以及成员离职后由谁控制录音。"
+          },
+          {
+            "title": "形成候选清单并申请报价",
+            "text": "把型号、数量、目的地、语言与时间要求整理成报价需求。CNPS 据此核实供货与批量条款，并按确切型号提供书面报价。"
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "把转写速度当作节省时间",
+            "text": "转写快不等于纪要可用。只有把修正、分发与行动项跟进的时间一起计入，才能判断团队是否真的省下了时间。"
+          },
+          {
+            "title": "用消费级功能推断团队管理能力",
+            "text": "账号转移、集中管理与企业功能因型号和订阅方案而异，应在下单前对所选型号逐项书面确认，而不是默认具备。"
+          },
+          {
+            "title": "忽略录音告知与同意",
+            "text": "不同国家和会议场景对录音有不同要求。试点开始前就应明确告知方式、同意记录与敏感内容的处理边界。"
+          }
+        ],
         "boundaries": "团队管理和企业功能因产品而异。下单前应按所选型号逐项确认。",
+        "faq": [
+          {
+            "question": "CNPS 能保证某款设备的转写准确率吗？",
+            "answer": "不能。准确率取决于语言、口音、噪声与术语，厂商公布的数字不能替代你们自己的会议样本。我们建议按上述流程在真实会议上测试。"
+          },
+          {
+            "question": "批量采购前一定要先试点吗？",
+            "answer": "我们建议先用少量设备做有代表性的试点。它能在承诺数量之前暴露订阅归属、导出与噪声环境等问题，成本远低于批量退换。"
+          },
+          {
+            "question": "报价需要提供哪些信息？",
+            "answer": "目的地国家、预计数量、主要用途、会议语言、期望时间，以及是否需要先寄样品。信息越具体，供货核实与条款确认越快。"
+          }
+        ],
         "action": "申请设备报价",
         "cases": [
           "meeting-devices"
@@ -803,6 +1187,24 @@
         "title": "以企业文档为依据的知识助手",
         "short": "围绕真实问题、访问权限与来源依据，定义私有知识或支持流程。",
         "question": "AI 能依据我们的文档回答吗？",
+        "overview": [
+          "这一页面向希望让 AI 依据企业自有文档回答问题的 IT 负责人、服务商与业务负责人。产品手册、内部制度、客服知识库都可能成为语料，但真正决定价值的不是模型名称，而是问题集是否真实、权限是否清晰、引用是否可核对。",
+          "CNPS 协助界定评估范围、准备评估题集与验收方式，并在需要时结合 FastGPT 等开源方案讨论实施。Dify、RAGFlow、Qwen 与 DeepSeek 等公开项目是研究起点，不是 CNPS 已交付的客户项目；实施范围与软件许可需另行约定。"
+        ],
+        "scenarios": [
+          {
+            "title": "产品手册与技术支持问答",
+            "text": "售后或技术支持团队需要从多版本手册中快速找到准确答案，并能看到出处。评估重点是版本冲突的处理，以及引用是否真正支持答案。"
+          },
+          {
+            "title": "内部制度与流程查询",
+            "text": "员工询问报销、审批或合规流程。评估重点是权限边界：不同角色只能检索到自己应当看到的文档，过时制度需被及时下线。"
+          },
+          {
+            "title": "多语言询盘初筛",
+            "text": "出海团队收到中、英、阿等语言的询盘，需要依据产品资料给出初步回答再交给人工复核。评估重点是目标语言表现与拒答行为。"
+          }
+        ],
         "deliverable": "范围明确的知识助手评估",
         "input": "已获授权的示例文档、目标语言、预计用户、部署要求与业务负责人。",
         "checks": [
@@ -811,7 +1213,53 @@
           "测试文档权限和更新流程。",
           "比较完整运行成本与人工审核时间。"
         ],
+        "steps": [
+          {
+            "title": "确定单一任务与业务负责人",
+            "text": "选一个流程、一批已授权文档和一位对答案质量负责的人。识别过时与相互矛盾的版本，先决定哪份文档是权威来源。"
+          },
+          {
+            "title": "在调优前建立评估题集",
+            "text": "参照资料中心的方法准备题集：日常事实题、跨文档比较题、证据不足应拒答的题，以及权限限制测试题。题集与阈值在看到结果前约定。"
+          },
+          {
+            "title": "用同一题集比较候选方案",
+            "text": "固定文档、提示与模型版本，由业务审核人比较正确性、引用支持、拒答与延迟，并记录人工修正每个答案所需的时间。"
+          },
+          {
+            "title": "明确运营与成本后再扩大范围",
+            "text": "记录由谁更新内容、批准访问、审核错误答案，并梳理每一次外部模型调用。把部署、推理、导入、支持与人工审核计入完整成本，再决定是否推广。"
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "用公开榜单代替自己的数据测试",
+            "text": "模型排名反映的是通用任务，不是你们的文档、术语与语言。同一题集下的表现，才是选型依据。"
+          },
+          {
+            "title": "在看到结果后替换难题",
+            "text": "把失败案例从题集里删掉会让评估失真。保留失败结果，把调优题与留出测试题分开，才能知道助手上线后的真实表现。"
+          },
+          {
+            "title": "把开源可用等同于可以随意商用",
+            "text": "开源项目的许可各有附加条件，例如多租户与品牌展示限制。上线前应核对确切版本的许可与托管服务条款。"
+          }
+        ],
         "boundaries": "实施范围与软件许可需另行约定。开源可用并不代表拥有无限制转售权。",
+        "faq": [
+          {
+            "question": "需要多少文档才能开始评估？",
+            "answer": "从一个流程所需的已授权文档开始即可，通常几十份足以建立有意义的题集。范围小而权威，比大量未清理的资料更有价值。"
+          },
+          {
+            "question": "评估会把我们的文档发给第三方吗？",
+            "answer": "取决于部署方式与所选模型服务。即使应用自托管，模型或语音调用也可能向外部服务发送数据。我们建议先用非敏感文档评估，并逐项梳理数据流向。"
+          },
+          {
+            "question": "CNPS 会负责实施吗？",
+            "answer": "CNPS 先协助界定范围、题集与验收方式。实施能力、商业范围与软件许可根据具体需求另行约定，不会在评估阶段默认包含。"
+          }
+        ],
         "action": "讨论知识助手试点",
         "cases": [
           "dify-japan",
@@ -826,6 +1274,24 @@
         "title": "针对明确摄像任务的边缘 AI",
         "short": "规划完整现场系统：摄像头、算力、网络、安装及可衡量的验收测试。",
         "question": "边缘 AI 能在我们的现场运行吗？",
+        "overview": [
+          "这一页面向需要在工厂、养殖场、园区或商业场地部署摄像头识别任务的集成商与现场负责人。边缘 AI 的价值在于把识别放在现场完成，但它能否成立取决于整套系统：摄像头、算力、网络、安装、存储与运维，而不只是某块开发板的算力参数。",
+          "CNPS 协助整理现场需求、组织有代表性的现场测试并形成评估说明。Seeed 等厂商公开的部署参考展示了可能性，但不是 CNPS 已交付的项目，也不能保证在你们的光照、距离与网络条件下取得同样效果。"
+        ],
+        "scenarios": [
+          {
+            "title": "生产线或仓库的安全与合规监测",
+            "text": "识别未佩戴防护装备、越界或异常停留等事件。评估重点是误报率能否让现场人员长期信任告警，以及夜间与逆光条件下的表现。"
+          },
+          {
+            "title": "养殖与农业的持续观察",
+            "text": "对动物或作物进行计数、行为或状态识别。评估重点是粉尘、湿度与光照变化对摄像头和算力设备的长期影响。"
+          },
+          {
+            "title": "网络受限场地的本地识别",
+            "text": "偏远站点或不允许视频上云的场地需要在本地完成识别、只上传结果。评估重点是断网时的行为、恢复方式与本地存储容量。"
+          }
+        ],
         "deliverable": "现场需求与评估说明",
         "input": "摄像头类型、现场布局、光照、识别对象、网络条件与运营负责人。",
         "checks": [
@@ -834,7 +1300,53 @@
           "测试光照变化、断网与恢复。",
           "将安装、存储与支持计入成本。"
         ],
+        "steps": [
+          {
+            "title": "约定检测任务与真实标注依据",
+            "text": "用一句话写清要识别什么、在什么条件下、告警后由谁处理。约定如何产生真实标注，以及验收时可接受的误报与漏报水平。"
+          },
+          {
+            "title": "完成现场勘查并采集代表性影像",
+            "text": "参照边缘 AI 现场勘查表记录摄像头类型、安装位置、光照、距离、网络与供电。在不同时段采集影像，覆盖最不利的条件。"
+          },
+          {
+            "title": "在真实影像上测试候选配置",
+            "text": "用同一批影像比较候选摄像头与算力组合，记录误报、漏报与端到端延迟，并模拟光照变化、断网与设备重启。"
+          },
+          {
+            "title": "核算完整成本并形成评估说明",
+            "text": "把安装、布线、存储、备件、支持与运维人力计入每路摄像头和每个场地的成本。评估说明将成为报价与验收的共同依据。"
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "用演示视频判断现场表现",
+            "text": "演示视频通常在理想光照与距离下拍摄。你们的现场需要在最不利的条件下测试，才能知道系统能否长期运行。"
+          },
+          {
+            "title": "只比较模型推理时间",
+            "text": "端到端延迟包括采集、传输、推理与告警送达。只有测量完整链路，才能判断告警是否来得及让人处理。"
+          },
+          {
+            "title": "漏算安装与运维成本",
+            "text": "开发板价格只是一小部分。布线、防护外壳、存储、备件与远程维护往往决定项目能否持续。"
+          }
+        ],
         "boundaries": "硬件能力与演示视频不能保证在您的环境中达到同样效果，需要具有代表性的现场测试。",
+        "faq": [
+          {
+            "question": "需要先购买设备才能评估吗？",
+            "answer": "通常不需要。可以先完成现场勘查与影像采集，再用少量代表性设备做现场测试。在有明确任务与验收标准前大量采购，风险较高。"
+          },
+          {
+            "question": "CNPS 可以提供现成的识别方案吗？",
+            "answer": "CNPS 提供的是需求整理、现场评估方法与硬件采购渠道。识别任务是否可行取决于你们的现场条件，需要用代表性测试证明，而不是套用现成方案。"
+          },
+          {
+            "question": "准确率能达到多少？",
+            "answer": "我们不会在测试前给出准确率承诺。误报、漏报与延迟应在你们的真实影像上测得，并按事先约定的验收标准判断。"
+          }
+        ],
         "action": "讨论现场评估",
         "cases": [
           "seeed-intflow",
@@ -848,6 +1360,24 @@
         "title": "语音交互：从想法到原型",
         "short": "同时规划基于 ESP32 的语音设备及维持其运行所需的后端服务。",
         "question": "如何制作语音设备原型？",
+        "overview": [
+          "这一页面向希望用 ESP32 等低成本硬件制作语音交互设备原型的产品团队、OEM 与展示项目负责人。开源固件让第一版原型变得触手可及，但设备只是服务的起点：语音识别、模型、内容与凭据管理等后端服务决定它能否持续工作。",
+          "CNPS 协助界定原型范围、梳理依赖项并规划测试。小智 ESP32 等开源项目是技术参考，不是 CNPS 的产品供应或服务合同；原型可用不等于量产承诺，产品测试、供货与商业权利须分别评估。"
+        ],
+        "scenarios": [
+          {
+            "title": "前台或展厅的问答终端",
+            "text": "访客用语音询问展品、路线或开放时间。评估重点是噪声环境中的唤醒与识别、打断处理，以及内容更新由谁负责。"
+          },
+          {
+            "title": "面向现有产品的语音配套原型",
+            "text": "为现有产品增加语音入口，验证用户是否接受。评估重点是麦克风与外壳的声学配合、延迟，以及每次对话的服务成本。"
+          },
+          {
+            "title": "多语言接待场景",
+            "text": "接待中、英、阿等语言用户。评估重点是各语言的识别表现、语音合成质量与切换方式，以及内容是否已获授权。"
+          }
+        ],
         "deliverable": "原型范围与依赖项清单",
         "input": "一项预期任务、用户、语言、声学条件、预计用量与维护负责人。",
         "checks": [
@@ -856,7 +1386,53 @@
           "测试打断、噪声与断网。",
           "规划固件恢复、凭据管理和服务成本。"
         ],
+        "steps": [
+          {
+            "title": "确定一项任务与授权内容",
+            "text": "只做一件事：例如回答关于某一产品线的问题。准备已获授权的内容与预期问题，明确预计用户与用量。"
+          },
+          {
+            "title": "明确硬件与依赖清单",
+            "text": "参照语音原型规格书列出麦克风、扬声器、电源与网络需求，并梳理每一项语音、模型与内容服务的提供方、区域与计费方式。"
+          },
+          {
+            "title": "在真实声学环境中测试",
+            "text": "在实际使用地点测试噪声、距离、打断与断网情形，记录识别错误、响应延迟与恢复行为，而不是只在安静的办公室里演示。"
+          },
+          {
+            "title": "规划生命周期后再谈下一步",
+            "text": "约定固件恢复、凭据轮换、服务停用与内容更新方式，估算每台设备每月的服务成本。之后再讨论产品测试、供货与商业权利。"
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "只算硬件成本",
+            "text": "ESP32 板卡便宜，但语音识别、模型与合成服务按用量计费。原型阶段就应记录每次对话的成本，避免推广后失控。"
+          },
+          {
+            "title": "在安静环境中演示后直接推广",
+            "text": "展厅、前台与街边的噪声与回声差别巨大。没有在目标环境中测试过的原型，不能作为部署依据。"
+          },
+          {
+            "title": "忽略许可与商标边界",
+            "text": "固件的开源许可不涵盖所使用的云服务、语音、产品设计或商标。面向公众发布前应逐项核对。"
+          }
+        ],
         "boundaries": "原型可用不等于承诺量产。产品测试、供货与商业权利须分别评估。",
+        "faq": [
+          {
+            "question": "CNPS 会为我们生产语音设备吗？",
+            "answer": "CNPS 在原型阶段协助界定范围、依赖与测试。量产涉及产品测试、供货、认证与商业权利，需要在原型验证后另行评估与约定。"
+          },
+          {
+            "question": "原型适合面向儿童或公众吗？",
+            "answer": "演示可用不能证明内容安全、儿童适用性或法规符合性。面向公众部署前，应针对内容边界、隐私与安全做专门评估。"
+          },
+          {
+            "question": "断网后设备还能工作吗？",
+            "answer": "取决于架构。多数语音功能依赖后端服务，断网时应有明确的提示与恢复行为。这是测试中必须覆盖的情形。"
+          }
+        ],
         "action": "讨论语音原型",
         "cases": [
           "xiaozhi-voice"
@@ -869,6 +1445,24 @@
         "title": "面向科研与受控试点的机器人",
         "short": "采购前明确硬件版本、SDK 权限、配件与本地支持。",
         "question": "我们的机器人实验室需要什么？",
+        "overview": [
+          "这一页面向计划为高校实验室、研究机构或企业创新团队采购四足机器人、机械臂等平台的负责人。公开的 SDK 与演示视频让机器人研究看起来门槛更低，但采购时真正需要写清的是：确切版本、开发权限、配件、培训与本地支持由谁负责。",
+          "CNPS 协助整理配置与支持清单，并核实供货与目的地条款。宇树 SDK2、UFACTORY xArm SDK 等公开资料是评估起点，不代表每个产品版本都有相同权限，也不是 CNPS 已交付的客户订单。现场安全与集成需要合格负责人。"
+        ],
+        "scenarios": [
+          {
+            "title": "运动控制与感知算法研究",
+            "text": "实验室需要在真实平台上验证算法。评估重点是所选版本是否开放底层控制接口，以及操作系统与 SDK 版本的兼容性。"
+          },
+          {
+            "title": "受控的抓取与装配试点",
+            "text": "用机械臂完成有限工件的取放或装配。评估重点是工件、夹爪、负载、可达范围与相机布置，以及可重复的成功率记录。"
+          },
+          {
+            "title": "教学与人才培养",
+            "text": "多名学生轮流使用同一平台。评估重点是培训、备件、应急流程与有人监督的使用规范，而不只是机器人本体。"
+          }
+        ],
         "deliverable": "配置与支持核对清单",
         "input": "研究任务、确切平台、负载、工作空间、开发权限、目的地与受训操作人员。",
         "checks": [
@@ -877,7 +1471,53 @@
           "计入工具、工装、备件与培训。",
           "定义有人监督的测试及应急流程。"
         ],
+        "steps": [
+          {
+            "title": "写清研究任务与确切平台",
+            "text": "用任务描述反推需求：负载、工作空间、传感器、开发权限与目的地。名称相同的机器人不同版本权限可能不同，务必写明确切型号。"
+          },
+          {
+            "title": "书面确认 SDK 权限与兼容性",
+            "text": "向供应方索取所选版本的开发权限、支持的操作系统与 SDK 版本的书面确认，并核对实验室现有的软件环境。"
+          },
+          {
+            "title": "从仿真与有人监督的测试开始",
+            "text": "先在仿真中验证流程，再在限定工作空间内做有人监督的测试。记录成功尝试与全部失败情形，约定急停与应急流程。"
+          },
+          {
+            "title": "把完整配置写进采购需求",
+            "text": "参照机器人采购资料把工具、工装、备件、培训、运输与本地支持列入清单，明确安全与维护的负责人，再申请报价。"
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "以为公开 SDK 适用于所有版本",
+            "text": "教育版、标准版与开发版的接口开放程度可能不同。采购前应按确切版本取得书面确认。"
+          },
+          {
+            "title": "只采购机器人本体",
+            "text": "夹爪、工装、相机、备件、培训与运输往往决定项目能否开展。缺少任何一项都可能让设备闲置数月。"
+          },
+          {
+            "title": "用演示视频推断自主能力",
+            "text": "国际演示视频展示的是可能性，不是自主生产力的证明。研究任务能否完成，取决于你们的算法、场景与操作能力。"
+          }
+        ],
         "boundaries": "公开 SDK 不代表每个产品版本都有相同权限。现场安全和集成需要合格负责人。",
+        "faq": [
+          {
+            "question": "CNPS 能提供哪些机器人平台？",
+            "answer": "CNPS 按需求核实可供货的确切版本、配件与目的地条款，并整理配置清单。任何平台的供货与权限以供应方书面确认为准。"
+          },
+          {
+            "question": "需要提前准备哪些现场条件？",
+            "answer": "限定的工作空间、急停与防护措施、合格的操作人员以及维护负责人。这些应在设备到达前落实，而不是到货后再补。"
+          },
+          {
+            "question": "可以先租用或试用吗？",
+            "answer": "是否有试用或租用选项取决于平台与地区。我们建议在询盘中说明研究任务与时间安排，以便一并核实可行的评估方式。"
+          }
+        ],
         "action": "讨论机器人需求",
         "cases": [
           "unitree-sdk",
@@ -1219,6 +1859,24 @@
         "title": "أجهزة اجتماعات بالذكاء الاصطناعي للفرق",
         "short": "قارن أجهزة التسجيل وملكية الاشتراكات وسير عمل الفريق قبل الشراء بكميات كبيرة.",
         "question": "أي جهاز يناسب فريقنا؟",
+        "overview": [
+          "هذه الصفحة موجهة إلى المديرين والموزعين الذين يستعدون لشراء أجهزة تسجيل بالذكاء الاصطناعي، مثل سلسلة TicNote، لفريق كامل. تجربة مسجّل واحد بنفسك أمر سهل، لكن شراء الفريق يطرح أسئلة مختلفة: من يملك الاشتراك، ومن يراجع الملاحظات، وإلى أين تذهب الملفات المصدَّرة، وماذا يحدث للحساب عند مغادرة أحد الأعضاء. نقترح الإجابة عنها بتجربة صغيرة قابلة للقياس قبل اختيار الطراز والكمية.",
+          "تقدّم CNPS منهجية الاختيار والتجربة، وتتحقق من التوافر في بلد الوجهة، وتصدر عرض سعر رسمياً. أما أداء التفريغ النصي وخصائص المؤسسات وشروط الشراء بالجملة فتعتمد على الطراز الدقيق وعرض السعر المكتوب. ولا نستبدل عروض المورّدين أو تجارب الآخرين بنتائج اختباراتكم الخاصة."
+        ],
+        "scenarios": [
+          {
+            "title": "اجتماعات المشاريع متعددة اللغات",
+            "text": "تحتاج الفرق التي تتنقل بين الصينية والإنجليزية والعربية إلى التأكد من كيفية تفريغ الجهاز للهجات الحقيقية والمصطلحات التقنية، وما إذا كان وقت التصحيح مقبولاً."
+          },
+          {
+            "title": "الزيارات الميدانية ومكالمات العملاء",
+            "text": "يسجّل موظفو المبيعات أو الهندسة محادثاتهم في أماكن صاخبة. اختبر المسافة والضوضاء وأداء البطارية، واتفق على طريقة إخطار الحاضرين والحصول على موافقتهم على التسجيل."
+          },
+          {
+            "title": "الموزعون الذين يجهّزون طلبات بالجملة",
+            "text": "يحتاج شركاء القنوات إلى تأكيد التوافق مع بلد الوجهة وطريقة تفعيل الاشتراك ومعالجة الضمان وإجراءات الاستبدال قبل الشحن، وتدوينها في شروط التوريد."
+          }
+        ],
         "deliverable": "قائمة أوضح بالأجهزة والاشتراكات المرشحة",
         "input": "بلد الوجهة، وحجم الفريق، ولغات الاجتماعات، وبيئة التسجيل، والموعد المستهدف.",
         "checks": [
@@ -1227,7 +1885,53 @@
           "تحقق من صيغ التصدير وملكية الحساب وإعادة تعيينه.",
           "أكد التوافر الإقليمي والضمان وشروط الشراء بالجملة."
         ],
+        "steps": [
+          {
+            "title": "اختر مجموعة التجربة وعيّنة الاجتماعات",
+            "text": "اختر ثلاثة إلى خمسة أشخاص يمثّلون المستخدمين المعتادين، مع تغطية اللغات الحقيقية وأحجام القاعات والمكالمات عن بُعد. سجّل قبل التجربة كم يستغرق إعداد الملاحظات حالياً ليكون خط الأساس."
+          },
+          {
+            "title": "قارن الطرازات المرشحة على الاجتماعات نفسها",
+            "text": "اختبر الأجهزة المرشحة واشتراكاتها المشمولة على العيّنة نفسها. سجّل العبارات المفقودة وأخطاء الأسماء وأخطاء بنود العمل، والدقائق اللازمة للوصول إلى ملاحظات قابلة للاستخدام."
+          },
+          {
+            "title": "تحقق من تدفق البيانات وملكية الحسابات",
+            "text": "راجع صيغ التصدير ومكان التخزين وطرق المشاركة والحذف. أكّد إمكانية إعادة تعيين الاشتراكات، ووجود إدارة للفريق، ومن يتحكم في التسجيلات بعد مغادرة أحد الأعضاء."
+          },
+          {
+            "title": "أعدّ القائمة المختصرة واطلب عرض السعر",
+            "text": "لخّص الطرازات والكمية وبلد الوجهة واللغات والتوقيت في طلب عرض سعر. تتحقق CNPS من التوافر وشروط الجملة وتقدّم عرضاً مكتوباً للطراز الدقيق."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "اعتبار سرعة التفريغ وقتاً موفَّراً",
+            "text": "التفريغ السريع ليس ملاحظات قابلة للاستخدام. لا يمكن معرفة ما إذا كان الفريق وفّر وقتاً فعلاً إلا بحساب التصحيح والتوزيع ومتابعة بنود العمل."
+          },
+          {
+            "title": "استنتاج إدارة الفريق من الخصائص الاستهلاكية",
+            "text": "يختلف نقل الحسابات والإدارة المركزية وخصائص المؤسسات باختلاف الطراز والخطة. أكّدها كتابياً للطراز المختار قبل الطلب بدلاً من افتراض وجودها."
+          },
+          {
+            "title": "إغفال الإخطار بالتسجيل والموافقة عليه",
+            "text": "تختلف متطلبات التسجيل بين الدول وسياقات الاجتماعات. اتفق على طريقة الإخطار وسجل الموافقة وطريقة التعامل مع المحتوى الحساس قبل بدء التجربة."
+          }
+        ],
         "boundaries": "تختلف إدارة الفرق وخصائص المؤسسات باختلاف المنتج. أكدها للطراز المختار قبل الطلب.",
+        "faq": [
+          {
+            "question": "هل تضمن CNPS دقة التفريغ النصي لجهاز معيّن؟",
+            "answer": "لا. تعتمد الدقة على اللغة واللهجة والضوضاء والمصطلحات، والأرقام المنشورة لا تحل محل عيّنة اجتماعاتكم. نقترح الاختبار على اجتماعات حقيقية وفق الخطوات أعلاه."
+          },
+          {
+            "question": "هل نحتاج إلى تجربة قبل الشراء بالجملة؟",
+            "answer": "نوصي بتجربة تمثيلية بعدد قليل من الأجهزة. فهي تكشف مسائل ملكية الاشتراك والتصدير والضوضاء قبل الالتزام بالكمية، وبتكلفة أقل بكثير من إرجاع دفعات كاملة."
+          },
+          {
+            "question": "ما المعلومات اللازمة لعرض السعر؟",
+            "answer": "بلد الوجهة، والكمية المتوقعة، والاستخدام الرئيسي، ولغات الاجتماعات، والتوقيت المرغوب، وما إذا كنتم تريدون عيّنات أولاً. التفاصيل المحددة تسرّع التحقق من التوافر وتأكيد الشروط."
+          }
+        ],
         "action": "اطلب عرض سعر للأجهزة",
         "cases": [
           "meeting-devices"
@@ -1240,6 +1944,24 @@
         "title": "مساعدون معرفيون يستندون إلى مستنداتك",
         "short": "حدد سير عمل للمعرفة الخاصة أو الدعم انطلاقاً من أسئلة حقيقية وصلاحيات وصول وأدلة.",
         "question": "هل يستطيع الذكاء الاصطناعي الإجابة من مستنداتنا؟",
+        "overview": [
+          "هذه الصفحة موجهة إلى قادة تقنية المعلومات ومقدمي الخدمات ومسؤولي الأعمال الذين يريدون أن يجيب الذكاء الاصطناعي عن الأسئلة من مستنداتهم الخاصة. يمكن أن تصبح أدلة المنتجات والسياسات الداخلية وقواعد معرفة الدعم مادةً مصدرية. لكن ما يحدد القيمة ليس اسم النموذج، بل ما إذا كانت مجموعة الأسئلة حقيقية، والصلاحيات واضحة، والاستشهادات قابلة للتحقق.",
+          "تساعد CNPS في تحديد نطاق التقييم وإعداد مجموعة التقييم والاتفاق على القبول، ويمكنها مناقشة التنفيذ مع خيارات مفتوحة المصدر مثل FastGPT عند الحاجة. المشاريع العامة مثل Dify وRAGFlow وQwen وDeepSeek نقاط انطلاق بحثية، وليست مشاريع سلّمتها CNPS لعملائها. ويُتفق على نطاق التنفيذ وتراخيص البرمجيات بشكل منفصل."
+        ],
+        "scenarios": [
+          {
+            "title": "أسئلة وأجوبة أدلة المنتجات والدعم التقني",
+            "text": "تحتاج فرق ما بعد البيع أو الدعم إلى إجابات دقيقة من أدلة بإصدارات متعددة مع إظهار المصدر. قيّم كيفية التعامل مع تعارض الإصدارات وما إذا كانت الاستشهادات تدعم الإجابة فعلاً."
+          },
+          {
+            "title": "الاستعلام عن السياسات والإجراءات الداخلية",
+            "text": "يسأل الموظفون عن النفقات أو الموافقات أو خطوات الامتثال. قيّم حدود الصلاحيات: ينبغي أن يسترجع كل دور المستندات المسموح له بها فقط، وأن تُسحب السياسات القديمة فوراً."
+          },
+          {
+            "title": "الفرز الأولي للاستفسارات متعددة اللغات",
+            "text": "تتلقى فرق التصدير استفسارات بالصينية أو الإنجليزية أو العربية وتحتاج إلى إجابة أولى من مواد المنتج قبل المراجعة البشرية. قيّم الأداء باللغة المستهدفة وسلوك الامتناع عن الإجابة."
+          }
+        ],
         "deliverable": "تقييم محدد النطاق لمساعد معرفي",
         "input": "مستندات نموذجية مصرح باستخدامها، واللغات المستهدفة، وعدد المستخدمين المتوقع، ومتطلبات الاستضافة، ومسؤول العمل.",
         "checks": [
@@ -1248,7 +1970,53 @@
           "اختبر صلاحيات المستندات وإجراءات التحديث.",
           "قارن التكلفة التشغيلية الكاملة ووقت المراجعة البشرية."
         ],
+        "steps": [
+          {
+            "title": "ثبّت مهمة واحدة ومسؤول عمل واحد",
+            "text": "اختر سير عمل واحداً ومجموعة واحدة من المستندات المصرح بها وشخصاً واحداً مسؤولاً عن جودة الإجابات. حدّد الإصدارات القديمة والمتعارضة، وقرّر أولاً أي مستند هو المرجع."
+          },
+          {
+            "title": "أنشئ مجموعة التقييم قبل الضبط",
+            "text": "اتبع منهجية الموارد: أسئلة واقعية يومية، ومقارنات بين المستندات، وأسئلة يجب الامتناع عنها لغياب الدليل، واختبارات للصلاحيات. اتفق على المجموعة والحدود قبل رؤية النتائج."
+          },
+          {
+            "title": "قارن المرشحين على المجموعة نفسها",
+            "text": "ثبّت المستندات والتعليمات وإصدارات النماذج. يقارن مراجعو الأعمال الصحة ودعم الاستشهادات والامتناع وزمن الاستجابة، ويسجلون الوقت اللازم لتصحيح كل إجابة يدوياً."
+          },
+          {
+            "title": "حدّد التشغيل والتكلفة قبل التوسع",
+            "text": "وثّق من يحدّث المحتوى ويوافق على الوصول ويراجع الإجابات الخاطئة ويتعامل مع تغيّر النماذج، واحصر كل استدعاء لنموذج خارجي. احسب الاستضافة والاستدلال والاستيراد والدعم والمراجعة البشرية قبل التوسع."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "الاستعاضة عن اختبار بياناتكم بلوائح التصنيف العامة",
+            "text": "تعكس التصنيفات مهام عامة، لا مستنداتكم ومصطلحاتكم ولغتكم. الأداء على مجموعة التقييم نفسها هو أساس الاختيار."
+          },
+          {
+            "title": "تبديل الأسئلة الصعبة بعد رؤية النتائج",
+            "text": "إزالة الحالات الفاشلة من المجموعة تشوّه التقييم. احتفظ بالنتائج الفاشلة وافصل أسئلة الضبط عن الاختبارات المحجوزة لتعرف كيف سيتصرف المساعد في الإنتاج."
+          },
+          {
+            "title": "مساواة الإتاحة مفتوحة المصدر بالاستخدام التجاري الحر",
+            "text": "تحمل التراخيص مفتوحة المصدر شروطاً إضافية، مثل قيود تعدد المستأجرين والعلامة التجارية. تحقق من ترخيص الإصدار الدقيق وشروط الاستضافة قبل الإطلاق."
+          }
+        ],
         "boundaries": "يجب الاتفاق على نطاق التنفيذ وتراخيص البرمجيات. الإتاحة مفتوحة المصدر لا تعني حقوق إعادة بيع غير مقيدة.",
+        "faq": [
+          {
+            "question": "كم مستنداً نحتاج للبدء؟",
+            "answer": "ابدأ بالمستندات المصرح بها التي يحتاجها سير عمل واحد؛ غالباً تكفي بضع عشرات لبناء مجموعة تقييم ذات معنى. النطاق الصغير المرجعي أكثر قيمة من أرشيف كبير غير منقّى."
+          },
+          {
+            "question": "هل يرسل التقييم مستنداتنا إلى أطراف ثالثة؟",
+            "answer": "يعتمد ذلك على طريقة النشر وخدمات النماذج المختارة. حتى التطبيق المستضاف ذاتياً قد يرسل بيانات إلى خدمات نماذج أو صوت خارجية. نقترح التقييم بمستندات غير حساسة أولاً وحصر كل تدفق للبيانات."
+          },
+          {
+            "question": "هل تتولى CNPS التنفيذ؟",
+            "answer": "تساعد CNPS أولاً في تحديد النطاق ومجموعة التقييم والقبول. أما القدرة على التنفيذ والنطاق التجاري وتراخيص البرمجيات فيُتفق عليها بشكل منفصل لكل احتياج، ولا تُدرج تلقائياً في مرحلة التقييم."
+          }
+        ],
         "action": "ناقش تجربة مساعد معرفي",
         "cases": [
           "dify-japan",
@@ -1263,6 +2031,24 @@
         "title": "ذكاء اصطناعي طرفي لمهمة كاميرا محددة",
         "short": "خطط للموقع كاملاً: الكاميرات والحوسبة والشبكة والتركيب واختبار قبول قابل للقياس.",
         "question": "هل يعمل الذكاء الاصطناعي الطرفي في موقعنا؟",
+        "overview": [
+          "هذه الصفحة موجهة إلى المتكاملين وأصحاب المواقع الذين يحتاجون إلى نشر مهمة تعرّف بالكاميرا في مصنع أو مزرعة أو مجمّع أو موقع تجاري. يُبقي الذكاء الاصطناعي الطرفي التعرّف داخل الموقع، لكن نجاحه يعتمد على النظام كله: الكاميرات والحوسبة والشبكة والتركيب والتخزين والتشغيل، لا على قدرة لوحة واحدة فقط.",
+          "تساعد CNPS في تنظيم متطلبات الموقع وإجراء اختبار ميداني تمثيلي وإعداد موجز تقييم. المراجع التي ينشرها مورّدون مثل Seeed تُظهر ما هو ممكن، لكنها ليست مشاريع سلّمتها CNPS، ولا تضمن النتيجة نفسها في ظروف الإضاءة والمسافات والشبكة لديكم."
+        ],
+        "scenarios": [
+          {
+            "title": "مراقبة السلامة والامتثال في خطوط الإنتاج والمستودعات",
+            "text": "اكتشاف غياب معدات الحماية أو تجاوز الحدود أو التوقف غير المعتاد. قيّم ما إذا كان معدل الإنذارات الكاذبة يسمح للعاملين بالثقة في التنبيهات مع الوقت، وكيف يعمل النظام ليلاً وفي الإضاءة الخلفية."
+          },
+          {
+            "title": "المراقبة المستمرة في الزراعة والثروة الحيوانية",
+            "text": "عدّ الحيوانات أو المحاصيل، أو التعرّف على السلوك والحالة. قيّم الأثر طويل الأمد للغبار والرطوبة وتغيّر الضوء على الكاميرات ووحدات الحوسبة."
+          },
+          {
+            "title": "التعرّف المحلي في المواقع محدودة الاتصال",
+            "text": "تحتاج المواقع النائية، أو التي لا يُسمح لها بإرسال الفيديو إلى السحابة، إلى تعرّف محلي مع رفع النتائج فقط. قيّم السلوك أثناء انقطاع الاتصال والاستعادة وسعة التخزين المحلي."
+          }
+        ],
         "deliverable": "موجز لمتطلبات الموقع وتقييمه",
         "input": "أنواع الكاميرات، وتخطيط الموقع، والإضاءة، والأجسام المطلوب اكتشافها، وظروف الشبكة، والمسؤول التشغيلي.",
         "checks": [
@@ -1271,7 +2057,53 @@
           "اختبر تغير الإضاءة وانقطاع الاتصال واستعادته.",
           "أدرج التركيب والتخزين والدعم ضمن التكلفة."
         ],
+        "steps": [
+          {
+            "title": "اتفق على مهمة الاكتشاف والبيانات المرجعية",
+            "text": "اكتب في جملة واحدة ما يجب اكتشافه، وفي أي ظروف، ومن يتصرف عند التنبيه. اتفق على كيفية إنتاج البيانات المرجعية وعلى مستويات الإنذارات الكاذبة والحالات الفائتة المقبولة عند القبول."
+          },
+          {
+            "title": "أكمل مسح الموقع واجمع لقطات تمثيلية",
+            "text": "استخدم استمارة مسح موقع الذكاء الاصطناعي الطرفي لتسجيل أنواع الكاميرات ومواضع التركيب والإضاءة والمسافات والشبكة والطاقة. اجمع اللقطات في أوقات مختلفة من اليوم بما فيها أسوأ الظروف."
+          },
+          {
+            "title": "اختبر التكوينات المرشحة على لقطات حقيقية",
+            "text": "قارن تركيبات الكاميرا والحوسبة على اللقطات نفسها. سجّل الإنذارات الكاذبة والحالات الفائتة وزمن الاستجابة من البداية إلى النهاية، وحاكِ تغيّر الإضاءة وانقطاع الاتصال وإعادة تشغيل الأجهزة."
+          },
+          {
+            "title": "احسب تكلفة النظام كاملاً واكتب موجز التقييم",
+            "text": "أدرج التركيب والتمديدات والتخزين وقطع الغيار والدعم وطاقم التشغيل في التكلفة لكل كاميرا ولكل موقع. يصبح الموجز الأساس المشترك لعرض السعر والقبول."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "الحكم على أداء الموقع من مقاطع العرض",
+            "text": "تُصوَّر العروض عادةً في إضاءة ومسافة مثاليتين. يجب اختبار موقعكم في أسوأ ظروفه لمعرفة ما إذا كان النظام سيستمر في العمل."
+          },
+          {
+            "title": "مقارنة زمن استدلال النموذج فقط",
+            "text": "يشمل زمن الاستجابة الكامل الالتقاط والنقل والاستدلال وتوصيل التنبيه. السلسلة الكاملة وحدها تكشف ما إذا كان التنبيه يصل في وقت يسمح بالتصرف."
+          },
+          {
+            "title": "إغفال تكاليف التركيب والتشغيل",
+            "text": "سعر اللوحة جزء صغير. التمديدات والحاويات الواقية والتخزين وقطع الغيار والصيانة عن بُعد غالباً ما تحدد استدامة المشروع."
+          }
+        ],
         "boundaries": "لا تضمن قدرات الأجهزة أو مقاطع العرض الأداء في بيئتك. يلزم اختبار ميداني يمثل الظروف الفعلية.",
+        "faq": [
+          {
+            "question": "هل يجب شراء المعدات قبل التقييم؟",
+            "answer": "عادةً لا. أكمل مسح الموقع وجمع اللقطات أولاً، ثم اختبر بعدد قليل من الأجهزة التمثيلية. الشراء بكميات قبل وضوح المهمة ومعايير القبول ينطوي على مخاطر أكبر."
+          },
+          {
+            "question": "هل تقدّم CNPS حلاً جاهزاً للتعرّف؟",
+            "answer": "تقدّم CNPS تنظيم المتطلبات ومنهجية تقييم الموقع وتوريد الأجهزة. أما جدوى مهمة التعرّف فتعتمد على ظروف موقعكم ويجب إثباتها باختبار تمثيلي، لا بتطبيق قالب جاهز."
+          },
+          {
+            "question": "ما الدقة التي يمكن توقعها؟",
+            "answer": "لا نعد بدقة قبل الاختبار. ينبغي قياس الإنذارات الكاذبة والحالات الفائتة وزمن الاستجابة على لقطاتكم الحقيقية والحكم عليها وفق معايير قبول متفق عليها مسبقاً."
+          }
+        ],
         "action": "ناقش تقييم الموقع",
         "cases": [
           "seeed-intflow",
@@ -1285,6 +2117,24 @@
         "title": "واجهات صوتية من الفكرة إلى النموذج الأولي",
         "short": "حدد نطاق جهاز صوتي قائم على ESP32 مع خدمات الخلفية اللازمة لاستمرار تشغيله.",
         "question": "كيف نبني نموذجاً أولياً لجهاز صوتي؟",
+        "overview": [
+          "هذه الصفحة موجهة إلى فرق المنتجات ومصنّعي المعدات الأصلية ومسؤولي المعارض الذين يريدون بناء نموذج أولي لجهاز تفاعل صوتي على عتاد منخفض التكلفة مثل ESP32. تجعل البرامج الثابتة المفتوحة النموذج الأول في المتناول، لكن الجهاز ليس سوى بداية الخدمة: التعرّف على الكلام والنماذج والمحتوى وإدارة بيانات الاعتماد هي ما يحدد استمراره في العمل.",
+          "تساعد CNPS في تحديد نطاق النموذج الأولي وحصر الاعتماديات وتخطيط الاختبارات. المشاريع مفتوحة المصدر مثل XiaoZhi ESP32 مراجع تقنية، وليست توريد منتج أو عقد خدمة من CNPS. النموذج الأولي العامل ليس التزاماً بالإنتاج الكمي؛ ويُقيَّم اختبار المنتج والتوريد والحقوق التجارية كلٌّ على حدة."
+        ],
+        "scenarios": [
+          {
+            "title": "محطة أسئلة وأجوبة في الاستقبال أو المعرض",
+            "text": "يسأل الزوار صوتياً عن المعروضات أو الاتجاهات أو مواعيد العمل. قيّم التنبيه والتعرّف في الضوضاء والتعامل مع المقاطعة، ومن المسؤول عن تحديث المحتوى."
+          },
+          {
+            "title": "نموذج أولي لمرافق صوتي لمنتج قائم",
+            "text": "أضف مدخلاً صوتياً إلى منتج حالي وتحقق من قبول المستخدمين له. قيّم التوافق الصوتي بين الميكروفون والهيكل، وزمن الاستجابة، وتكلفة الخدمة لكل محادثة."
+          },
+          {
+            "title": "الاستقبال متعدد اللغات",
+            "text": "خدمة المتحدثين بالصينية أو الإنجليزية أو العربية. قيّم التعرّف في كل لغة وجودة تحويل النص إلى كلام وطريقة التبديل بين اللغات، وما إذا كان المحتوى مصرحاً به."
+          }
+        ],
         "deliverable": "نطاق للنموذج الأولي وقائمة بالاعتماديات",
         "input": "مهمة مقصودة واحدة، والمستخدمون، واللغات، والظروف الصوتية، وحجم الاستخدام المتوقع، ومسؤول الصيانة.",
         "checks": [
@@ -1293,7 +2143,53 @@
           "اختبر المقاطعة والضوضاء وفقدان الشبكة.",
           "خطط لاستعادة البرنامج الثابت وإدارة بيانات الاعتماد وتكلفة الخدمات."
         ],
+        "steps": [
+          {
+            "title": "ثبّت مهمة واحدة ومحتوى مصرحاً به",
+            "text": "افعل شيئاً واحداً فقط، مثل الإجابة عن أسئلة تتعلق بخط منتجات واحد. أعدّ المحتوى المصرح به والأسئلة المتوقعة، وحدّد المستخدمين المقصودين وحجم الاستخدام."
+          },
+          {
+            "title": "حدّد العتاد وقائمة الاعتماديات",
+            "text": "استخدم مواصفات النموذج الصوتي الأولي لإدراج احتياجات الميكروفون ومكبر الصوت والطاقة والشبكة، واحصر مزوّد كل خدمة كلام ونموذج ومحتوى ومنطقتها وطريقة فوترتها."
+          },
+          {
+            "title": "اختبر في البيئة الصوتية الحقيقية",
+            "text": "اختبر الضوضاء والمسافة والمقاطعة وفقدان الشبكة في المكان الذي سيُستخدم فيه الجهاز فعلاً. سجّل أخطاء التعرّف وزمن الاستجابة والاستعادة بدلاً من العرض في مكتب هادئ."
+          },
+          {
+            "title": "خطّط لدورة الحياة قبل مناقشة الخطوة التالية",
+            "text": "اتفق على استعادة البرنامج الثابت وتدوير بيانات الاعتماد وإيقاف الخدمة وتحديث المحتوى، وقدّر تكلفة الخدمة الشهرية لكل جهاز. ثم ناقش اختبار المنتج والتوريد والحقوق التجارية."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "حساب تكلفة العتاد فقط",
+            "text": "لوحات ESP32 زهيدة الثمن، لكن خدمات التعرّف والنماذج والتوليد الصوتي تُحاسب حسب الاستخدام. سجّل تكلفة كل محادثة أثناء النموذج الأولي حتى لا تخرج عن السيطرة بعد التوسع."
+          },
+          {
+            "title": "التوسع بعد عرض في غرفة هادئة",
+            "text": "تختلف قاعات المعارض ومكاتب الاستقبال وواجهات الشوارع اختلافاً كبيراً في الضوضاء والصدى. النموذج الأولي غير المختبر في بيئته المستهدفة ليس أساساً للنشر."
+          },
+          {
+            "title": "إغفال حدود الترخيص والعلامات التجارية",
+            "text": "لا يغطي الترخيص مفتوح المصدر للبرنامج الثابت الخدمات السحابية أو الأصوات أو تصميم المنتج أو العلامات التجارية المستخدمة. تحقق من كل بند قبل الإطلاق العام."
+          }
+        ],
         "boundaries": "النموذج الأولي العامل ليس التزاماً بالإنتاج الكمي. يجب تقييم اختبارات المنتج والتوريد والحقوق التجارية كلٌّ على حدة.",
+        "faq": [
+          {
+            "question": "هل ستصنّع CNPS الجهاز الصوتي لنا؟",
+            "answer": "في مرحلة النموذج الأولي تساعد CNPS في تحديد النطاق والاعتماديات والاختبارات. أما الإنتاج الكمي فيتضمن اختبار المنتج والتوريد والاعتماد والحقوق التجارية، وتُقيَّم هذه ويُتفق عليها بشكل منفصل بعد التحقق من النموذج الأولي."
+          },
+          {
+            "question": "هل يناسب النموذج الأولي الأطفال أو الجمهور العام؟",
+            "answer": "العرض العامل لا يثبت سلامة المحتوى أو الملاءمة للأطفال أو المطابقة التنظيمية. قيّم حدود المحتوى والخصوصية والسلامة تحديداً قبل أي نشر عام."
+          },
+          {
+            "question": "هل يعمل الجهاز عند انقطاع الشبكة؟",
+            "answer": "يعتمد ذلك على البنية. تعتمد أغلب الوظائف الصوتية على خدمات خلفية، لذا يحتاج الجهاز إلى رسائل واضحة وسلوك استعادة محدد أثناء الانقطاع. ويجب أن تغطي الاختبارات هذه الحالة."
+          }
+        ],
         "action": "ناقش نموذجاً صوتياً أولياً",
         "cases": [
           "xiaozhi-voice"
@@ -1306,6 +2202,24 @@
         "title": "روبوتات للبحث والتجارب الخاضعة للإشراف",
         "short": "حدد الأجهزة الدقيقة وصلاحيات SDK والملحقات والدعم المحلي قبل الشراء.",
         "question": "ماذا يحتاج مختبر الروبوتات لدينا؟",
+        "overview": [
+          "هذه الصفحة موجهة إلى من يخططون لشراء روبوتات رباعية الأرجل أو أذرع روبوتية أو منصات مشابهة لمختبرات الجامعات ومعاهد البحث وفرق الابتكار في الشركات. تجعل حزم SDK العامة ومقاطع العرض البحث في الروبوتات يبدو أيسر، لكن الشراء يجب أن يحدد الإصدار الدقيق وصلاحيات التطوير والملحقات والتدريب ومن يقدّم الدعم المحلي.",
+          "تساعد CNPS في إعداد قائمة التكوين والدعم وتتحقق من شروط التوريد وبلد الوجهة. المواد العامة مثل Unitree SDK2 وUFACTORY xArm SDK نقاط انطلاق للتقييم؛ فهي لا تعني أن كل إصدار من المنتج يوفر الصلاحيات نفسها، وليست طلبات عملاء سلّمتها CNPS. تتطلب سلامة الموقع والتكامل مسؤولين مؤهلين."
+        ],
+        "scenarios": [
+          {
+            "title": "أبحاث التحكم في الحركة والإدراك",
+            "text": "تحتاج المختبرات إلى التحقق من الخوارزميات على منصة حقيقية. قيّم ما إذا كان الإصدار المختار يفتح واجهات التحكم منخفضة المستوى، وما إذا كانت إصدارات نظام التشغيل وSDK متوافقة."
+          },
+          {
+            "title": "تجارب الإمساك والتجميع الخاضعة للتحكم",
+            "text": "استخدم ذراعاً لالتقاط أو وضع أو تجميع مجموعة محدودة من القطع. قيّم القطعة والقابض والحمولة والمدى وترتيب الكاميرا، وسجّل معدلات نجاح قابلة للتكرار."
+          },
+          {
+            "title": "التعليم وتنمية المواهب",
+            "text": "يتشارك عدة طلاب منصة واحدة بالتناوب. قيّم التدريب وقطع الغيار وإجراءات الطوارئ وقواعد التشغيل الخاضع للإشراف، لا جسم الروبوت فقط."
+          }
+        ],
         "deliverable": "قائمة تحقق للتكوين والدعم",
         "input": "المهمة البحثية، والمنصة الدقيقة، والحمولة، ومساحة العمل، وصلاحيات التطوير، والوجهة، ومشغل مدرب.",
         "checks": [
@@ -1314,7 +2228,53 @@
           "أدرج الأدوات والتجهيزات وقطع الغيار والتدريب.",
           "حدد الاختبارات الخاضعة للإشراف وإجراءات الطوارئ."
         ],
+        "steps": [
+          {
+            "title": "اكتب المهمة البحثية والمنصة الدقيقة",
+            "text": "استخرج المتطلبات من المهمة: الحمولة ومساحة العمل والمستشعرات وصلاحيات التطوير وبلد الوجهة. قد تختلف الصلاحيات بين إصدارات روبوت يحمل الاسم نفسه، فسمّ الطراز الدقيق."
+          },
+          {
+            "title": "أكّد صلاحيات SDK والتوافق كتابياً",
+            "text": "اطلب من المورّد تأكيداً مكتوباً لصلاحيات التطوير وأنظمة التشغيل المدعومة وإصدارات SDK للإصدار المختار، وقارنها ببيئة البرمجيات الحالية في المختبر."
+          },
+          {
+            "title": "ابدأ بالمحاكاة والاختبارات الخاضعة للإشراف",
+            "text": "تحقق من سير العمل في المحاكاة أولاً، ثم أجرِ اختبارات خاضعة للإشراف داخل مساحة عمل محددة. سجّل المحاولات الناجحة وكل حالة فشل، واتفق على إيقاف الطوارئ والإجراءات."
+          },
+          {
+            "title": "أدرج التكوين الكامل في طلب الشراء",
+            "text": "استخدم مورد شراء الروبوتات لإدراج الأدوات والتجهيزات وقطع الغيار والتدريب والشحن والدعم المحلي، وسمّ المسؤولين عن السلامة والصيانة، ثم اطلب عرض السعر."
+          }
+        ],
+        "mistakes": [
+          {
+            "title": "افتراض أن SDK العام يسري على كل الإصدارات",
+            "text": "قد تفتح الإصدارات التعليمية والقياسية والتطويرية واجهات مختلفة. احصل على تأكيد مكتوب للإصدار الدقيق قبل الشراء."
+          },
+          {
+            "title": "شراء جسم الروبوت فقط",
+            "text": "غالباً ما تحدد القوابض والتجهيزات والكاميرات وقطع الغيار والتدريب والشحن ما إذا كان المشروع سيبدأ. قد يترك غياب أي منها المعدات معطّلة لأشهر."
+          },
+          {
+            "title": "استنتاج الاستقلالية من مقاطع العرض",
+            "text": "تُظهر مقاطع العرض الدولية إمكانات، لا دليلاً على إنتاجية مستقلة. يعتمد نجاح مهمتكم البحثية على خوارزمياتكم وسيناريوكم ومهارات التشغيل لديكم."
+          }
+        ],
         "boundaries": "الإشارة إلى SDK لا تعني أن جميع إصدارات المنتج توفر الصلاحيات نفسها. تتطلب سلامة الموقع والتكامل مسؤولين مؤهلين.",
+        "faq": [
+          {
+            "question": "أي منصات روبوتية يمكن أن توفرها CNPS؟",
+            "answer": "تتحقق CNPS من الإصدارات الدقيقة والملحقات وشروط بلد الوجهة التي يمكن توريدها لاحتياجكم، وتعدّ قائمة التكوين. ويخضع التوريد والصلاحيات لأي منصة لتأكيد مكتوب من المورّد."
+          },
+          {
+            "question": "ما ظروف الموقع التي ينبغي تجهيزها مسبقاً؟",
+            "answer": "مساحة عمل محددة، وإيقاف طوارئ وحواجز حماية، ومشغلون مؤهلون، ومسؤول صيانة. جهّزوها قبل وصول المعدات لا بعده."
+          },
+          {
+            "question": "هل يمكن استئجار منصة أو تجربتها أولاً؟",
+            "answer": "تعتمد خيارات التجربة والاستئجار على المنصة والمنطقة. اذكروا المهمة البحثية والجدول الزمني في استفساركم ليمكن التحقق من خيارات التقييم الممكنة معاً."
+          }
+        ],
         "action": "ناقش متطلبات الروبوتات",
         "cases": [
           "unitree-sdk",
