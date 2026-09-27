@@ -24,7 +24,57 @@
       "en": "Use this form when you already know what you need priced. Prices, destination supply and exact editions are confirmed in the quotation, not on this page.",
       "zh": "如果你已明确需要报价的内容，请使用此表单。价格、目的地供应和准确版本以报价为准，而非本页。",
       "ar": "استخدم هذا النموذج إذا كنت تعرف مسبقاً ما تريد تسعيره. تُؤكَّد الأسعار والتوفر في وجهتك والإصدارات المحددة في عرض السعر، وليس في هذه الصفحة."
-    }
+    },
+    "sections": [
+      {
+        "title": {
+          "en": "What a quotation needs",
+          "zh": "报价需要哪些信息",
+          "ar": "ما يحتاجه عرض السعر"
+        },
+        "body": {
+          "en": "- **Model and option**: for example \"TicNote Gray / with 1-Year Pro Plan\" or \"Pods 4G Pearl White / Pods Only\". If you are unsure, describe the task and we will suggest the variant.\n- **Quantity**: per model. The shop does not publish volume pricing, so quantity directly affects the quotation.\n- **Destination country and delivery city**: these determine availability, shipping method and who bears duties and taxes.\n- **Required date**: when you need the devices and whether split deliveries are acceptable.\n- **Purpose**: team use, a pilot or distribution for resale. Distribution terms differ from a purchase for your own use.\n- **Special requirements**: data-processing location, prescription lenses, specific language support, invoicing and payment method.\n",
+          "zh": "- **型号与选项**：例如\"TicNote 灰色 / 含 1 年 Pro 套餐\"或\"Pods 4G 珍珠白 / 仅 Pods\"。不确定选项时，写下任务，我们会建议对应的变体。\n- **数量**：按型号分别列出。商店未公布批量价格，数量会直接影响报价。\n- **目的国家或地区与收货城市**：决定供应情况、运输方式、关税与税费的承担方式。\n- **需求日期**：希望收到设备的时间，以及是否可以分批。\n- **用途**：团队自用、试点、还是分销转售。分销合作的条款与自用采购不同。\n- **特殊要求**：数据处理位置、处方镜片、特定语言支持、发票与付款方式。\n",
+          "ar": "- **الطراز والخيار**: مثلاً \"TicNote رمادي / مع خطة Pro لسنة\" أو \"Pods 4G أبيض لؤلؤي / السماعات فقط\". إن لم تكن متأكداً، صِف المهمة وسنقترح الإصدار.\n- **الكمية**: لكل طراز. لا ينشر المتجر أسعار الكميات، فالكمية تؤثر مباشرة في عرض السعر.\n- **بلد الوجهة ومدينة التسليم**: تحدد التوفر وطريقة الشحن ومن يتحمل الرسوم والضرائب.\n- **التاريخ المطلوب**: متى تحتاج إلى الأجهزة وهل التسليم على دفعات مقبول.\n- **الغرض**: استخدام الفريق، أو تجربة، أو توزيع لإعادة البيع. تختلف شروط التوزيع عن الشراء للاستخدام الخاص.\n- **متطلبات خاصة**: موقع معالجة البيانات، عدسات طبية، دعم لغات محددة، الفوترة وطريقة الدفع.\n"
+        }
+      },
+      {
+        "title": {
+          "en": "How the quotation is prepared",
+          "zh": "报价流程",
+          "ar": "كيف يُعَد عرض السعر"
+        },
+        "body": {
+          "en": "1. **Availability check**: we first verify that the chosen model and option can be supplied to your destination and whether lithium-battery shipping or network-version limits (for example the North America version of Pods 4G) apply.\n2. **Missing information**: if fields are missing, we ask by work email rather than quoting on assumptions.\n3. **Formal quotation**: model, quantity, unit price, validity period, delivery method and payment terms. The written document governs; prices on this site and the shop listings are for reference only.\n4. **Purchase order**: after you confirm the quotation, execution proceeds on a purchase order or written confirmation. Distribution arrangements carry separate partnership terms.\n\nA quotation does not promise transcription accuracy, translation quality or battery-life figures. Verify such figures through a trial or written confirmation before ordering.\n",
+          "zh": "1. **确认供应**：我们先核对所选型号与选项在你的目的地是否可供应、是否受锂电池运输或网络版本（例如 Pods 4G 的北美版本）限制。\n2. **补齐信息**：如有缺失字段，我们通过工作邮箱询问，而不是凭假设报价。\n3. **出具正式报价**：包含型号、数量、单价、有效期、交付方式与付款条款。报价以书面文件为准，本页与商品页面的价格仅供参考。\n4. **采购订单**：确认报价后，以采购订单或书面确认进入执行。分销合作会另附合作条款。\n\n我们不会在报价中承诺任何转写准确率、翻译质量或续航数值。需要验证的参数，请在下单前通过试用或书面确认取得。\n",
+          "ar": "1. **التحقق من التوفر**: نتحقق أولاً من إمكانية توريد الطراز والخيار المختارَين إلى وجهتك وما إذا كانت قيود شحن بطاريات الليثيوم أو إصدار الشبكة (مثل إصدار أمريكا الشمالية من Pods 4G) تنطبق.\n2. **المعلومات الناقصة**: إذا كانت هناك حقول ناقصة، نسأل عبر بريد العمل بدلاً من التسعير على افتراضات.\n3. **عرض السعر الرسمي**: الطراز والكمية وسعر الوحدة ومدة الصلاحية وطريقة التسليم وشروط الدفع. الوثيقة الكتابية هي المعتمدة؛ أسعار هذا الموقع وصفحات المتجر للمرجع فقط.\n4. **أمر الشراء**: بعد تأكيدك لعرض السعر، يبدأ التنفيذ بأمر شراء أو تأكيد كتابي. تحمل ترتيبات التوزيع شروط شراكة منفصلة.\n\nلا يعد عرض السعر بدقة تفريغ نصي أو جودة ترجمة أو أرقام عمر بطارية. تحقق من هذه الأرقام عبر تجربة أو تأكيد كتابي قبل الطلب.\n"
+        }
+      },
+      {
+        "title": {
+          "en": "Before you ask for a quotation",
+          "zh": "询价前值得先做的事",
+          "ar": "قبل أن تطلب عرض سعر"
+        },
+        "body": {
+          "en": "- **Read the comparison first**: [TicNote models side by side](/products/compare) lists each model's published storage, colours and bundles, as well as the figures the shop does not publish.\n- **Decide whether to trial first**: before a volume purchase, buying one unit for a two-week trial is usually safer than placing a large order directly. See [Plan an AI meeting-device pilot](/resources/meeting-device-pilot).\n- **Check the policies**: the [shipping policy](/shipping) lists the destinations the shop serves; the [returns policy](/returns) explains the limits on ear-worn products and the Pro digital service.\n- **Prepare what your internal approval needs**: if you require supplier documents, invoicing details or a specific payment method, say so in the form.\n",
+          "zh": "- **先看对比页**：[TicNote 型号并排对比](/products/compare)列出了各型号已公布的存储、颜色和组合，以及商店没有公布的参数。\n- **决定是否先试用**：批量采购前，先买一台做两周试用通常比直接下大单更稳妥。方法见[规划 AI 会议设备试点](/resources/meeting-device-pilot)。\n- **核对政策**：[配送政策](/shipping)列出了商店可配送的目的地；[退货政策](/returns)说明了耳戴式产品与 Pro 数字服务的限制。\n- **准备内部审批所需的信息**：如需要供应商资料、发票抬头或付款方式，请在表单中一并说明。\n",
+          "ar": "- **اقرأ المقارنة أولاً**: تسرد [مقارنة طرازات TicNote](/products/compare) السعة والألوان والباقات المنشورة لكل طراز، والأرقام التي لا ينشرها المتجر.\n- **قرّر إن كنت ستجرّب أولاً**: قبل الشراء بالكمية، يكون شراء وحدة واحدة لتجربة أسبوعين أكثر أماناً عادةً من طلب كبير مباشر. راجع [خطّط لتجربة أجهزة اجتماعات بالذكاء الاصطناعي](/resources/meeting-device-pilot).\n- **راجع السياسات**: تسرد [سياسة الشحن](/shipping) الوجهات التي يخدمها المتجر؛ وتوضح [سياسة الإرجاع](/returns) قيود المنتجات التي تُلبس في الأذن وخدمة Pro الرقمية.\n- **جهّز ما تحتاجه موافقتك الداخلية**: إذا كنت تحتاج إلى مستندات المورّد أو بيانات الفوترة أو طريقة دفع محددة، فاذكر ذلك في النموذج.\n"
+        }
+      },
+      {
+        "title": {
+          "en": "Common questions",
+          "zh": "常见问题",
+          "ar": "الأسئلة الشائعة"
+        },
+        "body": {
+          "en": "### Is there a volume or distributor discount?\n\nThe shop does not publish volume pricing. Provide model, quantity, destination and purpose in the form; price is confirmed in the formal quotation.\n\n### Can I get a quotation for a single unit for a trial?\n\nYes. A single unit can also be bought directly at shop.cnps.ai; if you need a formal quotation document for internal approval, say so in the form.\n\n### Does the quotation include duties and taxes?\n\nThe quotation states the delivery method and who bears the costs. The shop's default is that import duties, taxes and clearance fees are borne by the recipient unless stated otherwise; see the [shipping policy](/shipping).\n\n### How long is a quotation valid?\n\nThe validity period stated in the quotation document applies. Prices can change with shop promotions, exchange rates and availability.\n",
+          "zh": "### 有批量或经销折扣吗？\n\n商店未公布批量价格。请在表单中提供型号、数量、目的地和用途，价格以正式报价为准。\n\n### 可以只报价一台用于试用吗？\n\n可以。单台采购也可以直接在 shop.cnps.ai 结账；如果你需要正式报价文件用于内部审批，请在表单中说明。\n\n### 报价包含关税和税费吗？\n\n报价会说明交付方式与费用承担方式。商店的默认规则是除非明确说明，否则进口关税、税费与清关费用由收件人承担，详见[配送政策](/shipping)。\n\n### 报价的有效期多长？\n\n以报价文件中标明的有效期为准。价格可能随商店促销、汇率与供应情况变化。\n",
+          "ar": "### هل يوجد خصم للكميات أو للموزعين؟\n\nلا ينشر المتجر أسعار الكميات. قدّم الطراز والكمية والوجهة والغرض في النموذج؛ يُؤكَّد السعر في عرض السعر الرسمي.\n\n### هل يمكنني الحصول على عرض سعر لوحدة واحدة للتجربة؟\n\nنعم. يمكن أيضاً شراء وحدة واحدة مباشرة من shop.cnps.ai؛ وإذا كنت تحتاج إلى وثيقة عرض سعر رسمية للموافقة الداخلية، فاذكر ذلك في النموذج.\n\n### هل يتضمن عرض السعر الرسوم والضرائب؟\n\nيوضح عرض السعر طريقة التسليم ومن يتحمل التكاليف. القاعدة الافتراضية للمتجر أن رسوم الاستيراد والضرائب ورسوم التخليص يتحملها المستلم ما لم يُذكر خلاف ذلك؛ راجع [سياسة الشحن](/shipping).\n\n### ما مدة صلاحية عرض السعر؟\n\nتنطبق مدة الصلاحية المذكورة في وثيقة عرض السعر. قد تتغير الأسعار مع عروض المتجر وأسعار الصرف والتوفر.\n"
+        }
+      }
+    ]
   },
   "/contact": {
     "title": {
@@ -69,6 +119,56 @@
           "ar": "نموذج تجربة FastGPT"
         }
       }
+    ],
+    "sections": [
+      {
+        "title": {
+          "en": "What this form is for",
+          "zh": "适合通过此表单沟通的事项",
+          "ar": "ما الغرض من هذا النموذج"
+        },
+        "body": {
+          "en": "- **Product selection**: you are not yet sure whether a TicNote recorder, the Pods earbuds or one of the two AR glasses fits your team. Describe the task and the environment rather than a model.\n- **Distribution and wholesale**: you want to distribute the devices sold by CNPS.AI in your market. The shop does not publish volume pricing, so terms are discussed separately.\n- **After-sales and support**: order, shipping or usage questions about a device you already bought. Include the order number, product name and a description of the issue; the shop has no separate help-desk URL, and this form reaches the same inbox as [sales@cnps.ai](mailto:sales@cnps.ai).\n- **A first exploratory conversation**: for example, how CNPS helps Chinese intelligent hardware and AI applications reach your market, before any concrete project exists.\n\nIf you already know the model and quantity, use the [quotation form](/request-quote). FastGPT knowledge-base or workflow projects have their [own form](/fastgpt/contact).\n",
+          "zh": "- **产品选型**：还不确定 TicNote 录音器、Pods 耳机或两款 AR 眼镜中哪一款适合你的团队。请描述任务与使用环境，而不是型号。\n- **渠道与批发**：希望在你的市场分销 CNPS.AI 销售的设备。商店未公布批量价格，合作条款需要单独沟通。\n- **售后与支持**：已购买设备的订单、配送或使用问题。请附上订单号、产品名称和问题说明；商店没有独立的服务台网址，此表单与 [sales@cnps.ai](mailto:sales@cnps.ai) 是同一条通道。\n- **首次探索性沟通**：例如想了解 CNPS 如何协助中国智能硬件与 AI 应用进入你的市场，但尚无具体项目。\n\n已经确定型号和数量的，请直接使用[报价表单](/request-quote)；FastGPT 知识库或工作流项目请使用[专用表单](/fastgpt/contact)。\n",
+          "ar": "- **اختيار المنتج**: لست متأكداً بعد إن كان مسجّل TicNote أو سماعات Pods أو إحدى نظارتَي AR يناسب فريقك. صِف المهمة والبيئة بدلاً من الطراز.\n- **التوزيع والجملة**: تريد توزيع الأجهزة التي تبيعها CNPS.AI في سوقك. لا ينشر المتجر أسعار الكميات، فتُناقَش الشروط على حدة.\n- **ما بعد البيع والدعم**: أسئلة عن الطلب أو الشحن أو الاستخدام لجهاز اشتريته. أدرج رقم الطلب واسم المنتج ووصف المشكلة؛ لا يملك المتجر عنوان مكتب مساعدة منفصل، ويصل هذا النموذج إلى نفس صندوق [sales@cnps.ai](mailto:sales@cnps.ai).\n- **محادثة استكشافية أولى**: مثلاً، كيف تساعد CNPS الأجهزة الذكية وتطبيقات الذكاء الاصطناعي الصينية على الوصول إلى سوقك، قبل وجود مشروع محدد.\n\nإذا كنت تعرف الطراز والكمية، فاستخدم [نموذج عرض السعر](/request-quote). ولمشاريع قاعدة المعرفة أو سير العمل في FastGPT [نموذج خاص](/fastgpt/contact).\n"
+        }
+      },
+      {
+        "title": {
+          "en": "What happens after you send it",
+          "zh": "提交后会发生什么",
+          "ar": "ماذا يحدث بعد الإرسال"
+        },
+        "body": {
+          "en": "1. The form is delivered to the CNPS.AI sales inbox and we reply to the work email you provide. You can switch to email at [sales@cnps.ai](mailto:sales@cnps.ai) or phone +86 183 5463 9099 at any time.\n2. The first reply is usually a few clarifying questions: the task, where it happens, how many users, the destination country and the timeline you have in mind. This avoids advice that does not match the real requirement.\n3. If the requirement is already clear, we move to the quotation process; if a trial or evaluation is needed first, we say plainly which figures we can verify and which need a separate assessment.\n4. This page does not provide prices, destination availability or the exact variant; those are confirmed in the shop or a formal quotation. We do not promise performance results before a representative test.\n",
+          "zh": "1. 表单内容会发送到 CNPS.AI 的销售邮箱，我们通过你填写的工作邮箱回复。你也可以随时改用邮件 [sales@cnps.ai](mailto:sales@cnps.ai) 或电话 +86 183 5463 9099。\n2. 第一次回复通常是几个澄清问题：任务是什么、在哪里使用、有多少使用者、目的国家或地区、期望的时间安排。这样做是为了避免给出与实际需求不符的建议。\n3. 如果需求已经明确，我们会引导到报价流程；如果还需要试用或评估，我们会如实说明哪些参数可以核实、哪些需要另行评估。\n4. 本页不提供价格、目的地供应和准确型号，这些信息以商店或正式报价为准。我们不会在沟通中承诺任何测试前的性能结果。\n",
+          "ar": "1. يُسلَّم النموذج إلى صندوق مبيعات CNPS.AI ونرد على بريد العمل الذي تقدّمه. يمكنك التحول إلى البريد [sales@cnps.ai](mailto:sales@cnps.ai) أو الهاتف +86 183 5463 9099 في أي وقت.\n2. الرد الأول عادةً بضعة أسئلة توضيحية: المهمة، ومكان تنفيذها، وعدد المستخدمين، وبلد الوجهة، والجدول الزمني الذي تفكر فيه. هذا يجنّب نصائح لا تطابق الاحتياج الحقيقي.\n3. إذا كان الاحتياج واضحاً، ننتقل إلى عملية عرض السعر؛ وإذا لزمت تجربة أو تقييم أولاً، نوضح بصراحة الأرقام التي يمكننا التحقق منها وتلك التي تحتاج إلى تقييم منفصل.\n4. لا تقدّم هذه الصفحة أسعاراً أو توفراً في الوجهة أو الإصدار المحدد؛ تُؤكَّد تلك في المتجر أو في عرض سعر رسمي. لا نعد بنتائج أداء قبل اختبار تمثيلي.\n"
+        }
+      },
+      {
+        "title": {
+          "en": "What helps us reply usefully",
+          "zh": "沟通前可以准备的信息",
+          "ar": "ما يساعدنا على الرد بشكل مفيد"
+        },
+        "body": {
+          "en": "- **A one-sentence task**: for example \"record the weekly department meeting and produce action items\" or \"show translated captions at exhibition reception\".\n- **The environment**: meeting room, classroom, outdoors, vehicles; network conditions; the users' languages and accents.\n- **Scale and timing**: approximate number of users, destination country and when you would like to start.\n- **Existing constraints**: data-processing location requirements, compliance limits on recording or cameras, budget range.\n- **For distribution**: your market, existing channels, the models of interest and whether you already sell similar products.\n\nDo not include confidential documents, passwords or sensitive personal data in the form. If files need to be exchanged, we agree the method by email.\n",
+          "zh": "- **一句话的任务描述**：例如\"记录每周部门会并生成行动事项\"或\"在展会接待中显示翻译字幕\"。\n- **使用环境**：会议室、课堂、户外、车辆；网络条件；使用者的语言与口音。\n- **规模与时间**：大致的使用者数量、目的国家或地区、希望开始的时间。\n- **已有的约束**：数据处理位置要求、录音或摄像头的合规限制、预算区间。\n- **批发合作**：你所在的市场、现有渠道、感兴趣的型号，以及是否已有类似产品的销售经验。\n\n请不要在表单中提供机密文件、密码或敏感个人资料。需要交换文件时，我们会在邮件中约定方式。\n",
+          "ar": "- **مهمة في جملة واحدة**: مثلاً \"تسجيل اجتماع القسم الأسبوعي وإنتاج بنود العمل\" أو \"عرض تسميات مترجمة في استقبال المعرض\".\n- **البيئة**: قاعة اجتماعات، فصل، الخارج، مركبات؛ ظروف الشبكة؛ لغات المستخدمين ولهجاتهم.\n- **الحجم والتوقيت**: العدد التقريبي للمستخدمين، وبلد الوجهة، ووقت البدء المرغوب.\n- **القيود القائمة**: متطلبات موقع معالجة البيانات، وقيود الامتثال على التسجيل أو الكاميرات، ونطاق الميزانية.\n- **للتوزيع**: سوقك، وقنواتك الحالية، والطرازات التي تهمك، وما إذا كنت تبيع منتجات مشابهة بالفعل.\n\nلا تُدرج مستندات سرية أو كلمات مرور أو بيانات شخصية حساسة في النموذج. إذا لزم تبادل ملفات، نتفق على الطريقة عبر البريد.\n"
+        }
+      },
+      {
+        "title": {
+          "en": "Common questions",
+          "zh": "常见问题",
+          "ar": "الأسئلة الشائعة"
+        },
+        "body": {
+          "en": "### Can I ask for a price here?\n\nYou can, but if you already know the model, quantity and destination, the [quotation form](/request-quote) carries those fields straight into the process and is faster. This form suits cases where you are still choosing or want to discuss a partnership first.\n\n### Can I email or call instead of using the form?\n\nYes. Email [sales@cnps.ai](mailto:sales@cnps.ai), phone +86 183 5463 9099, address Yunhe Road 336, Dongying, Shandong 257091, China. The form simply reminds you to include the information we will ask for in the first round anyway.\n\n### Something is wrong with a device I bought. Whom do I contact?\n\nUse this form or the sales email, with the order number, product name and a description of the issue. Obtain written instructions before returning anything; see the [returns policy](/returns).\n\n### How is the information in the form used?\n\nTo answer your inquiry and prepare the follow-up conversation. See the [privacy policy](/privacy). Do not include confidential documents or sensitive personal data.\n",
+          "zh": "### 可以直接在这里询价吗？\n\n可以，但如果你已经知道型号、数量和目的地，[报价表单](/request-quote)会把这些字段直接带入流程，更快。此表单更适合还在选型或需要先讨论合作方式的情况。\n\n### 不填表单，直接发邮件或打电话可以吗？\n\n可以。邮箱 [sales@cnps.ai](mailto:sales@cnps.ai)，电话 +86 183 5463 9099，地址：中国山东省东营市运河路 336 号，邮编 257091。表单的好处是提醒你补齐我们第一轮一定会问的信息。\n\n### 我买的设备出了问题，应该找谁？\n\n请通过此表单或销售邮箱联系，附上订单号、产品名称和问题说明。寄回任何物品前请先取得书面指引，详见[退货政策](/returns)。\n\n### 表单里的信息会被如何使用？\n\n用于回复你的咨询并准备后续沟通。详见[隐私政策](/privacy)。请不要在表单中提供机密文件或敏感个人资料。\n",
+          "ar": "### هل يمكنني طلب سعر هنا؟\n\nيمكنك، لكن إذا كنت تعرف الطراز والكمية والوجهة، فإن [نموذج عرض السعر](/request-quote) ينقل تلك الحقول مباشرة إلى العملية وهو أسرع. يناسب هذا النموذج الحالات التي ما زلت فيها تختار أو تريد مناقشة شراكة أولاً.\n\n### هل يمكنني إرسال بريد أو الاتصال بدلاً من النموذج؟\n\nنعم. البريد [sales@cnps.ai](mailto:sales@cnps.ai)، الهاتف +86 183 5463 9099، العنوان: طريق Yunhe رقم 336، Dongying، Shandong 257091، الصين. النموذج يذكّرك فقط بإدراج المعلومات التي سنطلبها في الجولة الأولى على أي حال.\n\n### هناك مشكلة في جهاز اشتريته. بمن أتصل؟\n\nاستخدم هذا النموذج أو بريد المبيعات، مع رقم الطلب واسم المنتج ووصف المشكلة. احصل على تعليمات كتابية قبل إرجاع أي شيء؛ راجع [سياسة الإرجاع](/returns).\n\n### كيف تُستخدم المعلومات في النموذج؟\n\nللرد على استفسارك وإعداد المحادثة التالية. راجع [سياسة الخصوصية](/privacy). لا تُدرج مستندات سرية أو بيانات شخصية حساسة.\n"
+        }
+      }
     ]
   },
   "/fastgpt/contact": {
@@ -104,6 +204,56 @@
           "en": "General contact form",
           "zh": "一般联系表单",
           "ar": "نموذج التواصل العام"
+        }
+      }
+    ],
+    "sections": [
+      {
+        "title": {
+          "en": "Which projects this form is for",
+          "zh": "这个表单适合什么项目",
+          "ar": "لأي مشاريع هذا النموذج"
+        },
+        "body": {
+          "en": "- **Technical knowledge search**: give engineering, operations or after-sales teams answers with source references drawn from approved manuals, specifications and ticket records. See the [technical knowledge solution](/fastgpt/solutions/technical-knowledge).\n- **Support and ticket triage**: classify incoming support requests, fill in missing information and prepare draft replies that people review before sending. See the [support triage solution](/fastgpt/solutions/support-triage).\n- **RFQ intake**: turn unstructured requests for quotation into structured requirements with missing fields flagged, while prices and commitments stay with your authorized team. See the [RFQ intake solution](/fastgpt/solutions/rfq-intake).\n- **Other document-based workflows**: if your case is not one of the three above, describe the document sources, the users and how you decide that an answer is correct.\n\nDevice, wholesale and general questions belong on the [general contact form](/contact). CNPS is a FastGPT partner; platform licensing and implementation services are defined in a written proposal.\n",
+          "zh": "- **技术知识检索**：让工程、运维或售后团队从已批准的手册、规范和工单记录中得到带来源引用的答案。见[技术知识检索方案](/fastgpt/solutions/technical-knowledge)。\n- **支持与工单分流**：把进入的支持请求分类、补齐信息并准备草稿回复，由人工审核后发送。见[支持与工单分流方案](/fastgpt/solutions/support-triage)。\n- **询价收集**：把非结构化的询价转成结构化需求，标记缺失字段，价格与承诺由授权团队掌握。见[询价收集方案](/fastgpt/solutions/rfq-intake)。\n- **其他基于文档的工作流**：如果你的场景不在上面三类，请描述文档来源、使用者和你判定\"正确答案\"的方式。\n\n设备、批发与一般咨询请使用[一般联系表单](/contact)。CNPS 是 FastGPT 合作伙伴；平台许可与实施服务以书面方案为准。\n",
+          "ar": "- **البحث في المعرفة التقنية**: منح فرق الهندسة أو العمليات أو ما بعد البيع إجابات مع مراجع مصدرية مستمدة من الأدلة والمواصفات وسجلات التذاكر المعتمدة. راجع [حل المعرفة التقنية](/fastgpt/solutions/technical-knowledge).\n- **الدعم وفرز التذاكر**: تصنيف طلبات الدعم الواردة، وإكمال المعلومات الناقصة، وإعداد مسودات ردود يراجعها الأشخاص قبل الإرسال. راجع [حل فرز الدعم](/fastgpt/solutions/support-triage).\n- **استقبال طلبات عروض الأسعار**: تحويل طلبات عروض الأسعار غير المهيكلة إلى متطلبات مهيكلة مع تحديد الحقول الناقصة، مع بقاء الأسعار والالتزامات لدى فريقك المخوّل. راجع [حل استقبال طلبات عروض الأسعار](/fastgpt/solutions/rfq-intake).\n- **سير عمل آخر يستند إلى المستندات**: إذا لم تكن حالتك إحدى الثلاث أعلاه، فصِف مصادر المستندات والمستخدمين وكيف تقرر أن الإجابة صحيحة.\n\nأسئلة الأجهزة والجملة والأسئلة العامة مكانها [نموذج التواصل العام](/contact). CNPS شريك لـ FastGPT؛ يُحدَّد ترخيص المنصة وخدمات التنفيذ في مقترح كتابي.\n"
+        }
+      },
+      {
+        "title": {
+          "en": "What happens next",
+          "zh": "提交后的流程",
+          "ar": "ماذا يحدث بعد ذلك"
+        },
+        "body": {
+          "en": "1. **Clarify the scope**: we reply to your work email to confirm the workflow, document sources, users and timeline. The first round is usually questions, not a proposal.\n2. **Define the evaluation set**: with your process owner, select a representative batch of questions or tickets and agree sample size, baseline and pass thresholds. A pilot without an evaluation set cannot produce a trustworthy conclusion.\n3. **Written proposal**: scope, licensing, data preparation, integration and support responsibilities, and the effort each side must contribute.\n4. **Pilot and review**: run against the evaluation set, compare results and decide whether to extend. People keep control of prices, availability, commitments and outbound replies.\n\nWe do not promise accuracy or efficiency figures before the pilot. Reference cases are published by FastGPT; CNPS has not independently audited their results.\n",
+          "zh": "1. **澄清范围**：我们通过工作邮箱回复，确认工作流、文档来源、使用者和时间安排。第一轮通常是问题，而不是方案。\n2. **界定评估集**：与你的流程负责人一起选出一批有代表性的问题或工单，约定样本量、基准与合格阈值。没有评估集的试点无法得出可信结论。\n3. **书面方案**：说明范围、许可、数据准备、集成与支持责任，以及各方需要投入的人力。\n4. **试点与复核**：按评估集运行，比较结果并决定是否扩展。人始终掌握价格、供货、承诺与对外回复。\n\n我们不会在试点前承诺任何准确率或效率数字。参考案例由 FastGPT 发布，CNPS 未对其结果做独立审计。\n",
+          "ar": "1. **توضيح النطاق**: نرد على بريد عملك لتأكيد سير العمل ومصادر المستندات والمستخدمين والجدول الزمني. الجولة الأولى عادةً أسئلة، لا مقترح.\n2. **تحديد مجموعة التقييم**: مع مسؤول العملية لديك، نختار دفعة تمثيلية من الأسئلة أو التذاكر ونتفق على حجم العينة وخط الأساس وحدود النجاح. لا يمكن لتجربة دون مجموعة تقييم أن تنتج استنتاجاً موثوقاً.\n3. **مقترح كتابي**: النطاق والترخيص وإعداد البيانات والتكامل ومسؤوليات الدعم، والجهد الذي يجب أن يقدّمه كل طرف.\n4. **التجربة والمراجعة**: التشغيل على مجموعة التقييم ومقارنة النتائج وتقرير التوسع. يحتفظ الأشخاص بالسيطرة على الأسعار والتوفر والالتزامات والردود الصادرة.\n\nلا نعد بأرقام دقة أو كفاءة قبل التجربة. الحالات المرجعية منشورة من FastGPT؛ ولم تراجع CNPS نتائجها بشكل مستقل.\n"
+        }
+      },
+      {
+        "title": {
+          "en": "What to prepare",
+          "zh": "请准备的信息",
+          "ar": "ما يجب تجهيزه"
+        },
+        "body": {
+          "en": "- **Document scope**: which documents the assistant should answer from (type, volume, language, update frequency) and which are explicitly excluded.\n- **Users and setting**: who asks, through which channel, roughly how many times a day, and the expected response style.\n- **How a correct answer is judged**: who decides, against which criteria, and whether historical Q&A or tickets exist as a baseline.\n- **Systems and integration**: where documents live, existing support or CRM systems, authentication method.\n- **Constraints**: data-processing location requirements, access permissions, budget range and the timeline you have in mind.\n- **A process owner**: one person who can decide on behalf of the business side.\n\nProvide non-confidential examples only; do not upload or paste confidential documents into the form. See [Define a document-grounded AI assistant](/resources/knowledge-pilot) and [A knowledge AI pilot that earns trust](/blogs/knowledge-ai-pilot-that-earns-trust).\n",
+          "zh": "- **文档范围**：助手应依据哪些文档作答（类型、数量、语言、更新频率），以及哪些文档明确不能使用。\n- **使用者与场景**：谁提问、通过什么渠道、每天大约多少次、期望的响应方式。\n- **正确答案的判定方式**：谁来判断答案是否正确，依据什么标准；是否已有历史问答或工单可以作为基准。\n- **系统与集成**：文档存放位置、现有的支持或 CRM 系统、身份认证方式。\n- **约束**：数据处理位置要求、访问权限、预算区间与期望的时间安排。\n- **流程负责人**：一位能代表业务方做决定的人。\n\n请只提供非机密示例，不要在表单中上传或粘贴机密文件。方法可参考[定义基于文档的 AI 助手](/resources/knowledge-pilot)与[让企业知识库 AI 试点值得信任](/blogs/knowledge-ai-pilot-that-earns-trust)。\n",
+          "ar": "- **نطاق المستندات**: المستندات التي يجب أن يجيب منها المساعد (النوع، الحجم، اللغة، تكرار التحديث) وتلك المستثناة صراحةً.\n- **المستخدمون والبيئة**: من يسأل، وعبر أي قناة، وكم مرة يومياً تقريباً، وأسلوب الرد المتوقع.\n- **كيف تُحكَم صحة الإجابة**: من يقرر، وبأي معايير، وهل توجد أسئلة وأجوبة أو تذاكر تاريخية كخط أساس.\n- **الأنظمة والتكامل**: مكان المستندات، وأنظمة الدعم أو CRM القائمة، وطريقة المصادقة.\n- **القيود**: متطلبات موقع معالجة البيانات، وأذونات الوصول، ونطاق الميزانية، والجدول الزمني الذي تفكر فيه.\n- **مسؤول العملية**: شخص واحد يمكنه اتخاذ القرار باسم جانب الأعمال.\n\nقدّم أمثلة غير سرية فقط؛ لا ترفع أو تلصق مستندات سرية في النموذج. راجع [حدّد مساعداً ذكياً يستند إلى المستندات](/resources/knowledge-pilot) و[تجربة ذكاء اصطناعي معرفي تكسب الثقة](/blogs/knowledge-ai-pilot-that-earns-trust).\n"
+        }
+      },
+      {
+        "title": {
+          "en": "Common questions",
+          "zh": "常见问题",
+          "ar": "الأسئلة الشائعة"
+        },
+        "body": {
+          "en": "### Our documents mix Chinese, English and Arabic. Is that workable?\n\nIt can be set as an evaluation goal. State the share of each language in the documents and the languages of the questions in the form; we include multilingual Q&A in the evaluation set rather than promising results in advance.\n\n### How long does a pilot take and how much of our time does it need?\n\nIt depends on the document scope and the size of the evaluation set. The written proposal lists the effort and time required from both sides; at minimum, a process owner and business staff who can judge answer correctness must take part.\n\n### Can FastGPT be deployed in our own environment?\n\nDeployment options, licensing and data-processing location are defined in the written proposal. State data-residency or private-deployment requirements in the form and we will say plainly what can be met and what needs a separate assessment.\n\n### Can the figures in the reference cases be taken as our expectation?\n\nNo. Reference cases are published by FastGPT and CNPS has not independently audited them; your results depend on your documents, questions and criteria. Only the results of your own evaluation set serve as the basis for a decision.\n",
+          "zh": "### 我们的文档是中文、英文和阿拉伯文混合的，可以吗？\n\n可以作为评估目标提出。请在表单中说明各语言的文档比例和提问语言，我们会把多语言问答纳入评估集，而不是事先承诺效果。\n\n### 试点需要多长时间、需要我们投入多少人力？\n\n取决于文档范围与评估集大小。书面方案会列出双方需要投入的人力和时间；至少需要一位流程负责人和能判定答案正确性的业务人员参与。\n\n### FastGPT 可以部署在我们自己的环境中吗？\n\n平台的部署方式、许可与数据处理位置以书面方案为准。请在表单中写明数据驻留或私有部署要求，我们会如实说明哪些可以满足、哪些需要另行评估。\n\n### 参考案例中的数字能作为我们的预期吗？\n\n不能。参考案例由 FastGPT 发布，CNPS 未做独立审计；你的结果取决于你的文档、问题与评估标准。我们只以你自己的评估集结果作为决策依据。\n",
+          "ar": "### مستنداتنا مزيج من الصينية والإنجليزية والعربية. هل هذا ممكن؟\n\nيمكن وضعه هدفاً للتقييم. اذكر في النموذج نسبة كل لغة في المستندات ولغات الأسئلة؛ نُدرج الأسئلة والأجوبة متعددة اللغات في مجموعة التقييم بدلاً من الوعد بالنتائج مسبقاً.\n\n### كم تستغرق التجربة وكم تحتاج من وقتنا؟\n\nيعتمد ذلك على نطاق المستندات وحجم مجموعة التقييم. يسرد المقترح الكتابي الجهد والوقت المطلوبَين من الجانبَين؛ ويجب على الأقل مشاركة مسؤول عملية وموظفي أعمال قادرين على الحكم على صحة الإجابات.\n\n### هل يمكن نشر FastGPT في بيئتنا الخاصة؟\n\nتُحدَّد خيارات النشر والترخيص وموقع معالجة البيانات في المقترح الكتابي. اذكر في النموذج متطلبات إقامة البيانات أو النشر الخاص وسنوضح بصراحة ما يمكن تحقيقه وما يحتاج إلى تقييم منفصل.\n\n### هل يمكن اعتبار أرقام الحالات المرجعية توقعاً لنا؟\n\nلا. الحالات المرجعية منشورة من FastGPT ولم تراجعها CNPS بشكل مستقل؛ وتعتمد نتائجك على مستنداتك وأسئلتك ومعاييرك. نتائج مجموعة تقييمك وحدها تكون أساس القرار.\n"
         }
       }
     ]
