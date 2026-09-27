@@ -403,6 +403,62 @@
             "text": "Countries and meeting settings have different recording requirements. Agree the notice, the consent record and the handling of sensitive content before the pilot starts."
           }
         ],
+        "glossary": [
+          {
+            "title": "Exact SKU",
+            "text": "The precise model and variant on the quotation, including region, color and bundled plan. Two devices with the same product name can ship with different subscriptions and warranty terms."
+          },
+          {
+            "title": "Included subscription",
+            "text": "The transcription or note plan bundled with the device, its duration and what happens when it expires. Renewal price and who pays it belong in the pilot record."
+          },
+          {
+            "title": "Subscription ownership",
+            "text": "Whether the plan is tied to an individual account or to the organization, and whether it can be reassigned when a team member leaves."
+          },
+          {
+            "title": "Team administration",
+            "text": "Central features such as adding and removing users, managing shared notes and exporting on behalf of others. Availability varies by model and plan."
+          },
+          {
+            "title": "Correction time",
+            "text": "The minutes an editor needs to turn the raw transcript into a note the team can act on. It is a better measure than transcription speed."
+          },
+          {
+            "title": "Export format",
+            "text": "The file types and destinations notes can be sent to, such as text, DOCX, PDF or a cloud folder, and whether audio can be exported as well."
+          },
+          {
+            "title": "Recording notice and consent",
+            "text": "How participants are informed that a meeting is recorded and how their agreement is documented, according to local rules and company policy."
+          },
+          {
+            "title": "Warranty and replacement (RMA)",
+            "text": "Who handles a faulty unit in the destination country, how long replacement takes and whether a spare pool is needed for a team rollout."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "Baseline minutes per meeting",
+            "text": "Before the pilot, record how long a typical note takes today from the end of the meeting to distribution. Every later comparison is measured against this number."
+          },
+          {
+            "title": "Correction minutes per transcript",
+            "text": "For each recorded meeting, count the minutes from opening the raw transcript to a note the team accepts. Compare the median across devices, not the best case."
+          },
+          {
+            "title": "Missed statements and wrong names",
+            "text": "Count omitted decisions, misattributed speakers and misspelled names or product terms per meeting. Note which languages and rooms produce the most errors."
+          },
+          {
+            "title": "Action-item accuracy",
+            "text": "Check whether the generated action items match what the group agreed, including owner and date. A note with wrong owners creates work instead of saving it."
+          },
+          {
+            "title": "Battery, range and failure events",
+            "text": "Log battery level after each meeting, distance and noise conditions, and every failed recording, sync or export, so hardware reliability is judged on evidence."
+          }
+        ],
         "boundaries": "Team administration and enterprise features vary by product. Confirm them for the selected model before ordering.",
         "faq": [
           {
@@ -416,6 +472,18 @@
           {
             "question": "What information is needed for a quotation?",
             "answer": "Destination country, expected quantity, main use, meeting languages, expected timing and whether you want samples first. Specific details make availability checks and term confirmation faster."
+          },
+          {
+            "question": "How long should a device pilot run?",
+            "answer": "Two to four weeks of normal meetings is usually enough to see accents, room types and remote calls, and to settle into a real note workflow. Shorter pilots tend to reflect novelty rather than everyday use."
+          },
+          {
+            "question": "Can the same device serve Chinese, English and Arabic meetings?",
+            "answer": "Language support differs by model and plan, and performance differs again by accent and terminology. Test each language you actually use on the same device rather than relying on a supported-language list."
+          },
+          {
+            "question": "Who should own the subscriptions after the pilot?",
+            "answer": "Decide before ordering. If notes belong to the organization, the plan should be administered centrally and be reassignable. Personal accounts are simpler to start but harder to recover when someone leaves."
           }
         ],
         "action": "Request a device quotation",
@@ -488,6 +556,62 @@
             "text": "Open-source licenses carry additional conditions, such as multi-tenant and branding restrictions. Check the license of the exact version and the hosting terms before launch."
           }
         ],
+        "glossary": [
+          {
+            "title": "Evaluation set",
+            "text": "A fixed list of real questions with expected answers, sources and pass criteria, agreed before any tuning. It is the yardstick for every candidate."
+          },
+          {
+            "title": "Retrieval-augmented generation (RAG)",
+            "text": "The approach where the assistant retrieves passages from your documents and answers from them, rather than from general training data alone."
+          },
+          {
+            "title": "Citation",
+            "text": "The reference the assistant shows for an answer. A citation counts only if the cited passage actually supports the statement when a reviewer opens it."
+          },
+          {
+            "title": "Refusal behavior",
+            "text": "What the assistant does when the documents contain no answer. A correct refusal is a pass; an invented answer is a fail even if it sounds plausible."
+          },
+          {
+            "title": "Permission boundary",
+            "text": "The rule that each user role can only retrieve the documents it is allowed to see, tested with role-specific questions."
+          },
+          {
+            "title": "Business owner",
+            "text": "The named person accountable for answer quality, document updates and the decision to expand or stop."
+          },
+          {
+            "title": "Held-out test",
+            "text": "Questions kept aside from tuning and run only at the end, so the result shows how the assistant behaves on questions it has not been adjusted for."
+          },
+          {
+            "title": "Total running cost",
+            "text": "Hosting, inference, ingestion, licensing, support and human review time added together per month, not the model API price alone."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "Correct answers on the evaluation set",
+            "text": "The share of questions answered correctly according to the business reviewer, reported separately for everyday, cross-document and target-language questions."
+          },
+          {
+            "title": "Citation support rate",
+            "text": "The share of citations that, when opened, actually support the answer. An answer with a decorative citation is counted as unsupported."
+          },
+          {
+            "title": "Correct refusals",
+            "text": "How often the assistant declines questions that have no answer in the documents, and how often it invents one instead."
+          },
+          {
+            "title": "Permission test results",
+            "text": "The number of role-specific questions where a user could retrieve a document outside their permission. The acceptable number is zero."
+          },
+          {
+            "title": "Review minutes and cost per answer",
+            "text": "The average time a reviewer spends checking or correcting an answer, together with hosting, inference and ingestion cost per month."
+          }
+        ],
         "boundaries": "Implementation scope and software licensing need to be agreed. Open-source availability does not establish unrestricted resale rights.",
         "faq": [
           {
@@ -501,6 +625,18 @@
           {
             "question": "Does CNPS handle implementation?",
             "answer": "CNPS first helps define scope, the evaluation set and acceptance. Implementation capacity, commercial scope and software licensing are agreed separately for each requirement and are not included by default in the evaluation."
+          },
+          {
+            "question": "Can the assistant run entirely on our own servers?",
+            "answer": "Self-hosted deployment is possible with several open-source applications, but the language, embedding and speech models it calls may still be external services. Map every call before deciding what “on-premises” means for your data."
+          },
+          {
+            "question": "How do we keep answers current when documents change?",
+            "answer": "Name the person who updates content, define how retired documents are removed from retrieval and re-run part of the evaluation set after each significant update. An assistant without an update routine drifts out of date quietly."
+          },
+          {
+            "question": "Which languages can be evaluated?",
+            "answer": "Chinese, English and Arabic questions can all be included, but performance differs by question language and by document language. Build target-language questions into the evaluation set rather than assuming results transfer."
           }
         ],
         "action": "Discuss a knowledge pilot",
@@ -575,6 +711,62 @@
             "text": "The board price is a small part. Cabling, enclosures, storage, spares and remote maintenance often decide whether a project is sustainable."
           }
         ],
+        "glossary": [
+          {
+            "title": "Detection task",
+            "text": "One sentence stating what to detect, under which conditions and who acts on the result. Everything else on the site is measured against it."
+          },
+          {
+            "title": "Ground truth",
+            "text": "The human-verified record of what actually happened in the footage, used to judge whether each alert was right or wrong."
+          },
+          {
+            "title": "False alarm and miss",
+            "text": "A false alarm is an alert with no real event; a miss is a real event with no alert. Both rates are needed, because tuning one usually moves the other."
+          },
+          {
+            "title": "End-to-end latency",
+            "text": "The time from the event in front of the camera to the alert reaching the person who acts, including capture, transmission, inference and delivery."
+          },
+          {
+            "title": "Edge device / compute unit",
+            "text": "The on-site computer that runs recognition, such as a Jetson-class or NPU board. Its rating matters less than its behavior under heat, dust and power interruptions."
+          },
+          {
+            "title": "Site survey",
+            "text": "The structured record of camera types, mounting positions, lighting, distances, network and power at each location, completed before any equipment is chosen."
+          },
+          {
+            "title": "Acceptance criteria",
+            "text": "The false-alarm, miss and latency levels agreed in advance that decide whether the installation is accepted and paid for."
+          },
+          {
+            "title": "Cost per camera, per site",
+            "text": "The full figure including cameras, compute, cabling, enclosures, storage, spares, installation labor, support and operating staff."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "False-alarm rate per camera per day",
+            "text": "Count alerts with no real event, by camera and by time of day. A rate staff can live with for weeks is the real threshold, not the vendor’s demonstration figure."
+          },
+          {
+            "title": "Miss rate against ground truth",
+            "text": "Compare alerts with the verified record of real events. Report misses separately for daytime, night, backlight and the worst weather you collected."
+          },
+          {
+            "title": "End-to-end latency",
+            "text": "Measure from the event in the footage to the alert on the responder’s screen or phone. Record the median and the slowest ten percent."
+          },
+          {
+            "title": "Uptime, disconnection and recovery",
+            "text": "Log every device restart, network loss and how long recognition and uploads took to recover, including whether local storage kept the results."
+          },
+          {
+            "title": "Cost per camera and per site",
+            "text": "Add cameras, compute, cabling, enclosures, storage, spares, installation and support, then divide by the number of cameras and sites you actually plan to run."
+          }
+        ],
         "boundaries": "Hardware capability and demonstration videos do not guarantee performance in your environment. A representative site test is needed.",
         "faq": [
           {
@@ -588,6 +780,18 @@
           {
             "question": "What accuracy can we expect?",
             "answer": "We do not promise accuracy before testing. False alarms, misses and latency should be measured on your real footage and judged against acceptance criteria agreed in advance."
+          },
+          {
+            "question": "Can we reuse the cameras we already have?",
+            "answer": "Often partly. Resolution, lens angle, night performance and stream format all affect recognition. Include existing cameras in the site test and be prepared to replace those that fail the worst-condition footage."
+          },
+          {
+            "question": "How long does a representative site test take?",
+            "answer": "Collecting footage across times of day and weather usually takes one to three weeks, and the comparison itself a further week or two. Rushing the footage stage is the most common reason results do not hold after installation."
+          },
+          {
+            "question": "What happens to the video and the results?",
+            "answer": "Decide before testing where footage is stored, for how long, who can view it and what leaves the site. Local recognition can limit data transfer, but retention and access rules still need an owner."
           }
         ],
         "action": "Discuss a site evaluation",
@@ -661,6 +865,62 @@
             "text": "The firmware’s open-source license does not cover the cloud services, voices, product design or trademarks used. Check each item before a public release."
           }
         ],
+        "glossary": [
+          {
+            "title": "Wake word",
+            "text": "The phrase that switches the device from listening for its name to processing a request. False wakes in noise and missed wakes at distance are both measured."
+          },
+          {
+            "title": "Speech recognition (ASR)",
+            "text": "The service that turns speech into text. It is usually a cloud service billed per minute or per request, with its own language coverage and region."
+          },
+          {
+            "title": "Speech synthesis (TTS)",
+            "text": "The service that produces the spoken reply. Voice quality, language support and licensing for public use are separate questions."
+          },
+          {
+            "title": "Barge-in / interruption handling",
+            "text": "What happens when a user speaks while the device is still replying. Poor handling makes a demo feel slow in real use."
+          },
+          {
+            "title": "Dependency map",
+            "text": "The list of every external service the device calls, with provider, region, credential owner and billing, so nobody is surprised when one changes."
+          },
+          {
+            "title": "Cost per conversation",
+            "text": "Recognition, model and synthesis charges added together for one typical exchange, then multiplied by expected volume per device per month."
+          },
+          {
+            "title": "Firmware recovery",
+            "text": "How a device is updated or restored in the field when firmware, credentials or a service endpoint changes, without sending it back."
+          },
+          {
+            "title": "Authorized content",
+            "text": "The questions the device is allowed to answer and the material it may answer from, agreed with the content owner before the prototype goes in front of people."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "Wake and recognition errors by environment",
+            "text": "Count false wakes, missed wakes and misrecognized requests at the real location, separately for quiet periods, peak noise and each language."
+          },
+          {
+            "title": "Response latency",
+            "text": "Time from the end of the user’s sentence to the start of the spoken reply. Record the median and the slowest cases, and note which service caused the delay."
+          },
+          {
+            "title": "Interruption and recovery behavior",
+            "text": "Log what happens when a user interrupts, when the network drops mid-reply and when the device restarts, and how long it takes to become usable again."
+          },
+          {
+            "title": "Cost per conversation and per device per month",
+            "text": "Sum recognition, model and synthesis charges for typical exchanges during the prototype and project them to the expected volume."
+          },
+          {
+            "title": "Content coverage and refusals",
+            "text": "Track how many real visitor questions fell inside the authorized content, how many were refused correctly and how many were answered outside scope."
+          }
+        ],
         "boundaries": "A working prototype is not a mass-production commitment. Product testing, supply and commercial rights must be assessed separately.",
         "faq": [
           {
@@ -674,6 +934,18 @@
           {
             "question": "Does the device work when the network is down?",
             "answer": "It depends on the architecture. Most voice functions rely on backend services, so the device needs clear prompts and recovery behavior during disconnection. This case must be covered in testing."
+          },
+          {
+            "question": "Which hardware do we need for a first prototype?",
+            "answer": "An ESP32-class development board with a microphone array, a speaker and stable power is usually enough to test the interaction. Enclosure acoustics and industrial-grade parts become relevant only after the task and environment are confirmed."
+          },
+          {
+            "question": "Can the device use our own model or knowledge base?",
+            "answer": "Usually yes, because the firmware calls backend services you configure. The question to evaluate is whether that backend answers correctly within acceptable latency and cost, which is tested the same way as a knowledge assistant."
+          },
+          {
+            "question": "What should we prepare before the field test?",
+            "answer": "The authorized content, a list of expected questions, the target location at its busiest time, a way to log every exchange and the person who will judge which answers were acceptable."
           }
         ],
         "action": "Discuss a voice prototype",
@@ -746,6 +1018,62 @@
             "text": "International demonstration videos show possibilities, not proof of autonomous productivity. Whether your research task succeeds depends on your algorithms, scenario and operating skills."
           }
         ],
+        "glossary": [
+          {
+            "title": "Exact edition",
+            "text": "The precise product variant, such as education, standard or developer, named on the quotation. Editions with the same body can expose different interfaces."
+          },
+          {
+            "title": "Developer access / low-level control",
+            "text": "Whether the edition lets your code command joints, motors or gait directly, rather than only through a high-level app or teach pendant."
+          },
+          {
+            "title": "SDK version compatibility",
+            "text": "The operating system, ROS distribution, Python and library versions the platform supports, checked against what the lab already runs."
+          },
+          {
+            "title": "Payload and reach",
+            "text": "The mass the arm or robot can carry and the workspace it can cover, stated for the exact configuration including gripper and camera."
+          },
+          {
+            "title": "End effector / gripper",
+            "text": "The tool mounted on the arm for the task. It is usually ordered separately and decides whether the workpieces in your study can be handled at all."
+          },
+          {
+            "title": "Bounded workspace",
+            "text": "The physical area where the robot may operate during tests, with guarding, emergency stops and clear rules for who may be inside it."
+          },
+          {
+            "title": "Repeatable success rate",
+            "text": "The share of attempts that complete the task across many runs under the same conditions, recorded with every failure rather than the best demonstration."
+          },
+          {
+            "title": "Local support and spares",
+            "text": "Who repairs the platform in your country, how long parts take to arrive and which consumables should be stocked before the first test."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "Written confirmations received",
+            "text": "Track which items the supplier has confirmed in writing for the exact edition: developer access, supported operating systems, SDK versions, warranty and destination terms."
+          },
+          {
+            "title": "Compatibility results",
+            "text": "Record whether the SDK installs and runs on the lab’s existing machines, which versions were needed and how long setup took before the first command was sent."
+          },
+          {
+            "title": "Task success rate and failure log",
+            "text": "Count successful and failed attempts under the same conditions, with the cause of each failure, so autonomy is judged on repeated runs rather than a demonstration."
+          },
+          {
+            "title": "Safety incidents and near-misses",
+            "text": "Log every emergency stop, boundary breach and unplanned movement during supervised tests, and what changed in the procedure afterwards."
+          },
+          {
+            "title": "Time and cost to first experiment",
+            "text": "Measure the calendar time and full cost from order to the first completed experiment, including accessories, training, shipping, customs and any idle weeks waiting for parts."
+          }
+        ],
         "boundaries": "References to SDKs do not mean every product edition has the same access. Site safety and integration require qualified owners.",
         "faq": [
           {
@@ -759,6 +1087,18 @@
           {
             "question": "Can we rent or trial a platform first?",
             "answer": "Trial and rental options depend on the platform and region. State the research task and timeline in your inquiry so feasible evaluation options can be verified together."
+          },
+          {
+            "question": "Should we start with a robotic arm or a quadruped?",
+            "answer": "It follows from the research task. Grasping, assembly and workpiece studies point to an arm; locomotion, perception and outdoor navigation point to a legged platform. Write the task down first and let the platform follow."
+          },
+          {
+            "question": "What does a typical robotics quotation include?",
+            "answer": "The exact edition, developer access, accessories such as grippers and cameras, spares, training, shipping and destination terms, each as a separate line. Anything missing from the quotation should be assumed not included."
+          },
+          {
+            "question": "How do we plan for maintenance after delivery?",
+            "answer": "Name a maintenance owner, stock the consumables the supplier recommends, confirm who repairs the platform in your country and how long parts take, and keep a log of every fault from the first week."
           }
         ],
         "action": "Discuss a robotics requirement",
@@ -768,7 +1108,71 @@
         ],
         "resource": "robotics-procurement"
       }
-    ]
+    ],
+    "solutionsIndex": {
+      "chooseTitle": "Choose a starting point",
+      "chooseText": "Each solution begins with a buyer question. The rows below show what you receive, what to prepare and the first thing to check, so you can pick the page closest to your situation.",
+      "prepTitle": "Before you send an inquiry",
+      "prepText": "Five things that make the first conversation useful, whichever solution you choose.",
+      "prep": [
+        {
+          "title": "Name one task",
+          "text": "Describe the single workflow or site you want to improve, not the whole organization. A narrow task makes the pilot measurable and the quotation exact."
+        },
+        {
+          "title": "Know your destination and timing",
+          "text": "Country, expected quantity and the date you need results by decide availability, shipping and whether a sample stage is realistic."
+        },
+        {
+          "title": "Record today’s baseline",
+          "text": "How long the work takes now, how often it fails and what it costs. Without a baseline, no pilot can show an improvement."
+        },
+        {
+          "title": "Identify the decision owner",
+          "text": "The person who will judge the pilot and sign the order. Their acceptance criteria should be written down before the test begins."
+        },
+        {
+          "title": "Separate must-haves from preferences",
+          "text": "Data location, language support, warranty and administration features that are non-negotiable belong in the inquiry; everything else can be discussed."
+        }
+      ],
+      "termsTitle": "Terms used across these pages",
+      "termsText": "The same words appear on every solution page, in the resources and in our quotations. Here is what we mean by them.",
+      "terms": [
+        {
+          "title": "Pilot",
+          "text": "A small, time-boxed test with real users, real data and agreed metrics, run before any volume commitment."
+        },
+        {
+          "title": "Baseline",
+          "text": "The measured state of the work before the pilot, used as the reference for every later comparison."
+        },
+        {
+          "title": "Acceptance criteria",
+          "text": "The measurable results agreed in advance that decide whether a pilot or delivery is accepted."
+        },
+        {
+          "title": "Exact SKU or edition",
+          "text": "The precise product variant named on the quotation. Products with the same name can differ in features, access and warranty."
+        },
+        {
+          "title": "Destination availability",
+          "text": "Whether a product can be supplied, activated, warranted and supported in the buyer’s country, confirmed before quoting."
+        },
+        {
+          "title": "Request for quotation (RFQ)",
+          "text": "The written summary of task, quantity, destination, languages and timing from which CNPS prepares a formal quotation."
+        },
+        {
+          "title": "Industry reference",
+          "text": "A public case or open-source project cited to show what is possible. It is not a CNPS customer delivery and does not promise the same result."
+        },
+        {
+          "title": "Full cost",
+          "text": "Hardware, subscriptions, hosting, installation, training, support and review time added together over the period you plan to run the solution."
+        }
+      ]
+    }
   },
   "zh": {
     "cases": [
@@ -1160,6 +1564,70 @@
             "text": "不同国家和会议场景对录音有不同要求。试点开始前就应明确告知方式、同意记录与敏感内容的处理边界。"
           }
         ],
+        "glossary": [
+          {
+            "title": "确切型号",
+            "english": "Exact SKU",
+            "text": "报价单上写明的具体型号与版本，包括地区版本、颜色与随附方案。同名设备可能搭配不同的订阅与保修条款。"
+          },
+          {
+            "title": "随附订阅",
+            "english": "Included subscription",
+            "text": "与设备捆绑的转写或纪要方案、有效期，以及到期后的处理方式。续费价格与付费方应记入试点记录。"
+          },
+          {
+            "title": "订阅归属",
+            "english": "Subscription ownership",
+            "text": "方案绑定在个人账号还是组织名下，以及成员离职时能否转移。"
+          },
+          {
+            "title": "团队管理功能",
+            "english": "Team administration",
+            "text": "添加与移除用户、管理共享纪要、代他人导出等集中管理能力。是否具备取决于型号与方案。"
+          },
+          {
+            "title": "修正时间",
+            "english": "Correction time",
+            "text": "编辑者把原始转写整理成团队可以执行的纪要所需的分钟数。它比转写速度更能反映实际效果。"
+          },
+          {
+            "title": "导出格式",
+            "english": "Export format",
+            "text": "纪要可以导出的文件类型与去向，如文本、DOCX、PDF 或云端文件夹，以及录音本身能否导出。"
+          },
+          {
+            "title": "录音告知与同意",
+            "english": "Recording notice and consent",
+            "text": "如何告知参会者会议正在录音，以及如何按当地规定与公司政策留存他们的同意记录。"
+          },
+          {
+            "title": "保修与换机（RMA）",
+            "english": "Warranty and replacement (RMA)",
+            "text": "目的地国家由谁处理故障设备、换机需要多久，以及团队部署是否需要备用机。"
+          }
+        ],
+        "metrics": [
+          {
+            "title": "每场会议的基线分钟数",
+            "text": "试点前记录当前一份典型纪要从会议结束到分发所需的时间。之后所有比较都以这个数字为参照。"
+          },
+          {
+            "title": "每份转写的修正分钟数",
+            "text": "对每场录音会议，记录从打开原始转写到形成团队认可纪要所用的分钟数。比较各设备的中位数，而不是最好的一次。"
+          },
+          {
+            "title": "遗漏发言与姓名错误",
+            "text": "统计每场会议遗漏的决定、说话人归属错误、姓名与产品术语拼写错误，并注明哪些语言和会议室出错最多。"
+          },
+          {
+            "title": "行动项准确率",
+            "text": "核对生成的行动项是否与会上商定的一致，包括负责人和日期。负责人写错的纪要会制造工作，而不是节省工作。"
+          },
+          {
+            "title": "电量、距离与故障事件",
+            "text": "记录每场会议后的电量、距离与噪声条件，以及每一次录音、同步或导出失败，让硬件可靠性有据可查。"
+          }
+        ],
         "boundaries": "团队管理和企业功能因产品而异。下单前应按所选型号逐项确认。",
         "faq": [
           {
@@ -1173,6 +1641,18 @@
           {
             "question": "报价需要提供哪些信息？",
             "answer": "目的地国家、预计数量、主要用途、会议语言、期望时间，以及是否需要先寄样品。信息越具体，供货核实与条款确认越快。"
+          },
+          {
+            "question": "设备试点应持续多久？",
+            "answer": "两到四周的正常会议通常足以覆盖口音、会议室类型与远程通话，并让团队进入真实的纪要流程。更短的试点往往反映的是新鲜感，而不是日常使用。"
+          },
+          {
+            "question": "同一台设备能同时服务中文、英文和阿拉伯语会议吗？",
+            "answer": "语言支持因型号与方案而异，实际表现又因口音和术语而不同。请在同一台设备上测试你们真正使用的每种语言，而不是只看支持语言列表。"
+          },
+          {
+            "question": "试点之后订阅应归谁所有？",
+            "answer": "下单前就要决定。如果纪要属于组织，方案就应集中管理并可转移。个人账号起步简单，但成员离职后更难收回。"
           }
         ],
         "action": "申请设备报价",
@@ -1245,6 +1725,70 @@
             "text": "开源项目的许可各有附加条件，例如多租户与品牌展示限制。上线前应核对确切版本的许可与托管服务条款。"
           }
         ],
+        "glossary": [
+          {
+            "title": "评估集",
+            "english": "Evaluation set",
+            "text": "在任何调优之前商定的固定问题清单，附带期望答案、来源与通过标准。它是衡量每个候选方案的统一尺子。"
+          },
+          {
+            "title": "依据检索的生成（RAG）",
+            "english": "Retrieval-augmented generation (RAG)",
+            "text": "助手先从你们的文档中检索段落，再据此回答，而不是只依赖通用训练数据的做法。"
+          },
+          {
+            "title": "引用",
+            "english": "Citation",
+            "text": "助手为答案给出的来源。只有审阅者打开后确认被引段落确实支持该陈述，这条引用才算有效。"
+          },
+          {
+            "title": "拒答行为",
+            "english": "Refusal behavior",
+            "text": "文档中没有答案时助手的表现。正确拒答算通过；编造答案即使听起来合理也算不通过。"
+          },
+          {
+            "title": "权限边界",
+            "english": "Permission boundary",
+            "text": "每个用户角色只能检索其被允许查看的文档，需要用针对角色的问题来测试。"
+          },
+          {
+            "title": "业务负责人",
+            "english": "Business owner",
+            "text": "对答案质量、文档更新以及扩大或停止决定负责的具名人员。"
+          },
+          {
+            "title": "留出测试",
+            "english": "Held-out test",
+            "text": "在调优阶段不使用、只在最后运行的问题，用来观察助手面对未经调整的问题时的表现。"
+          },
+          {
+            "title": "完整运行成本",
+            "english": "Total running cost",
+            "text": "每月的托管、推理、文档导入、许可、支持与人工审阅时间合计，而不只是模型 API 价格。"
+          }
+        ],
+        "metrics": [
+          {
+            "title": "评估集上的正确率",
+            "text": "按业务审阅者的判断回答正确的问题占比，并分别报告日常问题、跨文档比较与目标语言问题的结果。"
+          },
+          {
+            "title": "引用支持率",
+            "text": "打开后确实支持答案的引用占比。带有装饰性引用的答案按“无支持”计算。"
+          },
+          {
+            "title": "正确拒答次数",
+            "text": "面对文档中没有答案的问题，助手拒答的次数，以及编造答案的次数。"
+          },
+          {
+            "title": "权限测试结果",
+            "text": "针对角色的问题中，用户能检索到权限之外文档的次数。可接受的数字是零。"
+          },
+          {
+            "title": "每个答案的审阅分钟数与成本",
+            "text": "审阅者检查或修正一个答案的平均时间，加上每月的托管、推理与文档导入成本。"
+          }
+        ],
         "boundaries": "实施范围与软件许可需另行约定。开源可用并不代表拥有无限制转售权。",
         "faq": [
           {
@@ -1258,6 +1802,18 @@
           {
             "question": "CNPS 会负责实施吗？",
             "answer": "CNPS 先协助界定范围、题集与验收方式。实施能力、商业范围与软件许可根据具体需求另行约定，不会在评估阶段默认包含。"
+          },
+          {
+            "question": "助手能完全运行在我们自己的服务器上吗？",
+            "answer": "多种开源应用支持自托管部署，但它调用的语言模型、向量模型与语音模型仍可能是外部服务。先梳理每一次调用，再定义“本地部署”对你们的数据意味着什么。"
+          },
+          {
+            "question": "文档更新后如何保持答案是最新的？",
+            "answer": "指定内容更新负责人，明确废止文档如何从检索范围移除，并在每次重要更新后重跑部分评估集。没有更新机制的助手会悄悄过时。"
+          },
+          {
+            "question": "可以评估哪些语言？",
+            "answer": "中文、英文与阿拉伯语问题都可以纳入，但表现会因问题语言和文档语言而不同。把目标语言的问题写进评估集，而不是假设结果可以迁移。"
           }
         ],
         "action": "讨论知识助手试点",
@@ -1332,6 +1888,70 @@
             "text": "开发板价格只是一小部分。布线、防护外壳、存储、备件与远程维护往往决定项目能否持续。"
           }
         ],
+        "glossary": [
+          {
+            "title": "检测任务",
+            "english": "Detection task",
+            "text": "用一句话说明检测什么、在什么条件下、由谁处理结果。现场的其他一切都以它为衡量标准。"
+          },
+          {
+            "title": "真值",
+            "english": "Ground truth",
+            "text": "经人工核实的、画面中实际发生情况的记录，用于判断每条告警是对还是错。"
+          },
+          {
+            "title": "误报与漏报",
+            "english": "False alarm and miss",
+            "text": "误报是没有真实事件却触发告警；漏报是有真实事件却没有告警。两项都要统计，因为调整一项通常会影响另一项。"
+          },
+          {
+            "title": "端到端延迟",
+            "english": "End-to-end latency",
+            "text": "从摄像头前发生事件到告警送达处理人员的时间，包括采集、传输、推理与推送。"
+          },
+          {
+            "title": "边缘设备 / 算力单元",
+            "english": "Edge device / compute unit",
+            "text": "现场运行识别的计算机，如 Jetson 级别或 NPU 板卡。它在高温、灰尘与断电下的表现，比标称算力更重要。"
+          },
+          {
+            "title": "现场勘测",
+            "english": "Site survey",
+            "text": "在选择任何设备之前，对每个点位的摄像头类型、安装位置、光照、距离、网络与供电的结构化记录。"
+          },
+          {
+            "title": "验收标准",
+            "english": "Acceptance criteria",
+            "text": "事先商定的误报率、漏报率与延迟水平，决定安装是否被验收并付款。"
+          },
+          {
+            "title": "每路摄像头、每个现场的成本",
+            "english": "Cost per camera, per site",
+            "text": "包含摄像头、算力、布线、防护箱、存储、备件、安装人工、支持与运维人员的完整数字。"
+          }
+        ],
+        "metrics": [
+          {
+            "title": "每路摄像头每天的误报数",
+            "text": "按摄像头和时段统计没有真实事件的告警。真正的阈值是员工能持续数周接受的水平，而不是厂商演示中的数字。"
+          },
+          {
+            "title": "对照真值的漏报率",
+            "text": "把告警与经核实的真实事件记录对比。分别报告白天、夜间、逆光以及你们采集到的最恶劣天气下的漏报。"
+          },
+          {
+            "title": "端到端延迟",
+            "text": "从画面中的事件发生到告警出现在处理人员的屏幕或手机上计时。记录中位数和最慢的 10%。"
+          },
+          {
+            "title": "在线率、断网与恢复",
+            "text": "记录每次设备重启、网络中断，以及识别和上传恢复所用的时间，包括本地存储是否保住了结果。"
+          },
+          {
+            "title": "每路摄像头与每个现场的成本",
+            "text": "把摄像头、算力、布线、防护箱、存储、备件、安装与支持加总，再除以你们实际计划运行的摄像头与现场数量。"
+          }
+        ],
         "boundaries": "硬件能力与演示视频不能保证在您的环境中达到同样效果，需要具有代表性的现场测试。",
         "faq": [
           {
@@ -1345,6 +1965,18 @@
           {
             "question": "准确率能达到多少？",
             "answer": "我们不会在测试前给出准确率承诺。误报、漏报与延迟应在你们的真实影像上测得，并按事先约定的验收标准判断。"
+          },
+          {
+            "question": "我们已有的摄像头能继续用吗？",
+            "answer": "通常可以部分复用。分辨率、镜头角度、夜间表现与码流格式都会影响识别。把现有摄像头纳入现场测试，并做好更换在最恶劣条件下不达标设备的准备。"
+          },
+          {
+            "question": "有代表性的现场测试需要多长时间？",
+            "answer": "覆盖不同时段与天气的画面采集通常需要一到三周，比较本身还需要一到两周。压缩采集阶段是安装后结果无法复现的最常见原因。"
+          },
+          {
+            "question": "视频和识别结果会如何处理？",
+            "answer": "测试前先决定画面存储在哪里、保存多久、谁能查看、哪些数据会离开现场。本地识别可以减少数据传输，但保留与访问规则仍需要有人负责。"
           }
         ],
         "action": "讨论现场评估",
@@ -1418,6 +2050,70 @@
             "text": "固件的开源许可不涵盖所使用的云服务、语音、产品设计或商标。面向公众发布前应逐项核对。"
           }
         ],
+        "glossary": [
+          {
+            "title": "唤醒词",
+            "english": "Wake word",
+            "text": "让设备从监听自己名字切换到处理请求的短语。噪声中的误唤醒与远距离的漏唤醒都需要测量。"
+          },
+          {
+            "title": "语音识别（ASR）",
+            "english": "Speech recognition (ASR)",
+            "text": "把语音转成文字的服务。通常是按分钟或按请求计费的云服务，有各自的语言覆盖与服务区域。"
+          },
+          {
+            "title": "语音合成（TTS）",
+            "english": "Speech synthesis (TTS)",
+            "text": "生成语音回复的服务。音色质量、语言支持与面向公众使用的授权是三个独立问题。"
+          },
+          {
+            "title": "打断处理",
+            "english": "Barge-in / interruption handling",
+            "text": "用户在设备仍在回复时说话会发生什么。处理不好会让演示在真实使用中显得迟缓。"
+          },
+          {
+            "title": "依赖清单",
+            "english": "Dependency map",
+            "text": "设备调用的每一项外部服务的列表，包括提供方、区域、凭证负责人与计费方式，避免某项变更时无人知情。"
+          },
+          {
+            "title": "每次对话成本",
+            "english": "Cost per conversation",
+            "text": "一次典型交互的识别、模型与合成费用之和，再乘以每台设备每月的预期对话量。"
+          },
+          {
+            "title": "固件恢复",
+            "english": "Firmware recovery",
+            "text": "固件、凭证或服务地址变更时，如何在现场更新或恢复设备，而不必寄回。"
+          },
+          {
+            "title": "授权内容",
+            "english": "Authorized content",
+            "text": "设备被允许回答的问题范围以及可以据以回答的材料，在原型面向公众之前与内容负责人商定。"
+          }
+        ],
+        "metrics": [
+          {
+            "title": "按环境统计的唤醒与识别错误",
+            "text": "在真实场所分别统计安静时段、噪声高峰以及每种语言下的误唤醒、漏唤醒与请求识别错误。"
+          },
+          {
+            "title": "响应延迟",
+            "text": "从用户说完一句话到语音回复开始的时间。记录中位数与最慢的情况，并注明延迟来自哪项服务。"
+          },
+          {
+            "title": "打断与恢复表现",
+            "text": "记录用户打断、回复中途断网以及设备重启时发生了什么，以及恢复可用需要多长时间。"
+          },
+          {
+            "title": "每次对话与每台设备每月的成本",
+            "text": "在原型阶段汇总典型交互的识别、模型与合成费用，并按预期对话量推算。"
+          },
+          {
+            "title": "内容覆盖率与拒答",
+            "text": "统计真实访客问题中落在授权内容范围内的数量、被正确拒答的数量，以及超出范围却被回答的数量。"
+          }
+        ],
         "boundaries": "原型可用不等于承诺量产。产品测试、供货与商业权利须分别评估。",
         "faq": [
           {
@@ -1431,6 +2127,18 @@
           {
             "question": "断网后设备还能工作吗？",
             "answer": "取决于架构。多数语音功能依赖后端服务，断网时应有明确的提示与恢复行为。这是测试中必须覆盖的情形。"
+          },
+          {
+            "question": "第一个原型需要什么硬件？",
+            "answer": "一块 ESP32 级别的开发板、麦克风阵列、扬声器和稳定供电通常足以测试交互本身。外壳声学与工业级元器件要等任务与环境确认之后再考虑。"
+          },
+          {
+            "question": "设备能接入我们自己的模型或知识库吗？",
+            "answer": "通常可以，因为固件调用的是你们配置的后端服务。需要评估的是这个后端能否在可接受的延迟与成本内正确回答，其测试方法与知识助手相同。"
+          },
+          {
+            "question": "现场测试前应准备什么？",
+            "answer": "授权内容、预期问题清单、目标场所最繁忙的时段、记录每次交互的方法，以及负责判断哪些回答可接受的人。"
           }
         ],
         "action": "讨论语音原型",
@@ -1503,6 +2211,70 @@
             "text": "国际演示视频展示的是可能性，不是自主生产力的证明。研究任务能否完成，取决于你们的算法、场景与操作能力。"
           }
         ],
+        "glossary": [
+          {
+            "title": "确切版本",
+            "english": "Exact edition",
+            "text": "报价单上写明的具体产品版本，如教育版、标准版或开发者版。机身相同的不同版本可能开放不同的接口。"
+          },
+          {
+            "title": "开发者权限 / 底层控制",
+            "english": "Developer access / low-level control",
+            "text": "该版本是否允许你的代码直接控制关节、电机或步态，而不只是通过上层应用或示教器操作。"
+          },
+          {
+            "title": "SDK 版本兼容性",
+            "english": "SDK version compatibility",
+            "text": "平台支持的操作系统、ROS 发行版、Python 与库版本，需要与实验室现有环境逐项核对。"
+          },
+          {
+            "title": "负载与臂展",
+            "english": "Payload and reach",
+            "text": "机械臂或机器人能承载的质量与可覆盖的工作空间，应按包含夹爪与相机的确切配置给出。"
+          },
+          {
+            "title": "末端执行器 / 夹爪",
+            "english": "End effector / gripper",
+            "text": "安装在机械臂末端用于完成任务的工具。通常单独订购，直接决定你们研究中的工件能否被抓取。"
+          },
+          {
+            "title": "受限工作区",
+            "english": "Bounded workspace",
+            "text": "测试期间机器人可以运行的物理区域，配有防护、急停装置以及关于谁可以进入的明确规则。"
+          },
+          {
+            "title": "可重复成功率",
+            "english": "Repeatable success rate",
+            "text": "在相同条件下多次运行中完成任务的尝试占比，需记录每一次失败，而不是只保留最好的一次演示。"
+          },
+          {
+            "title": "本地支持与备件",
+            "english": "Local support and spares",
+            "text": "在你们所在国家由谁维修平台、零件到货需要多久，以及首次测试前应备哪些耗材。"
+          }
+        ],
+        "metrics": [
+          {
+            "title": "已收到的书面确认",
+            "text": "跟踪供应商已对确切版本书面确认的项目：开发者权限、支持的操作系统、SDK 版本、保修与目的地条款。"
+          },
+          {
+            "title": "兼容性结果",
+            "text": "记录 SDK 能否在实验室现有机器上安装运行、需要哪些版本，以及发出第一条指令之前的配置耗时。"
+          },
+          {
+            "title": "任务成功率与失败日志",
+            "text": "在相同条件下统计成功与失败的尝试次数及每次失败的原因，让自主能力的判断建立在重复运行上，而不是一次演示。"
+          },
+          {
+            "title": "安全事件与险情",
+            "text": "记录受监督测试中的每次急停、越界与非计划动作，以及之后流程做了哪些调整。"
+          },
+          {
+            "title": "到首次实验的时间与成本",
+            "text": "测量从下单到完成第一次实验的日历时间与完整成本，包括配件、培训、运输、清关以及等待零件的闲置周数。"
+          }
+        ],
         "boundaries": "公开 SDK 不代表每个产品版本都有相同权限。现场安全和集成需要合格负责人。",
         "faq": [
           {
@@ -1516,6 +2288,18 @@
           {
             "question": "可以先租用或试用吗？",
             "answer": "是否有试用或租用选项取决于平台与地区。我们建议在询盘中说明研究任务与时间安排，以便一并核实可行的评估方式。"
+          },
+          {
+            "question": "应该从机械臂还是四足机器人开始？",
+            "answer": "取决于研究任务。抓取、装配与工件研究指向机械臂；运动控制、感知与户外导航指向足式平台。先把任务写下来，再让平台跟随任务。"
+          },
+          {
+            "question": "一份典型的机器人报价包含什么？",
+            "answer": "确切版本、开发者权限、夹爪与相机等配件、备件、培训、运输与目的地条款，每项单独列行。报价单上没有的项目，应视为不包含。"
+          },
+          {
+            "question": "交付后的维护如何规划？",
+            "answer": "指定维护负责人，按供应商建议备好耗材，确认在你们所在国家由谁维修以及零件到货时间，并从第一周起记录每一次故障。"
           }
         ],
         "action": "讨论机器人需求",
@@ -1525,7 +2309,79 @@
         ],
         "resource": "robotics-procurement"
       }
-    ]
+    ],
+    "solutionsIndex": {
+      "chooseTitle": "从哪一页开始",
+      "chooseText": "每个方案都从一个采购问题出发。下表列出你会得到什么、需要准备什么以及第一件要核实的事，帮助你找到最接近自身情况的页面。",
+      "prepTitle": "发送询盘之前",
+      "prepText": "无论选择哪个方案，这五件事都能让第一次沟通更有效。",
+      "prep": [
+        {
+          "title": "明确一个任务",
+          "text": "描述你想改善的单一流程或现场，而不是整个组织。范围越窄，试点越可衡量，报价越准确。"
+        },
+        {
+          "title": "确定目的地与时间",
+          "text": "国家、预计数量以及需要看到结果的日期，决定了供货、运输方式，以及先寄样品是否现实。"
+        },
+        {
+          "title": "记录当前基线",
+          "text": "这项工作现在需要多长时间、多久失败一次、成本是多少。没有基线，任何试点都无法证明改善。"
+        },
+        {
+          "title": "确定决策负责人",
+          "text": "负责评判试点并签署订单的人。他们的验收标准应在测试开始前写下来。"
+        },
+        {
+          "title": "区分硬性要求与偏好",
+          "text": "数据存放地、语言支持、保修与管理功能中不可妥协的部分应写进询盘；其余都可以讨论。"
+        }
+      ],
+      "termsTitle": "这些页面共用的术语",
+      "termsText": "同样的词出现在每个方案页、资料中心与我们的报价中。这里说明我们的具体含义。",
+      "terms": [
+        {
+          "title": "试点",
+          "english": "Pilot",
+          "text": "在承诺任何数量之前，用真实用户、真实数据与商定指标进行的小规模、限时测试。"
+        },
+        {
+          "title": "基线",
+          "english": "Baseline",
+          "text": "试点之前对工作现状的测量结果，是之后所有比较的参照。"
+        },
+        {
+          "title": "验收标准",
+          "english": "Acceptance criteria",
+          "text": "事先商定的可衡量结果，决定试点或交付是否被接受。"
+        },
+        {
+          "title": "确切型号或版本",
+          "english": "Exact SKU or edition",
+          "text": "报价单上写明的具体产品版本。同名产品在功能、权限与保修上可能不同。"
+        },
+        {
+          "title": "目的地供货",
+          "english": "Destination availability",
+          "text": "产品能否在买方所在国家供货、激活、保修与支持，报价前需要核实。"
+        },
+        {
+          "title": "询价需求（RFQ）",
+          "english": "Request for quotation (RFQ)",
+          "text": "关于任务、数量、目的地、语言与时间的书面摘要，CNPS 据此准备正式报价。"
+        },
+        {
+          "title": "行业参考",
+          "english": "Industry reference",
+          "text": "用于展示可能性的公开案例或开源项目。它不是 CNPS 已交付的客户项目，也不承诺相同结果。"
+        },
+        {
+          "title": "完整成本",
+          "english": "Full cost",
+          "text": "在计划运行方案的整个期间内，硬件、订阅、托管、安装、培训、支持与审阅时间的总和。"
+        }
+      ]
+    }
   },
   "ar": {
     "cases": [
@@ -1917,6 +2773,70 @@
             "text": "تختلف متطلبات التسجيل بين الدول وسياقات الاجتماعات. اتفق على طريقة الإخطار وسجل الموافقة وطريقة التعامل مع المحتوى الحساس قبل بدء التجربة."
           }
         ],
+        "glossary": [
+          {
+            "title": "رمز المنتج الدقيق",
+            "english": "Exact SKU",
+            "text": "الطراز والإصدار المحددان في عرض السعر، بما في ذلك نسخة المنطقة واللون والخطة المرفقة. قد يُشحن جهازان بالاسم نفسه باشتراكات وشروط ضمان مختلفة."
+          },
+          {
+            "title": "الاشتراك المشمول",
+            "english": "Included subscription",
+            "text": "خطة التفريغ النصي أو الملاحظات المرفقة بالجهاز ومدتها وما يحدث عند انتهائها. ينبغي تدوين سعر التجديد ومن يدفعه في سجل التجربة."
+          },
+          {
+            "title": "ملكية الاشتراك",
+            "english": "Subscription ownership",
+            "text": "ما إذا كانت الخطة مرتبطة بحساب فردي أو بالمؤسسة، وهل يمكن إعادة تعيينها عند مغادرة أحد أعضاء الفريق."
+          },
+          {
+            "title": "إدارة الفريق",
+            "english": "Team administration",
+            "text": "خصائص مركزية مثل إضافة المستخدمين وإزالتهم وإدارة الملاحظات المشتركة والتصدير باسم الآخرين. يختلف توافرها باختلاف الطراز والخطة."
+          },
+          {
+            "title": "وقت التصحيح",
+            "english": "Correction time",
+            "text": "الدقائق التي يحتاجها المحرر لتحويل التفريغ الخام إلى ملاحظات يستطيع الفريق العمل بها. وهو مقياس أفضل من سرعة التفريغ."
+          },
+          {
+            "title": "صيغة التصدير",
+            "english": "Export format",
+            "text": "أنواع الملفات والوجهات التي يمكن إرسال الملاحظات إليها، مثل النص أو DOCX أو PDF أو مجلد سحابي، وهل يمكن تصدير الصوت أيضاً."
+          },
+          {
+            "title": "الإخطار بالتسجيل والموافقة",
+            "english": "Recording notice and consent",
+            "text": "كيفية إعلام المشاركين بأن الاجتماع يُسجَّل، وكيفية توثيق موافقتهم وفق القواعد المحلية وسياسة الشركة."
+          },
+          {
+            "title": "الضمان والاستبدال (RMA)",
+            "english": "Warranty and replacement (RMA)",
+            "text": "من يعالج الجهاز المعيب في بلد الوجهة، وكم يستغرق الاستبدال، وهل يحتاج نشر الفريق إلى مخزون احتياطي."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "دقائق خط الأساس لكل اجتماع",
+            "text": "قبل التجربة، سجّل كم تستغرق الملاحظات المعتادة اليوم من نهاية الاجتماع حتى التوزيع. تُقاس كل مقارنة لاحقة بهذا الرقم."
+          },
+          {
+            "title": "دقائق التصحيح لكل تفريغ",
+            "text": "لكل اجتماع مسجَّل، احسب الدقائق من فتح التفريغ الخام حتى ملاحظات يقبلها الفريق. قارن الوسيط بين الأجهزة لا أفضل حالة."
+          },
+          {
+            "title": "العبارات المفقودة والأسماء الخاطئة",
+            "text": "احسب القرارات المحذوفة والمتحدثين المنسوبين خطأً والأسماء أو مصطلحات المنتجات المكتوبة بشكل خاطئ في كل اجتماع، ودوّن أي اللغات والقاعات تنتج أكثر الأخطاء."
+          },
+          {
+            "title": "دقة بنود العمل",
+            "text": "تحقق من مطابقة بنود العمل المولَّدة لما اتفقت عليه المجموعة، بما في ذلك المسؤول والتاريخ. الملاحظات ذات المسؤولين الخاطئين تصنع عملاً بدل أن توفره."
+          },
+          {
+            "title": "البطارية والمدى وأحداث الفشل",
+            "text": "سجّل مستوى البطارية بعد كل اجتماع وظروف المسافة والضوضاء وكل تسجيل أو مزامنة أو تصدير فاشل، ليُحكم على موثوقية الأجهزة بالأدلة."
+          }
+        ],
         "boundaries": "تختلف إدارة الفرق وخصائص المؤسسات باختلاف المنتج. أكدها للطراز المختار قبل الطلب.",
         "faq": [
           {
@@ -1930,6 +2850,18 @@
           {
             "question": "ما المعلومات اللازمة لعرض السعر؟",
             "answer": "بلد الوجهة، والكمية المتوقعة، والاستخدام الرئيسي، ولغات الاجتماعات، والتوقيت المرغوب، وما إذا كنتم تريدون عيّنات أولاً. التفاصيل المحددة تسرّع التحقق من التوافر وتأكيد الشروط."
+          },
+          {
+            "question": "كم ينبغي أن تستمر تجربة الأجهزة؟",
+            "answer": "عادةً يكفي أسبوعان إلى أربعة أسابيع من الاجتماعات المعتادة لرصد اللهجات وأنواع القاعات والمكالمات عن بُعد، ولدخول الفريق في سير عمل حقيقي للملاحظات. التجارب الأقصر تعكس الحداثة غالباً لا الاستخدام اليومي."
+          },
+          {
+            "question": "هل يمكن لجهاز واحد أن يخدم اجتماعات بالصينية والإنجليزية والعربية؟",
+            "answer": "يختلف دعم اللغات باختلاف الطراز والخطة، ويختلف الأداء مجدداً باختلاف اللهجة والمصطلحات. اختبر كل لغة تستخدمونها فعلاً على الجهاز نفسه بدلاً من الاعتماد على قائمة اللغات المدعومة."
+          },
+          {
+            "question": "من ينبغي أن يملك الاشتراكات بعد التجربة؟",
+            "answer": "قرّروا ذلك قبل الطلب. إذا كانت الملاحظات ملكاً للمؤسسة، فينبغي أن تُدار الخطة مركزياً وأن تكون قابلة لإعادة التعيين. الحسابات الشخصية أسهل في البداية لكنها أصعب في الاستعادة عند مغادرة أحد الأعضاء."
           }
         ],
         "action": "اطلب عرض سعر للأجهزة",
@@ -2002,6 +2934,70 @@
             "text": "تحمل التراخيص مفتوحة المصدر شروطاً إضافية، مثل قيود تعدد المستأجرين والعلامة التجارية. تحقق من ترخيص الإصدار الدقيق وشروط الاستضافة قبل الإطلاق."
           }
         ],
+        "glossary": [
+          {
+            "title": "مجموعة التقييم",
+            "english": "Evaluation set",
+            "text": "قائمة ثابتة من الأسئلة الحقيقية مع الإجابات المتوقعة والمصادر ومعايير النجاح، يُتفق عليها قبل أي ضبط. وهي المقياس لكل مرشح."
+          },
+          {
+            "title": "التوليد المعزَّز بالاسترجاع (RAG)",
+            "english": "Retrieval-augmented generation (RAG)",
+            "text": "النهج الذي يسترجع فيه المساعد مقاطع من مستنداتكم ويجيب منها، بدلاً من الاعتماد على بيانات التدريب العامة وحدها."
+          },
+          {
+            "title": "الاستشهاد",
+            "english": "Citation",
+            "text": "المرجع الذي يعرضه المساعد للإجابة. لا يُحتسب الاستشهاد إلا إذا كان المقطع المستشهد به يدعم العبارة فعلاً عندما يفتحه المراجع."
+          },
+          {
+            "title": "سلوك الامتناع",
+            "english": "Refusal behavior",
+            "text": "ما يفعله المساعد عندما لا تحتوي المستندات على إجابة. الامتناع الصحيح نجاح؛ والإجابة المختلقة فشل حتى لو بدت معقولة."
+          },
+          {
+            "title": "حدود الصلاحيات",
+            "english": "Permission boundary",
+            "text": "القاعدة التي تقضي بأن يسترجع كل دور مستخدم المستندات المسموح له بها فقط، وتُختبر بأسئلة خاصة بكل دور."
+          },
+          {
+            "title": "مسؤول العمل",
+            "english": "Business owner",
+            "text": "الشخص المسمّى المسؤول عن جودة الإجابات وتحديث المستندات وقرار التوسع أو التوقف."
+          },
+          {
+            "title": "الاختبار المحجوز",
+            "english": "Held-out test",
+            "text": "أسئلة تُحفظ بعيداً عن الضبط وتُشغَّل في النهاية فقط، لتُظهر النتيجة كيف يتصرف المساعد مع أسئلة لم يُعدَّل لها."
+          },
+          {
+            "title": "التكلفة التشغيلية الكاملة",
+            "english": "Total running cost",
+            "text": "الاستضافة والاستدلال والاستيراد والترخيص والدعم ووقت المراجعة البشرية مجتمعةً شهرياً، لا سعر واجهة النموذج وحده."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "الإجابات الصحيحة على مجموعة التقييم",
+            "text": "نسبة الأسئلة المُجابة بشكل صحيح وفق مراجع الأعمال، مع تقرير منفصل للأسئلة اليومية والمقارنات بين المستندات وأسئلة اللغة المستهدفة."
+          },
+          {
+            "title": "نسبة دعم الاستشهادات",
+            "text": "نسبة الاستشهادات التي تدعم الإجابة فعلاً عند فتحها. تُحتسب الإجابة ذات الاستشهاد الشكلي غير مدعومة."
+          },
+          {
+            "title": "حالات الامتناع الصحيحة",
+            "text": "كم مرة يرفض المساعد الأسئلة التي لا إجابة لها في المستندات، وكم مرة يختلق إجابة بدلاً من ذلك."
+          },
+          {
+            "title": "نتائج اختبار الصلاحيات",
+            "text": "عدد الأسئلة الخاصة بالأدوار التي استطاع فيها مستخدم استرجاع مستند خارج صلاحياته. العدد المقبول هو صفر."
+          },
+          {
+            "title": "دقائق المراجعة والتكلفة لكل إجابة",
+            "text": "متوسط الوقت الذي يقضيه المراجع في فحص إجابة أو تصحيحها، إلى جانب تكلفة الاستضافة والاستدلال والاستيراد شهرياً."
+          }
+        ],
         "boundaries": "يجب الاتفاق على نطاق التنفيذ وتراخيص البرمجيات. الإتاحة مفتوحة المصدر لا تعني حقوق إعادة بيع غير مقيدة.",
         "faq": [
           {
@@ -2015,6 +3011,18 @@
           {
             "question": "هل تتولى CNPS التنفيذ؟",
             "answer": "تساعد CNPS أولاً في تحديد النطاق ومجموعة التقييم والقبول. أما القدرة على التنفيذ والنطاق التجاري وتراخيص البرمجيات فيُتفق عليها بشكل منفصل لكل احتياج، ولا تُدرج تلقائياً في مرحلة التقييم."
+          },
+          {
+            "question": "هل يمكن أن يعمل المساعد بالكامل على خوادمنا؟",
+            "answer": "النشر المستضاف ذاتياً ممكن مع عدة تطبيقات مفتوحة المصدر، لكن نماذج اللغة والتضمين والصوت التي يستدعيها قد تظل خدمات خارجية. احصروا كل استدعاء قبل تحديد ما يعنيه «النشر المحلي» لبياناتكم."
+          },
+          {
+            "question": "كيف نحافظ على حداثة الإجابات عند تغيّر المستندات؟",
+            "answer": "سمّوا الشخص الذي يحدّث المحتوى، وحدّدوا كيف تُزال المستندات المسحوبة من الاسترجاع، وأعيدوا تشغيل جزء من مجموعة التقييم بعد كل تحديث مهم. المساعد بلا روتين تحديث يتقادم بصمت."
+          },
+          {
+            "question": "أي اللغات يمكن تقييمها؟",
+            "answer": "يمكن إدراج أسئلة بالصينية والإنجليزية والعربية جميعها، لكن الأداء يختلف باختلاف لغة السؤال ولغة المستند. أدرجوا أسئلة اللغة المستهدفة في مجموعة التقييم بدلاً من افتراض انتقال النتائج."
           }
         ],
         "action": "ناقش تجربة مساعد معرفي",
@@ -2089,6 +3097,70 @@
             "text": "سعر اللوحة جزء صغير. التمديدات والحاويات الواقية والتخزين وقطع الغيار والصيانة عن بُعد غالباً ما تحدد استدامة المشروع."
           }
         ],
+        "glossary": [
+          {
+            "title": "مهمة الكشف",
+            "english": "Detection task",
+            "text": "جملة واحدة تحدد ما يجب كشفه وفي أي ظروف ومن يتصرف بناءً على النتيجة. يُقاس كل شيء آخر في الموقع بها."
+          },
+          {
+            "title": "الحقيقة المرجعية",
+            "english": "Ground truth",
+            "text": "السجل الذي تحقق منه البشر لما حدث فعلاً في اللقطات، ويُستخدم للحكم على صحة كل تنبيه أو خطئه."
+          },
+          {
+            "title": "الإنذار الكاذب والإغفال",
+            "english": "False alarm and miss",
+            "text": "الإنذار الكاذب تنبيه بلا حدث حقيقي؛ والإغفال حدث حقيقي بلا تنبيه. يلزم قياس المعدلين معاً، لأن ضبط أحدهما يحرّك الآخر عادةً."
+          },
+          {
+            "title": "زمن الاستجابة من البداية إلى النهاية",
+            "english": "End-to-end latency",
+            "text": "الوقت من وقوع الحدث أمام الكاميرا حتى وصول التنبيه إلى الشخص الذي يتصرف، شاملاً الالتقاط والإرسال والاستدلال والتوصيل."
+          },
+          {
+            "title": "الجهاز الطرفي / وحدة الحوسبة",
+            "english": "Edge device / compute unit",
+            "text": "الحاسوب الموجود في الموقع الذي يشغّل التعرف، مثل لوحة من فئة Jetson أو لوحة NPU. سلوكه تحت الحرارة والغبار وانقطاع الطاقة أهم من تصنيفه."
+          },
+          {
+            "title": "مسح الموقع",
+            "english": "Site survey",
+            "text": "السجل المنظم لأنواع الكاميرات ومواضع التثبيت والإضاءة والمسافات والشبكة والطاقة في كل موقع، ويُستكمل قبل اختيار أي معدات."
+          },
+          {
+            "title": "معايير القبول",
+            "english": "Acceptance criteria",
+            "text": "مستويات الإنذارات الكاذبة والإغفالات وزمن الاستجابة المتفق عليها مسبقاً، والتي تقرر قبول التركيب ودفع قيمته."
+          },
+          {
+            "title": "التكلفة لكل كاميرا ولكل موقع",
+            "english": "Cost per camera, per site",
+            "text": "الرقم الكامل الشامل للكاميرات والحوسبة والكابلات والحاويات والتخزين وقطع الغيار وعمالة التركيب والدعم وطاقم التشغيل."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "معدل الإنذارات الكاذبة لكل كاميرا يومياً",
+            "text": "احسب التنبيهات بلا حدث حقيقي حسب الكاميرا ووقت اليوم. الحد الفعلي هو المعدل الذي يتحمّله الموظفون لأسابيع، لا رقم عرض المورّد."
+          },
+          {
+            "title": "معدل الإغفال مقابل الحقيقة المرجعية",
+            "text": "قارن التنبيهات بالسجل المتحقق منه للأحداث الحقيقية. قدّم الإغفالات منفصلة لفترات النهار والليل والإضاءة الخلفية وأسوأ أحوال الطقس التي جمعتموها."
+          },
+          {
+            "title": "زمن الاستجابة من البداية إلى النهاية",
+            "text": "قِس من وقوع الحدث في اللقطات حتى ظهور التنبيه على شاشة المستجيب أو هاتفه. سجّل الوسيط وأبطأ عشرة بالمائة."
+          },
+          {
+            "title": "مدة التشغيل والانقطاع والتعافي",
+            "text": "سجّل كل إعادة تشغيل للجهاز وكل فقدان للشبكة وكم استغرق تعافي التعرف والرفع، وهل حفظ التخزين المحلي النتائج."
+          },
+          {
+            "title": "التكلفة لكل كاميرا ولكل موقع",
+            "text": "اجمع الكاميرات والحوسبة والكابلات والحاويات والتخزين وقطع الغيار والتركيب والدعم، ثم اقسم على عدد الكاميرات والمواقع التي تخططون لتشغيلها فعلاً."
+          }
+        ],
         "boundaries": "لا تضمن قدرات الأجهزة أو مقاطع العرض الأداء في بيئتك. يلزم اختبار ميداني يمثل الظروف الفعلية.",
         "faq": [
           {
@@ -2102,6 +3174,18 @@
           {
             "question": "ما الدقة التي يمكن توقعها؟",
             "answer": "لا نعد بدقة قبل الاختبار. ينبغي قياس الإنذارات الكاذبة والحالات الفائتة وزمن الاستجابة على لقطاتكم الحقيقية والحكم عليها وفق معايير قبول متفق عليها مسبقاً."
+          },
+          {
+            "question": "هل يمكننا إعادة استخدام الكاميرات الموجودة لدينا؟",
+            "answer": "غالباً جزئياً. تؤثر الدقة وزاوية العدسة والأداء الليلي وصيغة البث جميعها في التعرف. أدرجوا الكاميرات الحالية في اختبار الموقع وكونوا مستعدين لاستبدال ما يفشل منها في لقطات أسوأ الظروف."
+          },
+          {
+            "question": "كم يستغرق اختبار الموقع التمثيلي؟",
+            "answer": "يستغرق جمع اللقطات عبر أوقات اليوم وأحوال الطقس عادةً أسبوعاً إلى ثلاثة أسابيع، وتستغرق المقارنة نفسها أسبوعاً أو أسبوعين إضافيين. التسرع في مرحلة اللقطات هو السبب الأكثر شيوعاً لعدم ثبات النتائج بعد التركيب."
+          },
+          {
+            "question": "ماذا يحدث للفيديو والنتائج؟",
+            "answer": "قرّروا قبل الاختبار أين تُخزَّن اللقطات ولكم من الوقت ومن يستطيع مشاهدتها وما الذي يغادر الموقع. يمكن للتعرف المحلي أن يحدّ من نقل البيانات، لكن قواعد الاحتفاظ والوصول تحتاج إلى مسؤول أيضاً."
           }
         ],
         "action": "ناقش تقييم الموقع",
@@ -2175,6 +3259,70 @@
             "text": "لا يغطي الترخيص مفتوح المصدر للبرنامج الثابت الخدمات السحابية أو الأصوات أو تصميم المنتج أو العلامات التجارية المستخدمة. تحقق من كل بند قبل الإطلاق العام."
           }
         ],
+        "glossary": [
+          {
+            "title": "كلمة التنبيه",
+            "english": "Wake word",
+            "text": "العبارة التي تنقل الجهاز من الاستماع لاسمه إلى معالجة الطلب. يُقاس التنبيه الكاذب في الضوضاء والتنبيه المفقود من مسافة بعيدة معاً."
+          },
+          {
+            "title": "التعرف على الكلام (ASR)",
+            "english": "Speech recognition (ASR)",
+            "text": "الخدمة التي تحوّل الكلام إلى نص. وهي عادةً خدمة سحابية تُحاسَب بالدقيقة أو بالطلب، ولها تغطيتها اللغوية ومنطقتها الخاصة."
+          },
+          {
+            "title": "تحويل النص إلى كلام (TTS)",
+            "english": "Speech synthesis (TTS)",
+            "text": "الخدمة التي تنتج الرد المنطوق. جودة الصوت ودعم اللغات وترخيص الاستخدام العام أسئلة منفصلة."
+          },
+          {
+            "title": "معالجة المقاطعة",
+            "english": "Barge-in / interruption handling",
+            "text": "ما يحدث عندما يتكلم المستخدم بينما لا يزال الجهاز يرد. المعالجة الضعيفة تجعل العرض يبدو بطيئاً في الاستخدام الفعلي."
+          },
+          {
+            "title": "خريطة الاعتماديات",
+            "english": "Dependency map",
+            "text": "قائمة بكل خدمة خارجية يستدعيها الجهاز، مع المزوّد والمنطقة ومسؤول بيانات الاعتماد وطريقة الفوترة، حتى لا يتفاجأ أحد عند تغيّر إحداها."
+          },
+          {
+            "title": "التكلفة لكل محادثة",
+            "english": "Cost per conversation",
+            "text": "رسوم التعرف والنموذج والتوليد الصوتي مجتمعةً لتبادل واحد معتاد، مضروبةً في الحجم المتوقع لكل جهاز شهرياً."
+          },
+          {
+            "title": "استعادة البرنامج الثابت",
+            "english": "Firmware recovery",
+            "text": "كيفية تحديث الجهاز أو استعادته في الموقع عند تغيّر البرنامج الثابت أو بيانات الاعتماد أو نقطة خدمة، دون إرساله إلى الوراء."
+          },
+          {
+            "title": "المحتوى المصرح به",
+            "english": "Authorized content",
+            "text": "الأسئلة التي يُسمح للجهاز بالإجابة عنها والمادة التي يجوز له الإجابة منها، ويُتفق عليها مع مالك المحتوى قبل وضع النموذج الأولي أمام الناس."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "أخطاء التنبيه والتعرف حسب البيئة",
+            "text": "احسب التنبيهات الكاذبة والمفقودة والطلبات المُساء التعرف عليها في الموقع الفعلي، منفصلةً لفترات الهدوء وذروة الضوضاء وكل لغة."
+          },
+          {
+            "title": "زمن الاستجابة",
+            "text": "الوقت من نهاية جملة المستخدم إلى بداية الرد المنطوق. سجّل الوسيط وأبطأ الحالات، ودوّن أي خدمة سبّبت التأخير."
+          },
+          {
+            "title": "سلوك المقاطعة والتعافي",
+            "text": "سجّل ما يحدث عندما يقاطع المستخدم، وعندما تنقطع الشبكة في منتصف الرد، وعندما يُعاد تشغيل الجهاز، وكم يستغرق ليصبح صالحاً للاستخدام مجدداً."
+          },
+          {
+            "title": "التكلفة لكل محادثة ولكل جهاز شهرياً",
+            "text": "اجمع رسوم التعرف والنموذج والتوليد الصوتي للتبادلات المعتادة أثناء النموذج الأولي وأسقطها على الحجم المتوقع."
+          },
+          {
+            "title": "تغطية المحتوى وحالات الامتناع",
+            "text": "تابع كم من أسئلة الزوار الحقيقية وقع ضمن المحتوى المصرح به، وكم رُفض بشكل صحيح، وكم أُجيب عنه خارج النطاق."
+          }
+        ],
         "boundaries": "النموذج الأولي العامل ليس التزاماً بالإنتاج الكمي. يجب تقييم اختبارات المنتج والتوريد والحقوق التجارية كلٌّ على حدة.",
         "faq": [
           {
@@ -2188,6 +3336,18 @@
           {
             "question": "هل يعمل الجهاز عند انقطاع الشبكة؟",
             "answer": "يعتمد ذلك على البنية. تعتمد أغلب الوظائف الصوتية على خدمات خلفية، لذا يحتاج الجهاز إلى رسائل واضحة وسلوك استعادة محدد أثناء الانقطاع. ويجب أن تغطي الاختبارات هذه الحالة."
+          },
+          {
+            "question": "أي عتاد نحتاج للنموذج الأولي الأول؟",
+            "answer": "تكفي عادةً لوحة تطوير من فئة ESP32 مع مصفوفة ميكروفونات ومكبر صوت وطاقة مستقرة لاختبار التفاعل. تصبح صوتيات الحاوية والأجزاء الصناعية مهمة فقط بعد تأكيد المهمة والبيئة."
+          },
+          {
+            "question": "هل يمكن للجهاز استخدام نموذجنا أو قاعدة معرفتنا؟",
+            "answer": "عادةً نعم، لأن البرنامج الثابت يستدعي خدمات خلفية تقومون بإعدادها. السؤال الذي يجب تقييمه هو ما إذا كانت تلك الخدمة الخلفية تجيب بشكل صحيح ضمن زمن استجابة وتكلفة مقبولين، ويُختبر ذلك بالطريقة نفسها المتبعة مع المساعد المعرفي."
+          },
+          {
+            "question": "ما الذي ينبغي تجهيزه قبل الاختبار الميداني؟",
+            "answer": "المحتوى المصرح به، وقائمة بالأسئلة المتوقعة، والموقع المستهدف في أكثر أوقاته ازدحاماً، وطريقة لتسجيل كل تبادل، والشخص الذي سيحكم على الإجابات المقبولة."
           }
         ],
         "action": "ناقش نموذجاً صوتياً أولياً",
@@ -2260,6 +3420,70 @@
             "text": "تُظهر مقاطع العرض الدولية إمكانات، لا دليلاً على إنتاجية مستقلة. يعتمد نجاح مهمتكم البحثية على خوارزمياتكم وسيناريوكم ومهارات التشغيل لديكم."
           }
         ],
+        "glossary": [
+          {
+            "title": "الإصدار الدقيق",
+            "english": "Exact edition",
+            "text": "نسخة المنتج المحددة، مثل التعليمية أو القياسية أو إصدار المطورين، كما هي مسمّاة في عرض السعر. قد تعرض الإصدارات ذات الهيكل نفسه واجهات مختلفة."
+          },
+          {
+            "title": "وصول المطورين / التحكم منخفض المستوى",
+            "english": "Developer access / low-level control",
+            "text": "هل يسمح الإصدار لشيفرتكم بالتحكم في المفاصل أو المحركات أو المشية مباشرةً، لا عبر تطبيق عالي المستوى أو وحدة تعليم فقط."
+          },
+          {
+            "title": "توافق إصدار SDK",
+            "english": "SDK version compatibility",
+            "text": "نظام التشغيل وتوزيعة ROS وإصدارات Python والمكتبات التي تدعمها المنصة، مقارنةً بما يشغّله المختبر فعلاً."
+          },
+          {
+            "title": "الحمولة ومدى الوصول",
+            "english": "Payload and reach",
+            "text": "الكتلة التي يمكن للذراع أو الروبوت حملها ومساحة العمل التي يغطيها، مذكورةً للتكوين الدقيق شاملاً القابض والكاميرا."
+          },
+          {
+            "title": "المؤثر النهائي / القابض",
+            "english": "End effector / gripper",
+            "text": "الأداة المثبتة على الذراع للمهمة. تُطلب عادةً بشكل منفصل وتقرر ما إذا كان يمكن التعامل مع قطع العمل في دراستكم أصلاً."
+          },
+          {
+            "title": "مساحة العمل المحدودة",
+            "english": "Bounded workspace",
+            "text": "المنطقة المادية التي يجوز للروبوت العمل فيها أثناء الاختبارات، مع الحواجز ومفاتيح التوقف الطارئ وقواعد واضحة لمن يجوز له الوجود داخلها."
+          },
+          {
+            "title": "معدل النجاح القابل للتكرار",
+            "english": "Repeatable success rate",
+            "text": "نسبة المحاولات التي تُكمل المهمة عبر عمليات تشغيل كثيرة في الظروف نفسها، مسجَّلةً مع كل فشل لا مع أفضل عرض فقط."
+          },
+          {
+            "title": "الدعم المحلي وقطع الغيار",
+            "english": "Local support and spares",
+            "text": "من يصلح المنصة في بلدكم، وكم تستغرق القطع للوصول، وأي المستهلكات ينبغي تخزينها قبل الاختبار الأول."
+          }
+        ],
+        "metrics": [
+          {
+            "title": "التأكيدات المكتوبة المستلمة",
+            "text": "تابع البنود التي أكدها المورّد كتابياً للإصدار الدقيق: وصول المطورين وأنظمة التشغيل المدعومة وإصدارات SDK والضمان وشروط بلد الوجهة."
+          },
+          {
+            "title": "نتائج التوافق",
+            "text": "سجّل ما إذا كانت SDK تُثبَّت وتعمل على أجهزة المختبر الحالية، وأي الإصدارات كانت لازمة، وكم استغرق الإعداد قبل إرسال الأمر الأول."
+          },
+          {
+            "title": "معدل نجاح المهمة وسجل الفشل",
+            "text": "احسب المحاولات الناجحة والفاشلة في الظروف نفسها مع سبب كل فشل، ليُحكم على الاستقلالية بالتشغيل المتكرر لا بعرض واحد."
+          },
+          {
+            "title": "الحوادث الأمنية والحوادث الوشيكة",
+            "text": "سجّل كل توقف طارئ وخرق للحدود وحركة غير مخططة أثناء الاختبارات الخاضعة للإشراف، وما الذي تغيّر في الإجراء بعدها."
+          },
+          {
+            "title": "الوقت والتكلفة حتى التجربة الأولى",
+            "text": "قِس الوقت التقويمي والتكلفة الكاملة من الطلب حتى إتمام التجربة الأولى، شاملةً الملحقات والتدريب والشحن والتخليص الجمركي وأي أسابيع تعطل انتظاراً للقطع."
+          }
+        ],
         "boundaries": "الإشارة إلى SDK لا تعني أن جميع إصدارات المنتج توفر الصلاحيات نفسها. تتطلب سلامة الموقع والتكامل مسؤولين مؤهلين.",
         "faq": [
           {
@@ -2273,6 +3497,18 @@
           {
             "question": "هل يمكن استئجار منصة أو تجربتها أولاً؟",
             "answer": "تعتمد خيارات التجربة والاستئجار على المنصة والمنطقة. اذكروا المهمة البحثية والجدول الزمني في استفساركم ليمكن التحقق من خيارات التقييم الممكنة معاً."
+          },
+          {
+            "question": "هل نبدأ بذراع روبوتية أم بروبوت رباعي؟",
+            "answer": "يتبع ذلك مهمة البحث. تشير دراسات الإمساك والتجميع وقطع العمل إلى الذراع؛ وتشير الحركة والإدراك والتنقل الخارجي إلى المنصة ذات الأرجل. اكتبوا المهمة أولاً ودعوا المنصة تتبعها."
+          },
+          {
+            "question": "ماذا يشمل عرض سعر الروبوتات المعتاد؟",
+            "answer": "الإصدار الدقيق ووصول المطورين والملحقات مثل القوابض والكاميرات وقطع الغيار والتدريب والشحن وشروط بلد الوجهة، كل منها في بند منفصل. وينبغي افتراض أن أي شيء غائب عن عرض السعر غير مشمول."
+          },
+          {
+            "question": "كيف نخطط للصيانة بعد التسليم؟",
+            "answer": "سمّوا مسؤولاً عن الصيانة، وخزّنوا المستهلكات التي يوصي بها المورّد، وأكّدوا من يصلح المنصة في بلدكم وكم تستغرق القطع، واحتفظوا بسجل لكل عطل منذ الأسبوع الأول."
           }
         ],
         "action": "ناقش متطلبات الروبوتات",
@@ -2282,6 +3518,78 @@
         ],
         "resource": "robotics-procurement"
       }
-    ]
+    ],
+    "solutionsIndex": {
+      "chooseTitle": "اختر نقطة البداية",
+      "chooseText": "يبدأ كل حل بسؤال شراء. تُظهر الصفوف أدناه ما ستحصلون عليه وما ينبغي تجهيزه وأول ما يجب التحقق منه، لتختاروا الصفحة الأقرب إلى وضعكم.",
+      "prepTitle": "قبل إرسال الاستفسار",
+      "prepText": "خمسة أمور تجعل المحادثة الأولى مفيدة، أياً كان الحل الذي تختارونه.",
+      "prep": [
+        {
+          "title": "سمّوا مهمة واحدة",
+          "text": "صِفوا سير العمل أو الموقع الواحد الذي تريدون تحسينه، لا المؤسسة كلها. المهمة الضيقة تجعل التجربة قابلة للقياس وعرض السعر دقيقاً."
+        },
+        {
+          "title": "اعرفوا بلد الوجهة والتوقيت",
+          "text": "يقرر البلد والكمية المتوقعة وتاريخ الحاجة إلى النتائج التوافر وطريقة الشحن وما إذا كانت مرحلة العيّنات واقعية."
+        },
+        {
+          "title": "سجّلوا خط الأساس الحالي",
+          "text": "كم يستغرق العمل الآن، وكم مرة يفشل، وكم يكلّف. بلا خط أساس لا تستطيع أي تجربة إظهار تحسّن."
+        },
+        {
+          "title": "حدّدوا صاحب القرار",
+          "text": "الشخص الذي سيحكم على التجربة ويوقّع الطلب. ينبغي كتابة معايير قبوله قبل بدء الاختبار."
+        },
+        {
+          "title": "افصلوا الضروريات عن التفضيلات",
+          "text": "موقع البيانات ودعم اللغات والضمان وخصائص الإدارة غير القابلة للتفاوض تُدرج في الاستفسار؛ وكل ما عداها يمكن مناقشته."
+        }
+      ],
+      "termsTitle": "مصطلحات مشتركة في هذه الصفحات",
+      "termsText": "تظهر الكلمات نفسها في كل صفحة حل وفي الموارد وفي عروض أسعارنا. هذا ما نعنيه بها.",
+      "terms": [
+        {
+          "title": "التجربة",
+          "english": "Pilot",
+          "text": "اختبار صغير محدد المدة مع مستخدمين حقيقيين وبيانات حقيقية ومؤشرات متفق عليها، يُجرى قبل أي التزام بكمية."
+        },
+        {
+          "title": "خط الأساس",
+          "english": "Baseline",
+          "text": "الحالة المقاسة للعمل قبل التجربة، وتُستخدم مرجعاً لكل مقارنة لاحقة."
+        },
+        {
+          "title": "معايير القبول",
+          "english": "Acceptance criteria",
+          "text": "النتائج القابلة للقياس المتفق عليها مسبقاً والتي تقرر قبول التجربة أو التسليم."
+        },
+        {
+          "title": "رمز المنتج أو الإصدار الدقيق",
+          "english": "Exact SKU or edition",
+          "text": "نسخة المنتج المحددة المسمّاة في عرض السعر. قد تختلف المنتجات ذات الاسم نفسه في الخصائص والوصول والضمان."
+        },
+        {
+          "title": "التوافر في بلد الوجهة",
+          "english": "Destination availability",
+          "text": "ما إذا كان يمكن توريد المنتج وتفعيله وضمانه ودعمه في بلد المشتري، ويُؤكَّد قبل التسعير."
+        },
+        {
+          "title": "طلب عرض السعر (RFQ)",
+          "english": "Request for quotation (RFQ)",
+          "text": "الملخص المكتوب للمهمة والكمية وبلد الوجهة واللغات والتوقيت الذي تُعدّ CNPS منه عرض سعر رسمياً."
+        },
+        {
+          "title": "المرجع القطاعي",
+          "english": "Industry reference",
+          "text": "حالة عامة أو مشروع مفتوح المصدر يُستشهد به لإظهار ما هو ممكن. وهو ليس مشروعاً سلّمته CNPS لعميل ولا يعد بالنتيجة نفسها."
+        },
+        {
+          "title": "التكلفة الكاملة",
+          "english": "Full cost",
+          "text": "الأجهزة والاشتراكات والاستضافة والتركيب والتدريب والدعم ووقت المراجعة مجتمعةً على مدى الفترة التي تخططون لتشغيل الحل فيها."
+        }
+      ]
+    }
   }
 }

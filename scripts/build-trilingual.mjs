@@ -10,21 +10,32 @@ const json=p=>JSON.parse(read(p));
 const catalog=json('content/i18n/catalog.json');
 // Solution detail pages must carry the same substantive sections in every locale so no language ships a thin page.
 const solutionTextFields=['title','short','question','deliverable','input','boundaries','action'];
-const solutionListFields=['overview','scenarios','checks','steps','mistakes','faq'];
+const solutionListFields=['overview','scenarios','checks','steps','mistakes','glossary','metrics','faq'];
+// Glossary terms outside English carry the English term as well, because quotations, spec sheets and SDK documentation use it.
+const checkTitledList=(items,reference,loc,label,bilingual=false)=>{
+ if(!Array.isArray(items)||!items.length)throw Error('Incomplete '+label);
+ if(items.length!==reference.length)throw Error(label+' differs between en and '+loc);
+ for(const item of items){
+  const values=typeof item==='string'?[item]:item.question!==undefined?[item.question,item.answer]:[item.title,item.text];
+  if(bilingual&&loc!=='en')values.push(item.english);
+  if(values.some(v=>!v||!String(v).trim()))throw Error('Empty '+label+' entry');
+ }
+};
 for(const s of catalog.en.solutions){
  for(const loc of locales){
   const x=catalog[loc].solutions.find(y=>y.slug===s.slug);
   if(!x)throw Error('Missing '+loc+' solution '+s.slug);
   for(const f of solutionTextFields)if(!x[f])throw Error('Incomplete solution '+loc+' '+s.slug+' '+f);
-  for(const f of solutionListFields){
-   if(!Array.isArray(x[f])||!x[f].length)throw Error('Incomplete solution '+loc+' '+s.slug+' '+f);
-   if(x[f].length!==s[f].length)throw Error('Solution '+s.slug+' '+f+' differs between en and '+loc);
-   for(const item of x[f]){
-    const values=typeof item==='string'?[item]:f==='faq'?[item.question,item.answer]:[item.title,item.text];
-    if(values.some(v=>!v||!String(v).trim()))throw Error('Empty solution '+loc+' '+s.slug+' '+f+' entry');
-   }
-  }
+  for(const f of solutionListFields)checkTitledList(x[f],s[f],loc,'solution '+loc+' '+s.slug+' '+f,f==='glossary');
  }
+}
+// The /solutions index carries its own preparation checklist and shared glossary in every locale.
+for(const loc of locales){
+ const idx=catalog[loc].solutionsIndex, ref=catalog.en.solutionsIndex;
+ if(!idx)throw Error('Missing '+loc+' solutionsIndex');
+ for(const f of ['chooseTitle','chooseText','prepTitle','prepText','termsTitle','termsText'])if(!idx[f]||!String(idx[f]).trim())throw Error('Incomplete solutionsIndex '+loc+' '+f);
+ checkTitledList(idx.prep,ref.prep,loc,'solutionsIndex '+loc+' prep');
+ checkTitledList(idx.terms,ref.terms,loc,'solutionsIndex '+loc+' terms',true);
 }
 const products=json('content/i18n/product-assets.json');
 const legacy=json('content/i18n/legacy-pages.json');
@@ -164,9 +175,14 @@ for(const l of locales){
  save(l,'',t.heroA+' '+t.heroB,t.heroText,home);
  const solutionsIntro=`<section class="section white"><div class="container">${sectionHeading(t.solutionsIntroTitle,t.solutionsIntroA)}<p class="notice">${t.solutionsIntroB}</p></div></section>`;
  const solutionsMethod=`<section class="section"><div class="container">${sectionHeading(t.solutionsMethodTitle,t.processTitle)}<div class="steps">${[['01',t.processA,t.processAText],['02',t.processB,t.processBText],['03',t.processC,t.processCText]].map(([n,h,p])=>`<div class="step"><span class="step-number">${n}</span><h3>${h}</h3><p>${p}</p></div>`).join('')}</div><p class="notice">${t.solutionsIntroC}</p><p class="notice">${t.caseNotice}</p></div></section>`;
- save(l,'/solutions',t.solutions,t.solutionsText,hero(l,'/solutions',t.solutionsTitle,t.solutionsText)+solutionsIntro+`<section class="section container"><div class="catalog-grid">${c.solutions.map(x=>card(l,{...x,label:x.question},'solutions')).join('')}</div></section>`+solutionsMethod);
  const titledList=(items,tag)=>`<${tag}>${items.map(i=>`<li><strong>${esc(i.title)}</strong><br>${esc(i.text)}</li>`).join('')}</${tag}>`;
  const titledSections=items=>items.map(i=>`<h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>`).join('');
+ const glossaryList=items=>`<dl class="glossary">${items.map(i=>`<div class="glossary-entry"><dt>${esc(i.title)}${i.english&&l!=='en'?` <span class="term-en" lang="en" dir="ltr">${esc(i.english)}</span>`:''}</dt><dd>${esc(i.text)}</dd></div>`).join('')}</dl>`;
+ const idx=c.solutionsIndex;
+ const solutionsChoose=`<section class="section white"><div class="container">${sectionHeading(esc(idx.chooseTitle),esc(idx.chooseText))}<div class="solution-index">${c.solutions.map(x=>`<article class="solution-row"><h3><a href="${route(l,'/solutions/'+x.slug)}">${esc(x.title)}</a></h3><p class="card-meta">${esc(x.question)}</p><dl><div><dt>${t.delivery}</dt><dd>${esc(x.deliverable)}</dd></div><div><dt>${t.input}</dt><dd>${esc(x.input)}</dd></div><div><dt>${t.firstCheck}</dt><dd>${esc(x.checks[0])}</dd></div></dl></article>`).join('')}</div></div></section>`;
+ const solutionsPrep=`<section class="section"><div class="container">${sectionHeading(esc(idx.prepTitle),esc(idx.prepText))}<div class="steps">${idx.prep.map((p,i)=>`<div class="step"><span class="step-number">${String(i+1).padStart(2,'0')}</span><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p></div>`).join('')}</div></div></section>`;
+ const solutionsTerms=`<section class="section white"><div class="container">${sectionHeading(esc(idx.termsTitle),esc(idx.termsText))}${glossaryList(idx.terms)}</div></section>`;
+ save(l,'/solutions',t.solutions,t.solutionsText,hero(l,'/solutions',t.solutionsTitle,t.solutionsText)+solutionsIntro+`<section class="section container"><div class="catalog-grid">${c.solutions.map(x=>card(l,{...x,label:x.question},'solutions')).join('')}</div></section>`+solutionsChoose+solutionsPrep+solutionsTerms+solutionsMethod);
  for(const x of c.solutions){
   headingId=0;
   const related=`<ul>${x.cases.map(s=>`<li><a href="${route(l,'/case-studies/'+s)}">${esc(c.cases.find(y=>y.slug===s).title)}</a></li>`).join('')}<li><a href="${route(l,'/resources/'+x.resource)}">${esc(c.resources.find(y=>y.slug===x.resource).title)}</a></li>${x.slug==='meeting-ai'&&guides[0]?`<li><a href="${itemLocales(guides[0]).includes(l)?route(l,'/guides/'+guides[0].slug):'/en/guides/'+guides[0].slug}">${esc(locText(guides[0].title,itemLocales(guides[0]).includes(l)?l:'en'))}</a></li>`:''}${x.slug==='edge-vision'&&edgeGuide?`<li><a href="${itemLocales(edgeGuide).includes(l)?route(l,'/guides/'+edgeGuide.slug):'/en/guides/'+edgeGuide.slug}">${esc(locText(edgeGuide.title,itemLocales(edgeGuide).includes(l)?l:'en'))}</a></li>`:''}</ul><p class="notice">${t.caseNotice}</p>`;
@@ -175,8 +191,10 @@ for(const l of locales){
    +`<h2>${t.delivery}</h2><p>${esc(x.deliverable)}</p><h2>${t.input}</h2><p>${esc(x.input)}</p>`
    +`<h2>${t.evaluate}</h2><ul>${x.checks.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`
    +`<h2>${t.evaluationSteps}</h2>${titledList(x.steps,'ol')}`
-   +`<h2>${t.mistakes}</h2>${titledList(x.mistakes,'ul')}`
-   +`<h2>${t.limitation}</h2><p>${esc(x.boundaries)}</p>`
+  +`<h2>${t.mistakes}</h2>${titledList(x.mistakes,'ul')}`
+  +`<h2>${t.metrics}</h2><p>${t.metricsNote}</p>${titledList(x.metrics,'ul')}`
+  +`<h2>${t.glossary}</h2><p>${t.glossaryNote}</p>${glossaryList(x.glossary)}`
+  +`<h2>${t.limitation}</h2><p>${esc(x.boundaries)}</p>`
    +`<h2>${t.faq}</h2>${x.faq.map(f=>`<h3>${esc(f.question)}</h3><p>${esc(f.answer)}</p>`).join('')}`
    +`<h2>${t.related}</h2>${related}`;
   const faq=x.faq.map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}}));
