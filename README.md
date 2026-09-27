@@ -14,6 +14,8 @@ Use Node.js 22 or newer. Run `npm ci --ignore-scripts` then `npm run build`. The
 
 The main build reads `content/catalog.mjs`, `content/resources/`, `docs/strategy/` and selectively merges the authored FastGPT output from `site/fastgpt`, `site/fastgpt-assets` and `site/resources/fastgpt-*`. It never merges the other center's root homepage or routing files.
 
+Google Analytics 4 is loaded once per page through the shared page shell. The Measurement ID lives in `scripts/lib/analytics.mjs` (`GA_MEASUREMENT_ID`, production `G-NXTM719P1Z`); set the `GA_MEASUREMENT_ID` environment variable only to point a preview build at another property. Redirect stubs carry no tag.
+
 FastGPT HubSpot configuration, field mapping, CTA attribution and verification are documented in [docs/fastgpt-hubspot.md](docs/fastgpt-hubspot.md). Run `npm test` for the submission and attribution checks. Only public form identifiers are included in the browser build; no HubSpot API token is required.
 
 The main strategy has 32 logical pages and 22 real revisions after its baseline. `docs/strategy/iterations` contains the baseline, sequential patches and a manifest with SHA-256 hashes. The source Markdown is the maintained document; the A4 PDF is an additional reading format.
