@@ -268,6 +268,15 @@ for(const [kind,items] of [['compare',compares],['guides',fastgptGuides]]){
   }
  }
 }
+// Every indexable page must own its <title> and meta description; shared strings show up as duplicate-title / duplicate-meta warnings in crawls.
+if(!dev){
+ for(const field of ['title','description']){
+  const seen=new Map();
+  for(const p of allPages){const k=p[field];if(!seen.has(k))seen.set(k,[]);seen.get(k).push(p.path);}
+  const dups=[...seen].filter(([,urls])=>urls.length>1);
+  if(dups.length)throw Error('Duplicate page '+field+': '+dups.map(([k,urls])=>JSON.stringify(k)+' on '+urls.join(', ')).join('; '));
+ }
+}
 const sitemap=allPages.filter(x=>!x.path.endsWith('/404')).map(p=>{const suffix=p.path.replace(/^\/(en|zh|ar)/,'')||'/';const dest=suffix==='/'?'':suffix;const available=p.availableLocales||locales;const links=available.map(l=>`<xhtml:link rel="alternate" hreflang="${l==='zh'?'zh-CN':l}" href="${root+route(l,dest)}"/>`).join('');const xdef=available.includes('en')?`<xhtml:link rel="alternate" hreflang="x-default" href="${root+route('en',dest)}"/>`:'';return `<url><loc>${root+p.path}</loc>${links}${xdef}</url>`;}).join('\n');
 fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemap}\n</urlset>\n`);
 fs.writeFileSync(path.join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://www.cnps.ai/sitemap.xml\n');
