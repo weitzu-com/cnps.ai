@@ -236,6 +236,11 @@
       "permanent": true
     },
     {
+      "source": "/products/:path*",
+      "destination": "/en/products/:path*",
+      "permanent": true
+    },
+    {
       "source": "/request-quote",
       "destination": "/en/request-quote",
       "permanent": true

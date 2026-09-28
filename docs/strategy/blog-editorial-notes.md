@@ -59,3 +59,25 @@
 路由预期为 `/{lang}/blogs/{slug}`，栏目为 `/{lang}/blogs`。不在此内容文件中混入部署状态或营销追踪结论。页面、内部链接、移动端、阿语 RTL 以及生产发布验证由主任务统一完成。
 
 后续增加文章时应保留同样标准：明确读者任务、提供可使用的决策材料、完整维护三语、对新事实给出靠近声明的原始来源，并把真实客户证据与假设场景分开。更新已发布文章时应记录日期及实质变化，避免仅通过更改日期营造新内容。
+
+## 2026-09-27 增补：三篇 TicNote 采购指南（镜像 shop.cnps.ai 高曝光文章）
+
+Google Search Console 显示 shop.cnps.ai 的三篇文章持续获得曝光（其中 API 一文约 84 次）。本次在 www 主站 Journal 中以 CNPS 评估优先的口吻重写，而非照搬商店文案；三篇均提供完整英文、中文和现代标准阿拉伯语正文，各含 6 个二级章节、1 张实用表格，主要行动入口指向本站产品页，商店链接仅作“确认实时价格”的次级入口。
+
+| Slug | 分类 | 英文正文词数 | 商店来源 |
+|---|---|---:|---|
+| `ticnote-api-skill-claude-chatgpt-gemini` | knowledge | 831 | `/blogs/news/how-to-use-ticnote-api-with-claude-chatgpt-gemini` |
+| `ticnote-card-vs-lite-vs-pods` | hardware | 744 | `/blogs/news/ticnote-card-vs-lite-vs-pods` |
+| `ai-voice-recorder-under-150-ticnote-lineup` | hardware | 637 | `/blogs/news/best-ai-voice-recorder-under-150-ticnote-lineup` |
+
+### 信息来源与声明范围
+
+- 产品事实（形态、64GB 约 434 小时为存储而非电池、颜色、起价、套餐、分钟数、退款规则）全部取自本站现有产品页 `content/i18n/legacy-pages.json`（`/products/ticnote`、`/products/ticnote-lite`、`/products/ticnote-pods-wifi`、`/products/ticnote-pods-4g`、`/products/compare`、`/pro-plan`）及 2026 年 9 月的商店列表。未新增任何电池小时数、麦克风数量、厚度、准确率或其他未公布参数；Lite 的存储与颜色继续标注为“未公布”。
+- TicNote API Skill 事实（四步安装、Professional 或 Business 套餐门槛、仅 Codex 有具名指南、Key 可提取已完成转写与摘要）于 2026 年 9 月 27 日对照 ticnote.com/en/skill 核对。文章不转载安装包 URL，只链接 Skill 页面；明确 CNPS.AI 销售硬件、不销售或配置 API 访问权限，硬件捆绑 Pro 计划是否满足 Skill 门槛标注为“商店未公布，请向 ticnote.com 确认”。
+- 价格在文中注明读取月份并提示“会变化，下单前确认”；本站不处理付款。
+
+### 结构与 Schema
+
+- 三语章节数、段落块数、表格行列数及去除语言前缀后的链接目标完全一致；所有站内链接使用对应语言前缀（由 `tests/ticnote-journal-mirror.test.mjs` 保障）。
+- 沿用 Journal 既有 `BlogPosting` JSON-LD，不为博客添加 `FAQPage`（与其余六篇一致）。
+- 封面为三张新的 AI 生成概念配图，来源与提示词见 `docs/strategy/editorial-image-provenance.md`。
