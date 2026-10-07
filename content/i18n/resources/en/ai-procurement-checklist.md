@@ -1,6 +1,8 @@
 Define the business task, the evidence you will trust, the exact SKU and region, the full cost of ownership, and who owns support — before you compare a China-origin AI hardware quotation.
 
-This page is the CNPS.AI **China → buyer** method for enterprise AI procurement. It is written for foreign and enterprise buyers evaluating a China-origin device supplier (for example TicNote recording hardware published on CNPS.AI), not a generic consulting checklist. Availability, commercial terms, and implementation scope are confirmed during quotation. Industry references elsewhere on this site are not claims that CNPS delivered those projects.
+This page is the CNPS.AI **China → buyer** **AI procurement checklist** for **enterprise** buyers (as of **8 October 2026**). It is written for foreign and enterprise buyers evaluating a China-origin device supplier (for example TicNote recording hardware published on CNPS.AI), not a generic consulting checklist. Availability, commercial terms, and implementation scope are confirmed during quotation. Industry references elsewhere on this site are not claims that CNPS delivered those projects.
+
+If you need the public-body path instead, use the sister page once: [AI procurement checklist for public sector: China-origin hardware path](https://www.cnps.ai/en/resources/ai-procurement-checklist-public-sector).
 
 ## Who this checklist is for
 
@@ -9,6 +11,7 @@ Use this checklist when you are:
 - Buying **team or channel sample** AI recording devices, or scoping a small hardware pilot from a China supply path
 - Comparing **unit price** against subscriptions, logistics, destination charges, training, and support
 - Deciding whether to **sample first** or jump to a bulk purchase order
+- Searching for an **enterprise AI procurement checklist** that freezes the job before SKU shopping
 
 If you already know you need a UAE/KSA recording path with bilingual meeting-notes gates, use the dedicated Gulf sourcing method after you freeze the workflow here: [Source China AI recording hardware for UAE/KSA without skipping the pilot](https://www.cnps.ai/en/guides/china-to-gulf-ai-recording-sourcing). If your project is a camera / edge site, complete site readiness before selecting a box: [UAE/KSA edge AI site readiness before you pick a box](https://www.cnps.ai/en/guides/uae-ksa-edge-ai-site-readiness).
 
@@ -135,13 +138,13 @@ Share those details through [Start a conversation](https://www.cnps.ai/en/reques
 | Risk | Brand reputation | Region / radio / data-flow / RMA path |
 | Scale | Bulk PO after demo | Written acceptance on a small pilot |
 
-For the wider CNPS research framing (why overseas buyers place orders, RFQ fields, pilots, compliance gates, and revision history), read the companion once: [China AI: the CNPS global expansion playbook](https://www.cnps.ai/en/resources/china-ai-export-playbook).
+For the wider CNPS research framing (why overseas buyers place orders, RFQ fields, pilots, compliance gates, and revision history), read the companion once: [China AI export playbook for overseas buyers](https://www.cnps.ai/en/resources/china-ai-export-playbook).
 
 ## FAQ
 
 ### What is an AI procurement checklist for enterprise buyers?
 
-It is a decision sequence you run before comparing quotations: freeze the job and acceptance test, demand evidence that matches that decision, lock SKU and region, price the full cost of ownership, confirm support and compliance documents, run a small pilot, then send a structured enquiry. This page applies that sequence to **China-origin AI hardware** paths CNPS publishes — not to abstract model selection alone.
+It is a decision sequence you run before comparing quotations: freeze the job and acceptance test, demand evidence that matches that decision, lock SKU and region, price the full cost of ownership, confirm support and compliance documents, run a small pilot, then send a structured enquiry. An **enterprise AI procurement checklist** on this page applies that sequence to **China-origin AI hardware** paths CNPS publishes — not to abstract model selection alone. Method text last reviewed **8 October 2026**.
 
 ### How is enterprise AI procurement different from buying a retail AI recorder?
 
@@ -163,9 +166,9 @@ Subscriptions or transcription minutes, training time, freight and destination c
 
 Request documents that match the **exact model** you will receive, a clear company contact path, a data-flow explanation you can review, and written support terms. Treat missing SKU-matched evidence as a blocker. Do not accept “similar model” certificates or unverified AI performance percentages as substitutes.
 
-### When should I use the Gulf recording guide instead of this page alone?
+### When should I use the public-sector checklist or the Gulf recording guide instead of this page alone?
 
-When your destination is UAE or KSA **and** your workflow is meeting notes / recording hardware with bilingual quality gates. Complete this checklist’s job and sample gates first, then follow the Gulf sourcing method linked above before a bulk PO. Edge camera projects should use the UAE/KSA site readiness guide before selecting hardware.
+Use the public-sector sister page linked in the opening (exact title: **AI procurement checklist for public sector: China-origin hardware path**) when a public body needs purpose, data-protection, audit, and accountable-acceptance gates. Use the Gulf recording guide when your destination is UAE or KSA **and** your workflow is meeting notes / recording hardware with bilingual quality gates — after you freeze the job here. Edge camera projects should use the UAE/KSA site readiness guide before selecting hardware.
 
 ## Next step
 

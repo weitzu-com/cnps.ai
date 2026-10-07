@@ -107,13 +107,13 @@ Constraints: No readable text, no logos, no watermark, no people or hands, no ad
 - Inline method diagrams: `web/assets/resources/ufactory-xarm-production-line-checklist-steps.webp` and `web/assets/resources/ufactory-xarm-production-line-checklist-owners.webp`
 - English alt (authoritative): Dark workcell desk: blank readiness checklist beside a bolted arm base plate and faint cell boundary — production-line freeze method, no certificates
 
-## ai-procurement-checklist (REFRESH-04)
+## ai-procurement-checklist (O01 CTR refresh, Oct 2026)
 
-- Date: 2026-09-15
-- Source: Grok-generated still-life hero plus two method diagrams; leizi retail-tone PASS
+- Date: 2026-10-08
+- Source: Grok still-life hero and eight-step diagram for the enterprise checklist CTR refresh. leizi Mode B content GATE PASS-with-soft; IMAGE SPOT PASS-with-soft (hero has about seven blank clipboard rows; recorder is a bit blocky; the optional evidence/TCO third image was not regenerated)
 - Concept only — not product evidence, not a SKU photograph, not certificates or scores
-- Original: `web/assets/editorial/originals/ai-procurement-checklist.png` (JPG-derived PNG from 1600×900 hero)
-- Responsive OG/hero: `web/assets/editorial/ai-procurement-checklist-640.webp` and `web/assets/editorial/ai-procurement-checklist-1280.webp`
-- Inline method diagrams: `web/assets/resources/ai-procurement-checklist-8-steps.webp` and `web/assets/resources/ai-procurement-checklist-evidence-tco.webp`
+- Original: `web/assets/editorial/originals/ai-procurement-checklist.png` (1600×900 hero PNG)
+- Responsive OG/hero: `web/assets/editorial/ai-procurement-checklist-640.webp` (640×360) and `web/assets/editorial/ai-procurement-checklist-1280.webp` (1280×720), libwebp quality 84, original 16:9 kept
+- Inline method diagram: `web/assets/resources/ai-procurement-checklist-8-steps.webp` (1600×900, lossless WebP). Prior evidence/TCO diagram kept at `web/assets/resources/ai-procurement-checklist-evidence-tco.webp` because the third image was skipped
 - English alt (authoritative): Checklist clipboard and compact AI recorder on a dark desk — enterprise procurement method hero, no fake certificates
 
