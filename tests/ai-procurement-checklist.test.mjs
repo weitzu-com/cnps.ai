@@ -12,7 +12,7 @@ const enMeta = catalog.en.resources.find((r) => r.slug === slug);
 const zhMeta = catalog.zh.resources.find((r) => r.slug === slug);
 const arMeta = catalog.ar.resources.find((r) => r.slug === slug);
 const title = 'AI procurement checklist for enterprise buyers';
-const description = 'China→buyer AI procurement checklist: freeze the job, match evidence to SKU and region, price TCO, pilot with acceptance, then enquire — CNPS.AI method.';
+const description = 'AI procurement checklist for enterprise buyers (as of Oct 2026): freeze the job, match evidence to SKU/region, price TCO, pilot with acceptance, then enquire.';
 
 test('EN AI procurement checklist uses GSC title, meta, and China→buyer body', () => {
   assert.ok(enMeta, 'EN catalog entry');
@@ -40,7 +40,13 @@ test('EN AI procurement checklist uses GSC title, meta, and China→buyer body',
   ]) assert.match(source, new RegExp('^### ' + heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'm'));
   assert.match(source, /www\.cnps\.ai\/en\/guides\/china-to-gulf-ai-recording-sourcing/);
   assert.match(source, /www\.cnps\.ai\/en\/guides\/uae-ksa-edge-ai-site-readiness/);
-  assert.match(source, /www\.cnps\.ai\/en\/resources\/china-ai-export-playbook/);
+  assert.match(source, /\[China AI export playbook for overseas buyers\]\(https:\/\/www\.cnps\.ai\/en\/resources\/china-ai-export-playbook\)/);
+  assert.doesNotMatch(source, /CNPS global expansion playbook/);
+  assert.match(source, /\[AI procurement checklist for public sector: China-origin hardware path\]\(https:\/\/www\.cnps\.ai\/en\/resources\/ai-procurement-checklist-public-sector\)/);
+  assert.equal((source.match(/ai-procurement-checklist-public-sector/g) || []).length, 1);
+  assert.match(source, /8 October 2026/);
+  const mirror = fs.readFileSync(path.join('content/resources', slug + '.md'), 'utf8');
+  assert.equal(mirror, source);
   assert.match(source, /shop\.cnps\.ai\/collections\/all-ticnote-products/);
   assert.match(source, /www\.cnps\.ai\/en\/request-quote/);
   assert.match(source, /\[CNPS\.AI\]\(https:\/\/www\.cnps\.ai\/\)/);

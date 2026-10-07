@@ -14,9 +14,9 @@ The originals remain unchanged in their default generated-image location and wer
 | meeting | 23,110 | 61,382 | Concept meeting workspace with an unbranded recorder, headphones and notebook |
 | edge | 27,236 | 67,536 | Concept edge-compute module on a laboratory inspection bench |
 
-## ai-procurement-checklist (REFRESH-04)
+## ai-procurement-checklist (O01 CTR refresh, Oct 2026)
 
-Grok-generated, leizi retail-tone PASS 2026-09-15. Concept only — not product evidence. Hero plus two method diagrams; see `docs/strategy/unique-editorial-image-provenance.md`.
+Grok hero and eight-step diagram, 2026-10-08. leizi Mode B PASS-with-soft and IMAGE SPOT PASS-with-soft. Concept only — not product evidence. Evidence/TCO diagram from the prior refresh was kept (third image skipped). See `docs/strategy/unique-editorial-image-provenance.md`.
 
 ## knowledge
 
