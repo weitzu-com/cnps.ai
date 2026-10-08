@@ -236,6 +236,41 @@
       "permanent": true
     },
     {
+      "source": "/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
+      "destination": "https://shop.cnps.ai/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
+      "permanent": true
+    },
+    {
+      "source": "/en/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
+      "destination": "https://shop.cnps.ai/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote-ai-voice-recorder",
+      "destination": "/en/products/ticnote",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote-lite-ai-voice-recorder",
+      "destination": "/en/products/ticnote-lite",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote-pods-wifi-ai-transcription-earbuds",
+      "destination": "/en/products/ticnote-pods-wifi",
+      "permanent": true
+    },
+    {
+      "source": "/products/ticnote-pods-special-offer",
+      "destination": "/en/products/ticnote-pods-4g",
+      "permanent": true
+    },
+    {
+      "source": "/products/inmo-go3-ai-smart-glasses-53g-microled-ar-glasses-with-ai-translator-hot-swap-battery-camera",
+      "destination": "/en/products/inmo-go3",
+      "permanent": true
+    },
+    {
       "source": "/products/:path*",
       "destination": "/en/products/:path*",
       "permanent": true
