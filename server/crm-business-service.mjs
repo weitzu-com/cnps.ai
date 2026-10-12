@@ -605,6 +605,17 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       if (a.role !== 'customer') { const doc = own(state.documents, id(documentId)); if (!doc) missing(); projectAccess(state, a, doc.projectId); return managerDocument(doc); }
       const { doc, version } = docAccess(state, a, documentId); return viewDocument(doc, version);
     },
+    async validateKnowledgeSources(principal, companyId, projectId, sources) {
+      if(!Array.isArray(sources)||sources.length>20) fail(400,'引用资料范围无效。');
+      const {state,a,directory}=await snapshot(companyId,principal);projectAccess(state,a,projectId);
+      // Validate every citation against one consistent grant/document snapshot,
+      // rather than yielding between documents while a partial grant changes.
+      for(const source of sources){
+        const {doc,version}=docAccess(state,a,id(source.documentId),id(source.versionId));
+        if(doc.projectId!==projectId||version.id!==source.versionId||doc.activeVersionId!==source.versionId||!Number.isFinite(version.publishedAt)) fail(409,'引用资料已换版或撤回，请刷新后重新提问。');
+      }
+      return {companyRevision:state.revision,directoryRevision:directory.revision};
+    },
     async documentText(principal, companyId, documentId, versionId) {
       const {state,a}=await snapshot(companyId,principal), {doc,version}=docAccess(state,a,documentId,versionId);
       // Knowledge answers use only current published versions, even for staff.

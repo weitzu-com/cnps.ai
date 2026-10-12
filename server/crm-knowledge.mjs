@@ -20,7 +20,7 @@ export async function knowledgeAnswer({env,service,principal,companyId,projectId
  const extracted=[];
  // Bound concurrency: the private parser accepts two jobs at once.
  for(let start=0;start<selected.length;start+=2)extracted.push(...await Promise.all(selected.slice(start,start+2).map(async doc=>({doc,...await service.documentText(principal,companyId,doc.id,doc.versionId)}))));
- const validate=async()=>{await service.getProject(principal,companyId,projectId);for(const item of extracted){const doc=await service.getDocument(principal,companyId,item.doc.id);const active=doc.activeVersionId||doc.versionId;if(active!==item.doc.versionId)error(409,'引用资料已换版或撤回，请刷新后重新提问。');const version=doc.versions?doc.versions.find(v=>v.versionId===active):doc;if(version?.status!=='published')error(409,'引用资料已撤回。');}};
+ const validate=()=>service.validateKnowledgeSources(principal,companyId,projectId,extracted.map(item=>({documentId:item.doc.id,versionId:item.doc.versionId})));
  await validate();
  const coverage=extracted.map(item=>({documentId:item.doc.id,versionId:item.doc.versionId,filename:item.doc.filename,version:item.doc.version,status:item.status,segments:item.segments.length}));
  const corpus=extracted.flatMap(item=>item.segments.map(segment=>({...segment,documentId:item.doc.id,versionId:item.doc.versionId,version:item.doc.version,filename:item.doc.filename})));

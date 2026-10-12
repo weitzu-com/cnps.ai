@@ -112,7 +112,7 @@ function askKnowledge(p){
  link.href=apiUrl('download',scoped({documentId:source.documentId,versionId:source.versionId}));link.rel='nofollow';item.appendChild(link);item.appendChild(text('p',source.excerpt,'record-description'));block.appendChild(item);
  }
  for(const entry of list(result.coverage))if(entry.status!=='ready')block.appendChild(text('p',entry.filename+'：'+({no_text:'未提取到文字，可能需要OCR',unsupported:'暂不支持此格式',parse_error:'解析失败或超过限制'})[entry.status],'notice'));
- block.appendChild(text('p','引用来自所选已发布文件的正文；文件换版、撤回或人员撤权后旧下载链接将拒绝访问。AI回答仅供参考，不替代正式审批。','help'));$('content').appendChild(block);return{ai:true};
+ block.appendChild(text('p','引用来自所选已发布文件的正文；问答仅使用当前已发布版本；客户下载仍按当前文件版本及人员授权核验。AI回答仅供参考，不替代正式审批。','help'));$('content').appendChild(block);return{ai:true};
  },'检索并回答','选择最多20份当前已发布资料。首次解析可能需要一些时间；加密正文索引按不可变文件版本保存。');
  const wrap=text('div','','field');wrap.appendChild(text('label','已授权资料范围'));const choices=text('div','','choice-list');let count=0;
  for(const doc of state.documents){const v=Array.isArray(doc.versions)?doc.versions.find(item=>item.versionId===doc.activeVersionId&&item.status==='published'):doc;if(v?.status!=='published')continue;const input=document.createElement('input');input.type='checkbox';input.name='knowledgeDocument';input.value=doc.id;input.checked=count++<20;choices.appendChild(append(text('label','','check'),input,text('span',v.filename+' · v'+v.version)));}
