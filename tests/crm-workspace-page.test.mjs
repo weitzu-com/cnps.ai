@@ -114,6 +114,7 @@ test('customer decision controls require explicit approval permission and submit
   const readOnly = harness({records}); await readOnly.flush(); await readOnly.openProject(); await readOnly.click('变更与验收');
   assert.equal(readOnly.walk(readOnly.get('content')).some(element => element.tagName === 'BUTTON' && element.textContent === '批准'), false);
   const h = harness({records, approvals: true}); await h.flush(); await h.openProject(); await h.click('变更与验收'); await h.click('批准');
+  assert.equal(h.get('field-comment').maxLength, 2000);
   h.get('field-comment').value = 'Approved after checking authorized material.';
   await h.event('action-form', 'submit');
   const call = h.calls.find(call => call.body?.action === 'decide');
@@ -136,6 +137,8 @@ test('company member grant uses selected native contact, project and document ID
   assert.equal(h.get('content').textContent.includes('only-email@example.test'), true);
   assert.equal(h.walk(h.get('content')).filter(element => element.tagName === 'BUTTON' && element.textContent === '开通访问').length, 1);
   await h.click('开通访问');
+  const approvalLabels = h.walk(h.get('dialog-fields')).filter(element => element.tagName === 'LABEL' && element.htmlFor === 'field-allowApprovals');
+  assert.equal(approvalLabels[0].textContent, '允许对有权查看的变更与验收提交审批决定');
   assert.equal(h.get('field-projectScope').value, 'selected');
   assert.equal(h.get('field-documentScope').value, 'selected');
   h.check('projectIds', 'project-A'); h.check('documentIds', 'document-A');
