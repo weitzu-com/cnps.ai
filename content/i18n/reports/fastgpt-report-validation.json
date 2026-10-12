@@ -21,14 +21,15 @@
     "Added stable source-block comments and chapter-01 through chapter-28 HTML anchors.",
     "Arabic translates the English-messaging, X-draft and template examples; headings clarify that these are Arabic renderings of the English originals.",
     "Arabic code-diagram labels localized while preserving its flow and system identifiers.",
-    "Proper names, repository paths, API/event identifiers, source URLs, numeric values and source dates retained."
+    "Proper names, repository paths, API/event identifiers, source URLs, numeric values and source dates retained.",
+    "2026-10-12: EN-only first-screen reader summary added above the report H1; translated body unchanged."
   ],
   "files": [
     {
       "language": "en",
       "path": "content/i18n/reports/fastgpt-cnps-global-growth.en.md",
-      "sha256": "a9500d1b07d3c757fbed783c6b4974387ea685e75857bb213eeef907ae528a67",
-      "characters": 85306,
+      "sha256": "aebca3deeda915b3af287e4adbed11195783877f7f2d9ab9a3a46287a3a6a8e1",
+      "characters": 90795,
       "source_blocks": 267,
       "substantive_blocks": 239,
       "chapters": 28,

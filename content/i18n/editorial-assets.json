@@ -102,5 +102,13 @@
       "zh": "概念配图：桌面上翻开的笔记本画着空白铅笔表格，旁边是两台无品牌录音器、空白牛皮纸标签，以及放在一旁的耳机盒",
       "ar": "صورة تصورية لمكتب يضم دفتراً مفتوحاً برسم شبكة فارغة بالقلم الرصاص ومسجّلَين بلا علامة تجارية وبطاقات كرافت فارغة وعلبة سماعات موضوعة جانباً"
     }
+  },
+  "fastgpt-cnps-global-growth": {
+    "file": "fastgpt-cnps-global-growth",
+    "alt": {
+      "en": "Document stack linked through five gate nodes to a world outline in navy and teal — FastGPT × CNPS global growth playbook hero, no fake certificates",
+      "zh": "文档堆通过五个关口节点连向地球轮廓 — FastGPT × CNPS 出海增长方案主图，无伪造证书",
+      "ar": "حزمة مستندات مرتبطة عبر خمس بوابات بمخطط للعالم — صورة دليل FastGPT × CNPS للنمو العالمي، بلا شهادات مزيفة"
+    }
   }
 }
