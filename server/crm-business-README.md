@@ -57,11 +57,11 @@ export default createBusinessHandler({ env: process.env, authHandler: auth, serv
 
 ## 私有资料 adapter 合同
 
-`getObject(objectId)` 返回 `{id,companyId,projectId,mimeType,size,filename}`；公司/项目归属由服务器存储元数据提供，不信任浏览器提供。`readObject(objectId,{companyId,projectId,documentId,versionId})` 返回 `Buffer`，并再次校验归属。`createObject({companyId,projectId,filename,mimeType,base64})` 上传私有文件并返回相同 canonical metadata；Bearer 密钥只由服务器 adapter 加载。
+`getObject(objectId,{companyId,projectId})` 返回 `{id,companyId,projectId,mimeType,size,filename}`；公司/项目归属由服务器存储元数据提供，不信任浏览器提供。`readObject(objectId,{companyId,projectId,documentId,versionId})` 返回 `Buffer`，并再次校验归属。`createObject({companyId,projectId,filename,mimeType,base64})` 上传私有文件并返回相同 canonical metadata；Bearer 密钥只由服务器 adapter 加载。
 
 资料元数据保存多个不可改的版本。发布设置当前 active version；撤回后立即不可下载，旧版本 URL 不能绕过 active version。客户只得到文件名称、类型、大小、公开版本信息，不得到 objectId、私有对象 URL 或凭证。下载在文件 IO 后再次校验授权、项目发布与 active version。HTML 文件不支持，响应为附件并设置 no-store/nosniff。
 
-上传接口已经实现 `uploadDocument`，仍须连接并验收真实私有资料 adapter。仅管理员和获分配公司的经理能上传 PDF/DOCX/PPTX/XLSX/PNG/JPEG/TXT/CSV，原文件上限 3 MiB；严格校验 canonical base64、文件名、类型和解码大小，再执行外部 IO。完成 IO 后复核原始权限及公司数据版本；并发撤权/修改返回 404/409，私有孤儿文件不会变成公开链接或已授权资料。新文件/新版本始终为草稿，显式 `publishDocument` 后客户才可看到。
+上传接口 `uploadDocument` 已连接真实 HTTPS 私有资料 adapter。仅管理员和获分配公司的经理能上传 PDF/DOCX/PPTX/XLSX/PNG/JPEG/TXT/CSV，原文件上限 3 MiB；严格校验 canonical base64、文件名、类型和解码大小，再执行外部 IO。完成 IO 后复核原始权限及公司数据版本；并发撤权/修改返回 404/409，私有孤儿文件不会变成公开链接或已授权资料。新文件/新版本始终为草稿，显式 `publishDocument` 后客户才可看到。
 
 经理资料列表返回最新版本、`status`、`activeVersionId` 和 `versions`，刷新后仍能查看草稿并执行发布/撤回；经理可下载其公司的未撤回草稿或归档版本用于审阅。客户只返回当前发布版本，不得到其他版本列表。UI 不得露出 objectId 输入框或供应商私有地址。文件 MIME 枚举通过 `PMP_DOCUMENT_MIME_TYPES` 导出，上传上限通过 `PMP_MAX_UPLOAD_BYTES` 导出。内部注册既有资料的元数据上限仍为 50 MiB，实际下载还必须遵守网关响应大小限制；继续经 Vercel Function 返回文件时，必须配置适合其限制的文件大小或服务器下载代理。
 
@@ -72,8 +72,10 @@ export default createBusinessHandler({ env: process.env, authHandler: auth, serv
 - 默认草稿不对客户展示。项目发布形成事项快照，只包括 `clientVisible=true`；后续修改草稿不覆盖客户正在看的已发布版本。取消发布会隐藏其全部客户内容，重新发布的版本号继续增长。
 - WBS 引用必须属于同一项目；依赖/父子关系不能成环。批量修改先验证全部 ID，任何跨公司项都导致整体不提交。
 - 变更和验收先为 `requested`，通过专用 `decide` 审批为 `approved/rejected`；不能用普通创建/修改字段跳过审批。变更获批后才可 `implemented`。
-- 客户审批需要成员 `approvals:submit` 权限、已发布可见的待审批事项、匹配的 `expectedVersion`，以及附属交付资料的访问权限。经理只能决定其获分配公司的事项。重复/过期决策不能成功。
-- 项目 `completed` 需要至少一项通过的验收、全部验收通过、全部任务完成。仍须由项目负责人评估结项、成本和风险，本模块不会虚构合同或验收事实。
+- 已决内容只可显式修订为 `draft/requested`，归档原内容、版本和决定，清空当前决定并重新审批。历史快照仅供后台，所有客户响应和发布快照均剔除。获批变更仅可单独标记实施；已实施内容不可再改。
+- 客户审批需要成员 `approvals:submit` 权限、已发布可见的待审批事项、匹配的 `expectedVersion`，以及附属交付资料的访问权限。有资料引用时，`expectedDocumentVersions` 必须准确且不重复地包含全部 `{documentId,versionId}`，并匹配当前发布版本；资料变更后返回 409。决定保存事项版本及 `deliverableVersions`，不暴露私有 objectId。经理只能决定其获分配公司的事项。重复/过期决策不能成功。
+- 项目 `completed` 需要至少一项通过的验收、全部验收通过、全部任务完成，并在结项当次核对验收决定所绑定的事项及资料版本；资料变更、撤回或历史未绑定决定需要重新审批。审批和结项与发布使用同一公司 CAS，阻止并发资料变更。仍须由项目负责人评估结项、成本和风险，本模块不会虚构合同或验收事实。
+- 已结项项目不能创建、修改或审批事项；需要显式重新开启为 `active/planning`。项目说明及文件版本管理保持可用，不能借变更为售前或暂停状态绕开重开。
 - 每次操作保存不含联系方式的 actor HMAC、动作、时间、资源与版本事件。当前公司状态与历史事件为一个 CAS JSON 聚合，适合初期规模；没有独立审计导出、全量历史数据库/分片或容灾演练，后续需明确归档与数据库扩展策略。
 
 ## HTTP 合同
@@ -105,13 +107,13 @@ POST 动作：
 | `publishProject/unpublishProject` | companyId、projectId |
 | `createRecord` | companyId、projectId、type、fields |
 | `updateRecords` | companyId、updates：`[{id,fields}]` |
-| `decide` | companyId、recordId、fields：decision/comment/expectedVersion |
+| `decide` | companyId、recordId、fields：decision/comment/expectedVersion/expectedDocumentVersions；无资料引用时可省略版本数组 |
 | `registerDocument` | companyId、projectId、fields：objectId/title/documentId(新版本可选)；仅内部文件工作流使用 |
 | `uploadDocument` | companyId、projectId、fields：title/filename/mimeType/base64/documentId(新版本可选)；最多 3 MiB，返回 documentId/versionId/version 草稿信息 |
 | `publishDocument/withdrawDocument` | companyId、documentId、versionId |
 
 ## 已验证与待验证
 
-已完成 33 项 mock 测试：公司/经理隔离、不可改公司归属、客户管理员提权拦截、项目/文件范围、立即撤权、撤权并发 CAS、跨公司批量原子性、六种 PMP 对象、发布快照、版本撤回、下载过程撤权、私有对象归属、搜索隔离、审批与结项、WBS 循环、原生接口包装及不自动授权、手机变更、成员 HMAC 查询、HTTP/CSRF、缺失 adapter fail-closed、Redis Lua 调用协议；另包括私有上传草稿、旧发布版本保留、base64/类型/大小、越权无 IO、上传并发撤权/版本冲突、缺失或不一致文件 adapter、上传专属大 body 与其他 action 小 body 限制、先认证后读 body、流式读取时 UTF-8 中文文件名的分片保真。
+已完成 50 项业务测试：公司/经理隔离、不可改公司归属、客户管理员提权拦截、项目/文件范围、立即撤权、撤权并发 CAS、跨公司批量原子性、六种 PMP 对象、发布快照、版本撤回、下载过程撤权、私有对象归属、搜索隔离、审批与结项、WBS 循环、原生接口包装及不自动授权、手机变更、成员 HMAC 查询、HTTP/CSRF、缺失 adapter fail-closed、Redis Lua 调用协议；另包括私有上传草稿、旧发布版本保留、base64/类型/大小、越权无 IO、上传并发撤权/版本冲突、缺失或不一致文件 adapter、上传专属大 body 与其他 action 小 body 限制、先认证后读 body、流式读取时 UTF-8 中文文件名的分片保真。
 
 真实部署初始化已执行原生公司/联系人创建和按公司过滤，Redis 权限/公司 CAS 持久提交，威胜售前项目、11 项 PMP 事项和正式 PDF/PPTX 发布；已验证客户跨公司 404、内部草稿拒绝访问、下载字节一致。电话变更、并发撤权、幂等超时与分页循环另有离线测试。短信通道已执行真实发送；没有绕过验证码模拟生产登录。生产 HTTP 和布局验收由统一发布流程继续执行。公开测试不包含真实手机号、邮箱或客户资料。

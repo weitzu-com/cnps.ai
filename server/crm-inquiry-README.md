@@ -24,5 +24,7 @@ Tests use synthetic fixtures and injected native/storage/HubSpot adapters. They 
 
 ## Primary references
 
+Selected product context is validated against the published product catalog. Its slug is retained in encrypted intake state, the canonical source URL, and the existing HubSpot message field. It neither adds an unknown HubSpot form property nor changes the company/contact deduplication IDs.
+
 - [HubSpot Forms submission endpoint](https://developers.hubspot.com/docs/api-reference/legacy/marketing/forms/v3-legacy/submit-data-unauthenticated)
 - [HubSpot form field validation requirements](https://developers.hubspot.com/changelog/validation-change-to-the-forms-api-submission-endpoints)

@@ -4,7 +4,8 @@ import {randomBytes} from 'node:crypto';
 import fs from 'node:fs';
 import {createCrmInquiryHandler, inquiryHubSpotPayload, normalizeInquiry} from '../server/crm-inquiry-handler.mjs';
 import {createInquiryStore} from '../server/crm-inquiry-store.mjs';
-import {crmInquiryConsent, crmInquiryConsentVersion, submitCrmInquiry} from '../web/crm-inquiry.mjs';
+import {crmInquiryConsent, crmInquiryConsentVersion, inquiryProductSlug, submitCrmInquiry} from '../web/crm-inquiry.mjs';
+import {digest, decrypt} from '../server/proposal-crypto.mjs';
 import {ui} from '../web/ui.mjs';
 
 const config={portalId:'123456',formId:'12345678-1234-1234-1234-123456789abc',fields:{name:'firstname',email:'email',company:'company',region:'country',message:'message',subject:'subject'}};
@@ -46,6 +47,29 @@ test('changed requirement keeps deterministic native lead IDs without creating a
  const h=harness();await h.request();await h.request({...body,values:{...body.values,need:'A different detailed project requirement.'}});assert.equal(h.createdCompanies.size,1);assert.equal(h.createdContacts.size,1);assert.equal(h.forwards(),2);assert.equal(h.seen[0].companyId,h.seen[1].companyId);assert.equal(h.seen[0].contactId,h.seen[1].contactId);
 });
 
+test('product quotation context survives encrypted intake and HubSpot brief without changing customer identity or configured form fields',async()=>{
+ const h=harness(),product='ticnote-pods-wifi';
+ const input={...body,context:{...body.context,product,pageUri:'https://www.cnps.ai/en/request-quote?product='+product+'&consent=false&marketing=true#ignore'}};
+ assert.equal((await h.request(input)).status,200);
+ const payload=h.payloads[0],message=payload.fields.find(field=>field.name==='message').value;
+ assert.match(message,/Product: ticnote-pods-wifi/);assert.equal(payload.fields.length,6);assert.equal(payload.fields.some(field=>field.name==='product'),false);
+ assert.deepEqual(Object.keys(payload.context).sort(),['pageName','pageUri']);assert.equal(new URL(payload.context.pageUri).searchParams.get('product'),product);
+ assert.equal(new URL(payload.context.pageUri).searchParams.has('consent'),false);assert.equal(new URL(payload.context.pageUri).searchParams.has('marketing'),false);assert.deepEqual(payload.legalConsentOptions.consent.communications,[]);
+ const saved=JSON.parse(decrypt(Buffer.from([...h.records.values()][0].envelope,'base64url'),digest(h.env.CNPS_PROPOSAL_SECRET,'crm-inquiry-encryption','v1')).toString());
+ assert.equal(saved.inquiry.context.product,product);assert.equal(saved.inquiry.values.consent,true);
+ assert.equal((await h.request({...input,context:{...input.context,product:'ticnote-lite',pageUri:'https://www.cnps.ai/en/request-quote?product=ticnote-lite'}})).status,200);
+ assert.equal(h.createdContacts.size,1);assert.equal(h.createdCompanies.size,1);assert.equal(h.seen[0].contactId,h.seen[1].contactId);
+});
+
+test('product context accepts published catalog slugs and rejects unknown or injected identifiers before any delivery',async()=>{
+ const catalog=JSON.parse(fs.readFileSync(new URL('../content/i18n/product-assets.json',import.meta.url),'utf8'));
+ for(const {slug} of catalog){const normalized=normalizeInquiry({...body,context:{...body.context,pageUri:'https://www.cnps.ai/en/request-quote?product='+slug}},new Set(['https://www.cnps.ai']));assert.equal(normalized.context.product,slug);assert.equal(inquiryProductSlug(slug),slug);}
+ const h=harness();for(const product of ['unknown-product','https://evil.example/item','ticnote\nConsent: false','x'.repeat(121),{slug:'ticnote'}])assert.equal((await h.request({...body,context:{...body.context,product}})).status,400);
+ assert.equal(h.nativeCalls(),0);assert.equal(h.forwards(),0);assert.equal(inquiryProductSlug('<script>'), '');
+ const noConsent={...body,values:{...body.values,consent:false},context:{...body.context,pageUri:'https://www.cnps.ai/en/request-quote?product=ticnote&consent=true&marketing=true'}};
+ assert.equal((await h.request(noConsent)).status,400);assert.equal(h.nativeCalls(),0);
+});
+
 test('partial native failure is safely retried with the same fixed IDs before HubSpot is attempted',async()=>{
  const h=harness();h.nativeFailure(true);assert.equal((await h.request()).status,503);assert.equal(h.createdCompanies.size,1);assert.equal(h.createdContacts.size,0);assert.equal(h.forwards(),0);h.nativeFailure(false);assert.equal((await h.request()).status,200);assert.equal(h.createdCompanies.size,1);assert.equal(h.createdContacts.size,1);assert.equal(h.seen[0].companyId,h.seen[1].companyId);
 });
@@ -80,7 +104,7 @@ test('public endpoint supports POST only and exposes no lookup or upstream excep
 });
 
 test('browser submits to same-origin intake with consent version, and pending response is not reported as fully delivered',async()=>{
- let request;const result=await submitCrmInquiry(body.values,body.tracking,body.context,{locale:body.locale,kind:body.kind,fetchImpl:async(url,options)=>{request={url,options};return{ok:true,async json(){return{ok:true,pending:true};}};}});assert.equal(request.url,'/api/crm-inquiry');assert.equal(request.options.credentials,'same-origin');assert.equal(request.options.headers['X-CNPS-CRM'],'1');assert.equal(JSON.parse(request.options.body).consentVersion,crmInquiryConsentVersion);assert.deepEqual(result,{submitted:false,pending:true});
+ let request;const context={...body.context,product:'ticnote-pods-wifi'};const result=await submitCrmInquiry(body.values,body.tracking,context,{locale:body.locale,kind:body.kind,fetchImpl:async(url,options)=>{request={url,options};return{ok:true,async json(){return{ok:true,pending:true};}};}});assert.equal(request.url,'/api/crm-inquiry');assert.equal(request.options.credentials,'same-origin');assert.equal(request.options.headers['X-CNPS-CRM'],'1');assert.equal(JSON.parse(request.options.body).consentVersion,crmInquiryConsentVersion);assert.equal(JSON.parse(request.options.body).context.product,'ticnote-pods-wifi');assert.deepEqual(result,{submitted:false,pending:true});
 });
 
 test('Redis adapter uses atomic Lua claims/transitions and a namespace independent of login quotas',async()=>{
