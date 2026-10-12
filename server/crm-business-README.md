@@ -61,7 +61,7 @@ export default createBusinessHandler({ env: process.env, authHandler: auth, serv
 
 资料元数据保存多个不可改的版本。发布设置当前 active version；撤回后立即不可下载，旧版本 URL 不能绕过 active version。客户只得到文件名称、类型、大小、公开版本信息，不得到 objectId、私有对象 URL 或凭证。下载在文件 IO 后再次校验授权、项目发布与 active version。HTML 文件不支持，响应为附件并设置 no-store/nosniff。
 
-上传接口已经实现 `uploadDocument`，仍须连接并验收真实私有资料 adapter。仅管理员和获分配公司的经理能上传 PDF/DOCX/PPTX/XLSX/PNG/JPEG/TXT/CSV，原文件上限 3 MiB；严格校验 canonical base64、文件名、类型和解码大小，再执行外部 IO。完成 IO 后复核原始权限及公司数据版本；并发撤权/修改返回 404/409，私有孤儿文件不会变成公开链接或已授权资料。新文件/新版本始终为草稿，显式 `publishDocument` 后客户才可看到。
+上传接口 `uploadDocument` 已连接真实 HTTPS 私有资料 adapter。仅管理员和获分配公司的经理能上传 PDF/DOCX/PPTX/XLSX/PNG/JPEG/TXT/CSV，原文件上限 3 MiB；严格校验 canonical base64、文件名、类型和解码大小，再执行外部 IO。完成 IO 后复核原始权限及公司数据版本；并发撤权/修改返回 404/409，私有孤儿文件不会变成公开链接或已授权资料。新文件/新版本始终为草稿，显式 `publishDocument` 后客户才可看到。
 
 经理资料列表返回最新版本、`status`、`activeVersionId` 和 `versions`，刷新后仍能查看草稿并执行发布/撤回；经理可下载其公司的未撤回草稿或归档版本用于审阅。客户只返回当前发布版本，不得到其他版本列表。UI 不得露出 objectId 输入框或供应商私有地址。文件 MIME 枚举通过 `PMP_DOCUMENT_MIME_TYPES` 导出，上传上限通过 `PMP_MAX_UPLOAD_BYTES` 导出。内部注册既有资料的元数据上限仍为 50 MiB，实际下载还必须遵守网关响应大小限制；继续经 Vercel Function 返回文件时，必须配置适合其限制的文件大小或服务器下载代理。
 
@@ -72,8 +72,10 @@ export default createBusinessHandler({ env: process.env, authHandler: auth, serv
 - 默认草稿不对客户展示。项目发布形成事项快照，只包括 `clientVisible=true`；后续修改草稿不覆盖客户正在看的已发布版本。取消发布会隐藏其全部客户内容，重新发布的版本号继续增长。
 - WBS 引用必须属于同一项目；依赖/父子关系不能成环。批量修改先验证全部 ID，任何跨公司项都导致整体不提交。
 - 变更和验收先为 `requested`，通过专用 `decide` 审批为 `approved/rejected`；不能用普通创建/修改字段跳过审批。变更获批后才可 `implemented`。
+- 已决内容只可显式修订为 `draft/requested`，归档原内容、版本和决定，清空当前决定并重新审批。历史快照仅供后台，所有客户响应和发布快照均剔除。获批变更仅可单独标记实施；已实施内容不可再改。
 - 客户审批需要成员 `approvals:submit` 权限、已发布可见的待审批事项、匹配的 `expectedVersion`，以及附属交付资料的访问权限。经理只能决定其获分配公司的事项。重复/过期决策不能成功。
 - 项目 `completed` 需要至少一项通过的验收、全部验收通过、全部任务完成。仍须由项目负责人评估结项、成本和风险，本模块不会虚构合同或验收事实。
+- 已结项项目不能创建、修改或审批事项；需要显式重新开启为 `active/planning`。项目说明及文件版本管理保持可用，不能借变更为售前或暂停状态绕开重开。
 - 每次操作保存不含联系方式的 actor HMAC、动作、时间、资源与版本事件。当前公司状态与历史事件为一个 CAS JSON 聚合，适合初期规模；没有独立审计导出、全量历史数据库/分片或容灾演练，后续需明确归档与数据库扩展策略。
 
 ## HTTP 合同
