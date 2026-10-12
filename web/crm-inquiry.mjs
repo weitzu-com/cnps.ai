@@ -1,4 +1,5 @@
 export const crmInquiryConsentVersion = 'crm-inquiry-v1';
+export const inquiryProductSlug = value => typeof value === 'string' && value.length <= 120 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value) ? value : '';
 export const crmInquiryConsent = {
   en: 'I agree that CNPS may store and process my contact details and inquiry in its customer management system and HubSpot to respond and manage our discussions. This does not subscribe me to marketing.',
   zh: '我同意 CNPS 在客户管理系统及 HubSpot 中保存并处理我的联系方式与询盘，用于回复、客户建档及项目沟通。这不会使我订阅营销信息。',

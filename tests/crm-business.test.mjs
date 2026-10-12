@@ -244,6 +244,152 @@ test('unapproved changes cannot be implemented and unfinished/unaccepted project
   await h.service.updateRecords(manager, 'company-A', [{ id: task.id, fields: { status: 'done' } }]);
   assert.equal((await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed', processGroup: 'closing' })).status, 'completed');
 });
+test('approved and rejected decisions cannot retain their status while content or linked deliveries change', async () => {
+  const h = await setup();
+  for (const type of ['change', 'acceptance']) for (const decision of ['approved', 'rejected']) {
+    const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, type, { title: `${decision} ${type}`, status: 'requested', criteria: 'Agreed criteria', ...(type === 'change' ? { impact: 'Agreed impact' } : {}), deliverableDocumentIds: [h.docA.id] });
+    const decided = await h.service.decide(manager, 'company-A', record.id, { decision, expectedVersion: record.version });
+    assert.equal(decided.decision.decidedVersion, decided.version);
+    const before = await h.store.getCompany('company-A');
+    for (const fields of [{ title: 'Changed title' }, { criteria: 'Changed criteria' }, { deliverableDocumentIds: [h.privateDoc.id] }, ...(type === 'change' ? [{ impact: 'Changed impact' }] : [])]) {
+      await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: record.id, fields }]), status(409));
+      assert.deepEqual(await h.store.getCompany('company-A'), before);
+    }
+  }
+});
+test('approved change implementation is an isolated status transition bound to the approved content version', async () => {
+  const h = await setup();
+  const change = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'change', { title: 'Approved scope', status: 'requested', impact: 'Approved impact', deliverableDocumentIds: [h.docA.id] });
+  const approved = await h.service.decide(manager, 'company-A', change.id, { decision: 'approved', comment: 'Agreed scope only', expectedVersion: change.version });
+  const before = await h.store.getCompany('company-A');
+  await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: change.id, fields: { status: 'implemented', impact: 'Larger scope' } }]), status(409));
+  assert.deepEqual(await h.store.getCompany('company-A'), before);
+  const [implemented] = await h.service.updateRecords(manager, 'company-A', [{ id: change.id, fields: { status: 'implemented' } }]);
+  assert.equal(implemented.status, 'implemented');
+  assert.equal(implemented.version, approved.version + 1);
+  assert.equal(implemented.impact, approved.impact);
+  assert.deepEqual(implemented.decision, approved.decision);
+  const audit = (await h.service.listEvents(manager, 'company-A')).findLast(event => event.action === 'records.update');
+  assert.deepEqual(audit.recordVersions, [{ recordId: change.id, version: implemented.version, status: 'implemented', decidedVersion: approved.version }]);
+  for (const fields of [{ title: 'Changed after implementation' }, { status: 'draft' }, { status: 'requested' }, { status: 'implemented' }]) await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: change.id, fields }]), status(409));
+});
+test('explicit revisions preserve immutable linear decision snapshots and require fresh approval before closure', async () => {
+  const h = await setup();
+  const acceptance = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Final acceptance', status: 'requested', criteria: 'Original criteria', deliverableDocumentIds: [h.docA.id] });
+  const rejected = await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'rejected', comment: 'Delivery needs revision', expectedVersion: acceptance.version });
+  const [revised] = await h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'draft', criteria: 'Revised criteria' } }]);
+  assert.equal(revised.status, 'draft'); assert.ok(!Object.hasOwn(revised, 'decision'));
+  assert.deepEqual(revised.decisionHistory[0].snapshot, rejected);
+  assert.deepEqual(revised.decisionHistory[0].decision, rejected.decision);
+  assert.equal(revised.decisionHistory[0].recordVersion, rejected.version);
+  await assert.rejects(h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: revised.version }), status(409));
+  await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
+  const [requested] = await h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'requested' } }]);
+  await assert.rejects(h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: acceptance.version }), status(409));
+  const approved = await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: requested.version });
+  const [secondRevision] = await h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'requested', criteria: 'Final revised criteria' } }]);
+  assert.equal(secondRevision.decisionHistory.length, 2);
+  assert.deepEqual(secondRevision.decisionHistory[0], revised.decisionHistory[0]);
+  assert.equal(secondRevision.decisionHistory[1].snapshot.criteria, approved.criteria);
+  assert.equal(secondRevision.decisionHistory[1].snapshot.decision.decidedVersion, approved.version);
+  assert.ok(secondRevision.decisionHistory.every(entry => !Object.hasOwn(entry.snapshot, 'decisionHistory')));
+  await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
+  await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: secondRevision.version });
+  assert.equal((await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' })).status, 'completed');
+});
+test('legacy decisions preserve their full approved snapshot and receive version binding on implementation', async () => {
+  const h = await setup();
+  const change = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'change', { title: 'Legacy approved scope', impact: 'Original impact', status: 'requested' });
+  const acceptance = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Legacy rejected acceptance', criteria: 'Original criteria', status: 'requested' });
+  await h.service.decide(manager, 'company-A', change.id, { decision: 'approved', expectedVersion: change.version });
+  await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'rejected', expectedVersion: acceptance.version });
+  const old = await h.store.getCompany('company-A'), next = clone(old);
+  for (const recordId of [change.id, acceptance.id]) delete next.records[recordId].decision.decidedVersion;
+  next.revision++;
+  assert.equal(await h.store.commitCompany('company-A', (await h.store.getDirectory()).revision, old.revision, next), true);
+  const [implemented] = await h.service.updateRecords(manager, 'company-A', [{ id: change.id, fields: { status: 'implemented' } }]);
+  assert.equal(implemented.decision.decidedVersion, next.records[change.id].version);
+  assert.equal(implemented.impact, 'Original impact');
+  const [revised] = await h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'draft', criteria: 'New criteria' } }]);
+  assert.deepEqual(revised.decisionHistory[0].snapshot, next.records[acceptance.id]);
+  assert.deepEqual(revised.decisionHistory[0].decision, next.records[acceptance.id].decision);
+});
+test('private decision history never enters published records, customer results, approval responses or search', async () => {
+  const h = await setup(), secret = 'PrivatePreviousApprovalDetail';
+  const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: secret, description: secret, status: 'requested', criteria: secret, deliverableDocumentIds: [h.privateDoc.id], clientVisible: false });
+  await h.service.decide(manager, 'company-A', record.id, { decision: 'approved', comment: secret, expectedVersion: record.version });
+  const [revision] = await h.service.updateRecords(manager, 'company-A', [{ id: record.id, fields: { status: 'requested', title: 'Customer delivery', description: 'Public delivery description', criteria: 'Public criteria', deliverableDocumentIds: [h.docA.id], clientVisible: true } }]);
+  assert.ok(JSON.stringify(await h.service.getRecord(manager, 'company-A', record.id)).includes(secret));
+  await h.service.publishProject(manager, 'company-A', h.projectA.id);
+  const state = await h.store.getCompany('company-A');
+  assert.ok(!Object.hasOwn(state.projects[h.projectA.id].publication.records[record.id], 'decisionHistory'));
+  for (const result of [await h.service.getRecord(customer, 'company-A', record.id), await h.service.listRecords(customer, 'company-A', h.projectA.id)]) {
+    const value = JSON.stringify(result);
+    for (const denied of [secret, 'decisionHistory', h.privateDoc.id]) assert.ok(!value.includes(denied));
+  }
+  assert.deepEqual(await h.service.search(customer, 'company-A', secret), []);
+  const approved = await h.service.decide(customer, 'company-A', record.id, { decision: 'approved', expectedVersion: revision.version });
+  assert.equal(approved.status, 'approved'); assert.ok(!Object.hasOwn(approved, 'decisionHistory'));
+  assert.ok(!JSON.stringify(approved).includes(secret));
+  assert.deepEqual(await h.service.search(customer, 'company-A', secret), []);
+});
+test('completed projects reject all record writes and approvals until explicit active or planning reopening', async () => {
+  for (const reopenStatus of ['active', 'planning']) {
+    const h = await setup();
+    const task = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'task', { title: 'Completed task', status: 'done' });
+    const acceptance = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Final acceptance', status: 'requested' });
+    const pendingChange = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'change', { title: 'Pending change', status: 'requested', clientVisible: true });
+    const approved = await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: acceptance.version });
+    await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' });
+    await h.service.publishProject(manager, 'company-A', h.projectA.id);
+    const before = await h.store.getCompany('company-A');
+    for (const type of PMP_RECORD_TYPES) await assert.rejects(h.service.createRecord(manager, 'company-A', h.projectA.id, type, { title: 'Forbidden new record' }), status(409));
+    for (const update of [{ id: task.id, fields: { status: 'todo' } }, { id: task.id, fields: { title: 'Changed task' } }, { id: acceptance.id, fields: { status: 'draft' } }]) await assert.rejects(h.service.updateRecords(manager, 'company-A', [update]), status(409));
+    for (const actor of [manager, customer]) await assert.rejects(h.service.decide(actor, 'company-A', pendingChange.id, { decision: 'approved', expectedVersion: pendingChange.version }), status(409));
+    for (const statusValue of ['proposed', 'on_hold', 'cancelled']) await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: statusValue }), status(409));
+    assert.deepEqual(await h.store.getCompany('company-A'), before);
+    const response = await h.request('', { actor: 'manager', method: 'POST', body: { action: 'createRecord', companyId: 'company-A', projectId: h.projectA.id, type: 'task', fields: { title: 'HTTP bypass attempt' } } });
+    assert.equal(response.status, 409); assert.ok(response.json().error.includes('重新开启'));
+    assert.equal((await h.service.getRecord(manager, 'company-A', acceptance.id)).decision.decidedVersion, approved.version);
+    assert.equal((await h.service.download(customer, 'company-A', h.docA.id, h.docA.versionId)).bytes.toString(), 'Alpha Published Delivery');
+    // Pure project/file metadata is deliberately independent of record closure.
+    assert.equal((await h.service.updateProject(manager, 'company-A', h.projectA.id, { title: 'Closed project metadata' })).status, 'completed');
+    const upload = await h.service.uploadDocument(manager, 'company-A', h.projectA.id, { title: 'Post-closure archive', filename: 'archive.txt', mimeType: 'text/plain', base64: Buffer.from('Archive material').toString('base64') });
+    await h.service.publishDocument(manager, 'company-A', upload.documentId, upload.versionId);
+    await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: reopenStatus });
+    const [regressed] = await h.service.updateRecords(manager, 'company-A', [{ id: task.id, fields: { status: 'todo' } }]);
+    assert.equal(regressed.status, 'todo');
+    assert.equal((await h.service.createRecord(manager, 'company-A', h.projectA.id, 'issue', { title: 'Reopened issue' })).status, 'open');
+    assert.equal((await h.service.decide(manager, 'company-A', pendingChange.id, { decision: 'approved', expectedVersion: pendingChange.version })).status, 'approved');
+    await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
+  }
+});
+test('batch decision or closure failures never persist earlier changes and duplicate IDs cannot bypass lifecycle checks', async () => {
+  const h = await setup();
+  const mutable = await h.service.createRecord(manager, 'company-A', h.hiddenProject.id, 'task', { title: 'Unchanged open task' });
+  const task = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'task', { title: 'Done task', status: 'done' });
+  const acceptance = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Final acceptance', criteria: 'Original criteria', status: 'requested' });
+  await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: acceptance.version });
+  let before = await h.store.getCompany('company-A');
+  await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: mutable.id, fields: { title: 'Must not persist' } }, { id: acceptance.id, fields: { criteria: 'Unapproved criteria' } }]), status(409));
+  assert.deepEqual(await h.store.getCompany('company-A'), before);
+  await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'draft' } }, { id: acceptance.id, fields: { status: 'approved' } }]), status(400));
+  assert.deepEqual(await h.store.getCompany('company-A'), before);
+  await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' });
+  before = await h.store.getCompany('company-A');
+  await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: mutable.id, fields: { title: 'Must not persist' } }, { id: task.id, fields: { status: 'todo' } }]), status(409));
+  assert.deepEqual(await h.store.getCompany('company-A'), before);
+});
+test('atomic WBS batches validate their final dependency graph rather than transient intermediate states', async () => {
+  const h = await setup();
+  const first = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'task', { title: 'First task' });
+  const second = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'task', { title: 'Second task', dependencyIds: [first.id] });
+  const changed = await h.service.updateRecords(manager, 'company-A', [{ id: first.id, fields: { dependencyIds: [second.id] } }, { id: second.id, fields: { dependencyIds: [] } }]);
+  assert.deepEqual(changed.map(record => record.dependencyIds), [[second.id], []]);
+  const before = await h.store.getCompany('company-A');
+  await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: second.id, fields: { dependencyIds: [first.id] } }]), status(400));
+  assert.deepEqual(await h.store.getCompany('company-A'), before);
+});
 test('WBS references cannot cross project/company boundaries or form cycles', async () => {
   const h = await setup();
   const task = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'task', { title: 'Task One' });

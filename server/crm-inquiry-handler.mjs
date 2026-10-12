@@ -1,10 +1,12 @@
 import {randomBytes} from 'node:crypto';
 import {digest, encrypt, decrypt, keyBytes} from './proposal-crypto.mjs';
 import {sanitizeTracking, submitInquiry, validateConfig} from '../site/fastgpt-assets/inquiry.mjs';
-import {crmInquiryConsent, crmInquiryConsentVersion} from '../web/crm-inquiry.mjs';
+import {crmInquiryConsent, crmInquiryConsentVersion, inquiryProductSlug} from '../web/crm-inquiry.mjs';
+import productCatalog from '../content/i18n/product-assets.json' with {type: 'json'};
 
 const RECORD_TTL_NOTE = 'Encrypted intake state expires after 30 days; native CRM contacts follow the customer retention policy.';
 const WORKFLOWS = new Set(['technical-knowledge','support-triage','rfq-intake','another-workflow','distribution','other','knowledge-assistants','meeting-ai','edge-vision','voice-prototypes','robotics-research']);
+const PRODUCTS = new Set(productCatalog.map(product => product.slug));
 const allowedValues = ['name','email','company','phone','region','workflow','need','systems','consent'];
 const keys = (value, allowed) => Object.keys(value).every(key => allowed.includes(key));
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -19,7 +21,7 @@ function fixedUuid(hash) {
   const hex = bytes.toString('hex');return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
 }
 export function normalizeInquiry(data, origins) {
-  if (!object(data) || !keys(data,['values','tracking','context','locale','kind','consentVersion']) || !object(data.values) || !keys(data.values,allowedValues) || !object(data.context) || !keys(data.context,['pageUri','pageName']) || data.values.consent !== true || data.consentVersion !== crmInquiryConsentVersion || !Object.hasOwn(crmInquiryConsent,data.locale)) throw new Error('invalid-input');
+  if (!object(data) || !keys(data,['values','tracking','context','locale','kind','consentVersion']) || !object(data.values) || !keys(data.values,allowedValues) || !object(data.context) || !keys(data.context,['pageUri','pageName','product']) || data.values.consent !== true || data.consentVersion !== crmInquiryConsentVersion || !Object.hasOwn(crmInquiryConsent,data.locale)) throw new Error('invalid-input');
   if (!['fastgpt','general'].includes(data.kind)) throw new Error('invalid-input');
   const values = {};
   for (const [name,max,required] of [['name',100,true],['email',254,true],['company',150,true],['region',100,true],['workflow',100,true],['need',1600,true],['systems',600,false],['phone',40,false]]) values[name] = string(data.values[name] ?? '',max,required);
@@ -31,10 +33,13 @@ export function normalizeInquiry(data, origins) {
   values.consent = true;
   const page = new URL(string(data.context.pageUri,2000,true));
   if (!origins.has(page.origin) || page.username || page.password || !/^\/(?:en\/|zh\/|ar\/)?(?:request-quote|contact|fastgpt\/contact)\/?$/.test(page.pathname)) throw new Error('invalid-input');
+  const product = string(data.context.product ?? page.searchParams.get('product') ?? '',120);
+  if (product && (!inquiryProductSlug(product) || !PRODUCTS.has(product))) throw new Error('invalid-input');
   page.search='';page.hash='';
   const tracking = sanitizeTracking(object(data.tracking) ? data.tracking : {});
   for (const key of Object.keys(tracking).sort()) page.searchParams.set(key,tracking[key]);
-  return {values,tracking,context:{pageUri:page.href,pageName:string(data.context.pageName??'',200)},locale:data.locale,kind:data.kind,consentVersion:crmInquiryConsentVersion};
+  if(product)page.searchParams.set('product',product);
+  return {values,tracking,context:{pageUri:page.href,pageName:string(data.context.pageName??'',200),...(product?{product}:{})},locale:data.locale,kind:data.kind,consentVersion:crmInquiryConsentVersion};
 }
 export function inquiryHubSpotPayload(inquiry, config) {
   validateConfig(config);
@@ -42,9 +47,9 @@ export function inquiryHubSpotPayload(inquiry, config) {
   // Preserve the configured six form fields. A new field must first exist in
   // HubSpot's form definition, so optional phone is retained in the full brief.
   // https://developers.hubspot.com/docs/api-reference/legacy/marketing/forms/v3-legacy/submit-data-unauthenticated
-  const brief = `CNPS inquiry\n\nName: ${v.name}\nEmail: ${v.email}\nCompany (unverified): ${v.company}\nPhone: ${v.phone||'Not provided'}\nCountry / region: ${v.region}\nWorkflow: ${v.workflow}\n\nRequirement:\n${v.need}\n\nSystems and timeline:\n${v.systems||'To discuss'}\n\n${Object.entries(inquiry.tracking).map(([key,value])=>key+': '+value).join('\n')}\n\nPrivacy acknowledgment: ${consent}`;
+  const brief = `CNPS inquiry\n\nName: ${v.name}\nEmail: ${v.email}\nCompany (unverified): ${v.company}\nPhone: ${v.phone||'Not provided'}\nCountry / region: ${v.region}\nWorkflow: ${v.workflow}${inquiry.context.product?'\nProduct: '+inquiry.context.product:''}\n\nRequirement:\n${v.need}\n\nSystems and timeline:\n${v.systems||'To discuss'}\n\n${Object.entries(inquiry.tracking).map(([key,value])=>key+': '+value).join('\n')}\n\nPrivacy acknowledgment: ${consent}`;
   const fields = {name:v.name,email:v.email,company:v.company,region:v.region,subject:(inquiry.kind==='fastgpt'?'FastGPT pilot inquiry':'CNPS.AI inquiry')+' — '+v.company,message:brief};
-  return {fields:Object.entries(fields).map(([key,value])=>({objectTypeId:'0-1',name:config.fields[key],value})),context:inquiry.context,legalConsentOptions:{consent:{consentToProcess:true,text:consent,communications:[]}}};
+  return {fields:Object.entries(fields).map(([key,value])=>({objectTypeId:'0-1',name:config.fields[key],value})),context:{pageUri:inquiry.context.pageUri,pageName:inquiry.context.pageName},legalConsentOptions:{consent:{consentToProcess:true,text:consent,communications:[]}}};
 }
 async function readJson(req) {
   if (!String(req.headers['content-type']||'').startsWith('application/json')) throw new Error('invalid-input');

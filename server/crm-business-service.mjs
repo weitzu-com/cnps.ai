@@ -120,6 +120,9 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
     if (!project.publication || (a.grant.projectScope !== 'all' && !a.grant.projectIds.includes(projectId))) missing();
     return project;
   }
+  function requireOpenProject(project) {
+    if (project.status === 'completed') fail(409, '项目已结项，请先由项目负责人重新开启项目，再修改或审批事项。');
+  }
   function docAccess(state, a, documentId, versionId) {
     const doc = own(state.documents, id(documentId));
     if (!doc || !a) missing();
@@ -131,6 +134,12 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
     return { doc, version };
   }
   function viewProject(project, a) { return a.role === 'customer' ? clone(project.publication.project) : { ...clone(project), publication: project.publication ? { version: project.publication.version, at: project.publication.at } : null }; }
+  function customerRecord(record) {
+    // A newly public revision must not disclose the full snapshot of an older
+    // internal-only decision. Full immutable history is a back-office record.
+    const { decisionHistory, ...visible } = clone(record);
+    return visible;
+  }
   function viewDocument(doc, version) { return { id: doc.id, companyId: doc.companyId, projectId: doc.projectId, title: version.title, versionId: version.id, version: version.version, mimeType: version.mimeType, size: version.size, filename: version.filename, publishedAt: version.publishedAt, status: version.withdrawnAt != null ? 'withdrawn' : version.id === doc.activeVersionId ? 'published' : Number.isFinite(version.publishedAt) ? 'archived' : 'draft' }; }
   function managerDocument(doc) {
     const version = doc.versions.at(-1); if (!version) missing();
@@ -375,6 +384,7 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       const fields = projectFields(input);
       return companyWrite(principal, companyId, next => {
         const project = projectAccess(next, { role: 'admin' }, projectId);
+        if (project.status === 'completed' && fields.status !== undefined && !['completed', 'active', 'planning'].includes(fields.status)) fail(409, '已结项项目如需继续工作，请明确重新开启为进行中或规划中。');
         if (fields.status === 'completed') {
           const records = Object.values(next.records).filter(record => record.projectId === projectId), acceptance = records.filter(record => record.type === 'acceptance');
           if (!acceptance.length || acceptance.some(record => record.status !== 'approved') || records.some(record => record.type === 'task' && record.status !== 'done')) fail(409, '项目任务完成且验收通过后才能完成结项。');
@@ -389,7 +399,7 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
         const project = projectAccess(next, { role: 'admin' }, projectId);
         project.publicationVersion = (project.publicationVersion || 0) + 1;
         const { publication, ...publicProject } = clone(project);
-        const records = Object.fromEntries(Object.values(next.records).filter(record => record.projectId === projectId && record.clientVisible === true).map(record => [record.id, clone(record)]));
+        const records = Object.fromEntries(Object.values(next.records).filter(record => record.projectId === projectId && record.clientVisible === true).map(record => [record.id, customerRecord(record)]));
         project.publication = { version: project.publicationVersion, at: now(), project: publicProject, records };
         next.events.push(event(principal, 'project.publish', { companyId, projectId, publicationVersion: project.publication.version })); return { ok: true, publicationVersion: project.publication.version };
       });
@@ -409,7 +419,7 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       const fields = recordFields(type, input, true);
       if (['change', 'acceptance'].includes(type) && ['approved', 'rejected', 'implemented'].includes(fields.status)) fail(400, '审批事项必须通过决策流程。');
       return companyWrite(principal, companyId, next => {
-        projectAccess(next, { role: 'admin' }, projectId);
+        requireOpenProject(projectAccess(next, { role: 'admin' }, projectId));
         const recordId = id(newId()), record = { id: recordId, companyId, projectId, type, title: fields.title, description: '', status: RECORD_STATUSES[type][0], clientVisible: false, ...fields, version: 1, createdAt: now(), updatedAt: now() };
         checkReferences(next, projectId, recordId, record);
         next.records[recordId] = record; next.events.push(event(principal, `${type}.create`, { companyId, projectId, recordId })); return clone(record);
@@ -418,28 +428,54 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
     async updateRecords(principal, companyId, updates) {
       if (!Array.isArray(updates) || !updates.length || updates.length > 100) fail(400, '批量事项格式无效。');
       return companyWrite(principal, companyId, next => {
-        const changed = [];
+        const prepared = [], seen = new Set();
         for (const update of updates) {
           object(update); rejectFields(update, ['id', 'fields']);
-          const record = own(next.records, id(update.id)); if (!record) missing();
+          const recordId = id(update.id);
+          if (seen.has(recordId)) fail(400, '批量事项不能包含重复标识。');
+          seen.add(recordId);
+          const record = own(next.records, recordId); if (!record) missing();
+          requireOpenProject(projectAccess(next, { role: 'admin' }, record.projectId));
+          object(update.fields);
+          const decided = ['change', 'acceptance'].includes(record.type) && (record.decision || ['approved', 'rejected', 'implemented'].includes(record.status));
+          // A decision belongs to its approved/rejected content. Only an isolated
+          // implementation status transition may follow an approved change.
+          const implementOnly = record.type === 'change' && record.status === 'approved' && Object.keys(update.fields).length === 1 && update.fields.status === 'implemented';
+          const revise = decided && record.status !== 'implemented' && ['draft', 'requested'].includes(update.fields.status);
+          if (decided && !implementOnly && !revise) fail(409, '已决事项如需修改，请显式修订为草稿或待审批状态并重新申请；已实施变更不可修改。');
           const fields = recordFields(record.type, update.fields);
           if (['change', 'acceptance'].includes(record.type) && ['approved', 'rejected'].includes(fields.status)) fail(400, '请使用专用决策接口。');
           if (record.type === 'change' && fields.status === 'implemented' && record.status !== 'approved') fail(409, '变更审批通过后才能实施。');
-          Object.assign(record, fields, { version: record.version + 1, updatedAt: now() }); checkReferences(next, record.projectId, record.id, record); changed.push(clone(record));
+          prepared.push({ record, fields, revise, implementOnly });
         }
-        next.events.push(event(principal, 'records.update', { companyId, recordIds: changed.map(record => record.id) })); return changed;
+        // Apply only after every scope, lifecycle and approval guard passes; then
+        // validate the complete candidate graph before its one atomic commit.
+        for (const { record, fields, revise, implementOnly } of prepared) {
+          if (revise) {
+            const { decisionHistory, ...snapshot } = clone(record);
+            record.decisionHistory = [...(decisionHistory || []), { recordVersion: record.version, snapshot, decision: clone(record.decision || null), revisedAt: now(), revisedBy: subject(principal) }];
+            delete record.decision;
+          }
+          // Legacy approvals may predate explicit version binding. Their current
+          // approved content is still unchanged here, before the status version.
+          if (implementOnly && record.decision && record.decision.decidedVersion === undefined) record.decision.decidedVersion = record.version;
+          Object.assign(record, fields, { version: record.version + 1, updatedAt: now() });
+        }
+        for (const { record } of prepared) checkReferences(next, record.projectId, record.id, record);
+        const changed = prepared.map(({ record }) => clone(record));
+        next.events.push(event(principal, 'records.update', { companyId, recordIds: changed.map(record => record.id), recordVersions: changed.map(record => ({ recordId: record.id, version: record.version, status: record.status, ...(record.decision?.decidedVersion !== undefined ? { decidedVersion: record.decision.decidedVersion } : {}) })), revisedRecordIds: prepared.filter(item => item.revise).map(item => item.record.id) })); return changed;
       });
     },
     async listRecords(principal, companyId, projectId, type) {
       if (type !== undefined && !PMP_RECORD_TYPES.includes(type)) fail(400, '事项类型无效。');
       const { state, a } = await snapshot(companyId, principal), project = projectAccess(state, a, projectId);
       const records = a.role === 'customer' ? Object.values(project.publication.records) : Object.values(state.records).filter(record => record.projectId === projectId);
-      return records.filter(record => !type || record.type === type).map(clone);
+      return records.filter(record => !type || record.type === type).map(record => a.role === 'customer' ? customerRecord(record) : clone(record));
     },
     async getRecord(principal, companyId, recordId) {
       const { state, a } = await snapshot(companyId, principal), record = own(state.records, id(recordId)); if (!record) missing();
       const project = projectAccess(state, a, record.projectId);
-      if (a.role === 'customer') { const published = own(project.publication.records, recordId); if (!published) missing(); return clone(published); }
+      if (a.role === 'customer') { const published = own(project.publication.records, recordId); if (!published) missing(); return customerRecord(published); }
       return clone(record);
     },
     async listEvents(principal, companyId) {
@@ -458,12 +494,14 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
           const published = own(project.publication.records, recordId);
           if (!a.grant.allowApprovals || !published || published.version !== input.expectedVersion) missing();
         }
+        requireOpenProject(project);
+        if (record.decision) fail(409, '该事项已有审批决定，请先显式修订为草稿并重新提交审批。');
         if (record.status !== 'requested' || record.version !== input.expectedVersion) fail(409, '该事项已变更，请刷新后重试。');
         for (const documentId of record.deliverableDocumentIds || []) docAccess(next, a, documentId);
         record.status = input.decision; record.version++; record.updatedAt = now();
-        record.decision = { decision: input.decision, comment, actorId: subject(principal), at: now() };
-        if (project.publication && own(project.publication.records, recordId)) project.publication.records[recordId] = clone(record);
-        next.events.push(event(principal, `${record.type}.decision`, { companyId, projectId: record.projectId, recordId, decision: input.decision, version: record.version })); return clone(record);
+        record.decision = { decision: input.decision, comment, actorId: subject(principal), at: now(), decidedVersion: record.version };
+        if (project.publication && own(project.publication.records, recordId)) project.publication.records[recordId] = customerRecord(record);
+        next.events.push(event(principal, `${record.type}.decision`, { companyId, projectId: record.projectId, recordId, decision: input.decision, version: record.version })); return a.role === 'customer' ? customerRecord(record) : clone(record);
       }, { customer: true });
     },
     async uploadDocument(principal, companyId, projectId, input) {
