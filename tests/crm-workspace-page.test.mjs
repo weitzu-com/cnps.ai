@@ -298,3 +298,8 @@ test('AI output stays visible after dialog closes and never reports a project wr
 test('AI errors stay in dialog without claiming analysis succeeded',async()=>{
  const h=harness({override:call=>call.body?.action==='projectAi'?{status:409,body:{error:'资料或授权已变化'}}:undefined});await h.flush();await h.openProject();await h.click('AI 项目助手');h.get('field-question').value='Summarize';await h.event('action-form','submit');assert.equal(h.get('action-dialog').open,true);assert.match(h.get('dialog-message').textContent,/授权已变化/);
 });
+
+
+test('attachment question renders exact version source links and original excerpts',async()=>{
+ const h=harness({override:call=>call.body?.action==='knowledgeAnswer'?{body:{ok:true,data:{answer:'Budget evidence [1]',sources:[{sourceId:1,documentId:'document-A',versionId:'version-A',version:2,filename:'delivery.pdf',location:{kind:'page',number:9},excerpt:'Exact original budget'}],coverage:[{filename:'delivery.pdf',status:'ready'}]}}}:undefined});await h.flush();await h.openProject();await h.click('资料正文问答');h.get('field-question').value='Budget';await h.event('action-form','submit');assert.equal(h.get('action-dialog').open,false);assert.match(h.get('content').textContent,/Exact original budget/);const link=h.walk(h.get('content')).find(x=>x.tagName==='A'&&x.textContent.includes('[1]'));assert.match(link.href,/documentId=document-A&versionId=version-A/);assert.match(link.textContent,/PDF页 9/);assert.deepEqual(h.calls.find(c=>c.body?.action==='knowledgeAnswer').body.documentIds,['document-A']);
+});

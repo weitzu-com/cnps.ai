@@ -1,3 +1,4 @@
+import { knowledgeAnswer } from './crm-knowledge.mjs';
 import { projectAi } from './crm-ai.mjs';
 import { BusinessError } from './crm-business-service.mjs';
 
@@ -78,6 +79,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
         try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError) throw error; throw new BusinessError(400, '请求格式无效。'); }
         const companyId = data.companyId, projectId = data.projectId;
         switch (data.action) {
+          case 'knowledgeAnswer': result = await knowledgeAnswer({env,service,principal,companyId,projectId,question:data.question,documentIds:data.documentIds}); break;
           case 'projectAi': result = await projectAi({env,service,principal,companyId,projectId,question:data.question}); break;
           case 'registerCompany': result = await service.registerCompany(principal, companyId); break;
           case 'createCompany': result = await service.createCompany(principal, data.fields); break;

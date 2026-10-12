@@ -605,6 +605,21 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       if (a.role !== 'customer') { const doc = own(state.documents, id(documentId)); if (!doc) missing(); projectAccess(state, a, doc.projectId); return managerDocument(doc); }
       const { doc, version } = docAccess(state, a, documentId); return viewDocument(doc, version);
     },
+    async documentText(principal, companyId, documentId, versionId) {
+      const {state,a}=await snapshot(companyId,principal), {doc,version}=docAccess(state,a,documentId,versionId);
+      // Knowledge answers use only current published versions, even for staff.
+      if(version.id!==id(versionId)||version.id!==doc.activeVersionId||!Number.isFinite(version.publishedAt)) missing();
+      if(typeof documents?.extractObject!=='function') fail(503,'正文解析接口暂不可用。');
+      const result=await documents.extractObject(version.objectId,{companyId,projectId:doc.projectId});
+      const latest=await snapshot(companyId,principal), current=docAccess(latest.state,latest.a,documentId,versionId);
+      if(current.version.id!==versionId||current.doc.activeVersionId!==versionId||current.version.withdrawnAt!=null) missing();
+      if(!result||!['ready','no_text','unsupported','parse_error'].includes(result.status)||!Array.isArray(result.segments)||result.segments.length>3000) fail(503,'正文解析结果无效。');
+      const segments=result.segments.map(item=>{
+        if(typeof item.text!=='string'||item.text.length>1600||!item.location||!['page','slide','paragraph','line'].includes(item.location.kind)||!Number.isSafeInteger(item.location.number)||item.location.number<1||!Number.isSafeInteger(item.location.part)||item.location.part<1) fail(503,'正文解析结果无效。');
+        return {text:item.text,location:clone(item.location)};
+      });
+      return {metadata:viewDocument(current.doc,current.version),status:result.status,segments};
+    },
     async download(principal, companyId, documentId, versionId) {
       const { state, a } = await snapshot(companyId, principal), { doc, version } = docAccess(state, a, documentId, versionId);
       if (version.id !== id(versionId)) missing();
