@@ -27,3 +27,16 @@ test('forged, expired and removed-allowlist sessions all fail closed',async()=>{
 test('60 second cooldown is atomic under concurrent sends, and five sends/day max',async()=>{const h=harness();const req=()=>h.request('/w/send',{method:'POST',body:{phone,consent:true}});let r=await Promise.all(Array.from({length:8},req));assert.equal(r.filter(x=>x.status===200).length,1);assert.equal(h.sends(),1);for(let i=1;i<5;i++){h.advance(61000);assert.equal((await req()).status,200);}h.advance(61000);assert.equal((await req()).status,429);assert.equal(h.sends(),5);});
 test('expired challenge and SMS failure reveal no secret or provider diagnostics',async()=>{const h=harness(),c=await h.send();h.advance(300001);assert.equal((await h.request('/w/verify',{method:'POST',cookie:c.cookie,body:{challenge:c.id,code:'123456'}})).status,400);h.fail();const r=await h.request('/w/send',{method:'POST',body:{phone,consent:true}});assert.equal(r.status,503);assert.ok(!r.text.includes('provider'));assert.ok(!r.text.includes(phone));});
 test('bad JSON, unsupported methods and unknown paths fail safely',async()=>{const h=harness();assert.equal((await h.request('/w/send',{method:'POST',body:'{'})).status,400);assert.equal((await h.request('/w/send',{method:'POST',body:{text:'x'.repeat(2100)}})).status,400);assert.equal((await h.request('/w',{method:'DELETE'})).status,405);assert.equal((await h.request('/w/unknown')).status,404);});
+for(const [prefix,cap] of [['send-day:',20],['send-month:',100]]) {
+ test(`global ${prefix} cap is enforced before any provider send`,async()=>{
+  const h=harness();await h.send();h.advance(61000);
+  const key=[...h.limits.keys()].find(k=>k.startsWith(prefix));
+  const quota=h.limits.get(key);quota.count=cap;
+  const request=()=>h.request('/w/send',{method:'POST',body:{phone,consent:true}});
+  assert.equal((await request()).status,429);assert.equal(h.sends(),1);
+  quota.count=cap-1;
+  assert.equal((await request()).status,200);assert.equal(h.sends(),2);
+  h.advance(61000);assert.equal((await request()).status,429);
+  assert.equal(h.sends(),2);assert.equal(quota.count,cap);
+ });
+}
