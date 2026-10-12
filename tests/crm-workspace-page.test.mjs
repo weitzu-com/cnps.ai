@@ -34,6 +34,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
   const project = {id: 'project-A', companyId: company.companyId, title: projectTitle, objective: 'A real project goal', scope: 'Authorized scope', deliverables: ['Technical document'], processGroup: 'planning', status: 'active', version: 3, publication: {version: 1}};
   const documentRow = {id: 'document-A', title: 'Authorized file', projectId: project.id, companyId: company.companyId, versionId: 'version-A', version: 2, filename: 'delivery.pdf', publishedAt: '2026-10-13'};
   const contacts = [{id: 'contact-A', companyId: company.companyId, name: 'Synthetic contact', firstName: 'Synthetic', lastName: 'Contact', email: 'contact@example.test', phone: '18700001111', canLogin: true}, {id: 'contact-no-phone', companyId: company.companyId, name: 'Email-only contact', email: 'only-email@example.test', canLogin: false}];
+  const staff = [{id: '00000000-0000-4000-8000-000000000001', companyId: 'internal-company', name: 'Synthetic internal staff', phone: '18700002222', canLogin: true}];
   const state = {company, project, records: structuredClone(records), document: documentRow, contacts};
   const document = {
     getElementById: id => ids.get(id), createElement: tag => new Element(tag),
@@ -56,7 +57,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
         response = {body: {ok: true, data: {companyId: company.companyId}}};
       }
       if (!response) {
-        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, members: [], events: []})[call.view];
+        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, staff, members: [], events: []})[call.view];
         if (data === undefined) throw Error('Unexpected request: ' + url);
         response = {body: {ok: true, data}};
       }
@@ -214,10 +215,18 @@ test('file size guard rejects oversized uploads before transmitting any file con
   assert.equal(h.get('action-dialog').open, true);
 });
 
-test('administrator explicitly assigns native internal staff UUID to selected registered companies; phone never grants manager access', async () => {
+test('administrator selects verified native internal staff and assigns only selected registered companies', async () => {
   const h=harness({role:'admin'});await h.flush();assert.equal(h.get('assign-manager').hidden,false);await h.event('assign-manager','click');
+  const directory=h.calls.find(call=>call.view==='staff');assert.ok(directory);assert.equal(directory.companyId,null);
+  assert.equal(h.get('field-staffId').tagName,'SELECT');assert.equal(h.get('field-staffId').children[0].textContent,'Synthetic internal staff · 18700002222');
   h.get('field-staffId').value='18700001111';await h.event('action-form','submit');assert.equal(h.calls.some(call=>call.body?.action==='assignManager'),false);
   h.get('field-staffId').value='00000000-0000-4000-8000-000000000001';await h.event('action-form','submit');
   const call=h.calls.find(call=>call.body?.action==='assignManager');assert.deepEqual(call.body,{action:'assignManager',staffId:'00000000-0000-4000-8000-000000000001',companyIds:['company-A'],active:true});
-  const manager=harness({role:'sales_manager'});await manager.flush();assert.equal(manager.get('assign-manager').hidden,true);await manager.event('assign-manager','click');assert.equal(manager.calls.some(call=>call.body?.action==='assignManager'),false);
+  const manager=harness({role:'sales_manager'});await manager.flush();assert.equal(manager.get('assign-manager').hidden,true);await manager.event('assign-manager','click');assert.equal(manager.calls.some(call=>call.body?.action==='assignManager'||call.view==='staff'),false);
+});
+
+test('empty verified staff directory explains internal contact setup and offers a real contact management entry', async () => {
+  const h=harness({role:'admin',override:call=>call.view==='staff'?{body:{ok:true,data:[]}}:undefined});await h.flush();await h.event('assign-manager','click');
+  assert.match(h.get('content').textContent,/暂无可分配的内部职员/);assert.match(h.get('content').textContent,/CNPS内部公司/);assert.notEqual(h.get('action-dialog').open,true);
+  assert.equal(h.calls.some(call=>call.body?.action==='assignManager'),false);await h.click('前往联系人管理','view-actions');assert.equal(h.calls.some(call=>call.view==='contacts'),true);
 });

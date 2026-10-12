@@ -48,6 +48,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
         const companyId = query('companyId'), projectId = query('projectId');
         switch (query('view')) {
           case 'companies': result = await service.listCompanies(principal); break;
+          case 'staff': result = await service.listStaff(principal); break;
           case 'contacts': result = await service.listContacts(principal, companyId); break;
           case 'projects': result = await service.listProjects(principal, companyId); break;
           case 'project': result = await service.getProject(principal, companyId, projectId); break;

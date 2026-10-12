@@ -262,6 +262,18 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       const latest = await store.getDirectory(); manage(latest, principal, companyId);
       return contacts.filter(contact => contact?.companyId === companyId && validId(contact.id)).map(viewContact);
     },
+    async listStaff(principal) {
+      if (!isAdmin(principal)) missing();
+      const companyId = env.CNPS_INTERNAL_COMPANY_ID;
+      if (!validId(companyId)) fail(503, '内部职员目录尚未配置。');
+      if (!await activeCompany(companyId)) missing();
+      if (typeof twenty?.listContacts !== 'function') fail(503, 'CRM资料接口尚未连接。');
+      const contacts = await twenty.listContacts(companyId);
+      if (!Array.isArray(contacts)) fail(503, 'CRM资料暂不可用。');
+      // Company selection is exclusively server configuration. Never accept a
+      // browser company/role parameter for the internal manager candidate list.
+      return contacts.filter(contact => contact?.companyId === companyId && contact.active === true && validId(contact.id) && validId(contact.identityId)).map(viewContact);
+    },
     async createContact(principal, companyId, input) {
       const directory = await store.getDirectory(); manage(directory, principal, companyId);
       await authoritative('getCompany', companyId);

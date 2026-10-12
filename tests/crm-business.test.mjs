@@ -310,6 +310,28 @@ test('a native company deletion invalidates current customer grants and removes 
   assert.deepEqual(await h.service.loadMemberships(dynamicCustomerPhone), []);
   assert.deepEqual((await h.service.loadMemberships(dynamicManagerPhone)).map(entry => entry.companyId), ['company-B']);
 });
+test('staff candidates come only from the active server-configured internal company and require a login identity', async () => {
+  const h = await setup(); h.env.CNPS_INTERNAL_COMPANY_ID = 'company-A';
+  h.contacts.set('inactive-staff', { id: 'inactive-staff', companyId: 'company-A', name: 'Inactive Person', active: false, identityId: 'inactive-person' });
+  h.contacts.set('unknown-identity-staff', { id: 'unknown-identity-staff', companyId: 'company-A', name: 'Missing Identity', active: true });
+  const listed = await h.service.listStaff(admin);
+  assert.deepEqual(listed.map(person => person.id), ['contact-A']);
+  assert.equal(listed[0].canLogin, true); assert.equal(listed[0].companyId, 'company-A');
+  await assert.rejects(h.service.listStaff(manager), status(404));
+  await assert.rejects(h.service.listStaff(customer), status(404));
+  h.nativeCompanies.delete('company-A');
+  await assert.rejects(h.service.listStaff(admin), status(404));
+  delete h.env.CNPS_INTERNAL_COMPANY_ID;
+  await assert.rejects(h.service.listStaff(admin), status(503));
+});
+test('staff HTTP view is administrator-only and browser company or role parameters cannot change its scope', async () => {
+  const h = await setup(); h.env.CNPS_INTERNAL_COMPANY_ID = 'company-A';
+  const response = await h.request('view=staff&companyId=company-B&role=admin', { actor: 'admin' });
+  assert.equal(response.status, 200);
+  assert.deepEqual(response.json().data.map(person => person.id), ['contact-A']);
+  for (const actor of ['manager', 'customer', 'otherCustomer']) assert.equal((await h.request('view=staff&role=admin', { actor })).status, 404);
+  assert.equal((await h.request('view=staff', { actor: 'anonymous' })).status, 401);
+});
 function dynamicPhoneForLookup() { return '13' + String(randomInt(0, 1_000_000_000)).padStart(9, '0'); }
 test('HTTP endpoints block guessed IDs, cross-company views, public contact lists and client mutations', async () => {
   const h = await setup();
