@@ -1,3 +1,50 @@
+Use this playbook when you need to decide whether — and how — to put FastGPT to work in an international enterprise workflow with CNPS.AI as the implementation partner. It gives you the buyer decision path, three bounded pilot packages, a draft acceptance set, licensing and data checks, budget formulas, a ninety-day plan with release gates, and ready-to-use English templates with a procurement FAQ.
+
+**Page summary as of 12 October 2026.** The 28 chapters below are the complete English edition of the research dated 2026-09-03; the research dates and documented revisions are unchanged, and the translation is not new research. Amounts are pre-tax planning assumptions in US dollars, not quotations. The eight cases are references published by FastGPT, not CNPS customer projects.
+
+## Start here: what this playbook gives you
+
+### Find your question in 28 chapters
+
+| If you need to… | Read | What you take away |
+| --- | --- | --- |
+| Decide whether an AI workflow is worth buying | [Chapter 01](#chapter-01) and [Chapter 02](#chapter-02) | The five judgments a buyer must make, and how international enterprise buyers decide |
+| Pick the first offering to start with | [Chapter 08](#chapter-08) | Use-case diagnosis → paid pilot → production implementation → continuous improvement, each with an exit condition |
+| Design a pilot you can accept or stop | [Chapter 21](#chapter-21) | Six acceptance dimensions and a draft first-round evaluation set with held-back blind samples |
+| Check licensing, data, and procurement risk | [Chapter 23](#chapter-23) | License checks applied to your actual delivery model; minimum data and procurement materials |
+| Size budget and payback | [Chapter 24](#chapter-24) | Unit economics, sensitivity, and how to avoid counting costs twice |
+| Plan the first ninety days | [Chapter 25](#chapter-25) | Owners by period and five release gates that dates cannot replace |
+| Reply to a buyer or brief a pilot today | [Chapter 27](#chapter-27) | An inbound reply draft, the pilot-brief fields, and the procurement FAQ |
+
+### Read by role
+
+- **You are an enterprise buyer:** start with Chapters 01–02, then 08, 21, 23, and 27. That is the path from "is this our problem?" to a scoped pilot proposal.
+- **You run delivery or IT:** Chapters 03–04 (evidence and product boundaries), 21–23 (acceptance, architecture, licensing and data), and 26 (risks and stop conditions).
+- **You manage the partnership or sales:** Chapters 05–07 (responsibilities, markets, ideal customers), 19–20 (inquiry handling to order), 24–25 (economics and the ninety-day plan).
+- **Chapters 11–18** are CNPS's own go-to-market research (open-source comparisons, X and GitHub evidence, website, messaging, search, distribution). Read them if you want to see how the offer is taken to market; you do not need them to scope a pilot.
+
+### The decision path in six steps
+
+1. **Name one workflow and who owns it.** Technical knowledge Q&A, support triage, or RFQ information processing are the entry points this playbook recommends (Chapter 01 sets the five judgments; the core decision sits at the top of the report).
+2. **Diagnose before you quote if data or interfaces are unclear.** Use-case diagnosis delivers a workflow map, risks, and a pilot recommendation — and explains why if the use case is unsuitable.
+3. **Keep the pilot bounded.** The knowledge Q&A package covers one document family, one business language, and one authorized user group; the RFQ package one input template and a limited field set; the support package one FAQ set, one group of routing labels, and one human handoff method.
+4. **Freeze the evaluation set before you start.** Include answerable requests, clarification needs, required refusals, mandatory human handoffs, and unauthorized-access requests. The thresholds in Chapter 21 are proposed negotiation starting points, not FastGPT guarantees.
+5. **Run license and data-flow checks against how you will actually deploy.** Model endpoints, document processing, backups, and integrations belong in the data-flow review.
+6. **Move to production only through release gates.** A project that has not passed its production gate cannot go live merely because day 60 has arrived.
+
+![Six pilot acceptance dimensions from Chapter 21 — correctness, evidence, permissions, human review, time, cost — with how to measure each, diagram only](/assets/resources/fastgpt-cnps-global-growth-pilot-acceptance.webp)
+
+![Five release gates from Chapter 25 — ready to sell, receive inquiries, pilot, production, scale — each with its approving role and required evidence, diagram only](/assets/resources/fastgpt-cnps-global-growth-release-gates.webp)
+
+### Go deeper on one pilot
+
+- Choosing the documents and the single workflow for a first pilot in the UAE: [Pick documents and one workflow for a UAE FastGPT first pilot](https://www.cnps.ai/en/fastgpt/guides/uae-first-pilot-documents-and-workflow)
+- Fixing the evaluation set, permissions, citations, and acceptance test for any document assistant: [Scope a document-grounded AI assistant](https://www.cnps.ai/en/resources/knowledge-pilot)
+- Deciding between FastGPT and ChatGPT for permissions, citations, and human review: [FastGPT vs ChatGPT for permissioned enterprise knowledge](https://www.cnps.ai/en/fastgpt/compare/fastgpt-vs-chatgpt-enterprise)
+- Ready with one workflow and its owner: [Plan a FastGPT knowledge-base pilot.](https://www.cnps.ai/en/fastgpt/contact)
+
+The full research edition follows unchanged.
+
 <!-- source-block: b000 -->
 
 # FastGPT × CNPS.AI: Global Growth and Delivery Playbook
