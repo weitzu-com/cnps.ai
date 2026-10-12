@@ -12,6 +12,9 @@
     "node": ">=22"
   },
   "dependencies": {
+    "@alicloud/dypnsapi20170525": "2.0.0",
+    "@alicloud/openapi-client": "0.4.15",
+    "@upstash/redis": "1.39.0",
     "marked": "^17.0.1"
   }
 }
