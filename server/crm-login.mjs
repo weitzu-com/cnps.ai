@@ -59,7 +59,7 @@ export function crmLoginPage(nonce) {
         <p class="sub">登录状态已生效，可继续访问获授权的资料。</p>
         <dl class="identity"><div><dt>登录手机号</dt><dd id="session-phone"></dd></div><div><dt>当前身份</dt><dd id="session-role"></dd></div></dl>
         <p class="session-note">项目资料按公司与授权范围开放。客户方案使用独立访问授权，如提示验证身份，请按该页面完成验证。</p>
-        <div class="session-actions"><a class="button-link" href="https://www.cnps.ai/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
+        <div class="session-actions"><a class="button-link" href="/crm/workspace">进入客户工作台</a><a class="button-link secondary" href="https://www.cnps.ai/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
         <p class="status" id="session-status" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
       <button type="button" class="text-button" id="retry-session" hidden>重新检查登录状态</button>

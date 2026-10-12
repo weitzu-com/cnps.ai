@@ -564,6 +564,10 @@
   ],
   "rewrites": [
     {
+      "source": "/crm/workspace",
+      "destination": "/api/crm-workspace-page"
+    },
+    {
       "source": "/crm",
       "destination": "/api/crm-page"
     },
@@ -594,6 +598,15 @@
     },
     "api/crm-page.js": {
       "maxDuration": 10
+    },
+    "api/crm-workspace.js": {
+      "maxDuration": 30
+    },
+    "api/crm-workspace-page.js": {
+      "maxDuration": 30
+    },
+    "api/crm-inquiry.js": {
+      "maxDuration": 30
     }
   }
 }

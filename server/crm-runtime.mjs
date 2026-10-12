@@ -1,0 +1,18 @@
+import { createCrmAuthHandler } from './crm-auth-handler.mjs';
+import { createCrmStore } from './crm-auth-store.mjs';
+import { createCrmSms } from './crm-auth-sms.mjs';
+import { createBusinessStore } from './crm-business-store.mjs';
+import { createBusinessService } from './crm-business-service.mjs';
+import { createTwentyAdapter } from './crm-twenty-adapter.mjs';
+import { createDocumentsAdapter } from './crm-documents-adapter.mjs';
+
+export function createCrmRuntime(env, options = {}) {
+  const store = options.store || createBusinessStore(env);
+  const twenty = options.twenty || createTwentyAdapter(env);
+  const documents = options.documents || createDocumentsAdapter(env);
+  const service = createBusinessService({ env, store, twenty, documents });
+  const auth = createCrmAuthHandler({ env, storeFactory: options.authStoreFactory || createCrmStore, smsFactory: options.smsFactory || createCrmSms, loadMemberships: phone => service.loadMemberships(phone) });
+  return { auth, service, twenty, documents, store };
+}
+let runtime;
+export const getCrmRuntime = () => runtime ??= createCrmRuntime(process.env);
