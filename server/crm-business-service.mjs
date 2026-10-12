@@ -30,6 +30,17 @@ function ids(value) {
   if (!Array.isArray(value) || value.length > 200) fail(400, '授权范围无效。');
   return [...new Set(value.map(id))];
 }
+function expectedDocumentVersions(value) {
+  if (value === undefined) return [];
+  if (!Array.isArray(value) || value.length > 200) fail(400, '审批资料版本格式无效。');
+  const seen = new Set();
+  return value.map(item => {
+    object(item); rejectFields(item, ['documentId', 'versionId']);
+    const documentId = id(item.documentId), versionId = id(item.versionId);
+    if (seen.has(documentId)) fail(400, '审批资料不能包含重复标识。');
+    seen.add(documentId); return { documentId, versionId };
+  });
+}
 function date(value) { if (value === null || value === '') return null; if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value) || !Number.isFinite(Date.parse(value)) || new Date(value).toISOString().slice(0, 10) !== value) fail(400, '日期格式无效。'); return value; }
 function number(value, max = 1e10) { if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > max) fail(400, '数值格式无效。'); return value; }
 function object(value) { if (!value || typeof value !== 'object' || Array.isArray(value)) fail(400, '请求格式无效。'); return value; }
@@ -388,6 +399,20 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
         if (fields.status === 'completed') {
           const records = Object.values(next.records).filter(record => record.projectId === projectId), acceptance = records.filter(record => record.type === 'acceptance');
           if (!acceptance.length || acceptance.some(record => record.status !== 'approved') || records.some(record => record.type === 'task' && record.status !== 'done')) fail(409, '项目任务完成且验收通过后才能完成结项。');
+          // Closing approves the materials that are current at this transition.
+          // A previously completed project's later archive changes do not rewrite
+          // its historical closure when it remains in the completed state.
+          if (project.status !== 'completed') for (const record of acceptance) {
+            const decision = record.decision, refs = record.deliverableDocumentIds || [], versions = decision?.deliverableVersions;
+            if (decision?.decision !== 'approved' || decision.decidedVersion !== record.version || (refs.length && !Array.isArray(versions)) || (versions?.length || 0) !== refs.length) fail(409, '验收审批未绑定当前事项和资料版本，请修订并重新审批后结项。');
+            const seen = new Set();
+            for (const documentId of refs) {
+              const doc = own(next.documents, documentId), version = doc?.versions.find(item => item.id === doc.activeVersionId && item.withdrawnAt == null && Number.isFinite(item.publishedAt));
+              const binding = versions.find(item => item.documentId === documentId);
+              if (!version || doc.projectId !== record.projectId || !binding || seen.has(binding.documentId) || binding.versionId !== version.id || binding.version !== version.version) fail(409, '验收资料已更换版本或撤回，请修订并重新审批后结项。');
+              seen.add(binding.documentId);
+            }
+          }
         }
         Object.assign(project, fields, { version: project.version + 1, updatedAt: now() });
         if (project.plannedStart && project.plannedEnd && project.plannedStart > project.plannedEnd) fail(400, '项目开始日期不能晚于结束日期。');
@@ -484,9 +509,9 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       return [...clone(state.events), ...permissionEvents].sort((a, b) => a.at - b.at);
     },
     async decide(principal, companyId, recordId, input) {
-      object(input); rejectFields(input, ['decision', 'comment', 'expectedVersion']);
+      object(input); rejectFields(input, ['decision', 'comment', 'expectedVersion', 'expectedDocumentVersions']);
       if (!['approved', 'rejected'].includes(input.decision) || !Number.isInteger(input.expectedVersion)) fail(400, '决策格式无效。');
-      const comment = text(input.comment || '', 2000);
+      const comment = text(input.comment || '', 2000), expectedDocuments = expectedDocumentVersions(input.expectedDocumentVersions);
       return companyWrite(principal, companyId, (next, a) => {
         const record = own(next.records, id(recordId)); if (!record || !['change', 'acceptance'].includes(record.type)) missing();
         const project = projectAccess(next, a, record.projectId);
@@ -497,9 +522,15 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
         requireOpenProject(project);
         if (record.decision) fail(409, '该事项已有审批决定，请先显式修订为草稿并重新提交审批。');
         if (record.status !== 'requested' || record.version !== input.expectedVersion) fail(409, '该事项已变更，请刷新后重试。');
-        for (const documentId of record.deliverableDocumentIds || []) docAccess(next, a, documentId);
+        const refs = record.deliverableDocumentIds || [];
+        const deliverableVersions = refs.map(documentId => {
+          const { version } = docAccess(next, a, documentId);
+          return { documentId, versionId: version.id, version: version.version };
+        });
+        if (expectedDocuments.length !== refs.length || expectedDocuments.some(item => !refs.includes(item.documentId))) fail(400, '请提供全部审批资料的准确版本，再提交审批。');
+        for (const binding of deliverableVersions) if (expectedDocuments.find(item => item.documentId === binding.documentId)?.versionId !== binding.versionId) fail(409, '审批资料已更换版本，请刷新并核对资料后重新提交。');
         record.status = input.decision; record.version++; record.updatedAt = now();
-        record.decision = { decision: input.decision, comment, actorId: subject(principal), at: now(), decidedVersion: record.version };
+        record.decision = { decision: input.decision, comment, actorId: subject(principal), at: now(), decidedVersion: record.version, deliverableVersions };
         if (project.publication && own(project.publication.records, recordId)) project.publication.records[recordId] = customerRecord(record);
         next.events.push(event(principal, `${record.type}.decision`, { companyId, projectId: record.projectId, recordId, decision: input.decision, version: record.version })); return a.role === 'customer' ? customerRecord(record) : clone(record);
       }, { customer: true });

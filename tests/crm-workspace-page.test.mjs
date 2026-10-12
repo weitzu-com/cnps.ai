@@ -32,7 +32,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
   }
   const company = {companyId: 'company-A', name: 'Synthetic company', registered};
   const project = {id: 'project-A', companyId: company.companyId, title: projectTitle, objective: 'A real project goal', scope: 'Authorized scope', deliverables: ['Technical document'], processGroup: 'planning', status: projectStatus, version: 3, publication: {version: 1}};
-  const documentRow = {id: 'document-A', title: 'Authorized file', projectId: project.id, companyId: company.companyId, versionId: 'version-A', version: 2, filename: 'delivery.pdf', publishedAt: '2026-10-13'};
+  const documentRow = {id: 'document-A', title: 'Authorized file', projectId: project.id, companyId: company.companyId, versionId: 'version-A', version: 2, filename: 'delivery.pdf', publishedAt: '2026-10-13', status: 'published'};
   const contacts = [{id: 'contact-A', companyId: company.companyId, name: 'Synthetic contact', firstName: 'Synthetic', lastName: 'Contact', email: 'contact@example.test', phone: '18700001111', canLogin: true}, {id: 'contact-no-phone', companyId: company.companyId, name: 'Email-only contact', email: 'only-email@example.test', canLogin: false}];
   const staff = [{id: '00000000-0000-4000-8000-000000000001', companyId: 'internal-company', name: 'Synthetic internal staff', phone: '18700002222', canLogin: true}];
   const state = {company, project, records: structuredClone(records), document: documentRow, contacts};
@@ -123,6 +123,38 @@ test('customer decision controls require explicit approval permission and submit
   assert.deepEqual(call.body, {action: 'decide', companyId: 'company-A', recordId: 'change-A', fields: {decision: 'approved', comment: 'Approved after checking authorized material.', expectedVersion: 7}});
   assert.equal(call.options.headers['X-CNPS-CRM'], '1');
   assert.equal(call.options.credentials, 'same-origin');
+});
+
+test('customer approval and rejection bind exactly to the displayed published document versions', async () => {
+  for(const [label,decision] of [['批准','approved'],['拒绝','rejected']]){
+    const records=[{id:'acceptance-A',type:'acceptance',title:'Review delivery',status:'requested',clientVisible:true,version:4,deliverableDocumentIds:['document-A']}];
+    const h=harness({records,approvals:true});await h.flush();await h.openProject();await h.click('变更与验收');await h.click(label);
+    assert.match(h.get('dialog-fields').textContent,/本次审批材料版本来自页面中已发布资料/);assert.match(h.get('dialog-fields').textContent,/Authorized file · v2/);
+    const material=h.walk(h.get('dialog-fields')).find(item=>item.tagName==='A');assert.match(material.href,/documentId=document-A&versionId=version-A/);
+    h.get('field-comment').value='Reviewed this material version.';await h.event('action-form','submit');
+    assert.deepEqual(h.calls.find(call=>call.body?.action==='decide').body.fields,{decision,comment:'Reviewed this material version.',expectedVersion:4,expectedDocumentVersions:[{documentId:'document-A',versionId:'version-A'}]});
+  }
+});
+
+test('manager decision uses active published material and never the latest draft version', async () => {
+  const records=[{id:'change-A',type:'change',title:'Review change',status:'requested',version:6,deliverableDocumentIds:['document-A']}];
+  const h=harness({role:'sales_manager',records,override(call,state){if(call.view==='documents')return{body:{ok:true,data:[{...state.document,title:'Latest draft title',versionId:'version-draft',version:3,status:'draft',activeVersionId:'version-A',versions:[{...state.document,title:'Reviewed published title'},{...state.document,title:'Latest draft title',versionId:'version-draft',version:3,status:'draft'}]}]}};}});
+  await h.flush();await h.openProject();await h.click('变更与验收');await h.click('批准');assert.match(h.get('dialog-fields').textContent,/Reviewed published title · v2/);assert.equal(h.get('dialog-fields').textContent.includes('Latest draft title'),false);
+  h.get('field-comment').value='Reviewed published delivery.';await h.event('action-form','submit');assert.deepEqual(h.calls.find(call=>call.body?.action==='decide').body.fields.expectedDocumentVersions,[{documentId:'document-A',versionId:'version-A'}]);
+});
+
+test('missing, withdrawn or unpublished linked materials block decisions and ask for a refresh or publication', async () => {
+  const records=[{id:'acceptance-A',type:'acceptance',title:'Review material',status:'requested',clientVisible:true,version:5,deliverableDocumentIds:['document-A']}];
+  for(const [role,documents] of [['customer',[]],['customer',[{id:'document-A',versionId:'version-A',status:'withdrawn'}]],['sales_manager',[{id:'document-A',versionId:'version-draft',status:'draft',versions:[{versionId:'version-draft',status:'draft'}]}]]]){
+    const h=harness({role,records,approvals:true,override:call=>call.view==='documents'?{body:{ok:true,data:documents}}:undefined});await h.flush();await h.openProject();await h.click('变更与验收');await h.click('批准');assert.notEqual(h.get('action-dialog').open,true);assert.match(h.get('message').textContent,/材料缺失或尚未发布.*刷新/);assert.equal(h.calls.some(call=>call.body?.action==='decide'),false);
+  }
+});
+
+test('a document version change after opening approval keeps the reviewed binding and surfaces server conflict without claiming success', async () => {
+  const records=[{id:'acceptance-A',type:'acceptance',title:'Review version',status:'requested',clientVisible:true,version:8,deliverableDocumentIds:['document-A']}];
+  const h=harness({records,approvals:true,override:call=>call.body?.action==='decide'?{status:409,body:{error:'审批材料版本已变化，请刷新资料后重新审阅。'}}:undefined});await h.flush();await h.openProject();await h.click('变更与验收');await h.click('批准');
+  h.state.document.versionId='version-new';h.state.document.version=3;h.get('field-comment').value='Reviewed version two.';await h.event('action-form','submit');
+  assert.deepEqual(h.calls.find(call=>call.body?.action==='decide').body.fields.expectedDocumentVersions,[{documentId:'document-A',versionId:'version-A'}]);assert.match(h.get('dialog-message').textContent,/版本已变化.*刷新/);assert.equal(h.get('action-dialog').open,true);assert.equal(h.get('dialog-submit').disabled,false);assert.equal(h.get('message').textContent.includes('操作已保存'),false);
 });
 
 test('assigned manager creates a task with the backend status contract and customer visibility choice', async () => {

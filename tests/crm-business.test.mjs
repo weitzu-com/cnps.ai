@@ -91,6 +91,7 @@ async function setup() {
     beforeCommit: callback => beforeCommit = callback, duringRead: callback => duringRead = callback, duringCreate: callback => duringCreate = callback, advance: ms => clock += ms };
 }
 const status = expected => error => error instanceof BusinessError && error.status === expected;
+const materials = (...documents) => documents.map(document => ({ documentId: document.id, versionId: document.versionId }));
 
 test('customers see only their company, selected published projects and selected documents', async () => {
   const h = await setup();
@@ -222,13 +223,112 @@ test('approval requires published requested version, explicit approval grant and
   await h.service.grantMember(manager, 'company-A', { ...h.grant, allowApprovals: false });
   await assert.rejects(h.service.decide(customer, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: acceptance.version }), status(404));
   await h.service.grantMember(manager, 'company-A', h.grant);
-  const approved = await h.service.decide(customer, 'company-A', acceptance.id, { decision: 'approved', comment: 'Accepted', expectedVersion: acceptance.version });
+  const approved = await h.service.decide(customer, 'company-A', acceptance.id, { decision: 'approved', comment: 'Accepted', expectedVersion: acceptance.version, expectedDocumentVersions: materials(h.docA) });
   assert.equal(approved.status, 'approved');
   assert.equal(approved.decision.actorId, customer.identityId);
   await assert.rejects(h.service.decide(customer, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: acceptance.version }), status(404));
   const blocked = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Restricted delivery', status: 'requested', deliverableDocumentIds: [h.privateDoc.id], clientVisible: true });
   await h.service.publishProject(manager, 'company-A', h.projectA.id);
   await assert.rejects(h.service.decide(customer, 'company-A', blocked.id, { decision: 'approved', expectedVersion: blocked.version }), status(404));
+});
+test('approval and rejection require exact unique versions for every authorized referenced delivery', async () => {
+  const h = await setup();
+  await h.service.grantMember(manager, 'company-A', { ...h.grant, documentScope: 'all', documentIds: [] });
+  for (const decision of ['approved', 'rejected']) {
+    const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: `${decision} materials`, status: 'requested', clientVisible: true, deliverableDocumentIds: [h.docA.id, h.privateDoc.id] });
+    await h.service.publishProject(manager, 'company-A', h.projectA.id);
+    const input = { decision, expectedVersion: record.version }, before = await h.store.getCompany('company-A');
+    for (const expectedDocumentVersions of [undefined, [], materials(h.docA), [...materials(h.docA, h.privateDoc), ...materials(h.docA)], [...materials(h.docA, h.privateDoc), ...materials(h.docB)], [{ ...materials(h.docA)[0], extra: 'Unsupported' }, ...materials(h.privateDoc)]]) {
+      await assert.rejects(h.service.decide(customer, 'company-A', record.id, { ...input, expectedDocumentVersions }), status(400));
+      assert.deepEqual(await h.store.getCompany('company-A'), before);
+    }
+    await assert.rejects(h.service.decide(customer, 'company-A', record.id, { ...input, expectedDocumentVersions: [{ documentId: h.docA.id, versionId: 'guessed-version' }, ...materials(h.privateDoc)] }), status(409));
+    const decided = await h.service.decide(customer, 'company-A', record.id, { ...input, expectedDocumentVersions: materials(h.privateDoc, h.docA) });
+    assert.deepEqual(decided.decision.deliverableVersions, [{ documentId: h.docA.id, versionId: h.docA.versionId, version: h.docA.version }, { documentId: h.privateDoc.id, versionId: h.privateDoc.versionId, version: h.privateDoc.version }]);
+    assert.ok(!JSON.stringify(decided.decision).includes('objectId'));
+  }
+  const noRefs = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'change', { title: 'No material references', status: 'requested' });
+  await assert.rejects(h.service.decide(manager, 'company-A', noRefs.id, { decision: 'approved', expectedVersion: noRefs.version, expectedDocumentVersions: materials(h.docA) }), status(400));
+  assert.deepEqual((await h.service.decide(manager, 'company-A', noRefs.id, { decision: 'approved', expectedVersion: noRefs.version })).decision.deliverableVersions, []);
+});
+test('publishing another version of the same logical document rejects a stale approval or rejection without changing the record', async () => {
+  for (const decision of ['approved', 'rejected']) {
+    const h = await setup();
+    const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Version-aware delivery', status: 'requested', clientVisible: true, deliverableDocumentIds: [h.docA.id] });
+    await h.service.publishProject(manager, 'company-A', h.projectA.id);
+    const draft = await h.service.uploadDocument(manager, 'company-A', h.projectA.id, { title: 'New delivery', filename: 'delivery-v2.txt', mimeType: 'text/plain', base64: Buffer.from('New delivery material').toString('base64'), documentId: h.docA.id });
+    assert.equal((await h.service.getDocument(customer, 'company-A', h.docA.id)).versionId, h.docA.versionId);
+    await h.service.publishDocument(manager, 'company-A', h.docA.id, draft.versionId);
+    const before = await h.store.getCompany('company-A');
+    const stale = { decision, expectedVersion: record.version, expectedDocumentVersions: materials(h.docA) };
+    await assert.rejects(h.service.decide(customer, 'company-A', record.id, stale), status(409));
+    const response = await h.request('', { method: 'POST', body: { action: 'decide', companyId: 'company-A', recordId: record.id, fields: stale } });
+    assert.equal(response.status, 409); assert.ok(response.json().error.includes('资料已更换版本'));
+    assert.deepEqual(await h.store.getCompany('company-A'), before);
+    assert.equal((await h.service.getRecord(manager, 'company-A', record.id)).version, record.version);
+    const currentDoc = await h.service.getDocument(customer, 'company-A', h.docA.id);
+    const decided = await h.service.decide(customer, 'company-A', record.id, { ...stale, expectedDocumentVersions: materials(currentDoc) });
+    assert.deepEqual(decided.decision.deliverableVersions, [{ documentId: h.docA.id, versionId: draft.versionId, version: currentDoc.version }]);
+  }
+});
+test('a concurrent material publication makes the approval CAS fail without storing a stale decision', async () => {
+  const h = await setup();
+  const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Concurrent material', status: 'requested', clientVisible: true, deliverableDocumentIds: [h.docA.id] });
+  await h.service.publishProject(manager, 'company-A', h.projectA.id);
+  const draft = await h.service.uploadDocument(manager, 'company-A', h.projectA.id, { title: 'Racing delivery', filename: 'racing.txt', mimeType: 'text/plain', base64: Buffer.from('Racing material').toString('base64'), documentId: h.docA.id });
+  h.beforeCommit(() => h.service.publishDocument(manager, 'company-A', h.docA.id, draft.versionId));
+  await assert.rejects(h.service.decide(customer, 'company-A', record.id, { decision: 'approved', expectedVersion: record.version, expectedDocumentVersions: materials(h.docA) }), status(409));
+  const current = await h.service.getRecord(manager, 'company-A', record.id);
+  assert.equal(current.status, 'requested'); assert.equal(current.version, record.version); assert.ok(!Object.hasOwn(current, 'decision'));
+  assert.equal((await h.service.getDocument(customer, 'company-A', h.docA.id)).versionId, draft.versionId);
+});
+test('new acceptance material versions require explicit revision and fresh approval before closure', async () => {
+  const h = await setup();
+  const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Accepted delivery', status: 'requested', clientVisible: true, deliverableDocumentIds: [h.docA.id] });
+  await h.service.publishProject(manager, 'company-A', h.projectA.id);
+  const approved = await h.service.decide(customer, 'company-A', record.id, { decision: 'approved', expectedVersion: record.version, expectedDocumentVersions: materials(h.docA) });
+  const draft = await h.service.uploadDocument(manager, 'company-A', h.projectA.id, { title: 'Changed accepted material', filename: 'changed.txt', mimeType: 'text/plain', base64: Buffer.from('Changed after approval').toString('base64'), documentId: h.docA.id });
+  await h.service.publishDocument(manager, 'company-A', h.docA.id, draft.versionId);
+  const before = await h.store.getCompany('company-A');
+  await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
+  assert.deepEqual(await h.store.getCompany('company-A'), before);
+  const [revision] = await h.service.updateRecords(manager, 'company-A', [{ id: record.id, fields: { status: 'draft' } }]);
+  assert.deepEqual(revision.decisionHistory[0].decision.deliverableVersions, approved.decision.deliverableVersions);
+  const [requested] = await h.service.updateRecords(manager, 'company-A', [{ id: record.id, fields: { status: 'requested' } }]);
+  await h.service.publishProject(manager, 'company-A', h.projectA.id);
+  const current = await h.service.getDocument(customer, 'company-A', h.docA.id);
+  await h.service.decide(customer, 'company-A', record.id, { decision: 'approved', expectedVersion: requested.version, expectedDocumentVersions: materials(current) });
+  assert.equal((await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' })).status, 'completed');
+  // Closure is historical: a later archive update stays allowed while closed.
+  const archive = await h.service.uploadDocument(manager, 'company-A', h.projectA.id, { title: 'Later archive', filename: 'archive.txt', mimeType: 'text/plain', base64: Buffer.from('Post-closure archive').toString('base64'), documentId: h.docA.id });
+  await h.service.publishDocument(manager, 'company-A', h.docA.id, archive.versionId);
+  assert.equal((await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed', title: 'Historical closure' })).status, 'completed');
+});
+test('a concurrent publication invalidates a closure CAS and keeps the project open', async () => {
+  const h = await setup();
+  const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Closing delivery', status: 'requested', deliverableDocumentIds: [h.docA.id] });
+  await h.service.decide(manager, 'company-A', record.id, { decision: 'approved', expectedVersion: record.version, expectedDocumentVersions: materials(h.docA) });
+  const draft = await h.service.uploadDocument(manager, 'company-A', h.projectA.id, { title: 'Concurrent closing material', filename: 'closing.txt', mimeType: 'text/plain', base64: Buffer.from('New closing material').toString('base64'), documentId: h.docA.id });
+  h.beforeCommit(() => h.service.publishDocument(manager, 'company-A', h.docA.id, draft.versionId));
+  await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
+  assert.equal((await h.service.getProject(manager, 'company-A', h.projectA.id)).status, h.projectA.status);
+  assert.equal((await h.service.getDocument(manager, 'company-A', h.docA.id)).activeVersionId, draft.versionId);
+  assert.ok(!(await h.service.listEvents(manager, 'company-A')).some(event => event.action === 'project.update'));
+});
+test('legacy unbound or withdrawn acceptance materials cannot close a currently open project', async () => {
+  for (const invalidation of ['unbound', 'withdrawn']) {
+    const h = await setup();
+    const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Legacy or withdrawn delivery', status: 'requested', deliverableDocumentIds: [h.docA.id] });
+    await h.service.decide(manager, 'company-A', record.id, { decision: 'approved', expectedVersion: record.version, expectedDocumentVersions: materials(h.docA) });
+    if (invalidation === 'unbound') {
+      const old = await h.store.getCompany('company-A'), next = clone(old);
+      delete next.records[record.id].decision.deliverableVersions; next.revision++;
+      assert.equal(await h.store.commitCompany('company-A', (await h.store.getDirectory()).revision, old.revision, next), true);
+    } else await h.service.withdrawDocument(manager, 'company-A', h.docA.id, h.docA.versionId);
+    const before = await h.store.getCompany('company-A');
+    await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
+    assert.deepEqual(await h.store.getCompany('company-A'), before);
+  }
 });
 test('unapproved changes cannot be implemented and unfinished/unaccepted projects cannot close', async () => {
   const h = await setup();
@@ -248,7 +348,7 @@ test('approved and rejected decisions cannot retain their status while content o
   const h = await setup();
   for (const type of ['change', 'acceptance']) for (const decision of ['approved', 'rejected']) {
     const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, type, { title: `${decision} ${type}`, status: 'requested', criteria: 'Agreed criteria', ...(type === 'change' ? { impact: 'Agreed impact' } : {}), deliverableDocumentIds: [h.docA.id] });
-    const decided = await h.service.decide(manager, 'company-A', record.id, { decision, expectedVersion: record.version });
+    const decided = await h.service.decide(manager, 'company-A', record.id, { decision, expectedVersion: record.version, expectedDocumentVersions: materials(h.docA) });
     assert.equal(decided.decision.decidedVersion, decided.version);
     const before = await h.store.getCompany('company-A');
     for (const fields of [{ title: 'Changed title' }, { criteria: 'Changed criteria' }, { deliverableDocumentIds: [h.privateDoc.id] }, ...(type === 'change' ? [{ impact: 'Changed impact' }] : [])]) {
@@ -260,7 +360,7 @@ test('approved and rejected decisions cannot retain their status while content o
 test('approved change implementation is an isolated status transition bound to the approved content version', async () => {
   const h = await setup();
   const change = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'change', { title: 'Approved scope', status: 'requested', impact: 'Approved impact', deliverableDocumentIds: [h.docA.id] });
-  const approved = await h.service.decide(manager, 'company-A', change.id, { decision: 'approved', comment: 'Agreed scope only', expectedVersion: change.version });
+  const approved = await h.service.decide(manager, 'company-A', change.id, { decision: 'approved', comment: 'Agreed scope only', expectedVersion: change.version, expectedDocumentVersions: materials(h.docA) });
   const before = await h.store.getCompany('company-A');
   await assert.rejects(h.service.updateRecords(manager, 'company-A', [{ id: change.id, fields: { status: 'implemented', impact: 'Larger scope' } }]), status(409));
   assert.deepEqual(await h.store.getCompany('company-A'), before);
@@ -276,7 +376,7 @@ test('approved change implementation is an isolated status transition bound to t
 test('explicit revisions preserve immutable linear decision snapshots and require fresh approval before closure', async () => {
   const h = await setup();
   const acceptance = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Final acceptance', status: 'requested', criteria: 'Original criteria', deliverableDocumentIds: [h.docA.id] });
-  const rejected = await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'rejected', comment: 'Delivery needs revision', expectedVersion: acceptance.version });
+  const rejected = await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'rejected', comment: 'Delivery needs revision', expectedVersion: acceptance.version, expectedDocumentVersions: materials(h.docA) });
   const [revised] = await h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'draft', criteria: 'Revised criteria' } }]);
   assert.equal(revised.status, 'draft'); assert.ok(!Object.hasOwn(revised, 'decision'));
   assert.deepEqual(revised.decisionHistory[0].snapshot, rejected);
@@ -286,7 +386,7 @@ test('explicit revisions preserve immutable linear decision snapshots and requir
   await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
   const [requested] = await h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'requested' } }]);
   await assert.rejects(h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: acceptance.version }), status(409));
-  const approved = await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: requested.version });
+  const approved = await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: requested.version, expectedDocumentVersions: materials(h.docA) });
   const [secondRevision] = await h.service.updateRecords(manager, 'company-A', [{ id: acceptance.id, fields: { status: 'requested', criteria: 'Final revised criteria' } }]);
   assert.equal(secondRevision.decisionHistory.length, 2);
   assert.deepEqual(secondRevision.decisionHistory[0], revised.decisionHistory[0]);
@@ -294,7 +394,7 @@ test('explicit revisions preserve immutable linear decision snapshots and requir
   assert.equal(secondRevision.decisionHistory[1].snapshot.decision.decidedVersion, approved.version);
   assert.ok(secondRevision.decisionHistory.every(entry => !Object.hasOwn(entry.snapshot, 'decisionHistory')));
   await assert.rejects(h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' }), status(409));
-  await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: secondRevision.version });
+  await h.service.decide(manager, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: secondRevision.version, expectedDocumentVersions: materials(h.docA) });
   assert.equal((await h.service.updateProject(manager, 'company-A', h.projectA.id, { status: 'completed' })).status, 'completed');
 });
 test('legacy decisions preserve their full approved snapshot and receive version binding on implementation', async () => {
@@ -317,7 +417,7 @@ test('legacy decisions preserve their full approved snapshot and receive version
 test('private decision history never enters published records, customer results, approval responses or search', async () => {
   const h = await setup(), secret = 'PrivatePreviousApprovalDetail';
   const record = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: secret, description: secret, status: 'requested', criteria: secret, deliverableDocumentIds: [h.privateDoc.id], clientVisible: false });
-  await h.service.decide(manager, 'company-A', record.id, { decision: 'approved', comment: secret, expectedVersion: record.version });
+  await h.service.decide(manager, 'company-A', record.id, { decision: 'approved', comment: secret, expectedVersion: record.version, expectedDocumentVersions: materials(h.privateDoc) });
   const [revision] = await h.service.updateRecords(manager, 'company-A', [{ id: record.id, fields: { status: 'requested', title: 'Customer delivery', description: 'Public delivery description', criteria: 'Public criteria', deliverableDocumentIds: [h.docA.id], clientVisible: true } }]);
   assert.ok(JSON.stringify(await h.service.getRecord(manager, 'company-A', record.id)).includes(secret));
   await h.service.publishProject(manager, 'company-A', h.projectA.id);
@@ -328,7 +428,7 @@ test('private decision history never enters published records, customer results,
     for (const denied of [secret, 'decisionHistory', h.privateDoc.id]) assert.ok(!value.includes(denied));
   }
   assert.deepEqual(await h.service.search(customer, 'company-A', secret), []);
-  const approved = await h.service.decide(customer, 'company-A', record.id, { decision: 'approved', expectedVersion: revision.version });
+  const approved = await h.service.decide(customer, 'company-A', record.id, { decision: 'approved', expectedVersion: revision.version, expectedDocumentVersions: materials(h.docA) });
   assert.equal(approved.status, 'approved'); assert.ok(!Object.hasOwn(approved, 'decisionHistory'));
   assert.ok(!JSON.stringify(approved).includes(secret));
   assert.deepEqual(await h.service.search(customer, 'company-A', secret), []);
