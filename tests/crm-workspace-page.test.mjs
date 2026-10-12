@@ -289,3 +289,12 @@ test('empty verified staff directory explains internal contact setup and offers 
   assert.match(h.get('content').textContent,/暂无可分配的内部职员/);assert.match(h.get('content').textContent,/CNPS内部公司/);assert.notEqual(h.get('action-dialog').open,true);
   assert.equal(h.calls.some(call=>call.body?.action==='assignManager'),false);await h.click('前往联系人管理','view-actions');assert.equal(h.calls.some(call=>call.view==='contacts'),true);
 });
+
+
+test('AI output stays visible after dialog closes and never reports a project write',async()=>{
+ const h=harness({override:call=>call.body?.action==='projectAi'?{body:{ok:true,data:{answer:'Synthetic AI advice'}}}:undefined});await h.flush();await h.openProject();await h.click('AI 项目助手');h.get('field-question').value='Summarize';await h.event('action-form','submit');
+ assert.match(h.get('content').textContent,/Synthetic AI advice/);assert.match(h.get('message').textContent,/AI分析完成/);assert.equal(h.get('action-dialog').open,false);assert.equal(h.calls.some(c=>c.body?.action==='updateProject'),false);
+});
+test('AI errors stay in dialog without claiming analysis succeeded',async()=>{
+ const h=harness({override:call=>call.body?.action==='projectAi'?{status:409,body:{error:'资料或授权已变化'}}:undefined});await h.flush();await h.openProject();await h.click('AI 项目助手');h.get('field-question').value='Summarize';await h.event('action-form','submit');assert.equal(h.get('action-dialog').open,true);assert.match(h.get('dialog-message').textContent,/授权已变化/);
+});
