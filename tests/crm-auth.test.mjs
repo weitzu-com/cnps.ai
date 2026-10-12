@@ -1,0 +1,278 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { randomBytes } from 'node:crypto';
+import { createCrmAuthHandler, CRM_SESSION_COOKIE, CRM_CHALLENGE_COOKIE } from '../server/crm-auth-handler.mjs';
+import { createCrmStore } from '../server/crm-auth-store.mjs';
+import { createCrmSms, CRM_SMS_SCHEME } from '../server/crm-auth-sms.mjs';
+import { createHandler as createProposalHandler } from '../server/proposal-handler.mjs';
+
+const adminPhone = '18700001111';
+const customerPhone = '18800002222';
+function harness({ memberDirectory = new Map() } = {}) {
+  let time = Date.UTC(2026, 9, 13), sends = 0, verifications = 0, smsFailure = false;
+  const env = { CNPS_PROPOSAL_SECRET: randomBytes(32).toString('hex'), CNPS_PROPOSAL_ALLOWED_PHONES: adminPhone, CNPS_CRM_ADMIN_PHONE: adminPhone };
+  const limits = new Map(), values = new Map(), visits = [];
+  const reserve = async items => {
+    for (const item of items) {
+      const entry = limits.get(item.name);
+      if (entry?.expiry > time && entry.count >= item.max) return false;
+    }
+    for (const item of items) {
+      let entry = limits.get(item.name);
+      if (!entry || entry.expiry <= time) entry = { count: 0, expiry: time + item.ttl * 1000 };
+      entry.count++;
+      limits.set(item.name, entry);
+    }
+    return true;
+  };
+  const memoryStore = prefix => {
+    const get = name => {
+      const entry = values.get(prefix + name);
+      return entry?.expiry > time ? structuredClone(entry.value) : null;
+    };
+    return {
+      reserve,
+      async set(name, value, ttl) { values.set(prefix + name, { value: structuredClone(value), expiry: time + ttl * 1000 }); },
+      async get(name) { return get(name); },
+      async del(name) { values.delete(prefix + name); },
+      async attempt(id, binding) {
+        const value = get('challenge:' + id);
+        if (!value || value.binding !== binding || value.attempts >= 5) return null;
+        values.get(prefix + 'challenge:' + id).value.attempts++;
+        return value;
+      },
+      async consume(id, binding) {
+        const value = get('challenge:' + id);
+        if (!value || value.binding !== binding) return false;
+        values.delete(prefix + 'challenge:' + id);
+        return true;
+      }
+    };
+  };
+  const crmStore = memoryStore('crm:'), proposalStore = memoryStore('proposal:');
+  const smsFactory = () => ({
+    async send() { if (smsFailure) throw new Error('secret provider diagnostics'); sends++; },
+    async verify(phone, code) { verifications++; return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
+  });
+  const handler = createCrmAuthHandler({ env, storeFactory: () => crmStore, smsFactory,
+    loadMemberships: async phone => memberDirectory.get(phone) || [], now: () => time,
+    recordVisit: async visit => visits.push(visit) });
+  const proposalHandler = createProposalHandler({ env, storeFactory: () => proposalStore, smsFactory,
+    now: () => time, loadBundle: async () => ({ html: 'private proposal', assets: {} }) });
+  async function request(url = '/api/crm', { method = 'GET', body, cookie = '', origin = 'https://www.cnps.ai', extra = {} } = {}, target = handler) {
+    const headers = {}; let output;
+    const res = { setHeader(name, value) { headers[name.toLowerCase()] = value; }, end(value) { output = value; } };
+    await target({ url, method, body, headers: { origin, 'content-type': 'application/json', 'x-cnps-crm': '1', 'x-proposal-request': '1', cookie, 'x-real-ip': '192.0.2.1', ...extra } }, res);
+    return { status: res.statusCode, headers, text: String(output || ''), json() { return JSON.parse(output); } };
+  }
+  async function send(phone = adminPhone) {
+    const response = await request('/api/crm', { method: 'POST', body: { action: 'send', phone, consent: true } });
+    assert.equal(response.status, 200, response.text);
+    return { id: response.json().challenge, cookie: response.headers['set-cookie'].split(';')[0], response };
+  }
+  async function login(phone = adminPhone) {
+    const challenge = await send(phone);
+    const response = await request('/api/crm', { method: 'POST', body: { action: 'verify', challenge: challenge.id, code: '123456' }, cookie: challenge.cookie });
+    assert.equal(response.status, 200, response.text);
+    return { challenge, cookie: response.headers['set-cookie'][0].split(';')[0], response };
+  }
+  return { env, handler, request, send, login, visits, values, limits, memberDirectory, advance: ms => time += ms,
+    sends: () => sends, verifications: () => verifications, failSms: () => smsFailure = true,
+    proposalRequest: (url, input) => request(url, input, proposalHandler) };
+}
+const member = (role = 'customer', companyId = 'company-A') => ({ companyId, active: true, role, permissions: ['projects:read', 'documents:read'], projectIds: ['project-A'], documentIds: ['document-A'] });
+
+test('only explicitly approved admin bypasses directory; original proposal allowlist is not CRM authorization', async () => {
+  const h = harness();
+  const requests = [customerPhone, '18900003333', '18500004444', '18300005555'];
+  for (const phone of requests) assert.equal((await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone, consent: true, role: 'admin' } })).status, 403);
+  assert.equal(h.sends(), 0);
+  const login = await h.login();
+  const response = await h.request('/api/crm?view=session', { cookie: login.cookie });
+  assert.equal(response.json().identity.role, 'admin');
+  assert.equal(response.json().identity.phoneMasked, '187****1111');
+  assert.deepEqual(response.json().identity.memberships, []);
+});
+test('missing or invalid server admin setting disables authentication without any default grant', async () => {
+  for (const setting of [undefined, '', 'not-a-phone', `${adminPhone},${customerPhone}`]) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) });
+    h.env.CNPS_CRM_ADMIN_PHONE = setting;
+    for (const phone of [adminPhone, customerPhone]) {
+      const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone, consent: true, CNPS_CRM_ADMIN_PHONE: phone, role: 'admin' } });
+      assert.equal(response.status, 503);
+      assert.ok(!response.text.includes(phone));
+    }
+    assert.equal((await h.request('/api/crm?view=session')).status, 503);
+    assert.equal(h.sends(), 0);
+  }
+});
+test('request fields and a directory admin role cannot change the server configured administrator', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [{ ...member(), role: 'admin' }, member()]]]) });
+  const c = await h.send(customerPhone);
+  const verified = await h.request('/api/crm', { method: 'POST', cookie: c.cookie, body: {
+    action: 'verify', challenge: c.id, code: '123456', role: 'admin', adminPhone: customerPhone, CNPS_CRM_ADMIN_PHONE: customerPhone
+  } });
+  assert.equal(verified.status, 200);
+  const session = await h.request('/api/crm?view=session', { cookie: verified.headers['set-cookie'][0].split(';')[0] });
+  assert.equal(session.json().identity.role, 'customer');
+  assert.equal(session.json().identity.memberships.length, 1);
+  assert.equal(h.env.CNPS_CRM_ADMIN_PHONE, adminPhone);
+});
+test('changing server admin setting revokes an old administrator session immediately', async () => {
+  const h = harness(), login = await h.login();
+  h.env.CNPS_CRM_ADMIN_PHONE = '18900003333';
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+});
+test('customer identity contains only server directory companies and scoped documents', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) });
+  const c = await h.send(customerPhone);
+  const response = await h.request('/api/crm', { method: 'POST', cookie: c.cookie, body: { action: 'verify', challenge: c.id, code: '123456', role: 'admin', companyId: 'company-B', permissions: ['all'] } });
+  assert.equal(response.status, 200);
+  const session = await h.request('/api/crm?view=session', { cookie: response.headers['set-cookie'][0].split(';')[0] });
+  assert.deepEqual(session.json().identity, { role: 'customer', phoneMasked: '188****2222', memberships: [{ companyId: 'company-A', role: 'customer', permissions: ['projects:read', 'documents:read'], projectIds: ['project-A'], documentIds: ['document-A'] }] });
+  assert.equal(h.visits.length, 1);
+  assert.deepEqual(h.visits[0].companyIds, ['company-A']);
+  assert.equal(h.visits[0].purpose, 'crm-sms-login');
+  assert.ok(!JSON.stringify([...h.values.values()]).includes(customerPhone));
+  assert.ok(!JSON.stringify([...h.values.values()]).includes('123456'));
+});
+test('untrusted member admin role, inactive records and invalid company IDs never grant access', async () => {
+  for (const entry of [{ ...member(), role: 'admin' }, { ...member(), active: false }, { ...member(), companyId: '../company-B' }]) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [entry]]]) });
+    assert.equal((await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: customerPhone, consent: true } })).status, 403);
+    assert.equal(h.sends(), 0);
+  }
+});
+test('membership revocation between send and verification blocks provider verification and session', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), c = await h.send(customerPhone);
+  h.memberDirectory.delete(customerPhone);
+  assert.equal((await h.request('/api/crm', { method: 'POST', cookie: c.cookie, body: { action: 'verify', challenge: c.id, code: '123456' } })).status, 403);
+  assert.equal(h.verifications(), 0);
+});
+test('membership and role are refreshed on every session read, preventing stale grants', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member('sales_manager')]]]) }), login = await h.login(customerPhone);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).json().identity.role, 'sales_manager');
+  h.memberDirectory.set(customerPhone, [member('customer')]);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).json().identity.role, 'customer');
+  h.memberDirectory.delete(customerPhone);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+});
+test('consent, same-origin and CSRF header are required before any SMS', async () => {
+  const h = harness();
+  const inputs = [{ body: { action: 'send', phone: adminPhone } }, { origin: 'https://evil.example' }, { extra: { 'x-cnps-crm': '' } }];
+  for (const input of inputs) assert.ok((await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true }, ...input })).status >= 400);
+  assert.equal(h.sends(), 0);
+});
+test('challenge binds to initiating browser and phone; five provider attempts maximum', async () => {
+  const h = harness(), c = await h.send();
+  const body = { action: 'verify', challenge: c.id, code: '123456' };
+  assert.equal((await h.request('/api/crm', { method: 'POST', body })).status, 400);
+  assert.equal((await h.request('/api/crm', { method: 'POST', cookie: c.cookie, body: { ...body, phone: customerPhone } })).status, 400);
+  for (let i = 0; i < 5; i++) assert.equal((await h.request('/api/crm', { method: 'POST', cookie: c.cookie, body: { ...body, code: '000000' } })).status, 400);
+  assert.equal(h.verifications(), 4); // mismatched phone consumed one allowed attempt
+  const h2 = harness(), c2 = await h2.send();
+  for (let i = 0; i < 6; i++) assert.equal((await h2.request('/api/crm', { method: 'POST', cookie: c2.cookie, body: { action: 'verify', challenge: c2.id, code: '000000' } })).status, 400);
+  assert.equal(h2.verifications(), 5);
+});
+test('challenge success is consumed once across concurrent requests and cannot replay', async () => {
+  const h = harness(), c = await h.send();
+  const request = () => h.request('/api/crm', { method: 'POST', cookie: c.cookie, body: { action: 'verify', challenge: c.id, code: '123456' } });
+  const responses = await Promise.all([request(), request()]);
+  assert.deepEqual(responses.map(response => response.status).sort(), [200, 400]);
+  assert.equal((await request()).status, 400);
+  assert.equal(h.visits.length, 1);
+});
+test('CRM and proposal challenges and sessions cannot authorize one another', async () => {
+  const h = harness();
+  const p = await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } });
+  const proposalChallenge = p.json().challenge, proposalCookie = p.headers['set-cookie'].split(';')[0];
+  assert.equal((await h.request('/api/crm', { method: 'POST', cookie: proposalCookie, body: { action: 'verify', challenge: proposalChallenge, code: '123456' } })).status, 400);
+  const fakeCrmCookie = `${CRM_CHALLENGE_COOKIE}=${proposalCookie.split('=')[1]}`;
+  assert.equal((await h.request('/api/crm', { method: 'POST', cookie: fakeCrmCookie, body: { action: 'verify', challenge: proposalChallenge, code: '123456' } })).status, 400);
+  const verified = await h.proposalRequest('/w/verify', { method: 'POST', cookie: proposalCookie, body: { challenge: proposalChallenge, code: '123456' } });
+  const proposalSession = verified.headers['set-cookie'][0].split(';')[0];
+  assert.equal((await h.request('/api/crm?view=session', { cookie: proposalSession })).status, 401);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: `${CRM_SESSION_COOKIE}=${proposalSession.split('=')[1]}` })).status, 401);
+  h.advance(61000);
+  const crm = await h.login();
+  assert.equal((await h.proposalRequest('/w/asset/pdf', { cookie: crm.cookie })).status, 401);
+});
+test('shared proposal and CRM cooldown and 100 per month budget apply before provider send', async () => {
+  const h = harness();
+  const proposal = await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } });
+  assert.equal(proposal.status, 200);
+  const crmSend = () => h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal((await crmSend()).status, 429);
+  h.advance(61000);
+  assert.equal((await crmSend()).status, 200);
+  const month = [...h.limits.entries()].find(([key]) => key.startsWith('send-month:'));
+  assert.equal(month[1].count, 2);
+  month[1].count = 100;
+  h.advance(61000);
+  assert.equal((await crmSend()).status, 429);
+  assert.equal((await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } })).status, 429);
+  assert.equal(h.sends(), 2);
+});
+test('sessions are secure, expire after eight hours, and logout revokes them', async () => {
+  const h = harness(), login = await h.login();
+  assert.match(login.response.headers['set-cookie'][0], /^__Host-cnps_crm=.*; Path=\/; HttpOnly; Secure; SameSite=Strict; Max-Age=28800$/);
+  const response = await h.request('/api/crm?view=session', { cookie: login.cookie });
+  assert.match(response.headers['cache-control'], /no-store/);
+  assert.match(response.headers['x-robots-tag'], /noindex/);
+  h.advance(8 * 3600e3 + 1);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+  const h2 = harness(), login2 = await h2.login();
+  assert.equal((await h2.request('/api/crm', { method: 'POST', cookie: login2.cookie, body: { action: 'logout' } })).status, 200);
+  assert.equal((await h2.request('/api/crm?view=session', { cookie: login2.cookie })).status, 401);
+});
+test('expired challenges, forged sessions, malformed requests and provider errors fail safely', async () => {
+  const h = harness(), c = await h.send();
+  h.advance(300001);
+  assert.equal((await h.request('/api/crm', { method: 'POST', cookie: c.cookie, body: { action: 'verify', challenge: c.id, code: '123456' } })).status, 400);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: `${CRM_SESSION_COOKIE}=${randomBytes(32).toString('base64url')}` })).status, 401);
+  for (const body of ['{', null, [], { action: 'send', payload: 'x'.repeat(2100) }]) assert.equal((await h.request('/api/crm', { method: 'POST', body })).status, 400);
+  assert.equal((await h.request('/api/crm', { method: 'DELETE' })).status, 405);
+  assert.equal((await h.request('/api/crm?view=customers')).status, 404);
+  h.failSms();
+  const failed = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal(failed.status, 503);
+  assert.ok(!failed.text.includes('provider'));
+  assert.ok(!failed.text.includes(adminPhone));
+});
+test('Redis adapter keeps challenge keys independent and delegates unchanged quota keys to proposal store', async () => {
+  const seen = [], quotas = [];
+  const redis = {
+    async set(...args) { seen.push(['set', ...args]); }, async get(key) { seen.push(['get', key]); return null; },
+    async del(key) { seen.push(['del', key]); }, async eval(script, keys, args) { seen.push(['eval', keys, args]); return 0; }
+  };
+  const store = createCrmStore({}, { redis, sharedStore: { async reserve(items) { quotas.push(items); return true; } } });
+  const limits = [{ name: 'send-month:2026-10', max: 100, ttl: 32 * 86400 }];
+  assert.equal(await store.reserve(limits), true);
+  assert.deepEqual(quotas, [limits]);
+  await store.set('challenge:id', { purpose: 'crm-auth-v1' }, 300);
+  await store.get('session:hash'); await store.del('session:hash');
+  await store.attempt('id', 'binding'); await store.consume('id', 'binding');
+  assert.equal(seen[0][1], 'cnps:crm:auth:v1:challenge:id');
+  assert.equal(seen[1][1], 'cnps:crm:auth:v1:session:hash');
+  assert.equal(seen[3][1][0], 'cnps:crm:auth:v1:challenge:id');
+  assert.equal(seen[4][1][0], 'cnps:crm:auth:v1:challenge:id');
+});
+test('Aliyun factory reuses approved channel settings but isolates provider SchemeName, never returning an OTP', async () => {
+  const requests = [];
+  const env = { ALIYUN_ACCESS_KEY_ID: 'not-a-live-key', ALIYUN_ACCESS_KEY_SECRET: 'not-a-live-secret', ALIYUN_SMS_SIGN_NAME: 'approved-sign', ALIYUN_SMS_TEMPLATE_CODE: 'approved-template' };
+  const client = {
+    async sendSmsVerifyCode(request) { requests.push(request); return { body: { code: 'OK', success: true, model: { verifyCode: '123456' } } }; },
+    async checkSmsVerifyCode(request) { requests.push(request); return { body: { code: 'OK', success: true, model: { verifyResult: 'PASS' } } }; }
+  };
+  const sms = createCrmSms(env, { client });
+  assert.equal(await sms.send(adminPhone, 'challenge-id'), undefined);
+  assert.equal(await sms.verify(adminPhone, '123456', 'challenge-id'), true);
+  assert.equal(CRM_SMS_SCHEME, 'cnpscrm');
+  assert.equal(requests[0].schemeName, CRM_SMS_SCHEME);
+  assert.equal(requests[1].schemeName, CRM_SMS_SCHEME);
+  assert.equal(requests[0].signName, env.ALIYUN_SMS_SIGN_NAME);
+  assert.equal(requests[0].templateCode, env.ALIYUN_SMS_TEMPLATE_CODE);
+  assert.equal(requests[0].returnVerifyCode, false);
+  assert.equal(requests[0].autoRetry, 0);
+  assert.equal(requests[0].outId, 'crm-challenge-id');
+});

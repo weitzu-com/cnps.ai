@@ -37,6 +37,17 @@
   "redirects": [
     {
       "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "crm.cnps.ai"
+        }
+      ],
+      "destination": "/crm",
+      "permanent": false
+    },
+    {
+      "source": "/",
       "destination": "/en",
       "permanent": true
     },
@@ -553,6 +564,10 @@
   ],
   "rewrites": [
     {
+      "source": "/crm",
+      "destination": "/api/crm-page"
+    },
+    {
       "source": "/w",
       "destination": "/api/w"
     },
@@ -573,6 +588,12 @@
     "api/w.js": {
       "includeFiles": "private/proposal.enc",
       "maxDuration": 30
+    },
+    "api/crm.js": {
+      "maxDuration": 30
+    },
+    "api/crm-page.js": {
+      "maxDuration": 10
     }
   }
 }
