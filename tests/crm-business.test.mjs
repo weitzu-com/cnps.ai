@@ -730,3 +730,11 @@ test('body extraction enforces person grant, project, active version and private
  await h.service.withdrawDocument(manager,'company-A',h.docA.id,h.docA.versionId);await assert.rejects(h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId),status(404));assert.equal(calls,1);
 });
 test('revocation during body extraction prevents returning indexed plaintext',async()=>{const h=await setup();h.documents.extractObject=async()=>{await h.service.revokeMember(manager,'company-A','contact-A');return{status:'ready',segments:[{text:'Must not leak',location:{kind:'page',number:1,part:1}}]};};await assert.rejects(h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId),status(404));});
+
+
+test('knowledge citation set checks all person document grants atomically and rejects partial revocation',async()=>{
+ const h=await setup();await h.service.grantMember(manager,'company-A',{...h.grant,documentIds:[h.docA.id,h.privateDoc.id]});
+ const sources=[h.docA,h.privateDoc].map(d=>({documentId:d.id,versionId:d.versionId}));await h.service.validateKnowledgeSources(customer,'company-A',h.projectA.id,sources);
+ await h.service.grantMember(manager,'company-A',h.grant);await assert.rejects(h.service.validateKnowledgeSources(customer,'company-A',h.projectA.id,sources),status(404));
+ await assert.rejects(h.service.validateKnowledgeSources(customer,'company-B',h.projectB.id,[{documentId:h.docB.id,versionId:h.docB.versionId}]),status(404));
+});
