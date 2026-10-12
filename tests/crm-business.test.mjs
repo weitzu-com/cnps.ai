@@ -721,3 +721,12 @@ test('HTTP streamed upload preserves UTF-8 filenames across chunk boundaries', a
   await handler(req, res);
   assert.equal(res.statusCode, 200, output); assert.equal(received.filename, fields.filename); assert.equal(received.title, fields.title);
 });
+
+test('body extraction enforces person grant, project, active version and private adapter context',async()=>{
+ const h=await setup();let calls=0;h.documents.extractObject=async(objectId,scope)=>{calls++;assert.equal(scope.companyId,'company-A');assert.equal(scope.projectId,h.projectA.id);return{status:'ready',segments:[{text:'Only authorized text',location:{kind:'page',number:1,part:1}}]};};
+ await assert.rejects(h.service.documentText(customer,'company-B',h.docB.id,h.docB.versionId),status(404));
+ await assert.rejects(h.service.documentText(customer,'company-A',h.privateDoc.id,h.privateDoc.versionId),status(404));assert.equal(calls,0);
+ const result=await h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId);assert.equal(result.segments[0].text,'Only authorized text');assert.equal(JSON.stringify(result).includes('objectId'),false);
+ await h.service.withdrawDocument(manager,'company-A',h.docA.id,h.docA.versionId);await assert.rejects(h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId),status(404));assert.equal(calls,1);
+});
+test('revocation during body extraction prevents returning indexed plaintext',async()=>{const h=await setup();h.documents.extractObject=async()=>{await h.service.revokeMember(manager,'company-A','contact-A');return{status:'ready',segments:[{text:'Must not leak',location:{kind:'page',number:1,part:1}}]};};await assert.rejects(h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId),status(404));});

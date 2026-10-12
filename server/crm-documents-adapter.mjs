@@ -27,6 +27,7 @@ export function createDocumentsAdapter(env, { fetch: request = globalThis.fetch 
   return {
     async createObject(input) { id(input.companyId); id(input.projectId); return metadata(await call('/objects', { body: input }), input); },
     async getObject(objectId, context) { return metadata(await call('/objects/' + id(objectId) + '?' + scope(context)), context); },
+    async extractObject(objectId, context) { return call('/objects/' + id(objectId) + '/text?' + scope(context)); },
     async readObject(objectId, context) { return call('/objects/' + id(objectId) + '/content?' + scope(context), { bytes: true }); }
   };
 }

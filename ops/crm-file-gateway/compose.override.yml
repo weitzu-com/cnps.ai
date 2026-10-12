@@ -1,0 +1,48 @@
+# Merge with crm-deployment/compose.yml. No separate paid cloud service is required.
+services:
+  file-gateway:
+    build: ./file-gateway
+    image: cnps-crm-file-gateway:kb-v1
+    entrypoint: [node, /gateway/server.mjs]
+    command: []
+    working_dir: /gateway
+    # Initialize the dedicated named volume as 0700; no root host directory is mounted.
+    user: "0:0"
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3200:3200"
+    environment:
+      CRM_FILE_HOST: "0.0.0.0"
+      CRM_FILE_PORT: "3200"
+      CRM_FILE_DATA_DIR: /data
+      CRM_FILE_GATEWAY_KEY: ${CRM_FILE_GATEWAY_KEY:?Set a dedicated 32-byte hex gateway key}
+      CRM_FILE_ENCRYPTION_KEY: ${CRM_FILE_ENCRYPTION_KEY:?Set a different dedicated 32-byte hex encryption key}
+    volumes:
+      - ./file-gateway:/gateway:ro
+      - document-data:/data
+    networks: [backend, egress]
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 768m
+    cpus: 0.5
+    pids_limit: 64
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3200/health',{headers:{authorization:'Bearer '+process.env.CRM_FILE_GATEWAY_KEY}}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "3"}
+
+volumes:
+  document-data:
