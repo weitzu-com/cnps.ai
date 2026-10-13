@@ -327,3 +327,13 @@ test('delivery UI only managers create, scopes choices, copies actual delivery t
  const customer=harness();await customer.flush();await customer.openProject();await customer.flush();
  assert.ok(!customer.walk(customer.get('content')).some(e=>e.tagName==='BUTTON'&&e.textContent==='交付并通知'));
 });
+
+test('delivery email action records provider submission and disables repeated sending without marking customer viewing',async()=>{
+ const delivery={id:'delivery-mail',createdAt:1,documents:[],message:'Synthetic delivery',link:'https://crm.cnps.ai/crm/workspace',downloads:[],sms:{status:'not_sent'},viewedAt:null};
+ const h=harness({role:'sales_manager',override:async call=>{
+  if(call.view==='deliveries')return{body:{ok:true,data:[delivery]}};
+  if(call.body?.action==='sendDeliveryNotification'){assert.equal(call.body.channel,'email');delivery.email={status:'submitted'};return {body:{ok:true,data:{status:'submitted',message:'邮件已被供应商接受；需查询回执确认投递。'}}};}
+ }});await h.flush();await h.openProject();await h.flush();await h.click('交付与通知');await h.flush();await h.click('发送邮件通知');await h.flush();
+ assert.match(h.get('message').textContent,/需查询回执/);const button=h.walk(h.get('content')).find(e=>e.tagName==='BUTTON'&&e.textContent==='发送邮件通知');assert.equal(button.disabled,true);assert.equal(delivery.viewedAt,null);
+ assert.ok(!h.calls.some(c=>c.body?.action==='recordDelivery'&&c.body.kind==='view'));
+});

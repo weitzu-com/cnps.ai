@@ -11,7 +11,7 @@ const principal = (identityId, role) => ({ identityId, identity: { role } });
 const admin = principal('actor-admin', 'admin'), manager = principal('actor-manager-A', 'sales_manager');
 const customer = principal('actor-customer-A', 'customer'), otherCustomer = principal('actor-customer-B', 'customer');
 const clone = value => structuredClone(value);
-async function setup(notifications) {
+async function setup(notifications,channels) {
   let directory = emptyDirectory(), sequence = 0, clock = Date.UTC(2026, 9, 13), beforeCommit, duringRead, duringCreate;
   const states = new Map(), nativeCompanies = new Map([
     ['company-A', { id: 'company-A', name: 'Company Alpha' }], ['company-B', { id: 'company-B', name: 'Company Beta' }]
@@ -60,7 +60,7 @@ async function setup(notifications) {
       return Buffer.from(file.bytes);
     }
   };
-  const service = createBusinessService({ env, store, twenty, documents, notifications, now: () => clock, newId: () => `resource-${++sequence}` });
+  const service = createBusinessService({ env, store, twenty, documents, notifications, channels, now: () => clock, newId: () => `resource-${++sequence}` });
   await service.registerCompany(admin, 'company-A'); await service.registerCompany(admin, 'company-B');
   await service.assignManager(admin, 'staff-A', ['company-A']);
   const projectA = await service.createProject(manager, 'company-A', { title: 'Alpha Project', objective: 'Approved objective', scope: 'Alpha scope', deliverables: ['Approved delivery'] });
@@ -803,4 +803,36 @@ test('customer download only records matching package versions, HEAD never marks
  assert.equal((await h.request(query.toString())).status,200);
  assert.equal((await h.service.getDelivery(customer,'company-A',delivery.id)).downloads.length,1);
  await assert.rejects(()=>h.service.recordDelivery(customer,'company-A',delivery.id,'download',h.privateDoc.id,h.privateDoc.versionId),status(404));
+});
+
+
+test('email sends only to native authorized recipient, deduplicates and records receipt separately from viewing',async()=>{
+ let sent=0,target;const h=await setup(undefined,{email:{configured:true,async send(input){sent++;target=input.target;return {status:'submitted',providerId:'mail-one',subject:'synthetic'};},async receipt(){return {status:'delivered'};}}});
+ h.contacts.get('contact-A').email='alpha@example.test';
+ const d=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'email-one'});
+ assert.equal((await h.service.sendDeliveryNotification(manager,'company-A',d.id,'email')).status,'submitted');assert.equal(target,'alpha@example.test');
+ await h.service.sendDeliveryNotification(manager,'company-A',d.id,'email');assert.equal(sent,1);
+ assert.equal((await h.service.syncDeliveryNotification(manager,'company-A',d.id,'email')).status,'delivered');
+ const visible=await h.service.getDelivery(customer,'company-A',d.id);assert.equal(visible.viewedAt,null);assert.equal(visible.email.providerId,undefined);assert.equal(visible.email.targetDigest,undefined);
+ await assert.rejects(()=>h.service.sendDeliveryNotification(customer,'company-A',d.id,'email'),status(404));
+ await assert.rejects(()=>h.service.sendDeliveryNotification(otherCustomer,'company-A',d.id,'email'),status(404));
+});
+
+test('email cannot send after revocation or to arbitrary caller-supplied addresses; changes block receipt attribution',async()=>{
+ let sent=0;const h=await setup(undefined,{email:{configured:true,async send(){sent++;return{status:'submitted'};},async receipt(){return {status:'delivered'};}}});h.contacts.get('contact-A').email='alpha@example.test';
+ const d=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'email-revoke'});
+ await h.service.sendDeliveryNotification(manager,'company-A',d.id,'email');h.contacts.get('contact-A').email='changed@example.test';
+ await assert.rejects(()=>h.service.syncDeliveryNotification(manager,'company-A',d.id,'email'),status(409));
+ await h.service.revokeMember(manager,'company-A','contact-A');await assert.rejects(()=>h.service.sendDeliveryNotification(manager,'company-A',d.id,'email'),status(404));assert.equal(sent,1);
+});
+
+test('WeCom requires verified recipient mapping and member-task state never claims customer reading',async()=>{
+ let sends=0;const h=await setup(undefined,{wecom:{configured:true,async verifyBinding(binding,phone){return binding.externalUserId==='external-A'&&phone==='18700001111';},async send(){sends++;return{status:'pending_member',providerId:'wecom-one'};},async receipt(){return {status:'sent'};}}});h.contacts.get('contact-A').phone='18700001111';
+ const d=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'wecom-one'});
+ await assert.rejects(()=>h.service.sendDeliveryNotification(manager,'company-A',d.id,'wecom'),status(409));
+ await assert.rejects(()=>h.service.bindDeliveryWecom(manager,'company-A','contact-B',{externalUserId:'external-B',senderUserId:'sender-A'}),status(404));
+ await assert.rejects(()=>h.service.bindDeliveryWecom(manager,'company-A','contact-A',{externalUserId:'external-B',senderUserId:'sender-A'}),status(409));
+ await h.service.bindDeliveryWecom(manager,'company-A','contact-A',{externalUserId:'external-A',senderUserId:'sender-A'});
+ assert.equal((await h.service.sendDeliveryNotification(manager,'company-A',d.id,'wecom')).status,'pending_member');await h.service.sendDeliveryNotification(manager,'company-A',d.id,'wecom');assert.equal(sends,1);
+ assert.equal((await h.service.syncDeliveryNotification(manager,'company-A',d.id,'wecom')).status,'sent');assert.equal((await h.service.getDelivery(customer,'company-A',d.id)).viewedAt,null);
 });
