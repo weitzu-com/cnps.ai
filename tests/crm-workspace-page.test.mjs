@@ -7,7 +7,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
   const html = crmWorkspacePage('test-nonce'), ids = new Map(), roots = [], calls = [], timers = new Map();
   let timerId = 0;
   class Element {
-    constructor(tag) { this.tagName = tag.toUpperCase(); this.children = []; this.listeners = new Map(); this.attributes = {}; this._text = ''; this._id = ''; this.value = ''; this.hidden = false; this.disabled = false; this.checked = false; }
+    constructor(tag) { this.tagName = tag.toUpperCase(); this.children = []; this.listeners = new Map(); this.attributes = {}; this._text = ''; this.dataset={}; this._id = ''; this.value = ''; this.hidden = false; this.disabled = false; this.checked = false; }
     set id(value) { this._id = value; ids.set(value, this); }
     get id() { return this._id; }
     set textContent(value) { this._text = String(value); this.children = []; }
@@ -42,7 +42,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
   };
   const forbidden = new Proxy({}, {get() { throw Error('Secrets must not be logged or persisted in browser storage.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
-    document, URLSearchParams, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
+    document, URLSearchParams, crypto:{randomUUID:()=> 'synthetic-request-id'},navigator:{clipboard:{async writeText(value){state.copied=value;}}}, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
     FileReader: class { readAsDataURL(file) { this.result = 'data:' + file.type + ';base64,' + file.base64; this.onload(); } },
     location: {replace(value) { state.navigation = value; }},
     setTimeout(fn) { const id = ++timerId; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); },
@@ -58,7 +58,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
         response = {body: {ok: true, data: {companyId: company.companyId}}};
       }
       if (!response) {
-        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, staff, members: [], events: []})[call.view];
+        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, staff, members: [], events: [], deliveries: []})[call.view];
         if (data === undefined) throw Error('Unexpected request: ' + url);
         response = {body: {ok: true, data}};
       }
@@ -312,4 +312,18 @@ test('legacy DOC and PPT appear as supported uploads and remain unpublished draf
  for(const [filename,mimeType] of [['sample.doc','application/msword'],['sample.ppt','application/vnd.ms-powerpoint']]){
  const h=harness({role:'sales_manager'});await h.flush();await h.openProject();await h.click('交付资料');await h.click('上传资料');h.get('field-title').value='Synthetic legacy';const file=h.get('field-file');assert.match(file.accept,/\.doc,/);assert.match(file.accept,/\.ppt,/);file.value=filename;file.files=[{name:filename,type:mimeType,size:8,base64:Buffer.from('mockdata').toString('base64')}];await h.event('action-form','submit');const call=h.calls.find(c=>c.body?.action==='uploadDocument');assert.equal(call.body.fields.mimeType,mimeType);assert.equal(h.calls.some(c=>c.body?.action==='publishDocument'),false);
  }
+});
+
+
+test('delivery UI only managers create, scopes choices, copies actual delivery text without reporting sent',async()=>{
+ const delivery={id:'delivery-one',createdAt:1,documents:[{documentId:'document-one',versionId:'version-one',filename:'delivery.pdf',version:1}],message:'Synthetic delivery text',link:'https://crm.cnps.ai/crm/workspace?companyId=company-one&deliveryId=delivery-one',downloads:[],sms:{status:'not_sent'}};
+ const h=harness({role:'sales_manager',override:async call=>{
+ if(call.view==='deliveries')return{body:{ok:true,data:[delivery]}};
+ }});await h.flush();await h.openProject();await h.flush();await h.click('交付与通知');await h.flush();
+ await h.click('复制微信文案');await h.flush();assert.equal(h.state.copied,delivery.message);
+ assert.ok(h.calls.some(c=>c.body?.action==='recordDelivery'&&c.body.kind==='copy'));
+ assert.match(h.get('message').textContent,/复制不代表已发送/);
+ await h.click('发送短信通知');assert.equal(h.get('dialog-submit').textContent,'发送短信');
+ const customer=harness();await customer.flush();await customer.openProject();await customer.flush();
+ assert.ok(!customer.walk(customer.get('content')).some(e=>e.tagName==='BUTTON'&&e.textContent==='交付并通知'));
 });

@@ -29,7 +29,7 @@ function harness(respond) {
   const document = {getElementById: element};
   Object.defineProperty(document, 'cookie', {get() { throw Error('Cookies belong to the server.'); }, set() { throw Error('Cookies belong to the server.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
-    document, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
+    document, URLSearchParams, location:{search:''}, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
     setTimeout(callback) { const id = ++nextTimer; timeouts.set(id, callback); return id; },
     clearTimeout(id) { timeouts.delete(id); },
     setInterval(callback) { const id = ++nextTimer; intervals.set(id, callback); return id; },
