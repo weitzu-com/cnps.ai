@@ -127,4 +127,9 @@ POST `knowledgeAnswer` 使用 companyId/projectId/question/documentIds（选填�
 
 在授权语料内进行中英文词/字组检索，最多12个原文片段送入模型。模型返回按句引用编号的JSON；任何不存在的引用或无来源事实拒绝回答。来源文件名、版本、页/段/幻灯片和原文摘录由服务器构建，不接受模型提供任意URL。下载链接仍走原有文件ACL与版本检查。模型返回后再核对每份资料的权限、发布状态和版本；生成期间撤权、撤回或换版阻止整个答案披露。未持久保存明文问答历史。
 
-当前附件格式PDF/DOCX/PPTX/TXT/CSV；旧版DOC/PPT和图像OCR未启用。知识库实现与Docker部署源在 `ops/crm-file-gateway/`。网关测试独立运行 `node --test ops/crm-file-gateway/test/*.test.mjs`。
+当前支持PDF（含扫描页OCR）、DOC/DOCX、PPT/PPTX、PNG/JPEG及TXT/CSV。OCR采用中英文Tesseract；旧版Office在独立无外网容器内转换，DOC引用注明转换页，PPT保留幻灯片编号。知识库实现与Docker部署源在 `ops/crm-file-gateway/`。网关测试独立运行 `node --test ops/crm-file-gateway/test/*.test.mjs`。
+
+
+OCR与旧格式转换使用独立 `extractor` 内部网络，工作容器无原生数据库网络、无文件数据卷、无宿主公开端口，非root、只读文件系统、临时文件在tmpfs。转换任务串行处理，使用独立LibreOffice profile，拒绝VBA宏流及错误OLE类型，不执行宏、外链或附件指令。OCR原文保留图片/页次、像素区域及平均置信度；低置信度需核对原图。加密正文缓存升级为schema2，沿用公司/项目/对象AAD和当前资料版本授权。
+
+单次扫描文件最多20个需OCR页，普通PDF/转换PDF最多300页，图像上限2400万像素，处理超时/CPU/内存/ZIP与文本上限会明确失败。每个处理任务的临时目录自动删除；没有新增模型额度或云实例。用户提供的客户截图标明未独立核验与截断情况，不能据其文字推断登录身份、公司归属或扩展成员权限。

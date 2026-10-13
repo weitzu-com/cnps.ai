@@ -308,7 +308,7 @@ test('text indexes stay encrypted, require bearer and enforce company/project ev
  assert.equal((await fetch(address+f.query)).status,401);
  assert.equal((await fetch(address+`?companyId=${OTHER}&projectId=${PROJECT}`,{headers:f.headers})).status,403);
  const response=await fetch(address+f.query,{headers:f.headers});assert.equal(response.status,200);const index=await response.json();assert.equal(index.status,'ready');assert.match(index.segments[0].text,/72591/);
- const cache=await fs.readFile(path.join(f.directory,meta.id+'.kb.enc'));assert.equal(cache.includes(Buffer.from('72591')),false);assert.equal(cache.includes(Buffer.from(COMPANY)),false);assert.equal((await fs.stat(path.join(f.directory,meta.id+'.kb.enc'))).mode&0o777,0o600);
+ const cache=await fs.readFile(path.join(f.directory,meta.id+'.kb2.enc'));assert.equal(cache.includes(Buffer.from('72591')),false);assert.equal(cache.includes(Buffer.from(COMPANY)),false);assert.equal((await fs.stat(path.join(f.directory,meta.id+'.kb2.enc'))).mode&0o777,0o600);
  const cached=await fetch(address+f.query,{headers:f.headers});assert.deepEqual(await cached.json(),index);assert.equal((await fetch(address+`?companyId=${COMPANY}&projectId=${OTHER}`,{headers:f.headers})).status,403);
- cache[cache.length-1]^=1;await fs.writeFile(path.join(f.directory,meta.id+'.kb.enc'),cache);assert.equal((await fetch(address+f.query,{headers:f.headers})).status,503);
+ cache[cache.length-1]^=1;await fs.writeFile(path.join(f.directory,meta.id+'.kb2.enc'),cache);assert.equal((await fetch(address+f.query,{headers:f.headers})).status,503);
 });

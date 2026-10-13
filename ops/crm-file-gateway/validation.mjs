@@ -4,6 +4,8 @@ import { requireValue } from './errors.mjs';
 export const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 export const MIME_EXTENSIONS = Object.freeze({
   'application/pdf': '.pdf',
+  'application/msword': '.doc',
+  'application/vnd.ms-powerpoint': '.ppt',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
   'application/vnd.openxmlformats-officedocument.presentationml.presentation': '.pptx',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '.xlsx',
@@ -119,6 +121,8 @@ export function checkMagic(bytes, mimeType) {
   let valid = false;
   if (mimeType === 'application/pdf') {
     valid = bytes.length >= 8 && /^%PDF-[12]\.\d/.test(bytes.subarray(0, 8).toString('ascii'));
+  } else if (['application/msword','application/vnd.ms-powerpoint'].includes(mimeType)) {
+    valid = bytes.length >= 512 && bytes.subarray(0,8).equals(Buffer.from([0xd0,0xcf,0x11,0xe0,0xa1,0xb1,0x1a,0xe1]));
   } else if (mimeType === 'image/png') {
     valid = bytes.length >= 24 && bytes.subarray(0, 8).equals(pngMagic)
       && bytes.subarray(12, 16).toString('ascii') === 'IHDR';
