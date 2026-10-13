@@ -40,18 +40,19 @@ export function createVolcDeliverySms(env,{fetchImpl=globalThis.fetch,redis,now=
   if(Number(ok)!==1)return {status:'failed',reason:'monthly_limit'};
   // Reserve before IO, never refund ambiguous calls or retry automatically.
   const result=await api('SendSmsForAgent',{SubAccount:env.CRM_VOLC_SMS_SUB_ACCOUNT,Signature:env.CRM_VOLC_SMS_SIGN,TemplateId:env.CRM_VOLC_SMS_TEMPLATE_ID,Mobiles:phone});
-  const ids=result?.MessageId;
+  const ids=result?.MessageId ?? result?.MessageID ?? result?.MessageIds;
   if(!Array.isArray(ids)||ids.length!==1||typeof ids[0]!=='string'||!ids[0])return {status:'unknown'};
   return {status:'submitted',provider:'volcengine',providerId:ids[0],segments,subAccount:env.CRM_VOLC_SMS_SUB_ACCOUNT,signature:env.CRM_VOLC_SMS_SIGN,templateId:env.CRM_VOLC_SMS_TEMPLATE_ID};
  },async receipt({target,record}){
   if(record.provider!=='volcengine'||!record.providerId||record.subAccount!==env.CRM_VOLC_SMS_SUB_ACCOUNT)throw Error('SMS receipt provider mismatch');
-  const result=await api('ListSmsSendLogForAgent',{SubAccount:record.subAccount,MessageId:record.providerId,Mobile:target,TemplateId:record.templateId,Signature:record.signature,Page:1,PageSize:100});
-  const rows=(result?.List||[]).filter(r=>r.MessageId===record.providerId&&r.Mobile===target&&r.SubAccount===record.subAccount&&r.TemplateId===record.templateId&&r.Signature===record.signature&&r.ChannelType==='CN_NTC');
+  const result=await api('ListSmsSendLogForAgent',{SubAccount:record.subAccount,MessageId:record.providerId,Mobile:target,TemplateId:record.templateId,Signature:record.signature,FromTime:Math.floor((record.attemptedAt||now()-86400000)/1000)-300,ToTime:Math.floor(now()/1000),Page:1,PageSize:100});
+  const rows=(result?.List||[]).filter(r=>r.MessageId===record.providerId&&(r.Mobile===target||r.Mobile===target.slice(0,3)+'****'+target.slice(-4))&&(!r.SubAccount||r.SubAccount===record.subAccount)&&r.TemplateId===record.templateId&&r.Signature===record.signature&&r.ChannelType==='CN_NTC');
   if(rows.length!==1||Number(result.Total)!==1)return {status:'submitted'};
   const row=rows[0];
+  if(/^(?:SY|NE|CR|CE|UN):\d{4}$/.test(row.ErrorCode||''))return {status:'delivery_failed',receiptCode:row.ErrorCode,checkedAt:now()};
   if(!Number.isFinite(row.ReceiptTime)||row.ReceiptTime<=0||typeof row.ErrorCode!=='string'||!row.ErrorCode)return {status:'submitted'};
-  // ReceiptTime is seconds in the official 2026 API schema. Empty/unknown records stay pending.
+  // Live logs use milliseconds; older SDK schemas describe seconds. Normalize both.
   if(row.ErrorCode!=='0')return {status:'submitted',receiptCode:row.ErrorCode.slice(0,60)};
-  return {status:'delivered',receiptAt:row.ReceiptTime*1000,billedSegments:Number.isInteger(row.Count)&&row.Count>0?row.Count:undefined};
+  return {status:'delivered',receiptAt:row.ReceiptTime>1e12?row.ReceiptTime:row.ReceiptTime*1000,billedSegments:Number.isInteger(row.Count)&&row.Count>0?row.Count:undefined};
  }};
 }
