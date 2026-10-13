@@ -1,7 +1,7 @@
 import {createHash,createHmac} from 'node:crypto';
 import {Redis} from '@upstash/redis';
 import {digest} from './proposal-crypto.mjs';
-export const DELIVERY_SMS_TEXT='您有新的项目交付资料，请登录 https://crm.cnps.ai/crm 查看。资料仅对获授权人员开放。';
+export const DELIVERY_SMS_TEXT='您合作的网站建设与AI应用项目交付资料已更新，请登录客户工作台查看并验收。如有疑问，请联系项目负责人。';
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const hmac=(k,s)=>createHmac('sha256',k).update(s).digest();
 // Fixed host/action allowlist; no credentials or provider response bodies are logged.
