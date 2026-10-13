@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   res.setHeader('X-Frame-Options', 'DENY');
   if (!['GET', 'HEAD'].includes(req.method)) { res.statusCode = 405; return res.end(); }
   try {
-    if (!await getCrmRuntime().auth.loadSession(req)) { res.statusCode = 302; res.setHeader('Location', '/crm'); return res.end(); }
+    if (!await getCrmRuntime().auth.loadSession(req)) { res.statusCode = 302; const incoming=new URL(req.url,'https://crm.cnps.ai');const params=new URLSearchParams();for(const key of ['companyId','deliveryId']){const value=incoming.searchParams.get(key);if(value&&/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value))params.set(key,value);}res.setHeader('Location', '/crm'+(params.size?'?'+params.toString():'')); return res.end(); }
     const nonce = randomBytes(18).toString('base64');
     res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; object-src 'none'`);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');

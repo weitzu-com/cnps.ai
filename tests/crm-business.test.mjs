@@ -11,7 +11,7 @@ const principal = (identityId, role) => ({ identityId, identity: { role } });
 const admin = principal('actor-admin', 'admin'), manager = principal('actor-manager-A', 'sales_manager');
 const customer = principal('actor-customer-A', 'customer'), otherCustomer = principal('actor-customer-B', 'customer');
 const clone = value => structuredClone(value);
-async function setup() {
+async function setup(notifications) {
   let directory = emptyDirectory(), sequence = 0, clock = Date.UTC(2026, 9, 13), beforeCommit, duringRead, duringCreate;
   const states = new Map(), nativeCompanies = new Map([
     ['company-A', { id: 'company-A', name: 'Company Alpha' }], ['company-B', { id: 'company-B', name: 'Company Beta' }]
@@ -60,7 +60,7 @@ async function setup() {
       return Buffer.from(file.bytes);
     }
   };
-  const service = createBusinessService({ env, store, twenty, documents, now: () => clock, newId: () => `resource-${++sequence}` });
+  const service = createBusinessService({ env, store, twenty, documents, notifications, now: () => clock, newId: () => `resource-${++sequence}` });
   await service.registerCompany(admin, 'company-A'); await service.registerCompany(admin, 'company-B');
   await service.assignManager(admin, 'staff-A', ['company-A']);
   const projectA = await service.createProject(manager, 'company-A', { title: 'Alpha Project', objective: 'Approved objective', scope: 'Alpha scope', deliverables: ['Approved delivery'] });
@@ -741,4 +741,66 @@ test('knowledge citation set checks all person document grants atomically and re
 
 test('OCR and converted legacy positions retain source metadata after person ACL validation',async()=>{
  const h=await setup();h.documents.extractObject=async()=>({status:'ready',segments:[{text:'Scanned text',location:{kind:'image',number:1,part:1,method:'ocr',confidence:92,box:[1,2,30,40],imageSize:[500,700]}},{text:'Converted Word text',location:{kind:'converted_page',number:3,part:1,method:'legacy_conversion'}}]});const r=await h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId);assert.equal(r.segments[0].location.confidence,92);assert.equal(r.segments[1].location.kind,'converted_page');await h.service.revokeMember(manager,'company-A','contact-A');await assert.rejects(h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId),status(404));
+});
+
+
+test('delivery fixes published versions, recipient and company; forwarded links never grant access', async()=>{
+ const h=await setup();const fields={contactId:'contact-A',documents:materials(h.docA),requestId:'request-one'};
+ const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,fields);
+ assert.match(delivery.link,/^https:\/\/crm.cnps.ai\/crm\/workspace\?/);
+ assert.equal((await h.service.createDelivery(manager,'company-A',h.projectA.id,fields)).id,delivery.id);
+ assert.equal((await h.service.getDelivery(customer,'company-A',delivery.id)).documents[0].versionId,h.docA.versionId);
+ await assert.rejects(()=>h.service.getDelivery(otherCustomer,'company-A',delivery.id),status(404));
+ await assert.rejects(()=>h.service.createDelivery(customer,'company-A',h.projectA.id,fields),status(404));
+ await assert.rejects(()=>h.service.createDelivery(manager,'company-A',h.projectA.id,{...fields,contactId:'contact-B',requestId:'cross-company'}),status(404));
+ await assert.rejects(()=>h.service.createDelivery(manager,'company-A',h.projectA.id,{...fields,documents:materials(h.privateDoc),requestId:'restricted-file'}),status(404));
+ const copy=await h.service.recordDelivery(manager,'company-A',delivery.id,'copy');assert.ok(copy.copiedAt);assert.equal(copy.viewedAt,null);
+ const view=await h.service.recordDelivery(customer,'company-A',delivery.id,'view');assert.equal(view.viewCount,1);assert.ok(view.viewedAt);
+ await assert.rejects(()=>h.service.recordDelivery(customer,'company-A',delivery.id,'copy'),status(404));
+ await h.service.withdrawDocument(manager,'company-A',h.docA.id,h.docA.versionId);
+ await assert.rejects(()=>h.service.getDelivery(customer,'company-A',delivery.id),status(404));
+ assert.equal((await h.service.listDeliveries(customer,'company-A',h.projectA.id)).length,0);
+});
+
+test('delivery ACL revoked after creation prevents reading and notifications',async()=>{
+ let sends=0;const h=await setup({configured:true,async send(){sends++;return {status:'submitted'};}});
+ const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'revoke-request'});
+ await h.service.revokeMember(manager,'company-A','contact-A');
+ await assert.rejects(()=>h.service.getDelivery(customer,'company-A',delivery.id),status(404));
+ await assert.rejects(()=>h.service.sendDeliverySms(manager,'company-A',delivery.id),status(404));assert.equal(sends,0);
+});
+
+test('SMS reserves once; accepted/unknown requests never blindly retry; unavailable channel stays honest',async()=>{
+ let sends=0;const h=await setup({configured:true,async send(){sends++;return {status:'submitted',providerId:'synthetic-provider'};}});
+ h.contacts.get('contact-A').phone='18700001111';
+ const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'sms-request'});
+ assert.equal((await h.service.sendDeliverySms(manager,'company-A',delivery.id)).status,'submitted');
+ assert.equal((await h.service.sendDeliverySms(manager,'company-A',delivery.id)).status,'submitted');assert.equal(sends,1);
+ await assert.rejects(()=>h.service.sendDeliverySms(customer,'company-A',delivery.id),status(404));
+ const visible=await h.service.getDelivery(customer,'company-A',delivery.id);assert.equal(visible.recipientId,undefined);assert.equal(visible.actorId,undefined);assert.equal(visible.sms.providerId,undefined);
+ const u=await setup({configured:true,async send(){throw Error('timeout');}});u.contacts.get('contact-A').phone='18700001111';
+ const d=await u.service.createDelivery(manager,'company-A',u.projectA.id,{contactId:'contact-A',documents:materials(u.docA),requestId:'unknown-request'});
+ assert.equal((await u.service.sendDeliverySms(manager,'company-A',d.id)).status,'unknown');
+ assert.equal((await u.service.sendDeliverySms(manager,'company-A',d.id)).status,'unknown');
+ const off=await setup();const x=await off.service.createDelivery(manager,'company-A',off.projectA.id,{contactId:'contact-A',documents:materials(off.docA),requestId:'off-request'});
+ assert.equal((await off.service.sendDeliverySms(manager,'company-A',x.id)).status,'unavailable');
+});
+
+
+test('another person in the same company cannot open a delivery assigned to a colleague',async()=>{
+ const h=await setup();h.contacts.set('contact-colleague',{id:'contact-colleague',companyId:'company-A',identityId:'actor-colleague',active:true});
+ await h.service.grantMember(manager,'company-A',{contactId:'contact-colleague',projectScope:'all',documentScope:'all'});
+ const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'one-person-only'});
+ const colleague=principal('actor-colleague','customer');await assert.rejects(()=>h.service.getDelivery(colleague,'company-A',delivery.id),status(404));assert.equal((await h.service.listDeliveries(colleague,'company-A',h.projectA.id)).length,0);
+ const noOrigin=await h.request('',{actor:'manager',method:'POST',origin:'https://evil.example',body:{action:'createDelivery',companyId:'company-A',projectId:h.projectA.id,fields:{}}});assert.equal(noOrigin.status,403);
+});
+
+test('customer download only records matching package versions, HEAD never marks viewed',async()=>{
+ const h=await setup();const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'download-package'});
+ const query=new URLSearchParams({view:'download',companyId:'company-A',documentId:h.docA.id,versionId:h.docA.versionId,deliveryId:delivery.id});
+ assert.equal((await h.request(query.toString(),{method:'HEAD'})).status,200);
+ assert.equal((await h.service.getDelivery(customer,'company-A',delivery.id)).downloads.length,0);
+ assert.equal((await h.request(query.toString())).status,200);
+ assert.equal((await h.service.getDelivery(customer,'company-A',delivery.id)).downloads.length,1);
+ await assert.rejects(()=>h.service.recordDelivery(customer,'company-A',delivery.id,'download',h.privateDoc.id,h.privateDoc.versionId),status(404));
 });

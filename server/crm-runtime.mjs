@@ -1,3 +1,4 @@
+import { createDeliverySms } from './crm-delivery-sms.mjs';
 import { createCrmAuthHandler } from './crm-auth-handler.mjs';
 import { createCrmStore } from './crm-auth-store.mjs';
 import { createCrmSms } from './crm-auth-sms.mjs';
@@ -10,7 +11,7 @@ export function createCrmRuntime(env, options = {}) {
   const store = options.store || createBusinessStore(env);
   const twenty = options.twenty || createTwentyAdapter(env);
   const documents = options.documents || createDocumentsAdapter(env);
-  const service = createBusinessService({ env, store, twenty, documents });
+  const service = createBusinessService({ env, store, twenty, documents, notifications: options.notifications || createDeliverySms(env) });
   const auth = createCrmAuthHandler({ env, storeFactory: options.authStoreFactory || createCrmStore, smsFactory: options.smsFactory || createCrmSms, loadMemberships: phone => service.loadMemberships(phone) });
   return { auth, service, twenty, documents, store };
 }

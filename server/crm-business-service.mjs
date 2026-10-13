@@ -109,7 +109,7 @@ function viewContact(contact) {
 // getManager(id)->{id,identityId,active}. Documents use a separate private adapter:
 // documents.getObject(id,context)->{id,companyId,projectId,mimeType,size,filename};
 // documents.readObject(id,context)->Buffer. Missing adapters fail closed.
-export function createBusinessService({ env, store, twenty, documents, now = () => Date.now(), newId = randomUUID }) {
+export function createBusinessService({ env, store, twenty, documents, notifications, now = () => Date.now(), newId = randomUUID }) {
   const subjectForPhone = phone => { keyBytes(env.CNPS_PROPOSAL_SECRET); const normalized = normalizePhone(phone); if (!normalized) fail(400, '手机号格式无效。'); return digest(env.CNPS_PROPOSAL_SECRET, 'phone', normalized); };
   const isAdmin = principal => principal?.identity?.role === 'admin' && validId(principal.identityId);
   function subject(principal) { if (!validId(principal?.identityId)) fail(401, '请先登录。'); return principal.identityId; }
@@ -214,6 +214,26 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       visiting.add(key); for (const target of graph.get(key) || []) walk(target); visiting.delete(key); visited.add(key);
     }
     for (const key of graph.keys()) walk(key);
+  }
+  function recipientAccess(directory, contact, companyId) {
+    const grant = own(directory.memberGrants, contact.identityId || '');
+    if (!contact.active || contact.companyId !== companyId || !grant?.active || grant.companyId !== companyId || grant.contactId !== contact.id) missing();
+    return { role: 'customer', grant };
+  }
+  function deliveryAccess(state, a, deliveryId, principal) {
+    const delivery = own(state.deliveries || {}, id(deliveryId));
+    if (!delivery || (a.role === 'customer' && delivery.recipientId !== subject(principal))) missing();
+    projectAccess(state, a, delivery.projectId);
+    for (const source of delivery.documents) {
+      const resolved = docAccess(state, a, source.documentId, source.versionId);
+      if (resolved.version.id !== source.versionId || resolved.doc.activeVersionId !== source.versionId || !Number.isFinite(resolved.version.publishedAt)) missing();
+    }
+    return delivery;
+  }
+  function deliveryView(delivery, a) {
+    const { recipientId, contactId, requestId, actorId, ...result } = clone(delivery);
+    if(result.sms){const {attempt,providerId,...sms}=result.sms;result.sms=sms;}
+    return a.role === 'customer' ? result : { ...result, contactId };
   }
   const service = {
     subjectForPhone,
@@ -641,6 +661,90 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       const latest = await snapshot(companyId, principal), current = docAccess(latest.state, latest.a, documentId, versionId);
       if (current.version.id !== versionId) missing();
       return { metadata: viewDocument(current.doc, current.version), bytes };
+    },
+    async createDelivery(principal, companyId, projectId, input) {
+      object(input); rejectFields(input, ['contactId', 'documents', 'requestId']);
+      const contact = await authoritative('getContact', id(input.contactId));
+      const selected = expectedDocumentVersions(input.documents);
+      if (!selected.length || selected.length > 20) fail(400, '请选择1至20份已发布资料。');
+      const requestId = id(input.requestId);
+      return companyWrite(principal, companyId, (next, a, directory) => {
+        const customer = recipientAccess(directory, contact, companyId);
+        const project = projectAccess(next, customer, projectId);
+        const documents = selected.map(source => {
+          const { doc, version } = docAccess(next, customer, source.documentId, source.versionId);
+          if (doc.projectId !== projectId || version.id !== source.versionId || doc.activeVersionId !== source.versionId) fail(409, '资料版本已变更或客户未获授权，请刷新重试。');
+          return { documentId: doc.id, versionId: version.id, filename: version.filename, title: version.title, version: version.version };
+        });
+        next.deliveries ||= {};
+        const existing = Object.values(next.deliveries).find(item => item.requestId === requestId && item.actorId === subject(principal));
+        if (existing) {
+          if (existing.contactId !== contact.id || existing.projectId !== projectId || JSON.stringify(existing.documents.map(({documentId,versionId})=>({documentId,versionId}))) !== JSON.stringify(selected)) fail(409, '交付请求标识已使用。');
+          return deliveryView(deliveryAccess(next, customer, existing.id, {identityId:contact.identityId}), a);
+        }
+        if (Object.keys(next.deliveries).length >= 1000) fail(409, '交付记录已达上限，请联系管理员归档。');
+        const deliveryId = id(newId());
+        const link = 'https://crm.cnps.ai/crm/workspace?companyId=' + encodeURIComponent(companyId) + '&deliveryId=' + encodeURIComponent(deliveryId);
+        const message = '您好，贵司项目「' + project.publication.project.title + '」交付资料已更新，共' + documents.length + '份。\n' + documents.map(item => '• ' + item.filename + '（v' + item.version + '）').join('\n') + '\n请访问：' + link + '\n使用您已获授权的手机号获取验证码登录查看。';
+        const delivery = { id:deliveryId, companyId, projectId, contactId:contact.id, recipientId:contact.identityId, actorId:subject(principal), requestId, createdAt:now(), documents, link, message, copiedAt:null, viewedAt:null, lastViewedAt:null, viewCount:0, downloads:[], sms:{status:'not_sent'} };
+        next.deliveries[deliveryId] = delivery;
+        next.events.push(event(principal, 'delivery.create', {companyId, projectId, deliveryId, contactId:contact.id}));
+        return deliveryView(delivery, a);
+      });
+    },
+    async listDeliveries(principal, companyId, projectId) {
+      const {state,a} = await snapshot(companyId, principal); projectAccess(state,a,projectId);
+      return Object.values(state.deliveries || {}).filter(item => item.projectId === projectId).flatMap(item => {
+        if(a.role !== 'customer') return [deliveryView(item,a)];
+        try {return [deliveryView(deliveryAccess(state,a,item.id,principal),a)];} catch(error) {if(error instanceof BusinessError && error.status === 404)return [];throw error;}
+      }).sort((a,b)=>b.createdAt-a.createdAt);
+    },
+    async getDelivery(principal, companyId, deliveryId) {
+      const {state,a}=await snapshot(companyId,principal);
+      return deliveryView(deliveryAccess(state,a,deliveryId,principal),a);
+    },
+    async recordDelivery(principal, companyId, deliveryId, kind, documentId, versionId) {
+      if(!['view','copy','download'].includes(kind)) fail(400,'记录类型无效。');
+      return companyWrite(principal,companyId,(next,a)=>{
+        const delivery=deliveryAccess(next,a,deliveryId,principal);
+        if(kind==='copy'){if(a.role==='customer')missing();delivery.copiedAt=now();}
+        else if(a.role==='customer'){
+          if(kind==='view'){delivery.viewedAt ||= now();delivery.lastViewedAt=now();delivery.viewCount++;}
+          else {if(!delivery.documents.some(d=>d.documentId===documentId&&d.versionId===versionId))missing();if(!delivery.downloads.some(d=>d.documentId===documentId&&d.versionId===versionId))delivery.downloads.push({documentId,versionId,at:now()});}
+        }
+        return deliveryView(delivery,a);
+      },{customer:kind!=='copy'});
+    },
+    async sendDeliverySms(principal, companyId, deliveryId) {
+      const initial=await snapshot(companyId,principal);manage(initial.directory,principal,companyId);
+      const delivery=deliveryAccess(initial.state,initial.a,deliveryId,principal);
+      const contact=await authoritative('getContact',delivery.contactId);
+      if(contact.identityId!==delivery.recipientId)missing();
+      deliveryAccess(initial.state,recipientAccess(initial.directory,contact,companyId),deliveryId,{identityId:contact.identityId});
+      if(!notifications?.configured) return {status:'unavailable',message:'交付通知短信尚未配置已审核的通知模板及发送权限；微信文案和链接可正常使用。'};
+      const phone=normalizePhone(contact.phone);if(!phone)fail(400,'客户没有有效的中国手机号。');
+      const attempt=id(newId());
+      const reservation=await companyWrite(principal,companyId,(next,a,directory)=>{
+        const current=deliveryAccess(next,recipientAccess(directory,contact,companyId),deliveryId,{identityId:contact.identityId});
+        if(current.sms.status==='submitted'||current.sms.status==='sending'||current.sms.status==='unknown') return null;
+        const month=new Date(now()+8*3600000).toISOString().slice(0,7);next.deliverySmsUsage ||= {};
+        if((next.deliverySmsUsage[month]||0)>=100)fail(429,'本公司每月交付短信限额100条。');
+        const last=Object.values(next.deliveries||{}).filter(d=>d.contactId===contact.id&&d.sms?.attemptedAt).reduce((m,d)=>Math.max(m,d.sms.attemptedAt),0);
+        if(now()-last<60000)fail(429,'同一客户通知间隔至少60秒。');
+        next.deliverySmsUsage[month]=(next.deliverySmsUsage[month]||0)+1;
+        current.sms={status:'sending',attempt,attemptedAt:now()};return true;
+      },{expectedDirectoryRevision:initial.directory.revision,expectedCompanyRevision:initial.state.revision});
+      if(!reservation)return {status:delivery.sms.status,message:'此交付已提交或结果待核实，未重复发送。'};
+      let result;
+      try {
+        // Revalidate the complete recipient and fixed versions immediately before external IO.
+        const latest=await snapshot(companyId,principal);manage(latest.directory,principal,companyId);
+        const fresh=await authoritative('getContact',contact.id);if(fresh.identityId!==delivery.recipientId||normalizePhone(fresh.phone)!==phone)missing();
+        deliveryAccess(latest.state,recipientAccess(latest.directory,fresh,companyId),deliveryId,{identityId:fresh.identityId});
+        result=await notifications.send(phone,deliveryId);
+      } catch(error) {result={status:error instanceof BusinessError?'cancelled':'unknown'};}
+      await companyWrite(principal,companyId,next=>{const current=own(next.deliveries,deliveryId);if(current?.sms.attempt===attempt){current.sms={...current.sms,...result,updatedAt:now()};next.events.push(event(principal,'delivery.sms',{companyId,deliveryId,status:result.status}));}});
+      return {status:result.status,message:result.status==='submitted'?'短信已提交至供应商（不代表手机已送达）。':result.status==='unknown'?'短信结果待核实，为避免重复通知不自动重试。':'短信未提交，请检查通道或客户授权。'};
     },
     async search(principal, companyId, query) {
       const needle = text(query, 200).toLocaleLowerCase(); if (needle.length < 2) fail(400, '搜索内容至少需要两个字符。');

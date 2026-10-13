@@ -49,6 +49,8 @@ export function createBusinessHandler({ env, authHandler, service }) {
       if (req.method === 'GET' || req.method === 'HEAD') {
         const companyId = query('companyId'), projectId = query('projectId');
         switch (query('view')) {
+          case 'deliveries': result = await service.listDeliveries(principal, companyId, projectId); break;
+          case 'delivery': result = await service.getDelivery(principal, companyId, query('deliveryId')); break;
           case 'companies': result = await service.listCompanies(principal); break;
           case 'staff': result = await service.listStaff(principal); break;
           case 'contacts': result = await service.listContacts(principal, companyId); break;
@@ -62,7 +64,9 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'events': result = await service.listEvents(principal, companyId); break;
           case 'search': result = await service.search(principal, companyId, query('q')); break;
           case 'download': {
+            if(query('deliveryId')) await service.getDelivery(principal,companyId,query('deliveryId'));
             const file = await service.download(principal, companyId, query('documentId'), query('versionId'));
+            if(req.method==='GET' && query('deliveryId')) await service.recordDelivery(principal,companyId,query('deliveryId'),'download',query('documentId'),query('versionId'));
             res.statusCode = 200;
             res.setHeader('Content-Type', file.metadata.mimeType);
             res.setHeader('Content-Disposition', `attachment; filename*=UTF-8''${encodeURIComponent(file.metadata.filename)}`);
@@ -79,6 +83,9 @@ export function createBusinessHandler({ env, authHandler, service }) {
         try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError) throw error; throw new BusinessError(400, '请求格式无效。'); }
         const companyId = data.companyId, projectId = data.projectId;
         switch (data.action) {
+          case 'createDelivery': result = await service.createDelivery(principal,companyId,projectId,data.fields); break;
+          case 'recordDelivery': result = await service.recordDelivery(principal,companyId,data.deliveryId,data.kind); break;
+          case 'sendDeliverySms': result = await service.sendDeliverySms(principal,companyId,data.deliveryId); break;
           case 'knowledgeAnswer': result = await knowledgeAnswer({env,service,principal,companyId,projectId,question:data.question,documentIds:data.documentIds}); break;
           case 'projectAi': result = await projectAi({env,service,principal,companyId,projectId,question:data.question}); break;
           case 'registerCompany': result = await service.registerCompany(principal, companyId); break;

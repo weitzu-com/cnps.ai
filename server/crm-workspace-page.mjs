@@ -118,19 +118,58 @@ function askKnowledge(p){
  for(const doc of state.documents){const v=Array.isArray(doc.versions)?doc.versions.find(item=>item.versionId===doc.activeVersionId&&item.status==='published'):doc;if(v?.status!=='published')continue;const input=document.createElement('input');input.type='checkbox';input.name='knowledgeDocument';input.value=doc.id;input.checked=count++<20;choices.appendChild(append(text('label','','check'),input,text('span',v.filename+' · v'+v.version)));}
  wrap.appendChild(choices);if(!count)wrap.appendChild(text('p','当前没有已授权的发布资料。'));$('dialog-fields').appendChild(wrap);
 }
+async function copyDelivery(delivery, linkOnly=false){
+ try{await navigator.clipboard.writeText(linkOnly?delivery.link:delivery.message);await mutate('recordDelivery',{companyId:state.companyId,deliveryId:delivery.id,kind:'copy'});message('已复制。复制不代表已发送，请粘贴到客户微信。','success');}catch(error){message('自动复制未完成。请选中下方文案手动复制；'+(error.message||''),'error');}
+}
+function deliveryCard(delivery){
+ const box=text('article','','panel');append(box,text('h2','交付包 · '+date(delivery.createdAt)),text('p',delivery.message,'record-description'));
+ box.appendChild(text('p','查看：'+(delivery.viewedAt?'已打开 · '+date(delivery.lastViewedAt):'客户尚未打开')+'；下载资料 '+list(delivery.downloads).length+'/'+list(delivery.documents).length+'；短信：'+({not_sent:'未发送',sending:'发送中',submitted:'供应商已接受（未确认送达）',failed:'发送失败',unknown:'结果待核实',cancelled:'已取消'})[delivery.sms?.status],'help'));
+ const actions=text('div','','actions');
+ if(manage()){append(actions,button('复制微信文案',()=>copyDelivery(delivery),'secondary compact'),button('复制交付链接',()=>copyDelivery(delivery,true),'quiet compact'),button('发送短信通知',()=>openForm('发送交付短信通知',[],{},async()=>{const result=await mutate('sendDeliverySms',{companyId:state.companyId,deliveryId:delivery.id});message(result.message,result.status==='submitted'?'success':'error');return {ai:true};},'发送短信','仅发送到本交付包指定且当前仍获授权的客户手机号。短信不包含文件正文；供应商提交成功不等于手机送达。'),'quiet compact'));}
+ else {actions.appendChild(button('打开并记录查看',()=>openDelivery(state.companyId,delivery.id).catch(showUnauthorized),'secondary compact'));for(const source of list(delivery.documents)){const link=text('a',source.filename+' · v'+source.version,'button quiet compact');link.href=apiUrl('download',scoped({documentId:source.documentId,versionId:source.versionId,deliveryId:delivery.id}));link.rel='nofollow';actions.appendChild(link);}}
+ box.appendChild(actions);return box;
+}
+async function showDeliveries(){
+ try{const companyId=state.companyId,projectId=state.project.id;const deliveries=await api('deliveries',{companyId,projectId});if(state.companyId!==companyId||state.project?.id!==projectId)return;const body=$('project-panel');clear(body);if(!deliveries.length)body.appendChild(empty('暂无交付包','销售经理选择客户及其已获授权的发布资料后建立交付包。'));for(const delivery of deliveries)body.appendChild(deliveryCard(delivery));}catch(error){showUnauthorized(error);}
+}
+async function deliveryForm(){
+ try{
+ const [contacts,members]=await Promise.all([api('contacts',scoped()),api('members',scoped())]);
+ const eligible=contacts.filter(c=>members.some(m=>m.active&&m.contactId===c.id&&(m.projectScope==='all'||list(m.projectIds).includes(state.project.id))));
+ if(!eligible.length)throw new Error('请先在“联系人与授权”给客户开通本项目及资料访问。');
+ const requestId=crypto.randomUUID();
+ openForm('交付并通知',[{name:'contactId',label:'接收客户（当前公司）',type:'select',default:eligible[0].id,options:eligible.map(c=>({value:c.id,label:contactName(c)})),required:true}],{},async fields=>{
+ const documents=Array.from(document.querySelectorAll('input[name="deliveryDocument"]:checked')).map(x=>({documentId:x.value,versionId:x.dataset.versionId}));
+ const result=await mutate('createDelivery',scoped({projectId:state.project.id,fields:{contactId:fields.contactId,documents,requestId}}));
+ state.tab='deliveries';renderProject();message('交付包已建立。点击复制文案或发送短信完成通知。','success');return {ai:true};
+ },'建立交付包','仅可交付已发布且该客户已获授权的资料。此操作不扩大授权；草稿请先审阅发布。');
+ const wrap=text('div','','field');wrap.appendChild(text('label','选择资料（固定当前发布版本）'));const choices=text('div','','choice-list');
+ for(const doc of state.documents){const v=list(doc.versions).find(x=>x.versionId===doc.activeVersionId&&x.status==='published');if(!v)continue;const input=document.createElement('input');input.type='checkbox';input.name='deliveryDocument';input.value=doc.id;input.dataset.versionId=v.versionId;choices.appendChild(append(text('label','','check'),input,text('span',v.filename+' · v'+v.version)));}wrap.appendChild(choices);$('dialog-fields').appendChild(wrap);
+ const updateChoices=()=>{const member=members.find(m=>m.active&&m.contactId===$('field-contactId').value);for(const label of choices.children){const input=label.children[0];input.disabled=!member||(member.documentScope!=='all'&&!list(member.documentIds).includes(input.value));if(input.disabled)input.checked=false;label.hidden=input.disabled;}};
+ $('field-contactId').addEventListener('change',updateChoices);updateChoices();
+ }catch(error){showUnauthorized(error);}
+}
+async function openDelivery(companyId,deliveryId){
+ if(!state.companies.some(c=>c.companyId===companyId))throw new Error('此交付包不存在或您未获授权。');
+ state.companyId=companyId;$('company-select').value=companyId;
+ const delivery=await api('delivery',{companyId,deliveryId});await openProject(delivery.projectId);
+ await mutate('recordDelivery',{companyId,deliveryId,kind:'view'});
+ state.tab='deliveries';renderProject();
+}
 function renderProject(){
  const p=state.project;if(!p)return;viewHeading(title(p.title)||'项目详情',companyName()+' · '+statusLabel(p.status),'PROJECT DELIVERY');clear($('content'));
  const toolbar=text('div','','project-toolbar');append(toolbar,button('← 返回项目列表',showProjects,'quiet compact'));const actions=text('div','','actions');actions.appendChild(button('资料正文问答',()=>askKnowledge(p),'secondary compact'));actions.appendChild(button('AI 项目助手',()=>openForm('AI 项目助手',[{name:'question',label:'问题',type:'textarea',required:true,maxLength:1200}],{question:'总结当前项目进展、主要风险和下一步待确认事项。'},async fields=>{const result=await apiRequestAi(scoped({projectId:p.id,question:fields.question}));const block=text('div','','panel');block.appendChild(text('h2','AI 分析建议'));const answer=text('p',result.answer,'record-description');block.appendChild(answer);block.appendChild(text('p','依据获授权项目事项与资料目录；未读取文件正文。AI建议不替代正式审批。','help'));$('content').appendChild(block);return {ai:true};},'开始分析','只分析当前获授权项目，不自动修改项目或批准验收。'),'secondary compact'));
- if(manage()){append(actions,button('编辑项目',()=>projectForm(p),'quiet compact'),button('发布给已授权客户',()=>confirmAction('发布项目资料','将当前项目信息发布为新的客户可见版本。访问范围仍由公司及成员授权控制。','publishProject',{companyId:state.companyId,projectId:p.id},'确认发布'),'secondary compact'));if(p.publication)actions.appendChild(button('撤回项目发布',()=>confirmAction('撤回客户可见版本','客户将无法继续查看这个项目的已发布内容。','unpublishProject',{companyId:state.companyId,projectId:p.id},'确认撤回'),'danger compact'));}append(toolbar,actions);$('content').appendChild(toolbar);
+ if(manage()){actions.appendChild(button('交付并通知',deliveryForm,'secondary compact'));append(actions,button('编辑项目',()=>projectForm(p),'quiet compact'),button('发布给已授权客户',()=>confirmAction('发布项目资料','将当前项目信息发布为新的客户可见版本。访问范围仍由公司及成员授权控制。','publishProject',{companyId:state.companyId,projectId:p.id},'确认发布'),'secondary compact'));if(p.publication)actions.appendChild(button('撤回项目发布',()=>confirmAction('撤回客户可见版本','客户将无法继续查看这个项目的已发布内容。','unpublishProject',{companyId:state.companyId,projectId:p.id},'确认撤回'),'danger compact'));}append(toolbar,actions);$('content').appendChild(toolbar);
  if(projectClosed())$('content').appendChild(text('p',manage()?'项目已结项，事项仅可查看。需要新增、修改或审批事项时，请先在“编辑项目”将状态重新开启为“进行中”或“规划中”。':'项目已结项，事项仅可查看。如需重新开启，请联系项目对接人。','notice'));
  const phases=text('ol','','phase-track');Object.entries(groups).forEach(([key,label],index)=>{const li=append(text('li','',key===p.processGroup?'active':''),text('span',String(index+1).padStart(2,'0')),text('strong',label));if(key===p.processGroup)li.setAttribute('aria-current','step');phases.appendChild(li);});$('content').appendChild(phases);
- const tabs=text('div','','tabbar');tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','项目资料分类');for(const [key,label] of [['overview','项目概览'],['work','WBS与里程碑'],['risks','风险与问题'],['decisions','变更与验收'],['documents','交付资料']]){const b=button(label,()=>{state.tab=key;renderProject();},'');b.className='tab';b.setAttribute('role','tab');b.setAttribute('aria-selected',String(state.tab===key));b.setAttribute('aria-controls','project-panel');tabs.appendChild(b);}$('content').appendChild(tabs);
+ const tabs=text('div','','tabbar');tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','项目资料分类');for(const [key,label] of [['overview','项目概览'],['work','WBS与里程碑'],['risks','风险与问题'],['decisions','变更与验收'],['documents','交付资料'],['deliveries','交付与通知']]){const b=button(label,()=>{state.tab=key;renderProject();},'');b.className='tab';b.setAttribute('role','tab');b.setAttribute('aria-selected',String(state.tab===key));b.setAttribute('aria-controls','project-panel');tabs.appendChild(b);}$('content').appendChild(tabs);
  const body=text('div','','panel-grid');body.id='project-panel';body.setAttribute('role','tabpanel');
  if(state.tab==='overview'){
   body.appendChild(panel('范围与目标',details([['项目目标',p.objective||'尚未填写'],['范围边界',p.scope||'尚未填写']])));
   const items=text('ul','','bullet-list');list(p.deliverables).forEach(value=>items.appendChild(text('li',typeof value==='string'?value:title(value?.title))));if(!items.childNodes.length)items.appendChild(text('li','尚未填写预期交付物'));body.appendChild(panel('预期交付物',items));
   body.appendChild(panel('计划与版本',details([['过程组',groups[p.processGroup]||'未设置'],['项目状态',statusLabel(p.status)],['计划开始',p.plannedStart?date(p.plannedStart):'未设置'],['计划结束',p.plannedEnd?date(p.plannedEnd):'未设置'],['预算',typeof p.budget==='number'?String(p.budget)+' '+(title(p.currency)||''):null],['资料版本',p.version!==undefined?'v'+p.version:null],['客户发布',manage()?(p.publication?'已发布':'未发布'):null]])));
- }else if(state.tab==='documents'){body.appendChild(renderDocuments());}
+ }else if(state.tab==='deliveries'){showDeliveries();}
+ else if(state.tab==='documents'){body.appendChild(renderDocuments());}
  else{const selected=state.tab==='work'?['task','milestone']:state.tab==='risks'?['risk','issue']:['change','acceptance'];selected.forEach(type=>body.appendChild(renderRecords(type)));}
  $('content').appendChild(body);
 }
@@ -204,7 +243,7 @@ $('assign-manager').addEventListener('click',async()=>{
 $('show-projects').addEventListener('click',showProjects);$('show-members').addEventListener('click',showMembers);$('show-events').addEventListener('click',showEvents);$('refresh').addEventListener('click',refresh);
 $('create-company').addEventListener('click',()=>{if(admin())openForm('创建公司',[{name:'name',label:'公司名称',required:true,maxLength:200},{name:'domain',label:'公司域名（选填）',maxLength:253,help:'例如 example.com，填写域名即可。'}],{},async fields=>{const created=await mutate('createCompany',{fields});if(created?.companyId)state.companyId=created.companyId;return created;},'创建公司');});
 $('logout').addEventListener('click',async()=>{$('logout').disabled=true;try{const response=await fetchTimed('/api/crm',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json','X-CNPS-CRM':'1'},body:JSON.stringify({action:'logout'})});const result=await response.json();if(!response.ok||result?.ok!==true)throw new Error('退出未完成，请重试。');location.replace('/crm');}catch(error){message(error.message||'网络连接异常，请重试。');$('logout').disabled=false;}});
-async function initialize(){try{const response=await fetchTimed('/api/crm?view=session',{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});if(response.status===401){$('login-needed').hidden=false;$('logout').hidden=true;$('refresh').hidden=true;return;}const result=await response.json();if(!response.ok||result?.authenticated!==true)throw new Error('登录状态暂时无法确认，请稍后刷新。');state.identity=result.identity;$('identity').textContent=roleLabel(state.identity?.role)+' · '+title(state.identity?.phoneMasked);$('show-members').hidden=!manage();$('show-events').hidden=!manage();$('create-company').hidden=!admin();$('assign-manager').hidden=!admin();await loadCompanies(false);$('workspace').hidden=false;await showProjects();}catch(error){$('login-needed').hidden=false;$('login-message').textContent=error.message||'网络连接异常，请刷新重试。';$('logout').hidden=true;$('refresh').hidden=true;}finally{$('initial-loading').hidden=true;}}
+async function initialize(){try{const response=await fetchTimed('/api/crm?view=session',{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});if(response.status===401){$('login-needed').hidden=false;$('logout').hidden=true;$('refresh').hidden=true;return;}const result=await response.json();if(!response.ok||result?.authenticated!==true)throw new Error('登录状态暂时无法确认，请稍后刷新。');state.identity=result.identity;$('identity').textContent=roleLabel(state.identity?.role)+' · '+title(state.identity?.phoneMasked);$('show-members').hidden=!manage();$('show-events').hidden=!manage();$('create-company').hidden=!admin();$('assign-manager').hidden=!admin();await loadCompanies(false);$('workspace').hidden=false;const params=new URLSearchParams(location.search||'');if(params.get('companyId')&&params.get('deliveryId'))await openDelivery(params.get('companyId'),params.get('deliveryId'));else await showProjects();}catch(error){$('login-needed').hidden=false;$('login-message').textContent=error.message||'网络连接异常，请刷新重试。';$('logout').hidden=true;$('refresh').hidden=true;}finally{$('initial-loading').hidden=true;}}
 initialize();
 })();
 </script></body></html>`;
