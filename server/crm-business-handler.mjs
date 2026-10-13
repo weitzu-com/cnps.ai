@@ -85,6 +85,9 @@ export function createBusinessHandler({ env, authHandler, service }) {
         switch (data.action) {
           case 'createDelivery': result = await service.createDelivery(principal,companyId,projectId,data.fields); break;
           case 'recordDelivery': result = await service.recordDelivery(principal,companyId,data.deliveryId,data.kind); break;
+          case 'bindDeliveryWecom': result=await service.bindDeliveryWecom(principal,companyId,data.contactId,data.fields);break;
+          case 'sendDeliveryNotification': result=await service.sendDeliveryNotification(principal,companyId,data.deliveryId,data.channel);break;
+          case 'syncDeliveryNotification': result=await service.syncDeliveryNotification(principal,companyId,data.deliveryId,data.channel);break;
           case 'sendDeliverySms': result = await service.sendDeliverySms(principal,companyId,data.deliveryId); break;
           case 'knowledgeAnswer': result = await knowledgeAnswer({env,service,principal,companyId,projectId,question:data.question,documentIds:data.documentIds}); break;
           case 'projectAi': result = await projectAi({env,service,principal,companyId,projectId,question:data.question}); break;
