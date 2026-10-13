@@ -232,7 +232,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   }
   function deliveryView(delivery, a) {
     const { recipientId, contactId, requestId, actorId, ...result } = clone(delivery);
-    for(const channel of ['sms','email','wecom'])if(result[channel]){const {attempt,providerId,targetDigest,tag,subject,binding,...visible}=result[channel];result[channel]=visible;}
+    for(const channel of ['sms','email','wecom'])if(result[channel]){const {attempt,providerId,targetDigest,tag,subject,binding,subAccount,signature,templateId,receiptCode,...visible}=result[channel];result[channel]=visible;}
     return a.role === 'customer' ? result : { ...result, contactId };
   }
   const service = {
@@ -764,24 +764,25 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       return {status:result.status,message:result.status==='submitted'?'邮件已被供应商接受；需查询回执确认投递。':result.status==='pending_member'?'企业微信任务已创建，等待跟进成员在企业微信中确认发送。':result.status==='unknown'?'通知结果待核实，未自动重试。':'通知未提交，请检查联系方式、授权和通道。'};
     },
     async syncDeliveryNotification(principal,companyId,deliveryId,channel){
-      if(!['email','wecom'].includes(channel))fail(400,'通知渠道无效。');
+      if(!['email','wecom','sms'].includes(channel))fail(400,'通知渠道无效。');
+      const adapter=channel==='sms'?notifications:channels?.[channel];
       const initial=await snapshot(companyId,principal);manage(initial.directory,principal,companyId);
       const delivery=deliveryAccess(initial.state,initial.a,deliveryId,principal),record=delivery[channel];
-      if(!record||!['submitted','pending_member'].includes(record.status)||!channels?.[channel]?.configured)return {status:record?.status||'not_sent',message:'当前没有可查询的通知回执。'};
+      if(!record||!['submitted','pending_member'].includes(record.status)||!adapter?.configured||typeof adapter?.receipt!=='function')return {status:record?.status||'not_sent',message:'当前没有可查询的通知回执。'};
       if(record.checkedAt&&now()-record.checkedAt<30000)fail(429,'回执查询间隔至少30秒。');
       const contact=await authoritative('getContact',delivery.contactId);if(contact.identityId!==delivery.recipientId)missing();
       deliveryAccess(initial.state,recipientAccess(initial.directory,contact,companyId),deliveryId,{identityId:contact.identityId});
       const target=channel==='email'?String(contact.email||'').trim().toLowerCase():normalizePhone(contact.phone);
       if(digest(env.CNPS_PROPOSAL_SECRET,'delivery-'+channel,target)!==record.targetDigest)fail(409,'联系人信息已变更，不能归属原通知回执。');
       if(channel==='wecom'&&JSON.stringify(initial.state.notificationBindings?.[contact.id])!==JSON.stringify(record.binding))fail(409,'企业微信绑定已变更。');
-      const result=await channels[channel].receipt({target,binding:record.binding,record});
+      const result=await adapter.receipt({target,binding:record.binding,record});
       const fresh=await authoritative('getContact',contact.id);const freshTarget=channel==='email'?String(fresh.email||'').trim().toLowerCase():normalizePhone(fresh.phone);if(fresh.identityId!==contact.identityId||fresh.companyId!==companyId||freshTarget!==target)fail(409,'联系人信息已变更，回执未归属。');
-      const allowed=channel==='email'?['submitted','delivered','delivery_failed']:['pending_member','sent','delivery_failed'];if(!allowed.includes(result?.status))fail(503,'回执结果无效。');
+      const allowed=channel!=='wecom'?['submitted','delivered','delivery_failed']:['pending_member','sent','delivery_failed'];if(!allowed.includes(result?.status))fail(503,'回执结果无效。');
       await companyWrite(principal,companyId,(next,a,directory)=>{
         deliveryAccess(next,recipientAccess(directory,contact,companyId),deliveryId,{identityId:contact.identityId});const current=next.deliveries[deliveryId];
         if(current[channel]?.attempt!==record.attempt)fail(409,'通知已变更。');current[channel]={...current[channel],...result,checkedAt:now()};next.events.push(event(principal,'delivery.'+channel+'-receipt',{companyId,deliveryId,status:result.status}));
       },{expectedDirectoryRevision:initial.directory.revision,expectedCompanyRevision:initial.state.revision});
-      return {status:result.status,message:result.status==='delivered'?'收件邮件服务器已接受，不代表客户已阅读。':result.status==='sent'?'企业微信成员已执行发送，不代表客户已阅读。':result.status==='delivery_failed'?'供应商回执显示投递失败。':'仍在等待投递或成员发送回执。'};
+      return {status:result.status,message:result.status==='delivered'?(channel==='sms'?'运营商回执确认手机送达，不代表客户已查看资料。':'收件邮件服务器已接受，不代表客户已阅读。'):result.status==='sent'?'企业微信成员已执行发送，不代表客户已阅读。':result.status==='delivery_failed'?'供应商回执显示投递失败。':'仍在等待投递或成员发送回执。'};
     },
     async sendDeliverySms(principal, companyId, deliveryId) {
       const initial=await snapshot(companyId,principal);manage(initial.directory,principal,companyId);
@@ -794,13 +795,13 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       const attempt=id(newId());
       const reservation=await companyWrite(principal,companyId,(next,a,directory)=>{
         const current=deliveryAccess(next,recipientAccess(directory,contact,companyId),deliveryId,{identityId:contact.identityId});
-        if(current.sms.status==='submitted'||current.sms.status==='sending'||current.sms.status==='unknown') return null;
+        if(['submitted','sending','unknown','delivered'].includes(current.sms.status)) return null;
         const month=new Date(now()+8*3600000).toISOString().slice(0,7);next.deliverySmsUsage ||= {};
         if((next.deliverySmsUsage[month]||0)>=100)fail(429,'本公司每月交付短信限额100条。');
         const last=Object.values(next.deliveries||{}).filter(d=>d.contactId===contact.id&&d.sms?.attemptedAt).reduce((m,d)=>Math.max(m,d.sms.attemptedAt),0);
         if(now()-last<60000)fail(429,'同一客户通知间隔至少60秒。');
         next.deliverySmsUsage[month]=(next.deliverySmsUsage[month]||0)+1;
-        current.sms={status:'sending',attempt,attemptedAt:now()};return true;
+        current.sms={status:'sending',attempt,attemptedAt:now(),targetDigest:digest(env.CNPS_PROPOSAL_SECRET,'delivery-sms',phone)};return true;
       },{expectedDirectoryRevision:initial.directory.revision,expectedCompanyRevision:initial.state.revision});
       if(!reservation)return {status:delivery.sms.status,message:'此交付已提交或结果待核实，未重复发送。'};
       let result;
@@ -811,6 +812,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         deliveryAccess(latest.state,recipientAccess(latest.directory,fresh,companyId),deliveryId,{identityId:fresh.identityId});
         result=await notifications.send(phone,deliveryId);
       } catch(error) {result={status:error instanceof BusinessError?'cancelled':'unknown'};}
+      if(!['submitted','failed','cancelled','unknown'].includes(result?.status))result={status:'unknown'};
       await companyWrite(principal,companyId,next=>{const current=own(next.deliveries,deliveryId);if(current?.sms.attempt===attempt){current.sms={...current.sms,...result,updatedAt:now()};next.events.push(event(principal,'delivery.sms',{companyId,deliveryId,status:result.status}));}});
       return {status:result.status,message:result.status==='submitted'?'短信已提交至供应商（不代表手机已送达）。':result.status==='unknown'?'短信结果待核实，为避免重复通知不自动重试。':'短信未提交，请检查通道或客户授权。'};
     },
