@@ -318,12 +318,12 @@ test('legacy DOC and PPT appear as supported uploads and remain unpublished draf
 test('delivery UI only managers create, scopes choices, copies actual delivery text without reporting sent',async()=>{
  const delivery={id:'delivery-one',createdAt:1,documents:[{documentId:'document-one',versionId:'version-one',filename:'delivery.pdf',version:1}],message:'Synthetic delivery text',link:'https://crm.cnps.ai/crm/workspace?companyId=company-one&deliveryId=delivery-one',downloads:[],sms:{status:'not_sent'}};
  const h=harness({role:'sales_manager',override:async call=>{
- if(call.view==='deliveries')return{body:{ok:true,data:[delivery]}};
+ if(call.view==='deliveries')return{body:{ok:true,data:[delivery]}};if(call.body?.action==='sendDeliverySms')return{body:{ok:true,data:{status:'unavailable',message:'通知模板尚未配置'}}};
  }});await h.flush();await h.openProject();await h.flush();await h.click('交付与通知');await h.flush();
  await h.click('复制微信文案');await h.flush();assert.equal(h.state.copied,delivery.message);
  assert.ok(h.calls.some(c=>c.body?.action==='recordDelivery'&&c.body.kind==='copy'));
  assert.match(h.get('message').textContent,/复制不代表已发送/);
- await h.click('发送短信通知');assert.equal(h.get('dialog-submit').textContent,'发送短信');
+ await h.click('发送短信通知');assert.equal(h.get('dialog-submit').textContent,'发送短信');await h.event('action-form','submit');await h.flush();assert.equal(h.get('message').textContent,'通知模板尚未配置');
  const customer=harness();await customer.flush();await customer.openProject();await customer.flush();
  assert.ok(!customer.walk(customer.get('content')).some(e=>e.tagName==='BUTTON'&&e.textContent==='交付并通知'));
 });
