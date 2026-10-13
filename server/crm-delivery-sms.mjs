@@ -1,10 +1,12 @@
+import {createVolcDeliverySms} from './crm-volc-sms.mjs';
 import Dysmsapi from '@alicloud/dysmsapi20170525';
 import OpenApi from '@alicloud/openapi-client';
 import { digest } from './proposal-crypto.mjs';
 import { Redis } from '@upstash/redis';
 const Client = Dysmsapi.default || Dysmsapi;
 // Separate notification credentials and template; never use the OTP template.
-export function createDeliverySms(env, {client: injectedClient, redis: injectedRedis} = {}) {
+export function createDeliverySms(env, {client: injectedClient, redis: injectedRedis, fetchImpl, now} = {}) {
+  if(env.CRM_NOTIFY_PROVIDER==='volcengine')return createVolcDeliverySms(env,{redis:injectedRedis,fetchImpl,now});
   const configured = ['CRM_NOTIFY_ACCESS_KEY_ID','CRM_NOTIFY_ACCESS_KEY_SECRET','CRM_NOTIFY_SIGN_NAME','CRM_NOTIFY_TEMPLATE_CODE'].every(key=>Boolean(env[key])) && /^SMS_\d+$/.test(env.CRM_NOTIFY_TEMPLATE_CODE||'');
   if(!configured) return {configured:false};
   const client=injectedClient || new Client(new OpenApi.Config({accessKeyId:env.CRM_NOTIFY_ACCESS_KEY_ID,accessKeySecret:env.CRM_NOTIFY_ACCESS_KEY_SECRET,endpoint:'dysmsapi.aliyuncs.com',connectTimeout:5000,readTimeout:10000}));

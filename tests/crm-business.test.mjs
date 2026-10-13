@@ -836,3 +836,20 @@ test('WeCom requires verified recipient mapping and member-task state never clai
  assert.equal((await h.service.sendDeliveryNotification(manager,'company-A',d.id,'wecom')).status,'pending_member');await h.service.sendDeliveryNotification(manager,'company-A',d.id,'wecom');assert.equal(sends,1);
  assert.equal((await h.service.syncDeliveryNotification(manager,'company-A',d.id,'wecom')).status,'sent');assert.equal((await h.service.getDelivery(customer,'company-A',d.id)).viewedAt,null);
 });
+
+test('SMS receipt is manager-only, target-bound, does not count as viewed and cannot cause resending',async()=>{
+ let receipts=0,sends=0;const h=await setup({configured:true,async send(){sends++;return {status:'submitted',providerId:'receipt-test'};},async receipt(){receipts++;return {status:'delivered',receiptAt:Date.now()};}});
+ h.contacts.get('contact-A').phone='18700001111';
+ const d=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'receipt-test'});
+ await h.service.sendDeliverySms(manager,'company-A',d.id);
+ await assert.rejects(h.service.syncDeliveryNotification(customer,'company-A',d.id,'sms'),status(404));
+ await assert.rejects(h.service.syncDeliveryNotification(manager,'company-B',d.id,'sms'),status(404));
+ h.contacts.get('contact-A').phone='18700002222';await assert.rejects(h.service.syncDeliveryNotification(manager,'company-A',d.id,'sms'),status(409));assert.equal(receipts,0);
+ h.contacts.get('contact-A').phone='18700001111';assert.equal((await h.service.syncDeliveryNotification(manager,'company-A',d.id,'sms')).status,'delivered');
+ assert.equal((await h.service.getDelivery(customer,'company-A',d.id)).viewedAt,null);
+ await h.service.sendDeliverySms(manager,'company-A',d.id);assert.equal(sends,1);
+});
+test('revoked SMS recipient cannot have delivery receipts queried',async()=>{
+ let calls=0;const h=await setup({configured:true,async send(){return {status:'submitted'};},async receipt(){calls++;return {status:'delivered'};}});h.contacts.get('contact-A').phone='18700001111';
+ const d=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'receipt-revoke'});await h.service.sendDeliverySms(manager,'company-A',d.id);await h.service.revokeMember(manager,'company-A','contact-A');await assert.rejects(h.service.syncDeliveryNotification(manager,'company-A',d.id,'sms'),status(404));assert.equal(calls,0);
+});
