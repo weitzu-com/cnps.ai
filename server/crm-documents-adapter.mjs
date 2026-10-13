@@ -8,9 +8,9 @@ export function createDocumentsAdapter(env, { fetch: request = globalThis.fetch 
   if (base.protocol !== 'https:' && !(base.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(base.hostname))) throw unavailable();
   if (base.username || base.password || base.search || base.hash || !/^[0-9a-f]{64}$/i.test(env.CRM_FILE_GATEWAY_KEY || '')) throw unavailable();
   const limit = 38 * 1024 * 1024;
-  async function call(path, { body, bytes = false } = {}) {
+  async function call(path, { body, bytes = false, timeoutMs = 25000 } = {}) {
     try {
-      const response = await request(new URL(path, base), { method: body ? 'POST' : 'GET', redirect: 'manual', signal: AbortSignal.timeout(25000), headers: { authorization: 'Bearer ' + env.CRM_FILE_GATEWAY_KEY, ...(body ? { 'content-type': 'application/json' } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) });
+      const response = await request(new URL(path, base), { method: body ? 'POST' : 'GET', redirect: 'manual', signal: AbortSignal.timeout(timeoutMs), headers: { authorization: 'Bearer ' + env.CRM_FILE_GATEWAY_KEY, ...(body ? { 'content-type': 'application/json' } : {}) }, ...(body ? { body: JSON.stringify(body) } : {}) });
       if (!response.ok || Number(response.headers.get('content-length')) > limit) throw unavailable();
       const chunks = []; let length = 0;
       for await (const chunk of response.body) { length += chunk.length; if (length > limit) throw unavailable(); chunks.push(Buffer.from(chunk)); }
@@ -27,7 +27,7 @@ export function createDocumentsAdapter(env, { fetch: request = globalThis.fetch 
   return {
     async createObject(input) { id(input.companyId); id(input.projectId); return metadata(await call('/objects', { body: input }), input); },
     async getObject(objectId, context) { return metadata(await call('/objects/' + id(objectId) + '?' + scope(context)), context); },
-    async extractObject(objectId, context) { return call('/objects/' + id(objectId) + '/text?' + scope(context)); },
+    async extractObject(objectId, context) { return call('/objects/' + id(objectId) + '/text?' + scope(context), {timeoutMs: 110000}); },
     async readObject(objectId, context) { return call('/objects/' + id(objectId) + '/content?' + scope(context), { bytes: true }); }
   };
 }

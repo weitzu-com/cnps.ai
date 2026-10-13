@@ -10,7 +10,7 @@ const RECORD_STATUSES = {
   change: ['draft', 'requested', 'approved', 'rejected', 'implemented'],
   acceptance: ['draft', 'requested', 'approved', 'rejected']
 };
-export const PMP_DOCUMENT_MIME_TYPES = Object.freeze(['application/pdf', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/png', 'image/jpeg', 'text/plain', 'text/csv']);
+export const PMP_DOCUMENT_MIME_TYPES = Object.freeze(['application/pdf', 'application/msword', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/png', 'image/jpeg', 'text/plain', 'text/csv']);
 export const PMP_MAX_UPLOAD_BYTES = 3 * 1024 * 1024;
 const MIME_TYPES = new Set(PMP_DOCUMENT_MIME_TYPES);
 const validId = value => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value);
@@ -626,7 +626,7 @@ export function createBusinessService({ env, store, twenty, documents, now = () 
       if(current.version.id!==versionId||current.doc.activeVersionId!==versionId||current.version.withdrawnAt!=null) missing();
       if(!result||!['ready','no_text','unsupported','parse_error'].includes(result.status)||!Array.isArray(result.segments)||result.segments.length>3000) fail(503,'正文解析结果无效。');
       const segments=result.segments.map(item=>{
-        if(typeof item.text!=='string'||item.text.length>1600||!item.location||!['page','slide','paragraph','line'].includes(item.location.kind)||!Number.isSafeInteger(item.location.number)||item.location.number<1||!Number.isSafeInteger(item.location.part)||item.location.part<1) fail(503,'正文解析结果无效。');
+        if(typeof item.text!=='string'||item.text.length>1600||!item.location||!['page','slide','paragraph','line','image','converted_page'].includes(item.location.kind)||!Number.isSafeInteger(item.location.number)||item.location.number<1||!Number.isSafeInteger(item.location.part)||item.location.part<1) fail(503,'正文解析结果无效。');
         return {text:item.text,location:clone(item.location)};
       });
       return {metadata:viewDocument(current.doc,current.version),status:result.status,segments};

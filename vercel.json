@@ -600,7 +600,7 @@
       "maxDuration": 10
     },
     "api/crm-workspace.js": {
-      "maxDuration": 120
+      "maxDuration": 300
     },
     "api/crm-workspace-page.js": {
       "maxDuration": 30

@@ -79,3 +79,10 @@ docker compose -f compose.yml -f file-gateway/compose.override.yml up -d file-ga
 ```
 
 正式部署前由主部署流程核对镜像内 Node 版本、`.env` 两个独立密钥、健康检查、备份恢复及 BFF 的公司/项目/文件 ACL。若 BFF 位于其他主机，其受控 HTTPS 反向代理由主部署统一配置；不要将主机 3200 端口直接开放公网。
+
+
+## OCR与旧版Office
+
+同时部署 `ocr-worker`，需额外设置独立64位hex `CRM_OCR_WORKER_KEY`（不要复用网关/加密密钥）。网关连接 `extractor` 内部网络，工作容器仅连接此网络，不接入backend/egress，不映射公开端口。OCR采用Tesseract chi_sim+eng，旧DOC/PPT由LibreOffice转换；工作镜像含Pillow12.3.0/olefile0.47以校验图片和OLE流。新缓存名`.kb2.enc`，从旧解析器缓存重新生成。
+
+Nginx `/objects`读取超时设置125s，服务器extractObject请求110s，工作任务85s；CRM问答函数最长300s，单次可选最多20个文件。并非每份文件都会用完超时预算。图片及扫描页OCR保留区域和置信度，DOC注明转换页，PPT按幻灯片引用。复杂/超大/加密/带宏/无法识别文件不当作已读取。

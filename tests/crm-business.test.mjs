@@ -738,3 +738,7 @@ test('knowledge citation set checks all person document grants atomically and re
  await h.service.grantMember(manager,'company-A',h.grant);await assert.rejects(h.service.validateKnowledgeSources(customer,'company-A',h.projectA.id,sources),status(404));
  await assert.rejects(h.service.validateKnowledgeSources(customer,'company-B',h.projectB.id,[{documentId:h.docB.id,versionId:h.docB.versionId}]),status(404));
 });
+
+test('OCR and converted legacy positions retain source metadata after person ACL validation',async()=>{
+ const h=await setup();h.documents.extractObject=async()=>({status:'ready',segments:[{text:'Scanned text',location:{kind:'image',number:1,part:1,method:'ocr',confidence:92,box:[1,2,30,40],imageSize:[500,700]}},{text:'Converted Word text',location:{kind:'converted_page',number:3,part:1,method:'legacy_conversion'}}]});const r=await h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId);assert.equal(r.segments[0].location.confidence,92);assert.equal(r.segments[1].location.kind,'converted_page');await h.service.revokeMember(manager,'company-A','contact-A');await assert.rejects(h.service.documentText(customer,'company-A',h.docA.id,h.docA.versionId),status(404));
+});

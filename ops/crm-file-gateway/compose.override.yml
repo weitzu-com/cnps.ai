@@ -2,7 +2,7 @@
 services:
   file-gateway:
     build: ./file-gateway
-    image: cnps-crm-file-gateway:kb-v1
+    image: cnps-crm-file-gateway:kb-v2
     entrypoint: [node, /gateway/server.mjs]
     command: []
     working_dir: /gateway
@@ -12,6 +12,7 @@ services:
     ports:
       - "127.0.0.1:3200:3200"
     environment:
+      CRM_OCR_WORKER_KEY: ${CRM_OCR_WORKER_KEY:?Set a dedicated OCR worker bearer}
       CRM_FILE_HOST: "0.0.0.0"
       CRM_FILE_PORT: "3200"
       CRM_FILE_DATA_DIR: /data
@@ -20,7 +21,7 @@ services:
     volumes:
       - ./file-gateway:/gateway:ro
       - document-data:/data
-    networks: [backend, egress]
+    networks: [backend, egress, extractor]
     read_only: true
     tmpfs:
       - /tmp:size=16m,mode=1777
@@ -44,5 +45,36 @@ services:
       driver: json-file
       options: {max-size: 10m, max-file: "3"}
 
+  ocr-worker:
+    build: ./file-gateway/ocr-worker
+    image: cnps-crm-ocr-worker:v2
+    restart: unless-stopped
+    environment:
+      CRM_OCR_WORKER_KEY: ${CRM_OCR_WORKER_KEY:?Set a dedicated OCR worker bearer}
+    volumes:
+      - ./file-gateway/ocr-worker:/worker:ro
+    networks: [extractor]
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 1792m
+    cpus: 1.5
+    pids_limit: 128
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3300/health',timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: '3'}
+
 volumes:
   document-data:
+
+networks:
+  extractor:
+    internal: true
