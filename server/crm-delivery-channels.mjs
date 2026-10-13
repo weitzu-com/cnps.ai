@@ -1,13 +1,39 @@
-import OpenApi from '@alicloud/openapi-client';
+import {createHash,createHmac,randomUUID} from 'node:crypto';
 import {Redis} from '@upstash/redis';
 import {digest} from './proposal-crypto.mjs';
-const Client=OpenApi.default||OpenApi;
 const fixedMessage=link=>'您的项目交付资料已更新。请使用已获授权的手机号登录客户工作台查看：\n'+link+'\n链接转发不新增访问权限。';
+function aliEncode(value){return encodeURIComponent(value).replace(/!/g,'%21').replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29').replace(/\*/g,'%2A');}
+function acs3Authorization(method,pathname,query,headers,accessKeyId,accessKeySecret,payloadHash){
+ const canonicalQuery=Object.keys(query||{}).sort().map(key=>{const value=query[key];return key+'='+(value===undefined||value===null?'':aliEncode(String(value)));}).join('&');
+ const grouped={};
+ for(const [name,value] of Object.entries(headers)){const lower=name.toLowerCase();if(lower.startsWith('x-acs-')||lower==='host'||lower==='content-type')(grouped[lower]||=[]).push(String(value??'').trim());}
+ const signed=Object.keys(grouped).sort();
+ const canonicalHeaders=signed.map(key=>`${key}:${grouped[key].sort().join(',')}`).join('\n');
+ const canonical=[method,pathname,canonicalQuery,canonicalHeaders,'',signed.join(';'),payloadHash].join('\n');
+ const stringToSign='ACS3-HMAC-SHA256\n'+createHash('sha256').update(canonical).digest('hex');
+ const signature=createHmac('sha256',accessKeySecret).update(stringToSign).digest('hex');
+ return {canonicalQuery,authorization:`ACS3-HMAC-SHA256 Credential=${accessKeyId},SignedHeaders=${signed.join(';')},Signature=${signature}`};
+}
+function createMailClient(env,fetchImpl){
+ const host='dm.aliyuncs.com';
+ return {async callApi(params,request,runtime){
+  const query=request.query||{};
+  const payloadHash=createHash('sha256').update('').digest('hex');
+  const headers={host,accept:'application/json','x-acs-action':params.action,'x-acs-version':params.version,'x-acs-date':new Date().toISOString().replace(/\.\d{3}Z$/,'Z'),'x-acs-signature-nonce':randomUUID(),'x-acs-content-sha256':payloadHash};
+  const signed=acs3Authorization(params.method||'POST','/',query,headers,env.CRM_MAIL_ACCESS_KEY_ID,env.CRM_MAIL_ACCESS_KEY_SECRET,payloadHash);
+  headers.Authorization=signed.authorization;
+  const timeout=Number(runtime?.readTimeout)||10000;
+  let response;try{response=await fetchImpl('https://'+host+'/?'+signed.canonicalQuery,{method:params.method||'POST',headers,redirect:'error',signal:AbortSignal.timeout(timeout)});}catch{throw Error('Mail unavailable');}
+  let body;try{body=await response.json();}catch{throw Error('Mail unavailable');}
+  if(!response.ok)throw Error('Mail unavailable');
+  return {body};
+ }};
+}
 export function createDeliveryChannels(env,{mailClient,redis,fetchImpl=globalThis.fetch}={}){
  const emailConfigured=['CRM_MAIL_ACCESS_KEY_ID','CRM_MAIL_ACCESS_KEY_SECRET','CRM_MAIL_FROM'].every(k=>!!env[k]);
  const wecomConfigured=['CRM_WECOM_CORP_ID','CRM_WECOM_CUSTOMER_SECRET'].every(k=>!!env[k]);
  let client=mailClient;
- if(emailConfigured&&!client)client=new Client(new OpenApi.Config({accessKeyId:env.CRM_MAIL_ACCESS_KEY_ID,accessKeySecret:env.CRM_MAIL_ACCESS_KEY_SECRET,endpoint:'dm.aliyuncs.com',regionId:'cn-hangzhou',connectTimeout:5000,readTimeout:10000}));
+ if(emailConfigured&&!client)client=createMailClient(env,fetchImpl);
  let storage=redis;
  async function quota(target){
   storage ||= new Redis({url:env.UPSTASH_REDIS_REST_URL||env.KV_REST_API_URL,token:env.UPSTASH_REDIS_REST_TOKEN||env.KV_REST_API_TOKEN,retry:{retries:0}});
@@ -17,7 +43,7 @@ export function createDeliveryChannels(env,{mailClient,redis,fetchImpl=globalThi
   return Number(ok)===1;
  }
  async function mail(action,query){
-  const result=await client.callApi(new OpenApi.Params({action,version:'2015-11-23',protocol:'HTTPS',pathname:'/',method:'POST',authType:'AK',style:'RPC',reqBodyType:'formData',bodyType:'json'}),new OpenApi.OpenApiRequest({query}),{autoretry:false,connectTimeout:5000,readTimeout:10000});return result.body;
+  const result=await client.callApi({action,version:'2015-11-23',protocol:'HTTPS',pathname:'/',method:'POST',authType:'AK',style:'RPC',reqBodyType:'formData',bodyType:'json'},{query},{autoretry:false,connectTimeout:5000,readTimeout:10000});return result.body;
  }
  async function wecom(path,body){
   const auth=await fetchImpl('https://qyapi.weixin.qq.com/cgi-bin/gettoken?'+new URLSearchParams({corpid:env.CRM_WECOM_CORP_ID,corpsecret:env.CRM_WECOM_CUSTOMER_SECRET}),{redirect:'error',signal:AbortSignal.timeout(10000)});

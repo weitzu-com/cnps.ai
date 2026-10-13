@@ -13,15 +13,25 @@ Configure these server-only variables as sensitive production/preview values:
 - `CNPS_PROPOSAL_SECRET`: 32 random bytes encoded as 64 hexadecimal characters;
   must match the payload encryption key.
 - `CNPS_PROPOSAL_ALLOWED_PHONES`: comma-separated exact mainland phone numbers.
-- `ALIYUN_ACCESS_KEY_ID`, `ALIYUN_ACCESS_KEY_SECRET`: dedicated RAM identity.
-- `ALIYUN_SMS_SIGN_NAME`, `ALIYUN_SMS_TEMPLATE_CODE`: approved PNVS system pair.
+- `VOLC_ACCESSKEY`, `VOLC_SECRETKEY`: dedicated Volcengine IAM identity.
+- `VOLC_SMS_ACCOUNT`, `VOLC_SMS_SIGN`, `VOLC_SMS_TEMPLATE_ID_VERIFY`: approved
+  message group, signature and OTP template. Proposal codes use Scene
+  `cnpsproposal`; CRM codes use Scene `cnpscrm`, so the pools do not authorize
+  each other.
+- `VOLC_SMS_TEMPLATE_ID_NOTIFY`: approved delivery-notification template, distinct
+  from the OTP template. Optional `VOLC_NOTIFY_ACCESSKEY` and
+  `VOLC_NOTIFY_SECRETKEY` override the main key for that send; an unset notify
+  access key uses `VOLC_ACCESSKEY`, and an unset notify secret uses
+  `VOLC_SECRETKEY`.
 - `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` (or Marketplace's
   `KV_REST_API_URL` / `KV_REST_API_TOKEN`): durable session/rate-limit storage.
 
-The Aliyun PNVS policy allows only `dypns:SendSmsVerifyCode` and
-`dypns:CheckSmsVerifyCode` against `Resource: "*"` (these API actions only support
-service-level permissions). Do not grant general cloud administrator access.
-This integration is Dypnsapi, not the separate Dysmsapi product.
+The Volcengine IAM policy allows only `sms:SendSmsVerifyCode`,
+`sms:CheckSmsVerifyCode` and `sms:SendSms` against `Resource: "*"` (these API
+actions only support service-level permissions). Do not grant general cloud
+administrator access. Verification calls `SendSmsVerifyCode` and
+`CheckSmsVerifyCode`. Delivery notification calls `SendSms` and does not use
+the OTP template.
 
 ## Enforced limits
 
@@ -36,7 +46,7 @@ This integration is Dypnsapi, not the separate Dysmsapi product.
 Failed/unknown sends still consume the reserved website quota conservatively.
 No code/phone/provider error is logged. Redis contains HMAC identifiers, random
 challenge IDs, and expiring session records, never SMS codes or phone plaintext.
-Send counters expire within 32 days. Aliyun and Vercel have their own service logs.
+Send counters expire within 32 days. Volcengine and Vercel have their own service logs.
 
 Database/provider failures fail closed. There is no production OTP bypass or
 in-memory fallback. All proposal responses use no-store, noindex, a nonce CSP,

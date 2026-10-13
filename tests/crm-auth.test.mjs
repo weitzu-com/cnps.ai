@@ -257,22 +257,26 @@ test('Redis adapter keeps challenge keys independent and delegates unchanged quo
   assert.equal(seen[3][1][0], 'cnps:crm:auth:v1:challenge:id');
   assert.equal(seen[4][1][0], 'cnps:crm:auth:v1:challenge:id');
 });
-test('Aliyun factory reuses approved channel settings but isolates provider SchemeName, never returning an OTP', async () => {
+test('Volcengine factory isolates CRM Scene cnpscrm and never returns an OTP', async () => {
   const requests = [];
-  const env = { ALIYUN_ACCESS_KEY_ID: 'not-a-live-key', ALIYUN_ACCESS_KEY_SECRET: 'not-a-live-secret', ALIYUN_SMS_SIGN_NAME: 'approved-sign', ALIYUN_SMS_TEMPLATE_CODE: 'approved-template' };
+  const env = { VOLC_ACCESSKEY: 'not-a-live-key', VOLC_SECRETKEY: 'not-a-live-secret', VOLC_SMS_ACCOUNT: 'sms-account', VOLC_SMS_SIGN: 'approved-sign', VOLC_SMS_TEMPLATE_ID_VERIFY: 'ST_verify' };
   const client = {
-    async sendSmsVerifyCode(request) { requests.push(request); return { body: { code: 'OK', success: true, model: { verifyCode: '123456' } } }; },
-    async checkSmsVerifyCode(request) { requests.push(request); return { body: { code: 'OK', success: true, model: { verifyResult: 'PASS' } } }; }
+    async sendSmsVerifyCode(request) { requests.push(request); return { Result: { MessageID: ['provider-message'] } }; },
+    async checkSmsVerifyCode(request) { requests.push(request); return { Result: '0' }; }
   };
   const sms = createCrmSms(env, { client });
   assert.equal(await sms.send(adminPhone, 'challenge-id'), undefined);
   assert.equal(await sms.verify(adminPhone, '123456', 'challenge-id'), true);
   assert.equal(CRM_SMS_SCHEME, 'cnpscrm');
-  assert.equal(requests[0].schemeName, CRM_SMS_SCHEME);
-  assert.equal(requests[1].schemeName, CRM_SMS_SCHEME);
-  assert.equal(requests[0].signName, env.ALIYUN_SMS_SIGN_NAME);
-  assert.equal(requests[0].templateCode, env.ALIYUN_SMS_TEMPLATE_CODE);
-  assert.equal(requests[0].returnVerifyCode, false);
-  assert.equal(requests[0].autoRetry, 0);
-  assert.equal(requests[0].outId, 'crm-challenge-id');
+  assert.equal(requests[0].Scene, CRM_SMS_SCHEME);
+  assert.equal(requests[1].Scene, CRM_SMS_SCHEME);
+  assert.equal(requests[0].Sign, env.VOLC_SMS_SIGN);
+  assert.equal(requests[0].TemplateID, env.VOLC_SMS_TEMPLATE_ID_VERIFY);
+  assert.equal(requests[0].SmsAccount, env.VOLC_SMS_ACCOUNT);
+  assert.equal(requests[0].PhoneNumber, adminPhone);
+  assert.equal(requests[0].CodeType, 6);
+  assert.equal(requests[0].ExpireTime, 300);
+  assert.equal(requests[0].TryCount, 5);
+  assert.equal(requests[0].Code, undefined);
+  assert.equal(requests[1].Code, '123456');
 });
