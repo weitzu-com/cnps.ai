@@ -1,3 +1,5 @@
+import { createRequestTiming } from './crm-request-timing.mjs';
+import { proposalAssetResponse } from './crm-proposal-assets.mjs';
 import { completedResponseAudit } from './crm-response-audit.mjs';
 import { randomBytes, createHash } from "node:crypto";
 import { digest } from "./proposal-crypto.mjs";
@@ -11,6 +13,7 @@ export function createCrmProposalHandler({
 }) {
   return async (req, res) => {
     privateHeaders(res);
+    const timed = createRequestTiming(res);
     const nonce = randomBytes(18).toString("base64");
     res.setHeader(
       "Content-Security-Policy",
@@ -45,8 +48,9 @@ export function createCrmProposalHandler({
           req.headers["x-proposal-request"] !== "1")
       )
         return json(403, { error: "请求来源无效。" });
-      const { auth, service } = runtime();
-      let principal = await auth.loadSession(req);
+      const { auth, service: underlying } = runtime();
+      const service = new Proxy(underlying, {get(target,key){const value=target[key];return typeof value==='function'?(...args)=>timed(key==='recordProposalAccess'||key==='auditCompletedResponse'?'audit':'authorize',()=>value(...args)):value;}});
+      let principal = await timed('auth',()=>auth.loadSession(req));
       if (!principal) {
         if (route === "/w" && ["GET", "HEAD"].includes(req.method)) {
           res.statusCode = 302;
@@ -59,13 +63,13 @@ export function createCrmProposalHandler({
         ? route.slice(9)
         : undefined;
       const finalAccess = async () => {
-        const current = await auth.loadSession(req);
+        const current = await timed('auth',()=>auth.loadSession(req));
         if (!current) throw new BusinessError(401, "请先通过短信验证登录。");
         await service.authorizeProposal(current, binding, assetId);
         principal = current;
       };
       await service.authorizeProposal(principal, binding, assetId);
-      const bundle = await loadBundle(env.CNPS_PROPOSAL_SECRET);
+      const bundle = await timed('bundle',()=>loadBundle(env.CNPS_PROPOSAL_SECRET));
       await service.authorizeProposal(principal, binding, assetId);
       if (route === "/w/view") {
         if (req.method !== "POST")
@@ -87,6 +91,7 @@ export function createCrmProposalHandler({
           undefined,
           { contentHash },
         );
+        await finalAccess();
         return json(200, { ok: true });
       }
       if (assetId) {
@@ -94,11 +99,12 @@ export function createCrmProposalHandler({
           ? bundle.assets[assetId]
           : null;
         if (!asset) return json(404, { error: "资料不存在或未获授权。" });
-        const bytes = Buffer.from(asset.data, "base64");
+        const representation = await timed('prepare',()=>proposalAssetResponse(asset, asset.filename?req.headers['accept-encoding']:undefined));
+        const bytes = representation.bytes;
         if (asset.filename && !Object.hasOwn(binding.documents, assetId))
           return json(404, { error: "资料不存在或未获授权。" });
         if (asset.filename && req.method === "GET") {
-          const contentHash = createHash("sha256").update(bytes).digest("hex");
+          const contentHash = representation.contentHash;
           await service.recordProposalAccess(
             principal,
             binding,
@@ -122,6 +128,11 @@ export function createCrmProposalHandler({
             { resourceId: binding.documents[assetId].documentId, versionId: binding.documents[assetId].versionId })) : Promise.resolve();
         res.statusCode = 200;
         res.setHeader("Content-Type", asset.type);
+        res.setHeader("Content-Length", bytes.length);
+        if (asset.filename) {
+          res.setHeader('Vary','Accept-Encoding');
+          if(representation.encoding)res.setHeader('Content-Encoding',representation.encoding);
+        }
         if (asset.filename)
           res.setHeader(
             "Content-Disposition",

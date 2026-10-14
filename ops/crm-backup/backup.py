@@ -188,7 +188,7 @@ def validate_upstash(snapshot):
                         and all(isinstance(value.get(field), dict) for field in ['projects', 'records', 'documents']), 'invalid_pmp_company')
         elif key.startswith(AUDIT_PREFIX):
             audit += 1
-            require(isinstance(value, dict) and set(value) <= {'id', 'actorId', 'action', 'at', 'status', 'companyId', 'resourceId', 'versionId'}
+            require(isinstance(value, dict) and set(value) <= {'id', 'actorId', 'action', 'at', 'status', 'companyId', 'resourceId', 'versionId', 'proposalId', 'assetId', 'eventId', 'contentHash'}
                     and all(field in value for field in ['id', 'actorId', 'action', 'at', 'status']), 'invalid_audit_schema')
             require(isinstance(value['id'], str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:-]{0,127}', value['id'])
                     and isinstance(value['at'], int) and 0 <= value['at'] < 10**16
@@ -196,9 +196,11 @@ def validate_upstash(snapshot):
             require(isinstance(value['actorId'], str) and (value['actorId'] == 'anonymous' or re.fullmatch(r'[a-f0-9]{64}', value['actorId']))
                     and isinstance(value['action'], str) and re.fullmatch(r'access\.[A-Za-z][A-Za-z0-9-]{0,79}', value['action'])
                     and isinstance(value['status'], int) and 100 <= value['status'] <= 599, 'invalid_audit_event')
-            for field in ['companyId', 'resourceId', 'versionId']:
+            for field in ['companyId', 'resourceId', 'versionId', 'proposalId', 'assetId', 'eventId']:
                 if field in value:
                     require(isinstance(value[field], str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:-]{0,127}', value[field]), 'invalid_audit_resource')
+            if 'contentHash' in value:
+                require(isinstance(value['contentHash'], str) and re.fullmatch(r'[a-f0-9]{64}', value['contentHash']), 'invalid_audit_hash')
         else:
             inquiry += 1
             if key.startswith(INQUIRY_PREFIX + 'limit:'):
