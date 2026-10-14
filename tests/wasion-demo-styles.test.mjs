@@ -13,7 +13,8 @@ test('every published style renders the whole portfolio and keeps links within t
   const html=wasionDemoPage('style-nonce',{slug,style,query:'I-110 & AMI'}),base=wasionStyleBase(style);
   assert.ok(html,style+' '+slug);
   assert.ok(html.includes('href="'+base+'/search"'),style+' '+slug+' keeps navigation search');
-  if(style!=='industrial'||slug==='search')assert.match(html,new RegExp('action="'+base+'/search"'));
+  if(!['orderful','industrial'].includes(style)||slug==='search')assert.match(html,new RegExp('action="'+base+'/search"'));
+  else assert.doesNotMatch(html.match(/<body\b[^>]*>([\s\S]*?)<script nonce=/)[1],new RegExp('<form\\b[^>]*action="'+base+'/search"'),style+' '+slug+' keeps AI search auxiliary');
   assert.equal((html.match(/<h1\b/g)||[]).length,1);
   assert.ok(html.includes('const WASION_BASE='+JSON.stringify(base)));
   assert.doesNotThrow(()=>new Script([...html.matchAll(/<script nonce="style-nonce">([\s\S]*?)<\/script>/g)].at(-1)[1]));
@@ -112,7 +113,7 @@ test('canonical demo defaults to Orderful on every page and Classic retains its 
  for(const slug of WASION_DEMO_ROUTES){
   assert.equal(wasionDemoPage('n',{slug,query:'I-110'}),wasionDemoPage('n',{slug,query:'I-110',style:'orderful'}),slug);
  }
- const home=wasionDemoPage('n');assert.match(home,/<body class="wd-style-orderful wd-is-home">/);assert.match(home,/action="\/demo\/wasion\/search"/);
+ const home=wasionDemoPage('n');assert.match(home,/<body class="wd-style-orderful wd-is-home">/);assert.match(home,/href="\/demo\/wasion\/search" aria-label="Open AI search"/);
  const classic=wasionDemoPage('n',{style:'classic'});assert.match(classic,/id="wx-film"/);assert.match(classic,/action="\/demo\/wasion\/styles\/classic\/search"/);
  const query=wasionDemoPage('n',{slug:'search',query:'I-110 & AMI'});
  assert.ok(query.includes('href="/demo/wasion/styles/classic/search?q=I-110+%26+AMI"'));
