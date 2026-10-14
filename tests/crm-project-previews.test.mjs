@@ -16,6 +16,6 @@ test('preview attaches only after authorization of the exact bound project',asyn
  }
 });
 test('demo links back to its exact CRM project on every page',()=>{
- const html=wasionDemoPage('test');assert.ok(html.includes('Client workspace'));
+ const html=wasionDemoPage('test');assert.ok(html.includes('Client workspace'));assert.ok(html.includes('class="wd-workspace-return"'));assert.ok(html.includes('.wd-utility .wd-container>div>a.wd-workspace-return{display:inline'));
  assert.ok(html.includes(wasionWorkspaceHref.replaceAll('&','&amp;')));
 });
