@@ -890,3 +890,10 @@ test('JSON responses discard stale content if access changes during response aud
  await handler({method:'GET',url:'/api/crm-workspace?'+new URLSearchParams({view:'project',companyId:'company-A',projectId:h.p.id}),headers:{}},res);
  assert.equal(res.statusCode,409);assert.ok(!res.body.includes('Authorized project'));
 });
+
+test('completed response evidence survives a subsequent identity disable without reauthorizing access',async()=>{
+ const h=await fixture(),p={...h.partner,identityVersion:0};await h.service.setIdentityStatus(h.admin,p.identityId,true);
+ await h.service.auditCompletedResponse(p,'download-response','company-A',200,{resourceId:h.doc.documentId,versionId:h.doc.versionId});
+ assert.equal(h.audit.at(-1).action,'access.download-response');
+ await assert.rejects(h.service.download(p,'company-A',h.doc.documentId,h.doc.versionId),status(404));
+});
