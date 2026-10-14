@@ -68,10 +68,10 @@ function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime
     recordVisit: async visit => visits.push(visit) });
   const proposalHandler = createProposalHandler({ env, storeFactory: () => proposalStore, smsFactory,
     now: () => time, loadBundle: async () => ({ html: 'private proposal', assets: {} }) });
-  async function request(url = '/api/crm', { method = 'GET', body, cookie = '', origin = 'https://www.cnps.ai', extra = {} } = {}, target = handler) {
+  async function request(url = '/api/crm', { method = 'GET', body, cookie = '', origin, extra = {} } = {}, target = handler) {
     const headers = {}; let output;
     const res = { setHeader(name, value) { headers[name.toLowerCase()] = value; }, end(value) { output = value; } };
-    await target({ url, method, body, headers: { origin, 'content-type': 'application/json', 'x-cnps-crm': '1', 'x-proposal-request': '1', cookie, 'x-real-ip': '192.0.2.1', ...extra } }, res);
+    await target({ url, method, body, headers: { origin:origin||(target===handler?'https://crm.cnps.ai':'https://www.cnps.ai'), 'content-type': 'application/json', 'x-cnps-crm': '1', 'x-proposal-request': '1', cookie, 'x-real-ip': '192.0.2.1', ...extra } }, res);
     return { status: res.statusCode, headers, text: String(output || ''), json() { return JSON.parse(output); } };
   }
   async function send(phone = adminPhone) {

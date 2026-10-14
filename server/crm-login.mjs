@@ -58,8 +58,8 @@ export function crmLoginPage(nonce) {
         <h2 id="session-title" tabindex="-1">您已登录</h2>
         <p class="sub">登录状态已生效，可继续访问获授权的资料。</p>
         <dl class="identity"><div><dt>登录手机号</dt><dd id="session-phone"></dd></div><div><dt>当前身份</dt><dd id="session-role"></dd></div></dl>
-        <p class="session-note">项目资料按公司与授权范围开放。客户方案使用独立访问授权，如提示验证身份，请按该页面完成验证。</p>
-        <div class="session-actions"><a class="button-link" href="/crm/workspace">进入客户工作台</a><a class="button-link secondary" href="https://www.cnps.ai/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
+        <p class="session-note">项目资料按公司与授权范围开放。客户方案与工作台共用登录，内容按各自授权开放。</p>
+        <div class="session-actions"><a class="button-link" href="/crm/workspace">进入客户工作台</a><a class="button-link secondary" href="/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
         <p class="status" id="session-status" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
       <button type="button" class="text-button" id="retry-session" hidden>重新检查登录状态</button>
@@ -70,6 +70,7 @@ export function crmLoginPage(nonce) {
 <script nonce="${safeNonce}">
 (() => {
   'use strict';
+const requestedNext=new URLSearchParams(location.search||'').get('next');
 const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuery=new URLSearchParams();for(const key of ['companyId','deliveryId']){const value=deliveryParams.get(key);if(value&&/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value))deliveryQuery.set(key,value);}if(deliveryQuery.size)document.querySelector('a[href="/crm/workspace"]').href='/crm/workspace?'+deliveryQuery.toString();
   const byId = id => document.getElementById(id);
   const form = byId('login'), send = byId('send'), submit = byId('submit');
@@ -142,11 +143,13 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
       const result = await request('session');
       if (result?.authenticated === true && result.identity && typeof result.identity === 'object') {
         byId('session-phone').textContent = typeof result.identity.phoneMasked === 'string' ? result.identity.phoneMasked : '已验证手机号';
-        byId('session-role').textContent = ({admin: '管理员', customer: '客户', sales_manager: '销售经理'})[result.identity.role] || '授权用户';
+        byId('session-role').textContent = ({admin: '管理员', customer: '客户', sales_manager: '销售经理', partner:'外部伙伴', proposal_viewer:'方案受邀人', unassigned:'当前暂无授权'})[result.identity.role] || '授权用户';
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
-        if (announce) byId('session-title').focus();
+        if (requestedNext==='/w') {location.replace('/w');return;}
+        if (result.identity.role==='proposal_viewer') {location.replace('/w');return;}
+        if (announce) {location.replace('/crm/workspace'+(deliveryQuery.size?'?'+deliveryQuery.toString():''));return;}
       } else {
         form.hidden = false; session.hidden = true;
         if (announce) message(status, '登录状态未生效，请重新获取验证码。');

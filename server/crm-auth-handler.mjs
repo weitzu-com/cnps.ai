@@ -80,7 +80,7 @@ async function readJson(req) {
 // are ignored. Do not infer company membership from a submitted name or email.
 // This handler authenticates identity only; every business API must enforce its
 // own company/project/document ACL. A returned session is not a Twenty API token.
-export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMemberships = async () => [], recordVisit, now = () => Date.now() }) {
+export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMemberships = async () => [], recordVisit, loadAccess, now = () => Date.now() }) {
   let store;
   const storage = () => store ??= storeFactory(env);
   const adminPhone = () => {
@@ -95,13 +95,21 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
   const openPhone = subject => normalizePhone(decrypt(Buffer.from(subject, 'base64url'), encryptionKey()).toString());
   const arrayIds = value => Array.isArray(value) ? [...new Set(value.filter(validId))] : [];
   async function identityFor(phone) {
-    if (phone === adminPhone()) return { role: 'admin', phoneMasked: `${phone.slice(0, 3)}****${phone.slice(-4)}`, memberships: [] };
-    const entries = await loadMemberships(phone);
+    const access = loadAccess ? await loadAccess(phone) : null;
+    if (access?.disabled) return null;
+    if (phone === adminPhone()) return { role: 'admin', phoneMasked: `${phone.slice(0, 3)}****${phone.slice(-4)}`, memberships: [], contexts: [], proposals: access?.proposals || [], authVersion:access?.authVersion||0 };
+    const entries = access?.memberships || await loadMemberships(phone);
     const memberships = (Array.isArray(entries) ? entries : []).filter(entry => entry?.active === true && validId(entry.companyId) && ['customer', 'sales_manager'].includes(entry.role)).map(entry => ({
       companyId: entry.companyId, role: entry.role, permissions: arrayIds(entry.permissions),
       ...(Array.isArray(entry.projectIds) ? { projectIds: arrayIds(entry.projectIds) } : {}),
       ...(Array.isArray(entry.documentIds) ? { documentIds: arrayIds(entry.documentIds) } : {})
     }));
+    if (access) {
+      const contexts=access.contexts || [], proposals=access.proposals || [];
+      const roles=[...new Set(contexts.map(c=>c.role))];
+      const role=roles.length===1?roles[0]:roles.length>1?'unassigned':proposals.length?'proposal_viewer':'unassigned';
+      return {authVersion:access.authVersion||0,role,phoneMasked:`${phone.slice(0,3)}****${phone.slice(-4)}`,memberships,contexts,proposals};
+    }
     if (!memberships.length) return null;
     return { role: memberships.some(entry => entry.role === 'sales_manager') ? 'sales_manager' : 'customer', phoneMasked: `${phone.slice(0, 3)}****${phone.slice(-4)}`, memberships };
   }
@@ -114,7 +122,7 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
     const phone = openPhone(session.subject);
     if (!phone || hash('phone', phone) !== session.pid) return null;
     const identity = await identityFor(phone);
-    return identity ? { identity, phone, identityId: session.pid } : null;
+    return identity && (session.authVersion||0)===(identity.authVersion||0) ? { identity, phone, identityId: session.pid, sessionId:hash('crm-session',token) } : null;
   }
 
   // Exposed for a separately authorized business API to authenticate this cookie.
@@ -139,8 +147,8 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         return json(200, { authenticated: true, identity: session.identity });
       }
       if (req.method !== 'POST') return json(405, { error: '请求方式不支持。' });
-      const origins = new Set(['https://www.cnps.ai', 'https://cnps.ai', 'https://crm.cnps.ai']);
-      if (env.VERCEL_URL) origins.add(`https://${env.VERCEL_URL}`);
+      const origins = new Set(['https://crm.cnps.ai']);
+
       if (!origins.has(req.headers.origin) || req.headers['x-cnps-crm'] !== '1') return json(403, { error: '请求来源无效。' });
       let data;
       try { data = await readJson(req); } catch { return json(400, { error: '请求格式无效。' }); }
@@ -156,7 +164,8 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
       if (data.action === 'send') {
         if (data.consent !== true) return json(400, { error: '请先同意身份验证说明。' });
         const phone = normalizePhone(data.phone);
-        if (!phone || !await identityFor(phone)) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
+        const identity = phone ? await identityFor(phone) : null;
+        if (!identity || (identity.role === 'unassigned' && !identity.contexts?.length)) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
         const sms = smsFactory(env), pid = hash('phone', phone);
         const sendTime = now(), date = new Date(sendTime + 8 * 3600e3).toISOString();
         const limits = [
@@ -197,7 +206,7 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         const token = randomBytes(32).toString('base64url');
         const sessionName = `session:${hash('crm-session', token)}`;
         const visit = { purpose: 'crm-sms-login', identityId: challenge.pid, role: identity.role, companyIds: identity.memberships.map(entry => entry.companyId), occurredAt: now() };
-        await storage().set(sessionName, { purpose: PURPOSE, pid: challenge.pid, subject: sealPhone(phone), expires: now() + SESSION_SECONDS * 1000 }, SESSION_SECONDS);
+        await storage().set(sessionName, { purpose: PURPOSE, pid: challenge.pid, subject: sealPhone(phone), authVersion:identity.authVersion||0, expires: now() + SESSION_SECONDS * 1000 }, SESSION_SECONDS);
         try {
           // This record is an access event only; it never creates a lead/company
           // or grants membership. A trusted adapter may link it to an existing CRM contact.

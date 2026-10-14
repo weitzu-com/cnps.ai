@@ -1,8 +1,10 @@
+import { guardPrivateRequest } from '../server/crm-boundary.mjs';
 import { randomBytes } from 'node:crypto';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
 import { crmWorkspacePage } from '../server/crm-workspace-page.mjs';
 
 export default async function handler(req, res) {
+  if (guardPrivateRequest(req, res)) return;
   for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) res.setHeader(name, 'private, no-store');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
   res.setHeader('Referrer-Policy', 'no-referrer');

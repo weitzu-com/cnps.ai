@@ -1,5 +1,7 @@
+import { guardPrivateRequest } from '../server/crm-boundary.mjs';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
 export default async function handler(req, res) {
+  if (guardPrivateRequest(req, res)) return;
   try { return await getCrmRuntime().auth(req, res); }
   catch {
     // Preview or unavailable dependencies must still return the login API's

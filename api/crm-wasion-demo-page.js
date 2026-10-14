@@ -1,9 +1,11 @@
+import { guardPrivateRequest } from '../server/crm-boundary.mjs';
 import { randomBytes } from 'node:crypto';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
 import { authorizeWasionCustomer } from '../server/wasion-demo.mjs';
 import { wasionDemoPage, WASION_PAGES } from '../server/wasion-demo-page.mjs';
 
 export default async function handler(req, res) {
+  if (guardPrivateRequest(req, res)) return;
   for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) res.setHeader(name, 'private, no-store, max-age=0');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
   res.setHeader('Referrer-Policy', 'no-referrer');

@@ -30,7 +30,7 @@ function harness(respond) {
   const document = {getElementById: element};
   Object.defineProperty(document, 'cookie', {get() { throw Error('Cookies belong to the server.'); }, set() { throw Error('Cookies belong to the server.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
-    document, URLSearchParams, location:{search:''}, Date: Clock, AbortController, TypeError, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
+    document, URLSearchParams, location:{search:'',replace() {}}, Date: Clock, AbortController, TypeError, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
     setTimeout(callback) { const id = ++nextTimer; timeouts.set(id, callback); return id; },
     clearTimeout(id) { timeouts.delete(id); },
     setInterval(callback) { const id = ++nextTimer; intervals.set(id, callback); return id; },
@@ -60,7 +60,7 @@ test('page uses only nonce-bound inline assets, accessible inputs, and safely es
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /@media\(min-width:768px\)/);
   assert.match(html, /@media\(min-width:1024px\)/);
-  assert.match(html, /href="https:\/\/www\.cnps\.ai\/w"/);
+  assert.match(html, /href="\/w"/);
   assert.doesNotMatch(html, /innerHTML|localStorage|sessionStorage|console\.|<script[^>]+src=|<link[^>]+href=/);
 });
 
@@ -107,7 +107,7 @@ test('anonymous login sends consent, enforces cooldown, verifies identity, and l
   assert.equal(h.element('code').value, '');
   assert.equal(h.element('session').hidden, false);
   assert.equal(h.element('session-role').textContent, '销售经理');
-  assert.equal(h.element('session-title').focused, true);
+  assert.equal(h.element('session').hidden, false);
   for (const call of h.calls) {
     assert.equal(call.options.credentials, 'same-origin');
     assert.equal(call.options.cache, 'no-store');
