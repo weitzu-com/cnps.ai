@@ -1052,3 +1052,18 @@ test('revoking one manager during a file read blocks that response and leaves th
   await assert.rejects(h.service.download(second,'company-A',h.docA.id,h.docA.versionId),status(404));
   assert.equal((await h.service.download(manager,'company-A',h.docA.id,h.docA.versionId)).bytes.toString(),'Alpha Published Delivery');
 });
+
+test('company manager changes preserve session generation and full revoke never restores an old session', async () => {
+  const h = await setup(), oldSession = {...manager, authEpoch: 0};
+  await h.service.setCompanyManager(admin,'company-B','staff-A',true,1);
+  await h.service.setCompanyManager(admin,'company-A','staff-A',false,2);
+  assert.equal((await h.service.getProject(oldSession,'company-B',h.projectB.id)).id,h.projectB.id);
+  await h.service.setCompanyManager(admin,'company-B','staff-A',false,3);
+  assert.equal((await h.store.getDirectory()).managerAssignments[manager.identityId].authEpoch,1);
+  await h.service.setCompanyManager(admin,'company-A','staff-A',true,4);
+  await assert.rejects(h.service.getProject(oldSession,'company-A',h.projectA.id),status(404));
+  const currentSession = {...manager,authEpoch:1};
+  assert.equal((await h.service.getProject(currentSession,'company-A',h.projectA.id)).id,h.projectA.id);
+  await h.service.setCompanyManager(admin,'company-B','staff-A',true,5);
+  assert.equal((await h.service.getProject(currentSession,'company-B',h.projectB.id)).id,h.projectB.id);
+});

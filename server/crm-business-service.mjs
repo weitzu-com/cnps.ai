@@ -449,7 +449,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         // regain access to their other companies when one edge is enabled.
         const selected = new Set(previous?.active ? previous.companyIds : []);
         if (active) selected.add(companyId); else selected.delete(companyId);
-        const assignment = { identityId: staff.identityId, staffId, companyIds: [...selected], active: selected.size > 0, version: expectedVersion + 1, updatedAt: now() };
+        const assignment = { identityId: staff.identityId, staffId, companyIds: [...selected], active: selected.size > 0, authEpoch: previous?.active && selected.size === 0 ? nextAuthEpoch(previous) : authEpoch(previous), version: expectedVersion + 1, updatedAt: now() };
         next.managerAssignments[staff.identityId] = assignment;
         next.events.push(event(principal, active ? 'manager.company-grant' : 'manager.company-revoke', { companyId, staffId, version: assignment.version }));
         return { staffId, active, version: assignment.version };
