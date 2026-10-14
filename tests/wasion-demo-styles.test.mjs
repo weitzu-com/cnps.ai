@@ -94,3 +94,30 @@ test('Planhat and Orderful use different home compositions and are listed in the
  const gallery=wasionDemoPage('n',{slug:'styles'});
  for(const style of ['planhat','orderful'])assert.ok(gallery.includes('href="'+wasionStyleBase(style)+'"'));
 });
+
+test('canonical demo defaults to Orderful on every page and Classic retains its own complete route tree',()=>{
+ assert.equal(wasionStyleBase(),'/demo/wasion');
+ assert.equal(wasionStyleBase('orderful'),'/demo/wasion');
+ assert.equal(wasionStyleBase('classic'),'/demo/wasion/styles/classic');
+ for(const slug of WASION_DEMO_ROUTES){
+  assert.equal(wasionDemoPage('n',{slug,query:'I-110'}),wasionDemoPage('n',{slug,query:'I-110',style:'orderful'}),slug);
+ }
+ const home=wasionDemoPage('n');assert.match(home,/<body class="wd-style-orderful wd-is-home">/);assert.match(home,/action="\/demo\/wasion\/search"/);
+ const classic=wasionDemoPage('n',{style:'classic'});assert.match(classic,/id="wx-film"/);assert.match(classic,/action="\/demo\/wasion\/styles\/classic\/search"/);
+ const query=wasionDemoPage('n',{slug:'search',query:'I-110 & AMI'});
+ assert.ok(query.includes('href="/demo/wasion/styles/classic/search?q=I-110+%26+AMI"'));
+ for(const style of ['classic','atmospheric','planhat'])assert.ok(home.includes('href="'+wasionStyleBase(style)+'"'));
+ const gallery=wasionDemoPage('n',{slug:'styles'});assert.match(gallery,/Default · Overseas customer experience/);
+});
+
+test('page API default, Orderful alias, Classic login return and POST recovery agree on the selected design',async()=>{
+ let session={identityId:'fixture-admin',identity:{role:'admin'}};
+ const handler=createWasionPageHandler({getRuntime:()=>({auth:{loadSession:async()=>session},projectAccessService:{getProject:async()=>({id:'fixture'})}})});
+ async function request(query,method='GET'){const res={headers:{},setHeader(k,v){this.headers[k]=v},end(body){this.body=body}};await handler({headers:{host:'crm.cnps.ai',origin:'https://crm.cnps.ai'},method,url:'/api/crm-wasion-demo-page',query,body:method==='POST'?{q:'I-110 & AMI'}:undefined},res);return res;}
+ for(const query of [{},{style:'orderful'}]){const res=await request(query);assert.equal(res.statusCode,200);assert.match(res.body,/<body class="wd-style-orderful wd-is-home">/);assert.ok(res.body.includes('const WASION_BASE="/demo/wasion"'));}
+ const classic=await request({style:'classic'});assert.equal(classic.statusCode,200);assert.match(classic.body,/id="wx-film"/);assert.ok(classic.body.includes('const WASION_BASE="/demo/wasion/styles/classic"'));
+ session=null;
+ const anon=await request({style:'classic',slug:'search',q:'I-110'});assert.equal(anon.statusCode,302);assert.equal(new URL(anon.headers.Location,'https://crm.cnps.ai').searchParams.get('returnTo'),'/demo/wasion/styles/classic/search?q=I-110');
+ for(const [style,base] of [[undefined,'/demo/wasion'],['classic','/demo/wasion/styles/classic']]){const res=await request({...(style?{style}:{}),slug:'search'},'POST');assert.equal(res.statusCode,200);assert.ok(res.body.includes('id="demo-resume" action="'+base+'/search" method="post"'));assert.match(res.headers['Cache-Control'],/private, no-store/);}
+ assert.equal(safeCrmReturnTo('/demo/wasion/styles/classic/search?q=I-110'),'/demo/wasion/styles/classic/search?q=I-110');
+});

@@ -9,7 +9,7 @@ import { WASION_SOURCES } from '../server/wasion-demo-sources.mjs';
 const routes = [...new Set(WASION_DEMO_ROUTES)];
 const encode = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const main = html => html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || '';
-const body = html => html.match(/<body>([\s\S]*?)<script nonce=/)?.[1] || '';
+const body = html => html.match(/<body\b[^>]*>([\s\S]*?)<script nonce=/)?.[1] || '';
 
 test('every integrated route renders with one headline, unique IDs and resolving local links/fragments', () => {
   assert.ok(routes.length >= 88);
