@@ -33,6 +33,8 @@
 
 ## 再次发布
 
+> 已停用（2026-10-14）：生产只从 `main` 经 Vercel Git 集成自动发布。不要在功能分支运行 `vercel --prod` / `vercel build --prod` / `vercel promote`。见仓库根目录 `AGENTS.md`。以下命令仅作历史记录。
+
 ```sh
 npm ci --ignore-scripts
 vercel build --prod --yes --scope aipy
