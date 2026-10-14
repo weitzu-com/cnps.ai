@@ -1,3 +1,4 @@
+import { mapConcurrent } from './crm-concurrency.mjs';
 import { normalizeCustomerProfile, customerProfileIssues, parseCustomerProfileText } from './crm-customer-profile.mjs';
 import { randomUUID } from 'node:crypto';
 import { digest, keyBytes } from './proposal-crypto.mjs';
@@ -182,6 +183,11 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   const event = (principal, action, extra = {}) => ({ id: newId(), actorId: subject(principal), action, at: now(), ...extra });
   async function snapshot(companyId, principal) {
     id(companyId);
+    if (store.getSnapshot) {
+      const { directory, state } = await store.getSnapshot(companyId), a = access(directory, principal, companyId);
+      if (!a) missing();
+      return { directory, state, a };
+    }
     for (let retry = 0; retry < 3; retry++) {
       const directory = await store.getDirectory(), a = access(directory, principal, companyId);
       if (!a) missing();
@@ -307,18 +313,18 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         next.events.push(event(verified.principal,'proposal.'+kind,{companyId:binding.companyId,projectId:binding.projectId,contactId:verified.contactId,phoneMasked:row.phoneMasked,proposalId:binding.id,contentHash,...(kind==='download'?{assetId,filename}:{})}));
       },{customer:true});
     },
-    async loadMemberships(phone) {
-      const pid = subjectForPhone(phone), directory = await store.getDirectory();
+    async loadMemberships(phone, currentDirectory) {
+      const pid = subjectForPhone(phone), directory = currentDirectory || await store.getDirectory();
       if (directory.identities?.[pid]?.disabled) return [];
       const assignment = own(directory.managerAssignments, pid);
       if (assignment?.active) {
         const staff = await authoritative('getManager', assignment.staffId);
         if (!staff.active || staff.identityId !== pid) return [];
-        const memberships = [];
-        for (const companyId of assignment.companyIds) {
-          if (own(directory.companies, companyId) && await activeCompany(companyId)) memberships.push({ companyId, active: true, role: 'sales_manager', authEpoch: authEpoch(assignment), permissions: ['projects:read', 'documents:read', 'members:manage', 'projects:manage', 'documents:manage'] });
-        }
-        return memberships;
+        const memberships = await mapConcurrent(assignment.companyIds, async companyId => {
+          if (!own(directory.companies, companyId) || !await activeCompany(companyId)) return null;
+          return { companyId, active: true, role: 'sales_manager', authEpoch: authEpoch(assignment), permissions: ['projects:read', 'documents:read', 'members:manage', 'projects:manage', 'documents:manage'] };
+        });
+        return memberships.filter(Boolean);
       }
       const grant = own(directory.memberGrants, pid);
       if (!grant?.active || !own(directory.companies, grant.companyId)) return [];
@@ -349,12 +355,10 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         if (!Array.isArray(native)) fail(503, 'CRM资料暂不可用。');
         return native.filter(company => validId(company?.id)).map(company => ({ companyId: company.id, nativeCompanyId: company.id, name: text(company.name, 300), registered: Boolean(own(directory.companies, company.id)), registeredAt: own(directory.companies, company.id)?.registeredAt || null }));
       }
-      const result = [];
-      for (const entry of Object.values(directory.companies).filter(item => access(directory, principal, item.companyId))) {
+      return mapConcurrent(Object.values(directory.companies).filter(item => access(directory, principal, item.companyId)), async entry => {
         const native = await authoritative('getCompany', entry.companyId);
-        result.push({ ...clone(entry), name: text(native.name, 300), registered: true });
-      }
-      return result;
+        return { ...clone(entry), name: text(native.name, 300), registered: true };
+      });
     },
     async createCompany(principal, input) {
       if (!isAdmin(principal)) missing();

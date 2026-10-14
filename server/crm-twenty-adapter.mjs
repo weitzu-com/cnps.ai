@@ -163,8 +163,8 @@ export function createTwentyAdapter(env, { fetchImpl = globalThis.fetch, timeout
     },
     async getManager(staffId) {
       let internalCompanyId; try { internalCompanyId = uuid(env.CNPS_INTERNAL_COMPANY_ID); } catch { unavailable(); }
-      if (!await adapter.getCompany(internalCompanyId)) return null;
-      const person = await adapter.getContact(staffId);
+      const [company, person] = await Promise.all([adapter.getCompany(internalCompanyId), adapter.getContact(staffId)]);
+      if (!company) return null;
       if (!person || person.companyId !== internalCompanyId || !person.identityId) return null;
       return { id: person.id, identityId: person.identityId, active: person.active };
     },

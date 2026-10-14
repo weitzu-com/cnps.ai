@@ -30,6 +30,12 @@ export function createBusinessStore(env, { redis: injectedRedis } = {}) {
   return {
     async recordAccess(event) { await redis.set('cnps:crm:audit:v1:event:' + event.at + ':' + event.id, event); },
     async getDirectory() { return await redis.get(directoryKey) || emptyDirectory(); },
+    // MGET is one atomic observation, never a cache. Every call reaches Redis.
+    async getSnapshot(companyId) {
+      if (!companyId) return { directory: await redis.get(directoryKey) || emptyDirectory(), state: null };
+      const [directory, state] = await redis.mget(directoryKey, companyKey(companyId));
+      return { directory: directory || emptyDirectory(), state: state || emptyCompany(companyId) };
+    },
     async getCompany(companyId) { return await redis.get(companyKey(companyId)) || emptyCompany(companyId); },
     async commitDirectory(revision, next) {
       return Number(await redis.eval(CAS_DIRECTORY, [directoryKey], [revision, JSON.stringify(next)])) === 1;
