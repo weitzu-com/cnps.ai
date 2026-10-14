@@ -79,3 +79,9 @@ POST actions：
 CRM 域名已经表达业务边界，因此页面不再重复 `/crm` 前缀。登录入口为 `https://crm.cnps.ai/`，工作台为 `/workspace`，独立方案仍为 `/w`，演示仍为 `/demo/wasion`。通知模板、交付链接、方案退出、页头导航及登录回跳统一生成规范地址。`/api/crm` 和 `/api/crm-workspace` 保留既有接口协议。
 
 旧 `/crm`、`/crm/`、`/crm/workspace` 及尾斜线入口的 GET/HEAD 使用 308 规范化；保留经校验的公司、项目、交付和身份上下文，丢弃其他查询参数。历史 returnTo 中的旧工作台路径同样规范化，禁止外部地址和登录循环。旧入口 POST 返回 410，不转发请求体。官网工作台链接只跳转到 CRM；预览、别名和 handler 均执行同一边界。官网根路径仅在官网域名跳转 `/en`，CRM 根路径直接显示登录或重定向至已授权工作台。
+
+## Response delivery checks (2026-10-14)
+
+File responses reload the session and authorize the resource after preparation audits, immediately before sending bytes. This covers downloads, pending submissions, proposal assets and HEAD. JSON reads and AI results compare directory/company revisions after auditing and discard stale results with 409. Legacy overlapping grants cannot elevate a customer context.
+
+Prepared-file events do not claim delivery. Only response finish records a completed response with resource/version IDs; early disconnects do not. The handler waits for durable auditing before completing. Historical response evidence remains valid after later revocation. Audit failures emit a fixed monitoring signal. No file bodies, Cookies or OTPs are logged. Backup schema accepts the fixed resource fields and hyphenated action names.

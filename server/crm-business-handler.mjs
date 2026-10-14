@@ -42,7 +42,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
     const json = (status, payload) => { res.statusCode = status; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.end(req.method === 'HEAD' ? undefined : JSON.stringify(payload)); };
     let principal;
     function recordFileResponse(action, companyId, resourceId, versionId) {
-      return completedResponseAudit(req, res, () => service.auditAccess(principal, action, companyId, 200,
+      return completedResponseAudit(req, res, () => service.auditCompletedResponse(principal, action, companyId, 200,
         { resourceId, ...(versionId ? { versionId } : {}) }));
     }
     async function finalFileAccess(kind, companyId, resourceId, versionId) {

@@ -118,7 +118,7 @@ export function createCrmProposalHandler({
         }
         await finalAccess();
         const responseAudit = asset.filename ? completedResponseAudit(req, res,
-          () => service.auditAccess(principal, 'proposal-download-response', binding.companyId, 200,
+          () => service.auditCompletedResponse(principal, 'proposal-download-response', binding.companyId, 200,
             { resourceId: binding.documents[assetId].documentId, versionId: binding.documents[assetId].versionId })) : Promise.resolve();
         res.statusCode = 200;
         res.setHeader("Content-Type", asset.type);

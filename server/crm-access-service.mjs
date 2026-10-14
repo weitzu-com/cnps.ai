@@ -1103,6 +1103,9 @@ export function createAccessService({
     { ...base, ...api },
     {
       get(target, key) {
+        // Completed responses are historical evidence even after revocation.
+        // This append-only method has no public HTTP action.
+        if (key === "auditCompletedResponse") return (...args) => api.auditAccess(...args);
         if (
           key === "captureResponseVersion" || key === "assertResponseVersion" ||
           key === "auditDeniedAccess" ||
