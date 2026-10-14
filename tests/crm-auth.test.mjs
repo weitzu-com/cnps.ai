@@ -9,9 +9,10 @@ import { createHandler as createProposalHandler } from '../server/proposal-handl
 const adminPhone = '18700001111';
 const customerPhone = '18800002222';
 function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime = Date.UTC(2026, 9, 13) } = {}) {
-  let time = startTime, sends = 0, verifications = 0, smsFailure = false;
+  let time = startTime, sends = 0, verifications = 0, smsFailure = false, verifyFailure = false;
+  let onVerify, onSessionWrite, onVisit, directoryFailure = false, storeFailure = false;
   const env = { CNPS_PROPOSAL_SECRET: randomBytes(32).toString('hex'), CNPS_PROPOSAL_ALLOWED_PHONES: adminPhone, CNPS_CRM_ADMIN_PHONE: adminPhone };
-  const limits = new Map(), values = new Map(), visits = [];
+  const limits = new Map(), values = new Map(), visits = [], failures = [];
   const reserve = async items => {
     for (const item of items) {
       const entry = limits.get(item.name);
@@ -41,8 +42,11 @@ function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime
     return {
       reserve,
       ...(detailedQuotas ? { reserveDetailed } : {}),
-      async set(name, value, ttl) { values.set(prefix + name, { value: structuredClone(value), expiry: time + ttl * 1000 }); },
-      async get(name) { return get(name); },
+      async set(name, value, ttl) {
+        values.set(prefix + name, { value: structuredClone(value), expiry: time + ttl * 1000 });
+        if (prefix === 'crm:' && name.startsWith('session:') && onSessionWrite) { const callback = onSessionWrite; onSessionWrite = null; await callback(); }
+      },
+      async get(name) { if (storeFailure) throw new Error('fixture storage outage'); return get(name); },
       async del(name) { values.delete(prefix + name); },
       async attempt(id, binding) {
         const value = get('challenge:' + id);
@@ -61,11 +65,11 @@ function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime
   const crmStore = memoryStore('crm:'), proposalStore = memoryStore('proposal:');
   const smsFactory = () => ({
     async send() { if (smsFailure) throw new Error('secret provider diagnostics'); sends++; },
-    async verify(phone, code) { verifications++; return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
+    async verify(phone, code) { if (verifyFailure) throw new Error('private provider error'); verifications++; if (onVerify) { const callback = onVerify; onVerify = null; await callback(); } return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
   });
-  const handler = createCrmAuthHandler({ env, storeFactory: () => crmStore, smsFactory,
-    loadMemberships: async phone => memberDirectory.get(phone) || [], now: () => time,
-    recordVisit: async visit => visits.push(visit) });
+  const handler = createCrmAuthHandler({ env, reportFailure: event => failures.push(event), storeFactory: () => crmStore, smsFactory,
+    loadMemberships: async phone => { if (directoryFailure) throw new Error('fixture directory outage'); return memberDirectory.get(phone) || []; }, now: () => time,
+    recordVisit: async visit => { visits.push(visit); if (onVisit) { const callback = onVisit; onVisit = null; await callback(); } } });
   const proposalHandler = createProposalHandler({ env, storeFactory: () => proposalStore, smsFactory,
     now: () => time, loadBundle: async () => ({ html: 'private proposal', assets: {} }) });
   async function request(url = '/api/crm', { method = 'GET', body, cookie = '', origin, extra = {} } = {}, target = handler) {
@@ -85,11 +89,29 @@ function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime
     assert.equal(response.status, 200, response.text);
     return { challenge, cookie: response.headers['set-cookie'][0].split(';')[0], response };
   }
-  return { env, handler, request, send, login, visits, values, limits, memberDirectory, advance: ms => time += ms,
-    sends: () => sends, verifications: () => verifications, failSms: () => smsFailure = true,
+  return { env, handler, request, send, login, visits, values, limits, failures, memberDirectory, advance: ms => time += ms,
+    sends: () => sends, verifications: () => verifications, failSms: () => smsFailure = true, failVerify: () => verifyFailure = true,
+    duringVerify: callback => onVerify = callback, duringSessionWrite: callback => onSessionWrite = callback, duringVisit: callback => onVisit = callback,
+    failDirectory: () => directoryFailure = true, failStore: () => storeFailure = true,
     proposalRequest: (url, input) => request(url, input, proposalHandler) };
 }
 const member = (role = 'customer', companyId = 'company-A') => ({ companyId, active: true, role, permissions: ['projects:read', 'documents:read'], projectIds: ['project-A'], documentIds: ['document-A'] });
+const storedSession = h => [...h.values].find(([name]) => name.startsWith('crm:session:'))?.[1];
+
+test('provider outages identify the failing step without logging credentials, codes or granting a session', async () => {
+  const sending = harness(); sending.failSms();
+  const failedSend = await sending.request('/api/crm', {method:'POST',body:{action:'send',phone:adminPhone,consent:true}});
+  assert.equal(failedSend.status,503); assert.equal(failedSend.json().stage,'sms-send');
+  assert.deepEqual(sending.failures,[{stage:'sms-send'}]);
+  const checking = harness(); const challenge = await checking.send(); checking.failVerify();
+  const failedVerify = await checking.request('/api/crm', {method:'POST',cookie:challenge.cookie,body:{action:'verify',challenge:challenge.id,code:'123456'}});
+  assert.equal(failedVerify.status,503); assert.equal(failedVerify.json().stage,'sms-verify');
+  assert.equal(failedVerify.headers['set-cookie'],undefined);
+  assert.deepEqual(checking.failures,[{stage:'sms-verify'}]);
+  const output = JSON.stringify([sending.failures,checking.failures,failedSend.json(),failedVerify.json()]);
+  for (const value of [adminPhone,'123456',challenge.id,'private provider error']) assert.ok(!output.includes(value));
+  assert.equal((await checking.request('/api/crm?view=session')).status,401);
+});
 
 test('only explicitly approved admin bypasses directory; original proposal allowlist is not CRM authorization', async () => {
   const h = harness();
@@ -332,7 +354,7 @@ test('legacy boolean quota stores still enforce limits without inventing a retry
   assert.equal(response.headers['retry-after'], undefined);
   assert.equal(h.sends(), 1);
 });
-test('sessions are secure, expire after eight hours, and logout revokes them', async () => {
+test('administrator sessions are secure, expire after eight hours, and logout revokes them', async () => {
   const h = harness(), login = await h.login();
   assert.match(login.response.headers['set-cookie'][0], /^__Host-cnps_crm=.*; Path=\/; HttpOnly; Secure; SameSite=Strict; Max-Age=28800$/);
   const response = await h.request('/api/crm?view=session', { cookie: login.cookie });
@@ -343,6 +365,144 @@ test('sessions are secure, expire after eight hours, and logout revokes them', a
   const h2 = harness(), login2 = await h2.login();
   assert.equal((await h2.request('/api/crm', { method: 'POST', cookie: login2.cookie, body: { action: 'logout' } })).status, 200);
   assert.equal((await h2.request('/api/crm?view=session', { cookie: login2.cookie })).status, 401);
+});
+test('customer sessions persist for a fixed thirty days without additional SMS or renewal', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), login = await h.login(customerPhone);
+  const entry = storedSession(h), issuedAt = Date.UTC(2026, 9, 13), expires = issuedAt + 30 * 86400e3;
+  assert.match(login.response.headers['set-cookie'][0], /^__Host-cnps_crm=.*; Path=\/; HttpOnly; Secure; SameSite=Lax; Max-Age=2592000$/);
+  assert.match(login.challenge.response.headers['set-cookie'], /SameSite=Strict; Max-Age=300$/);
+  assert.equal(entry.value.issuedAt, issuedAt);
+  assert.equal(entry.value.roleAtVerification, 'customer');
+  assert.equal(entry.value.authEpoch, 0);
+  assert.equal(entry.value.expires, expires);
+  assert.equal(entry.expiry, expires);
+  for (const elapsed of [8 * 3600e3, 21 * 86400e3, 9 * 86400e3 - 8 * 3600e3 - 1]) {
+    h.advance(elapsed);
+    const response = await h.request('/api/crm?view=session', { cookie: login.cookie });
+    assert.equal(response.status, 200);
+    assert.equal(response.json().authenticatedAt, issuedAt);
+    assert.equal(response.json().expiresAt, expires);
+    assert.equal(response.headers['set-cookie'], undefined);
+    assert.ok(!response.text.includes('authEpoch'));
+    assert.ok(!response.text.includes('roleAtVerification'));
+    assert.equal(entry.value.expires, expires);
+    assert.equal(entry.expiry, expires);
+  }
+  assert.equal(h.sends(), 1);
+  assert.equal(h.verifications(), 1);
+  h.advance(1);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+});
+test('sales manager sessions retain their strict eight-hour lifetime even after a role downgrade', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member('sales_manager')]]]) }), login = await h.login(customerPhone);
+  assert.match(login.response.headers['set-cookie'][0], /SameSite=Strict; Max-Age=28800$/);
+  assert.equal(storedSession(h).value.expires - storedSession(h).value.issuedAt, 8 * 3600e3);
+  h.memberDirectory.set(customerPhone, [member()]);
+  h.advance(8 * 3600e3 - 1);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 200);
+  h.advance(1);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+});
+test('customer sessions cannot acquire privileged roles without a new verification', async () => {
+  for (const role of ['sales_manager', 'admin']) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), login = await h.login(customerPhone);
+    if (role === 'admin') h.env.CNPS_CRM_ADMIN_PHONE = customerPhone;
+    else h.memberDirectory.set(customerPhone, [member(role)]);
+    assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+    h.advance(61000);
+    const next = await h.login(customerPhone);
+    assert.match(next.response.headers['set-cookie'][0], /SameSite=Strict; Max-Age=28800$/);
+    assert.equal((await h.request('/api/crm?view=session', { cookie: next.cookie })).json().identity.role, role);
+  }
+});
+test('scope changes remain live while revoke and regrant never reactivate an old customer session', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), login = await h.login(customerPhone);
+  h.memberDirectory.set(customerPhone, [{ ...member(), documentIds: [], permissions: ['projects:read'], authEpoch: 0 }]);
+  const scoped = await h.request('/api/crm?view=session', { cookie: login.cookie });
+  assert.equal(scoped.status, 200);
+  assert.deepEqual(scoped.json().identity.memberships[0].documentIds, []);
+  h.memberDirectory.set(customerPhone, [{ ...member(), active: false, authEpoch: 1 }]);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+  h.memberDirectory.set(customerPhone, [{ ...member(), authEpoch: 1 }]);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+  h.advance(61000);
+  const fresh = await h.login(customerPhone);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: fresh.cookie })).status, 200);
+  assert.equal(storedSession(h).value.authEpoch, 0); // The retained old credential was not silently upgraded.
+});
+test('legacy sessions keep the original eight-hour deadline and default generation zero', async () => {
+  for (const role of ['admin', 'customer', 'sales_manager']) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [member(role)]]]) }), login = await h.login(role === 'admin' ? adminPhone : customerPhone);
+    const entry = storedSession(h), expires = entry.value.issuedAt + 8 * 3600e3;
+    for (const field of ['issuedAt', 'roleAtVerification', 'authEpoch']) delete entry.value[field];
+    entry.value.expires = expires; entry.expiry = expires;
+    const response = await h.request('/api/crm?view=session', { cookie: login.cookie });
+    assert.equal(response.status, 200);
+    assert.equal(response.json().expiresAt, expires);
+    assert.equal(response.json().authenticatedAt, expires - 8 * 3600e3);
+    h.advance(8 * 3600e3);
+    assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+  }
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), login = await h.login(customerPhone), entry = storedSession(h);
+  for (const field of ['issuedAt', 'roleAtVerification', 'authEpoch']) delete entry.value[field];
+  entry.value.expires = Date.UTC(2026, 9, 13) + 8 * 3600e3;
+  h.memberDirectory.set(customerPhone, [{ ...member(), authEpoch: 1 }]);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+});
+test('malformed session metadata or invalid directory generations never authorize a session', async () => {
+  for (const mutation of [
+    entry => delete entry.value.authEpoch,
+    entry => entry.value.roleAtVerification = 'invented',
+    entry => entry.value.authEpoch = -1,
+    entry => entry.value.issuedAt += 1,
+    entry => entry.value.expires += 1
+  ]) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), login = await h.login(customerPhone);
+    mutation(storedSession(h));
+    assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+  }
+  for (const authEpoch of [-1, null, '0', 0.5, Number.MAX_SAFE_INTEGER + 1]) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [{ ...member(), authEpoch }]]]) });
+    assert.equal((await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: customerPhone, consent: true } })).status, 503);
+    assert.equal(h.sends(), 0);
+  }
+});
+test('verification rejects revocation and restore during provider checks, session writes and audit writes', async () => {
+  for (const hook of ['duringVerify', 'duringSessionWrite', 'duringVisit']) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), challenge = await h.send(customerPhone);
+    h[hook](async () => { h.memberDirectory.set(customerPhone, [{ ...member(), authEpoch: 1 }]); });
+    const response = await h.request('/api/crm', { method: 'POST', cookie: challenge.cookie, body: { action: 'verify', challenge: challenge.id, code: '123456' } });
+    assert.equal(response.status, 403, hook);
+    assert.equal(response.headers['set-cookie'], undefined);
+    assert.equal(storedSession(h), undefined);
+  }
+});
+test('revocation and regrant after SMS send invalidate the old challenge before provider verification', async () => {
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), challenge = await h.send(customerPhone);
+  h.memberDirectory.set(customerPhone, [{ ...member(), authEpoch: 1 }]);
+  const response = await h.request('/api/crm', { method: 'POST', cookie: challenge.cookie, body: { action: 'verify', challenge: challenge.id, code: '123456' } });
+  assert.equal(response.status, 403);
+  assert.equal(h.verifications(), 0);
+  assert.equal(storedSession(h), undefined);
+  h.advance(61000);
+  const fresh = await h.login(customerPhone);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: fresh.cookie })).status, 200);
+});
+test('authentication outages fail closed and revoked customer logout tokens cannot be replayed', async () => {
+  for (const failure of ['failStore', 'failDirectory']) {
+    const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), login = await h.login(customerPhone);
+    h[failure]();
+    const response = await h.request('/api/crm?view=session', { cookie: login.cookie });
+    assert.equal(response.status, 503);
+    assert.ok(!response.text.includes(customerPhone));
+    assert.equal(h.sends(), 1);
+  }
+  const h = harness({ memberDirectory: new Map([[customerPhone, [member()]]]) }), login = await h.login(customerPhone);
+  const response = await h.request('/api/crm', { method: 'POST', cookie: login.cookie, body: { action: 'logout' } });
+  assert.equal(response.status, 200);
+  assert.match(response.headers['set-cookie'][0], /SameSite=Lax; Max-Age=0$/);
+  assert.equal((await h.request('/api/crm?view=session', { cookie: login.cookie })).status, 401);
+  assert.equal((await h.request('/api/crm?view=session')).status, 401);
 });
 test('expired challenges, forged sessions, malformed requests and provider errors fail safely', async () => {
   const h = harness(), c = await h.send();

@@ -1,3 +1,4 @@
+import { projectPreviews } from './crm-project-previews.mjs';
 import { knowledgeAnswer } from './crm-knowledge.mjs';
 import { projectAi } from './crm-ai.mjs';
 import { BusinessError } from './crm-business-service.mjs';
@@ -38,11 +39,12 @@ export function createBusinessHandler({ env, authHandler, service }) {
   return async (req, res) => {
     policy(res);
     const json = (status, payload) => { res.statusCode = status; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.end(req.method === 'HEAD' ? undefined : JSON.stringify(payload)); };
+    let principal;
     try {
       const url = new URL(req.url, 'https://www.cnps.ai');
       if (url.pathname !== '/api/crm-workspace') return json(404, { error: '接口不存在。' });
       if (!['GET', 'HEAD', 'POST'].includes(req.method)) return json(405, { error: '请求方式不支持。' });
-      let principal = await authHandler.loadSession(req);
+      principal = await authHandler.loadSession(req);
       if (!principal) return json(401, { error: '请先通过短信验证登录。' });
       const query = name => url.searchParams.get(name) || undefined;
       let result;
@@ -54,14 +56,18 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'partnerOrganizations': result=await service.listPartnerOrganizations(principal,companyId);break;
           case 'sensitiveRequests': result=await service.listSensitiveRequests(principal,companyId);break;
           case 'partnerSubmissions': result=await service.listPartnerSubmissions(principal,companyId,projectId);break;
-          case 'submissionDownload': {const file=await service.downloadSubmission(principal,companyId,query('submissionId'));res.statusCode=200;res.setHeader('Content-Type',file.metadata.mimeType);res.setHeader('Content-Disposition',`attachment; filename*=UTF-8''${encodeURIComponent(file.metadata.filename)}`);return res.end(req.method==='HEAD'?undefined:file.bytes);}
+          case 'submissionDownload': {const file=await service.downloadSubmission(principal,companyId,query('submissionId'));if(service.auditAccess&&req.method==='GET')await service.auditAccess(principal,'submission-download',companyId,200);res.statusCode=200;res.setHeader('Content-Type',file.metadata.mimeType);res.setHeader('Content-Disposition',`attachment; filename*=UTF-8''${encodeURIComponent(file.metadata.filename)}`);return res.end(req.method==='HEAD'?undefined:file.bytes);}
           case 'deliveries': result = await service.listDeliveries(principal, companyId, projectId); break;
           case 'delivery': result = await service.getDelivery(principal, companyId, query('deliveryId')); break;
           case 'companies': result = await service.listCompanies(principal); break;
           case 'staff': result = await service.listStaff(principal); break;
           case 'contacts': result = await service.listContacts(principal, companyId); break;
           case 'projects': result = await service.listProjects(principal, companyId); break;
-          case 'project': result = await service.getProject(principal, companyId, projectId); break;
+          case 'project': {
+            const project = await service.getProject(principal, companyId, projectId);
+            result = { ...project, previews: projectPreviews(companyId, project.id) };
+            break;
+          }
           case 'records': result = await service.listRecords(principal, companyId, projectId, query('type')); break;
           case 'record': result = await service.getRecord(principal, companyId, query('recordId')); break;
           case 'documents': result = await service.listDocuments(principal, companyId, projectId); break;
@@ -73,6 +79,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
             if(query('deliveryId')) await service.getDelivery(principal,companyId,query('deliveryId'));
             const file = await service.download(principal, companyId, query('documentId'), query('versionId'));
             if(req.method==='GET' && query('deliveryId')) await service.recordDelivery(principal,companyId,query('deliveryId'),'download',query('documentId'),query('versionId'));
+            if(service.auditAccess&&req.method==='GET')await service.auditAccess(principal,'download',companyId,200);
             res.statusCode = 200;
             res.setHeader('Content-Type', file.metadata.mimeType);
             res.setHeader('Content-Disposition', `attachment; filename*=UTF-8''${encodeURIComponent(file.metadata.filename)}`);
@@ -84,7 +91,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
       } else {
         const origins = new Set(['https://crm.cnps.ai']);
 
-        if (!origins.has(req.headers.origin) || req.headers['x-cnps-crm'] !== '1') return json(403, { error: '请求来源无效。' });
+        if (!origins.has(req.headers.origin) || req.headers['x-cnps-crm'] !== '1') throw new BusinessError(403,'请求来源无效。');
         let data;
         try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError) throw error; throw new BusinessError(400, '请求格式无效。'); }
         const companyId = data.companyId, projectId = data.projectId;
@@ -135,7 +142,10 @@ export function createBusinessHandler({ env, authHandler, service }) {
       if(service.auditAccess)await service.auditAccess(principal,req.method==='POST'?'operation':'read',req.method==='POST'?req.body?.companyId:query('companyId'),200);
       return json(200, { ok: true, data: result });
     } catch (error) {
-      if (error instanceof BusinessError) return json(error.status, { error: error.message });
+      if (error instanceof BusinessError) {
+        if([403,404].includes(error.status)&&service.auditDeniedAccess){try{await service.auditDeniedAccess(principal,error.status);}catch{}}
+        return json(error.status, { error: error.message });
+      }
       // Provider diagnostics, private contact fields and credentials stay server-only.
       return json(503, { error: '客户工作台暂不可用，请稍后重试。' });
     }

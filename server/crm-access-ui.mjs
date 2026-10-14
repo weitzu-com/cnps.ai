@@ -5,6 +5,7 @@ function setupContexts(){
  state.contextId=contexts.some(c=>c.id===selected)?selected:state.identity.role==='admin'?'':contexts[0]?.id||'';
  clear($('context-select'));if(state.identity.role==='admin'){const option=text('option','管理员');option.value='';$('context-select').appendChild(option);}
  for(const c of contexts){const option=text('option',roleLabel(c.role)+' · '+(c.role==='partner'?'指定协作项目':'已授权公司'));option.value=c.id;$('context-select').appendChild(option);}
+ $('scope-heading').textContent=partner()?'当前协作项目':'当前公司 / COMPANY';$('company-label').textContent=partner()?'选择已授权协作范围':'选择可访问公司';$('company-scope').textContent=partner()?'仅展示分配给您的任务与资料。':'所有资料均按公司与具体授权范围开放。';$('process-note').textContent=partner()?'新任务和新文件不会自动开放；交付物由项目负责人审核。':'以启动、规划、执行、监控、收尾组织项目；客户内容以发布版本为准。';
  $('context-select').value=state.contextId;$('context-select').hidden=contexts.length<2&&state.identity.role!=='admin';
 }
 function canDownload(){if(manage())return true;if(partner())return list(context()?.permissions).includes('download');return list(state.identity.memberships).some(m=>m.companyId===state.companyId&&list(m.permissions).includes('documents:download'));}

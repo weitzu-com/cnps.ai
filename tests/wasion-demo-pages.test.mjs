@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { Script } from 'node:vm';
+import { Script, runInNewContext } from 'node:vm';
 import { WASION_PAGES, wasionDemoPage } from '../server/wasion-demo-page.mjs';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
 import pageHandler from '../api/crm-wasion-demo-page.js';
@@ -12,6 +12,65 @@ const logo = 'https://en.wasion.com/public/uploads/images/20220517/ad428c0c9f422
 const encode = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const markup = html => html.slice(0, html.indexOf('<script'));
 const route = page => page.slug === 'home' ? '/demo/wasion' : `/demo/wasion/${page.slug}`;
+
+function sessionHarness({ slug='home', override }={}) {
+  const html=wasionDemoPage('fixture-nonce',{slug}),elements=new Map(),listeners=new Map(),calls=[],state={};
+  class Element {
+    constructor(){this.hidden=false;this.disabled=false;this.textContent='';this.attributes={};this.listeners=new Map();this.classList={toggle(){},remove(){}};}
+    addEventListener(name,handler){this.listeners.set(name,handler);}
+    getAttribute(name){return this.attributes[name];}
+    setAttribute(name,value){this.attributes[name]=String(value);}
+    removeAttribute(name){delete this.attributes[name];}
+  }
+  for(const [,id]of html.matchAll(/\bid="([^"]+)"/g))elements.set(id,new Element());
+  const menu=new Element(),navigation=new Element();
+  const document={getElementById:id=>elements.get(id),querySelector:selector=>selector==='.wd-menu'?menu:selector==='#wd-navigation'?navigation:null,addEventListener(){}};
+  const script=html.match(/<script nonce="fixture-nonce">([\s\S]*)<\/script>/)[1];
+  runInNewContext(script,{document,window:{addEventListener(name,handler){listeners.set(name,handler);}},AbortController,setTimeout,clearTimeout,
+    location:{replace(value){state.navigation=value;}},async fetch(url,options){const call={url,options,body:options.body?JSON.parse(options.body):undefined};calls.push(call);const response=await override?.(call,state)||{status:200,body:call.body?{ok:true}:{authenticated:true,identity:{role:'customer'}}};return{status:response.status??200,type:response.type,ok:(response.status??200)>=200&&(response.status??200)<300,async json(){return response.body;}};}});
+  return{html,state,calls,get:id=>elements.get(id),async click(id){await elements.get(id).listeners.get('click')();},async event(name,event={}){await listeners.get(name)?.(event);},async flush(){for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));}};
+}
+
+test('demo sign out confirms server revocation before hiding the page and preserves its original route',async()=>{
+  const h=sessionHarness({slug:'products'});assert.match(h.html,/id="wd-logout"[^>]*>Sign out/);await h.click('wd-logout');
+  assert.equal(h.get('wd-protected').hidden,true);assert.equal(new URL(h.state.navigation,'https://crm.example.test').searchParams.get('returnTo'),'/demo/wasion/products');
+  assert.equal(h.calls[0].url,'/api/crm');assert.deepEqual(h.calls[0].body,{action:'logout'});assert.equal(h.calls[0].options.credentials,'same-origin');assert.equal(h.calls[0].options.cache,'no-store');
+});
+
+test('demo failed sign out remains visible and never reports successful logout',async()=>{
+  for(const response of [{status:503,body:{error:'Unavailable'}},{status:200,body:{ok:false}}]){
+    const h=sessionHarness({override:()=>response});await h.click('wd-logout');assert.equal(h.get('wd-protected').hidden,false);assert.equal(h.state.navigation,undefined);assert.equal(h.get('wd-logout').disabled,false);assert.match(h.get('wd-session-heading').textContent,/not completed/);
+  }
+});
+
+test('demo history restore hides cached content before verifying current access',async()=>{
+  const h=sessionHarness({override:()=>({status:401,body:{authenticated:false}})});await h.event('pagehide');assert.equal(h.get('wd-protected').hidden,true);
+  await h.event('pageshow',{persisted:true});await h.flush();assert.equal(h.get('wd-protected').hidden,true);assert.equal(h.get('wd-session-login').hidden,false);assert.equal(h.get('wd-session-retry').hidden,true);
+  assert.equal(h.calls.length,1);assert.equal(h.calls[0].url,'/api/crm?view=session');assert.equal(h.calls[0].options.cache,'no-store');assert.equal(h.calls[0].body,undefined);
+});
+
+test('demo access outages offer a retry while keeping cached content hidden and never sending SMS',async()=>{
+  const h=sessionHarness({override:(_call,state)=>state.recovered?undefined:{status:503,body:{error:'Unavailable'}}});await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();
+  assert.equal(h.get('wd-protected').hidden,true);assert.equal(h.get('wd-session-login').hidden,true);assert.equal(h.get('wd-session-retry').hidden,false);assert.equal(h.get('wd-session-retry').disabled,false);
+  h.state.recovered=true;await h.click('wd-session-retry');assert.equal(h.get('wd-protected').hidden,false);assert.equal(h.get('wd-session-notice').hidden,true);
+  assert.equal(h.calls.length,3);assert.equal(h.calls[2].url,'/demo/wasion');assert.equal(h.calls[2].options.method,'HEAD');assert.equal(h.calls[2].options.redirect,'manual');assert.ok(h.calls.every(call=>!call.body));
+});
+
+test('demo history restore rechecks the exact resource and refuses denied or unavailable HEAD responses',async()=>{
+  for(const status of [0,302,401,403,404,503]){
+    const h=sessionHarness({slug:'products',override:call=>call.options.method==='HEAD'?{status,type:status===0?'opaqueredirect':undefined,body:{}}:undefined});await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();
+    assert.equal(h.get('wd-protected').hidden,true,String(status));assert.equal(h.calls.length,2);assert.equal(h.calls[1].url,'/demo/wasion/products');assert.equal(h.calls[1].options.method,'HEAD');assert.equal(h.calls[1].options.credentials,'same-origin');assert.equal(h.calls[1].options.cache,'no-store');assert.equal(h.calls[1].options.redirect,'manual');
+    assert.equal(h.get('wd-session-login').hidden,![0,302,401].includes(status));assert.equal(h.get('wd-session-retry').hidden,status!==503);
+    assert.ok(h.calls.every(call=>!call.body));
+  }
+});
+
+test('a delayed resource check cannot reveal a demo snapshot after navigation away',async()=>{
+  let completeHead;
+  const h=sessionHarness({override:call=>call.options.method==='HEAD'?new Promise(resolve=>{completeHead=resolve;}):undefined});
+  await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();assert.equal(typeof completeHead,'function');
+  await h.event('pagehide');completeHead({status:200,body:{}});await h.flush();assert.equal(h.get('wd-protected').hidden,true);
+});
 
 test('64 distinct official English pages render complete navigation with the requested logo', () => {
   assert.equal(WASION_PAGES.length, 64);
@@ -124,8 +183,11 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
       const anonymous = response();
       await pageHandler({ headers:{host:'crm.cnps.ai'}, method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, anonymous);
       assert.equal(anonymous.statusCode, 302);
-      assert.equal(anonymous.headers.Location, '/crm');
+      assert.equal(new URL(anonymous.headers.Location, 'https://crm.example.test').searchParams.get('returnTo'), '/demo/wasion/products');
       assert.equal(anonymous.body, undefined);
+      const search = response();
+      await pageHandler({headers:{host:'crm.cnps.ai'},method:'GET',url:'/demo/wasion/search',query:{slug:'search',q:'AMI & smart meters',returnTo:'https://evil.example/'}},search);
+      assert.equal(new URL(search.headers.Location,'https://crm.example.test').searchParams.get('returnTo'),'/demo/wasion/search?q=AMI+%26+smart+meters');
       session = { identity: { role: 'customer', memberships: [{ role: 'customer', companyId: 'fixture', active: false }] } };
       const revoked = response();
       await pageHandler({ headers:{host:'crm.cnps.ai'}, method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, revoked);

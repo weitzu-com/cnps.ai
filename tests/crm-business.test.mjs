@@ -4,6 +4,7 @@ import { randomBytes, randomInt } from 'node:crypto';
 import { createBusinessStore, emptyDirectory, emptyCompany } from '../server/crm-business-store.mjs';
 import { createBusinessService, BusinessError, PMP_RECORD_TYPES, PMP_MAX_UPLOAD_BYTES, PMP_DOCUMENT_MIME_TYPES } from '../server/crm-business-service.mjs';
 import { createBusinessHandler } from '../server/crm-business-handler.mjs';
+import { createCrmAuthHandler } from '../server/crm-auth-handler.mjs';
 
 // All actors/contacts are opaque synthetic identifiers, with no real phone or
 // email fixtures. The phone-HMAC lookup test generates its number at runtime.
@@ -146,6 +147,96 @@ test('revocation is immediately effective for existing principals and manager de
   await h.service.assignManager(admin, 'staff-A', [], false);
   await assert.rejects(h.service.listContacts(manager, 'company-A'), status(404));
   await assert.rejects(h.service.grantMember(manager, 'company-A', h.grant), status(404));
+});
+test('member authentication generations change only on revocation and survive reauthorization', async () => {
+  const h = await setup(), entry = async () => (await h.store.getDirectory()).memberGrants[customer.identityId];
+  assert.equal((await entry()).authEpoch, 0);
+  const narrowed = await h.service.grantMember(manager, 'company-A', { ...h.grant, documentIds: [], allowApprovals: false });
+  assert.equal((await entry()).authEpoch, 0);
+  assert.ok(!Object.hasOwn(narrowed, 'authEpoch'));
+  await h.service.revokeMember(manager, 'company-A', 'contact-A');
+  assert.equal((await entry()).authEpoch, 1);
+  const restored = await h.service.grantMember(manager, 'company-A', h.grant);
+  assert.equal((await entry()).authEpoch, 1);
+  assert.ok(!Object.hasOwn(restored, 'authEpoch'));
+  assert.ok(!(await h.service.listMembers(manager, 'company-A')).some(member => Object.hasOwn(member, 'authEpoch')));
+  const response = await h.request('view=members&companyId=company-A', { actor: 'manager' });
+  assert.equal(response.status, 200);
+  assert.ok(!JSON.stringify(response.json()).includes('authEpoch'));
+  await h.service.revokeMember(manager, 'company-A', 'contact-A');
+  assert.equal((await entry()).authEpoch, 2);
+});
+test('manager generations survive scope changes and restoration while public assignment views omit them', async () => {
+  const h = await setup(), entry = async () => (await h.store.getDirectory()).managerAssignments[manager.identityId];
+  assert.equal((await entry()).authEpoch, 0);
+  const expanded = await h.service.assignManager(admin, 'staff-A', ['company-A', 'company-B']);
+  assert.equal((await entry()).authEpoch, 0);
+  assert.ok(!Object.hasOwn(expanded, 'authEpoch'));
+  await h.service.assignManager(admin, 'staff-A', [], false);
+  assert.equal((await entry()).authEpoch, 1);
+  const restored = await h.service.assignManager(admin, 'staff-A', ['company-A']);
+  assert.equal((await entry()).authEpoch, 1);
+  assert.ok(!Object.hasOwn(restored, 'authEpoch'));
+  const response = await h.request('', { actor: 'admin', method: 'POST', body: { action: 'assignManager', staffId: 'staff-A', companyIds: ['company-A'] } });
+  assert.equal(response.status, 200);
+  assert.ok(!JSON.stringify(response.json()).includes('authEpoch'));
+});
+test('preexisting grants default to generation zero without resetting later revocations', async () => {
+  const h = await setup(), directory = await h.store.getDirectory();
+  delete directory.memberGrants[customer.identityId].authEpoch;
+  delete directory.managerAssignments[manager.identityId].authEpoch;
+  const revision = directory.revision; directory.revision++;
+  assert.equal(await h.store.commitDirectory(revision, directory), true);
+  await h.service.grantMember(manager, 'company-A', h.grant);
+  assert.equal((await h.store.getDirectory()).memberGrants[customer.identityId].authEpoch, 0);
+  await h.service.revokeMember(manager, 'company-A', 'contact-A');
+  assert.equal((await h.store.getDirectory()).memberGrants[customer.identityId].authEpoch, 1);
+  await h.service.assignManager(admin, 'staff-A', [], false);
+  assert.equal((await h.store.getDirectory()).managerAssignments[manager.identityId].authEpoch, 1);
+});
+test('authenticated customer principals remain bound to their generation throughout business operations', async () => {
+  const h = await setup(), stale = { ...customer, authEpoch: 0 };
+  assert.equal((await h.service.listProjects(stale, 'company-A')).length, 1);
+  await h.service.revokeMember(manager, 'company-A', 'contact-A');
+  await h.service.grantMember(manager, 'company-A', h.grant);
+  await assert.rejects(h.service.listProjects(stale, 'company-A'), status(404));
+  await assert.rejects(h.service.getDocument(stale, 'company-A', h.docA.id), status(404));
+  assert.equal((await h.service.listProjects({ ...customer, authEpoch: 1 }, 'company-A')).length, 1);
+});
+test('real membership loader carries revocations into persistent authentication without exposing generations', async () => {
+  const h = await setup(), phone = dynamicPhoneForLookup(), identityId = h.service.subjectForPhone(phone);
+  h.env.CNPS_CRM_ADMIN_PHONE = '18700001111';
+  h.contacts.set('session-contact', { id: 'session-contact', companyId: 'company-A', identityId, active: true });
+  const grant = { ...h.grant, contactId: 'session-contact' };
+  await h.service.grantMember(manager, 'company-A', grant);
+  const values = new Map();
+  const store = {
+    async reserve() { return true; }, async set(name, value) { values.set(name, clone(value)); },
+    async get(name) { return clone(values.get(name)); }, async del(name) { values.delete(name); },
+    async attempt(id, binding) { const challenge = values.get('challenge:' + id); return challenge?.binding === binding ? clone(challenge) : null; },
+    async consume(id, binding) { const challenge = values.get('challenge:' + id); return challenge?.binding === binding && values.delete('challenge:' + id); }
+  };
+  const auth = createCrmAuthHandler({ env: h.env, storeFactory: () => store, smsFactory: () => ({ async send() {}, async verify() { return true; } }), loadMemberships: number => h.service.loadMemberships(number), now: () => Date.UTC(2026, 9, 13) });
+  async function call(body, cookie = '') {
+    const headers = {}; let text;
+    const res = { setHeader(name, value) { headers[name.toLowerCase()] = value; }, end(value) { text = value; } };
+    await auth({ method: body ? 'POST' : 'GET', url: body ? '/api/crm' : '/api/crm?view=session', body, headers: { origin: 'https://crm.cnps.ai', 'x-cnps-crm': '1', 'content-type': 'application/json', cookie } }, res);
+    return { status: res.statusCode, headers, json: () => JSON.parse(text) };
+  }
+  const sent = await call({ action: 'send', phone, consent: true });
+  assert.equal(sent.status, 200);
+  const verified = await call({ action: 'verify', challenge: sent.json().challenge, code: '123456' }, sent.headers['set-cookie'].split(';')[0]);
+  assert.equal(verified.status, 200);
+  const cookie = verified.headers['set-cookie'][0].split(';')[0];
+  assert.match(verified.headers['set-cookie'][0], /SameSite=Lax; Max-Age=2592000$/);
+  await h.service.grantMember(manager, 'company-A', { ...grant, documentIds: [] });
+  const scoped = await call(undefined, cookie);
+  assert.equal(scoped.status, 200);
+  assert.deepEqual(scoped.json().identity.memberships[0].documentIds, []);
+  assert.ok(!JSON.stringify(scoped.json()).includes('authEpoch'));
+  await h.service.revokeMember(manager, 'company-A', 'session-contact');
+  await h.service.grantMember(manager, 'company-A', grant);
+  assert.equal((await call(undefined, cookie)).status, 401);
 });
 test('permission changes during a company mutation cause atomic conflict with no unauthorized commit', async () => {
   const h = await setup(), before = await h.store.getCompany('company-A');
@@ -522,11 +613,25 @@ test('changing an authorized contact phone revokes the old identity before exter
   h.twenty.updateContact = async (companyId, contactId, fields) => {
     checked = true;
     assert.equal((await h.store.getDirectory()).memberGrants[customer.identityId].active, false);
+    assert.equal((await h.store.getDirectory()).memberGrants[customer.identityId].authEpoch, 1);
     return { ...h.contacts.get(contactId), ...fields };
   };
   await h.service.updateContact(manager, 'company-A', 'contact-A', { phone: dynamicPhone, phoneCountryCode: '86' });
   assert.ok(checked);
   await assert.rejects(h.service.listProjects(customer, 'company-A'), status(404));
+});
+test('failed native phone updates do not restore customer or manager authentication generations', async () => {
+  for (const role of ['customer', 'sales_manager']) {
+    const h = await setup(), phone = dynamicPhoneForLookup();
+    const contactId = role === 'customer' ? 'contact-A' : 'manager-contact';
+    if (role === 'sales_manager') h.contacts.set(contactId, { id: contactId, companyId: 'company-A', active: true, identityId: manager.identityId });
+    h.twenty.updateContact = async () => { throw new Error('fixture native update failed'); };
+    await assert.rejects(h.service.updateContact(admin, 'company-A', contactId, { phone, phoneCountryCode: '86' }));
+    const directory = await h.store.getDirectory();
+    const authorization = role === 'customer' ? directory.memberGrants[customer.identityId] : directory.managerAssignments[manager.identityId];
+    assert.equal(authorization.active, false);
+    assert.equal(authorization.authEpoch, 1);
+  }
 });
 test('phone-HMAC directory lookup gives CRM authentication current member scopes without storing phone/email', async () => {
   const h = await setup(), dynamicPhone = '13' + String(randomInt(0, 1_000_000_000)).padStart(9, '0');
