@@ -1,6 +1,6 @@
 import { wasionPreviewBinding } from './crm-project-previews.mjs';
 import { BusinessError } from './crm-business-service.mjs';
-import { Redis } from '@upstash/redis';
+import { allowWasionDemoQuota } from './wasion-demo-quota.mjs';
 import { retrieveWasionSources } from './wasion-demo-sources.mjs';
 
 const json = (res, status, value) => {
@@ -52,17 +52,7 @@ const copy = {
   }
 };
 
-async function allowQuota(env, identityId) {
-  const url = env.UPSTASH_REDIS_REST_URL || env.KV_REST_API_URL;
-  const token = env.UPSTASH_REDIS_REST_TOKEN || env.KV_REST_API_TOKEN;
-  if (!url || !token || !identityId) throw new Error('quota unavailable');
-  const redis = new Redis({ url, token });
-  const key = `cnps:crm:wasion-demo:quota:${identityId}:${new Date().toISOString().slice(0, 10)}`;
-  const count = await redis.eval("local n=redis.call('INCR',KEYS[1]);if n==1 then redis.call('EXPIRE',KEYS[1],86400) end;return n", [key], []);
-  return Number.isFinite(Number(count)) && Number(count) <= 20;
-}
-
-export async function answerWasionQuestion({ env = {}, principal, question, language = 'en', fetchImpl = fetch, rateLimit = allowQuota }) {
+export async function answerWasionQuestion({ env = {}, principal, question, language = 'en', fetchImpl = fetch, rateLimit = allowWasionDemoQuota }) {
   // The website remains English by default. Automatic mode follows the
   // question's natural language; a model code alone is answered in English.
   const autoChinese = language === 'auto' && typeof question === 'string' && /\p{Script=Han}/u.test(question) && !/[\p{Script=Hiragana}\p{Script=Katakana}]/u.test(question);
