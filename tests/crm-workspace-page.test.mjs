@@ -429,3 +429,11 @@ test('company profile navigation is limited to staff and renders missing fields 
  const h=harness({role:'sales_manager',override:call=>call.url?.includes('view=customerProfile')?{status:200,body:{ok:true,data:profile}}:undefined});await h.flush();assert.equal(h.get('show-profile').hidden,false);await h.event('show-profile','click');await h.flush();assert.match(h.get('content').textContent,/企业基本信息/);assert.match(h.get('content').textContent,/企业全称待补充/);
  const customer=harness();await customer.flush();assert.equal(customer.get('show-profile').hidden,true);
 });
+
+test('company deep links select a matching authorized context and display company names',async()=>{
+ const h=harness({role:'sales_manager',search:'?companyId=company-A&projectId=project-A',contexts:[{id:'member:B',companyId:'company-B',role:'sales_manager',companyName:'Company B'},{id:'member:A',companyId:'company-A',role:'sales_manager',companyName:'Company A'}]});
+ await h.flush();
+ assert.equal(h.get('context-select').value,'member:A');
+ assert.match(h.get('context-select').textContent,/Company A/);
+ assert.match(h.get('context-select').textContent,/Company B/);
+});

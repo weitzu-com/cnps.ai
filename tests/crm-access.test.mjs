@@ -836,3 +836,15 @@ test('disable and restore during file IO invalidates the in-flight identity gene
  h.onRead(async()=>{await h.service.setIdentityStatus(h.admin,h.partner.identityId,true);await h.service.setIdentityStatus(h.admin,h.partner.identityId,false);});
  await assert.rejects(h.service.download(actor,'company-A',h.doc.documentId,h.doc.versionId),status(404));
 });
+
+test('legacy proposal authorization checks download rights without reading gateway bytes', async () => {
+ const h=await fixture(), binding={id:'wasion-web-v1',companyId:'company-A',projectId:h.p.id,documents:{pdf:{documentId:h.doc.documentId,versionId:h.doc.versionId}}};
+ const g=await h.service.grantProposal(h.admin,{phone:h.customer.phone,proposalId:binding.id,operations:['view','download'],assetIds:['pdf']});
+ const d=await h.store.getDirectory();d.proposalGrants[g.id].legacyRestricted=true;await h.store.commitDirectory(d.revision,d);
+ h.env.CNPS_PROPOSAL_ALLOWED_PHONES=h.customer.phone;
+ h.onRead(()=>assert.fail('Authorization must not read file bytes'));
+ await h.service.authorizeProposal(h.customer,binding,'pdf');
+ await h.service.grantMember(h.manager,'company-A',{contactId:'client',projectIds:[h.p.id],documentIds:[h.doc.documentId],operations:['view']});
+ await h.service.authorizeProposal(h.customer,binding);
+ await assert.rejects(h.service.authorizeProposal(h.customer,binding,'pdf'),status(404));
+});

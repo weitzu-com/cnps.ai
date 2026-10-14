@@ -261,7 +261,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   }
   const service = {
     subjectForPhone,
-    async proposalAccess(phone, binding) {
+    async proposalAccess(phone, binding, { download = false } = {}) {
       const identityId = subjectForPhone(phone);
       const principal = { identityId, identity: { role: phone === normalizePhone(env.CNPS_CRM_ADMIN_PHONE) ? 'admin' : 'customer' } };
       if (!isAdmin(principal)) {
@@ -269,6 +269,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         if (!memberships.some(m => m.companyId === binding.companyId)) missing();
       }
       const { state, a } = await snapshot(binding.companyId, principal);
+      if (download && a.role === 'customer' && !(a.grant.operations || ['view','download']).includes('download')) missing();
       projectAccess(state, a, binding.projectId);
       for (const source of Object.values(binding.documents)) {
         const resolved = docAccess(state, a, source.documentId, source.versionId);
