@@ -10,9 +10,11 @@ export default async function handler(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   if (!['GET', 'HEAD'].includes(req.method)) { res.statusCode = 405; return res.end(); }
-  const { auth, service } = getCrmRuntime();
-  let access;
-  try { access = await authorizeWasionCustomer({ req, auth, service }); }
+  let access, auth, service;
+  try {
+    ({ auth, service } = getCrmRuntime());
+    access = await authorizeWasionCustomer({ req, auth, service });
+  }
   catch { res.statusCode = 503; return res.end('Customer access could not be verified. Please try again.'); }
   if (!access) {
     if (!await auth.loadSession(req).catch(() => null)) { res.statusCode = 302; res.setHeader('Location', '/crm'); return res.end(); }

@@ -1,6 +1,4 @@
-import { readFileSync } from 'node:fs';
-
-const content = JSON.parse(readFileSync(new URL('./wasion-demo-content.json', import.meta.url), 'utf8'));
+import content from './wasion-demo-content.json' with { type: 'json' };
 export const WASION_PAGES = content.pages;
 const base = '/demo/wasion';
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

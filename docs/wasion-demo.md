@@ -77,7 +77,7 @@ The requested official logo is used unchanged. Wasion navy, red and restrained w
 
 ## Verification
 
-- Build completed; full suite: 329 tests, 328 passed, 1 pre-existing live test skipped.
+- Build completed; full suite: 331 tests, 330 passed, 1 pre-existing live test skipped.
 - All 64 renderer and authenticated API routes checked, including source links, English default, the supplied logo, technical cells, downloads, unknown routes and query escaping.
 - Authentication, no-store headers, source allowlist and nonce CSP retained.
 - Local browser checked at 375, 414, 768, 1024 and 1440 CSS pixels with no horizontal overflow. Navigation, source result filters and product-detail transitions verified.
@@ -90,3 +90,7 @@ The prior manually published demo files were missing from GitHub main. This chan
 ## Boundaries
 
 This is a private customer demonstration, with content copied from public official source pages. It is not a complete migration of the source site. Source metric conflicts remain uncombined, source ownership (including Energy-Pro’s joint venture attribution) is preserved, and quotations/specifications should be confirmed with Wasion before a project commitment. The Chinese language link opens Wasion’s official Chinese site; this demo’s internal pages and AI interface use English.
+
+## Preview runtime verification
+
+Actual Vercel request logs showed that the new preview branch does not have the existing branch-specific Twenty/file-gateway bindings. Runtime construction previously ran outside the authorization error guard (and at module import in the search API), so this configuration error became a Vercel function crash. Runtime resolution is now lazy and caught by the existing authorization guard, returning a private 503 without source content; unsupported search methods return 405 without initializing CRM. A child-process test reproduces the missing-configuration case. Preview access bindings were not broadened.
