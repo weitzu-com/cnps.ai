@@ -6,7 +6,7 @@ import { WASION_PAGES, WASION_DEMO_ROUTES, wasionDemoPage } from '../server/wasi
 import { createWasionPageHandler } from '../api/crm-wasion-demo-page.js';
 import { safeCrmReturnTo, crmLoginUrl } from '../server/crm-return.mjs';
 import { boundaryDecision } from '../server/crm-boundary.mjs';
-import { WASION_STYLES, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
+import { WASION_STYLES, WASION_DEFAULT_STYLE, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 
 test('every published style renders the whole portfolio and keeps links within that style',()=>{
  for(const style of Object.keys(WASION_STYLES)) for(const {slug} of WASION_DEMO_ROUTES.filter(s=>s!=='styles').map(slug=>({slug}))){
@@ -86,7 +86,7 @@ test('POST search resumes the selected design after login without exposing the q
 test('new designs share the exact product catalog, technical data and search endpoint',()=>{
  const catalog=style=>JSON.parse(wasionDemoPage('n',{style}).match(/const WASION_DATA=([\s\S]*?);const SEARCH_QUERY=/)[1]);
  const baseline=catalog('classic').map(({href,...item})=>item);
- for(const style of ['planhat','orderful','industrial']){
+ for(const style of Object.keys(WASION_STYLES)){
   assert.deepEqual(catalog(style).map(({href,...item})=>item),baseline);
   const detail=wasionDemoPage('n',{style,slug:'i-110-series-smart-water-meter'});
   assert.match(detail,/Technical information/);
@@ -106,29 +106,73 @@ test('Planhat and Orderful use different home compositions and are listed in the
  for(const style of ['planhat','orderful'])assert.ok(gallery.includes('href="'+wasionStyleBase(style)+'"'));
 });
 
-test('canonical demo defaults to Orderful on every page and Classic retains its own complete route tree',()=>{
+test('canonical demo defaults to Industrial on every page and all four alternatives retain complete route trees',()=>{
+ assert.equal(WASION_DEFAULT_STYLE,'industrial');
  assert.equal(wasionStyleBase(),'/demo/wasion');
- assert.equal(wasionStyleBase('orderful'),'/demo/wasion');
- assert.equal(wasionStyleBase('classic'),'/demo/wasion/styles/classic');
+ assert.equal(wasionStyleBase('industrial'),'/demo/wasion');
+ for(const style of ['classic','atmospheric','planhat','orderful'])assert.equal(wasionStyleBase(style),'/demo/wasion/styles/'+style);
  for(const slug of WASION_DEMO_ROUTES){
-  assert.equal(wasionDemoPage('n',{slug,query:'I-110'}),wasionDemoPage('n',{slug,query:'I-110',style:'orderful'}),slug);
+  assert.equal(wasionDemoPage('n',{slug,query:'I-110'}),wasionDemoPage('n',{slug,query:'I-110',style:'industrial'}),slug);
  }
- const home=wasionDemoPage('n');assert.match(home,/<body class="wd-style-orderful wd-is-home">/);assert.match(home,/href="\/demo\/wasion\/search" aria-label="Open AI search"/);
+ const home=wasionDemoPage('n');assert.match(home,/<body class="wd-style-industrial wd-is-home">/);assert.match(home,/href="\/demo\/wasion\/search" aria-label="Open AI search"/);
  const classic=wasionDemoPage('n',{style:'classic'});assert.match(classic,/id="wx-film"/);assert.match(classic,/action="\/demo\/wasion\/styles\/classic\/search"/);
  const query=wasionDemoPage('n',{slug:'search',query:'I-110 & AMI'});
  assert.ok(query.includes('href="/demo/wasion/styles/classic/search?q=I-110+%26+AMI"'));
- for(const style of ['classic','atmospheric','planhat','industrial'])assert.ok(home.includes('href="'+wasionStyleBase(style)+'"'));
- const gallery=wasionDemoPage('n',{slug:'styles'});assert.match(gallery,/Default · Overseas customer experience/);
+ for(const style of ['classic','atmospheric','planhat','orderful'])assert.ok(home.includes('href="'+wasionStyleBase(style)+'"'));
+ const gallery=wasionDemoPage('n',{slug:'styles'});
+ const choices=[...gallery.matchAll(/<a class="wd-style-choice[^>]*>[\s\S]*?<\/a>/g)].map(([markup])=>markup);
+ assert.equal(choices.length,5);
+ const recommended=choices.filter(markup=>markup.includes('wd-style-recommended'));
+ assert.equal(recommended.length,1);
+ assert.match(recommended[0],/href="\/demo\/wasion"/);
+ assert.match(recommended[0],/<h2>Industrial ↗<\/h2>/);
+ assert.match(recommended[0],/Default · Brand &amp; product experience/);
+ for(const style of ['classic','atmospheric','planhat','orderful'])assert.ok(choices.some(markup=>markup.includes('href="'+wasionStyleBase(style)+'"')&&!markup.includes('wd-style-recommended')),style);
 });
 
-test('page API default, Orderful alias, Classic login return and POST recovery agree on the selected design',async()=>{
+test('page API canonical Industrial, Industrial alias and retained Orderful agree on rendering and POST recovery',async()=>{
  let session={identityId:'fixture-admin',identity:{role:'admin'}};
  const handler=createWasionPageHandler({getRuntime:()=>({auth:{loadSession:async()=>session},projectAccessService:{getProject:async()=>({id:'fixture'})}})});
- async function request(query,method='GET'){const res={headers:{},setHeader(k,v){this.headers[k]=v},end(body){this.body=body}};await handler({headers:{host:'crm.cnps.ai',origin:'https://crm.cnps.ai'},method,url:'/api/crm-wasion-demo-page',query,body:method==='POST'?{q:'I-110 & AMI'}:undefined},res);return res;}
- for(const query of [{},{style:'orderful'}]){const res=await request(query);assert.equal(res.statusCode,200);assert.match(res.body,/<body class="wd-style-orderful wd-is-home">/);assert.ok(res.body.includes('const WASION_BASE="/demo/wasion"'));}
- const classic=await request({style:'classic'});assert.equal(classic.statusCode,200);assert.match(classic.body,/id="wx-film"/);assert.ok(classic.body.includes('const WASION_BASE="/demo/wasion/styles/classic"'));
+ async function request(query,method='GET',url='/api/crm-wasion-demo-page'){const res={headers:{},setHeader(k,v){this.headers[k]=v},end(body){this.body=body}};await handler({headers:{host:'crm.cnps.ai',origin:'https://crm.cnps.ai'},method,url,query,body:method==='POST'?{q:'I-110 & AMI'}:undefined},res);return res;}
+ const entries=[
+  {query:{},url:'/demo/wasion',style:'industrial',base:'/demo/wasion'},
+  {query:{style:'industrial'},url:'/demo/wasion/styles/industrial',style:'industrial',base:'/demo/wasion'},
+  {query:{style:'orderful'},url:'/demo/wasion/styles/orderful',style:'orderful',base:'/demo/wasion/styles/orderful'}
+ ];
+ for(const entry of entries)for(const slug of ['home','products','i-110-series-smart-water-meter','search']){
+  const query={...entry.query,slug},url=entry.url+(slug==='home'?'':'/'+slug);
+  const res=await request(query,'GET',url);
+  assert.equal(res.statusCode,200,entry.url+' '+slug);
+  assert.ok(res.body.includes('<body class="wd-style-'+entry.style+' '+(slug==='home'?'wd-is-home':'')+'">'));
+  assert.ok(res.body.includes('const WASION_BASE='+JSON.stringify(entry.base)));
+  assert.match(res.headers['Cache-Control'],/private, no-store/);
+  const head=await request(query,'HEAD',url);assert.equal(head.statusCode,200);assert.equal(head.body,undefined);
+ }
  session=null;
- const anon=await request({style:'classic',slug:'search',q:'I-110'});assert.equal(anon.statusCode,302);assert.equal(new URL(anon.headers.Location,'https://crm.cnps.ai').searchParams.get('returnTo'),'/demo/wasion/styles/classic/search?q=I-110');
+ for(const entry of entries){
+  const anon=await request({...entry.query,slug:'search',q:'I-110'},'GET',entry.url+'/search?q=I-110');
+  assert.equal(anon.statusCode,302);
+  assert.equal(new URL(anon.headers.Location,'https://crm.cnps.ai').searchParams.get('returnTo'),entry.base+'/search?q=I-110');
+  const recovery=await request({...entry.query,slug:'search'},'POST',entry.url+'/search');
+  assert.equal(recovery.statusCode,200);
+  assert.ok(recovery.body.includes('id="demo-resume" action="'+entry.base+'/search" method="post"'));
+  assert.match(recovery.body,/name="q" value="I-110 &amp; AMI"/);
+  assert.equal(recovery.headers.Location,undefined);
+  session={identityId:'fixture-admin',identity:{role:'admin'}};
+  const resumed=await request({...entry.query,slug:'search'},'POST',entry.url+'/search');
+  assert.equal(resumed.statusCode,200);
+  assert.ok(resumed.body.includes('data-base="'+entry.base+'"'));
+  assert.match(resumed.body,/name="q" value="I-110 &amp; AMI"/);
+  assert.ok(resumed.body.includes('href="'+entry.base+'/i-110-series-smart-water-meter"'));
+  assert.ok(resumed.body.includes('const CRM_PAGE_URL="'+entry.base+'/search"'));
+  assert.match(resumed.headers['Cache-Control'],/private, no-store/);
+  assert.equal(resumed.headers.Location,undefined);
+  session=null;
+ }
  for(const [style,base] of [[undefined,'/demo/wasion'],...Object.keys(WASION_STYLES).map(style=>[style,wasionStyleBase(style)])]){const res=await request({...(style?{style}:{}),slug:'search'},'POST');assert.equal(res.statusCode,200);assert.ok(res.body.includes('id="demo-resume" action="'+base+'/search" method="post"'));assert.match(res.headers['Cache-Control'],/private, no-store/);}
- assert.equal(safeCrmReturnTo('/demo/wasion/styles/classic/search?q=I-110'),'/demo/wasion/styles/classic/search?q=I-110');
+ for(const style of ['industrial','classic','atmospheric','planhat','orderful']){
+  const target='/demo/wasion/styles/'+style+'/search?q=I-110';
+  assert.equal(safeCrmReturnTo(target),target);
+  assert.ok(crmLoginPage('n',{returnTo:target.split('?')[0],resumeQuestion:'I-110'}).includes('id="demo-resume" action="/demo/wasion/styles/'+style+'/search" method="post"'));
+ }
 });
