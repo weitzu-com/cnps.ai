@@ -138,7 +138,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     if (!companyEntry(directory, companyId)) return null;
     if (isAdmin(principal)) return { role: 'admin' };
     const assignment = own(directory.managerAssignments, principal.identityId);
-    if (assignment?.active && assignment.companyIds.includes(companyId)) {
+    if (principal.identity.role === 'sales_manager' && assignment?.active && assignment.companyIds.includes(companyId)) {
       if (principal.authEpoch !== undefined && principal.authEpoch !== authEpoch(assignment)) return null;
       return { role: 'sales_manager' };
     }
@@ -266,7 +266,10 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       const principal = { identityId, identity: { role: phone === normalizePhone(env.CNPS_CRM_ADMIN_PHONE) ? 'admin' : 'customer' } };
       if (!isAdmin(principal)) {
         const memberships = await service.loadMemberships(phone);
-        if (!memberships.some(m => m.companyId === binding.companyId)) missing();
+        const membership = memberships.find(m => m.companyId === binding.companyId);
+        if (!membership) missing();
+        principal.identity.role = membership.role;
+        principal.authEpoch = membership.authEpoch || 0;
       }
       const { state, a } = await snapshot(binding.companyId, principal);
       if (download && a.role === 'customer' && !(a.grant.operations || ['view','download']).includes('download')) missing();
@@ -779,6 +782,12 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         return {text:item.text,location:clone(item.location)};
       });
       return {metadata:viewDocument(current.doc,current.version),status:result.status,segments};
+    },
+    async authorizeDownload(principal, companyId, documentId, versionId) {
+      const { state, a } = await snapshot(companyId, principal), { doc, version } = docAccess(state, a, documentId, versionId);
+      if (a.role === 'customer' && !(a.grant.operations || ['view','download']).includes('download')) missing();
+      if (version.id !== id(versionId)) missing();
+      return viewDocument(doc, version);
     },
     async download(principal, companyId, documentId, versionId) {
       const { state, a } = await snapshot(companyId, principal), { doc, version } = docAccess(state, a, documentId, versionId);

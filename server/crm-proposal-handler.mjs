@@ -1,3 +1,4 @@
+import { completedResponseAudit } from './crm-response-audit.mjs';
 import { randomBytes, createHash } from "node:crypto";
 import { digest } from "./proposal-crypto.mjs";
 import { BusinessError } from "./crm-business-service.mjs";
@@ -44,8 +45,8 @@ export function createCrmProposalHandler({
           req.headers["x-proposal-request"] !== "1")
       )
         return json(403, { error: "请求来源无效。" });
-      const { auth, service } = runtime(),
-        principal = await auth.loadSession(req);
+      const { auth, service } = runtime();
+      let principal = await auth.loadSession(req);
       if (!principal) {
         if (route === "/w" && ["GET", "HEAD"].includes(req.method)) {
           res.statusCode = 302;
@@ -57,6 +58,12 @@ export function createCrmProposalHandler({
       const assetId = route.startsWith("/w/asset/")
         ? route.slice(9)
         : undefined;
+      const finalAccess = async () => {
+        const current = await auth.loadSession(req);
+        if (!current) throw new BusinessError(401, "请先通过短信验证登录。");
+        await service.authorizeProposal(current, binding, assetId);
+        principal = current;
+      };
       await service.authorizeProposal(principal, binding, assetId);
       const bundle = await loadBundle(env.CNPS_PROPOSAL_SECRET);
       await service.authorizeProposal(principal, binding, assetId);
@@ -109,6 +116,10 @@ export function createCrmProposalHandler({
             { contentHash },
           );
         }
+        await finalAccess();
+        const responseAudit = asset.filename ? completedResponseAudit(req, res,
+          () => service.auditAccess(principal, 'proposal-download-response', binding.companyId, 200,
+            { resourceId: binding.documents[assetId].documentId, versionId: binding.documents[assetId].versionId })) : Promise.resolve();
         res.statusCode = 200;
         res.setHeader("Content-Type", asset.type);
         if (asset.filename)
@@ -116,7 +127,9 @@ export function createCrmProposalHandler({
             "Content-Disposition",
             `attachment; filename*=UTF-8''${encodeURIComponent(asset.filename)}`,
           );
-        return res.end(req.method === "HEAD" ? undefined : bytes);
+        res.end(req.method === "HEAD" ? undefined : bytes);
+        await responseAudit;
+        return;
       }
       if (route !== "/w") return json(405, { error: "请求方式不支持。" });
       const tracker = `<script nonce="${nonce}">(()=>{let done=false;async function record(){if(done||document.visibilityState!=='visible')return;done=true;try{const r=await fetch('/w/view',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Proposal-Request':'1'},body:'{}'});if(!r.ok)done=false;}catch{done=false;}}document.addEventListener('visibilitychange',record);record();window.addEventListener('pageshow',e=>{if(e.persisted){document.body.replaceChildren();location.reload();}});document.querySelectorAll('[data-action="logout"],#logout').forEach(b=>b.addEventListener('click',async()=>{await fetch('/api/crm',{method:'POST',headers:{'Content-Type':'application/json','X-CNPS-CRM':'1'},body:JSON.stringify({action:'logout'})});location.replace('/');}));})();</script>`;
@@ -131,6 +144,7 @@ export function createCrmProposalHandler({
           "'X-Proposal-Request':'1'},body:'{}'",
           "'X-CNPS-CRM':'1'},body:JSON.stringify({action:'logout'})",
         );
+      await finalAccess();
       res.statusCode = 200;
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       return res.end(

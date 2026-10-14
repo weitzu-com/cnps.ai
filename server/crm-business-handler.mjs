@@ -1,3 +1,4 @@
+import { completedResponseAudit } from './crm-response-audit.mjs';
 import { projectPreviews } from './crm-project-previews.mjs';
 import { knowledgeAnswer } from './crm-knowledge.mjs';
 import { projectAi } from './crm-ai.mjs';
@@ -40,6 +41,18 @@ export function createBusinessHandler({ env, authHandler, service }) {
     policy(res);
     const json = (status, payload) => { res.statusCode = status; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.end(req.method === 'HEAD' ? undefined : JSON.stringify(payload)); };
     let principal;
+    function recordFileResponse(action, companyId, resourceId, versionId) {
+      return completedResponseAudit(req, res, () => service.auditAccess(principal, action, companyId, 200,
+        { resourceId, ...(versionId ? { versionId } : {}) }));
+    }
+    async function finalFileAccess(kind, companyId, resourceId, versionId) {
+      const current = await authHandler.loadSession(req);
+      if (!current) throw new BusinessError(401, '请先通过短信验证登录。');
+      principal = { ...current, ...(principal.contextId ? { contextId: principal.contextId } : {}) };
+      const authorize = kind === 'submission' ? service.authorizeSubmissionDownload : service.authorizeDownload;
+      if (typeof authorize !== 'function') throw new BusinessError(503, '资料访问校验暂不可用。');
+      await authorize(principal, companyId, resourceId, versionId);
+    }
     try {
       const url = new URL(req.url, 'https://www.cnps.ai');
       if (url.pathname !== '/api/crm-workspace') return json(404, { error: '接口不存在。' });
@@ -47,16 +60,20 @@ export function createBusinessHandler({ env, authHandler, service }) {
       principal = await authHandler.loadSession(req);
       if (!principal) return json(401, { error: '请先通过短信验证登录。' });
       const query = name => url.searchParams.get(name) || undefined;
-      let result;
+      let result, responseVersion, responseCompany;
       if (req.method === 'GET' || req.method === 'HEAD') {
         const companyId = query('companyId'), projectId = query('projectId');
         if(query('contextId'))principal={...principal,contextId:query('contextId')};
+        if (!['download','submissionDownload'].includes(query('view')) && service.captureResponseVersion) {
+          responseCompany = companyId;
+          responseVersion = await service.captureResponseVersion(principal, companyId);
+        }
         switch (query('view')) {
           case 'accessGrants': result=await service.listAccessGrants(principal,companyId);break;
           case 'partnerOrganizations': result=await service.listPartnerOrganizations(principal,companyId);break;
           case 'sensitiveRequests': result=await service.listSensitiveRequests(principal,companyId);break;
           case 'partnerSubmissions': result=await service.listPartnerSubmissions(principal,companyId,projectId);break;
-          case 'submissionDownload': {const file=await service.downloadSubmission(principal,companyId,query('submissionId'));if(service.auditAccess&&req.method==='GET')await service.auditAccess(principal,'submission-download',companyId,200);res.statusCode=200;res.setHeader('Content-Type',file.metadata.mimeType);res.setHeader('Content-Disposition',`attachment; filename*=UTF-8''${encodeURIComponent(file.metadata.filename)}`);return res.end(req.method==='HEAD'?undefined:file.bytes);}
+          case 'submissionDownload': {const file=await service.downloadSubmission(principal,companyId,query('submissionId'));if(service.auditAccess&&req.method==='GET')await service.auditAccess(principal,'submission-download-prepared',companyId,200);await finalFileAccess('submission',companyId,query('submissionId'));const responseAudit=recordFileResponse('submission-download-response',companyId,query('submissionId'));res.statusCode=200;res.setHeader('Content-Type',file.metadata.mimeType);res.setHeader('Content-Disposition',`attachment; filename*=UTF-8''${encodeURIComponent(file.metadata.filename)}`);res.end(req.method==='HEAD'?undefined:file.bytes);await responseAudit;return;}
           case 'deliveries': result = await service.listDeliveries(principal, companyId, projectId); break;
           case 'delivery': result = await service.getDelivery(principal, companyId, query('deliveryId')); break;
           case 'companies': result = await service.listCompanies(principal); break;
@@ -81,12 +98,16 @@ export function createBusinessHandler({ env, authHandler, service }) {
             if(query('deliveryId')) await service.getDelivery(principal,companyId,query('deliveryId'));
             const file = await service.download(principal, companyId, query('documentId'), query('versionId'));
             if(req.method==='GET' && query('deliveryId')) await service.recordDelivery(principal,companyId,query('deliveryId'),'download',query('documentId'),query('versionId'));
-            if(service.auditAccess&&req.method==='GET')await service.auditAccess(principal,'download',companyId,200);
+            if(service.auditAccess&&req.method==='GET')await service.auditAccess(principal,'download-prepared',companyId,200);
+            await finalFileAccess('document',companyId,query('documentId'),query('versionId'));
+            const responseAudit = recordFileResponse('download-response',companyId,query('documentId'),query('versionId'));
             res.statusCode = 200;
             res.setHeader('Content-Type', file.metadata.mimeType);
             res.setHeader('Content-Disposition', `attachment; filename*=UTF-8''${encodeURIComponent(file.metadata.filename)}`);
             res.setHeader('Content-Length', file.bytes.length);
-            return res.end(req.method === 'HEAD' ? undefined : file.bytes);
+            res.end(req.method === 'HEAD' ? undefined : file.bytes);
+            await responseAudit;
+            return;
           }
           default: return json(404, { error: '接口不存在。' });
         }
@@ -98,6 +119,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
         try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError || error?.status === 400) throw error; throw new BusinessError(400, '请求格式无效。'); }
         const companyId = data.companyId, projectId = data.projectId;
         if(data.contextId)principal={...principal,contextId:data.contextId};
+        if(['knowledgeAnswer','projectAi'].includes(data.action)&&service.captureResponseVersion){responseCompany=companyId;responseVersion=await service.captureResponseVersion(principal,companyId);}
         if(['knowledgeAnswer','projectAi'].includes(data.action)&&service.authorizeAi)await service.authorizeAi(principal,companyId);
         switch (data.action) {
           case 'grantProposal':result=await service.grantProposal(principal,data.fields);break;
@@ -145,6 +167,14 @@ export function createBusinessHandler({ env, authHandler, service }) {
         }
       }
       if(service.auditAccess)await service.auditAccess(principal,req.method==='POST'?'operation':'read',req.method==='POST'?req.body?.companyId:query('companyId'),200);
+      if (responseVersion) {
+        const current = await authHandler.loadSession(req);
+        if (!current) throw new BusinessError(401, '请先通过短信验证登录。');
+        if (current.identity.role !== principal.identity.role ||
+            (principal.contextId && !current.identity.contexts?.some(c => c.id === principal.contextId)))
+          throw new BusinessError(404, '资料不存在或未获授权。');
+        await service.assertResponseVersion(current, responseCompany, responseVersion);
+      }
       return json(200, { ok: true, data: result });
     } catch (error) {
       if (error instanceof BusinessError || error?.status===400) {
