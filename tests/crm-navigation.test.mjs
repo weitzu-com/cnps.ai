@@ -13,18 +13,18 @@ test('CRM return targets preserve only supported routes and validated queries', 
 });
 
 test('untrusted URLs cannot escape the CRM return allowlist', () => {
-  for (const value of [undefined, {}, ['x'], '/crm', '/w', 'https://crm.cnps.ai/demo/wasion', '//evil.test/demo/wasion', '/\\evil.test', '/demo/wasion/%2f%2fevil', '/demo/wasion/../crm', '/demo/wasion\n', '/demo/wasion search', '/demo/wasion?x=' + 'a'.repeat(4096)]) {
+  for (const value of [undefined, {}, ['x'], '/crm', 'https://crm.cnps.ai/demo/wasion', '//evil.test/demo/wasion', '/\\evil.test', '/demo/wasion/%2f%2fevil', '/demo/wasion/../crm', '/demo/wasion\n', '/demo/wasion search', '/demo/wasion?x=' + 'a'.repeat(4096)]) {
     assert.equal(sanitizeCrmReturnTo(value), null, String(value));
     assert.equal(crmLoginUrl(value), '/crm', String(value));
   }
 });
 
-test('the login page API serializes only a safe return target', () => {
+test('the login page API serializes only a safe return target', async () => {
   for (const [returnTo, expected] of [['/demo/wasion/search?q=</script>', '/demo/wasion/search?q=%3C%2Fscript%3E'], ['//evil.test', null]]) {
     const headers = {};
     let html;
     const res = { setHeader: (name, value) => { headers[name] = value; }, end: value => { html = value; } };
-    pageHandler({method: 'GET', url: '/crm?returnTo=' + encodeURIComponent(returnTo)}, res);
+    await pageHandler({headers:{host:'crm.cnps.ai'},method: 'GET', url: '/crm?returnTo=' + encodeURIComponent(returnTo)}, res);
     assert.equal(res.statusCode, 200);
     assert.match(headers['Cache-Control'], /no-store/);
     assert.ok(html.includes('const returnTo = ' + JSON.stringify(expected) + ';'));

@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { Script, runInNewContext } from 'node:vm';
 import { WASION_PAGES, wasionDemoPage } from '../server/wasion-demo-page.mjs';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
-import pageHandler from '../api/crm-wasion-demo-page.js';
+import {createWasionPageHandler} from '../api/crm-wasion-demo-page.js';
 
 const content = JSON.parse(readFileSync(new URL('../server/wasion-demo-content.json', import.meta.url), 'utf8'));
 const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
@@ -162,18 +162,9 @@ test('Vercel preserves the existing CRM entry and maps every demo child to the a
 });
 
 test('page API enforces live CRM authentication, route bounds, private caching, HEAD and nonce CSP', async t => {
-  // Initialize only with synthetic endpoints; session loading is replaced before
-  // any handler invocation, so this test never contacts a service or real account.
-  const fixtureEnv = {
-    UPSTASH_REDIS_REST_URL: 'https://example.invalid', UPSTASH_REDIS_REST_TOKEN: 'test-token',
-    TWENTY_API_URL: 'https://example.invalid', TWENTY_API_KEY: 'test-token', CNPS_PROPOSAL_SECRET: '1'.repeat(64),
-    CRM_FILE_GATEWAY_URL: 'https://example.invalid', CRM_FILE_GATEWAY_KEY: '2'.repeat(64)
-  };
-  const originals = Object.fromEntries(Object.keys(fixtureEnv).map(key => [key, process.env[key]]));
-  Object.assign(process.env, fixtureEnv);
-  let runtime, acl;
-  try { runtime = getCrmRuntime(); acl = runtime.projectAccessService; }
-  finally { for (const [key, value] of Object.entries(originals)) value === undefined ? delete process.env[key] : process.env[key] = value; }
+  const runtime={auth:{loadSession:async()=>null},projectAccessService:{getProject:async()=>({id:'fixture-project'})}};
+  const acl=runtime.projectAccessService;
+  const pageHandler=createWasionPageHandler({getRuntime:()=>runtime});
   const originalSession = runtime.auth.loadSession;
   const originalProject = acl.getProject;
   acl.getProject = async () => ({id:"fixture-project"});
@@ -183,16 +174,16 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
   try {
     await t.test('anonymous and inactive viewers cannot read any demo page', async () => {
       const anonymous = response();
-      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, anonymous);
+      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, anonymous);
       assert.equal(anonymous.statusCode, 302);
       assert.equal(new URL(anonymous.headers.Location, 'https://crm.example.test').searchParams.get('returnTo'), '/demo/wasion/products');
       assert.equal(anonymous.body, undefined);
       const search = response();
-      await pageHandler({method:'GET',url:'/demo/wasion/search',query:{slug:'search',q:'AMI & smart meters',returnTo:'https://evil.example/'}},search);
+      await pageHandler({headers:{host:"crm.cnps.ai"},method:'GET',url:'/demo/wasion/search',query:{slug:'search',q:'AMI & smart meters',returnTo:'https://evil.example/'}},search);
       assert.equal(new URL(search.headers.Location,'https://crm.example.test').searchParams.get('returnTo'),'/demo/wasion/search?q=AMI+%26+smart+meters');
       session = { identity: { role: 'customer', memberships: [{ role: 'customer', companyId: 'fixture', active: false }] } };
       const revoked = response();
-      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, revoked);
+      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, revoked);
       assert.equal(revoked.statusCode, 404);
       assert.ok(!revoked.body.includes('<html'));
     });
@@ -200,7 +191,7 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
     await t.test('all 64 rewritten routes resolve for an authorized viewer with source content', async () => {
       for (const page of WASION_PAGES) {
         const res = response();
-        await pageHandler({ method: 'GET', url: route(page), query: { slug: page.slug } }, res);
+        await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: route(page), query: { slug: page.slug } }, res);
         assert.equal(res.statusCode, 200, page.slug);
         assert.match(res.body, /<html lang="en">/, page.slug);
         for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) assert.match(res.headers[name], /private, no-store/, page.slug);
@@ -215,7 +206,7 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
     });
     await t.test('HEAD uses the same authorization and routing while omitting the page body', async () => {
       const res = response();
-      await pageHandler({ method: 'HEAD', url: '/api/crm-wasion-demo-page?slug=products' }, res);
+      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'HEAD', url: '/api/crm-wasion-demo-page?slug=products' }, res);
       assert.equal(res.statusCode, 200);
       assert.equal(res.body, undefined);
       assert.equal(res.headers['Content-Type'], 'text/html; charset=utf-8');
@@ -227,32 +218,32 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
         { method: 'GET', url: '/demo/wasion/search', query: { slug: 'search', q: query } }
       ]) {
         const res = response();
-        await pageHandler(req, res);
+        await pageHandler({...req,headers:{host:"crm.cnps.ai",...req.headers}}, res);
         assert.equal(res.statusCode, 200);
         assert.ok(res.body.includes(`value="${encode(query)}"`));
         assert.equal((res.body.match(/<script\b/g) || []).length, 1);
       }
       const maximum = response();
-      await pageHandler({ method: 'GET', url: '/demo/wasion/search', query: { slug: 'search', q: 'x'.repeat(500) } }, maximum);
+      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/demo/wasion/search', query: { slug: 'search', q: 'x'.repeat(500) } }, maximum);
       assert.equal(maximum.statusCode, 200);
     });
     await t.test('invalid routes, oversized queries and unsupported methods do not render a page', async () => {
       for (const slug of ['not-a-page', '../about', 'ABOUT', 'search/extra', '<script>']) {
         const res = response();
-        await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug } }, res);
+        await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug } }, res);
         assert.equal(res.statusCode, 404, slug);
       }
       const oversized = response();
-      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug: 'search', q: 'x'.repeat(501) } }, oversized);
+      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug: 'search', q: 'x'.repeat(501) } }, oversized);
       assert.equal(oversized.statusCode, 400);
       const post = response();
-      await pageHandler({ method: 'POST', url: '/api/crm-wasion-demo-page' }, post);
+      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'POST', url: '/api/crm-wasion-demo-page' }, post);
       assert.equal(post.statusCode, 405);
     });
     await t.test('authentication outages fail closed', async () => {
       runtime.auth.loadSession = async () => { throw new Error('fixture authentication outage'); };
       const res = response();
-      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page' }, res);
+      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page' }, res);
       assert.equal(res.statusCode, 503);
       assert.ok(!res.body.includes('<html'));
     });

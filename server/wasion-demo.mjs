@@ -119,8 +119,8 @@ export function createWasionSearchHandler({ env = {}, auth, service, fetchImpl, 
     try { access = await authorizeWasionCustomer({ req, auth, service }); }
     catch { return publicError(res, 503, messages.auth); }
     if (!access) return publicError(res, 404, messages.denied);
-    const origins = new Set(['https://crm.cnps.ai', 'https://www.cnps.ai', 'https://cnps.ai']);
-    if (env.VERCEL_URL) origins.add(`https://${env.VERCEL_URL}`);
+    const origins = new Set(['https://crm.cnps.ai']);
+
     if (!origins.has(req.headers.origin) || req.headers['x-cnps-crm'] !== '1') return publicError(res, 403, messages.origin);
     let body;
     try {

@@ -78,11 +78,11 @@ async function setup(notifications,channels) {
   const docA = await addDocument('company-A', projectA.id, 'Alpha Published Delivery');
   const privateDoc = await addDocument('company-A', projectA.id, 'Restricted Alpha Delivery');
   const docB = await addDocument('company-B', projectB.id, 'Beta Published Delivery');
-  const grant = { contactId: 'contact-A', projectScope: 'selected', projectIds: [projectA.id], documentScope: 'selected', documentIds: [docA.id], allowApprovals: true };
+  const grant = { operations:['view','download'], includeFuture:true, contactId: 'contact-A', projectScope: 'selected', projectIds: [projectA.id], documentScope: 'selected', documentIds: [docA.id], allowApprovals: true };
   await service.grantMember(manager, 'company-A', grant);
-  await service.grantMember(admin, 'company-B', { contactId: 'contact-B', projectScope: 'all', documentScope: 'all' });
+  await service.grantMember(admin, 'company-B', { includeFuture:true, operations:['view','download'], contactId: 'contact-B', projectScope: 'all', documentScope: 'all' });
   const handler = createBusinessHandler({ env, service, authHandler: { async loadSession(req) { const actor = req.headers.cookie; return ({ admin, manager, customer, otherCustomer })[actor] || null; } } });
-  async function request(query, { actor = 'customer', method = 'GET', body, origin = 'https://www.cnps.ai', headers: extra = {} } = {}) {
+  async function request(query, { actor = 'customer', method = 'GET', body, origin = 'https://crm.cnps.ai', headers: extra = {} } = {}) {
     const headers = {}; let output;
     const res = { setHeader(name, value) { headers[name.toLowerCase()] = value; }, end(value) { output = value; } };
     await handler({ url: `/api/crm-workspace${query ? '?' + query : ''}`, method, body, headers: { cookie: actor, origin, 'content-type': 'application/json', 'x-cnps-crm': '1', ...extra } }, res);
@@ -108,8 +108,8 @@ test('customers see only their company, selected published projects and selected
 test('manager assignments restrict all mutations, directory grants and contact operations to their companies', async () => {
   const h = await setup();
   await assert.rejects(h.service.createProject(manager, 'company-B', { title: 'Unauthorized' }), status(404));
-  await assert.rejects(h.service.grantMember(manager, 'company-B', { contactId: 'contact-B', projectScope: 'all', documentScope: 'all' }), status(404));
-  await assert.rejects(h.service.grantMember(manager, 'company-A', { contactId: 'contact-B', projectScope: 'all', documentScope: 'all' }), status(404));
+  await assert.rejects(h.service.grantMember(manager, 'company-B', { includeFuture:true, operations:['view','download'], contactId: 'contact-B', projectScope: 'all', documentScope: 'all' }), status(404));
+  await assert.rejects(h.service.grantMember(manager, 'company-A', { includeFuture:true, operations:['view','download'], contactId: 'contact-B', projectScope: 'all', documentScope: 'all' }), status(404));
   await assert.rejects(h.service.assignManager(manager, 'staff-A', ['company-B']), status(404));
   await assert.rejects(h.service.createCompany(manager, { name: 'Unauthorized' }), status(404));
   await assert.rejects(h.service.createContact(manager, 'company-B', { firstName: 'Unauthorized' }), status(404));
@@ -120,7 +120,7 @@ test('company ownership is immutable even after revocation and a duplicate nativ
   const h = await setup();
   await h.service.revokeMember(manager, 'company-A', 'contact-A');
   h.contacts.set('contact-moved', { id: 'contact-moved', companyId: 'company-B', active: true, identityId: customer.identityId });
-  await assert.rejects(h.service.grantMember(admin, 'company-B', { contactId: 'contact-moved', projectScope: 'all', documentScope: 'all' }), status(409));
+  await assert.rejects(h.service.grantMember(admin, 'company-B', { includeFuture:true, contactId: 'contact-moved', projectScope: 'all', documentScope: 'all' }), status(409));
   const directory = await h.store.getDirectory();
   assert.equal(directory.memberGrants[customer.identityId].companyId, 'company-A');
   assert.equal(directory.memberGrants[customer.identityId].active, false);
@@ -316,7 +316,8 @@ test('approval requires published requested version, explicit approval grant and
   await h.service.grantMember(manager, 'company-A', h.grant);
   const approved = await h.service.decide(customer, 'company-A', acceptance.id, { decision: 'approved', comment: 'Accepted', expectedVersion: acceptance.version, expectedDocumentVersions: materials(h.docA) });
   assert.equal(approved.status, 'approved');
-  assert.equal(approved.decision.actorId, customer.identityId);
+  assert.equal(approved.decision.actorId, undefined);
+  assert.equal((await h.store.getCompany('company-A')).records[approved.id].decision.actorId, customer.identityId);
   await assert.rejects(h.service.decide(customer, 'company-A', acceptance.id, { decision: 'approved', expectedVersion: acceptance.version }), status(404));
   const blocked = await h.service.createRecord(manager, 'company-A', h.projectA.id, 'acceptance', { title: 'Restricted delivery', status: 'requested', deliverableDocumentIds: [h.privateDoc.id], clientVisible: true });
   await h.service.publishProject(manager, 'company-A', h.projectA.id);
@@ -820,7 +821,7 @@ test('HTTP streamed upload preserves UTF-8 filenames across chunk boundaries', a
   const fields = { ...uploadFields(Buffer.from('Document')), title: '项目交付', filename: '交付.txt' };
   const bytes = Buffer.from(JSON.stringify({ action: 'uploadDocument', companyId: 'company-A', projectId: 'project-A', fields }));
   const split = bytes.indexOf(Buffer.from('交')) + 1;
-  const req = { url: '/api/crm-workspace', method: 'POST', headers: { origin: 'https://www.cnps.ai', 'content-type': 'application/json', 'x-cnps-crm': '1' },
+  const req = { url: '/api/crm-workspace', method: 'POST', headers: { origin: 'https://crm.cnps.ai', 'content-type': 'application/json', 'x-cnps-crm': '1' },
     async *[Symbol.asyncIterator]() { yield bytes.subarray(0, split); yield bytes.subarray(split); } };
   const res = { setHeader() {}, end(value) { output = value; } };
   await handler(req, res);
@@ -894,7 +895,7 @@ test('SMS reserves once; accepted/unknown requests never blindly retry; unavaila
 
 test('another person in the same company cannot open a delivery assigned to a colleague',async()=>{
  const h=await setup();h.contacts.set('contact-colleague',{id:'contact-colleague',companyId:'company-A',identityId:'actor-colleague',active:true});
- await h.service.grantMember(manager,'company-A',{contactId:'contact-colleague',projectScope:'all',documentScope:'all'});
+ await h.service.grantMember(manager,'company-A',{includeFuture:true,operations:['view','download'],contactId:'contact-colleague',projectScope:'all',documentScope:'all'});
  const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'one-person-only'});
  const colleague=principal('actor-colleague','customer');await assert.rejects(()=>h.service.getDelivery(colleague,'company-A',delivery.id),status(404));assert.equal((await h.service.listDeliveries(colleague,'company-A',h.projectA.id)).length,0);
  const noOrigin=await h.request('',{actor:'manager',method:'POST',origin:'https://evil.example',body:{action:'createDelivery',companyId:'company-A',projectId:h.projectA.id,fields:{}}});assert.equal(noOrigin.status,403);

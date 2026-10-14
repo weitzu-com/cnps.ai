@@ -12,9 +12,10 @@ const CHALLENGE_SECONDS = 300;
 const validToken = value => typeof value === 'string' && /^[A-Za-z0-9_-]{43}$/.test(value);
 const validId = value => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value);
 const cookie = (name, value, age, sameSite = 'Strict') => `${name}=${value}; Path=/; HttpOnly; Secure; SameSite=${sameSite}; Max-Age=${age}`;
+const verificationRole = identity => identity.role==='admin'?'admin':identity.contexts?.some(c=>c.role==='sales_manager')?'sales_manager':identity.role;
 const validEpoch = value => Number.isSafeInteger(value) && value >= 0;
 const sessionSeconds = role => role === 'customer' ? CUSTOMER_SESSION_SECONDS : STAFF_SESSION_SECONDS;
-const roleRank = role => ({ customer: 0, sales_manager: 1, admin: 2 })[role];
+const roleRank = role => ({ customer: 0, partner:0, proposal_viewer:0, unassigned:0, sales_manager: 1, admin: 2 })[role];
 function sendLimitResponse(blocked, timestamp) {
   const chinaTime = new Date(timestamp + 8 * 3600e3);
   const year = chinaTime.getUTCFullYear(), month = chinaTime.getUTCMonth(), day = chinaTime.getUTCDate();
@@ -86,7 +87,7 @@ async function readJson(req) {
 // are ignored. Do not infer company membership from a submitted name or email.
 // This handler authenticates identity only; every business API must enforce its
 // own company/project/document ACL. A returned session is not a Twenty API token.
-export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMemberships = async () => [], recordVisit, reportFailure = event => console.warn('CNPS_CRM_AUTH_FAILURE', JSON.stringify(event)), now = () => Date.now() }) {
+export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMemberships = async () => [], recordVisit, loadAccess, reportFailure = event => console.warn('CNPS_CRM_AUTH_FAILURE', JSON.stringify(event)), now = () => Date.now() }) {
   let store;
   const storage = () => store ??= storeFactory(env);
   const adminPhone = () => {
@@ -101,19 +102,21 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
   const openPhone = subject => normalizePhone(decrypt(Buffer.from(subject, 'base64url'), encryptionKey()).toString());
   const arrayIds = value => Array.isArray(value) ? [...new Set(value.filter(validId))] : [];
   async function identityFor(phone) {
-    if (phone === adminPhone()) return { identity: { role: 'admin', phoneMasked: `${phone.slice(0, 3)}****${phone.slice(-4)}`, memberships: [] }, authEpoch: 0 };
-    const entries = await loadMemberships(phone);
-    const active = (Array.isArray(entries) ? entries : []).filter(entry => entry?.active === true && validId(entry.companyId) && ['customer', 'sales_manager'].includes(entry.role));
-    if (!active.length) return null;
-    const epochs = active.map(entry => entry.authEpoch === undefined ? 0 : entry.authEpoch);
-    if (epochs.some(epoch => !validEpoch(epoch) || epoch !== epochs[0])) throw new Error('Invalid authorization generation');
-    const memberships = active.map(entry => ({
-      companyId: entry.companyId, role: entry.role, permissions: arrayIds(entry.permissions),
-      ...(Array.isArray(entry.projectIds) ? { projectIds: arrayIds(entry.projectIds) } : {}),
-      ...(Array.isArray(entry.documentIds) ? { documentIds: arrayIds(entry.documentIds) } : {})
-    }));
-    return { identity: { role: memberships.some(entry => entry.role === 'sales_manager') ? 'sales_manager' : 'customer', phoneMasked: `${phone.slice(0, 3)}****${phone.slice(-4)}`, memberships }, authEpoch: epochs[0] };
+    const access=loadAccess?await loadAccess(phone):null;
+    if(access?.disabled)return null;
+    const authVersion=access?.authVersion||0;
+    if(phone===adminPhone())return {identity:{role:'admin',phoneMasked:phone.slice(0,3)+'****'+phone.slice(-4),memberships:[],contexts:[],proposals:access?.proposals||[]},authEpoch:0,authVersion};
+    const entries=access?.memberships||await loadMemberships(phone);
+    const active=(Array.isArray(entries)?entries:[]).filter(e=>e?.active===true&&validId(e.companyId)&&['customer','sales_manager'].includes(e.role));
+    if(!access&&!active.length)return null;
+    const epochs=active.map(e=>e.authEpoch===undefined?0:e.authEpoch);
+    if(epochs.some(e=>!validEpoch(e)||e!==epochs[0]))throw new Error('Invalid authorization generation');
+    const memberships=active.map(e=>({companyId:e.companyId,role:e.role,permissions:arrayIds(e.permissions),...(Array.isArray(e.projectIds)?{projectIds:arrayIds(e.projectIds)}:{}),...(Array.isArray(e.documentIds)?{documentIds:arrayIds(e.documentIds)}:{})}));
+    const contexts=access?.contexts||[],proposals=access?.proposals||[],roles=[...new Set(contexts.map(c=>c.role))];
+    const role=access?(roles.length===1?roles[0]:roles.length>1?'unassigned':proposals.length?'proposal_viewer':'unassigned'):(memberships.some(e=>e.role==='sales_manager')?'sales_manager':'customer');
+    return {identity:{role,phoneMasked:phone.slice(0,3)+'****'+phone.slice(-4),memberships,...(access?{contexts,proposals}:{})},authEpoch:epochs[0]||0,authVersion};
   }
+
   async function loadSession(req) {
     adminPhone();
     const token = parseCookies(req)[CRM_SESSION_COOKIE];
@@ -129,11 +132,11 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
     if (!Number.isFinite(issuedAt) || issuedAt < 0 || issuedAt > now()) return null;
     if (!legacy && (!Number.isInteger(roleRank(session.roleAtVerification)) || !validEpoch(session.authEpoch)
       || session.expires !== issuedAt + sessionSeconds(session.roleAtVerification) * 1000
-      || roleRank(current.identity.role) > roleRank(session.roleAtVerification))) return null;
-    if (current.authEpoch !== (legacy ? 0 : session.authEpoch)) return null;
+      || roleRank(verificationRole(current.identity)) > roleRank(session.roleAtVerification))) return null;
+    if (current.authVersion !== (session.identityVersion||0) || current.authEpoch !== (legacy ? 0 : session.authEpoch)) return null;
     // Keep the generation on the server principal so a business operation can
     // reject revocation/restoration after this authentication lookup completed.
-    return { identity: current.identity, phone, identityId: session.pid, authEpoch: current.authEpoch, authenticatedAt: issuedAt, expiresAt: session.expires };
+    return { identity: current.identity, phone, identityId: session.pid, sessionId:hash('crm-session',token), identityVersion:current.authVersion, authEpoch: current.authEpoch, authenticatedAt: issuedAt, expiresAt: session.expires };
   }
 
   // Exposed for a separately authorized business API to authenticate this cookie.
@@ -160,8 +163,8 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         return json(200, { authenticated: true, identity: session.identity, authenticatedAt: session.authenticatedAt, expiresAt: session.expiresAt });
       }
       if (req.method !== 'POST') return json(405, { error: '请求方式不支持。' });
-      const origins = new Set(['https://www.cnps.ai', 'https://cnps.ai', 'https://crm.cnps.ai']);
-      if (env.VERCEL_URL) origins.add(`https://${env.VERCEL_URL}`);
+      const origins = new Set(['https://crm.cnps.ai']);
+
       if (!origins.has(req.headers.origin) || req.headers['x-cnps-crm'] !== '1') return json(403, { error: '请求来源无效。' });
       let data;
       try { data = await readJson(req); } catch { return json(400, { error: '请求格式无效。' }); }
@@ -179,7 +182,7 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         const phone = normalizePhone(data.phone);
         failureStage = 'authorization';
         const authorization = phone ? await identityFor(phone) : null;
-        if (!authorization) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
+        if (!authorization || authorization.identity.role==='unassigned'&&!authorization.identity.contexts?.length) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
         failureStage = 'sms-configuration';
         const sms = smsFactory(env), pid = hash('phone', phone);
         const sendTime = now(), date = new Date(sendTime + 8 * 3600e3).toISOString();
@@ -204,7 +207,7 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         failureStage = 'sms-send';
         await sms.send(phone, id);
         failureStage = 'storage';
-        await storage().set(`challenge:${id}`, { purpose: PURPOSE, pid, subject: sealPhone(phone), binding: hash('crm-binding', binding), attempts: 0, authEpoch: authorization.authEpoch, roleAtSend: authorization.identity.role }, CHALLENGE_SECONDS);
+        await storage().set(`challenge:${id}`, { purpose: PURPOSE, pid, subject: sealPhone(phone), binding: hash('crm-binding', binding), attempts: 0, authEpoch: authorization.authEpoch, roleAtSend: verificationRole(authorization.identity), identityVersion:authorization.authVersion }, CHALLENGE_SECONDS);
         res.setHeader('Set-Cookie', cookie(CRM_CHALLENGE_COOKIE, binding, CHALLENGE_SECONDS));
         return json(200, { challenge: id });
       }
@@ -220,25 +223,25 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         if (!phone || hash('phone', phone) !== challenge.pid || (data.phone !== undefined && normalizePhone(data.phone) !== phone)) return json(400, { error: '验证码无效或已过期，请重新获取。' });
         failureStage = 'authorization';
         const authorization = await identityFor(phone);
-        if (!authorization) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
+        if (!authorization || authorization.identity.role==='unassigned'&&!authorization.identity.contexts?.length) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
         const challengeEpoch = challenge.authEpoch === undefined ? 0 : challenge.authEpoch;
-        if (!validEpoch(challengeEpoch) || challengeEpoch !== authorization.authEpoch
-          || (challenge.roleAtSend !== undefined && challenge.roleAtSend !== authorization.identity.role)) return json(403, { error: '访问授权已变更，请重新获取验证码。' });
+        if (!validEpoch(challengeEpoch) || challengeEpoch !== authorization.authEpoch || (challenge.identityVersion||0)!==authorization.authVersion
+          || (challenge.roleAtSend !== undefined && challenge.roleAtSend !== verificationRole(authorization.identity))) return json(403, { error: '访问授权已变更，请重新获取验证码。' });
         failureStage = 'sms-verify';
         if (!await smsFactory(env).verify(phone, data.code, data.challenge)) return json(400, { error: '验证码无效或已过期，请重新获取。' });
         failureStage = 'storage';
         if (!await storage().consume(data.challenge, bindingId)) return json(400, { error: '验证码已使用，请重新获取。' });
-        const unchanged = current => current && current.authEpoch === authorization.authEpoch && current.identity.role === authorization.identity.role;
+        const unchanged = current => current && current.authEpoch === authorization.authEpoch && current.authVersion===authorization.authVersion && verificationRole(current.identity)===verificationRole(authorization.identity);
         failureStage = 'authorization';
         const latest = await identityFor(phone);
         if (!unchanged(latest)) return json(403, { error: '访问授权已变更，请重新验证身份。' });
         const identity = latest.identity;
-        const issuedAt = now(), duration = sessionSeconds(identity.role), expires = issuedAt + duration * 1000;
+        const issuedAt = now(), duration = sessionSeconds(verificationRole(identity)), expires = issuedAt + duration * 1000;
         const token = randomBytes(32).toString('base64url');
         const sessionName = `session:${hash('crm-session', token)}`;
         const visit = { purpose: 'crm-sms-login', identityId: challenge.pid, role: identity.role, companyIds: identity.memberships.map(entry => entry.companyId), occurredAt: issuedAt };
         failureStage = 'storage';
-        await storage().set(sessionName, { purpose: PURPOSE, pid: challenge.pid, subject: sealPhone(phone), issuedAt, roleAtVerification: identity.role, authEpoch: authorization.authEpoch, expires }, duration);
+        await storage().set(sessionName, { purpose: PURPOSE, pid: challenge.pid, subject: sealPhone(phone), issuedAt, roleAtVerification: verificationRole(identity), identityVersion:latest.authVersion, authEpoch: authorization.authEpoch, expires }, duration);
         try {
           // Provider checks, Redis writes and audit adapters can yield to a
           // revocation. Never mint a credential for a newer generation simply

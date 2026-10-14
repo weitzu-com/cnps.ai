@@ -61,7 +61,7 @@ test('page uses only nonce-bound inline assets, accessible inputs, and safely es
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /@media\(min-width:768px\)/);
   assert.match(html, /@media\(min-width:1024px\)/);
-  assert.match(html, /href="https:\/\/crm\.cnps\.ai\/w"/);
+  assert.match(html, /href="\/w"/);
   assert.doesNotMatch(html, /innerHTML|localStorage|sessionStorage|console\.|<script[^>]+src=|<link[^>]+href=/);
 });
 
@@ -136,7 +136,7 @@ test('a customer sees the server expiry and returns to the requested demo withou
 });
 
 test('invalid return targets never redirect and ordinary CRM entry retains the logged-in screen', async () => {
-  for (const returnTo of [undefined, 'https://evil.test', '//evil.test', '/demo/wasion/../../w', '/w', '/%2f%2fevil.test']) {
+  for (const returnTo of [undefined, 'https://evil.test', '//evil.test', '/demo/wasion/../../w', '/%2f%2fevil.test']) {
     const h = harness(() => ({body: {authenticated: true, identity: {role: 'customer'}}}), {returnTo});
     await h.flush();
     assert.deepEqual(h.navigations, []);

@@ -6,13 +6,13 @@ export function safeCrmReturnTo(value) {
   if (typeof value !== 'string' || value.length > 2048 || !value.startsWith('/')
       || value.startsWith('//') || /[\\\u0000-\u0020\u007f]/.test(value)) return null;
   const path = value.split(/[?#]/, 1)[0];
-  if (path !== '/crm/workspace' && !/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(path)) return null;
+  if (path !== '/w' && path !== '/crm/workspace' && !/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(path)) return null;
   try {
     const url = new URL(value, ORIGIN);
     if (url.origin !== ORIGIN || url.pathname !== path || /%(?:00|0a|0d|5c)/i.test(url.search + url.hash)) return null;
     const params = new URLSearchParams();
     if (path === '/crm/workspace') {
-      for (const key of ['companyId', 'deliveryId', 'projectId']) {
+      for (const key of ['companyId', 'deliveryId', 'projectId', 'contextId']) {
         const id = url.searchParams.get(key);
         if (id && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(id)) params.set(key, id);
       }
@@ -32,10 +32,10 @@ export function crmLoginUrl(returnTo) {
 
 export function crmPageReturnTo(requestUrl) {
   const url = new URL(requestUrl, ORIGIN);
-  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo'));
+  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo')) || (url.searchParams.get('next')==='/w'?'/w':null);
   if (explicit) return explicit;
   const params = new URLSearchParams();
-  for (const name of ['companyId', 'deliveryId', 'projectId']) {
+  for (const name of ['companyId', 'deliveryId', 'projectId', 'contextId']) {
     const value = url.searchParams.get(name);
     if (value && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value)) params.set(name, value);
   }

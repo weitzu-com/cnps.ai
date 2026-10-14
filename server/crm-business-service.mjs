@@ -17,6 +17,8 @@ const MIME_TYPES = new Set(PMP_DOCUMENT_MIME_TYPES);
 const validId = value => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value) && !['__proto__', 'prototype', 'constructor'].includes(value);
 const own = (object, key) => Object.hasOwn(object, key) ? object[key] : undefined;
 const clone = value => structuredClone(value);
+const internal = a => ['admin','sales_manager'].includes(a?.role);
+const pick = (value, fields) => Object.fromEntries(fields.filter(key => value[key] !== undefined).map(key => [key, clone(value[key])]));
 export class BusinessError extends Error {
   constructor(status, message) { super(message); this.status = status; }
 }
@@ -131,6 +133,8 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   function companyEntry(directory, companyId) { return own(directory.companies, id(companyId)); }
   function access(directory, principal, companyId) {
     subject(principal);
+    if (principal.identityVersion !== undefined && principal.identityVersion !== (directory.identities?.[principal.identityId]?.version || 0)) return null;
+    if (directory.identities?.[principal.identityId]?.disabled || !['admin','sales_manager','customer'].includes(principal.identity?.role)) return null;
     if (!companyEntry(directory, companyId)) return null;
     if (isAdmin(principal)) return { role: 'admin' };
     const assignment = own(directory.managerAssignments, principal.identityId);
@@ -142,11 +146,12 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     if (grant && principal.authEpoch !== undefined && principal.authEpoch !== authEpoch(grant)) return null;
     return grant?.active && grant.companyId === companyId ? { role: 'customer', grant } : null;
   }
-  function manage(directory, principal, companyId) { const a = access(directory, principal, companyId); if (!a || a.role === 'customer') missing(); return a; }
+  function manage(directory, principal, companyId) { const a = access(directory, principal, companyId); if (!internal(a)) missing(); return a; }
   function projectAccess(state, a, projectId) {
     const project = own(state.projects, id(projectId));
     if (!project || !a) missing();
-    if (a.role !== 'customer') return project;
+    if (internal(a)) return project;
+    if (a.role !== 'customer') missing();
     if (!project.publication || (a.grant.projectScope !== 'all' && !a.grant.projectIds.includes(projectId))) missing();
     return project;
   }
@@ -158,22 +163,21 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     if (!doc || !a) missing();
     projectAccess(state, a, doc.projectId);
     if (a.role === 'customer' && (a.grant.documentScope !== 'all' && !a.grant.documentIds.includes(documentId))) missing();
-    const requestedVersion = a.role !== 'customer' && versionId ? id(versionId) : doc.activeVersionId;
-    const version = doc.versions.find(item => item.id === requestedVersion && item.withdrawnAt == null && (a.role !== 'customer' || Number.isFinite(item.publishedAt)));
+    const requestedVersion = internal(a) && versionId ? id(versionId) : doc.activeVersionId;
+    const version = doc.versions.find(item => item.id === requestedVersion && item.withdrawnAt == null && (internal(a) || Number.isFinite(item.publishedAt)));
     if (!version) missing();
     return { doc, version };
   }
-  function viewProject(project, a) { return a.role === 'customer' ? clone(project.publication.project) : { ...clone(project), publication: project.publication ? { version: project.publication.version, at: project.publication.at } : null }; }
+  function viewProject(project, a) { return a.role === 'customer' ? pick(project.publication.project, ['id','companyId','title','objective','scope','deliverables','processGroup','status','plannedStart','plannedEnd','budget','currency','version','createdAt','updatedAt']) : { ...clone(project), publication: project.publication ? { version: project.publication.version, at: project.publication.at } : null }; }
   function customerRecord(record) {
-    // A newly public revision must not disclose the full snapshot of an older
-    // internal-only decision. Full immutable history is a back-office record.
-    const { decisionHistory, ...visible } = clone(record);
-    return visible;
+    const result = pick(record, ['id','companyId','projectId','type','title','description','status','clientVisible','dueDate','startDate','wbsCode','criteria','deliverableDocumentIds','probability','impact','response','severity','reason','requestedScope','costImpact','scheduleImpactDays','version','createdAt','updatedAt']);
+    if(record.decision)result.decision=pick(record.decision,['decision','comment','at','decidedVersion','deliverableVersions']);
+    return result;
   }
   function viewDocument(doc, version) { return { id: doc.id, companyId: doc.companyId, projectId: doc.projectId, title: version.title, versionId: version.id, version: version.version, mimeType: version.mimeType, size: version.size, filename: version.filename, publishedAt: version.publishedAt, status: version.withdrawnAt != null ? 'withdrawn' : version.id === doc.activeVersionId ? 'published' : Number.isFinite(version.publishedAt) ? 'archived' : 'draft' }; }
   function managerDocument(doc) {
     const version = doc.versions.at(-1); if (!version) missing();
-    return { ...viewDocument(doc, version), activeVersionId: doc.activeVersionId, versions: doc.versions.map(item => viewDocument(doc, item)) };
+    return { ...viewDocument(doc, version), classification: doc.classification || 'internal', activeVersionId: doc.activeVersionId, versions: doc.versions.map(item => viewDocument(doc, item)) };
   }
   const event = (principal, action, extra = {}) => ({ id: newId(), actorId: subject(principal), action, at: now(), ...extra });
   async function snapshot(companyId, principal) {
@@ -188,6 +192,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   }
   async function directoryWrite(principal, transform) {
     const directory = await store.getDirectory(), next = clone(directory);
+    if (directory.identities?.[subject(principal)]?.disabled || (principal.identityVersion!==undefined&&principal.identityVersion!==(directory.identities?.[principal.identityId]?.version||0))) missing();
     const result = await transform(next, directory);
     next.revision = directory.revision + 1;
     if (!await store.commitDirectory(directory.revision, next)) fail(409, '权限已变更，请刷新后重试。');
@@ -300,6 +305,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     },
     async loadMemberships(phone) {
       const pid = subjectForPhone(phone), directory = await store.getDirectory();
+      if (directory.identities?.[pid]?.disabled) return [];
       const assignment = own(directory.managerAssignments, pid);
       if (assignment?.active) {
         const staff = await authoritative('getManager', assignment.staffId);
@@ -319,7 +325,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       // A Twenty company can be soft-deleted while its contacts keep the old
       // relation ID. Such a tombstone must not preserve an old portal grant.
       if (!await activeCompany(grant.companyId)) return [];
-      return [{ companyId: grant.companyId, active: true, role: 'customer', authEpoch: authEpoch(grant), permissions: ['projects:read', 'documents:read', ...(grant.allowApprovals ? ['approvals:submit'] : [])], ...(grant.projectScope === 'selected' ? { projectIds: clone(grant.projectIds) } : {}), ...(grant.documentScope === 'selected' ? { documentIds: clone(grant.documentIds) } : {}) }];
+      return [{ companyId: grant.companyId, active: true, role: 'customer', authEpoch:authEpoch(grant), permissions: ['projects:read', 'documents:read', ...((grant.operations || ['view','download']).includes('download') ? ['documents:download'] : []), ...(grant.allowApprovals ? ['approvals:submit'] : [])], ...(grant.projectScope === 'selected' ? { projectIds: clone(grant.projectIds) } : {}), ...(grant.documentScope === 'selected' ? { documentIds: clone(grant.documentIds) } : {}) }];
     },
     async registerCompany(principal, companyId) {
       if (!isAdmin(principal)) missing();
@@ -333,6 +339,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     },
     async listCompanies(principal) {
       const directory = await store.getDirectory(); subject(principal);
+      if (directory.identities?.[principal.identityId]?.disabled) missing();
       if (isAdmin(principal) && typeof twenty?.listCompanies === 'function') {
         const native = await twenty.listCompanies();
         if (!Array.isArray(native)) fail(503, 'CRM资料暂不可用。');
@@ -483,11 +490,14 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       });
     },
     async grantMember(principal, companyId, input) {
-      object(input); rejectFields(input, ['contactId', 'projectScope', 'projectIds', 'documentScope', 'documentIds', 'allowApprovals']);
+      object(input); rejectFields(input, ['contactId', 'projectScope', 'projectIds', 'documentScope', 'documentIds', 'allowApprovals', 'operations', 'includeFuture']);
       const { directory, state } = await snapshot(companyId, principal); manage(directory, principal, companyId);
       const contact = await authoritative('getContact', input.contactId);
       if (!contact.active || contact.companyId !== companyId || !validId(contact.identityId)) missing();
-      const projectScope = input.projectScope, documentScope = input.documentScope;
+      const projectScope = input.projectScope || 'selected', documentScope = input.documentScope || 'selected';
+      if ((projectScope === 'all' || documentScope === 'all') && input.includeFuture !== true) fail(400, '包含未来新增内容必须明确确认。');
+      const operations = input.operations === undefined ? ['view'] : ids(input.operations);
+      if (!operations.includes('view') || operations.some(op => !['view','download'].includes(op))) fail(400, '操作权限无效。');
       if (!['all', 'selected'].includes(projectScope) || !['all', 'selected'].includes(documentScope)) fail(400, '请指定资料授权范围。');
       const projectIds = projectScope === 'all' ? [] : ids(input.projectIds || []), documentIds = documentScope === 'all' ? [] : ids(input.documentIds || []);
       for (const projectId of projectIds) if (!own(state.projects, projectId)) missing();
@@ -498,7 +508,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         const previous = own(next.memberGrants, contact.identityId);
         if (previous && previous.companyId !== companyId) fail(409, '客户所属公司不可更改。');
         if (own(next.managerAssignments, contact.identityId)) fail(409, '经理身份不能同时设为客户身份。');
-        const grant = { identityId: contact.identityId, contactId: input.contactId, companyId, active: true, projectScope, projectIds, documentScope, documentIds, allowApprovals: input.allowApprovals === true, authEpoch: authEpoch(previous), version: (previous?.version || 0) + 1, updatedAt: now() };
+        const grant = { identityId: contact.identityId, contactId: input.contactId, companyId, active: true, projectScope, projectIds, documentScope, documentIds, authEpoch:authEpoch(previous), operations, grantedBy: subject(principal), allowApprovals: input.allowApprovals === true, version: (previous?.version || 0) + 1, updatedAt: now() };
         next.memberGrants[contact.identityId] = grant;
         next.events.push(event(principal, 'member.grant', { companyId, identityId: contact.identityId, version: grant.version })); return authorizationView(grant);
       });
@@ -572,7 +582,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     },
     async listProjects(principal, companyId) {
       const { state, a } = await snapshot(companyId, principal);
-      return Object.values(state.projects).filter(project => a.role !== 'customer' || (project.publication && (a.grant.projectScope === 'all' || a.grant.projectIds.includes(project.id)))).map(project => viewProject(project, a));
+      return Object.values(state.projects).filter(project => internal(a) || (project.publication && (a.grant.projectScope === 'all' || a.grant.projectIds.includes(project.id)))).map(project => viewProject(project, a));
     },
     async getProject(principal, companyId, projectId) {
       const { state, a } = await snapshot(companyId, principal); return viewProject(projectAccess(state, a, projectId), a);
@@ -733,14 +743,14 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       const { state, a } = await snapshot(companyId, principal); projectAccess(state, a, projectId);
       const result = [];
       for (const doc of Object.values(state.documents).filter(item => item.projectId === projectId)) {
-        if (a.role !== 'customer') { result.push(managerDocument(doc)); continue; }
+        if (internal(a)) { result.push(managerDocument(doc)); continue; }
         try { const resolved = docAccess(state, a, doc.id); result.push(viewDocument(resolved.doc, resolved.version)); } catch (error) { if (!(error instanceof BusinessError) || error.status !== 404) throw error; }
       }
       return result;
     },
     async getDocument(principal, companyId, documentId) {
       const { state, a } = await snapshot(companyId, principal);
-      if (a.role !== 'customer') { const doc = own(state.documents, id(documentId)); if (!doc) missing(); projectAccess(state, a, doc.projectId); return managerDocument(doc); }
+      if (internal(a)) { const doc = own(state.documents, id(documentId)); if (!doc) missing(); projectAccess(state, a, doc.projectId); return managerDocument(doc); }
       const { doc, version } = docAccess(state, a, documentId); return viewDocument(doc, version);
     },
     async validateKnowledgeSources(principal, companyId, projectId, sources) {
@@ -771,12 +781,14 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     },
     async download(principal, companyId, documentId, versionId) {
       const { state, a } = await snapshot(companyId, principal), { doc, version } = docAccess(state, a, documentId, versionId);
+      if (a.role === 'customer' && !(a.grant.operations || ['view','download']).includes('download')) missing();
       if (version.id !== id(versionId)) missing();
       if (!documents || typeof documents.readObject !== 'function') fail(503, '私有资料接口尚未连接。');
       const bytes = await documents.readObject(version.objectId, { companyId, projectId: doc.projectId, documentId, versionId });
       if (!Buffer.isBuffer(bytes) || bytes.length !== version.size) fail(503, '资料暂不可用。');
       // Re-check grant, project publication and active document version after IO.
       const latest = await snapshot(companyId, principal), current = docAccess(latest.state, latest.a, documentId, versionId);
+      if (latest.a.role === 'customer' && !(latest.a.grant.operations || ['view','download']).includes('download')) missing();
       if (current.version.id !== versionId) missing();
       return { metadata: viewDocument(current.doc, current.version), bytes };
     },
@@ -813,7 +825,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     async listDeliveries(principal, companyId, projectId) {
       const {state,a} = await snapshot(companyId, principal); projectAccess(state,a,projectId);
       return Object.values(state.deliveries || {}).filter(item => item.projectId === projectId).flatMap(item => {
-        if(a.role !== 'customer') {const activity=Object.values(state.proposalActivity||{}).filter(r=>r.projectId===projectId&&r.recipientId===item.recipientId).map(({recipientId,eventIds,...r})=>clone(r));return [{...deliveryView(item,a),proposalActivity:activity}];}
+        if(internal(a)) {const activity=Object.values(state.proposalActivity||{}).filter(r=>r.projectId===projectId&&r.recipientId===item.recipientId).map(({recipientId,eventIds,...r})=>clone(r));return [{...deliveryView(item,a),proposalActivity:activity}];}
         try {return [deliveryView(deliveryAccess(state,a,item.id,principal),a)];} catch(error) {if(error instanceof BusinessError && error.status === 404)return [];throw error;}
       }).sort((a,b)=>b.createdAt-a.createdAt);
     },
@@ -825,7 +837,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       if(!['view','copy','download'].includes(kind)) fail(400,'记录类型无效。');
       return companyWrite(principal,companyId,(next,a)=>{
         const delivery=deliveryAccess(next,a,deliveryId,principal);
-        if(kind==='copy'){if(a.role==='customer')missing();delivery.copiedAt=now();}
+        if(kind==='copy'){if(!internal(a))missing();delivery.copiedAt=now();}
         else if(a.role==='customer'){
           if(kind==='view'){delivery.viewedAt ||= now();delivery.lastViewedAt=now();delivery.viewCount++;}
           else {if(!delivery.documents.some(d=>d.documentId===documentId&&d.versionId===versionId))missing();if(!delivery.downloads.some(d=>d.documentId===documentId&&d.versionId===versionId))delivery.downloads.push({documentId,versionId,at:now()});}
