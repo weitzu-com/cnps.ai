@@ -40,12 +40,17 @@ function assertSearchForms(html, base) {
 
 // The response policy is part of this regression: browser navigation POSTs
 // produced Origin:null under no-referrer, even with the strict guard unchanged.
-test('four styles expose native POST forms with a same-origin response policy on home, search and product pages', async () => {
+test('all styles preserve native search POST and same-origin policy, with Industrial search auxiliary on content pages', async () => {
   const { handler } = fixture();
   for (const style of styles) for (const slug of ['home', 'search', product]) {
     const res = response(); await handler(request(style, slug), res);
     assert.equal(res.statusCode, 200, style + ' ' + slug);
-    assertPrivate(res); assertSearchForms(res.body, wasionStyleBase(style));
+    assertPrivate(res);
+    if (style === 'industrial' && slug !== 'search') {
+      const markup = res.body.match(/<body\b[^>]*>([\s\S]*?)<script nonce=/)[1];
+      assert.ok(markup.includes('href="' + wasionStyleBase(style) + '/search"'));
+      assert.doesNotMatch(markup, /<form\b[^>]*role="search"/);
+    } else assertSearchForms(res.body, wasionStyleBase(style));
     assert.match(res.headers['content-security-policy'], /form-action 'self' mailto:;/);
     const head = response(); await handler(request(style, slug, { method: 'HEAD' }), head);
     assert.equal(head.statusCode, 200); assert.equal(head.body, undefined); assertPrivate(head);
