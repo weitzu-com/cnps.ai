@@ -40,7 +40,7 @@ test('project revocation during AI inference or fallback prevents result and sou
  for(const fallback of [true,false]){
   const h=isolationFixture(),cookie=await h.login('wasion');let checks=0;
   const service={getProject:async(...args)=>{const result=await h.service.getProject(...args);if(++checks===1&&fallback)h.removeProjectGrant();return result;}};
-  const handler=createWasionSearchHandler({auth:h.auth,service,env:fallback?{}:{CRM_AI_API_KEY:'fixture-key'},rateLimit:async()=>true,fetchImpl:async()=>{h.removeProjectGrant();return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({answer:'Wi-SUN is listed. [wisun-solutions]',supported:true})}}]})};}});
+  const handler=createWasionSearchHandler({auth:h.auth,service,env:fallback?{}:{CRM_AI_API_KEY:'fixture-key'},fetchImpl:async()=>{h.removeProjectGrant();return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({answer:'Wi-SUN is listed. [wisun-solutions]',supported:true})}}]})};}});
   const r=await h.request(handler,'/api/crm-wasion-demo-search',searchRequest(cookie));assert.equal(r.status,404);assert.equal(r.json().data,undefined);
  }
 });

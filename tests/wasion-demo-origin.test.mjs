@@ -123,11 +123,11 @@ test('the shared CRM boundary retains no-referrer and rejects noncanonical hosts
   }
 });
 
-test('the separate AI API still rejects null/missing/cross origins and missing request markers before quota or inference', async () => {
+test('the separate AI API still rejects null/missing/cross origins and missing request markers before inference', async () => {
   let calls = 0;
   const handler = createWasionSearchHandler({
     env: { CRM_AI_API_KEY: 'test-key' }, auth: { loadSession: async () => viewer }, service: { getProject: async () => ({ id: 'fixture' }) },
-    rateLimit: async () => { calls++; return true; }, fetchImpl: async () => { calls++; throw new Error('should not call inference'); }
+    fetchImpl: async () => { calls++; throw new Error('should not call inference'); }
   });
   for (const headers of [{}, { origin: 'null', 'x-cnps-crm': '1' }, { origin: 'https://evil.example', 'x-cnps-crm': '1' }, { origin: CRM_ORIGIN }]) {
     const res = response(); await handler({ method: 'POST', headers: { ...headers, 'sec-fetch-site': 'same-origin', referer: CRM_ORIGIN }, body: { question: 'I-110', language: 'en' } }, res);
