@@ -13,6 +13,7 @@ test('canonical CRM pages remain private and old routes retain only safe destina
   assert.equal(boundaryDecision('crm.cnps.ai',path,'POST').status,410);
  }
  assert.equal(boundaryDecision('crm.cnps.ai','/crm','GET',{},'?returnTo=https://evil.test').location,'/');
+ assert.equal(boundaryDecision('crm.cnps.ai','/crm','GET',{},'?next=%2Fdemo%2Fwasion%2Fsearch').location,'/?returnTo=%2Fdemo%2Fwasion%2Fsearch');
  assert.equal(boundaryDecision('crm.cnps.ai','/crm/wasion-demo','GET').location,'/demo/wasion');
  assert.equal(safeCrmReturnTo('/crm/workspace?companyId=A&projectId=P'),'/workspace?companyId=A&projectId=P');
  assert.equal(crmLoginUrl('/crm/workspace?deliveryId=D'),'/?returnTo=%2Fworkspace%3FdeliveryId%3DD');

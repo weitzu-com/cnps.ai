@@ -34,7 +34,8 @@ export function crmLoginUrl(returnTo) {
 
 export function crmPageReturnTo(requestUrl) {
   const url = new URL(requestUrl, ORIGIN);
-  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo')) || (url.searchParams.get('next')==='/w'?'/w':null);
+  const next = url.searchParams.get('next');
+  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo')) || (next === '/w' || /^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(next || '') ? safeCrmReturnTo(next) : null);
   if (explicit) return explicit;
   const params = new URLSearchParams();
   for (const name of ['companyId', 'deliveryId', 'projectId', 'contextId']) {
