@@ -1,0 +1,30 @@
+{
+  "observedAt": "2026-10-14T19:54:53.912927+08:00",
+  "deploymentId": "dpl_ARN2Acc4vEwXBeLL9gpXwso9TVug",
+  "retrievalEndpoint": "GET /v8/deployments/{id}/files/{fileId}",
+  "retrievalDocumentation": "https://vercel.com/docs/rest-api/deployments/get-deployment-file-contents",
+  "decrypted": false,
+  "liveEncryptedArtifact": {
+    "bytes": 4739258,
+    "sha256": "8657618dc5832e05630e1842eb8f3929600a307e374b3bd07243dba4b0a18044",
+    "sha1": "3a1811f9a2007efecae9f5974af8cf84149ee18e",
+    "fileUid": "3a1811f9a2007efecae9f5974af8cf84149ee18e"
+  },
+  "recoveredPackageHead": {
+    "commit": "94d02c015c0a9ecaf6033d62b88b942ce2147912",
+    "bytes": 4739258,
+    "sha256": "8657618dc5832e05630e1842eb8f3929600a307e374b3bd07243dba4b0a18044",
+    "identicalToLive": true
+  },
+  "workingPackage": {
+    "bytes": 1510991,
+    "sha256": "0189fbb77b7401982cf686111d26eb5daea881354ecff956aedf077c0cf81c7c",
+    "identicalToLive": false
+  },
+  "githubMain": {
+    "bytes": 10700522,
+    "sha256": "6434381ad8481bf5e717d2e641af185563c1a537fe3600beb7c252ac29f6fbff",
+    "identicalToLive": false
+  },
+  "conclusion": "Latest manual deployment ships encrypted proposal bytes from recovered package Git HEAD, while both package working artifact and GitHub main differ. Preserve live encrypted bytes to avoid changing private proposal content when deploying the demo."
+}

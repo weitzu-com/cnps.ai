@@ -37,6 +37,11 @@
   ],
   "redirects": [
     {
+      "source": "/crm/wasion-demo",
+      "destination": "/demo/wasion",
+      "permanent": true
+    },
+    {
       "source": "/",
       "has": [
         {
@@ -565,6 +570,14 @@
   ],
   "rewrites": [
     {
+      "source": "/demo/wasion",
+      "destination": "/api/crm-wasion-demo-page"
+    },
+    {
+      "source": "/demo/wasion/:slug",
+      "destination": "/api/crm-wasion-demo-page?slug=:slug"
+    },
+    {
       "source": "/crm/workspace",
       "destination": "/api/crm-workspace-page"
     },
@@ -608,6 +621,14 @@
     },
     "api/crm-inquiry.js": {
       "maxDuration": 30
+    },
+    "api/crm-wasion-demo-page.js": {
+      "maxDuration": 30,
+      "includeFiles": "server/wasion-demo-content.json"
+    },
+    "api/crm-wasion-demo-search.js": {
+      "maxDuration": 30,
+      "includeFiles": "server/wasion-demo-content.json"
     }
   }
 }
