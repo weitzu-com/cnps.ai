@@ -13,7 +13,7 @@ async function send(runtime, phone) {
 }
 test('administrator identity verification is independent of business adapter initialization',async()=>{
   let calls=0;
-  const runtime=createCrmRuntime(env,{store:{},authStoreFactory:()=>authStore,smsFactory:()=>({send:async()=>{calls++;}})});
+  const runtime=createCrmRuntime(env,{store:{getDirectory:async()=>({revision:0,companies:{},memberGrants:{},managerAssignments:{}})},authStoreFactory:()=>authStore,smsFactory:()=>({send:async()=>{calls++;}})});
   assert.equal((await send(runtime,env.CNPS_CRM_ADMIN_PHONE)).status,200);
   assert.equal(calls,1);
   assert.throws(()=>runtime.service); // Missing business bindings remain unavailable.

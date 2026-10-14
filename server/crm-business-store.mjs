@@ -28,6 +28,7 @@ export function createBusinessStore(env, { redis: injectedRedis } = {}) {
   const directoryKey = PREFIX + 'directory';
   const companyKey = companyId => PREFIX + 'company:' + Buffer.from(companyId).toString('base64url');
   return {
+    async recordAccess(event) { await redis.set('cnps:crm:audit:v1:event:' + event.at + ':' + event.id, event); },
     async getDirectory() { return await redis.get(directoryKey) || emptyDirectory(); },
     async getCompany(companyId) { return await redis.get(companyKey(companyId)) || emptyCompany(companyId); },
     async commitDirectory(revision, next) {

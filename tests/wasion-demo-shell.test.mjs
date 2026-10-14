@@ -246,7 +246,7 @@ test('integrated page scripts and structured data remain valid for search, home,
 
 test('authenticated POST search retains private caching and restricts media to the official host', async () => {
   const runtime={auth:{loadSession:async()=>({identityId:'test-viewer',identity:{role:'admin'}})},projectAccessService:{getProject:async()=>({id:'fixture-project'})}};
-  const pageHandler=createWasionPageHandler({getRuntime:()=>runtime});
+  const rawHandler=createWasionPageHandler({getRuntime:()=>runtime});const pageHandler=(req,res)=>rawHandler({...req,headers:{host:'crm.cnps.ai',...req.headers}},res);
   const originalSession=runtime.auth.loadSession;
   const response = () => ({ headers: {}, setHeader(key, value) { this.headers[key] = value; }, end(body) { this.body = body; } });
   try {

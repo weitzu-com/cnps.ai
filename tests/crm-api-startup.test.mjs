@@ -9,7 +9,7 @@ test('missing CRM runtime configuration returns private JSON rather than a platf
     for (const method of ['GET', 'POST', 'HEAD']) {
       const headers = {}; let output;
       const res = { setHeader(name, value) { headers[name.toLowerCase()] = value; }, end(body) { output = body; } };
-      await handler({ method, url: '/api/crm?view=session', headers: {} }, res);
+      await handler({ method, url: '/api/crm?view=session', headers: {host:'crm.cnps.ai'} }, res);
       results.push({ method, status: res.statusCode, headers, output });
     }
     process.stdout.write(JSON.stringify(results));

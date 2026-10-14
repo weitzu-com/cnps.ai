@@ -1,8 +1,11 @@
+import { guardPrivateRequest } from '../server/crm-boundary.mjs';
+import { getCrmRuntime } from '../server/crm-runtime.mjs';
 import { randomBytes } from 'node:crypto';
 import { crmLoginPage, safeDemoReturnTo } from '../server/crm-login.mjs';
 import { crmPageReturnTo } from '../server/crm-return.mjs';
 
-export default function crmPage(req, res) {
+export default async function crmPage(req, res) {
+  if (guardPrivateRequest(req, res)) return;
   const nonce = randomBytes(18).toString('base64');
   res.setHeader('Cache-Control', 'private, no-store, max-age=0');
   res.setHeader('CDN-Cache-Control', 'no-store');
@@ -17,6 +20,10 @@ export default function crmPage(req, res) {
     res.setHeader('Allow', 'GET, HEAD');
     return res.end();
   }
+  try {
+    const session=await getCrmRuntime().auth.loadSession(req);
+    if(session){res.statusCode=302;res.setHeader('Location',crmPageReturnTo(req.url)||(session.identity.role==='proposal_viewer'?'/w':'/crm/workspace'));return res.end();}
+  }catch{}
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   const url = new URL(req.url || '/crm', 'https://crm.cnps.ai');

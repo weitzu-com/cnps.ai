@@ -244,10 +244,10 @@ test('handler rechecks revocation and principal identity before disclosing gener
   }
 });
 
-test('handler accepts the configured preview origin and returns fallback results with a rechecked grant', async () => {
+test('handler accepts the canonical CRM origin and returns fallback results with a rechecked grant', async () => {
   let reads = 0;
   const res = response();
-  await createWasionSearchHandler({ service, env: { VERCEL_URL: 'wasion-preview.vercel.app' }, auth: { loadSession: async () => { reads++; return principal; } } })(request({ question: 'Wi-SUN', language: 'en' }, { origin: 'https://wasion-preview.vercel.app' }), res);
+  await createWasionSearchHandler({ service, env: { VERCEL_URL: 'wasion-preview.vercel.app' }, auth: { loadSession: async () => { reads++; return principal; } } })(request({ question: 'Wi-SUN', language: 'en' }, { origin: 'https://crm.cnps.ai' }), res);
   assert.equal(res.statusCode, 200);
   assert.equal(reads, 2);
   const { data } = JSON.parse(res.body);

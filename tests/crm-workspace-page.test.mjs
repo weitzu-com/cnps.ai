@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {crmWorkspacePage} from '../server/crm-workspace-page.mjs';
 
-function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], search = '', override, returnTo = '/crm/workspace'} = {}) {
+function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], contexts = [], proposals = [], search = '', override, returnTo = '/crm/workspace'} = {}) {
   const html = crmWorkspacePage('test-nonce', { returnTo }), ids = new Map(), roots = [], calls = [], timers = new Map(), windowListeners = new Map();
   let timerId = 0;
   class Element {
@@ -50,7 +50,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
       const parsed = new URL(url, 'https://crm.example.test');
       const call = {url, options, view: parsed.searchParams.get('view'), companyId: parsed.searchParams.get('companyId'), projectId: parsed.searchParams.get('projectId'), body: options.body ? JSON.parse(options.body) : undefined}; calls.push(call);
       let response = override ? await override(call, state) : undefined;
-      if (!response && parsed.pathname === '/api/crm') response = call.body ? {body: {ok: true}} : !authenticated ? {status: 401, body: {authenticated: false}} : {body: {authenticated: true, identity: {role, phoneMasked: '187****1111', memberships: [{companyId: company.companyId, permissions: approvals ? ['approvals:submit'] : []}]}}};
+      if (!response && parsed.pathname === '/api/crm') response = call.body ? {body: {ok: true}} : !authenticated ? {status: 401, body: {authenticated: false}} : {body: {authenticated: true, identity: {role, contexts, proposals, phoneMasked: '187****1111', memberships: [{companyId: company.companyId, permissions: ['documents:download',...(approvals ? ['approvals:submit'] : [])]}]}}};
       if (!response && call.body) {
         if (call.body.action === 'registerCompany') company.registered = true;
         if (call.body.action === 'updateProject') Object.assign(project, call.body.fields);
@@ -58,7 +58,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
         response = {body: {ok: true, data: {companyId: company.companyId}}};
       }
       if (!response) {
-        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, staff, managers: [], members: [], events: [], deliveries: []})[call.view];
+        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, staff, managers:[], members: [], events: [], deliveries: [], partnerSubmissions: [], accessGrants:{partners:[],proposals:[],identities:{}}, sensitiveRequests:[]})[call.view];
         if (data === undefined) throw Error('Unexpected request: ' + url);
         response = {body: {ok: true, data}};
       }
@@ -220,7 +220,7 @@ test('company member grant uses selected native contact, project and document ID
   h.check('projectIds', 'project-A'); h.check('documentIds', 'document-A');
   await h.event('action-form', 'submit');
   const call = h.calls.find(call => call.body?.action === 'grantMember');
-  assert.deepEqual(call.body, {action: 'grantMember', companyId: 'company-A', grant: {contactId: 'contact-A', projectScope: 'selected', projectIds: ['project-A'], documentScope: 'selected', documentIds: ['document-A'], allowApprovals: false}});
+  assert.deepEqual(call.body, {action: 'grantMember', companyId: 'company-A', grant: {operations:['view'], includeFuture:false, contactId: 'contact-A', projectScope: 'selected', projectIds: ['project-A'], documentScope: 'selected', documentIds: ['document-A'], allowApprovals: false}});
 });
 
 test('existing native company requires explicit project registration before project APIs are requested', async () => {
@@ -387,6 +387,28 @@ test('delivery email action records provider submission and disables repeated se
  assert.ok(!h.calls.some(c=>c.body?.action==='recordDelivery'&&c.body.kind==='view'));
 });
 
+test('partner workspace exposes assigned tasks and submissions without AI, permissions or customer controls',async()=>{
+ const contexts=[{id:'partner:grant-A',role:'partner',companyId:'company-A',projectId:'project-A',permissions:['view','submit','progress']}];
+ const h=harness({role:'partner',contexts,records:[{id:'task-A',projectId:'project-A',type:'task',title:'Assigned delivery',description:'Approved brief'}]});await h.flush();
+ assert.equal(h.get('show-access').hidden,true);assert.equal(h.get('show-members').hidden,true);await h.openProject();await h.flush();
+ const controls=h.walk(h.get('content')).filter(e=>e.tagName==='BUTTON').map(e=>e.textContent);
+ assert.ok(controls.includes('更新进展'));assert.ok(!controls.includes('AI 项目助手'));assert.ok(!controls.includes('资料正文问答'));
+ assert.ok(!h.walk(h.get('content')).some(e=>e.tagName==='A'));assert.ok(h.get('content').textContent.includes('我的交付物'));
+ for(const call of h.calls.filter(c=>c.url.startsWith('/api/crm-workspace')))assert.equal(new URL(call.url,'https://example.test').searchParams.get('contextId'),'partner:grant-A');
+ await h.click('更新进展');h.get('field-status').value='in_progress';h.get('field-comment').value='Preparing';await h.event('action-form','submit');
+ const sent=h.calls.find(c=>c.body?.action==='partnerUpdateProgress');assert.equal(sent.body.contextId,'partner:grant-A');assert.equal(sent.body.taskId,'task-A');assert.deepEqual(sent.body.fields,{status:'in_progress',comment:'Preparing'});
+});
+test('admin access page provides independent proposal grants with view-only defaults',async()=>{
+ const h=harness({role:'admin'});await h.flush();await h.event('show-access','click');await h.flush();await h.click('授予方案权限','view-actions');
+ assert.equal(h.get('field-download').checked,false);h.get('field-phone').value='18700001111';await h.event('action-form','submit');
+ const sent=h.calls.find(c=>c.body?.action==='grantProposal');assert.deepEqual(sent.body.fields,{phone:'18700001111',proposalId:'wasion-web-v1',operations:['view'],assetIds:[],expiresAt:null});
+});
+test('switching an explicit access context includes the selected context in all subsequent data calls',async()=>{
+ const contexts=[{id:'member:company-A:sales_manager',role:'sales_manager',companyId:'company-A',permissions:[]},{id:'partner:grant-A',role:'partner',companyId:'company-A',permissions:['view']}];
+ const h=harness({role:'unassigned',contexts});await h.flush();assert.equal(h.get('show-members').hidden,false);
+ h.get('context-select').value='partner:grant-A';await h.event('context-select','change');await h.flush();assert.equal(h.get('show-members').hidden,true);assert.equal(h.get('show-access').hidden,true);
+ const last=h.calls.filter(c=>c.view==='projects').at(-1);assert.equal(new URL(last.url,'https://example.test').searchParams.get('contextId'),'partner:grant-A');
+});
 
 test('authorized project preview stays visible across project tabs, and unsafe destinations are ignored', async () => {
  const h=harness({override(call,state){if(call.view==='project')return {body:{ok:true,data:{...state.project,previews:[{title:'Website preview',href:'/demo/wasion',description:'Review and feedback'}, {title:'Unsafe',href:'javascript:alert(1)'}]}}};}});
@@ -400,4 +422,10 @@ test('authorized project preview stays visible across project tabs, and unsafe d
 test('project deep link selects the authorized company and opens its project; unknown company fetches no project',async()=>{
  const h=harness({search:'?companyId=company-A&projectId=project-A'});await h.flush();assert.equal(h.get('view-title').textContent,'Synthetic project');
  const denied=harness({search:'?companyId=company-B&projectId=project-B'});await denied.flush();assert.equal(denied.calls.some(c=>c.view==='project'),false);assert.equal(denied.get('login-needed').hidden,false);
+});
+
+test('company profile navigation is limited to staff and renders missing fields without inventing legal identity',async()=>{
+ const profile={version:0,companyName:'Synthetic company',data:{legalName:'',creditCode:'',registeredAddress:'',businessPhone:'',website:'',invoice:{type:'digital_general',title:'',taxId:'',address:'',phone:'',bankName:'',bankAccount:'',email:''},addresses:[]},issues:['企业全称待补充']};
+ const h=harness({role:'sales_manager',override:call=>call.url?.includes('view=customerProfile')?{status:200,body:{ok:true,data:profile}}:undefined});await h.flush();assert.equal(h.get('show-profile').hidden,false);await h.event('show-profile','click');await h.flush();assert.match(h.get('content').textContent,/企业基本信息/);assert.match(h.get('content').textContent,/企业全称待补充/);
+ const customer=harness();await customer.flush();assert.equal(customer.get('show-profile').hidden,true);
 });

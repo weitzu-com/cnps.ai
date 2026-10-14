@@ -1,3 +1,4 @@
+import {guardPrivateRequest} from '../server/crm-boundary.mjs';
 import { crmLoginUrl } from '../server/crm-navigation.mjs';
 import { randomBytes } from 'node:crypto';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
@@ -6,6 +7,7 @@ import { wasionDemoPage, isWasionDemoSlug } from '../server/wasion-demo-page.mjs
 
 export function createWasionPageHandler({getRuntime=getCrmRuntime}={}) {
 return async function handler(req,res) {
+  if(guardPrivateRequest(req,res))return;
   for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) res.setHeader(name, 'private, no-store, max-age=0');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
   res.setHeader('Referrer-Policy', 'no-referrer');
@@ -31,8 +33,7 @@ return async function handler(req,res) {
 
   if (req.method === 'POST') {
     if (slug !== 'search') { res.statusCode = 405; return res.end(); }
-    const origins = new Set(['https://crm.cnps.ai','https://www.cnps.ai','https://cnps.ai']);
-    if (process.env.VERCEL_URL) origins.add(`https://${process.env.VERCEL_URL}`);
+    const origins = new Set(['https://crm.cnps.ai']);
     if (!origins.has(req.headers?.origin)) { res.statusCode = 403; return res.end('Invalid request origin.'); }
     try {
       let body = req.body;

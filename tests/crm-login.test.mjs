@@ -62,7 +62,7 @@ test('page uses only nonce-bound inline assets, accessible inputs, and safely es
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /@media\(min-width:768px\)/);
   assert.match(html, /@media\(min-width:1024px\)/);
-  assert.match(html, /href="https:\/\/crm\.cnps\.ai\/w"/);
+  assert.match(html, /href="\/w"/);
   assert.doesNotMatch(html, /innerHTML|localStorage|sessionStorage|console\.|<script[^>]+src=|<link[^>]+href=/);
 });
 
@@ -137,7 +137,7 @@ test('a customer sees the server expiry and returns to the requested demo withou
 });
 
 test('invalid return targets never redirect and ordinary CRM entry retains the logged-in screen', async () => {
-  for (const returnTo of [undefined, 'https://evil.test', '//evil.test', '/demo/wasion/../../w', '/w', '/%2f%2fevil.test']) {
+  for (const returnTo of [undefined, 'https://evil.test', '//evil.test', '/demo/wasion/../../w', '/%2f%2fevil.test']) {
     const h = harness(() => ({body: {authenticated: true, identity: {role: 'customer'}}}), {returnTo});
     await h.flush();
     assert.deepEqual(h.navigations, []);
@@ -365,11 +365,11 @@ test('invalid return targets retain the generic CRM experience even with an exis
   assert.equal(h.calls.length, 1);
 });
 
-test('CRM page query handling preserves the local demo boundary and private page headers', () => {
+test('CRM page query handling preserves the local demo boundary and private page headers', async () => {
   const response = () => ({headers: {}, setHeader(key, value) { this.headers[key] = value; }, end(body) { this.body = body; }});
   for (const target of ['/demo/wasion/search', 'https://attacker.invalid', '//attacker.invalid', '/demo/wasion?x=1', '/demo/wasion/../crm', '/demo/wasion/%2e%2e/crm']) {
     const res = response();
-    crmPage({method: 'GET', url: `/crm?next=${encodeURIComponent(target)}`}, res);
+    await crmPage({method: 'GET',headers:{host:'crm.cnps.ai'}, url: `/crm?next=${encodeURIComponent(target)}`}, res);
     assert.equal(res.statusCode, 200);
     assert.match(res.headers['Cache-Control'], /private, no-store/);
     assert.match(res.headers['X-Robots-Tag'], /noindex/);

@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { Script, runInNewContext } from 'node:vm';
 import { WASION_PAGES, WASION_DEMO_ROUTES, wasionDemoPage } from '../server/wasion-demo-page.mjs';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
-import pageHandler from '../api/crm-wasion-demo-page.js';
+import {createWasionPageHandler} from '../api/crm-wasion-demo-page.js';
 
 const content = JSON.parse(readFileSync(new URL('../server/wasion-demo-content.json', import.meta.url), 'utf8'));
 const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
@@ -104,21 +104,10 @@ test('Vercel preserves the existing CRM entry and maps every demo child to the a
 });
 
 test('page API enforces live CRM authentication, route bounds, private caching, HEAD and nonce CSP', async t => {
-  // Initialize only with synthetic endpoints; session loading is replaced before
-  // any handler invocation, so this test never contacts a service or real account.
-  const fixtureEnv = {
-    UPSTASH_REDIS_REST_URL: 'https://example.invalid', UPSTASH_REDIS_REST_TOKEN: 'test-token',
-    TWENTY_API_URL: 'https://example.invalid', TWENTY_API_KEY: 'test-token', CNPS_PROPOSAL_SECRET: '1'.repeat(64),
-    CRM_FILE_GATEWAY_URL: 'https://example.invalid', CRM_FILE_GATEWAY_KEY: '2'.repeat(64)
-  };
-  const originals = Object.fromEntries(Object.keys(fixtureEnv).map(key => [key, process.env[key]]));
-  Object.assign(process.env, fixtureEnv);
-  let runtime, acl;
-  try { runtime = getCrmRuntime(); acl = runtime.projectAccessService; }
-  finally { for (const [key, value] of Object.entries(originals)) value === undefined ? delete process.env[key] : process.env[key] = value; }
-  const originalSession = runtime.auth.loadSession;
-  const originalProject = acl.getProject;
-  acl.getProject = async () => ({id:"fixture-project"});
+  const runtime={auth:{loadSession:async()=>null},projectAccessService:{getProject:async()=>({id:'fixture-project'})}};
+  const rawHandler=createWasionPageHandler({getRuntime:()=>runtime});
+  const pageHandler=(req,res)=>rawHandler({...req,headers:{host:'crm.cnps.ai',...req.headers}},res);
+  const acl=runtime.projectAccessService,originalSession=runtime.auth.loadSession,originalProject=acl.getProject;
   const response = () => ({ headers: {}, setHeader(name, value) { this.headers[name] = value; }, end(body) { this.body = body; } });
   let session = null;
   runtime.auth.loadSession = async () => session;
@@ -256,4 +245,3 @@ test('a delayed resource check cannot reveal a demo snapshot after navigation aw
   await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();assert.equal(typeof completeHead,'function');
   await h.event('pagehide');completeHead({status:200,body:{}});await h.flush();assert.equal(h.get('wd-protected').hidden,true);
 });
-

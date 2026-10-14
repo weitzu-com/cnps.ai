@@ -67,8 +67,8 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
         <p class="sub">登录状态已生效，可继续访问获授权的资料。</p>
         <dl class="identity"><div><dt>登录手机号</dt><dd id="session-phone"></dd></div><div><dt>当前身份</dt><dd id="session-role"></dd></div></dl>
         <p class="session-note" id="session-expiry"></p>
-        <p class="session-note">项目资料按公司与授权范围开放。客户方案使用独立访问授权，如提示验证身份，请按该页面完成验证。</p>
-        <div class="session-actions"><a class="button-link" href="/crm/workspace">进入客户工作台</a><a class="button-link secondary" href="https://crm.cnps.ai/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
+        <p class="session-note">项目资料按公司与授权范围开放。客户方案与工作台共用登录，内容按各自授权开放。</p>
+        <div class="session-actions"><a class="button-link" href="/crm/workspace">进入客户工作台</a><a class="button-link secondary" href="/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
         <p class="status" id="session-status" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
       <button type="button" class="text-button" id="retry-session" hidden>重新检查登录状态</button>
@@ -158,14 +158,14 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
       sessionKnown = true;
       if (result?.authenticated === true && result.identity && typeof result.identity === 'object') {
         byId('session-phone').textContent = typeof result.identity.phoneMasked === 'string' ? result.identity.phoneMasked : '已验证手机号';
-        byId('session-role').textContent = ({admin: '高级管理员', customer: '客户', sales_manager: '销售经理'})[result.identity.role] || '授权用户';
+        byId('session-role').textContent = ({admin: '高级管理员', customer: '客户', sales_manager: '销售经理',partner:'外部伙伴',proposal_viewer:'方案受邀人',unassigned:'请选择访问身份'})[result.identity.role] || '授权用户';
         byId('session-expiry').textContent = Number.isFinite(result.expiresAt)
           ? '登录有效至 ' + new Date(result.expiresAt).toLocaleString('zh-CN', {timeZone: 'Asia/Shanghai', hour12: false})
           : '登录有效期由服务器核验。';
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
-        if (announce || returnTo) { location.replace(returnTo || '/crm/workspace'); return; }
+        if (announce || returnTo || result.identity.role==='proposal_viewer') { location.replace(returnTo || (result.identity.role==='proposal_viewer'?'/w':'/crm/workspace')); return; }
         if (announce) byId('session-title').focus();
       } else {
         byId('session-phone').textContent = ''; byId('session-role').textContent = ''; byId('session-expiry').textContent = '';
