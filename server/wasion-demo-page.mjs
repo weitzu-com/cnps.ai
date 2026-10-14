@@ -11,6 +11,8 @@ import { renderContact, CONTACT_CSS, CONTACT_CLIENT } from './wasion-experience/
 export const WASION_PAGES = content.pages;
 import { WASION_STYLES, wasionStyleBase } from './wasion-demo-styles.mjs';
 import { ATMOSPHERIC_CSS } from './wasion-demo-atmospheric.mjs';
+import { renderEditorialHome, PLANHAT_CSS, ORDERFUL_CSS } from './wasion-demo-editorial.mjs';
+const STYLE_CSS = Object.freeze({classic:'',atmospheric:ATMOSPHERIC_CSS,planhat:PLANHAT_CSS,orderful:ORDERFUL_CSS});
 export const WASION_DEMO_ROUTES = [...WASION_PAGES.map(p => p.slug), ...EXPERIENCE_ROUTES.map(p => p.slug), ...LEGAL_ROUTES.map(p => p.slug), 'search', 'styles'];
 export const isWasionDemoSlug = slug => WASION_DEMO_ROUTES.includes(slug);
 export function wasionDemoPage(nonce, { slug = 'home', query = '', style = 'classic' } = {}) {
@@ -107,7 +109,7 @@ function legacySearch(query) {
 
 function styleSwitch() {
  const target = slug === 'styles' ? 'home' : slug;
- return `<nav class="wd-style-switch" aria-label="Preview styles"><a href="/demo/wasion/styles">Design previews</a>${Object.entries(WASION_STYLES).map(([key,value]) => `<a href="${wasionStyleBase(key)}${target === 'home' ? '' : '/' + target}${target === 'search' && query ? '?' + new URLSearchParams({q:query}) : ''}" ${style === key ? 'aria-current="true"' : ''}>${value.label}</a>`).join('')}</nav>`;
+ return `<nav class="wd-style-switch" aria-label="Preview styles"><a href="/demo/wasion/styles">Design previews</a>${Object.entries(WASION_STYLES).map(([key,value]) => `<a data-style-base="${wasionStyleBase(key)}" href="${wasionStyleBase(key)}${target === 'home' ? '' : '/' + target}${target === 'search' && query ? '?' + new URLSearchParams({q:query}) : ''}" ${style === key ? 'aria-current="true"' : ''}>${value.label}</a>`).join('')}</nav>`;
 }
 function styleGallery() {
  return `<section class="wd-style-gallery wd-container"><span class="wd-overline">WASION WEBSITE PREVIEWS</span><h1>One portfolio.<br>Different perspectives.</h1><p>Choose a design direction to explore the same Wasion products, solutions and source-based search.</p>${Object.entries(WASION_STYLES).map(([key,value]) => `<a class="wd-style-choice" href="${wasionStyleBase(key)}"><h2>${value.label} ↗</h2><p>${value.description}</p></a>`).join('')}</section>`;
@@ -120,7 +122,7 @@ function renderPage() {
   const page = find(slug) || EXPERIENCE_ROUTES.find(p => p.slug === slug) || LEGAL_ROUTES.find(p => p.slug === slug);
   if (!page && !['search', 'styles'].includes(slug)) return null;
   const heading = slug === 'styles' ? 'Design previews' : slug === 'search' ? 'AI search' : slug === 'home' ? 'Electricity metering & connected utilities' : title(page);
-  let body = slug === 'styles' ? styleGallery() : slug === 'home' ? renderHome(context) : slug === 'search' ? renderSearch(query,base) : slug === 'contact' ? renderContact(context) : renderLegalPage(slug,base) || renderExperiencePage(slug,context);
+  let body = slug === 'styles' ? styleGallery() : slug === 'home' ? renderEditorialHome(style,context) || renderHome(context) : slug === 'search' ? renderSearch(query,base) : slug === 'contact' ? renderContact(context) : renderLegalPage(slug,base) || renderExperiencePage(slug,context);
   if (!body && page.category === 'Solutions' && page.pageType === 'detail') body = renderSolutionExperience(page,context);
   if (!body) body = slug === 'policy' ? company(page) : page.pageType === 'detail' ? detail(page) : ['products','solutions','success-stories','newsroom','resources',...Object.keys(groupDescriptions)].includes(slug) ? collection(page) : company(page);
   if (page?.category === 'Products' && page?.pageType === 'detail') body += renderRelatedExperience(page,context);
@@ -129,7 +131,7 @@ function renderPage() {
   const metadata = buildDemoMetadata({slug,title:heading,description,page,nonce,base});
   const client = slug === 'search' ? SEARCH_CLIENT : CLIENT;
   const pageUrl=slug==='home'?base:base+'/'+slug;const loginUrl=crmLoginUrl(pageUrl);
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${metadata}<style nonce="${escape(nonce)}">${CSS}${SHELL_CSS}${CONTENT_CSS}${SEARCH_CSS}${DISCOVERY_CSS}${CONTACT_CSS}${SESSION_CSS}${style === 'atmospheric' ? ATMOSPHERIC_CSS : ''}${STYLE_SWITCH_CSS}</style></head><body${style === 'atmospheric' ? ` class="wd-style-atmospheric ${slug === 'home' ? 'wd-is-home' : ''}"` : ''}>${renderSessionNotice({loginUrl})}<div id="wd-protected">${styleSwitch()}${renderHeader(slug,context)}${!['home','search','styles'].includes(slug) ? `<div class="wd-mini-search wd-container">${searchForm()}</div>` : ''}<main id="main">${body}</main>${renderFooter(context)}${renderCookiePreferences(base,{showTrigger:false})}</div><script nonce="${escape(nonce)}">const WASION_BASE=${JSON.stringify(base)};const CRM_LOGIN_URL=${JSON.stringify(loginUrl).replace(/</g,'\\u003c')};const CRM_PAGE_URL=${JSON.stringify(pageUrl).replace(/</g,'\\u003c')};const WASION_DATA=${JSON.stringify(data).replace(/</g,'\\u003c')};const SEARCH_QUERY=${JSON.stringify(query).replace(/</g,'\\u003c')};(()=>{${client}})();${SESSION_CLIENT}${SHELL_CLIENT}${CONTENT_CLIENT}${DISCOVERY_CLIENT}${CONTACT_CLIENT}</script></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${metadata}<style nonce="${escape(nonce)}">${CSS}${SHELL_CSS}${CONTENT_CSS}${SEARCH_CSS}${DISCOVERY_CSS}${CONTACT_CSS}${SESSION_CSS}${STYLE_CSS[style]}${STYLE_SWITCH_CSS}</style></head><body${style !== 'classic' ? ` class="wd-style-${style} ${slug === 'home' ? 'wd-is-home' : ''}"` : ''}>${renderSessionNotice({loginUrl})}<div id="wd-protected">${styleSwitch()}${renderHeader(slug,context)}${!['home','search','styles'].includes(slug) ? `<div class="wd-mini-search wd-container">${searchForm()}</div>` : ''}<main id="main">${body}</main>${renderFooter(context)}${renderCookiePreferences(base,{showTrigger:false})}</div><script nonce="${escape(nonce)}">const WASION_BASE=${JSON.stringify(base)};const CRM_LOGIN_URL=${JSON.stringify(loginUrl).replace(/</g,'\\u003c')};const CRM_PAGE_URL=${JSON.stringify(pageUrl).replace(/</g,'\\u003c')};const WASION_DATA=${JSON.stringify(data).replace(/</g,'\\u003c')};const SEARCH_QUERY=${JSON.stringify(query).replace(/</g,'\\u003c')};(()=>{${client}})();${SESSION_CLIENT}${SHELL_CLIENT}${CONTENT_CLIENT}${DISCOVERY_CLIENT}${CONTACT_CLIENT}${STYLE_SWITCH_CLIENT}</script></body></html>`;
 }
 
 return renderPage();
@@ -153,4 +155,10 @@ more.addEventListener('click',()=>{limit+=8;render()});const tabs=[...document.q
 results=local;render();
 if(SEARCH_QUERY){fetch('/api/crm-wasion-demo-search',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-CNPS-CRM':'1'},body:JSON.stringify({question:SEARCH_QUERY,language:'en'})}).then(async r=>{const body=await r.json();if(!r.ok)throw new Error(body.error||'Search is temporarily unavailable.');return body.data}).then(data=>{results=data.results||data.sources||local;aiTitle.textContent=data.ai?.generated?'✦ Summarized by AI':'Source matches';aiStatus.textContent=data.ai?.generated?'AI-generated summary':'Official page search';renderAnswer(data.answer||'Explore the matched official pages below.',data.sources||[]);citations.replaceChildren(...(data.sources||[]).map((s,i)=>{const a=document.createElement('a');a.href=WASION_BASE+'/'+s.id;a.textContent=(i+1)+'. '+s.title;a.title=s.url;return a}));render()}).catch(err=>{aiTitle.textContent='Source matches';aiStatus.textContent='AI summary unavailable';answer.textContent=err.message+' You can still explore the matching official pages below.';render()})}
 }
+`;
+
+// Keep a newly edited search question when switching the visual direction.
+// POST preserves the same private-search navigation policy as the main form.
+const STYLE_SWITCH_CLIENT = `
+(()=>{const input=document.getElementById('ws-query');if(!input)return;document.querySelectorAll('.wd-style-switch a[data-style-base]').forEach(link=>link.addEventListener('click',event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;const q=input.value.trim();if(!q||q===String(SEARCH_QUERY).trim()||q.length>500)return;event.preventDefault();const form=document.createElement('form');form.method='post';form.action=link.dataset.styleBase+'/search';form.hidden=true;const field=document.createElement('input');field.type='hidden';field.name='q';field.value=q;form.append(field);document.body.append(form);form.requestSubmit();}));})();
 `;

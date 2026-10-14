@@ -1,3 +1,4 @@
+import { WASION_STYLES, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Script } from 'node:vm';
@@ -23,7 +24,9 @@ test('every integrated route renders with one headline, unique IDs and resolving
     for (const [, link] of markup.matchAll(/href="([^"]+)"/g)) {
       if (link.startsWith('/demo/wasion')) {
         const path = link.split(/[?#]/)[0];
-        const target = path === '/demo/wasion' ? 'home' : path === '/demo/wasion/styles/atmospheric' ? 'home' : path.startsWith('/demo/wasion/styles/atmospheric/') ? path.slice('/demo/wasion/styles/atmospheric/'.length) : path.slice('/demo/wasion/'.length);
+        const variant = Object.keys(WASION_STYLES).map(wasionStyleBase).find(base => base !== '/demo/wasion' && (path === base || path.startsWith(base + '/')));
+        const root = variant || '/demo/wasion';
+        const target = path === root ? 'home' : path.slice(root.length + 1);
         assert.ok(routes.includes(target), `${slug}: unknown/canonical-invalid path ${path}`);
       }
       if (link.startsWith('#')) assert.ok(ids.includes(link.slice(1)), `${slug}: missing fragment ${link}`);

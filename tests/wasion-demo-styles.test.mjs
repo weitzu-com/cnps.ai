@@ -17,8 +17,12 @@ test('every published style renders the whole portfolio and keeps links within t
   assert.ok(html.includes('const WASION_BASE='+JSON.stringify(base)));
   assert.doesNotThrow(()=>new Script([...html.matchAll(/<script nonce="style-nonce">([\s\S]*?)<\/script>/g)].at(-1)[1]));
   const valid=new Set(WASION_DEMO_ROUTES.map(slug=>base+(slug==='home'?'':'/'+slug)).concat(base+'/search','/demo/wasion/styles'));
-  const markup=html.slice(html.indexOf('<header'),html.indexOf('<script'));
-  for(const [,path] of markup.matchAll(/href="(\/demo\/wasion[^"?#]*)/g))assert.ok(valid.has(path),path);
+  const markup=html.match(/<body\b[^>]*>([\s\S]*?)<script nonce=/)?.[1];
+  assert.ok(markup,style+' '+slug+' contains body markup');
+  const switchLinks = markup.match(/<nav class="wd-style-switch"[\s\S]*?<\/nav>/)[0];
+  for(const other of Object.keys(WASION_STYLES))assert.ok(switchLinks.includes(wasionStyleBase(other)));
+  const contentMarkup=markup.replace(switchLinks,'');
+  for(const [,path] of contentMarkup.matchAll(/href="(\/demo\/wasion[^"?#]*)/g))assert.ok(valid.has(path),path);
  }
  assert.equal(wasionDemoPage('n',{style:'unknown'}),null);
 });
@@ -50,11 +54,14 @@ test('style API uses the same authorization, HEAD guard and private response as 
  let session=null;
  const handler=createWasionPageHandler({getRuntime:()=>({auth:{loadSession:async()=>session},projectAccessService:{getProject:async()=>({id:'fixture'})}})});
  const request=async(query,method='GET')=>{const res={headers:{},setHeader(k,v){this.headers[k]=v},end(body){this.body=body}};await handler({headers:{host:'crm.cnps.ai'},method,url:'/api/crm-wasion-demo-page',query},res);return res};
- const anon=await request({style:'atmospheric',slug:'search',q:'AMI'});
- assert.equal(anon.statusCode,302);assert.equal(new URL(anon.headers.Location,'https://crm.cnps.ai').searchParams.get('returnTo'),'/demo/wasion/styles/atmospheric/search?q=AMI');
- session={identityId:'fixture-admin',identity:{role:'admin'}};
- const ok=await request({style:'atmospheric',slug:'products'});assert.equal(ok.statusCode,200);assert.match(ok.headers['Cache-Control'],/private, no-store/);assert.match(ok.body,/wd-style-atmospheric/);
- const head=await request({style:'atmospheric'},'HEAD');assert.equal(head.statusCode,200);assert.equal(head.body,undefined);
+ for(const style of Object.keys(WASION_STYLES)){
+  session=null;
+  const base=wasionStyleBase(style),anon=await request({style,slug:'search',q:'AMI'});
+  assert.equal(anon.statusCode,302);assert.equal(new URL(anon.headers.Location,'https://crm.cnps.ai').searchParams.get('returnTo'),base+'/search?q=AMI');
+  session={identityId:'fixture-admin',identity:{role:'admin'}};
+  const ok=await request({style,slug:'products'});assert.equal(ok.statusCode,200);assert.match(ok.headers['Cache-Control'],/private, no-store/);assert.ok(ok.body.includes('const WASION_BASE='+JSON.stringify(base)));
+  const head=await request({style},'HEAD');assert.equal(head.statusCode,200);assert.equal(head.body,undefined);
+ }
  assert.equal((await request({style:'missing'})).statusCode,404);
 });
 
@@ -63,4 +70,27 @@ test('POST search resumes the selected design after login without exposing the q
  assert.match(html,/id="demo-resume" action="\/demo\/wasion\/styles\/atmospheric\/search" method="post"/);
  assert.match(html,/name="q" value="I-110 &amp; AMI"/);
  assert.ok(!crmLoginPage('n',{returnTo:'/demo/wasion/styles/missing/search',resumeQuestion:'I-110'}).includes('id="demo-resume"'));
+});
+
+test('new designs share the exact product catalog, technical data and search endpoint',()=>{
+ const catalog=style=>JSON.parse(wasionDemoPage('n',{style}).match(/const WASION_DATA=([\s\S]*?);const SEARCH_QUERY=/)[1]);
+ const baseline=catalog('classic').map(({href,...item})=>item);
+ for(const style of ['planhat','orderful']){
+  assert.deepEqual(catalog(style).map(({href,...item})=>item),baseline);
+  const detail=wasionDemoPage('n',{style,slug:'i-110-series-smart-water-meter'});
+  assert.match(detail,/Technical information/);
+  const search=wasionDemoPage('n',{style,slug:'search',query:'I-110'});
+  assert.match(search,/\/api\/crm-wasion-demo-search/);
+  assert.ok(search.includes('data-base="'+wasionStyleBase(style)+'"'));
+  const login=crmLoginPage('n',{returnTo:wasionStyleBase(style)+'/search',resumeQuestion:'I-110'});
+  assert.ok(login.includes('action="'+wasionStyleBase(style)+'/search"'));
+ }
+});
+
+test('Planhat and Orderful use different home compositions and are listed in the gallery',()=>{
+ const p=wasionDemoPage('n',{style:'planhat'}),o=wasionDemoPage('n',{style:'orderful'});
+ assert.match(p,/class="wv-plan-hero"/);assert.doesNotMatch(p,/class="wv-order-hero/);
+ assert.match(o,/class="wv-order-hero/);assert.doesNotMatch(o,/class="wv-plan-hero"/);
+ const gallery=wasionDemoPage('n',{slug:'styles'});
+ for(const style of ['planhat','orderful'])assert.ok(gallery.includes('href="'+wasionStyleBase(style)+'"'));
 });
