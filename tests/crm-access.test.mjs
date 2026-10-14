@@ -830,3 +830,9 @@ test("new collaborator grants exclude newly created tasks/files and cannot be ex
     status(400),
   );
 });
+
+test('disable and restore during file IO invalidates the in-flight identity generation',async()=>{
+ const h=await fixture(),actor={...h.partner,identityVersion:0};
+ h.onRead(async()=>{await h.service.setIdentityStatus(h.admin,h.partner.identityId,true);await h.service.setIdentityStatus(h.admin,h.partner.identityId,false);});
+ await assert.rejects(h.service.download(actor,'company-A',h.doc.documentId,h.doc.versionId),status(404));
+});

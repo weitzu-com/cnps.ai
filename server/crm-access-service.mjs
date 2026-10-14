@@ -113,7 +113,7 @@ export function createAccessService({
       ].includes(p.identity.role)
     )
       fail(404);
-    if (d.identities?.[actor(p)]?.disabled) fail(404);
+    if (d.identities?.[actor(p)]?.disabled || (p.identityVersion !== undefined && p.identityVersion !== (d.identities?.[actor(p)]?.version || 0))) fail(404);
   }
   const admin = (d, p) => {
     enabled(d, p);

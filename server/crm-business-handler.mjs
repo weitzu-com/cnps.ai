@@ -65,7 +65,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'projects': result = await service.listProjects(principal, companyId); break;
           case 'project': {
             const project = await service.getProject(principal, companyId, projectId);
-            result = { ...project, previews: projectPreviews(companyId, project.id) };
+            result = { ...project, previews: principal.contextId?.startsWith('partner:')||principal.identity.role==='partner'?[]:projectPreviews(companyId, project.id) };
             break;
           }
           case 'records': result = await service.listRecords(principal, companyId, projectId, query('type')); break;

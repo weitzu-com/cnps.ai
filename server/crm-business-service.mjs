@@ -132,6 +132,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   function companyEntry(directory, companyId) { return own(directory.companies, id(companyId)); }
   function access(directory, principal, companyId) {
     subject(principal);
+    if (principal.identityVersion !== undefined && principal.identityVersion !== (directory.identities?.[principal.identityId]?.version || 0)) return null;
     if (directory.identities?.[principal.identityId]?.disabled || !['admin','sales_manager','customer'].includes(principal.identity?.role)) return null;
     if (!companyEntry(directory, companyId)) return null;
     if (isAdmin(principal)) return { role: 'admin' };
@@ -190,7 +191,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   }
   async function directoryWrite(principal, transform) {
     const directory = await store.getDirectory(), next = clone(directory);
-    if (directory.identities?.[subject(principal)]?.disabled) missing();
+    if (directory.identities?.[subject(principal)]?.disabled || (principal.identityVersion!==undefined&&principal.identityVersion!==(directory.identities?.[principal.identityId]?.version||0))) missing();
     const result = await transform(next, directory);
     next.revision = directory.revision + 1;
     if (!await store.commitDirectory(directory.revision, next)) fail(409, '权限已变更，请刷新后重试。');
