@@ -1,6 +1,5 @@
 import { wasionPreviewBinding } from './crm-project-previews.mjs';
 import { BusinessError } from './crm-business-service.mjs';
-import { allowWasionDemoQuota } from './wasion-demo-quota.mjs';
 import { retrieveWasionSources } from './wasion-demo-sources.mjs';
 
 const json = (res, status, value) => {
@@ -35,7 +34,6 @@ const copy = {
   en: {
     query: 'Enter a question of 500 characters or fewer.', language: 'Choose English, Chinese or automatic language detection for the answer.',
     unavailable: 'AI summary is currently unavailable. Browse the official pages below or contact a Wasion expert.',
-    rate_limited: 'Today’s AI search limit has been reached. You can still browse the matching official pages.',
     invalid_response: 'A reliably sourced AI summary could not be generated. Browse the official pages below or contact a Wasion expert.',
     no_match: 'No matching information was found in these official Wasion pages. Try a product model, application or communication technology, or contact a Wasion expert.',
     method: 'This request method is not supported.', auth: 'Customer access could not be verified. Please try again.',
@@ -44,7 +42,6 @@ const copy = {
   zh: {
     query: '请输入500字以内的问题。', language: '请选择英文、中文或自动识别问题语言。',
     unavailable: 'AI摘要暂不可用。您仍可查看下方匹配的官网资料，或联系威胜专家。',
-    rate_limited: '今日AI搜索次数已达上限。您仍可查看匹配的官网资料。',
     invalid_response: '暂时无法生成有可靠来源的AI摘要，请查看下方官网资料或联系威胜专家。',
     no_match: '这些威胜官网页面未找到相关资料。请尝试产品型号、应用场景或通信技术，或联系威胜专家。',
     method: '请求方式不支持。', auth: '客户权限暂时无法核验，请稍后重试。',
@@ -52,7 +49,7 @@ const copy = {
   }
 };
 
-export async function answerWasionQuestion({ env = {}, principal, question, language = 'en', fetchImpl = fetch, rateLimit = allowWasionDemoQuota }) {
+export async function answerWasionQuestion({ env = {}, question, language = 'en', fetchImpl = fetch }) {
   // The website remains English by default. Automatic mode follows the
   // question's natural language; a model code alone is answered in English.
   const autoChinese = language === 'auto' && typeof question === 'string' && /\p{Script=Han}/u.test(question) && !/[\p{Script=Hiragana}\p{Script=Katakana}]/u.test(question);
@@ -67,8 +64,8 @@ export async function answerWasionQuestion({ env = {}, principal, question, lang
   } });
   if (!context.length) return fallback('no_match', 'no_relevant_source');
   if (!env.CRM_AI_API_KEY) return fallback('unavailable', 'not_configured');
-  try { if (!await rateLimit(env, principal?.identityId)) return fallback('rate_limited', 'quota_exhausted'); }
-  catch { return fallback('unavailable', 'quota_unavailable'); }
+  // Daily usage does not gate this private demo. The request handler verifies
+  // the phone session and project grant before and after generating an answer.
 
   let payload;
   try {
@@ -102,7 +99,7 @@ export async function answerWasionQuestion({ env = {}, principal, question, lang
   return { status: 200, data: { answer: normalizedAnswer.trim(), language: answerLanguage, sources: used, ...retrieval, ai: { generated: true, status: 'generated' } } };
 }
 
-export function createWasionSearchHandler({ env = {}, auth, service, fetchImpl, rateLimit }) {
+export function createWasionSearchHandler({ env = {}, auth, service, fetchImpl }) {
   return async (req, res) => {
     for (const key of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) res.setHeader(key, 'private, no-store, max-age=0');
     res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
@@ -129,7 +126,7 @@ export function createWasionSearchHandler({ env = {}, auth, service, fetchImpl, 
       if (!body || typeof body !== 'object' || Array.isArray(body) || Buffer.byteLength(JSON.stringify(body)) > 2048) throw new Error('body');
     } catch { return publicError(res, 400, messages.body); }
     messages = copy[body.language === 'zh' ? 'zh' : 'en'];
-    const result = await answerWasionQuestion({ env, principal: access.principal, question: body.question, language: body.language ?? 'en', fetchImpl, rateLimit });
+    const result = await answerWasionQuestion({ env, question: body.question, language: body.language ?? 'en', fetchImpl });
     if (result.status !== 200) return publicError(res, result.status, result.error);
     // Recheck after inference AND retrieval fallback: revocation must prevent
     // disclosure of the answer, excerpts and matched pages alike.

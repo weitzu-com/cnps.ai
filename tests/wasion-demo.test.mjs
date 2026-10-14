@@ -15,7 +15,7 @@ const request = (body = { question: 'Prepayment solutions', language: 'en' }, he
 });
 const response = () => ({ headers: {}, setHeader(name, value) { this.headers[name] = value; }, end(value) { this.body = value; } });
 const modelResponse = (answer, supported = true, language) => ({ ok: true, text: async () => JSON.stringify({ choices: [{ message: { content: JSON.stringify({ answer, supported, ...(language ? { language } : {}) }) } }] }) });
-const config = { env: { CRM_AI_API_KEY: 'test-key' }, principal, rateLimit: async () => true };
+const config = { env: { CRM_AI_API_KEY: 'test-key' } };
 const modelForContext = async (_url, options) => {
   const sent = JSON.parse(options.body), source = JSON.parse(sent.messages[1].content).officialSources[0];
   return modelResponse(`The official page describes ${source.title}. [${source.id}]`);
@@ -155,20 +155,25 @@ test('automatic mode follows question language while enforcing model-specific ev
   assert.match(prompt, /company logo is not evidence/);
   assert.match(prompt, /exact model\/configuration/);
   assert.match(sentSource.excerpt, /LoRaWAN/);
-  const fallback = await answerWasionQuestion({ env: {}, principal, question: 'I110 有哪些通信方式？', language: 'auto' });
+  const fallback = await answerWasionQuestion({ env: {}, question: 'I110 有哪些通信方式？', language: 'auto' });
   assert.equal(fallback.status, 200);
   assert.equal(fallback.data.language, 'zh');
   assert.equal(fallback.data.ai.generated, false);
 });
 
-test('retrieval remains available without a key, when quota fails, and when inference fails', async () => {
-  for (const extra of [
-    { env: {} }, { rateLimit: async () => { throw new Error('quota down'); } },
-    { rateLimit: async () => false }, { fetchImpl: async () => { throw new Error('gateway down'); } }
+test('retrieval remains available without an AI key or when inference fails', async () => {
+  for (const [extra, reason] of [
+    [{ env: {} }, 'not_configured'],
+    [{ fetchImpl: async () => { throw new Error('gateway down'); } }, 'gateway_unavailable']
   ]) {
-    const result = await answerWasionQuestion({ ...config, question: 'Prepayment solutions', fetchImpl: modelForContext, ...extra });
+    let modelCalls = 0;
+    const provider = extra.fetchImpl || modelForContext;
+    const result = await answerWasionQuestion({ ...config, ...extra, question: 'Prepayment solutions', fetchImpl: async (...args) => { modelCalls++; return provider(...args); } });
     assert.equal(result.status, 200);
     assert.equal(result.data.ai.generated, false);
+    assert.equal(result.data.ai.status, 'unavailable');
+    assert.equal(result.data.ai.reason, reason);
+    assert.equal(modelCalls, reason === 'not_configured' ? 0 : 1);
     assert.ok(result.data.results.length > 0);
     assert.equal(result.data.results[0].id, 'prepayment-solutions');
     assert.ok(result.data.sources[0].excerpt);
@@ -198,13 +203,13 @@ test('invented, missing or out-of-context citations never disclose model output'
   }
 });
 
-test('invalid questions and unsupported language are rejected before quota or inference', async () => {
+test('invalid questions and unsupported language are rejected before inference', async () => {
   let calls = 0;
   for (const question of ['', '  ', null, 42, 'x'.repeat(501), 'smart\u0000meter']) {
-    const result = await answerWasionQuestion({ ...config, question, rateLimit: async () => { calls++; }, fetchImpl: async () => { calls++; } });
+    const result = await answerWasionQuestion({ ...config, question, fetchImpl: async () => { calls++; } });
     assert.equal(result.status, 400);
   }
-  assert.equal((await answerWasionQuestion({ ...config, question: 'smart meter', language: 'fr' })).status, 400);
+  assert.equal((await answerWasionQuestion({ ...config, question: 'smart meter', language: 'fr', fetchImpl: async () => { calls++; } })).status, 400);
   assert.equal(calls, 0);
 });
 
@@ -215,7 +220,7 @@ test('handler rejects missing auth, unapproved origins and missing CRM request m
     [makeAuth(identity), { origin: undefined }, 403], [makeAuth(identity), { 'x-cnps-crm': undefined }, 403]
   ]) {
     const res = response();
-    await createWasionSearchHandler({ service, env: config.env, auth, rateLimit: config.rateLimit, fetchImpl: async () => { modelCalled = true; } })(request(undefined, headers), res);
+    await createWasionSearchHandler({ service, env: config.env, auth, fetchImpl: async () => { modelCalled = true; } })(request(undefined, headers), res);
     assert.equal(res.statusCode, status);
     assert.match(res.headers['Cache-Control'], /no-store/);
     assert.match(res.headers['X-Robots-Tag'], /noindex/);
@@ -235,7 +240,7 @@ test('handler rechecks revocation and principal identity before disclosing gener
     } };
     const res = response();
     await createWasionSearchHandler({ service, env: mode === 'fallback_revoked' ? {} : config.env, auth,
-      rateLimit: config.rateLimit, fetchImpl: async (...args) => { called = true; return modelForContext(...args); }
+      fetchImpl: async (...args) => { called = true; return modelForContext(...args); }
     })(request(), res);
     assert.equal(reads, 2);
     assert.equal(called, mode !== 'fallback_revoked');
@@ -266,4 +271,46 @@ test('handler rejects malformed or oversized bodies, including an oversized requ
   req.emit('data', 'x'.repeat(2500)); req.emit('end');
   await pending;
   assert.equal(res.statusCode, 400);
+});
+
+test('authenticated searches continue beyond the former 200-call allowance without a Redis configuration', async () => {
+  let providerCalls = 0, sessionReads = 0, projectReads = 0;
+  const handler = createWasionSearchHandler({
+    env: config.env,
+    auth: { loadSession: async () => { sessionReads++; return principal; } },
+    service: { getProject: async (...args) => { projectReads++; return service.getProject(...args); } },
+    fetchImpl: async (...args) => { providerCalls++; return modelForContext(...args); }
+  });
+  // Local, deterministic provider responses only. This crosses both previous
+  // 20/200 boundaries while keeping the same authenticated identity throughout.
+  for (let attempt = 1; attempt <= 205; attempt++) {
+    const res = response(); await handler(request({ question: 'AMI meters', language: 'en' }), res);
+    assert.equal(res.statusCode, 200, 'attempt ' + attempt);
+    const { data } = JSON.parse(res.body);
+    assert.equal(data.ai.generated, true, 'attempt ' + attempt);
+    assert.ok(data.sources.length > 0);
+    assert.ok(data.sources.every(source => WASION_SOURCES.some(official => official.id === source.id && official.url === source.url)));
+    assert.ok(data.sources.every(source => data.answer.includes('[' + source.id + ']')));
+  }
+  assert.equal(providerCalls, 205);
+  assert.equal(sessionReads, 410); assert.equal(projectReads, 410);
+});
+
+test('demo search does not read legacy quota storage bindings while generating an officially cited answer', async () => {
+  const searchEnv = { CRM_AI_API_KEY: 'test-key' };
+  for (const name of ['UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN', 'KV_REST_API_URL', 'KV_REST_API_TOKEN']) {
+    Object.defineProperty(searchEnv, name, { get() { throw new Error('Demo AI search must not read quota storage bindings.'); } });
+  }
+  let providerCalls = 0;
+  const res = response();
+  await createWasionSearchHandler({
+    service, env: searchEnv, auth: makeAuth(identity),
+    fetchImpl: async (...args) => { providerCalls++; return modelForContext(...args); }
+  })(request({ question: 'I110 communication', language: 'en' }), res);
+  assert.equal(res.statusCode, 200); assert.equal(providerCalls, 1);
+  const { data } = JSON.parse(res.body);
+  assert.equal(data.ai.generated, true);
+  const official = WASION_SOURCES.find(source => source.id === 'i-110-series-smart-water-meter');
+  assert.equal(data.sources[0].url, official.url);
+  assert.ok(data.answer.includes('[' + data.sources[0].id + ']'));
 });

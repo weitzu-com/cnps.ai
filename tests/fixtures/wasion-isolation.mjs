@@ -36,7 +36,7 @@ export function isolationFixture() {
  const runtime={auth,projectAccessService:service};
  const page=createWasionPageHandler({getRuntime:()=>runtime});
  const business=createBusinessHandler({env,authHandler:auth,service});
- const search=createWasionSearchHandler({env,auth,service,rateLimit:async()=>true,fetchImpl:async()=>{modelCalls++;throw Error('Unexpected model call');}});
+ const search=createWasionSearchHandler({env,auth,service,fetchImpl:async()=>{modelCalls++;throw Error('Unexpected model call');}});
  const request=async(target,url,{method='GET',body,cookie='',headers:extra={}}={})=>{
   const headers={};let output;const res={setHeader(k,v){headers[k.toLowerCase()]=v;},end(v){output=v;}};
   await target({url,method,body,headers:{host:"crm.cnps.ai",origin:'https://crm.cnps.ai','content-type':'application/json','x-cnps-crm':'1',cookie,'x-real-ip':'192.0.2.1',...extra}},res);
