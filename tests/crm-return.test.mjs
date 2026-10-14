@@ -18,6 +18,7 @@ test('untrusted return destinations cannot redirect outside the portal or back t
   }
 });
 test('Vercel rewritten and original Demo URLs both retain their destination', () => {
+  assert.equal(demoReturnTo({url:'/demo/wasion/search?q=meters&slug=search',query:{slug:'search',q:'meters'}}), '/demo/wasion/search?q=meters');
   assert.equal(demoReturnTo({url:'/demo/wasion/products?category=water'}), '/demo/wasion/products?category=water');
   assert.equal(demoReturnTo({url:'/api/crm-wasion-demo-page?slug=search&q=meters',query:{slug:'search',q:'meters'}}), '/demo/wasion/search?q=meters');
   assert.equal(demoReturnTo({url:'/api/crm-wasion-demo-page',query:{slug:'home'}}), '/demo/wasion');

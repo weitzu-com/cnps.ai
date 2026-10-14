@@ -33,7 +33,11 @@ export function crmPageReturnTo(requestUrl) {
 export function demoReturnTo(req) {
   const url = new URL(req.url, ORIGIN);
   const direct = safeCrmReturnTo(url.pathname + url.search);
-  if (direct?.startsWith('/demo/wasion')) return direct;
+  if (direct?.startsWith('/demo/wasion')) {
+    // Vercel appends rewrite route parameters to req.url.
+    url.searchParams.delete('slug');
+    return safeCrmReturnTo(url.pathname + url.search);
+  }
   const slug = req.query?.slug ?? url.searchParams.get('slug') ?? 'home';
   const path = '/demo/wasion' + (slug === 'home' ? '' : '/' + slug);
   const params = new URLSearchParams(url.search);
