@@ -12,7 +12,9 @@ return async function handler(req,res) {
   if(guardPrivateRequest(req,res))return;
   for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) res.setHeader(name, 'private, no-store, max-age=0');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
-  res.setHeader('Referrer-Policy', 'no-referrer');
+  // Native same-origin form POSTs need a real Origin; cross-origin requests
+  // still receive no referrer. Keep the strict POST Origin allowlist below.
+  res.setHeader('Referrer-Policy', 'same-origin');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   if (!['GET', 'HEAD', 'POST'].includes(req.method)) { res.statusCode = 405; return res.end(); }
