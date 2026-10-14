@@ -887,3 +887,63 @@ test('web activity loses a concurrent authorization revocation race and writes n
  await assert.rejects(h.service.recordProposalActivity(h.phone,h.binding,'view','race-event'),status(409));
  assert.equal((await h.service.listEvents(manager,'company-A')).filter(e=>e.action.startsWith('proposal.')).length,0);
 });
+
+
+test('two managers share the same customer records and revocation changes only one relationship', async () => {
+  const h = await setup(), second = principal('actor-manager-second', 'sales_manager');
+  h.managers.set('staff-second', { id: 'staff-second', identityId: second.identityId, active: true });
+  await h.service.setCompanyManager(admin, 'company-A', 'staff-second', true, 0);
+  assert.deepEqual(await h.service.listContacts(second, 'company-A'), await h.service.listContacts(manager, 'company-A'));
+  assert.deepEqual(await h.service.getProject(second, 'company-A', h.projectA.id), await h.service.getProject(manager, 'company-A', h.projectA.id));
+  assert.equal((await h.service.download(second, 'company-A', h.docA.id, h.docA.versionId)).bytes.toString(), 'Alpha Published Delivery');
+  await h.service.updateProject(second, 'company-A', h.projectA.id, { title: 'Shared update' });
+  assert.equal((await h.service.getProject(manager, 'company-A', h.projectA.id)).title, 'Shared update');
+  await assert.rejects(h.service.getProject(second, 'company-B', h.projectB.id), status(404));
+  await h.service.setCompanyManager(admin, 'company-B', 'staff-second', true, 1);
+  await h.service.setCompanyManager(admin, 'company-A', 'staff-second', false, 2);
+  await assert.rejects(h.service.getProject(second, 'company-A', h.projectA.id), status(404));
+  await assert.rejects(h.service.download(second, 'company-A', h.docA.id, h.docA.versionId), status(404));
+  assert.equal((await h.service.getProject(manager, 'company-A', h.projectA.id)).title, 'Shared update');
+  assert.equal((await h.service.getProject(second, 'company-B', h.projectB.id)).id, h.projectB.id);
+  assert.deepEqual((await h.service.listManagers(admin, 'company-A')).filter(a => a.active).map(a => a.staffId), ['staff-A']);
+  assert.ok((await h.store.getDirectory()).events.some(e => e.action === 'manager.company-revoke'));
+});
+test('company manager editing rejects unauthorized callers, stale forms and reactivation of globally revoked scopes', async () => {
+  const h = await setup();
+  await assert.rejects(h.service.listManagers(manager, 'company-A'), status(404));
+  await assert.rejects(h.service.listManagers(customer, 'company-A'), status(404));
+  await assert.rejects(h.service.setCompanyManager(manager, 'company-B', 'staff-A', true, 1), status(404));
+  await assert.rejects(h.service.setCompanyManager(admin, 'company-A', 'staff-A', true, undefined), status(400));
+  await h.service.setCompanyManager(admin, 'company-B', 'staff-A', true, 1);
+  await assert.rejects(h.service.setCompanyManager(admin, 'company-A', 'staff-A', false, 1), status(409));
+  assert.deepEqual((await h.store.getDirectory()).managerAssignments[manager.identityId].companyIds, ['company-A', 'company-B']);
+  await h.service.assignManager(admin, 'staff-A', ['company-A', 'company-B'], false);
+  await h.service.setCompanyManager(admin, 'company-A', 'staff-A', true, 3);
+  await assert.rejects(h.service.getProject(manager, 'company-B', h.projectB.id), status(404));
+  assert.deepEqual((await h.store.getDirectory()).managerAssignments[manager.identityId].companyIds, ['company-A']);
+  const read = await h.request('view=managers&companyId=company-A', { actor: 'admin' });
+  assert.equal(read.status, 200);assert.ok(!JSON.stringify(read.json()).includes('identityId'));
+  const write = await h.request('', {actor:'admin',method:'POST',body:{action:'setCompanyManager',companyId:'company-A',staffId:'staff-A',active:false,expectedVersion:4}});
+  assert.equal(write.status,200);await assert.rejects(h.service.getProject(manager,'company-A',h.projectA.id),status(404));
+});
+
+test('concurrent manager grants fail on directory conflict without losing the committed grant', async () => {
+  const h = await setup(), second = principal('actor-manager-race', 'sales_manager');
+  h.managers.set('staff-race', {id:'staff-race',identityId:second.identityId,active:true});
+  const commit = h.store.commitDirectory;let race = true;
+  h.store.commitDirectory = async (revision,next) => {
+    if(race){race=false;await h.service.setCompanyManager(admin,'company-A','staff-race',true,0);}
+    return commit(revision,next);
+  };
+  await assert.rejects(h.service.setCompanyManager(admin,'company-B','staff-A',true,1),status(409));
+  assert.equal((await h.service.getProject(second,'company-A',h.projectA.id)).id,h.projectA.id);
+  await assert.rejects(h.service.getProject(manager,'company-B',h.projectB.id),status(404));
+});
+test('revoking one manager during a file read blocks that response and leaves the other manager authorized', async () => {
+  const h=await setup(),second=principal('actor-manager-file','sales_manager');
+  h.managers.set('staff-file',{id:'staff-file',identityId:second.identityId,active:true});
+  await h.service.setCompanyManager(admin,'company-A','staff-file',true,0);
+  h.duringRead(()=>h.service.setCompanyManager(admin,'company-A','staff-file',false,1));
+  await assert.rejects(h.service.download(second,'company-A',h.docA.id,h.docA.versionId),status(404));
+  assert.equal((await h.service.download(manager,'company-A',h.docA.id,h.docA.versionId)).bytes.toString(),'Alpha Published Delivery');
+});
