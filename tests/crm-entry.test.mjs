@@ -42,3 +42,12 @@ test('middleware and handler canonicalization agree and Vercel root routing is h
  assert.ok(config.redirects.find(r=>r.source==='/'&&r.destination==='/en').has);
  assert.equal(config.redirects.some(r=>r.destination==='/crm'),false);
 });
+
+
+test('CRM root rewrites before the public static index and preserves safe return handling',()=>{
+ const response=middleware(new Request('https://crm.cnps.ai/?returnTo=%2Fworkspace%3FprojectId%3DP'));
+ assert.equal(response.headers.get('x-middleware-rewrite'),'https://crm.cnps.ai/api/crm-page?returnTo=%2Fworkspace%3FprojectId%3DP');
+ assert.equal(response.headers.get('x-middleware-next'),null);
+ const website=middleware(new Request('https://www.cnps.ai/'));
+ assert.equal(website.headers.get('x-middleware-rewrite'),null);
+});

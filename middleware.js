@@ -5,8 +5,14 @@ export default function middleware(request) {
   const decision = boundaryDecision(url.host, url.pathname, request.method, {
     VERCEL_ENV: process.env.VERCEL_ENV,
   }, url.search);
-  if (!decision)
+  if (!decision) {
+    // The public build has index.html: rewrite before the filesystem matcher.
+    if (url.host === 'crm.cnps.ai' && url.pathname === '/') {
+      const target = new URL('/api/crm-page' + url.search, url);
+      return new Response(null, { headers: { 'x-middleware-rewrite': target.href } });
+    }
     return new Response(null, { headers: { "x-middleware-next": "1" } });
+  }
   const headers = {
     "Cache-Control": "private, no-store",
     "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
