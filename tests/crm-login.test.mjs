@@ -61,7 +61,7 @@ test('page uses only nonce-bound inline assets, accessible inputs, and safely es
   assert.match(html, /aria-live="polite"/);
   assert.match(html, /@media\(min-width:768px\)/);
   assert.match(html, /@media\(min-width:1024px\)/);
-  assert.match(html, /href="https:\/\/www\.cnps\.ai\/w"/);
+  assert.match(html, /href="https:\/\/crm\.cnps\.ai\/w"/);
   assert.doesNotMatch(html, /innerHTML|localStorage|sessionStorage|console\.|<script[^>]+src=|<link[^>]+href=/);
 });
 

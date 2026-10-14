@@ -20,6 +20,44 @@ test('encrypted payload is authenticated and cannot decrypt with wrong key',()=>
 test('normalization accepts only exact mainland numbers and optional +86',()=>{assert.equal(normalizePhone('+86'+phone),phone);for(const x of ['0086'+phone,phone+'x','<script>',null,'23800000000'])assert.equal(normalizePhone(x),null)});
 test('anonymous page has no quote and every asset and direct API is protected',async()=>{const h=harness();for(const path of ['/w','/api/w']){const r=await h.request(path);assert.equal(r.status,200);assert.ok(r.text.includes('验证身份'));assert.ok(!r.text.includes('Private Quote'));assert.match(r.headers['cache-control'],/no-store/);assert.match(r.headers['x-robots-tag'],/noindex/);}for(const p of ['/w/asset/pdf','/api/w?route=asset/pdf','/w/asset/logo'])assert.equal((await h.request(p)).status,401);assert.equal((await h.request('/w/asset/../../secret')).status,404)});
 test('unlisted number, missing consent, cross-origin and missing request header never send',async()=>{const h=harness();const cases=[{body:{phone:'13900000000',consent:true}}, {body:{phone,consent:false}}, {body:{phone,consent:true},origin:'https://evil.example'}, {body:{phone,consent:true},extra:{'x-proposal-request':''}}];for(const input of cases)assert.ok((await h.request('/w/send',{method:'POST',...input})).status>=400);assert.equal(h.sends(),0);});
+test('the CRM host supports independent proposal verification, views and logout on public and rewritten routes',async()=>{
+ for(const rewritten of [false,true]){
+  const events=[],h=harness({async authorize(){},async record(...args){events.push(args)}}),origin='https://crm.cnps.ai';
+  const route=action=>rewritten?'/api/w?route='+action:'/w/'+action;
+  assert.equal((await h.request(route('send'),{method:'POST',origin,body:{phone:'13900000000',consent:true}})).status,403);
+  assert.equal(h.sends(),0);
+  const sent=await h.request(route('send'),{method:'POST',origin,body:{phone,consent:true}});
+  assert.equal(sent.status,200,sent.text);
+  const binding=sent.headers['set-cookie'].split(';')[0];
+  const verified=await h.request(route('verify'),{method:'POST',origin,cookie:binding,body:{challenge:sent.json().challenge,code:'123456'}});
+  assert.equal(verified.status,200,verified.text);
+  assert.match(verified.headers['set-cookie'][0],/^__Host-cnps_proposal=.*; Path=\/; HttpOnly; Secure; SameSite=Strict; Max-Age=28800$/);
+  const cookie=verified.headers['set-cookie'][0].split(';')[0];
+  assert.equal((await h.request(route('asset/pdf'),{origin,cookie})).text,'private document');
+  assert.equal((await h.request(route('asset/pdf'),{origin,cookie:cookie.replace('__Host-cnps_proposal=','__Host-cnps_crm=')})).status,401);
+  assert.equal((await h.request(route('view'),{method:'POST',origin,cookie,body:{}})).status,200);
+  assert.deepEqual(events.map(event=>event[1]),['login','download','view']);
+  const loggedOut=await h.request(route('logout'),{method:'POST',origin,cookie,body:{}});
+  assert.equal(loggedOut.status,200,loggedOut.text);
+  assert.ok(loggedOut.headers['set-cookie'].every(value=>value.includes('Max-Age=0')));
+  assert.equal((await h.request(route('view'),{method:'POST',origin,cookie,body:{}})).status,401);
+  assert.equal((await h.request(route('asset/pdf'),{origin,cookie})).status,401);
+  assert.equal(h.sends(),1);assert.equal(h.verifications(),1);
+ }
+});
+test('every proposal POST still rejects unapproved origins and missing request headers before side effects',async()=>{
+ const h=harness(),login=await h.login();h.advance(61000);const challenge=await h.send();
+ const actions=[['send',{phone,consent:true},''],['verify',{challenge:challenge.id,code:'123456'},challenge.cookie],['view',{},login.cookie],['logout',{},login.cookie]];
+ for(const [action,body,cookie] of actions){
+  for(const origin of ['https://evil.example','https://crm.cnps.com','https://crm.cnps.ai.evil.example','http://crm.cnps.ai']){
+   assert.equal((await h.request('/w/'+action,{method:'POST',origin,cookie,body})).status,403,action+' '+origin);
+  }
+  assert.equal((await h.request('/w/'+action,{method:'POST',origin:'https://crm.cnps.ai',cookie,body,extra:{'x-proposal-request':''}})).status,403,action+' missing header');
+ }
+ assert.equal(h.sends(),2);assert.equal(h.verifications(),1);
+ assert.equal((await h.request('/w/asset/pdf',{cookie:login.cookie})).status,200);
+ assert.equal((await h.request('/w/verify',{method:'POST',origin:'https://crm.cnps.ai',cookie:challenge.cookie,body:{challenge:challenge.id,code:'123456'}})).status,200);
+});
 test('OTP verification binds to initiating browser and limits five attempts',async()=>{const h=harness(),c=await h.send();let r=await h.request('/w/verify',{method:'POST',body:{challenge:c.id,code:'123456'}});assert.equal(r.status,400);for(let n=0;n<6;n++){r=await h.request('/w/verify',{method:'POST',cookie:c.cookie,body:{challenge:c.id,code:'000000'}});assert.equal(r.status,400);}assert.equal(h.verifications(),5);r=await h.request('/w/verify',{method:'POST',cookie:c.cookie,body:{challenge:c.id,code:'123456'}});assert.equal(r.status,400);});
 test('one successful verification cannot be replayed, including concurrent requests',async()=>{const h=harness(),c=await h.send();const options={method:'POST',cookie:c.cookie,body:{challenge:c.id,code:'123456'}};const r=await Promise.all([h.request('/w/verify',options),h.request('/w/verify',options)]);assert.deepEqual(r.map(x=>x.status).sort(),[200,400]);assert.equal((await h.request('/w/verify',options)).status,400);});
 test('verified session accesses private content; cookie is secure; logout revokes',async()=>{const h=harness(),l=await h.login();assert.match(l.response.headers['set-cookie'][0],/HttpOnly; Secure; SameSite=Strict/);let r=await h.request('/w',{cookie:l.cookie});assert.ok(r.text.includes('Private Quote 138****0000'));r=await h.request('/w/asset/pdf',{cookie:l.cookie});assert.equal(r.text,'private document');assert.equal(r.headers['content-type'],'application/pdf');assert.equal((await h.request('/w/logout',{method:'POST',body:{},cookie:l.cookie})).status,200);assert.equal((await h.request('/w/asset/pdf',{cookie:l.cookie})).status,401);});
