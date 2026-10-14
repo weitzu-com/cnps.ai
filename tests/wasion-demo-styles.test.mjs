@@ -1,3 +1,4 @@
+import { crmLoginPage } from '../server/crm-login.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Script } from 'node:vm';
@@ -55,4 +56,11 @@ test('style API uses the same authorization, HEAD guard and private response as 
  const ok=await request({style:'atmospheric',slug:'products'});assert.equal(ok.statusCode,200);assert.match(ok.headers['Cache-Control'],/private, no-store/);assert.match(ok.body,/wd-style-atmospheric/);
  const head=await request({style:'atmospheric'},'HEAD');assert.equal(head.statusCode,200);assert.equal(head.body,undefined);
  assert.equal((await request({style:'missing'})).statusCode,404);
+});
+
+test('POST search resumes the selected design after login without exposing the question in the URL',()=>{
+ const html=crmLoginPage('nonce',{returnTo:'/demo/wasion/styles/atmospheric/search',resumeQuestion:'I-110 & AMI'});
+ assert.match(html,/id="demo-resume" action="\/demo\/wasion\/styles\/atmospheric\/search" method="post"/);
+ assert.match(html,/name="q" value="I-110 &amp; AMI"/);
+ assert.ok(!crmLoginPage('n',{returnTo:'/demo/wasion/styles/missing/search',resumeQuestion:'I-110'}).includes('id="demo-resume"'));
 });

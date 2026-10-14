@@ -28,7 +28,7 @@ Every style uses the same authenticated Wasion project authorization, private/no
 
 ## Validation
 
-- `npm test`: 513 passed, 1 existing skipped.
+- `npm test`: 514 passed, 1 existing skipped.
 - `npm run build`: passed.
 - All 88 content/experience/search routes checked for both styles, including internal routes, script syntax and official source data.
 - Browser review at 1280px and 390px: home, mobile menu, product catalog, I-110 search and product detail; no mobile horizontal overflow on home/catalog.

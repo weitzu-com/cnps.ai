@@ -10,7 +10,8 @@ export function safeDemoReturnTo(value) {
 
 export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
   const safeNonce = escapeAttribute(nonce);
-  const resumeSearch = sanitizeCrmReturnTo(returnTo)==='/demo/wasion/search' && typeof resumeQuestion==='string' && resumeQuestion.trim().length>0 && resumeQuestion.length<=500 && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(resumeQuestion);
+  const resumePath = sanitizeCrmReturnTo(returnTo);
+  const resumeSearch = /^\/demo\/wasion(?:\/styles\/[a-z0-9-]+)?\/search$/.test(resumePath || '') && typeof resumeQuestion==='string' && resumeQuestion.trim().length>0 && resumeQuestion.length<=500 && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(resumeQuestion);
   const safeReturnTo = JSON.stringify(sanitizeCrmReturnTo(returnTo)).replaceAll('<', '\\u003c');
   let html = `<!doctype html>
 <html lang="zh-CN">
@@ -270,6 +271,6 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
     for (const [from, to] of copy.sort((a,b)=>b[0].length-a[0].length)) html = html.replaceAll(from, to);
     html = html.replace('<html lang="zh-CN">', '<html lang="en">').replace("toLocaleString('zh-CN'","toLocaleString('en-GB'");
   }
-  if(resumeSearch) html=html.replace('<body>',`<body><form id="demo-resume" action="/demo/wasion/search" method="post" hidden><input type="hidden" name="q" value="${escapeAttribute(resumeQuestion)}"></form>`);
+  if(resumeSearch) html=html.replace('<body>',`<body><form id="demo-resume" action="${escapeAttribute(resumePath)}" method="post" hidden><input type="hidden" name="q" value="${escapeAttribute(resumeQuestion)}"></form>`);
   return html;
 }
