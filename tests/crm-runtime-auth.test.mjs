@@ -28,3 +28,12 @@ test('customer membership is still authoritative without initializing files or n
   assert.equal(calls,1);
   assert.throws(()=>runtime.documents);
 });
+test('project preview ACL reads do not initialize file or notification adapters',async()=>{
+ const project={id:'project-A',companyId:'A',title:'Fixture project'};
+ const state={revision:1,companyId:'A',projects:{'project-A':{...project,publication:{project}}}};
+ const directory={revision:1,companies:{A:{companyId:'A'}},managerAssignments:{},memberGrants:{}};
+ const runtime=createCrmRuntime(env,{store:{getDirectory:async()=>directory,getCompany:async()=>state},twenty:{}});
+ const admin={identityId:'actor-admin',identity:{role:'admin'}};
+ assert.equal((await runtime.projectAccessService.getProject(admin,'A','project-A')).id,'project-A');
+ assert.throws(()=>runtime.documents);assert.throws(()=>runtime.service);
+});

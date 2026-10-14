@@ -58,7 +58,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
         response = {body: {ok: true, data: {companyId: company.companyId}}};
       }
       if (!response) {
-        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, staff, members: [], events: [], deliveries: [], partnerSubmissions: [], accessGrants:{partners:[],proposals:[],identities:{}}, sensitiveRequests:[]})[call.view];
+        const data = ({companies: [company], projects: [project], project, records: state.records, documents: [state.document], contacts, staff, managers:[], members: [], events: [], deliveries: [], partnerSubmissions: [], accessGrants:{partners:[],proposals:[],identities:{}}, sensitiveRequests:[]})[call.view];
         if (data === undefined) throw Error('Unexpected request: ' + url);
         response = {body: {ok: true, data}};
       }
@@ -316,14 +316,21 @@ test('file size guard rejects oversized uploads before transmitting any file con
   assert.equal(h.get('action-dialog').open, true);
 });
 
-test('administrator selects verified native internal staff and assigns only selected registered companies', async () => {
-  const h=harness({role:'admin'});await h.flush();assert.equal(h.get('assign-manager').hidden,false);await h.event('assign-manager','click');
-  const directory=h.calls.find(call=>call.view==='staff');assert.ok(directory);assert.equal(directory.companyId,null);
-  assert.equal(h.get('field-staffId').tagName,'SELECT');assert.equal(h.get('field-staffId').children[0].textContent,'Synthetic internal staff · 18700002222');
-  h.get('field-staffId').value='18700001111';await h.event('action-form','submit');assert.equal(h.calls.some(call=>call.body?.action==='assignManager'),false);
-  h.get('field-staffId').value='00000000-0000-4000-8000-000000000001';await h.event('action-form','submit');
-  const call=h.calls.find(call=>call.body?.action==='assignManager');assert.deepEqual(call.body,{action:'assignManager',staffId:'00000000-0000-4000-8000-000000000001',companyIds:['company-A'],active:true});
-  const manager=harness({role:'sales_manager'});await manager.flush();assert.equal(manager.get('assign-manager').hidden,true);await manager.event('assign-manager','click');assert.equal(manager.calls.some(call=>call.body?.action==='assignManager'||call.view==='staff'),false);
+test('administrator edits one manager relationship for the current customer', async () => {
+  const h=harness({role:'admin'});await h.flush();await h.event('assign-manager','click');
+  assert.equal(h.calls.find(call=>call.view==='staff').companyId,null);
+  assert.equal(h.calls.find(call=>call.view==='managers').companyId,'company-A');
+  assert.match(h.get('field-staffId').children[0].textContent,/未获授权/);
+  h.get('field-staffId').value='18700001111';await h.event('action-form','submit');assert.equal(h.calls.some(call=>call.body?.action==='setCompanyManager'),false);
+  h.get('field-staffId').value='00000000-0000-4000-8000-000000000001';h.get('field-active').checked=true;await h.event('action-form','submit');
+  assert.deepEqual(h.calls.find(call=>call.body?.action==='setCompanyManager').body,{action:'setCompanyManager',companyId:'company-A',staffId:'00000000-0000-4000-8000-000000000001',active:true,expectedVersion:0});
+  const manager=harness({role:'sales_manager'});await manager.flush();await manager.event('assign-manager','click');assert.equal(manager.calls.some(call=>call.body?.action==='setCompanyManager'||call.view==='staff'),false);
+});
+test('existing manager authorization is shown and revoked using the loaded version', async () => {
+  const h=harness({role:'admin',override:call=>call.view==='managers'?{body:{ok:true,data:[{staffId:'00000000-0000-4000-8000-000000000001',active:true,version:7}]}}:undefined});
+  await h.flush();await h.event('assign-manager','click');assert.equal(h.get('field-active').checked,true);assert.match(h.get('field-staffId').children[0].textContent,/已获授权/);
+  h.get('field-active').checked=false;await h.event('action-form','submit');
+  const call=h.calls.find(call=>call.body?.action==='setCompanyManager');assert.equal(call.body.active,false);assert.equal(call.body.expectedVersion,7);assert.equal(call.body.companyId,'company-A');
 });
 
 test('empty verified staff directory explains internal contact setup and offers a real contact management entry', async () => {

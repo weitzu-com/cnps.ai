@@ -1,13 +1,14 @@
-import { proposalBinding } from '../server/proposal-crm.mjs';
+import { BusinessError } from '../server/crm-business-service.mjs';
+import { wasionPreviewBinding } from '../server/crm-project-previews.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
 import { authorizeWasionCustomer, answerWasionQuestion, createWasionSearchHandler } from '../server/wasion-demo.mjs';
 import { WASION_SOURCES, retrieveWasionSources } from '../server/wasion-demo-sources.mjs';
 
-const identity = { role: 'customer', memberships: [{ companyId: proposalBinding.companyId, role: 'customer' }] };
+const identity = { role: 'customer', memberships: [{ companyId: wasionPreviewBinding.companyId, role: 'customer' }] };
+const service = { async getProject(principal, companyId, projectId) { assert.equal(companyId,wasionPreviewBinding.companyId);assert.equal(projectId,wasionPreviewBinding.projectId);if(principal.identity.role!=='admin'&&!principal.identity.memberships?.some(m=>m.companyId===companyId&&m.active!==false))throw new BusinessError(404,'Denied');return {id:projectId}; } };
 const principal = { identity, identityId: 'subject-1' };
-const demoService={async getProject(){return {id:proposalBinding.projectId};}};
 const makeAuth = viewer => ({ loadSession: async () => viewer ? { identity: viewer, identityId: 'subject-1' } : null });
 const request = (body = { question: 'Prepayment solutions', language: 'en' }, headers = {}) => ({
   method: 'POST', headers: { origin: 'https://crm.cnps.ai', 'x-cnps-crm': '1', 'content-type': 'application/json', ...headers }, body
@@ -58,11 +59,11 @@ test('application and communication searches prioritize their matching official 
 });
 
 test('auth allows only active CRM customers or designated internal preview roles', async () => {
-  const check = viewer => authorizeWasionCustomer({ service:demoService,req: {}, auth: makeAuth(viewer) });
+  const check = viewer => authorizeWasionCustomer({ req: {}, auth: makeAuth(viewer), service });
   assert.ok(await check(identity));
-  assert.ok(await check({ role: 'sales_manager', memberships: [{ companyId: proposalBinding.companyId, role: 'sales_manager' }] }));
+  assert.ok(await check({ role: 'sales_manager', memberships: [{ companyId: wasionPreviewBinding.companyId, role: 'sales_manager' }] }));
   assert.ok(await check({ role: 'admin', memberships: [] }));
-  for (const viewer of [null, { role: 'guest' }, { role: 'customer', memberships: [] },
+  for (const viewer of [null, { role: 'guest' }, {role:'customer',memberships:[{companyId:'other-company',role:'customer'}]}, {role:'sales_manager',memberships:[{companyId:'other-company',role:'sales_manager'}]}, { role: 'customer', memberships: [] },
     { role: 'sales_manager', memberships: [{ role: 'sales_manager', active: false }] },
     { role: 'customer', memberships: [{ role: 'customer', active: false }] }
   ]) assert.equal(await check(viewer), null);
@@ -146,7 +147,7 @@ test('handler rejects missing auth, unapproved origins and missing CRM request m
     [makeAuth(identity), { origin: undefined }, 403], [makeAuth(identity), { 'x-cnps-crm': undefined }, 403]
   ]) {
     const res = response();
-    await createWasionSearchHandler({service:demoService, env: config.env, auth, rateLimit: config.rateLimit, fetchImpl: async () => { modelCalled = true; } })(request(undefined, headers), res);
+    await createWasionSearchHandler({ service, env: config.env, auth, rateLimit: config.rateLimit, fetchImpl: async () => { modelCalled = true; } })(request(undefined, headers), res);
     assert.equal(res.statusCode, status);
     assert.match(res.headers['Cache-Control'], /no-store/);
     assert.match(res.headers['X-Robots-Tag'], /noindex/);
@@ -165,7 +166,7 @@ test('handler rechecks revocation and principal identity before disclosing gener
       return mode === 'identity_changed' ? { ...principal, identityId: 'other-subject' } : null;
     } };
     const res = response();
-    await createWasionSearchHandler({service:demoService, env: mode === 'fallback_revoked' ? {} : config.env, auth,
+    await createWasionSearchHandler({ service, env: mode === 'fallback_revoked' ? {} : config.env, auth,
       rateLimit: config.rateLimit, fetchImpl: async (...args) => { called = true; return modelForContext(...args); }
     })(request(), res);
     assert.equal(reads, 2);
@@ -178,7 +179,7 @@ test('handler rechecks revocation and principal identity before disclosing gener
 test('handler accepts the canonical CRM origin and returns fallback results with a rechecked grant', async () => {
   let reads = 0;
   const res = response();
-  await createWasionSearchHandler({service:demoService, env: { VERCEL_URL: 'wasion-preview.vercel.app' }, auth: { loadSession: async () => { reads++; return principal; } } })(request({ question: 'Wi-SUN', language: 'en' }, { origin: 'https://crm.cnps.ai' }), res);
+  await createWasionSearchHandler({ service, env: { VERCEL_URL: 'wasion-preview.vercel.app' }, auth: { loadSession: async () => { reads++; return principal; } } })(request({ question: 'Wi-SUN', language: 'en' }, { origin: 'https://crm.cnps.ai' }), res);
   assert.equal(res.statusCode, 200);
   assert.equal(reads, 2);
   const { data } = JSON.parse(res.body);
@@ -187,7 +188,7 @@ test('handler accepts the canonical CRM origin and returns fallback results with
 });
 
 test('handler rejects malformed or oversized bodies, including an oversized request stream', async () => {
-  const handler = createWasionSearchHandler({service:demoService, env: {}, auth: makeAuth(identity) });
+  const handler = createWasionSearchHandler({ service, env: {}, auth: makeAuth(identity) });
   for (const body of ['{bad', [], { question: 'smart meter', extra: 'x'.repeat(2100) }]) {
     const res = response(); await handler(request(body), res); assert.equal(res.statusCode, 400);
   }

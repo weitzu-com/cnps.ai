@@ -1,4 +1,5 @@
-import { proposalBinding } from './proposal-crm.mjs';
+import { wasionPreviewBinding } from './crm-project-previews.mjs';
+import { BusinessError } from './crm-business-service.mjs';
 import { Redis } from '@upstash/redis';
 import { retrieveWasionSources } from './wasion-demo-sources.mjs';
 
@@ -8,17 +9,26 @@ const json = (res, status, value) => {
   res.end(JSON.stringify(value));
 };
 const publicError = (res, status, message) => json(res, status, { error: message });
-// This demo belongs to the Wasion project. A generic customer role is not an entitlement.
+const validDemoViewer = identity => identity?.role === 'admin'
+  || (identity?.role === 'customer' && Array.isArray(identity.memberships)
+    && identity.memberships.some(m => m?.role === 'customer' && m?.active !== false))
+  || (identity?.role === 'sales_manager' && Array.isArray(identity.memberships)
+    && identity.memberships.some(m => m?.role === 'sales_manager' && m?.active !== false));
+
+// Reload authoritative membership for every page/query; client identity is ignored.
 export async function authorizeWasionCustomer({ req, auth, service }) {
   const principal = await auth.loadSession(req);
-  if (!principal) return null;
-  if (principal.identity?.role === 'admin') return {principal};
-  if (!['customer','sales_manager'].includes(principal.identity?.role)) return null;
-  const membership = principal.identity.memberships?.find(m => m.companyId === proposalBinding.companyId && m.active !== false && ['customer','sales_manager'].includes(m.role));
-  if (!membership || typeof service?.getProject !== 'function') return null;
-  try { await service.getProject(principal,proposalBinding.companyId,proposalBinding.projectId); }
-  catch(error){if(error.status===404)return null;throw error;}
-  return {principal};
+  if (!principal || !validDemoViewer(principal.identity)) return null;
+  // Use the same authoritative company/project ACL as the workspace. A CRM
+  // customer session alone must never grant access to another company’s demo.
+  if (!service?.getProject) throw new Error('Project authorization unavailable');
+  try {
+    await service.getProject(principal, wasionPreviewBinding.companyId, wasionPreviewBinding.projectId);
+  } catch (error) {
+    if (error instanceof BusinessError && [401, 403, 404].includes(error.status)) return null;
+    throw error;
+  }
+  return { principal };
 }
 
 const copy = {

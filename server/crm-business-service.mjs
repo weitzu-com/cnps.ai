@@ -431,6 +431,37 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         next.events.push(event(principal, 'manager.assign', { staffId, companyIds: selected, active, version: assignment.version })); return authorizationView(assignment);
       });
     },
+    async listManagers(principal, companyId) {
+      if (!isAdmin(principal)) missing();
+      const directory = await store.getDirectory();
+      if (!companyEntry(directory, companyId)) missing();
+      // Include inactive/other-company assignments so the editor has the current
+      // version without exposing identity HMACs or unrelated client scopes.
+      return Object.values(directory.managerAssignments).map(a => ({
+        staffId: a.staffId, active: a.active && a.companyIds.includes(companyId), version: a.version
+      }));
+    },
+    async setCompanyManager(principal, companyId, staffId, active, expectedVersion) {
+      if (!isAdmin(principal)) missing();
+      if (typeof active !== 'boolean' || !Number.isSafeInteger(expectedVersion) || expectedVersion < 0) fail(400, '经理授权参数无效。');
+      const staff = await authoritative('getManager', staffId);
+      if (!staff.active || !validId(staff.identityId)) fail(400, '经理资料无效。');
+      await authoritative('getCompany', companyId);
+      return directoryWrite(principal, next => {
+        if (!companyEntry(next, companyId)) missing();
+        if (own(next.memberGrants, staff.identityId)) fail(409, '客户身份不能同时设为跨公司经理。');
+        const previous = own(next.managerAssignments, staff.identityId);
+        if ((previous?.version || 0) !== expectedVersion) fail(409, '权限已变更，请刷新后重试。');
+        // Only this edge changes. Globally revoked legacy assignments must not
+        // regain access to their other companies when one edge is enabled.
+        const selected = new Set(previous?.active ? previous.companyIds : []);
+        if (active) selected.add(companyId); else selected.delete(companyId);
+        const assignment = { identityId: staff.identityId, staffId, companyIds: [...selected], active: selected.size > 0, authEpoch: previous?.active && selected.size === 0 ? nextAuthEpoch(previous) : authEpoch(previous), version: expectedVersion + 1, updatedAt: now() };
+        next.managerAssignments[staff.identityId] = assignment;
+        next.events.push(event(principal, active ? 'manager.company-grant' : 'manager.company-revoke', { companyId, staffId, version: assignment.version }));
+        return { staffId, active, version: assignment.version };
+      });
+    },
     async grantMember(principal, companyId, input) {
       object(input); rejectFields(input, ['contactId', 'projectScope', 'projectIds', 'documentScope', 'documentIds', 'allowApprovals', 'operations', 'includeFuture']);
       const { directory, state } = await snapshot(companyId, principal); manage(directory, principal, companyId);

@@ -6,7 +6,7 @@ import { createWasionSearchHandler } from '../server/wasion-demo.mjs';
 // without production CRM bindings must still import and fail closed cleanly.
 const search = createWasionSearchHandler({ env: process.env,
   auth: { loadSession: req => getCrmRuntime().auth.loadSession(req) },
-  service: { getProject: (...args) => getCrmRuntime().service.getProject(...args) }
+  service: { getProject: (...args) => getCrmRuntime().projectAccessService.getProject(...args) }
 });
 
 export default function handler(req,res){if(guardPrivateRequest(req,res))return;return search(req,res);}

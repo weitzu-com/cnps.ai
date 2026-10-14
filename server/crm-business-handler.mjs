@@ -60,6 +60,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'deliveries': result = await service.listDeliveries(principal, companyId, projectId); break;
           case 'delivery': result = await service.getDelivery(principal, companyId, query('deliveryId')); break;
           case 'companies': result = await service.listCompanies(principal); break;
+          case 'managers': result = await service.listManagers(principal, companyId); break;
           case 'staff': result = await service.listStaff(principal); break;
           case 'contacts': result = await service.listContacts(principal, companyId); break;
           case 'projects': result = await service.listProjects(principal, companyId); break;
@@ -122,6 +123,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'createCompany': result = await service.createCompany(principal, data.fields); break;
           case 'createContact': result = await service.createContact(principal, companyId, data.fields); break;
           case 'updateContact': result = await service.updateContact(principal, companyId, data.contactId, data.fields); break;
+          case 'setCompanyManager': result = await service.setCompanyManager(principal, companyId, data.staffId, data.active, data.expectedVersion); break;
           case 'assignManager': result = await service.assignManager(principal, data.staffId, data.companyIds, data.active); break;
           case 'grantMember': result = await service.grantMember(principal, companyId, data.grant); break;
           case 'revokeMember': result = await service.revokeMember(principal, companyId, data.contactId); break;

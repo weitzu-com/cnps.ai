@@ -44,6 +44,7 @@ export function createCrmRuntime(env, options = {}) {
   return {
     auth,
     store,
+    get projectAccessService(){return identities();},
     get twenty() {
       return getTwenty();
     },
