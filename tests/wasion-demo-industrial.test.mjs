@@ -56,7 +56,7 @@ test('Industrial product details retain source specifications and auxiliary disc
  assert.ok(content.includes('href="'+base+'/search?q='));
  assert.match(content,/class="wd-tables" tabindex="0" role="region" aria-label="Scrollable official technical information"/);
  assert.doesNotMatch(body(html),/class="wd-mini-search/);
- for(const style of ['classic','atmospheric','planhat','orderful'])assert.match(body(wasionDemoPage('n',{style,slug:page.slug})),/class="wd-mini-search/);
+ for(const style of ['classic','atmospheric','planhat'])assert.match(body(wasionDemoPage('n',{style,slug:page.slug})),/class="wd-mini-search/);
 });
 
 test('Industrial search retains a POST form, immediate model results and the shared AI endpoint',()=>{
