@@ -3,13 +3,25 @@ const ORIGIN = 'https://crm.cnps.ai';
 // Only authenticated portal pages may be a destination. Neither an external
 // host nor the login page itself can become an open redirect or a login loop.
 export function safeCrmReturnTo(value) {
-  if (typeof value !== 'string' || !value || value.length > 2048 || /[\\\u0000-\u0020\u007f]/.test(value)) return null;
+  if (typeof value !== 'string' || value.length > 2048 || !value.startsWith('/')
+      || value.startsWith('//') || /[\\\u0000-\u0020\u007f]/.test(value)) return null;
+  const path = value.split(/[?#]/, 1)[0];
+  if (path !== '/crm/workspace' && !/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(path)) return null;
   try {
     const url = new URL(value, ORIGIN);
-    if (url.hostname !== 'crm.cnps.ai' || url.port || url.username || url.password || !['https:', 'http:'].includes(url.protocol)) return null;
-    if (!/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(url.pathname) && url.pathname !== '/crm/workspace') return null;
-    if (/%(?:00|0a|0d|5c)/i.test(url.pathname + url.search + url.hash)) return null;
-    return url.pathname + url.search + url.hash;
+    if (url.origin !== ORIGIN || url.pathname !== path || /%(?:00|0a|0d|5c)/i.test(url.search + url.hash)) return null;
+    const params = new URLSearchParams();
+    if (path === '/crm/workspace') {
+      for (const key of ['companyId', 'deliveryId', 'projectId']) {
+        const id = url.searchParams.get(key);
+        if (id && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(id)) params.set(key, id);
+      }
+    } else if (path === '/demo/wasion/search') {
+      const query = url.searchParams.get('q');
+      if (query && query.length <= 500 && !/[\u0000-\u001f\u007f]/.test(query)) params.set('q', query);
+    }
+    const hash = /^#[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(url.hash) ? url.hash : '';
+    return path + (params.size ? '?' + params.toString() : '') + hash;
   } catch { return null; }
 }
 
@@ -27,7 +39,7 @@ export function crmPageReturnTo(requestUrl) {
     const value = url.searchParams.get(name);
     if (value && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value)) params.set(name, value);
   }
-  return params.size ? '/crm/workspace?' + params.toString() : null;
+  return params.size ? safeCrmReturnTo('/crm/workspace?' + params.toString()) : null;
 }
 
 export function demoReturnTo(req) {

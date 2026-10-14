@@ -1,11 +1,12 @@
-import { safeCrmReturnTo } from './crm-return.mjs';
+import { sanitizeCrmReturnTo } from './crm-navigation.mjs';
+
 function escapeAttribute(value) {
   return String(value).replace(/[&<>"']/g, character => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[character]));
 }
 
 export function crmLoginPage(nonce, { returnTo } = {}) {
   const safeNonce = escapeAttribute(nonce);
-  const destination = JSON.stringify(safeCrmReturnTo(returnTo)).replace(/</g, '\\u003c');
+  const safeReturnTo = JSON.stringify(sanitizeCrmReturnTo(returnTo)).replaceAll('<', '\\u003c');
   return `<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -37,9 +38,10 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
   <section class="form-side" aria-label="身份验证">
     <div class="card">
       <p class="loading" id="loading" role="status">正在确认登录状态…</p>
+      <p class="status" id="session-check-status" role="status" aria-live="polite" hidden></p>
       <form id="login" hidden>
         <h2>手机号登录</h2>
-        <p class="sub">使用短信验证码验证身份。资料权限以实际授权为准。</p>
+        <p class="sub">客户在本浏览器验证后，30 天内免重复验证。管理员与销售经理登录有效期为 8 小时。</p>
         <div class="field">
           <label for="phone">中国大陆手机号</label>
           <div class="input-wrap"><span class="prefix" aria-hidden="true">+86</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="11" pattern="1[3-9][0-9]{9}" required placeholder="请输入11位手机号" aria-describedby="phone-hint"></div>
@@ -53,13 +55,14 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
         <label class="consent"><input id="consent" name="consent" type="checkbox" required><span>同意为身份验证、访问授权与登录记录处理手机号，并通过短信服务发送验证码。</span></label>
         <button class="submit" id="submit" type="submit" disabled>验证并登录</button>
         <p class="status" id="status" role="status" aria-live="polite" aria-atomic="true"></p>
-        <p class="privacy">手机号用于身份验证与资料访问管理。登录凭据由浏览器安全会话保存。登录不会自动开通其他公司或项目的访问权限；需要资料授权，请联系项目对接人。</p>
+        <p class="privacy">手机号用于身份验证与资料访问管理。登录凭据由本浏览器安全保存；换浏览器、清除 Cookie 或主动退出后需重新验证。访问不会延长登录有效期。登录不会自动开通其他公司或项目的访问权限；需要资料授权，请联系项目对接人。</p>
       </form>
       <section id="session" aria-labelledby="session-title" hidden>
         <div class="session-tag">身份已验证</div>
         <h2 id="session-title" tabindex="-1">您已登录</h2>
         <p class="sub">登录状态已生效，可继续访问获授权的资料。</p>
         <dl class="identity"><div><dt>登录手机号</dt><dd id="session-phone"></dd></div><div><dt>当前身份</dt><dd id="session-role"></dd></div></dl>
+        <p class="session-note" id="session-expiry"></p>
         <p class="session-note">项目资料按公司与授权范围开放。客户方案使用独立访问授权，如提示验证身份，请按该页面完成验证。</p>
         <div class="session-actions"><a class="button-link" href="/crm/workspace">进入客户工作台</a><a class="button-link secondary" href="https://www.cnps.ai/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
         <p class="status" id="session-status" role="status" aria-live="polite" aria-atomic="true"></p>
@@ -72,13 +75,15 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
 <script nonce="${safeNonce}">
 (() => {
   'use strict';
-  const returnTarget = ${destination};
+  const returnTo = ${safeReturnTo};
   const byId = id => document.getElementById(id);
   const form = byId('login'), send = byId('send'), submit = byId('submit');
   const phone = byId('phone'), code = byId('code'), consent = byId('consent');
   const status = byId('status'), session = byId('session'), sessionStatus = byId('session-status');
   const loading = byId('loading'), retrySession = byId('retry-session'), logout = byId('logout');
+  const sessionCheckStatus = byId('session-check-status');
   let challenge = '', sentPhone = '', busy = false, countdown = 0, countdownTimer, retryAt = 0, waitingPhone = '';
+  let sessionSequence = 0, sessionKnown = false;
   const currentPhone = () => phone.value.trim();
   function message(element, text, ok = false) {
     element.textContent = text;
@@ -86,8 +91,8 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
   }
   function updateControls() {
     phone.disabled = busy; code.disabled = busy; consent.disabled = busy;
-    send.disabled = busy || countdown > 0;
-    submit.disabled = busy || !challenge || sentPhone !== currentPhone() || !/^[0-9]{6}$/.test(code.value) || !consent.checked;
+    send.disabled = !sessionKnown || busy || countdown > 0;
+    submit.disabled = !sessionKnown || busy || !challenge || sentPhone !== currentPhone() || !/^[0-9]{6}$/.test(code.value) || !consent.checked;
     form.setAttribute('aria-busy', String(busy));
   }
   function resetChallenge() { challenge = ''; sentPhone = ''; code.value = ''; updateControls(); }
@@ -138,27 +143,38 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
     } finally { clearTimeout(timeout); }
   }
   async function loadSession(announce = false) {
+    const sequence = ++sessionSequence;
+    sessionKnown = false; form.hidden = true; session.hidden = true; updateControls();
+    sessionCheckStatus.hidden = true;
     retrySession.hidden = true;
     loading.hidden = false;
     try {
       const result = await request('session');
+      if (sequence !== sessionSequence) return;
+      sessionKnown = true;
       if (result?.authenticated === true && result.identity && typeof result.identity === 'object') {
         byId('session-phone').textContent = typeof result.identity.phoneMasked === 'string' ? result.identity.phoneMasked : '已验证手机号';
         byId('session-role').textContent = ({admin: '高级管理员', customer: '客户', sales_manager: '销售经理'})[result.identity.role] || '授权用户';
+        byId('session-expiry').textContent = Number.isFinite(result.expiresAt)
+          ? '登录有效至 ' + new Date(result.expiresAt).toLocaleString('zh-CN', {timeZone: 'Asia/Shanghai', hour12: false})
+          : '登录有效期由服务器核验。';
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
-        if (announce || returnTarget) { location.replace(returnTarget || '/crm/workspace'); return; }
+        if (announce || returnTo) { location.replace(returnTo || '/crm/workspace'); return; }
         if (announce) byId('session-title').focus();
       } else {
+        byId('session-phone').textContent = ''; byId('session-role').textContent = ''; byId('session-expiry').textContent = '';
         form.hidden = false; session.hidden = true;
         if (announce) message(status, '登录状态未生效，请重新获取验证码。');
       }
     } catch (error) {
+      if (sequence !== sessionSequence) return;
       retrySession.hidden = false;
       message(session.hidden ? status : sessionStatus, '登录状态暂时无法确认。' + error.message);
-      if (session.hidden) form.hidden = false;
-    } finally { loading.hidden = true; }
+      sessionCheckStatus.hidden = false;
+      message(sessionCheckStatus, '登录状态暂时无法确认。' + error.message);
+    } finally { if (sequence === sessionSequence) { loading.hidden = true; updateControls(); } }
   }
   phone.addEventListener('input', () => {
     if (waitingPhone && waitingPhone !== currentPhone()) {
@@ -172,7 +188,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
   code.addEventListener('input', updateControls);
   consent.addEventListener('change', updateControls);
   send.addEventListener('click', async () => {
-    if (busy || countdown > 0) return;
+    if (!sessionKnown || form.hidden || busy || countdown > 0) return;
     if (!phone.checkValidity()) { phone.reportValidity(); return; }
     if (!consent.checked) { consent.reportValidity(); return; }
     const number = currentPhone();
@@ -190,7 +206,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
   });
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (busy) return;
+    if (!sessionKnown || form.hidden || busy) return;
     if (!form.checkValidity()) { form.reportValidity(); return; }
     if (!challenge || sentPhone !== currentPhone()) { message(status, '请先为当前手机号获取验证码。'); return; }
     busy = true; updateControls(); message(status, '正在验证身份…');
@@ -208,15 +224,19 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
     try {
       const result = await request('logout');
       if (result?.ok !== true) throw new Error('退出未完成，请重试。');
+      sessionSequence++; sessionKnown = true;
       clearInterval(countdownTimer); countdown = 0; waitingPhone = ''; send.textContent = '获取验证码';
       resetChallenge(); code.value = ''; consent.checked = false;
       byId('session-phone').textContent = ''; byId('session-role').textContent = '';
+      byId('session-expiry').textContent = ''; sessionCheckStatus.hidden = true;
       session.hidden = true; form.hidden = false; retrySession.hidden = true;
       message(status, '已退出登录。', true); phone.focus(); updateControls();
     } catch (error) { message(sessionStatus, error.message); }
     finally { logout.disabled = false; }
   });
   retrySession.addEventListener('click', () => loadSession(true));
+  window.addEventListener('pagehide', () => { sessionKnown = false; form.hidden = true; session.hidden = true; updateControls(); });
+  window.addEventListener('pageshow', event => { if (event.persisted) loadSession(); });
   updateControls();
   loadSession();
 })();
