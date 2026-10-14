@@ -400,3 +400,10 @@ test('expired demo POST question resumes only after confirmed login without a qu
  h.element('phone').value='18700001111';h.element('consent').checked=true;await h.event('send','click');h.element('code').value='123456';await h.event('login','submit');
  assert.deepEqual(h.resumed,['POST']);assert.deepEqual(h.navigations,[]);assert.ok(!h.html.includes('?q='));
 });
+
+test('English verification chrome preserves the original multilingual POST question', () => {
+ const question='客户询问 I-110 的通信方式与身份验证 <script> & details';
+ const html=crmLoginPage('fixture',{returnTo:'/demo/wasion/search',resumeQuestion:question});
+ assert.ok(html.includes('value="客户询问 I-110 的通信方式与身份验证 &lt;script&gt; &amp; details"'));
+ assert.match(html,/<html lang="en">/);assert.ok(!html.includes('value="Customer'));
+});

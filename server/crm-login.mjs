@@ -28,7 +28,7 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 </style>
 </head>
-<body>${resumeSearch ? `<form id="demo-resume" action="/demo/wasion/search" method="post" hidden><input type="hidden" name="q" value="${escapeAttribute(resumeQuestion)}"></form>` : ''}
+<body>
 <main class="shell">
   <section class="intro" aria-labelledby="intro-title">
     <div class="brand">CNPS.AI <span>客户工作台</span></div>
@@ -270,5 +270,6 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
     for (const [from, to] of copy.sort((a,b)=>b[0].length-a[0].length)) html = html.replaceAll(from, to);
     html = html.replace('<html lang="zh-CN">', '<html lang="en">').replace("toLocaleString('zh-CN'","toLocaleString('en-GB'");
   }
+  if(resumeSearch) html=html.replace('<body>',`<body><form id="demo-resume" action="/demo/wasion/search" method="post" hidden><input type="hidden" name="q" value="${escapeAttribute(resumeQuestion)}"></form>`);
   return html;
 }
