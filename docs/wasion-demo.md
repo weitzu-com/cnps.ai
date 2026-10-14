@@ -94,3 +94,9 @@ This is a private customer demonstration, with content copied from public offici
 ## Preview runtime verification
 
 Actual Vercel request logs showed that the new preview branch does not have the existing branch-specific Twenty/file-gateway bindings. Runtime construction previously ran outside the authorization error guard (and at module import in the search API), so this configuration error became a Vercel function crash. Runtime resolution is now lazy and caught by the existing authorization guard, returning a private 503 without source content; unsupported search methods return 405 without initializing CRM. A child-process test reproduces the missing-configuration case. Preview access bindings were not broadened.
+
+## CRM workspace entry
+
+The authenticated Wasion project now exposes “英文官网与 AI 搜索演示” with an “打开演示网站” link above its project tabs, including the delivery documents tab. The business API adds this preview only after `getProject` authorizes the exact company and project IDs; other projects return no preview. The demo utility bar links back to that exact project. Project deep links select an accessible company and reload the project through the existing API permissions. SMS login preserves the company/project context.
+
+The existing `admin` role is labeled “高级管理员” in the login page and workspace; no additional role or browser-controlled permission was introduced.

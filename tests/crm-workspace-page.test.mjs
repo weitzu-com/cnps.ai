@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {crmWorkspacePage} from '../server/crm-workspace-page.mjs';
 
-function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], override} = {}) {
+function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], search = '', override} = {}) {
   const html = crmWorkspacePage('test-nonce'), ids = new Map(), roots = [], calls = [], timers = new Map();
   let timerId = 0;
   class Element {
@@ -44,7 +44,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
     document, URLSearchParams, crypto:{randomUUID:()=> 'synthetic-request-id'},navigator:{clipboard:{async writeText(value){state.copied=value;}}}, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
     FileReader: class { readAsDataURL(file) { this.result = 'data:' + file.type + ';base64,' + file.base64; this.onload(); } },
-    location: {replace(value) { state.navigation = value; }},
+    location: {search, replace(value) { state.navigation = value; }},
     setTimeout(fn) { const id = ++timerId; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); },
     async fetch(url, options = {}) {
       const parsed = new URL(url, 'https://crm.example.test');
@@ -336,4 +336,19 @@ test('delivery email action records provider submission and disables repeated se
  }});await h.flush();await h.openProject();await h.flush();await h.click('交付与通知');await h.flush();await h.click('发送邮件通知');await h.flush();
  assert.match(h.get('message').textContent,/需查询回执/);const button=h.walk(h.get('content')).find(e=>e.tagName==='BUTTON'&&e.textContent==='发送邮件通知');assert.equal(button.disabled,true);assert.equal(delivery.viewedAt,null);
  assert.ok(!h.calls.some(c=>c.body?.action==='recordDelivery'&&c.body.kind==='view'));
+});
+
+
+test('authorized project preview stays visible across project tabs, and unsafe destinations are ignored', async () => {
+ const h=harness({override(call,state){if(call.view==='project')return {body:{ok:true,data:{...state.project,previews:[{title:'Website preview',href:'/demo/wasion',description:'Review and feedback'}, {title:'Unsafe',href:'javascript:alert(1)'}]}}};}});
+ await h.flush();await h.openProject();
+ for(const tab of ['项目概览','交付资料','风险与问题']){
+  await h.click(tab);const links=h.walk(h.get('content')).filter(x=>x.tagName==='A'&&x.textContent==='打开演示网站');
+  assert.equal(links.length,1);assert.equal(links[0].href,'/demo/wasion');assert.ok(!h.get('content').textContent.includes('Unsafe'));
+ }
+ const other=harness();await other.flush();await other.openProject();assert.ok(!other.get('content').textContent.includes('打开演示网站'));
+});
+test('project deep link selects the authorized company and opens its project; unknown company fetches no project',async()=>{
+ const h=harness({search:'?companyId=company-A&projectId=project-A'});await h.flush();assert.equal(h.get('view-title').textContent,'Synthetic project');
+ const denied=harness({search:'?companyId=company-B&projectId=project-B'});await denied.flush();assert.equal(denied.calls.some(c=>c.view==='project'),false);assert.equal(denied.get('login-needed').hidden,false);
 });
