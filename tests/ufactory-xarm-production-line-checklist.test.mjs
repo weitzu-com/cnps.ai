@@ -11,7 +11,7 @@ const zhMeta = catalog.zh.resources.find((r) => r.slug === slug);
 const arMeta = catalog.ar.resources.find((r) => r.slug === slug);
 const title = 'UFACTORY xArm production line checklist for overseas teams';
 const description =
-  'Overseas xArm production-line checklist: freeze workcell, mounting, workspace, payload/reach fields, SDK path, site safety — not a lab certificate.';
+  'UFACTORY xArm in manufacturing: 7 production-line checks — workcell, mounting, workspace, payload/reach fields, SDK path, site safety, supervised acceptance.';
 
 test('EN xArm production-line checklist uses locked title, meta, and no body H1', () => {
   assert.ok(enMeta, 'EN catalog entry');
@@ -41,10 +41,10 @@ test('EN xArm production-line checklist uses locked title, meta, and no body H1'
   assert.equal((source.match(/www\.cnps\.ai\/en\/request-quote/g) || []).length, 1);
   assert.match(source, /\[UFACTORY xArm: specify the workcell, not just the arm\]/);
   assert.match(source, /\[Robotics procurement: configuration and SDK access\]/);
-  assert.match(source, /\[Start a conversation\]/);
+  assert.match(source, /\[Request a quotation for devices or a pilot\.\]/);
   assert.match(
     source,
-    /!\[Four-step readiness strip — mount \/ workspace \/ confirm \/ safety — no fake seals\]\(\/assets\/resources\/ufactory-xarm-production-line-checklist-steps\.webp\)/
+    /!\[Four-step readiness strip — mount \/ workspace \/ fields \/ safety — no fake seals\]\(\/assets\/resources\/ufactory-xarm-production-line-checklist-steps\.webp\)/
   );
   assert.match(
     source,

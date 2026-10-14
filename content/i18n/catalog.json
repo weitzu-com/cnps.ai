@@ -314,7 +314,7 @@
         "title": "UFACTORY xArm production line checklist for overseas teams",
         "category": "Hardware",
         "audience": "Overseas labs and integration teams",
-        "description": "Overseas xArm production-line checklist: freeze workcell, mounting, workspace, payload/reach fields, SDK path, site safety — not a lab certificate."
+        "description": "UFACTORY xArm in manufacturing: 7 production-line checks — workcell, mounting, workspace, payload/reach fields, SDK path, site safety, supervised acceptance."
       },
       {
         "slug": "rfq-template",
