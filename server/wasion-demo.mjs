@@ -1,3 +1,5 @@
+import { wasionPreviewBinding } from './crm-project-previews.mjs';
+import { BusinessError } from './crm-business-service.mjs';
 import { Redis } from '@upstash/redis';
 import { retrieveWasionSources } from './wasion-demo-sources.mjs';
 
@@ -14,9 +16,18 @@ const validDemoViewer = identity => identity?.role === 'admin'
     && identity.memberships.some(m => m?.role === 'sales_manager' && m?.active !== false));
 
 // Reload authoritative membership for every page/query; client identity is ignored.
-export async function authorizeWasionCustomer({ req, auth }) {
+export async function authorizeWasionCustomer({ req, auth, service }) {
   const principal = await auth.loadSession(req);
   if (!principal || !validDemoViewer(principal.identity)) return null;
+  // Use the same authoritative company/project ACL as the workspace. A CRM
+  // customer session alone must never grant access to another company’s demo.
+  if (!service?.getProject) throw new Error('Project authorization unavailable');
+  try {
+    await service.getProject(principal, wasionPreviewBinding.companyId, wasionPreviewBinding.projectId);
+  } catch (error) {
+    if (error instanceof BusinessError && [401, 403, 404].includes(error.status)) return null;
+    throw error;
+  }
   return { principal };
 }
 

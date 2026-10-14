@@ -171,10 +171,12 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
   };
   const originals = Object.fromEntries(Object.keys(fixtureEnv).map(key => [key, process.env[key]]));
   Object.assign(process.env, fixtureEnv);
-  let runtime;
-  try { runtime = getCrmRuntime(); }
+  let runtime, acl;
+  try { runtime = getCrmRuntime(); acl = runtime.projectAccessService; }
   finally { for (const [key, value] of Object.entries(originals)) value === undefined ? delete process.env[key] : process.env[key] = value; }
   const originalSession = runtime.auth.loadSession;
+  const originalProject = acl.getProject;
+  acl.getProject = async () => ({id:"fixture-project"});
   const response = () => ({ headers: {}, setHeader(name, value) { this.headers[name] = value; }, end(body) { this.body = body; } });
   let session = null;
   runtime.auth.loadSession = async () => session;
@@ -254,5 +256,5 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
       assert.equal(res.statusCode, 503);
       assert.ok(!res.body.includes('<html'));
     });
-  } finally { runtime.auth.loadSession = originalSession; }
+  } finally { runtime.auth.loadSession = originalSession; acl.getProject=originalProject; }
 });
