@@ -96,6 +96,12 @@ test('search queries are escaped in HTML attributes and cannot terminate the non
 test('Vercel preserves the existing CRM entry and maps every demo child to the authenticated page API', () => {
   assert.deepEqual(vercel.rewrites.find(item => item.source === '/demo/wasion'), { source: '/demo/wasion', destination: '/api/crm-wasion-demo-page' });
   assert.deepEqual(vercel.rewrites.find(item => item.source === '/demo/wasion/:slug'), { source: '/demo/wasion/:slug', destination: '/api/crm-wasion-demo-page?slug=:slug' });
+  assert.deepEqual(vercel.rewrites.find(item => item.source === '/demo/wasion/styles'), { source: '/demo/wasion/styles', destination: '/api/crm-wasion-demo-page?slug=styles' });
+  const styleHome = { source: '/demo/wasion/styles/:style', destination: '/api/crm-wasion-demo-page?style=:style' };
+  const stylePage = { source: '/demo/wasion/styles/:style/:slug', destination: '/api/crm-wasion-demo-page?style=:style&slug=:slug' };
+  assert.deepEqual(vercel.rewrites.find(item => item.source === styleHome.source), styleHome, 'Industrial aliases and the four alternatives remain mapped to the shared authenticated renderer');
+  assert.deepEqual(vercel.rewrites.find(item => item.source === stylePage.source), stylePage);
+  assert.ok(vercel.rewrites.findIndex(item => item.source === styleHome.source) < vercel.rewrites.findIndex(item => item.source === '/demo/wasion/:slug'), 'style paths resolve before the generic child route');
   assert.equal(vercel.rewrites.find(item => item.source === '/')?.destination, '/api/crm-page');
   assert.equal(vercel.redirects.some(item => item.source === '/' && item.destination === '/crm'), false);
   for (const name of ['api/crm-wasion-demo-page.js', 'api/crm-wasion-demo-search.js']) {

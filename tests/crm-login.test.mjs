@@ -2,6 +2,8 @@ import crmPage from '../api/crm-page.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
+import {createHash} from 'node:crypto';
+import {WASION_LOGIN_LOGO} from '../server/crm-wasion-brand.mjs';
 import {crmLoginPage,safeDemoReturnTo} from '../server/crm-login.mjs';
 
 function harness(respond, { returnTo, search = '', resumeQuestion } = {}) {
@@ -65,6 +67,44 @@ test('page uses only nonce-bound inline assets, accessible inputs, and safely es
   assert.match(html, /@media\(min-width:1024px\)/);
   assert.match(html, /href="\/w"/);
   assert.doesNotMatch(html, /innerHTML|localStorage|sessionStorage|console\.|<script[^>]+src=|<link[^>]+href=/);
+});
+
+test('Wasion access uses the exact official logo with its natural ratio while generic CRM branding stays unchanged', () => {
+  const bytes = Buffer.from(WASION_LOGIN_LOGO.split(',')[1], 'base64');
+  assert.match(WASION_LOGIN_LOGO, /^data:image\/png;base64,/);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), '9f0e13d77ce36c810f7b71fedea007f47f86a2abd465963237e452dc64ab71a9');
+  assert.equal(bytes.readUInt32BE(16), 1850); assert.equal(bytes.readUInt32BE(20), 306);
+  for (const returnTo of ['/demo/wasion', '/demo/wasion/styles/industrial', '/demo/wasion/styles/industrial/search']) {
+    const html = crmLoginPage('fixture', {returnTo});
+    assert.ok(html.includes('<img class="brand-logo" src="' + WASION_LOGIN_LOGO + '" alt="Wasion International" width="1850" height="306"'));
+    assert.match(html, /\.wasion-brand \.brand-logo\{[^}]*height:auto;[^}]*filter:brightness\(0\) invert\(1\)/);
+    assert.match(html, /class="brand wasion-brand"/);
+    assert.doesNotMatch(html, /WASION <span>Private customer demo/);
+    assert.doesNotMatch(html, /<img[^>]+src="https?:/);
+    assert.match(html, /Customers stay verified in this browser for 30 days\. Administrators, sales managers, partners and proposal-only guests have 8-hour sessions\. Multiple roles use the shorter session period\./);
+    assert.doesNotMatch(html, /Customer在本浏览器|Sales manager、/);
+  }
+  for (const returnTo of [undefined, '/workspace', '//attacker.invalid/demo/wasion']) {
+    const html = crmLoginPage('fixture', {returnTo});
+    assert.match(html, /<div class="brand">CNPS\.AI <span>客户工作台<\/span><\/div>/);
+    assert.ok(!html.includes('<img class="brand-logo"'));
+  }
+});
+
+test('canonical and style-alias login responses permit only inline brand images under the existing private CSP', async () => {
+  for (const method of ['GET', 'HEAD']) for (const returnTo of ['/demo/wasion', '/demo/wasion/styles/industrial']) {
+    const res = {headers: {}, setHeader(key, value) {this.headers[key] = value;}, end(body) {this.body = body;}};
+    await crmPage({method, headers: {host: 'crm.cnps.ai'}, url: '/?returnTo=' + encodeURIComponent(returnTo)}, res);
+    assert.equal(res.statusCode, 200);
+    assert.match(res.headers['Content-Security-Policy'], /default-src 'none';/);
+    assert.match(res.headers['Content-Security-Policy'], /img-src data:;/);
+    assert.match(res.headers['Content-Security-Policy'], /connect-src 'self';/);
+    assert.match(res.headers['Content-Security-Policy'], /form-action 'self'; frame-ancestors 'none'; object-src 'none'/);
+    assert.doesNotMatch(res.headers['Content-Security-Policy'], /img-src[^;]*(?:https?:|\*)/);
+    assert.match(res.headers['Cache-Control'], /private, no-store/);
+    if (method === 'GET') assert.ok(res.body.includes(WASION_LOGIN_LOGO));
+    else assert.equal(res.body, undefined);
+  }
 });
 
 test('existing session is checked without sending an SMS and identity values stay text', async () => {

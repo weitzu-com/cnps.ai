@@ -2,7 +2,7 @@
 
 ## Purpose and references
 
-Industrial is a fifth website direction at `/demo/wasion/styles/industrial`. It leads with Wasion's brand, engineering products and documented project experience. AI search remains an auxiliary navigation and contextual discovery feature. Orderful stays the default at `/demo/wasion`; Classic, Atmospheric and Planhat retain their existing routes.
+Industrial is the default website direction at `/demo/wasion` and its canonical child pages. It leads with Wasion's brand, engineering products and documented project experience. AI search remains an auxiliary navigation and contextual discovery feature. Classic, Atmospheric, Planhat and Orderful retain their own complete route trees under `/demo/wasion/styles/{style}`. The former `/demo/wasion/styles/industrial` URLs remain compatibility aliases that render the same Industrial UI and generate canonical internal links.
 
 - Whole-site reference: [T1 Energy on Refero](https://styles.refero.design/style/e79b761d-f476-4c5d-8943-e31a58664e4d)
 - Product presentation reference: [Figure 03 on Refero](https://styles.refero.design/style/2997507c-ba60-4653-b217-3eca4858dec8)
@@ -21,21 +21,21 @@ The featured aMeter300, I-110 and WIR-3000 use the existing page records, image 
 
 ## Shared architecture and boundaries
 
-`server/wasion-demo-styles.mjs` registers `industrial`. The existing style gallery and page switch expose it automatically. Style links preserve the current page and search question, including the private POST recovery flow after login.
+`server/wasion-demo-styles.mjs` registers `industrial` and exports it as `WASION_DEFAULT_STYLE`. The shared `wasionStyleBase` returns `/demo/wasion` for Industrial and explicit styled bases for the other four choices. The renderer, authenticated page API and local preview consume the same default. The style gallery labels the exported default rather than a hard-coded presentation. Style links preserve the current page and search question, including the private POST recovery flow after login.
 
 `server/wasion-demo-industrial.mjs` exports `renderIndustrialHome(context)`, `INDUSTRIAL_CSS` and `INDUSTRIAL_CLIENT`. The context uses the same `pages`, `helpers` and style-specific `base` as other home compositions. Only Industrial calls its custom home renderer and includes its interaction code. All child pages keep the existing content, legal notices, contact flow and rendering components, with Industrial CSS providing their visual treatment.
 
 Industrial omits the automatic `wd-mini-search` strip on child pages. The shared navigation search link, relevant product/solution search links and the complete search page remain available. Technical specification tables keep their exact source cells and an accessible scroll region on Industrial and Orderful.
 
-All five styles use the same serialized search catalog, `/api/crm-wasion-demo-search` endpoint, server-side project authorization, nonce CSP and private CRM host policy. This change does not modify AI services, account quotas or session rules. Existing generic route rewrites and the style registry handle the new paths; unknown styles remain unavailable.
+All five styles use the same serialized search catalog, `/api/crm-wasion-demo-search` endpoint, server-side project authorization, nonce CSP and private CRM host policy. This change does not modify AI services, account quotas or session rules. Existing generic route rewrites and the style registry handle both canonical and styled paths; unknown styles remain unavailable. The Industrial compatibility aliases retain the same access boundary and resolve post-login navigation to the canonical Industrial route.
 
 ## Verification
 
 Run `node --test tests/wasion-demo-styles.test.mjs tests/wasion-demo-industrial.test.mjs` for route, content and interaction isolation regression checks. Run `npm test` and `npm run build` before release.
 
-The regression checks cover every published style and route, internal product paths, complete search catalog equality, official product imagery, unchanged source specification cells, a brand-led home hero, removal of the automatic search strip only in Industrial, auxiliary navigation search, current-page and question retention, POST sign-in recovery, script syntax and project access isolation. The product-stage interaction test runs the actual client code and checks click, Home/End and left/right wrapping, one visible panel and roving tab focus.
+The regression checks cover every published style and route, canonical Industrial default equivalence, internal product paths, complete search catalog equality, official product imagery, unchanged source specification cells, a brand-led home hero, omission of the automatic search strip in Industrial and Orderful, auxiliary navigation search, current-page and question retention, POST sign-in recovery, script syntax and project access isolation. The product-stage interaction test runs the actual client code and checks click, Home/End and left/right wrapping, one visible panel and roving tab focus.
 
-Automated integration verification on 2026-10-15: the seven relevant demo suites passed all 60 tests; the full `npm test` run passed 569 tests, with 1 existing skipped test and 0 failures. These results do not substitute for the visual, mobile, build and deployed customer-path checks below.
+Initial Industrial variant verification on 2026-10-15: the seven relevant demo suites passed all 60 tests; the full `npm test` run passed 569 tests, with 1 existing skipped test and 0 failures. These are historical results from adding Industrial as a fifth presentation. The default-switch release requires a fresh test, build and deployed acceptance record.
 
 Local browser verification covered 320/375/414/768/1024/1440px home layouts and 375/414/768/1024/1440px technical detail layouts without horizontal page overflow. Product click and End-key switching worked; the mobile navigation opened its offering submenu and Escape returned focus to the menu button. Technical tables have an independent keyboard-focusable scroll region. A fresh 375px home did not load the film; a 1440px reduced-motion view also kept the film unloaded and transitions disabled. Enquiry inputs were 16px with at least 48px height. Local native POST search returned the same official I-110 page matches; the local preview deliberately does not claim a generated AI answer.
 
