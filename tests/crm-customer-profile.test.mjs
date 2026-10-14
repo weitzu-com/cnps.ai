@@ -12,3 +12,7 @@ test('address defaults, foreign fields, invalid mail and account strings fail va
 test('paste extraction marks conflicting values and does not guess unlabeled text',()=>{
  const result=parseCustomerProfileText('企业名称：First\n企业名称：Second\n公司名称：First\n开户行：Bank\n银行账号：001234567890\n未知内容：Do not import\nRandom words');assert.equal(result.fields.legalName,undefined);assert.deepEqual(result.conflicts,['legalName']);assert.equal(result.fields['invoice.bankAccount'],'001234567890');assert.equal(result.ignored,2);
 });
+
+test('legal names retain their original punctuation while machine-readable codes normalize',()=>{
+ const name='测试企业（分公司）';assert.equal(normalizeCustomerProfile({legalName:name,invoice:{title:name}}).legalName,name);assert.equal(parseCustomerProfileText('企业名称：'+name).fields.legalName,name);
+});

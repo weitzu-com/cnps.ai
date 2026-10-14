@@ -1,16 +1,16 @@
 // Business details are private company-scoped records, not identity grants.
 const invalid = message => { const error = new Error(message); error.status = 400; throw error; };
 const allowed = (value, keys) => { if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).some(key => !keys.includes(key))) invalid('客户档案字段无效。'); };
-function value(input, max = 300) { if (input === undefined) return ''; if (typeof input !== 'string' || input.length > max || /[\u0000-\u001f\u007f]/.test(input)) invalid('客户档案文本格式无效。'); return input.normalize('NFKC').trim(); }
+function value(input, max = 300) { if (input === undefined) return ''; if (typeof input !== 'string' || input.length > max || /[\u0000-\u001f\u007f]/.test(input)) invalid('客户档案文本格式无效。'); return input.trim(); }
 const email = input => { const result = value(input, 254); if (result && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(result)) invalid('电子邮箱格式无效。'); return result; };
-const phone = input => { const result = value(input, 40).replace(/[\s()-]/g, ''); if (result && !/^\+?\d{6,20}$/.test(result)) invalid('联系电话格式无效。'); return result; };
+const phone = input => { const result = value(input, 80).normalize('NFKC').replace(/[\s()-]/g, ''); if (result && !/^\+?\d{6,20}$/.test(result)) invalid('联系电话格式无效。'); return result; };
 export function normalizeCustomerProfile(input) {
   allowed(input, ['legalName','creditCode','registeredAddress','businessPhone','website','invoice','addresses']);
-  const result = { legalName:value(input.legalName), creditCode:value(input.creditCode,40).toUpperCase().replace(/\s/g,''), registeredAddress:value(input.registeredAddress,500), businessPhone:phone(input.businessPhone), website:value(input.website), invoice:{}, addresses:[] };
+  const result = { legalName:value(input.legalName), creditCode:value(input.creditCode,40).normalize('NFKC').toUpperCase().replace(/\s/g,''), registeredAddress:value(input.registeredAddress,500), businessPhone:phone(input.businessPhone), website:value(input.website), invoice:{}, addresses:[] };
   if (result.creditCode && !/^[0-9A-HJ-NP-RTUWXY]{18}$/.test(result.creditCode)) invalid('统一社会信用代码应为18位有效字符。');
   if(result.website){try{const url=new URL(/^https?:\/\//i.test(result.website)?result.website:'https://'+result.website);if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw Error();result.website=url.href;}catch{invalid('公司网站格式无效。');}}
   const bill=input.invoice||{};allowed(bill,['type','title','taxId','address','phone','bankName','bankAccount','email']);
-  result.invoice={type:value(bill.type,30)||'digital_general',title:value(bill.title),taxId:value(bill.taxId,40).toUpperCase().replace(/\s/g,''),address:value(bill.address,500),phone:phone(bill.phone),bankName:value(bill.bankName),bankAccount:value(bill.bankAccount,40).replace(/[\s-]/g,''),email:email(bill.email)};
+  result.invoice={type:value(bill.type,30)||'digital_general',title:value(bill.title),taxId:value(bill.taxId,40).normalize('NFKC').toUpperCase().replace(/\s/g,''),address:value(bill.address,500),phone:phone(bill.phone),bankName:value(bill.bankName),bankAccount:value(bill.bankAccount,80).normalize('NFKC').replace(/[\s-]/g,''),email:email(bill.email)};
   if(!['digital_general','digital_special','paper_general','paper_special'].includes(result.invoice.type))invalid('发票类型无效。');
   if(result.invoice.taxId&&!/^[A-Z0-9]{15,20}$/.test(result.invoice.taxId))invalid('纳税人识别号格式无效。');
   if(result.invoice.bankAccount&&!/^\d{6,40}$/.test(result.invoice.bankAccount))invalid('银行账号格式无效。');
@@ -29,6 +29,7 @@ const aliases={公司名称:'legalName',企业名称:'legalName',企业全称:'l
 export function parseCustomerProfileText(source) {
  if(typeof source!=='string'||source.length>12000)invalid('请粘贴不超过12000字的客户资料。');
  const fields={},conflicts=new Set();let ignored=0;
- for(const line of source.normalize('NFKC').split(/\r?\n/)){if(!line.trim())continue;const match=line.match(/^\s*([^:：]{1,30})[:：]\s*(.+?)\s*$/);const key=match&&aliases[match[1].trim()];if(!key){ignored++;continue;}if(Object.hasOwn(fields,key)&&fields[key]!==match[2]){delete fields[key];conflicts.add(key);}else if(!conflicts.has(key))fields[key]=match[2];}
+ for(const line of source.split(/\r?\n/)){if(!line.trim())continue;const match=line.match(/^\s*([^:：]{1,30})[:：]\s*(.+?)\s*$/);const key=match&&aliases[match[1].normalize('NFKC').trim()];if(!key){ignored++;continue;}if(Object.hasOwn(fields,key)&&fields[key]!==match[2]){delete fields[key];conflicts.add(key);}else if(!conflicts.has(key))fields[key]=match[2];}
+ for(const key of ['creditCode','invoice.taxId','invoice.bankAccount','businessPhone','invoice.phone','recipientPhone'])if(fields[key])fields[key]=fields[key].normalize('NFKC');
  return {fields,conflicts:[...conflicts],ignored,notice:'识别结果仅为草稿；保存前请与客户确认。未识别内容不会写入档案。'};
 }
