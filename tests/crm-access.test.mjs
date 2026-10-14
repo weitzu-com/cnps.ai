@@ -860,7 +860,7 @@ test('legacy overlapping grants cannot elevate an explicit customer context',asy
 });
 
 test('revocation during the response audit prevents file bytes from leaving the handler',async()=>{
- const h=await fixture(),original=h.store.recordAccess;
+ const h=await fixture({atomic:true}),original=h.store.recordAccess;
  h.store.recordAccess=async e=>{await original(e);if(e.action==='access.download-prepared')await h.service.revokeMember(h.admin,'company-A','client');};
  const handler=createBusinessHandler({env:h.env,authHandler:{loadSession:async()=>h.customer},service:h.service}),res=response();
  await handler({method:'GET',url:'/api/crm-workspace?'+new URLSearchParams({view:'download',companyId:'company-A',documentId:h.doc.documentId,versionId:h.doc.versionId}),headers:{}},res);
@@ -876,7 +876,7 @@ test('legacy manager proposal access retains its explicit company role without f
 });
 
 test('logout while writing the download audit invalidates the already-read file response',async()=>{
- const h=await fixture(),original=h.store.recordAccess;let active=true;
+ const h=await fixture({atomic:true}),original=h.store.recordAccess;let active=true;
  h.store.recordAccess=async e=>{await original(e);if(e.action==='access.download-prepared')active=false;};
  const handler=createBusinessHandler({env:h.env,authHandler:{loadSession:async()=>active?h.customer:null},service:h.service}),res=response();
  await handler({method:'GET',url:'/api/crm-workspace?'+new URLSearchParams({view:'download',companyId:'company-A',documentId:h.doc.documentId,versionId:h.doc.versionId}),headers:{}},res);
@@ -884,7 +884,7 @@ test('logout while writing the download audit invalidates the already-read file 
 });
 
 test('JSON responses discard stale content if access changes during response auditing',async()=>{
- const h=await fixture(),original=h.store.recordAccess;
+ const h=await fixture({atomic:true}),original=h.store.recordAccess;
  h.store.recordAccess=async e=>{await original(e);if(e.action==='access.read')await h.service.revokeMember(h.admin,'company-A','client');};
  const handler=createBusinessHandler({env:h.env,authHandler:{loadSession:async()=>h.customer},service:h.service}),res=response();
  await handler({method:'GET',url:'/api/crm-workspace?'+new URLSearchParams({view:'project',companyId:'company-A',projectId:h.p.id}),headers:{}},res);
@@ -896,4 +896,19 @@ test('completed response evidence survives a subsequent identity disable without
  await h.service.auditCompletedResponse(p,'download-response','company-A',200,{resourceId:h.doc.documentId,versionId:h.doc.versionId});
  assert.equal(h.audit.at(-1).action,'access.download-response');
  await assert.rejects(h.service.download(p,'company-A',h.doc.documentId,h.doc.versionId),status(404));
+});
+
+test('atomic response snapshots remain live across grant, version, and dependency changes',async()=>{
+ const h=await fixture({atomic:true}),s=h.service;
+ const before=await s.captureResponseVersion(h.customer,'company-A');
+ await s.assertResponseVersion(h.customer,'company-A',before);
+ await s.updateProject(h.manager,'company-A',h.p.id,{objective:'changed'});
+ await assert.rejects(s.assertResponseVersion(h.customer,'company-A',before),status(409));
+ const next=await s.captureResponseVersion(h.customer,'company-A');
+ await s.revokeMember(h.admin,'company-A','client');
+ await assert.rejects(s.assertResponseVersion(h.customer,'company-A',next),status(409));
+ h.store.getSnapshot=async()=>{throw new Error('dependency unavailable')};
+ const handler=createBusinessHandler({env:h.env,authHandler:{loadSession:async()=>h.customer},service:s}),res=response();
+ await handler({method:'GET',url:'/api/crm-workspace?view=projects&companyId=company-A',headers:{}},res);
+ assert.equal(res.statusCode,503);assert.ok(!res.body.includes('dependency unavailable'));
 });

@@ -1,3 +1,4 @@
+import { createRequestTiming } from './crm-request-timing.mjs';
 import { completedResponseAudit } from './crm-response-audit.mjs';
 import { projectPreviews } from './crm-project-previews.mjs';
 import { knowledgeAnswer } from './crm-knowledge.mjs';
@@ -36,9 +37,16 @@ async function readJson(req) {
 }
 // authHandler must be the server's createCrmAuthHandler instance. This handler
 // never accepts a body-supplied identity, role, subject or native CRM API token.
-export function createBusinessHandler({ env, authHandler, service }) {
+export function createBusinessHandler({ env, authHandler, service: underlyingService }) {
   return async (req, res) => {
     policy(res);
+    const timed = createRequestTiming(res);
+    const service = new Proxy(underlyingService, { get(target, key) {
+      const value = target[key];
+      if (typeof value !== 'function') return value;
+      const phase = String(key).startsWith('audit') ? 'audit' : key === 'captureResponseVersion' ? 'snapshot' : key === 'assertResponseVersion' ? 'revalidate' : 'operation';
+      return (...args) => timed(phase, () => value(...args));
+    } });
     const json = (status, payload) => { res.statusCode = status; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.end(req.method === 'HEAD' ? undefined : JSON.stringify(payload)); };
     let principal;
     function recordFileResponse(action, companyId, resourceId, versionId) {
@@ -46,7 +54,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
         { resourceId, ...(versionId ? { versionId } : {}) }));
     }
     async function finalFileAccess(kind, companyId, resourceId, versionId) {
-      const current = await authHandler.loadSession(req);
+      const current = await timed('auth', () => authHandler.loadSession(req));
       if (!current) throw new BusinessError(401, '请先通过短信验证登录。');
       principal = { ...current, ...(principal.contextId ? { contextId: principal.contextId } : {}) };
       const authorize = kind === 'submission' ? service.authorizeSubmissionDownload : service.authorizeDownload;
@@ -57,7 +65,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
       const url = new URL(req.url, 'https://www.cnps.ai');
       if (url.pathname !== '/api/crm-workspace') return json(404, { error: '接口不存在。' });
       if (!['GET', 'HEAD', 'POST'].includes(req.method)) return json(405, { error: '请求方式不支持。' });
-      principal = await authHandler.loadSession(req);
+      principal = await timed('auth', () => authHandler.loadSession(req));
       if (!principal) return json(401, { error: '请先通过短信验证登录。' });
       const query = name => url.searchParams.get(name) || undefined;
       let result, responseVersion, responseCompany;
@@ -168,7 +176,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
       }
       if(service.auditAccess)await service.auditAccess(principal,req.method==='POST'?'operation':'read',req.method==='POST'?req.body?.companyId:query('companyId'),200);
       if (responseVersion) {
-        const current = await authHandler.loadSession(req);
+        const current = await timed('auth', () => authHandler.loadSession(req));
         if (!current) throw new BusinessError(401, '请先通过短信验证登录。');
         if (current.identity.role !== principal.identity.role ||
             (principal.contextId && !current.identity.contexts?.some(c => c.id === principal.contextId)))

@@ -7,7 +7,7 @@ import {
   emptyCompany,
 } from "../../server/crm-business-store.mjs";
 const copy = (v) => structuredClone(v);
-export async function fixture() {
+export async function fixture({ atomic = false } = {}) {
   let d = emptyDirectory(),
     seq = 0,
     time = Date.UTC(2026, 9, 14),
@@ -44,6 +44,7 @@ export async function fixture() {
       audit.push(copy(e));
     },
   };
+  if (atomic) store.getSnapshot = async c => ({directory:copy(d),state:c?copy(states.get(c)||emptyCompany(c)):null});
   const companies = new Map(
       ["company-A", "company-B", "partner-org", "other-org"].map((id) => [
         id,

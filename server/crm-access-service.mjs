@@ -171,8 +171,9 @@ export function createAccessService({
       c.companyId !== g.organizationId
     )
       fail(404);
-    const org = await twenty.getCompany(g.organizationId),
-      company = await twenty.getCompany(g.companyId);
+    const [org, company] = await Promise.all([
+      twenty.getCompany(g.organizationId), twenty.getCompany(g.companyId),
+    ]);
     if (!org || org.active === false || !company || company.active === false)
       fail(404);
     return c;
@@ -259,7 +260,7 @@ export function createAccessService({
       const memberships =
         phone === String(env.CNPS_CRM_ADMIN_PHONE || "").replace(/^\+86/, "")
           ? []
-          : await base.loadMemberships(phone);
+          : await base.loadMemberships(phone, d);
       const contexts = memberships.map((m) => ({
         id: `member:${m.companyId}:${m.role}`,
         companyId: m.companyId,
@@ -940,6 +941,11 @@ export function createAccessService({
       };
     },
     async captureResponseVersion(p, companyId) {
+      if (store.getSnapshot) {
+        const { directory: d, state } = await store.getSnapshot(companyId ? id(companyId) : undefined);
+        enabled(d, p);
+        return { directory: d.revision, company: state?.revision };
+      }
       const d = await store.getDirectory();
       enabled(d, p);
       const state = companyId ? await store.getCompany(id(companyId)) : null;
@@ -947,6 +953,12 @@ export function createAccessService({
       return { directory: d.revision, company: state?.revision };
     },
     async assertResponseVersion(p, companyId, before) {
+      if (store.getSnapshot) {
+        const { directory: d, state } = await store.getSnapshot(companyId ? id(companyId) : undefined);
+        enabled(d, p);
+        if (d.revision !== before.directory || state?.revision !== before.company) fail(409, "数据或权限已变更，请刷新后重试。");
+        return;
+      }
       const d = await store.getDirectory();
       enabled(d, p);
       const state = companyId ? await store.getCompany(id(companyId)) : null;

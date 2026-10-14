@@ -613,30 +613,51 @@
   "functions": {
     "api/w.js": {
       "includeFiles": "private/proposal.enc",
-      "maxDuration": 30
+      "maxDuration": 30,
+      "regions": [
+        "hkg1"
+      ]
     },
     "api/crm.js": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "regions": [
+        "hkg1"
+      ]
     },
     "api/crm-page.js": {
-      "maxDuration": 10
+      "maxDuration": 10,
+      "regions": [
+        "hkg1"
+      ]
     },
     "api/crm-workspace.js": {
-      "maxDuration": 300
+      "maxDuration": 300,
+      "regions": [
+        "hkg1"
+      ]
     },
     "api/crm-workspace-page.js": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "regions": [
+        "hkg1"
+      ]
     },
     "api/crm-inquiry.js": {
       "maxDuration": 30
     },
     "api/crm-wasion-demo-page.js": {
       "maxDuration": 30,
-      "includeFiles": "server/wasion-demo-content.json"
+      "includeFiles": "server/wasion-demo-content.json",
+      "regions": [
+        "hkg1"
+      ]
     },
     "api/crm-wasion-demo-search.js": {
       "maxDuration": 30,
-      "includeFiles": "server/wasion-demo-content.json"
+      "includeFiles": "server/wasion-demo-content.json",
+      "regions": [
+        "hkg1"
+      ]
     }
   }
 }
