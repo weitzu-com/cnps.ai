@@ -1,3 +1,4 @@
+import { WASION_STYLES, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 import {SESSION_CLIENT} from '../server/wasion-experience/session.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -19,7 +20,7 @@ test('64 distinct official English pages render complete navigation with the req
   assert.equal(new Set(WASION_PAGES.map(page => page.slug)).size, WASION_PAGES.length);
   assert.equal(new Set(WASION_PAGES.map(page => page.url)).size, WASION_PAGES.length);
   assert.equal(content.logoUrl, logo);
-  const validRoutes = new Set(WASION_DEMO_ROUTES.flatMap(slug => [slug === 'home' ? '/demo/wasion' : `/demo/wasion/${slug}`, slug === 'home' ? '/demo/wasion/styles/atmospheric' : `/demo/wasion/styles/atmospheric/${slug}`]));
+  const validRoutes = new Set(Object.keys(WASION_STYLES).flatMap(style => WASION_DEMO_ROUTES.map(slug => wasionStyleBase(style) + (slug === 'home' ? '' : '/' + slug))));
   for (const page of WASION_PAGES) {
     assert.match(page.slug, /^[a-z0-9-]+$/);
     assert.equal(new URL(page.url).origin, 'https://en.wasion.com');
