@@ -853,3 +853,37 @@ test('revoked SMS recipient cannot have delivery receipts queried',async()=>{
  let calls=0;const h=await setup({configured:true,async send(){return {status:'submitted'};},async receipt(){calls++;return {status:'delivered'};}});h.contacts.get('contact-A').phone='18700001111';
  const d=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'receipt-revoke'});await h.service.sendDeliverySms(manager,'company-A',d.id);await h.service.revokeMember(manager,'company-A','contact-A');await assert.rejects(h.service.syncDeliveryNotification(manager,'company-A',d.id,'sms'),status(404));assert.equal(calls,0);
 });
+
+async function proposalFixture(){
+ const h=await setup(),phone='13800000001',pid=h.service.subjectForPhone(phone);
+ h.contacts.get('contact-A').identityId=pid;
+ await h.service.grantMember(manager,'company-A',h.grant);
+ const binding={id:'web-v1',companyId:'company-A',projectId:h.projectA.id,documents:{pdf:{documentId:h.docA.id,versionId:h.docA.versionId}}};
+ return {...h,phone,pid,binding};
+}
+test('web proposal events are customer-linked, idempotent and separate from notifications',async()=>{
+ const h=await proposalFixture();
+ const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,{contactId:'contact-A',documents:materials(h.docA),requestId:'web-test'});
+ for(const kind of ['login','view','download']){
+  await h.service.recordProposalActivity(h.phone,h.binding,kind,kind+'-event',kind==='download'?'pdf':undefined);
+  await h.service.recordProposalActivity(h.phone,h.binding,kind,kind+'-event',kind==='download'?'pdf':undefined);
+ }
+ const rows=await h.service.listDeliveries(manager,'company-A',h.projectA.id),web=rows[0].proposalActivity[0];
+ assert.equal(web.loginCount,1);assert.equal(web.viewCount,1);assert.equal(web.downloads.length,1);assert.equal(rows[0].sms.status,'not_sent');assert.equal(rows[0].viewedAt,null);
+ assert.equal((await h.service.listEvents(manager,'company-A')).filter(e=>e.action.startsWith('proposal.')).length,3);
+ await assert.rejects(h.service.listEvents(otherCustomer,'company-A'),status(404));
+ h.env.CNPS_CRM_ADMIN_PHONE='13800000002';await h.service.recordProposalActivity(h.env.CNPS_CRM_ADMIN_PHONE,h.binding,'view','admin-event');
+ assert.equal((await h.service.listEvents(manager,'company-A')).filter(e=>e.action.startsWith('proposal.')).length,3);
+});
+test('web proposal authorization rejects cross-company, selected-document denial, revocation and native phone reassignment',async()=>{
+ const h=await proposalFixture();await h.service.proposalAccess(h.phone,h.binding);
+ await assert.rejects(h.service.proposalAccess(h.phone,{...h.binding,companyId:'company-B'}),status(404));
+ await assert.rejects(h.service.proposalAccess(h.phone,{...h.binding,documents:{pdf:{documentId:h.privateDoc.id,versionId:h.privateDoc.versionId}}}),status(404));
+ h.contacts.get('contact-A').identityId='changed-phone';await assert.rejects(h.service.proposalAccess(h.phone,h.binding),status(404));
+ h.contacts.get('contact-A').identityId=h.pid;await h.service.revokeMember(manager,'company-A','contact-A');await assert.rejects(h.service.proposalAccess(h.phone,h.binding),status(404));
+});
+test('web activity loses a concurrent authorization revocation race and writes nothing',async()=>{
+ const h=await proposalFixture();h.beforeCommit(()=>h.service.revokeMember(manager,'company-A','contact-A'));
+ await assert.rejects(h.service.recordProposalActivity(h.phone,h.binding,'view','race-event'),status(409));
+ assert.equal((await h.service.listEvents(manager,'company-A')).filter(e=>e.action.startsWith('proposal.')).length,0);
+});
