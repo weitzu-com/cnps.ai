@@ -51,6 +51,9 @@ class BackupTest(unittest.TestCase):
         snapshot = {'version': 1, 'entries': [{'key': backup.AUDIT_PREFIX + '1234567:fictional-event',
                     'pttl': -1, 'value': json.dumps(event)}]}
         self.assertEqual(backup.validate_upstash(snapshot)['audit_keys'], 1)
+        event['action'] = 'access.submission-download'
+        snapshot['entries'][0]['value'] = json.dumps(event)
+        self.assertEqual(backup.validate_upstash(snapshot)['audit_keys'], 1)
         for field in ['body', 'phone', 'cookie', 'code']:
             snapshot['entries'][0]['value'] = json.dumps({**event, field: 'must-not-be-logged'})
             with self.assertRaisesRegex(RuntimeError, 'invalid_audit_schema'):

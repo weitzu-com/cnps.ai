@@ -467,7 +467,7 @@ export function createAccessService({
           (!live(g, now()) || g.version !== allowed.version)
         )
           fail(404);
-        audit(d, p, "proposal." + kind, {
+        audit(d, p, "proposal." + (kind === "download" ? "download-prepared" : kind), {
           proposalId: binding.id,
           ...(assetId ? { assetId: id(assetId) } : {}),
           contentHash: metadata.contentHash,
@@ -916,6 +916,13 @@ export function createAccessService({
         fail(409, "数据或权限已变更。");
       return submissionDTO(s);
     },
+    async authorizeSubmissionDownload(p, companyId, submissionId) {
+      manager(await store.getDirectory(), p, companyId);
+      const state = await store.getCompany(companyId), s = own(state.partnerSubmissions, id(submissionId));
+      if (!s) fail(404);
+      manager(await store.getDirectory(), p, companyId);
+      return { mimeType: s.mimeType, filename: s.filename };
+    },
     async downloadSubmission(p, companyId, submissionId) {
       const before = await store.getDirectory();
       manager(before, p, companyId);
@@ -932,6 +939,21 @@ export function createAccessService({
         bytes,
       };
     },
+    async captureResponseVersion(p, companyId) {
+      const d = await store.getDirectory();
+      enabled(d, p);
+      const state = companyId ? await store.getCompany(id(companyId)) : null;
+      if ((await store.getDirectory()).revision !== d.revision) fail(409, "权限已变更，请刷新后重试。");
+      return { directory: d.revision, company: state?.revision };
+    },
+    async assertResponseVersion(p, companyId, before) {
+      const d = await store.getDirectory();
+      enabled(d, p);
+      const state = companyId ? await store.getCompany(id(companyId)) : null;
+      if (d.revision !== before.directory || state?.revision !== before.company ||
+          (await store.getDirectory()).revision !== d.revision)
+        fail(409, "数据或权限已变更，请刷新后重试。");
+    },
     async auditDeniedAccess(p, status) {
       if (typeof store.recordAccess === "function")
         await store.recordAccess({
@@ -944,7 +966,7 @@ export function createAccessService({
       console.warn("CNPS_CRM_ACCESS_DENIED", JSON.stringify({ status }));
       return { ok: true };
     },
-    async auditAccess(p, action, companyId, status) {
+    async auditAccess(p, action, companyId, status, resource = {}) {
       if (typeof store.recordAccess !== "function")
         fail(503, "访问审计暂不可用。");
       await store.recordAccess({
@@ -954,6 +976,8 @@ export function createAccessService({
         at: now(),
         ...(validId(companyId) ? { companyId } : {}),
         status,
+        ...(validId(resource.resourceId) ? { resourceId: resource.resourceId } : {}),
+        ...(validId(resource.versionId) ? { versionId: resource.versionId } : {}),
       });
       return { ok: true };
     },
@@ -1018,6 +1042,11 @@ export function createAccessService({
         { doc, v } = partnerDocument(state, g, documentId);
       return docDTO(doc, v);
     },
+    async authorizeDownload(p, c, documentId, versionId) {
+      const { g, state } = await partnerSnapshot(p, c, "download"),
+        { doc, v } = partnerDocument(state, g, documentId, versionId);
+      return docDTO(doc, v);
+    },
     async download(p, c, documentId, versionId) {
       const { g, state } = await partnerSnapshot(p, c, "download"),
         { doc, v } = partnerDocument(state, g, documentId, versionId);
@@ -1027,6 +1056,7 @@ export function createAccessService({
         documentId,
         versionId,
       });
+      if (!Buffer.isBuffer(bytes) || bytes.length !== v.size) fail(503, "资料暂不可用。");
       const current = await partnerSnapshot(p, c, "download"),
         after = partnerDocument(
           current.state,
@@ -1073,7 +1103,11 @@ export function createAccessService({
     { ...base, ...api },
     {
       get(target, key) {
+        // Completed responses are historical evidence even after revocation.
+        // This append-only method has no public HTTP action.
+        if (key === "auditCompletedResponse") return (...args) => api.auditAccess(...args);
         if (
+          key === "captureResponseVersion" || key === "assertResponseVersion" ||
           key === "auditDeniedAccess" ||
           key === "subjectForPhone" ||
           key === "loadMemberships" ||
