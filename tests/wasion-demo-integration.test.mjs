@@ -23,7 +23,7 @@ test('every integrated route renders with one headline, unique IDs and resolving
     for (const [, link] of markup.matchAll(/href="([^"]+)"/g)) {
       if (link.startsWith('/demo/wasion')) {
         const path = link.split(/[?#]/)[0];
-        const target = path === '/demo/wasion' ? 'home' : path.slice('/demo/wasion/'.length);
+        const target = path === '/demo/wasion' ? 'home' : path === '/demo/wasion/styles/atmospheric' ? 'home' : path.startsWith('/demo/wasion/styles/atmospheric/') ? path.slice('/demo/wasion/styles/atmospheric/'.length) : path.slice('/demo/wasion/'.length);
         assert.ok(routes.includes(target), `${slug}: unknown/canonical-invalid path ${path}`);
       }
       if (link.startsWith('#')) assert.ok(ids.includes(link.slice(1)), `${slug}: missing fragment ${link}`);
