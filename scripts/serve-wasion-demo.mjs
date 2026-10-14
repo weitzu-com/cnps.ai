@@ -7,6 +7,7 @@ import { retrieveWasionSources } from '../server/wasion-demo-sources.mjs';
 const port = Number(process.env.PORT || 4186);
 http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://127.0.0.1:${port}`);
+  if (url.pathname === '/api/crm' && req.method === 'GET') {res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');return res.end(JSON.stringify({authenticated:true,identity:{role:'customer'}}));}
   if (url.pathname === '/api/crm-wasion-demo-search' && req.method === 'POST') {
     let raw = ''; for await (const chunk of req) raw += chunk;
     let data; try { data = JSON.parse(raw); } catch { res.writeHead(400); return res.end(); }
@@ -18,9 +19,11 @@ http.createServer(async (req, res) => {
   if (!url.pathname.startsWith('/demo/wasion')) { res.writeHead(404); return res.end('Not found'); }
   const slug = url.pathname === '/demo/wasion' ? 'home' : url.pathname.slice('/demo/wasion/'.length);
   const nonce = randomBytes(18).toString('base64');
-  const html = wasionDemoPage(nonce, { slug, query: url.searchParams.get('q') || '' });
+  let query=url.searchParams.get('q') || '';
+  if(req.method==='POST'&&slug==='search'){let raw='';for await(const chunk of req)raw+=chunk;query=new URLSearchParams(raw).get('q')||'';}
+  const html = wasionDemoPage(nonce, { slug, query });
   if (!html) { res.writeHead(404); return res.end('Not found'); }
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src https://en.wasion.com; connect-src 'self'; base-uri 'none'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'`);
+  res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src https://en.wasion.com; media-src https://en.wasion.com; connect-src 'self'; base-uri 'none'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'`);
   res.end(html);
 }).listen(port, '127.0.0.1', () => console.log(`Wasion preview: http://127.0.0.1:${port}/demo/wasion`));

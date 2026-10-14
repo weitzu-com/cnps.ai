@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import { crmLoginPage } from '../server/crm-login.mjs';
+import { crmLoginPage, safeDemoReturnTo } from '../server/crm-login.mjs';
 import { crmPageReturnTo } from '../server/crm-return.mjs';
 
 export default function crmPage(req, res) {
@@ -19,5 +19,7 @@ export default function crmPage(req, res) {
   }
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.end(req.method === 'HEAD' ? undefined : crmLoginPage(nonce, { returnTo: crmPageReturnTo(req.url) }));
+  const url = new URL(req.url || '/crm', 'https://crm.cnps.ai');
+  const next = typeof req.query?.next === 'string' ? req.query.next : url.searchParams.get('next');
+  res.end(req.method === 'HEAD' ? undefined : crmLoginPage(nonce, { returnTo: crmPageReturnTo(req.url || '/crm') || safeDemoReturnTo(next) }));
 }

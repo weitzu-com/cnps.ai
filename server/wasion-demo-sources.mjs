@@ -1,4 +1,5 @@
 import corpus from './wasion-demo-content.json' with { type: 'json' };
+import { DTECH } from './wasion-experience/content-data.mjs';
 
 // Public pages captured from the official English site. Stable page slugs are
 // also the only citation identifiers the AI may use.
@@ -15,7 +16,7 @@ const isContent = text => text && !/^(?:subscribe|read more|learn more|make it y
 const normalize = text => clean(text).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[‐‑–—-]/g, ' ').replace(/[^a-z0-9\p{Script=Han}]+/gu, ' ').trim();
 const compact = text => normalize(text).replace(/\s/g, '');
 
-export const WASION_SOURCES = (corpus.pages || []).filter(page => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug || '') && isOfficial(page.url || page.sourceUrl)).map(page => {
+export const WASION_SOURCES = [...(corpus.pages || []).filter(page => page.slug !== DTECH.slug), DTECH].filter(page => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug || '') && isOfficial(page.url || page.sourceUrl)).map(page => {
   const tableValues = new Set(textLeaves(page.tables));
   const paragraphs = unique(textLeaves(page.paragraphs)).filter(text => isContent(text) && !tableValues.has(text));
   const features = unique(textLeaves(page.features)).filter(isContent);
@@ -92,6 +93,10 @@ function scoreSource(source, query, frequencies) {
 }
 
 function relevantExcerpt(source, query) {
+  // Short product pages must retain complete tables: an optional protocol may
+  // sit on the row after its heading and contain none of the question's words.
+  const complete = source.passages.join('\n');
+  if (complete.length <= 4200) return complete || source.summary;
   const ranked = source.passages.map((text, index) => {
     const normalized = normalize(text);
     let score = query.tokens.filter(token => containsTerm(normalized, token)).length * 3;
@@ -99,8 +104,21 @@ function relevantExcerpt(source, query) {
     score += query.models.filter(model => compact(text).includes(model)).length * 15;
     return { text, index, score };
   }).sort((a, b) => b.score - a.score || a.index - b.index);
-  const selected = ranked.slice(0, 18).sort((a, b) => a.index - b.index);
-  return selected.map(item => item.text).join('\n').slice(0, 4200) || source.summary;
+  // Preserve a little neighbouring context for long source rows, without
+  // allowing an unrelated long article to consume the inference context.
+  const selected = new Set();
+  let size = 0;
+  for (const item of ranked) {
+    if (item.score <= 0 && selected.size) continue;
+    for (const index of [item.index, item.index + 1, item.index - 1]) {
+      if (index < 0 || index >= source.passages.length || selected.has(index)) continue;
+      const length = source.passages[index].length + 1;
+      if (size + length > 4200) continue;
+      selected.add(index); size += length;
+    }
+    if (size >= 4000) break;
+  }
+  return [...selected].sort((a, b) => a - b).map(index => source.passages[index]).join('\n').slice(0, 4200) || complete.slice(0, 4200) || source.summary;
 }
 
 // Deterministic retrieval remains usable even when the AI gateway is offline.
