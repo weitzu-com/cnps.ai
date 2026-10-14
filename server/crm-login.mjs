@@ -47,7 +47,7 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
       <p class="status" id="session-check-status" role="status" aria-live="polite" hidden></p>
       <form id="login" hidden>${resumeSearch ? '<p class="session-note">After verification, your search will continue from this page.</p>' : ''}
         <h2>手机号登录</h2>
-        <p class="sub">客户在本浏览器验证后，30 天内免重复验证。管理员与销售经理登录有效期为 8 小时。</p>
+        <p class="sub">客户在本浏览器验证后，30 天内免重复验证。管理员、销售经理、伙伴和仅方案受邀人登录有效期为 8 小时。具有多种身份时，按较短有效期重新验证。</p>
         <div class="field">
           <label for="phone">中国大陆手机号</label>
           <div class="input-wrap"><span class="prefix" aria-hidden="true">+86</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="11" pattern="1[3-9][0-9]{9}" required placeholder="请输入11位手机号" aria-describedby="phone-hint"></div>

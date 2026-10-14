@@ -8,7 +8,7 @@ import { createHandler as createProposalHandler } from '../server/proposal-handl
 
 const adminPhone = '18700001111';
 const customerPhone = '18800002222';
-function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime = Date.UTC(2026, 9, 13) } = {}) {
+function harness({ memberDirectory = new Map(), accessDirectory, detailedQuotas = true, startTime = Date.UTC(2026, 9, 13) } = {}) {
   let time = startTime, sends = 0, verifications = 0, smsFailure = false, verifyFailure = false;
   let onVerify, onSessionWrite, onVisit, directoryFailure = false, storeFailure = false;
   const env = { CNPS_PROPOSAL_SECRET: randomBytes(32).toString('hex'), CNPS_PROPOSAL_ALLOWED_PHONES: adminPhone, CNPS_CRM_ADMIN_PHONE: adminPhone };
@@ -67,7 +67,7 @@ function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime
     async send() { if (smsFailure) throw new Error('secret provider diagnostics'); sends++; },
     async verify(phone, code) { if (verifyFailure) throw new Error('private provider error'); verifications++; if (onVerify) { const callback = onVerify; onVerify = null; await callback(); } return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
   });
-  const handler = createCrmAuthHandler({ env, reportFailure: event => failures.push(event), storeFactory: () => crmStore, smsFactory,
+  const handler = createCrmAuthHandler({ env, loadAccess: accessDirectory ? async phone => accessDirectory.get(phone) || {memberships:[],contexts:[],proposals:[]} : undefined, reportFailure: event => failures.push(event), storeFactory: () => crmStore, smsFactory,
     loadMemberships: async phone => { if (directoryFailure) throw new Error('fixture directory outage'); return memberDirectory.get(phone) || []; }, now: () => time,
     recordVisit: async visit => { visits.push(visit); if (onVisit) { const callback = onVisit; onVisit = null; await callback(); } } });
   const proposalHandler = createProposalHandler({ env, storeFactory: () => proposalStore, smsFactory,
@@ -566,4 +566,20 @@ test('Aliyun factory reuses approved channel settings but isolates provider Sche
   assert.equal(requests[0].returnVerifyCode, false);
   assert.equal(requests[0].autoRetry, 0);
   assert.equal(requests[0].outId, 'crm-challenge-id');
+});
+
+test('long customer cookies cannot become partner contexts or bypass the eight-hour policy',async()=>{
+ const customer={memberships:[{companyId:'company-A',active:true,role:'customer'}],contexts:[{id:'member:company-A:customer',companyId:'company-A',role:'customer'}],proposals:[]},directory=new Map([[customerPhone,customer]]),h=harness({accessDirectory:directory});
+ const old=await h.login(customerPhone);assert.match(old.response.headers['set-cookie'][0],/Max-Age=2592000/);
+ h.advance(9*3600*1000);assert.equal((await h.request('/api/crm?view=session',{cookie:old.cookie})).status,200);
+ directory.set(customerPhone,{...customer,contexts:[...customer.contexts,{id:'partner:grant-A',companyId:'company-B',role:'partner'}]});
+ assert.equal((await h.request('/api/crm?view=session',{cookie:old.cookie})).status,401);
+ const fresh=await h.login(customerPhone);assert.match(fresh.response.headers['set-cookie'][0],/SameSite=Strict; Max-Age=28800/);
+ h.advance(8*3600*1000);assert.equal((await h.request('/api/crm?view=session',{cookie:fresh.cookie})).status,401);
+});
+test('proposal-only promotion cannot reuse a thirty-day customer authentication',async()=>{
+ const customer={memberships:[{companyId:'company-A',active:true,role:'customer'}],contexts:[{id:'member:company-A:customer',companyId:'company-A',role:'customer'}],proposals:[]},directory=new Map([[customerPhone,customer]]),h=harness({accessDirectory:directory});
+ const old=await h.login(customerPhone);h.advance(61000);directory.set(customerPhone,{memberships:[],contexts:[],proposals:[{id:'wasion-web-v1'}]});
+ assert.equal((await h.request('/api/crm?view=session',{cookie:old.cookie})).status,401);
+ const fresh=await h.login(customerPhone);assert.match(fresh.response.headers['set-cookie'][0],/Max-Age=28800/);
 });
