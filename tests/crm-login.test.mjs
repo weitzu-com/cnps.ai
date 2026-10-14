@@ -1,10 +1,11 @@
+import crmPage from '../api/crm-page.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import {crmLoginPage} from '../server/crm-login.mjs';
+import {crmLoginPage,safeDemoReturnTo} from '../server/crm-login.mjs';
 
-function harness(respond, { returnTo, search = '' } = {}) {
-  const html = crmLoginPage('test-nonce', { returnTo });
+function harness(respond, { returnTo, search = '', resumeQuestion } = {}) {
+  const html = crmLoginPage('test-nonce', { returnTo, resumeQuestion });
   const elements = new Map([...html.matchAll(/<[^>]+\bid="([^"]+)"[^>]*>/g)].map(match => {
     const listeners = new Map();
     const element = {
@@ -27,6 +28,7 @@ function harness(respond, { returnTo, search = '' } = {}) {
   let nextTimer = 0, time = 0;
   class Clock extends Date { static now() { return time; } }
   const forbidden = new Proxy({}, {get() { throw Error('Browser storage or logging must not be used.'); }});
+  const resumed=[];if(elements.has('demo-resume'))element('demo-resume').submit=()=>resumed.push('POST');
   const document = {getElementById: element};
   Object.defineProperty(document, 'cookie', {get() { throw Error('Cookies belong to the server.'); }, set() { throw Error('Cookies belong to the server.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
@@ -43,7 +45,7 @@ function harness(respond, { returnTo, search = '' } = {}) {
     }
   });
   return {
-    html, element, calls, navigations, redirects: navigations,
+    html, element, calls, navigations, resumed, redirects: navigations,
     flush: () => new Promise(resolve => setImmediate(resolve)),
     event: (id, name) => element(id).listeners.get(name)?.({preventDefault() {}}),
     windowEvent: (name, options = {}) => windowListeners.get(name)?.(options),
@@ -130,7 +132,7 @@ test('a customer sees the server expiry and returns to the requested demo withou
     {returnTo: '/demo/wasion/search?q=smart+meter'});
   await h.flush();
   assert.deepEqual(h.navigations, ['/demo/wasion/search?q=smart+meter']);
-  assert.match(h.element('session-expiry').textContent, /2026\/11\/13 20:00:00/);
+  assert.match(h.element('session-expiry').textContent, /13\/11\/2026, 20:00:00/);
   assert.equal(h.calls.length, 1);
   assert.ok(h.calls.every(call => call.options.method === 'GET'));
 });
@@ -305,5 +307,103 @@ test('an unconfirmed session never follows the requested return destination', as
   await h.flush(); h.element('phone').value = '18700001111'; h.element('consent').checked = true;
   await h.event('send','click'); h.element('code').value = '123456'; await h.event('login','submit');
   assert.deepEqual(h.redirects, []);
-  assert.match(h.element('status').textContent, /登录状态未生效/);
+  assert.match(h.element('status').textContent, /session was not confirmed/);
+});
+
+test('demo return targets accept only bounded local preview paths', () => {
+  for (const target of ['/demo/wasion', '/demo/wasion/search', '/demo/wasion/privacy', '/demo/wasion/ameter300-three-phase-smart-energy-meter']) {
+    assert.equal(safeDemoReturnTo(target), target);
+  }
+  for (const target of [
+    undefined, null, 1, {}, ['\/demo/wasion'], '',
+    'https://attacker.invalid/demo/wasion', '//attacker.invalid/demo/wasion',
+    'javascript:alert(1)', '/crm/workspace', '/demo/wasion-other',
+    '/demo/wasion?next=https://attacker.invalid', '/demo/wasion/search?q=personal-data',
+    '/demo/wasion#fragment', '/demo/wasion/../crm', '/demo/wasion/%2e%2e/crm',
+    '/demo/wasion/%2F%2Fattacker.invalid', '/demo/wasion\\..\\crm',
+    '/demo/wasion//search', '/demo/wasion/search/extra', '/demo/wasion/',
+    '/demo/wasion\n', '/demo/wasion/search\r', '/demo/wasion\u2028',
+    '/demo/wasion"><script>alert(1)</script>'
+  ]) assert.equal(safeDemoReturnTo(target), '', JSON.stringify(target));
+});
+
+test('a valid existing session returns directly to the requested demo without another SMS', async () => {
+  for (const target of ['/demo/wasion', '/demo/wasion/privacy']) {
+    const h = harness(call => {
+      assert.equal(call.url, '/api/crm?view=session');
+      assert.equal(call.options.method, 'GET');
+      assert.equal(call.body, undefined);
+      return {body: {authenticated: true, identity: {phoneMasked: '187****1111', role: 'customer', memberships: []}}};
+    }, {returnTo: target});
+    await h.flush();
+    assert.match(h.html, /<html lang="en">/);
+    assert.deepEqual(h.redirects, [target]);
+    assert.equal(h.calls.length, 1);
+    assert.equal(h.calls.some(call => call.body?.action === 'send' || call.body?.action === 'verify'), false);
+    assert.equal(h.remainingTimeouts(), 0);
+  }
+});
+
+test('anonymous or unconfirmed sessions never redirect into the preview or send a code automatically', async () => {
+  for (const response of [{status: 401}, {status: 503, body: {error: 'Unavailable'}}]) {
+    const h = harness(() => response, {returnTo: '/demo/wasion/search'});
+    await h.flush();
+    assert.deepEqual(h.redirects, []);
+    assert.equal(h.calls.length, 1);
+    assert.equal(h.calls[0].options.method, 'GET');
+    assert.equal(h.element('session').hidden, true);
+    assert.equal(h.element('consent').checked, false);
+  }
+});
+
+test('invalid return targets retain the generic CRM experience even with an existing session', async () => {
+  const h = harness(() => ({body: {authenticated: true, identity: {phoneMasked: '187****1111', role: 'admin', memberships: []}}}), {returnTo: '//attacker.invalid'});
+  await h.flush();
+  assert.deepEqual(h.redirects, []);
+  assert.match(h.html, /<html lang="zh-CN">/);
+  assert.equal(h.element('session').hidden, false);
+  assert.equal(h.element('session-role').textContent, '高级管理员');
+  assert.equal(h.calls.length, 1);
+});
+
+test('CRM page query handling preserves the local demo boundary and private page headers', async () => {
+  const response = () => ({headers: {}, setHeader(key, value) { this.headers[key] = value; }, end(body) { this.body = body; }});
+  for (const target of ['/demo/wasion/search', 'https://attacker.invalid', '//attacker.invalid', '/demo/wasion?x=1', '/demo/wasion/../crm', '/demo/wasion/%2e%2e/crm']) {
+    const res = response();
+    await crmPage({method: 'GET',headers:{host:'crm.cnps.ai'}, url: `/?next=${encodeURIComponent(target)}`}, res);
+    assert.equal(res.statusCode, 200);
+    assert.match(res.headers['Cache-Control'], /private, no-store/);
+    assert.match(res.headers['X-Robots-Tag'], /noindex/);
+    const script = res.body.match(/<script nonce="[^"]+">([\s\S]*?)<\/script>/)[1];
+    const targetText = script.match(/const returnTo = (.*);/)[1];
+    assert.equal(JSON.parse(targetText), target === '/demo/wasion/search' ? target : null);
+    assert.doesNotThrow(() => new vm.Script(script));
+  }
+});
+
+
+test('demo SMS status and cooldown remain English while the generic portal preserves its language', async () => {
+  const h=harness(({body})=>!body?{status:401}: {body:{challenge:'test-challenge'}},{returnTo:'/demo/wasion'});
+  await h.flush();h.element('phone').value='18700001111';h.element('consent').checked=true;
+  await h.event('send','click');
+  assert.match(h.element('status').textContent,/6-digit SMS code/);
+  assert.match(h.element('send').textContent,/Retry in 60s/);
+  h.tick();assert.match(h.element('send').textContent,/s to retry/);
+  assert.equal(h.calls.filter(call=>call.body?.action==='send').length,1);
+});
+
+test('expired demo POST question resumes only after confirmed login without a question URL or storage', async () => {
+ const question='I-110 <script> & protocol options',target='/demo/wasion/search';let authenticated=false;
+ const h=harness(({body})=>!body?(authenticated?{body:{authenticated:true,identity:{role:'customer'}}}:{status:401}):body.action==='send'?{body:{challenge:'fixture'}}:(authenticated=true,{body:{ok:true}}),{returnTo:target,resumeQuestion:question});
+ await h.flush();assert.deepEqual(h.resumed,[]);assert.deepEqual(h.navigations,[]);
+ assert.match(h.html,/id="demo-resume" action="\/demo\/wasion\/search" method="post" hidden/);assert.ok(h.html.includes('I-110 &lt;script&gt; &amp; protocol options'));
+ h.element('phone').value='18700001111';h.element('consent').checked=true;await h.event('send','click');h.element('code').value='123456';await h.event('login','submit');
+ assert.deepEqual(h.resumed,['POST']);assert.deepEqual(h.navigations,[]);assert.ok(!h.html.includes('?q='));
+});
+
+test('English verification chrome preserves the original multilingual POST question', () => {
+ const question='客户询问 I-110 的通信方式与身份验证 <script> & details';
+ const html=crmLoginPage('fixture',{returnTo:'/demo/wasion/search',resumeQuestion:question});
+ assert.ok(html.includes('value="客户询问 I-110 的通信方式与身份验证 &lt;script&gt; &amp; details"'));
+ assert.match(html,/<html lang="en">/);assert.ok(!html.includes('value="Customer'));
 });

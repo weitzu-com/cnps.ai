@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {projectPreviews,wasionPreviewBinding,wasionWorkspaceHref} from '../server/crm-project-previews.mjs';
 import {createBusinessHandler} from '../server/crm-business-handler.mjs';
 import {BusinessError} from '../server/crm-business-service.mjs';
-import {wasionDemoPage} from '../server/wasion-demo-page.mjs';
+import {wasionDemoPage,WASION_DEMO_ROUTES} from '../server/wasion-demo-page.mjs';
 test('preview attaches only after authorization of the exact bound project',async()=>{
  const {companyId,projectId}=wasionPreviewBinding;
  assert.equal(projectPreviews(companyId,projectId).length,1);
@@ -16,6 +16,6 @@ test('preview attaches only after authorization of the exact bound project',asyn
  }
 });
 test('demo links back to its exact CRM project on every page',()=>{
- const html=wasionDemoPage('test');assert.ok(html.includes('Client workspace'));assert.ok(html.includes('class="wd-workspace-return"'));assert.ok(html.includes('.wd-utility .wd-container>div>a.wd-workspace-return{display:inline'));
- assert.ok(html.includes(wasionWorkspaceHref.replaceAll('&','&amp;')));
+ for(const slug of WASION_DEMO_ROUTES){const html=wasionDemoPage('test',{slug});assert.ok(html.includes('Client workspace'));assert.ok(html.includes('class="wd-workspace-return"'));assert.ok(html.includes('.wx-utility nav>a.wd-workspace-return{display:block'));
+ assert.ok(html.includes(wasionWorkspaceHref.replaceAll('&','&amp;')));}
 });
