@@ -7,7 +7,7 @@ const privatePath = (path) =>
     path,
   );
 const crmPaths =
-  /^(?:\/(?:crm(?:\/workspace)?|w(?:\/(?:view|asset\/[a-z0-9-]+))?|demo\/wasion(?:\/[a-z0-9-]+)?)|\/api\/(?:w|crm|crm-page|crm-workspace|crm-workspace-page|crm-wasion-demo-page|crm-wasion-demo-search))$/;
+  /^(?:\/(?:crm(?:\/workspace)?|w(?:\/(?:view|asset\/[a-z0-9-]+))?|demo\/wasion(?:\/[a-z0-9-]+|\/styles\/[a-z0-9-]+(?:\/[a-z0-9-]+)?)?)|\/api\/(?:w|crm|crm-page|crm-workspace|crm-workspace-page|crm-wasion-demo-page|crm-wasion-demo-search))$/;
 export function boundaryDecision(host, path, method, env = {}) {
   host = String(host || "").toLowerCase();
   if (!path.startsWith("/") || /%2f|%5c|\\/i.test(path)) return { status: 404 };

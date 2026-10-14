@@ -3,6 +3,7 @@ import { randomBytes } from 'node:crypto';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
 import { authorizeWasionCustomer } from '../server/wasion-demo.mjs';
 import { wasionDemoPage, WASION_PAGES } from '../server/wasion-demo-page.mjs';
+import { WASION_STYLES, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 import { crmLoginUrl } from '../server/crm-navigation.mjs';
 
 export function createWasionPageHandler({ getRuntime = getCrmRuntime } = {}) {
@@ -17,12 +18,13 @@ return async function handler(req, res) {
 
   const url = new URL(req.url, 'https://crm.cnps.ai');
   const slug = typeof req.query?.slug === 'string' ? req.query.slug : url.searchParams.get('slug') || 'home';
+  const style = typeof req.query?.style === 'string' ? req.query.style : url.searchParams.get('style') || 'classic';
   const query = typeof req.query?.q === 'string' ? req.query.q : url.searchParams.get('q') || '';
-  if (!/^[a-z0-9-]+$/.test(slug) || (slug !== 'search' && !WASION_PAGES.some(page => page.slug === slug))) {
+  if (!Object.hasOwn(WASION_STYLES, style) || !/^[a-z0-9-]+$/.test(slug) || (!['search', 'styles'].includes(slug) && !WASION_PAGES.some(page => page.slug === slug))) {
     res.statusCode = 404; return res.end('Page not found.');
   }
   if (query.length > 500) { res.statusCode = 400; return res.end('Please use a question of 500 characters or fewer.'); }
-  const returnTo = (slug === 'home' ? '/demo/wasion' : '/demo/wasion/' + slug) + (slug === 'search' && query ? '?' + new URLSearchParams({ q: query }) : '');
+  const returnTo = (slug === 'home' ? wasionStyleBase(style) : wasionStyleBase(style) + '/' + slug) + (slug === 'search' && query ? '?' + new URLSearchParams({ q: query }) : '');
   let access, auth;
   try {
     const runtime = getRuntime();
@@ -41,7 +43,7 @@ return async function handler(req, res) {
   const nonce = randomBytes(18).toString('base64');
   res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src https://en.wasion.com; connect-src 'self'; base-uri 'none'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'`);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.statusCode = 200; return res.end(req.method === 'HEAD' ? undefined : wasionDemoPage(nonce, { slug, query }));
+  res.statusCode = 200; return res.end(req.method === 'HEAD' ? undefined : wasionDemoPage(nonce, { slug, query, style }));
 }
 
 }

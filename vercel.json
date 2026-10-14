@@ -570,6 +570,18 @@
   ],
   "rewrites": [
     {
+      "source": "/demo/wasion/styles",
+      "destination": "/api/crm-wasion-demo-page?slug=styles"
+    },
+    {
+      "source": "/demo/wasion/styles/:style",
+      "destination": "/api/crm-wasion-demo-page?style=:style"
+    },
+    {
+      "source": "/demo/wasion/styles/:style/:slug",
+      "destination": "/api/crm-wasion-demo-page?style=:style&slug=:slug"
+    },
+    {
       "source": "/demo/wasion",
       "destination": "/api/crm-wasion-demo-page"
     },

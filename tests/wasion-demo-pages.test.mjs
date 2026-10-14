@@ -77,7 +77,7 @@ test('64 distinct official English pages render complete navigation with the req
   assert.equal(new Set(WASION_PAGES.map(page => page.slug)).size, WASION_PAGES.length);
   assert.equal(new Set(WASION_PAGES.map(page => page.url)).size, WASION_PAGES.length);
   assert.equal(content.logoUrl, logo);
-  const validRoutes = new Set([...WASION_PAGES.map(route), '/demo/wasion/search']);
+  const validRoutes = new Set([...WASION_PAGES.map(route), '/demo/wasion/search', '/demo/wasion/styles', ...WASION_PAGES.map(p => p.slug === 'home' ? '/demo/wasion/styles/atmospheric' : '/demo/wasion/styles/atmospheric/' + p.slug)]);
   for (const page of WASION_PAGES) {
     assert.match(page.slug, /^[a-z0-9-]+$/);
     assert.equal(new URL(page.url).origin, 'https://en.wasion.com');
