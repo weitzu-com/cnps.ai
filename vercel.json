@@ -37,25 +37,15 @@
   ],
   "redirects": [
     {
-      "source": "/crm/wasion-demo",
-      "destination": "/demo/wasion",
-      "permanent": true
-    },
-    {
       "source": "/",
+      "destination": "/en",
+      "permanent": true,
       "has": [
         {
           "type": "host",
-          "value": "crm.cnps.ai"
+          "value": "(www\\.)?cnps\\.ai"
         }
-      ],
-      "destination": "/crm",
-      "permanent": false
-    },
-    {
-      "source": "/",
-      "destination": "/en",
-      "permanent": true
+      ]
     },
     {
       "source": "/about",
@@ -590,12 +580,18 @@
       "destination": "/api/crm-wasion-demo-page?slug=:slug"
     },
     {
-      "source": "/crm/workspace",
+      "source": "/workspace",
       "destination": "/api/crm-workspace-page"
     },
     {
-      "source": "/crm",
-      "destination": "/api/crm-page"
+      "source": "/",
+      "destination": "/api/crm-page",
+      "has": [
+        {
+          "type": "host",
+          "value": "crm.cnps.ai"
+        }
+      ]
     },
     {
       "source": "/w",

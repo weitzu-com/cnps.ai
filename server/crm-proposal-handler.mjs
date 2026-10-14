@@ -49,7 +49,7 @@ export function createCrmProposalHandler({
       if (!principal) {
         if (route === "/w" && ["GET", "HEAD"].includes(req.method)) {
           res.statusCode = 302;
-          res.setHeader("Location", "/crm?next=%2Fw");
+          res.setHeader("Location", "/?next=%2Fw");
           return res.end();
         }
         return json(401, { error: "请先通过短信验证登录。" });
@@ -119,7 +119,7 @@ export function createCrmProposalHandler({
         return res.end(req.method === "HEAD" ? undefined : bytes);
       }
       if (route !== "/w") return json(405, { error: "请求方式不支持。" });
-      const tracker = `<script nonce="${nonce}">(()=>{let done=false;async function record(){if(done||document.visibilityState!=='visible')return;done=true;try{const r=await fetch('/w/view',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Proposal-Request':'1'},body:'{}'});if(!r.ok)done=false;}catch{done=false;}}document.addEventListener('visibilitychange',record);record();window.addEventListener('pageshow',e=>{if(e.persisted){document.body.replaceChildren();location.reload();}});document.querySelectorAll('[data-action="logout"],#logout').forEach(b=>b.addEventListener('click',async()=>{await fetch('/api/crm',{method:'POST',headers:{'Content-Type':'application/json','X-CNPS-CRM':'1'},body:JSON.stringify({action:'logout'})});location.replace('/crm');}));})();</script>`;
+      const tracker = `<script nonce="${nonce}">(()=>{let done=false;async function record(){if(done||document.visibilityState!=='visible')return;done=true;try{const r=await fetch('/w/view',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Proposal-Request':'1'},body:'{}'});if(!r.ok)done=false;}catch{done=false;}}document.addEventListener('visibilitychange',record);record();window.addEventListener('pageshow',e=>{if(e.persisted){document.body.replaceChildren();location.reload();}});document.querySelectorAll('[data-action="logout"],#logout').forEach(b=>b.addEventListener('click',async()=>{await fetch('/api/crm',{method:'POST',headers:{'Content-Type':'application/json','X-CNPS-CRM':'1'},body:JSON.stringify({action:'logout'})});location.replace('/');}));})();</script>`;
       const phone = principal.phone || "";
       let html = bundle.html
         .replaceAll("__VIEWER__", `${phone.slice(0, 3)}****${phone.slice(-4)}`)

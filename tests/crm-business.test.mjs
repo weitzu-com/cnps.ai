@@ -853,7 +853,7 @@ test('OCR and converted legacy positions retain source metadata after person ACL
 test('delivery fixes published versions, recipient and company; forwarded links never grant access', async()=>{
  const h=await setup();const fields={contactId:'contact-A',documents:materials(h.docA),requestId:'request-one'};
  const delivery=await h.service.createDelivery(manager,'company-A',h.projectA.id,fields);
- assert.match(delivery.link,/^https:\/\/crm.cnps.ai\/crm\/workspace\?/);
+ assert.match(delivery.link,/^https:\/\/crm.cnps.ai\/workspace\?/);
  assert.equal((await h.service.createDelivery(manager,'company-A',h.projectA.id,fields)).id,delivery.id);
  assert.equal((await h.service.getDelivery(customer,'company-A',delivery.id)).documents[0].versionId,h.docA.versionId);
  await assert.rejects(()=>h.service.getDelivery(otherCustomer,'company-A',delivery.id),status(404));

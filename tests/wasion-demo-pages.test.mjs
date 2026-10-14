@@ -95,8 +95,8 @@ test('search queries are escaped in HTML attributes and cannot terminate the non
 test('Vercel preserves the existing CRM entry and maps every demo child to the authenticated page API', () => {
   assert.deepEqual(vercel.rewrites.find(item => item.source === '/demo/wasion'), { source: '/demo/wasion', destination: '/api/crm-wasion-demo-page' });
   assert.deepEqual(vercel.rewrites.find(item => item.source === '/demo/wasion/:slug'), { source: '/demo/wasion/:slug', destination: '/api/crm-wasion-demo-page?slug=:slug' });
-  assert.equal(vercel.rewrites.find(item => item.source === '/crm')?.destination, '/api/crm-page');
-  assert.equal(vercel.redirects.find(item => item.source === '/crm/wasion-demo')?.destination, '/demo/wasion');
+  assert.equal(vercel.rewrites.find(item => item.source === '/')?.destination, '/api/crm-page');
+  assert.equal(vercel.redirects.some(item => item.source === '/' && item.destination === '/crm'), false);
   for (const name of ['api/crm-wasion-demo-page.js', 'api/crm-wasion-demo-search.js']) {
     assert.equal(vercel.functions[name].includeFiles, 'server/wasion-demo-content.json');
     assert.equal(vercel.functions[name].maxDuration, 30);
@@ -116,7 +116,7 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
       const anonymous = response();
       await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, anonymous);
       assert.equal(anonymous.statusCode, 302);
-      assert.equal(anonymous.headers.Location, '/crm?returnTo=%2Fdemo%2Fwasion%2Fproducts');
+      assert.equal(anonymous.headers.Location, '/?returnTo=%2Fdemo%2Fwasion%2Fproducts');
       assert.equal(anonymous.body, undefined);
       session = { identity: { role: 'customer', memberships: [{ role: 'customer', companyId: 'fixture', active: false }] } };
       const revoked = response();

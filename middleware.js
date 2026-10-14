@@ -4,7 +4,7 @@ export default function middleware(request) {
   const url = new URL(request.url);
   const decision = boundaryDecision(url.host, url.pathname, request.method, {
     VERCEL_ENV: process.env.VERCEL_ENV,
-  });
+  }, url.search);
   if (!decision)
     return new Response(null, { headers: { "x-middleware-next": "1" } });
   const headers = {

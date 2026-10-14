@@ -267,7 +267,7 @@ test('authenticated POST search retains private caching and restricts media to t
     const anonymous = response();
     await pageHandler({ method: 'GET', url: '/demo/wasion/privacy', query: { slug: 'privacy' } }, anonymous);
     assert.equal(anonymous.statusCode, 302);
-    assert.equal(anonymous.headers.Location, '/crm?returnTo=%2Fdemo%2Fwasion%2Fprivacy');
+    assert.equal(anonymous.headers.Location, '/?returnTo=%2Fdemo%2Fwasion%2Fprivacy');
     const recovery=response();await pageHandler({method:'POST',url:'/demo/wasion/search',query:{slug:'search'},headers:{origin:'https://crm.cnps.ai'},body:{q:'I-110 <script> & protocols'}},recovery);assert.equal(recovery.statusCode,200);assert.ok(recovery.body.includes('id="demo-resume"'));assert.ok(recovery.body.includes('I-110 &lt;script&gt; &amp; protocols'));assert.ok(!recovery.headers.Location);assert.match(recovery.headers['Cache-Control'],/private, no-store/);
     const badOrigin=response();await pageHandler({method:'POST',url:'/demo/wasion/search',query:{slug:'search'},headers:{origin:'https://evil.invalid'},body:{q:'I-110'}},badOrigin);assert.equal(badOrigin.statusCode,403);
   } finally { runtime.auth.loadSession = originalSession; }

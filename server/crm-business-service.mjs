@@ -815,7 +815,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         }
         if (Object.keys(next.deliveries).length >= 1000) fail(409, '交付记录已达上限，请联系管理员归档。');
         const deliveryId = id(newId());
-        const link = 'https://crm.cnps.ai/crm/workspace?companyId=' + encodeURIComponent(companyId) + '&deliveryId=' + encodeURIComponent(deliveryId);
+        const link = 'https://crm.cnps.ai/workspace?companyId=' + encodeURIComponent(companyId) + '&deliveryId=' + encodeURIComponent(deliveryId);
         const message = '您好，贵司项目「' + project.publication.project.title + '」交付资料已更新，共' + documents.length + '份。\n' + documents.map(item => '• ' + item.filename + '（v' + item.version + '）').join('\n') + '\n请访问：' + link + '\n使用您已获授权的手机号获取验证码登录查看。';
         const delivery = { id:deliveryId, companyId, projectId, contactId:contact.id, recipientId:contact.identityId, actorId:subject(principal), requestId, createdAt:now(), documents, link, message, copiedAt:null, viewedAt:null, lastViewedAt:null, viewCount:0, downloads:[], sms:{status:'not_sent'} };
         next.deliveries[deliveryId] = delivery;
