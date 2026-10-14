@@ -28,7 +28,9 @@ This integration is Dypnsapi, not the separate Dysmsapi product.
 - 60-second cooldown per phone; twenty sends per phone per China-calendar day,
   shared by proposal access and CRM through `sms-policy.mjs`.
 - Ten sends per IP per rolling fixed one-hour window.
-- Twenty sends per China-calendar day and 100 per China-calendar month in total.
+- 200 sends per China-calendar day and 3,000 per China-calendar month in total.
+  CRM login, proposal login and Aliyun delivery notifications all use these same
+  durable counters and shared policy constants. Existing counts are preserved.
 - Six-digit provider-generated code, valid for five minutes; five check attempts
   per browser-bound challenge; thirty check requests per IP per ten minutes.
 - Successful challenges are consumed atomically. Sessions expire in eight hours;
@@ -38,6 +40,11 @@ Failed/unknown sends still consume the reserved website quota conservatively.
 No code/phone/provider error is logged. Redis contains HMAC identifiers, random
 challenge IDs, and expiring session records, never SMS codes or phone plaintext.
 Send counters expire within 32 days. Aliyun and Vercel have their own service logs.
+
+Volcengine delivery notifications use the same daily/monthly policy ceilings,
+but retain separate segment-weighted provider counters. Company delivery
+notifications also retain their independent 100-request monthly allowance;
+this company-level guard does not limit login verification.
 
 Database/provider failures fail closed. There is no production OTP bypass or
 in-memory fallback. All proposal responses use no-store, noindex, a nonce CSP,

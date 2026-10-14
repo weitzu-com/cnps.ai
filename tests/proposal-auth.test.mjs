@@ -33,7 +33,7 @@ test('60 second cooldown is atomic under concurrent sends, and twenty sends/day 
 });
 test('expired challenge and SMS failure reveal no secret or provider diagnostics',async()=>{const h=harness(),c=await h.send();h.advance(300001);assert.equal((await h.request('/w/verify',{method:'POST',cookie:c.cookie,body:{challenge:c.id,code:'123456'}})).status,400);h.fail();const r=await h.request('/w/send',{method:'POST',body:{phone,consent:true}});assert.equal(r.status,503);assert.ok(!r.text.includes('provider'));assert.ok(!r.text.includes(phone));});
 test('bad JSON, unsupported methods and unknown paths fail safely',async()=>{const h=harness();assert.equal((await h.request('/w/send',{method:'POST',body:'{'})).status,400);assert.equal((await h.request('/w/send',{method:'POST',body:{text:'x'.repeat(2100)}})).status,400);assert.equal((await h.request('/w',{method:'DELETE'})).status,405);assert.equal((await h.request('/w/unknown')).status,404);});
-for(const [prefix,cap] of [['send-day:',20],['send-month:',100]]) {
+for(const [prefix,cap] of [['send-day:',200],['send-month:',3000]]) {
  test(`global ${prefix} cap is enforced before any provider send`,async()=>{
   const h=harness();await h.send();h.advance(61000);
   const key=[...h.limits.keys()].find(k=>k.startsWith(prefix));

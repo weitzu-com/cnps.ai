@@ -2,7 +2,7 @@ import { randomBytes, createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { digest, decrypt, keyBytes } from './proposal-crypto.mjs';
 import { loginPage } from './proposal-login.mjs';
-import { SMS_PHONE_DAILY_LIMIT } from './sms-policy.mjs';
+import { SMS_PHONE_DAILY_LIMIT, SMS_GLOBAL_DAILY_LIMIT, SMS_GLOBAL_MONTHLY_LIMIT } from './sms-policy.mjs';
 const SESSION_COOKIE='__Host-cnps_proposal';
 const CHALLENGE_COOKIE='__Host-cnps_proposal_challenge';
 const validToken=value=>/^[A-Za-z0-9_-]{43}$/.test(value||'');
@@ -76,7 +76,7 @@ export function createHandler({env,storeFactory,smsFactory,loadBundle,activity,n
           // Validate the SMS configuration before reserving scarce send capacity.
           const sms=smsFactory(env),pid=hash('phone',phone);
           const date=new Date(now()+8*3600e3).toISOString();
-          const limits=[{name:`cooldown:${pid}`,max:1,ttl:60},{name:`phone-day:${date.slice(0,10)}:${pid}`,max:SMS_PHONE_DAILY_LIMIT,ttl:172800},{name:`ip-hour:${ipId}`,max:10,ttl:3600},{name:`send-day:${date.slice(0,10)}`,max:20,ttl:172800},{name:`send-month:${date.slice(0,7)}`,max:100,ttl:32*86400}];
+          const limits=[{name:`cooldown:${pid}`,max:1,ttl:60},{name:`phone-day:${date.slice(0,10)}:${pid}`,max:SMS_PHONE_DAILY_LIMIT,ttl:172800},{name:`ip-hour:${ipId}`,max:10,ttl:3600},{name:`send-day:${date.slice(0,10)}`,max:SMS_GLOBAL_DAILY_LIMIT,ttl:172800},{name:`send-month:${date.slice(0,7)}`,max:SMS_GLOBAL_MONTHLY_LIMIT,ttl:32*86400}];
           if(!await storage().reserve(limits))return json(429,{error:'发送次数已达限额，请稍后或次日再试。'});
           const id=randomBytes(32).toString('base64url'),binding=randomBytes(32).toString('base64url');
           await sms.send(phone,id);

@@ -1,6 +1,7 @@
 import {createHash,createHmac} from 'node:crypto';
 import {Redis} from '@upstash/redis';
 import {digest} from './proposal-crypto.mjs';
+import {SMS_GLOBAL_DAILY_LIMIT,SMS_GLOBAL_MONTHLY_LIMIT,SMS_PHONE_DAILY_LIMIT} from './sms-policy.mjs';
 export const DELIVERY_SMS_TEXT='您合作的网站建设与AI应用项目交付资料已更新，请登录客户工作台查看并验收。如有疑问，请联系项目负责人。';
 const hash=s=>createHash('sha256').update(s).digest('hex');
 const hmac=(k,s)=>createHmac('sha256',k).update(s).digest();
@@ -35,7 +36,7 @@ export function createVolcDeliverySms(env,{fetchImpl=globalThis.fetch,redis,now=
   if(!/^1[3-9]\d{9}$/.test(phone))return {status:'failed'};
   storage ||= new Redis({url:env.UPSTASH_REDIS_REST_URL||env.KV_REST_API_URL,token:env.UPSTASH_REDIS_REST_TOKEN||env.KV_REST_API_TOKEN,retry:{retries:0}});
   const date=new Date(now()+8*3600000).toISOString(),pid=digest(env.CNPS_PROPOSAL_SECRET,'phone',phone);
-  const limits=[['month:'+date.slice(0,7),100,segments,32*86400],['day:'+date.slice(0,10),20,segments,172800],['phone-day:'+date.slice(0,10)+':'+pid,5,1,172800],['cooldown:'+pid,1,1,60]];
+  const limits=[['month:'+date.slice(0,7),SMS_GLOBAL_MONTHLY_LIMIT,segments,32*86400],['day:'+date.slice(0,10),SMS_GLOBAL_DAILY_LIMIT,segments,172800],['phone-day:'+date.slice(0,10)+':'+pid,SMS_PHONE_DAILY_LIMIT,1,172800],['cooldown:'+pid,1,1,60]];
   const ok=await storage.eval("for i=1,#KEYS do if tonumber(redis.call('GET',KEYS[i]) or '0')+tonumber(ARGV[(i-1)*3+2])>tonumber(ARGV[(i-1)*3+1]) then return 0 end end;for i=1,#KEYS do local n=redis.call('INCRBY',KEYS[i],ARGV[(i-1)*3+2]);if n==tonumber(ARGV[(i-1)*3+2]) then redis.call('EXPIRE',KEYS[i],ARGV[(i-1)*3+3]) end end;return 1",limits.map(x=>'cnps:crm:volc-sms:v1:'+x[0]),limits.flatMap(x=>x.slice(1)));
   if(Number(ok)!==1)return {status:'failed',reason:'monthly_limit'};
   // Reserve before IO, never refund ambiguous calls or retry automatically.
