@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import { createCrmAuthHandler, CRM_SESSION_COOKIE, CRM_CHALLENGE_COOKIE } from '../server/crm-auth-handler.mjs';
+import { CrmSmsFailure } from '../server/crm-sms-failure.mjs';
 import { createCrmStore } from '../server/crm-auth-store.mjs';
 import { createCrmSms, CRM_SMS_SCHEME } from '../server/crm-auth-sms.mjs';
 import { createHandler as createProposalHandler } from '../server/proposal-handler.mjs';
@@ -64,7 +65,7 @@ function harness({ memberDirectory = new Map(), accessDirectory, detailedQuotas 
   };
   const crmStore = memoryStore('crm:'), proposalStore = memoryStore('proposal:');
   const smsFactory = () => ({
-    async send() { if (smsFailure) throw new Error('secret provider diagnostics'); sends++; },
+    async send() { if (smsFailure) throw smsFailure instanceof Error ? smsFailure : new Error('secret provider diagnostics'); sends++; },
     async verify(phone, code) { if (verifyFailure) throw new Error('private provider error'); verifications++; if (onVerify) { const callback = onVerify; onVerify = null; await callback(); } return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
   });
   const handler = createCrmAuthHandler({ env, loadAccess: accessDirectory ? async phone => accessDirectory.get(phone) || {memberships:[],contexts:[],proposals:[]} : undefined, reportFailure: event => failures.push(event), storeFactory: () => crmStore, smsFactory,
@@ -90,7 +91,7 @@ function harness({ memberDirectory = new Map(), accessDirectory, detailedQuotas 
     return { challenge, cookie: response.headers['set-cookie'][0].split(';')[0], response };
   }
   return { env, handler, request, send, login, visits, values, limits, failures, memberDirectory, advance: ms => time += ms,
-    sends: () => sends, verifications: () => verifications, failSms: () => smsFailure = true, failVerify: () => verifyFailure = true,
+    sends: () => sends, verifications: () => verifications, failSms: (error = true) => smsFailure = error, failVerify: () => verifyFailure = true,
     duringVerify: callback => onVerify = callback, duringSessionWrite: callback => onSessionWrite = callback, duringVisit: callback => onVisit = callback,
     failDirectory: () => directoryFailure = true, failStore: () => storeFailure = true,
     proposalRequest: (url, input) => request(url, input, proposalHandler) };
@@ -582,4 +583,24 @@ test('proposal-only promotion cannot reuse a thirty-day customer authentication'
  const old=await h.login(customerPhone);h.advance(61000);directory.set(customerPhone,{memberships:[],contexts:[],proposals:[{id:'wasion-web-v1'}]});
  assert.equal((await h.request('/api/crm?view=session',{cookie:old.cookie})).status,401);
  const fresh=await h.login(customerPhone);assert.match(fresh.response.headers['set-cookie'][0],/Max-Age=28800/);
+});
+
+test('provider diagnostics retain only fixed reason and never mint a session on send failure', async()=>{
+ const h=harness();h.failSms(new CrmSmsFailure('isv.BUSINESS_LIMIT_CONTROL'));
+ const response=await h.request('/api/crm',{method:'POST',body:{action:'send',phone:adminPhone,consent:true}});
+ assert.equal(response.status,503);assert.equal(response.headers['set-cookie'],undefined);
+ assert.deepEqual(h.failures,[{stage:'sms-send',reason:'isv.BUSINESS_LIMIT_CONTROL'}]);
+ assert.ok(!response.text.includes('BUSINESS_LIMIT_CONTROL'));
+ assert.equal((await h.request('/api/crm?view=session')).status,401);
+ const blocked=await h.request('/api/crm',{method:'POST',body:{action:'send',phone:adminPhone,consent:true}});
+ assert.equal(blocked.status,429);
+});
+
+test('SMS failures discard untrusted provider payloads and do not retry sends',async()=>{
+ const env={ALIYUN_ACCESS_KEY_ID:'fixture',ALIYUN_ACCESS_KEY_SECRET:'fixture',ALIYUN_SMS_SIGN_NAME:'fixture',ALIYUN_SMS_TEMPLATE_CODE:'fixture'};
+ for(const [kind,reason]of [['response','provider-rejected'],['transport','transport-unavailable'],['known','isv.OUT_OF_SERVICE']]){
+  let calls=0;const client={async sendSmsVerifyCode(){calls++;if(kind==='transport')throw Object.assign(Error('private payload'),{code:'phone-18700001111'});return{body:{code:kind==='known'?'isv.OUT_OF_SERVICE':'123456',success:false,message:'private payload',model:{verifyCode:'123456'}}};}};
+  const sms=createCrmSms(env,{client});await assert.rejects(()=>sms.send(adminPhone,'challenge-id'),e=>{assert.ok(e instanceof CrmSmsFailure);assert.equal(e.reason,reason);assert.ok(!JSON.stringify(e).includes('123456'));assert.ok(!JSON.stringify(e).includes('18700001111'));return true;});assert.equal(calls,1);
+ }
+ assert.equal(new CrmSmsFailure('unknown','private fallback').reason,'provider-rejected');
 });

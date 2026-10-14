@@ -2,6 +2,11 @@ import Dypnsapi from '@alicloud/dypnsapi20170525';
 import OpenApi from '@alicloud/openapi-client';
 
 const Client = Dypnsapi.default || Dypnsapi;
+import { CrmSmsFailure } from './crm-sms-failure.mjs';
+async function providerCall(call) {
+  try { return await call(); }
+  catch (error) { throw new CrmSmsFailure(error?.code || error?.data?.Code, 'transport-unavailable'); }
+}
 export const CRM_SMS_SCHEME = 'cnpscrm';
 
 // Same account, restricted RAM credentials, approved signature and template as
@@ -19,17 +24,17 @@ export function createCrmSms(env, { client: injectedClient } = {}) {
   const base = (phone, id) => ({ countryCode: '86', phoneNumber: phone, schemeName: CRM_SMS_SCHEME, outId: `crm-${id}` });
   return {
     async send(phone, id) {
-      const { body } = await client.sendSmsVerifyCode(new Dypnsapi.SendSmsVerifyCodeRequest({
+      const { body } = await providerCall(() => client.sendSmsVerifyCode(new Dypnsapi.SendSmsVerifyCodeRequest({
         ...base(phone, id), signName: env.ALIYUN_SMS_SIGN_NAME, templateCode: env.ALIYUN_SMS_TEMPLATE_CODE,
         templateParam: JSON.stringify({ code: '##code##', min: '5' }), codeLength: 6, validTime: 300,
         duplicatePolicy: 1, interval: 60, codeType: 1, returnVerifyCode: false, autoRetry: 0
-      }));
-      if (body?.code !== 'OK' || body.success !== true) throw new Error('SMS send failed');
+      })));
+      if (body?.code !== 'OK' || body.success !== true) throw new CrmSmsFailure(body?.code);
     },
     async verify(phone, code, id) {
-      const { body } = await client.checkSmsVerifyCode(new Dypnsapi.CheckSmsVerifyCodeRequest({
+      const { body } = await providerCall(() => client.checkSmsVerifyCode(new Dypnsapi.CheckSmsVerifyCodeRequest({
         ...base(phone, id), verifyCode: code
-      }));
+      })));
       return body?.code === 'OK' && body.success === true && body.model?.verifyResult === 'PASS';
     }
   };

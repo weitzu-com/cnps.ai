@@ -1,4 +1,5 @@
 import { randomBytes } from 'node:crypto';
+import { CrmSmsFailure } from './crm-sms-failure.mjs';
 import { digest, encrypt, decrypt, keyBytes } from './proposal-crypto.mjs';
 import { normalizePhone } from './proposal-handler.mjs';
 import { SMS_PHONE_DAILY_LIMIT, SMS_GLOBAL_DAILY_LIMIT, SMS_GLOBAL_MONTHLY_LIMIT } from './sms-policy.mjs';
@@ -272,10 +273,10 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         return json(200, { ok: true });
       }
       return json(400, { error: '请求操作无效。' });
-    } catch {
-      // Log only the fixed internal stage, never provider errors, phone numbers,
+    } catch (failure) {
+      // Log only fixed stages/codes, never provider messages, phone numbers,
       // credentials, cookies, challenge IDs or verification codes.
-      try { reportFailure({ stage: failureStage }); } catch {}
+      try { reportFailure({ stage: failureStage, ...(failure instanceof CrmSmsFailure ? { reason: failure.reason } : {}) }); } catch {}
       const error = failureStage === 'sms-send' ? '短信发送服务暂不可用，请稍后重试。'
         : failureStage === 'sms-verify' ? '短信验证服务暂不可用，请稍后重新获取验证码。'
         : '访问服务暂不可用，请稍后重试或联系项目对接人。';
