@@ -57,23 +57,22 @@ SSH 复用现有已授权私钥和固定主机指纹。私钥保存在 `~/.ssh/c
 - `cnps-infrastructure`：固定只读服务器、数据库结构和备份状态，通过已配置 SSH 访问。
 - `cnps-development`：代码分支、GitHub 仓库、Vercel 项目和环境变量名称。Vercel 使用本机现有 CLI 登录，永不返回密钥值。
 - `cloudflare-docs`：Cloudflare 官方文档 MCP。
-- `cloudflare-api`：Cloudflare 官方 API MCP。首次需要在 Cursor MCP 设置中 Connect，并由账户所有者完成 OAuth 授权；配置文件不含令牌。
+- `cloudflare-api`：Cloudflare 官方 API MCP。已完成 OAuth 连接，Cursor 显示 4 个工具和 18 个资源；配置文件不含令牌。
 
-Cloudflare 浏览器会话可到达已登录账户，但本轮管理台页面停留加载状态，尚未核验账户内 DNS 记录与代理状态。公网 DNS 核验：crm.cnps.ai 解析到 76.76.21.21（Vercel），crm-api.cnps.ai 指向香港源站；不要因此推断 Cloudflare 控制台记录已核验。
+2026-10-14 20:21（上海）通过已授权 Cloudflare MCP 的 GET 查询核验：cnps.ai zone 为 active，账号 Wei Tzu，DNSSEC 为 active。crm.cnps.ai 为 A 76.76.21.21，crm-api.cnps.ai 为 A 101.47.77.53，两者 TTL 300、proxied=false（DNS only）。apex 和 www 均为 CNAME 965b21e621cdc176.vercel-dns-016.com，TTL 自动、proxied=false。结果见同目录 cloudflare-dns-verification.json。
 
 ## 连接状态与凭据
 
 独立 Node 24.21.0（匹配 Vercel 24.x）、Cursor 3.24.18 ARM64、GitHub CLI 2.102.0、Vercel CLI 64.0.2 已安装。Remote SSH 和 YAML 扩展已安装。工作区终端、调试器和本地 MCP 均指向独立 Node 24，不修改其他项目的 Node 22。
 
-Vercel 本机账户可读取 cnps-ai，Git 集成生产分支为 main，项目关联已验证。GitHub 的旧 CLI 凭据和迁移 SSH GitHub 登录均不可用；读公开仓库和本地开发不受影响，推送/PR 前需重新登录：
+Vercel 本机账户可读取 cnps-ai，Git 集成生产分支为 main，项目关联已验证。GitHub CLI 已重新认证为 weitzu-com，凭据由 macOS keyring 保存；仓库 API 返回 push=true，Git 的真实远端 dry-run 已通过。本机 HTTPS Git 已配置 GitHub CLI credential helper，Cursor 的 Git 操作可复用该凭据。日常可检查：
 
 ```sh
-gh auth login --hostname github.com --git-protocol https --web
-gh auth setup-git
 gh auth status
+git remote -v
 ```
 
-Cursor 已安装的 GitHub 插件连接成功；本机仓库已配置 GitHub CLI credential helper，但普通 Git 推送仍需 CLI 重新认证。不要在终端、聊天或源码中填写明文 token。
+Cursor 已安装的 GitHub 插件连接成功。开发交付分支为 codex/cursor-crm-development；本地工作区根目录的 connection-verification.json 保存最终推送与远端提交读回结果，避免为记录提交自身的 SHA 再触发一次预览构建。不要在终端、聊天或源码中填写明文 token。
 
 生产配置仍在 Vercel 项目环境变量与服务器 `/opt/cnps-crm/.env` 等既有凭据文件中。本地没有下载生产密钥。`.env.example` 仅为独立集成环境字段清单；本地开发无需 `.env`。
 

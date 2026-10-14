@@ -1,0 +1,179 @@
+{
+  "verified_at": "2026-10-14T20:21:26+08:00",
+  "timezone": "Asia/Shanghai",
+  "source": "cloudflare-api MCP",
+  "methods": ["GET"],
+  "mutations": false,
+  "zone_query": {
+    "path": "/zones",
+    "query": { "name": "cnps.ai" },
+    "success": true,
+    "http_status": 200,
+    "errors": [],
+    "result_info": {
+      "page": 1,
+      "per_page": 20,
+      "total_pages": 1,
+      "count": 1,
+      "total_count": 1
+    }
+  },
+  "zone": {
+    "name": "cnps.ai",
+    "status": "active",
+    "name_servers": [
+      "dilbert.ns.cloudflare.com",
+      "ullis.ns.cloudflare.com"
+    ],
+    "account_name": "Wei Tzu"
+  },
+  "dns_records": {
+    "cnps.ai": {
+      "success": true,
+      "http_status": 200,
+      "errors": [],
+      "result_info": {
+        "page": 1,
+        "per_page": 100,
+        "count": 9,
+        "total_count": 9,
+        "total_pages": 1
+      },
+      "records": [
+        {
+          "type": "CAA",
+          "name": "cnps.ai",
+          "content": "0 issuewild \"letsencrypt.org\"",
+          "ttl": 1,
+          "proxied": false
+        },
+        {
+          "type": "CAA",
+          "name": "cnps.ai",
+          "content": "0 issue \"letsencrypt.org\"",
+          "ttl": 1,
+          "proxied": false
+        },
+        {
+          "type": "CNAME",
+          "name": "cnps.ai",
+          "content": "965b21e621cdc176.vercel-dns-016.com",
+          "ttl": 1,
+          "proxied": false
+        },
+        {
+          "type": "MX",
+          "name": "cnps.ai",
+          "content": "smtp.google.com",
+          "ttl": 1,
+          "proxied": false
+        },
+        {
+          "type": "TXT",
+          "name": "cnps.ai",
+          "content": "\"zoho-verification=zb72791167.zmverify.zoho.com\"",
+          "ttl": 600,
+          "proxied": false
+        },
+        {
+          "type": "TXT",
+          "name": "cnps.ai",
+          "content": "\"google-site-verification=KJqehW73OLMW3wz3JskA5k2jq2Om8ewOcWM4T5W1LBA\"",
+          "ttl": 3600,
+          "proxied": false
+        },
+        {
+          "type": "TXT",
+          "name": "cnps.ai",
+          "content": "\"v=spf1 include:_spf.google.com ~all\"",
+          "ttl": 1,
+          "proxied": false
+        },
+        {
+          "type": "TXT",
+          "name": "cnps.ai",
+          "content": "\"apple-domain-verification=oFVfztS8ELfallNq\"",
+          "ttl": 1,
+          "proxied": false
+        },
+        {
+          "type": "TXT",
+          "name": "cnps.ai",
+          "content": "\"google-site-verification=XoFrS2W9GAop5UPay2swk7UGD5_GNrHg3v8LubXwaZA\"",
+          "ttl": 3600,
+          "proxied": false
+        }
+      ]
+    },
+    "www.cnps.ai": {
+      "success": true,
+      "http_status": 200,
+      "errors": [],
+      "result_info": {
+        "page": 1,
+        "per_page": 100,
+        "count": 1,
+        "total_count": 1,
+        "total_pages": 1
+      },
+      "records": [
+        {
+          "type": "CNAME",
+          "name": "www.cnps.ai",
+          "content": "965b21e621cdc176.vercel-dns-016.com",
+          "ttl": 1,
+          "proxied": false
+        }
+      ]
+    },
+    "crm.cnps.ai": {
+      "success": true,
+      "http_status": 200,
+      "errors": [],
+      "result_info": {
+        "page": 1,
+        "per_page": 100,
+        "count": 1,
+        "total_count": 1,
+        "total_pages": 1
+      },
+      "records": [
+        {
+          "type": "A",
+          "name": "crm.cnps.ai",
+          "content": "76.76.21.21",
+          "ttl": 300,
+          "proxied": false
+        }
+      ]
+    },
+    "crm-api.cnps.ai": {
+      "success": true,
+      "http_status": 200,
+      "errors": [],
+      "result_info": {
+        "page": 1,
+        "per_page": 100,
+        "count": 1,
+        "total_count": 1,
+        "total_pages": 1
+      },
+      "records": [
+        {
+          "type": "A",
+          "name": "crm-api.cnps.ai",
+          "content": "101.47.77.53",
+          "ttl": 300,
+          "proxied": false
+        }
+      ]
+    }
+  },
+  "dnssec": {
+    "path": "/zones/{zone_id}/dnssec",
+    "success": true,
+    "http_status": 200,
+    "errors": [],
+    "status": "active"
+  }
+}
