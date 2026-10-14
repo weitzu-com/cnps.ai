@@ -459,23 +459,18 @@ export function createAccessService({
       metadata = {},
     ) {
       if (!["view", "download"].includes(kind)) fail(400);
-      const allowed = await api.authorizeProposal(p, binding, assetId);
+      await api.authorizeProposal(p, binding, assetId);
       if (!/^[a-f0-9]{64}$/.test(metadata.contentHash || "")) fail(400);
-      await directoryWrite(p, (d) => {
-        const g = own(d.proposalGrants, allowed.grantId);
-        if (
-          allowed.grantId &&
-          (!live(g, now()) || g.version !== allowed.version)
-        )
-          fail(404);
-        audit(d, p, "proposal." + (kind === "download" ? "download-prepared" : kind), {
-          proposalId: binding.id,
-          ...(assetId ? { assetId: id(assetId) } : {}),
-          contentHash: metadata.contentHash,
-          eventId: id(eventId),
-        });
-        return { ok: true };
+      if (typeof store.recordAccess !== "function") fail(503, "访问审计暂不可用。");
+      // A prepared/read event is not an ACL change. A separate append-only key
+      // avoids directory CAS contention; the handler reauthorizes before bytes.
+      await store.recordAccess({
+        id:newId(),actorId:actor(p),action:"access.proposal-"+(kind==="download"?"download-prepared":"view"),at:now(),status:200,
+        companyId:binding.companyId,proposalId:binding.id,contentHash:metadata.contentHash,eventId:id(eventId),
+        ...(assetId?{assetId:id(assetId)}:{}),
+        ...(assetId&&binding.documents[assetId]?{resourceId:binding.documents[assetId].documentId,versionId:binding.documents[assetId].versionId}:{})
       });
+      return {ok:true};
     },
     async setDocumentClassification(p, companyId, documentId, classification) {
       if (!["internal", "collaboration", "commercial"].includes(classification))

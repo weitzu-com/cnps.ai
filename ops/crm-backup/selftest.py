@@ -54,6 +54,12 @@ class BackupTest(unittest.TestCase):
         event['action'] = 'access.submission-download'
         snapshot['entries'][0]['value'] = json.dumps(event)
         self.assertEqual(backup.validate_upstash(snapshot)['audit_keys'], 1)
+        event.update({'action': 'access.proposal-download-prepared', 'proposalId': 'wasion-web-v1', 'assetId': 'pdf', 'eventId': 'e' * 64, 'contentHash': 'f' * 64})
+        snapshot['entries'][0]['value'] = json.dumps(event)
+        self.assertEqual(backup.validate_upstash(snapshot)['audit_keys'], 1)
+        snapshot['entries'][0]['value'] = json.dumps({**event, 'contentHash': 'private body'})
+        with self.assertRaisesRegex(RuntimeError, 'invalid_audit_hash'):
+            backup.validate_upstash(snapshot)
         for field in ['body', 'phone', 'cookie', 'code']:
             snapshot['entries'][0]['value'] = json.dumps({**event, field: 'must-not-be-logged'})
             with self.assertRaisesRegex(RuntimeError, 'invalid_audit_schema'):
