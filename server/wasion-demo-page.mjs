@@ -9,13 +9,13 @@ import { renderSearch, SEARCH_CSS, SEARCH_CLIENT } from './wasion-experience/sea
 import { buildDemoMetadata, renderLegalPage, LEGAL_ROUTES, DISCOVERY_CSS, DISCOVERY_CLIENT, renderCookiePreferences } from './wasion-experience/discovery.mjs';
 import { renderContact, CONTACT_CSS, CONTACT_CLIENT } from './wasion-experience/contact.mjs';
 export const WASION_PAGES = content.pages;
-import { WASION_STYLES, wasionStyleBase } from './wasion-demo-styles.mjs';
+import { WASION_STYLES, WASION_DEFAULT_STYLE, wasionStyleBase } from './wasion-demo-styles.mjs';
 import { ATMOSPHERIC_CSS } from './wasion-demo-atmospheric.mjs';
 import { renderEditorialHome, PLANHAT_CSS, ORDERFUL_CSS, OVERSEAS_CSS, OVERSEAS_CLIENT } from './wasion-demo-editorial.mjs';
 const STYLE_CSS = Object.freeze({classic:'',atmospheric:ATMOSPHERIC_CSS,planhat:PLANHAT_CSS,orderful:ORDERFUL_CSS+OVERSEAS_CSS});
 export const WASION_DEMO_ROUTES = [...WASION_PAGES.map(p => p.slug), ...EXPERIENCE_ROUTES.map(p => p.slug), ...LEGAL_ROUTES.map(p => p.slug), 'search', 'styles'];
 export const isWasionDemoSlug = slug => WASION_DEMO_ROUTES.includes(slug);
-export function wasionDemoPage(nonce, { slug = 'home', query = '', style = 'classic' } = {}) {
+export function wasionDemoPage(nonce, { slug = 'home', query = '', style = WASION_DEFAULT_STYLE } = {}) {
 if (!Object.hasOwn(WASION_STYLES, style)) return null;
 const base = wasionStyleBase(style);
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -112,7 +112,7 @@ function styleSwitch() {
  return `<nav class="wd-style-switch" aria-label="Preview styles"><a href="/demo/wasion/styles">Design previews</a>${Object.entries(WASION_STYLES).map(([key,value]) => `<a data-style-base="${wasionStyleBase(key)}" href="${wasionStyleBase(key)}${target === 'home' ? '' : '/' + target}${target === 'search' && query ? '?' + new URLSearchParams({q:query}) : ''}" ${style === key ? 'aria-current="true"' : ''}>${value.label}</a>`).join('')}</nav>`;
 }
 function styleGallery() {
- return `<section class="wd-style-gallery wd-container"><span class="wd-overline">WASION WEBSITE PREVIEWS</span><h1>One portfolio.<br>Different perspectives.</h1><p>Choose a design direction to explore the same Wasion products, solutions and source-based search.</p>${Object.entries(WASION_STYLES).map(([key,value]) => `<a class="wd-style-choice${key === 'orderful' ? ' wd-style-recommended' : ''}" href="${wasionStyleBase(key)}">${key === 'orderful' ? '<span class="wd-recommendation">Recommended for overseas customers</span>' : ''}<h2>${value.label} ↗</h2><p>${value.description}</p></a>`).join('')}</section>`;
+ return `<section class="wd-style-gallery wd-container"><span class="wd-overline">WASION WEBSITE PREVIEWS</span><h1>One portfolio.<br>Different perspectives.</h1><p>Choose a design direction to explore the same Wasion products, solutions and source-based search.</p>${Object.entries(WASION_STYLES).map(([key,value]) => `<a class="wd-style-choice${key === 'orderful' ? ' wd-style-recommended' : ''}" href="${wasionStyleBase(key)}">${key === 'orderful' ? '<span class="wd-recommendation">Default · Overseas customer experience</span>' : ''}<h2>${value.label} ↗</h2><p>${value.description}</p></a>`).join('')}</section>`;
 }
 
 

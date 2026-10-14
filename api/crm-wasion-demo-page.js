@@ -1,4 +1,4 @@
-import { WASION_STYLES, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
+import { WASION_STYLES, WASION_DEFAULT_STYLE, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 import {crmLoginPage} from '../server/crm-login.mjs';
 import {guardPrivateRequest} from '../server/crm-boundary.mjs';
 import { crmLoginUrl } from '../server/crm-navigation.mjs';
@@ -18,7 +18,7 @@ return async function handler(req,res) {
   if (!['GET', 'HEAD', 'POST'].includes(req.method)) { res.statusCode = 405; return res.end(); }
   const url = new URL(req.url, 'https://crm.cnps.ai');
   const slug = typeof req.query?.slug === 'string' ? req.query.slug : url.searchParams.get('slug') || 'home';
-  const style = typeof req.query?.style === 'string' ? req.query.style : url.searchParams.get('style') || 'classic';
+  const style = typeof req.query?.style === 'string' ? req.query.style : url.searchParams.get('style') || WASION_DEFAULT_STYLE;
   const base = wasionStyleBase(style);
   let query = typeof req.query?.q === 'string' ? req.query.q : url.searchParams.get('q') || '';
   if (!Object.hasOwn(WASION_STYLES, style) || !/^[a-z0-9-]+$/.test(slug) || !isWasionDemoSlug(slug)) {res.statusCode=404;return res.end('Page not found.')}

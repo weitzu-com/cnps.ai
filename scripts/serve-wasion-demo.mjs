@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { WASION_DEFAULT_STYLE } from '../server/wasion-demo-styles.mjs';
 import { randomBytes } from 'node:crypto';
 import { wasionDemoPage } from '../server/wasion-demo-page.mjs';
 import { retrieveWasionSources } from '../server/wasion-demo-sources.mjs';
@@ -18,7 +19,7 @@ http.createServer(async (req, res) => {
   if (url.pathname === '/' || url.pathname === '/crm/wasion-demo') { res.writeHead(302, { Location: '/demo/wasion' }); return res.end(); }
   if (!url.pathname.startsWith('/demo/wasion')) { res.writeHead(404); return res.end('Not found'); }
   const styled = url.pathname.match(/^\/demo\/wasion\/styles\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?$/);
-  const style = styled?.[1] || 'classic';
+  const style = styled?.[1] || WASION_DEFAULT_STYLE;
   const slug = styled ? styled[2] || 'home' : url.pathname === '/demo/wasion' ? 'home' : url.pathname.slice('/demo/wasion/'.length);
   const nonce = randomBytes(18).toString('base64');
   let query=url.searchParams.get('q') || '';
