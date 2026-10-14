@@ -848,3 +848,52 @@ test('legacy proposal authorization checks download rights without reading gatew
  await h.service.authorizeProposal(h.customer,binding);
  await assert.rejects(h.service.authorizeProposal(h.customer,binding,'pdf'),status(404));
 });
+
+test('legacy overlapping grants cannot elevate an explicit customer context',async()=>{
+ const h=await fixture();h.contacts.set('manager-client',{id:'manager-client',identityId:h.manager.identityId,companyId:'company-A',active:true});
+ await assert.rejects(h.service.grantMember(h.admin,'company-A',{contactId:'manager-client',projectIds:[h.p.id],documentIds:[h.doc.documentId],operations:['view']}),status(409));
+ h.mutateDirectory(d=>{d.memberGrants[h.manager.identityId]={...structuredClone(d.memberGrants[h.customer.identityId]),identityId:h.manager.identityId,contactId:'manager-client',operations:['view']};});
+ const client={...h.manager,contextId:'member:company-A:customer'};
+ assert.ok(!(await h.service.listRecords(client,'company-A',h.p.id)).some(r=>r.id===h.privateTask.id));
+ await assert.rejects(h.service.listEvents(client,'company-A'),status(404));
+ await assert.rejects(h.service.download(client,'company-A',h.doc.documentId,h.doc.versionId),status(404));
+});
+
+test('revocation during the response audit prevents file bytes from leaving the handler',async()=>{
+ const h=await fixture(),original=h.store.recordAccess;
+ h.store.recordAccess=async e=>{await original(e);if(e.action==='access.download-prepared')await h.service.revokeMember(h.admin,'company-A','client');};
+ const handler=createBusinessHandler({env:h.env,authHandler:{loadSession:async()=>h.customer},service:h.service}),res=response();
+ await handler({method:'GET',url:'/api/crm-workspace?'+new URLSearchParams({view:'download',companyId:'company-A',documentId:h.doc.documentId,versionId:h.doc.versionId}),headers:{}},res);
+ assert.equal(res.statusCode,404);assert.ok(!res.body.includes('Collaboration file'));
+});
+
+test('legacy manager proposal access retains its explicit company role without file IO',async()=>{
+ const h=await fixture(),binding={id:'wasion-web-v1',companyId:'company-A',projectId:h.p.id,documents:{pdf:{documentId:h.doc.documentId,versionId:h.doc.versionId}}};
+ const grant=await h.service.grantProposal(h.admin,{phone:h.manager.phone,proposalId:binding.id,operations:['view','download'],assetIds:['pdf']});
+ h.mutateDirectory(d=>{d.proposalGrants[grant.id].legacyRestricted=true;});h.env.CNPS_PROPOSAL_ALLOWED_PHONES=h.manager.phone;
+ h.onRead(()=>assert.fail('Authorization must not read bytes'));
+ await h.service.authorizeProposal(h.manager,binding,'pdf');
+});
+
+test('logout while writing the download audit invalidates the already-read file response',async()=>{
+ const h=await fixture(),original=h.store.recordAccess;let active=true;
+ h.store.recordAccess=async e=>{await original(e);if(e.action==='access.download-prepared')active=false;};
+ const handler=createBusinessHandler({env:h.env,authHandler:{loadSession:async()=>active?h.customer:null},service:h.service}),res=response();
+ await handler({method:'GET',url:'/api/crm-workspace?'+new URLSearchParams({view:'download',companyId:'company-A',documentId:h.doc.documentId,versionId:h.doc.versionId}),headers:{}},res);
+ assert.equal(res.statusCode,401);assert.ok(!res.body.includes('Collaboration file'));
+});
+
+test('JSON responses discard stale content if access changes during response auditing',async()=>{
+ const h=await fixture(),original=h.store.recordAccess;
+ h.store.recordAccess=async e=>{await original(e);if(e.action==='access.read')await h.service.revokeMember(h.admin,'company-A','client');};
+ const handler=createBusinessHandler({env:h.env,authHandler:{loadSession:async()=>h.customer},service:h.service}),res=response();
+ await handler({method:'GET',url:'/api/crm-workspace?'+new URLSearchParams({view:'project',companyId:'company-A',projectId:h.p.id}),headers:{}},res);
+ assert.equal(res.statusCode,409);assert.ok(!res.body.includes('Authorized project'));
+});
+
+test('completed response evidence survives a subsequent identity disable without reauthorizing access',async()=>{
+ const h=await fixture(),p={...h.partner,identityVersion:0};await h.service.setIdentityStatus(h.admin,p.identityId,true);
+ await h.service.auditCompletedResponse(p,'download-response','company-A',200,{resourceId:h.doc.documentId,versionId:h.doc.versionId});
+ assert.equal(h.audit.at(-1).action,'access.download-response');
+ await assert.rejects(h.service.download(p,'company-A',h.doc.documentId,h.doc.versionId),status(404));
+});
