@@ -124,7 +124,7 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
       const anonymous = response();
       await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, anonymous);
       assert.equal(anonymous.statusCode, 302);
-      assert.equal(anonymous.headers.Location, '/crm');
+      assert.equal(anonymous.headers.Location, '/crm?returnTo=%2Fdemo%2Fwasion%2Fproducts');
       assert.equal(anonymous.body, undefined);
       session = { identity: { role: 'customer', memberships: [{ role: 'customer', companyId: 'fixture', active: false }] } };
       const revoked = response();
