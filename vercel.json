@@ -4,6 +4,7 @@
   "installCommand": "npm ci --ignore-scripts",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "ignoreCommand": "node scripts/vercel-ignore-build.mjs",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
