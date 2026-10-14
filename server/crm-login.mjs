@@ -8,8 +8,9 @@ export function safeDemoReturnTo(value) {
   return typeof value === 'string' && /^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(value) ? value : '';
 }
 
-export function crmLoginPage(nonce, { returnTo } = {}) {
+export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
   const safeNonce = escapeAttribute(nonce);
+  const resumeSearch = sanitizeCrmReturnTo(returnTo)==='/demo/wasion/search' && typeof resumeQuestion==='string' && resumeQuestion.trim().length>0 && resumeQuestion.length<=500 && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(resumeQuestion);
   const safeReturnTo = JSON.stringify(sanitizeCrmReturnTo(returnTo)).replaceAll('<', '\\u003c');
   let html = `<!doctype html>
 <html lang="zh-CN">
@@ -27,7 +28,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 </style>
 </head>
-<body>
+<body>${resumeSearch ? `<form id="demo-resume" action="/demo/wasion/search" method="post" hidden><input type="hidden" name="q" value="${escapeAttribute(resumeQuestion)}"></form>` : ''}
 <main class="shell">
   <section class="intro" aria-labelledby="intro-title">
     <div class="brand">CNPS.AI <span>客户工作台</span></div>
@@ -43,7 +44,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
     <div class="card">
       <p class="loading" id="loading" role="status">正在确认登录状态…</p>
       <p class="status" id="session-check-status" role="status" aria-live="polite" hidden></p>
-      <form id="login" hidden>
+      <form id="login" hidden>${resumeSearch ? '<p class="session-note">After verification, your search will continue from this page.</p>' : ''}
         <h2>手机号登录</h2>
         <p class="sub">客户在本浏览器验证后，30 天内免重复验证。管理员与销售经理登录有效期为 8 小时。</p>
         <div class="field">
@@ -80,6 +81,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
 (() => {
   'use strict';
   const returnTo = ${safeReturnTo};
+  const resumeSearch = ${resumeSearch};let resumeSubmitted=false;
   const byId = id => document.getElementById(id);
   const form = byId('login'), send = byId('send'), submit = byId('submit');
   const phone = byId('phone'), code = byId('code'), consent = byId('consent');
@@ -165,6 +167,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
+        if(resumeSearch){if(!resumeSubmitted){resumeSubmitted=true;byId('demo-resume').submit();}return;}
         if (announce || returnTo || result.identity.role==='proposal_viewer') { location.replace(returnTo || (result.identity.role==='proposal_viewer'?'/w':'/crm/workspace')); return; }
         if (announce) byId('session-title').focus();
       } else {

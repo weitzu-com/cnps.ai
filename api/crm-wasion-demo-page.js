@@ -1,3 +1,4 @@
+import {crmLoginPage} from '../server/crm-login.mjs';
 import {guardPrivateRequest} from '../server/crm-boundary.mjs';
 import { crmLoginUrl } from '../server/crm-navigation.mjs';
 import { randomBytes } from 'node:crypto';
@@ -19,18 +20,6 @@ return async function handler(req,res) {
   let query = typeof req.query?.q === 'string' ? req.query.q : url.searchParams.get('q') || '';
   if (!/^[a-z0-9-]+$/.test(slug) || !isWasionDemoSlug(slug)) {res.statusCode=404;return res.end('Page not found.')}
   if(query.length>500){res.statusCode=400;return res.end('Please use a question of 500 characters or fewer.')}
-  let access, auth;
-  try {
-    const runtime=getRuntime();auth=runtime.auth;
-    access = await authorizeWasionCustomer({ req, auth, service:{getProject:(...args)=>runtime.projectAccessService.getProject(...args)} });
-  }
-  catch { res.statusCode = 503; return res.end('Customer access could not be verified. Please try again.'); }
-  if (!access) {
-    let session;try{session=await auth.loadSession(req)}catch{res.statusCode=503;return res.end('Customer access could not be verified. Please try again.')}
-    if (!session) { res.statusCode = 302; const returnTo=(slug==='home'?'/demo/wasion':'/demo/wasion/'+slug)+(slug==='search'&&query?'?'+new URLSearchParams({q:query}):'');res.setHeader('Location',crmLoginUrl(returnTo));return res.end();}
-    res.statusCode = 404; return res.end('This page is unavailable for the current account.');
-  }
-
   if (req.method === 'POST') {
     if (slug !== 'search') { res.statusCode = 405; return res.end(); }
     const origins = new Set(['https://crm.cnps.ai']);
@@ -46,6 +35,19 @@ return async function handler(req,res) {
     } catch { res.statusCode = 400; return res.end('Invalid search request.'); }
   }
   if (query.length > 500) { res.statusCode = 400; return res.end('Please use a question of 500 characters or fewer.'); }
+  let access, auth;
+  try {
+    const runtime=getRuntime();auth=runtime.auth;
+    access = await authorizeWasionCustomer({ req, auth, service:{getProject:(...args)=>runtime.projectAccessService.getProject(...args)} });
+  }
+  catch { res.statusCode = 503; return res.end('Customer access could not be verified. Please try again.'); }
+  if (!access) {
+    let session;try{session=await auth.loadSession(req)}catch{res.statusCode=503;return res.end('Customer access could not be verified. Please try again.')}
+    if (!session && req.method==='POST') {const nonce=randomBytes(18).toString('base64');res.statusCode=200;res.setHeader('Content-Type','text/html; charset=utf-8');res.setHeader('Content-Security-Policy',`default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; object-src 'none'`);return res.end(crmLoginPage(nonce,{returnTo:'/demo/wasion/search',resumeQuestion:query}));}
+    if (!session) { res.statusCode = 302; const returnTo=(slug==='home'?'/demo/wasion':'/demo/wasion/'+slug)+(slug==='search'&&query?'?'+new URLSearchParams({q:query}):'');res.setHeader('Location',crmLoginUrl(returnTo));return res.end();}
+    res.statusCode = 404; return res.end('This page is unavailable for the current account.');
+  }
+
   const nonce = randomBytes(18).toString('base64');
   res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src https://en.wasion.com; media-src https://en.wasion.com; connect-src 'self'; base-uri 'none'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'`);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');

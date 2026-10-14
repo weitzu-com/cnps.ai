@@ -4,8 +4,8 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {crmLoginPage,safeDemoReturnTo} from '../server/crm-login.mjs';
 
-function harness(respond, { returnTo, search = '' } = {}) {
-  const html = crmLoginPage('test-nonce', { returnTo });
+function harness(respond, { returnTo, search = '', resumeQuestion } = {}) {
+  const html = crmLoginPage('test-nonce', { returnTo, resumeQuestion });
   const elements = new Map([...html.matchAll(/<[^>]+\bid="([^"]+)"[^>]*>/g)].map(match => {
     const listeners = new Map();
     const element = {
@@ -28,6 +28,7 @@ function harness(respond, { returnTo, search = '' } = {}) {
   let nextTimer = 0, time = 0;
   class Clock extends Date { static now() { return time; } }
   const forbidden = new Proxy({}, {get() { throw Error('Browser storage or logging must not be used.'); }});
+  const resumed=[];if(elements.has('demo-resume'))element('demo-resume').submit=()=>resumed.push('POST');
   const document = {getElementById: element};
   Object.defineProperty(document, 'cookie', {get() { throw Error('Cookies belong to the server.'); }, set() { throw Error('Cookies belong to the server.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
@@ -44,7 +45,7 @@ function harness(respond, { returnTo, search = '' } = {}) {
     }
   });
   return {
-    html, element, calls, navigations, redirects: navigations,
+    html, element, calls, navigations, resumed, redirects: navigations,
     flush: () => new Promise(resolve => setImmediate(resolve)),
     event: (id, name) => element(id).listeners.get(name)?.({preventDefault() {}}),
     windowEvent: (name, options = {}) => windowListeners.get(name)?.(options),
@@ -389,4 +390,13 @@ test('demo SMS status and cooldown remain English while the generic portal prese
   assert.match(h.element('send').textContent,/Retry in 60s/);
   h.tick();assert.match(h.element('send').textContent,/s to retry/);
   assert.equal(h.calls.filter(call=>call.body?.action==='send').length,1);
+});
+
+test('expired demo POST question resumes only after confirmed login without a question URL or storage', async () => {
+ const question='I-110 <script> & protocol options',target='/demo/wasion/search';let authenticated=false;
+ const h=harness(({body})=>!body?(authenticated?{body:{authenticated:true,identity:{role:'customer'}}}:{status:401}):body.action==='send'?{body:{challenge:'fixture'}}:(authenticated=true,{body:{ok:true}}),{returnTo:target,resumeQuestion:question});
+ await h.flush();assert.deepEqual(h.resumed,[]);assert.deepEqual(h.navigations,[]);
+ assert.match(h.html,/id="demo-resume" action="\/demo\/wasion\/search" method="post" hidden/);assert.ok(h.html.includes('I-110 &lt;script&gt; &amp; protocol options'));
+ h.element('phone').value='18700001111';h.element('consent').checked=true;await h.event('send','click');h.element('code').value='123456';await h.event('login','submit');
+ assert.deepEqual(h.resumed,['POST']);assert.deepEqual(h.navigations,[]);assert.ok(!h.html.includes('?q='));
 });
