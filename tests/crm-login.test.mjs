@@ -24,12 +24,13 @@ function harness(respond) {
   element('consent').checkValidity = () => element('consent').checked;
   element('login').checkValidity = () => ['phone', 'code', 'consent'].every(id => element(id).checkValidity());
   const calls = [], intervals = new Map(), timeouts = new Map();
-  let nextTimer = 0;
+  let nextTimer = 0, time = 0;
+  class Clock extends Date { static now() { return time; } }
   const forbidden = new Proxy({}, {get() { throw Error('Browser storage or logging must not be used.'); }});
   const document = {getElementById: element};
   Object.defineProperty(document, 'cookie', {get() { throw Error('Cookies belong to the server.'); }, set() { throw Error('Cookies belong to the server.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
-    document, URLSearchParams, location:{search:''}, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
+    document, URLSearchParams, location:{search:''}, Date: Clock, AbortController, TypeError, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
     setTimeout(callback) { const id = ++nextTimer; timeouts.set(id, callback); return id; },
     clearTimeout(id) { timeouts.delete(id); },
     setInterval(callback) { const id = ++nextTimer; intervals.set(id, callback); return id; },
@@ -37,15 +38,15 @@ function harness(respond) {
     async fetch(url, options) {
       const call = {url, options, body: options.body ? JSON.parse(options.body) : undefined};
       calls.push(call);
-      const {status = 200, body} = await respond(call);
-      return {status, ok: status >= 200 && status < 300, async json() { return body; }};
+      const {status = 200, body, headers = {}} = await respond(call);
+      return {status, ok: status >= 200 && status < 300, headers: {get: name => headers[name]}, async json() { return body; }};
     }
   });
   return {
     html, element, calls,
     flush: () => new Promise(resolve => setImmediate(resolve)),
     event: (id, name) => element(id).listeners.get(name)?.({preventDefault() {}}),
-    tick: () => [...intervals.values()].forEach(callback => callback()),
+    tick: (seconds = 1) => { time += seconds * 1000; [...intervals.values()].forEach(callback => callback()); },
     remainingTimeouts: () => timeouts.size
   };
 }
@@ -139,7 +140,7 @@ test('invalid phone or missing consent never sends; editing a sent phone invalid
   await h.event('login', 'submit');
   assert.equal(h.calls.length, 2);
   assert.match(h.element('status').textContent, /当前手机号/);
-  assert.equal(h.element('send').disabled, true);
+  assert.equal(h.element('send').disabled, false);
 });
 
 test('verification failures clear the entered code and recover controls without revealing a session', async () => {
@@ -168,4 +169,53 @@ test('session read failures offer an actual retry and never report an authentica
   assert.equal(h.calls.length, 2);
   assert.equal(h.element('retry-session').hidden, true);
   assert.equal(h.element('login').hidden, false);
+});
+
+test('SMS rate limits honor the server wait and do not issue repeated sends', async () => {
+  for (const response of [
+    {status: 429, body: {error: '请等待45秒后重试。', retryAfterSeconds: 45}},
+    {status: 429, body: {error: '该手机号今日验证码发送次数已达上限，请明日再试。'}, headers: {'Retry-After': '7200'}}
+  ]) {
+    const h = harness(({body}) => body ? response : {status: 401});
+    await h.flush();
+    h.element('phone').value = '18700001111'; h.element('consent').checked = true;
+    await h.event('send', 'click');
+    const seconds = response.body.retryAfterSeconds || 7200;
+    assert.equal(h.element('send').disabled, true);
+    assert.equal(h.element('send').textContent, seconds === 45 ? '45秒后重试' : '2小时后重试');
+    assert.equal(h.element('status').textContent, response.body.error);
+    await h.event('send', 'click');
+    assert.equal(h.calls.length, 2);
+    // A background tab may miss ticks; elapsed wall time still releases retry.
+    h.tick(seconds);
+    assert.equal(h.element('send').disabled, false);
+    assert.equal(h.element('send').textContent, '重新发送');
+    assert.equal(h.element('submit').disabled, true);
+  }
+});
+
+test('uncertain SMS delivery waits a minute before another attempt', async () => {
+  for (const response of [new TypeError('network unavailable'), {status: 503, body: {error: '服务暂不可用。'}}]) {
+    const h = harness(({body}) => { if (!body) return {status: 401}; if (response instanceof Error) throw response; return response; });
+    await h.flush();
+    h.element('phone').value = '18700001111'; h.element('consent').checked = true;
+    await h.event('send', 'click');
+    assert.equal(h.element('send').disabled, true);
+    assert.equal(h.element('send').textContent, '60秒后重试');
+    h.tick(60);
+    assert.equal(h.element('send').disabled, false);
+    assert.equal(h.element('session').hidden, true);
+  }
+});
+
+test('changing phone releases only phone-specific waits while network limits remain active', async () => {
+  for (const code of ['SMS_COOLDOWN', 'SMS_PHONE_DAILY_LIMIT', 'SMS_IP_HOURLY_LIMIT', 'SMS_DAILY_LIMIT', 'SMS_MONTHLY_LIMIT']) {
+    const h = harness(({body}) => body ? {status: 429, body: {error: '请稍后重试。', code, retryAfterSeconds: 7200}} : {status: 401});
+    await h.flush();
+    h.element('phone').value = '18700001111'; h.element('consent').checked = true;
+    await h.event('send', 'click');
+    h.element('phone').value = '18700002222'; h.event('phone', 'input');
+    assert.equal(h.element('send').disabled, !['SMS_COOLDOWN', 'SMS_PHONE_DAILY_LIMIT'].includes(code));
+    assert.equal(h.element('submit').disabled, true);
+  }
 });

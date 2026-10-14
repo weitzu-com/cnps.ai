@@ -25,7 +25,8 @@ This integration is Dypnsapi, not the separate Dysmsapi product.
 
 ## Enforced limits
 
-- 60-second cooldown per phone; five sends per phone per China-calendar day.
+- 60-second cooldown per phone; twenty sends per phone per China-calendar day,
+  shared by proposal access and CRM through `sms-policy.mjs`.
 - Ten sends per IP per rolling fixed one-hour window.
 - Twenty sends per China-calendar day and 100 per China-calendar month in total.
 - Six-digit provider-generated code, valid for five minutes; five check attempts
