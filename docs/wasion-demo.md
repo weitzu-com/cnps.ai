@@ -100,3 +100,9 @@ Actual Vercel request logs showed that the new preview branch does not have the 
 The authenticated Wasion project now exposes “英文官网与 AI 搜索演示” with an “打开演示网站” link above its project tabs, including the delivery documents tab. The business API adds this preview only after `getProject` authorizes the exact company and project IDs; other projects return no preview. The demo utility bar links back to that exact project. Project deep links select an accessible company and reload the project through the existing API permissions. SMS login preserves the company/project context.
 
 The existing `admin` role is labeled “高级管理员” in the login page and workspace; no additional role or browser-controlled permission was introduced.
+
+## Company and project isolation
+
+Every demo page (including direct API and HEAD requests) and the search endpoint now calls the same server-owned Wasion `getProject` authorization used by the CRM workspace. Active membership in another company, or Wasion membership without this project grant, cannot open the demo. Customers also require a published project. The search endpoint repeats project authorization after inference or retrieval fallback, so revocation prevents answer and source disclosure. Storage failures return a private, non-cacheable error. The project access runtime does not initialize file or notification adapters.
+
+Automated verification uses synthetic companies, contacts, an isolated authentication store and a mock SMS provider. It exercises the real send/verify/session handlers, business ACL and demo/search handlers. No production SMS, test contact, grant, session or project is created. Customer UI was verified in the isolated local browser, including the project entry, demo and return path. The owner selected automated verification before real customer login; this is not a claim of customer-performed production sign-in.

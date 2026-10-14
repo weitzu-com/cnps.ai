@@ -4,7 +4,8 @@ import { authorizeWasionCustomer } from '../server/wasion-demo.mjs';
 import { wasionDemoPage, WASION_PAGES } from '../server/wasion-demo-page.mjs';
 import { crmLoginUrl, demoReturnTo } from '../server/crm-return.mjs';
 
-export default async function handler(req, res) {
+export function createWasionPageHandler({ getRuntime = getCrmRuntime } = {}) {
+return async function handler(req, res) {
   for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) res.setHeader(name, 'private, no-store, max-age=0');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
   res.setHeader('Referrer-Policy', 'no-referrer');
@@ -13,8 +14,10 @@ export default async function handler(req, res) {
   if (!['GET', 'HEAD'].includes(req.method)) { res.statusCode = 405; return res.end(); }
   let access, auth;
   try {
-    ({ auth } = getCrmRuntime());
-    access = await authorizeWasionCustomer({ req, auth });
+    const runtime = getRuntime();
+    auth = runtime.auth;
+    access = await authorizeWasionCustomer({ req, auth,
+      service: { getProject: (...args) => runtime.projectAccessService.getProject(...args) } });
   }
   catch { res.statusCode = 503; return res.end('Customer access could not be verified. Please try again.'); }
   if (!access) {
@@ -33,3 +36,6 @@ export default async function handler(req, res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.statusCode = 200; return res.end(req.method === 'HEAD' ? undefined : wasionDemoPage(nonce, { slug, query }));
 }
+
+}
+export default createWasionPageHandler();

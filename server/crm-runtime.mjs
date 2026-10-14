@@ -20,6 +20,7 @@ export function createCrmRuntime(env, options = {}) {
   const auth = createCrmAuthHandler({ env, storeFactory: options.authStoreFactory || createCrmStore, smsFactory: options.smsFactory || createCrmSms, loadMemberships: phone => memberships().loadMemberships(phone) });
   return {
     auth, store,
+    get projectAccessService() { return memberships(); },
     get twenty() { return getTwenty(); },
     get documents() { return getDocuments(); },
     get service() {
