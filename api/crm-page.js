@@ -22,11 +22,11 @@ export default async function crmPage(req, res) {
   }
   try {
     const session=await getCrmRuntime().auth.loadSession(req);
-    if(session){res.statusCode=302;res.setHeader('Location',crmPageReturnTo(req.url)||(session.identity.role==='proposal_viewer'?'/w':'/crm/workspace'));return res.end();}
+    if(session){res.statusCode=302;res.setHeader('Location',crmPageReturnTo(req.url)||(session.identity.role==='proposal_viewer'?'/w':'/workspace'));return res.end();}
   }catch{}
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  const url = new URL(req.url || '/crm', 'https://crm.cnps.ai');
+  const url = new URL(req.url || '/', 'https://crm.cnps.ai');
   const next = typeof req.query?.next === 'string' ? req.query.next : url.searchParams.get('next');
-  res.end(req.method === 'HEAD' ? undefined : crmLoginPage(nonce, { returnTo: crmPageReturnTo(req.url || '/crm') || safeDemoReturnTo(next) }));
+  res.end(req.method === 'HEAD' ? undefined : crmLoginPage(nonce, { returnTo: crmPageReturnTo(req.url || '/') || safeDemoReturnTo(next) }));
 }

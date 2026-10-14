@@ -576,7 +576,7 @@ test("unified proposal handler uses the CRM session, checks before/after decrypt
     res,
   );
   assert.equal(res.statusCode, 302);
-  assert.equal(res.headers.location, "/crm?next=%2Fw");
+  assert.equal(res.headers.location, "/?next=%2Fw");
 });
 test("partner AI requests are denied before model calls and oversized submissions use the upload body contract", async () => {
   const h = await fixture(),

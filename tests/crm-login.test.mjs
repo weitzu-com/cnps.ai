@@ -110,7 +110,7 @@ test('anonymous login sends consent, enforces cooldown, verifies identity, and l
   assert.equal(h.element('code').value, '');
   assert.equal(h.element('session').hidden, false);
   assert.equal(h.element('session-role').textContent, '销售经理');
-  assert.deepEqual(h.redirects, ['/crm/workspace']);
+  assert.deepEqual(h.redirects, ['/workspace']);
   for (const call of h.calls) {
     assert.equal(call.options.credentials, 'same-origin');
     assert.equal(call.options.cache, 'no-store');
@@ -370,7 +370,7 @@ test('CRM page query handling preserves the local demo boundary and private page
   const response = () => ({headers: {}, setHeader(key, value) { this.headers[key] = value; }, end(body) { this.body = body; }});
   for (const target of ['/demo/wasion/search', 'https://attacker.invalid', '//attacker.invalid', '/demo/wasion?x=1', '/demo/wasion/../crm', '/demo/wasion/%2e%2e/crm']) {
     const res = response();
-    await crmPage({method: 'GET',headers:{host:'crm.cnps.ai'}, url: `/crm?next=${encodeURIComponent(target)}`}, res);
+    await crmPage({method: 'GET',headers:{host:'crm.cnps.ai'}, url: `/?next=${encodeURIComponent(target)}`}, res);
     assert.equal(res.statusCode, 200);
     assert.match(res.headers['Cache-Control'], /private, no-store/);
     assert.match(res.headers['X-Robots-Tag'], /noindex/);

@@ -3,12 +3,12 @@ const escape = value => String(value ?? '').replace(/[&<>"']/g, character => ({ 
 function localLoginURL(value) {
   try {
     const url = new URL(value, 'https://crm.cnps.ai');
-    if (url.origin === 'https://crm.cnps.ai' && url.pathname === '/crm' && !url.username && !url.password) return url.pathname + url.search;
+    if (url.origin === 'https://crm.cnps.ai' && url.pathname === '/' && !url.username && !url.password) return url.pathname + url.search;
   } catch {}
-  return '/crm';
+  return '/';
 }
 
-export function renderSessionNotice({ loginUrl = '/crm' } = {}) {
+export function renderSessionNotice({ loginUrl = '/' } = {}) {
   return `<section id="wd-session-notice" class="wd-session-notice wd-container" hidden aria-live="polite"><h2 id="wd-session-heading">Confirming your access</h2><p id="wd-session-message" role="status"></p><a id="wd-session-login" class="wd-button" href="${escape(localLoginURL(loginUrl))}" hidden>Sign in again</a><button id="wd-session-retry" class="wd-button" type="button" hidden>Retry access check</button></section>`;
 }
 

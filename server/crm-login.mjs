@@ -69,7 +69,7 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
         <dl class="identity"><div><dt>登录手机号</dt><dd id="session-phone"></dd></div><div><dt>当前身份</dt><dd id="session-role"></dd></div></dl>
         <p class="session-note" id="session-expiry"></p>
         <p class="session-note">项目资料按公司与授权范围开放。客户方案与工作台共用登录，内容按各自授权开放。</p>
-        <div class="session-actions"><a class="button-link" href="/crm/workspace">进入客户工作台</a><a class="button-link secondary" href="/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
+        <div class="session-actions"><a class="button-link" href="/workspace">进入客户工作台</a><a class="button-link secondary" href="/w">查看客户方案</a><button type="button" class="secondary" id="logout">退出登录</button></div>
         <p class="status" id="session-status" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
       <button type="button" class="text-button" id="retry-session" hidden>重新检查登录状态</button>
@@ -168,7 +168,7 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
         if(resumeSearch){if(!resumeSubmitted){resumeSubmitted=true;byId('demo-resume').submit();}return;}
-        if (announce || returnTo || result.identity.role==='proposal_viewer') { location.replace(returnTo || (result.identity.role==='proposal_viewer'?'/w':'/crm/workspace')); return; }
+        if (announce || returnTo || result.identity.role==='proposal_viewer') { location.replace(returnTo || (result.identity.role==='proposal_viewer'?'/w':'/workspace')); return; }
         if (announce) byId('session-title').focus();
       } else {
         byId('session-phone').textContent = ''; byId('session-role').textContent = ''; byId('session-expiry').textContent = '';

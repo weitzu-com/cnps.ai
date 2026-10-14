@@ -5,13 +5,15 @@ const ORIGIN = 'https://crm.cnps.ai';
 export function safeCrmReturnTo(value) {
   if (typeof value !== 'string' || value.length > 2048 || !value.startsWith('/')
       || value.startsWith('//') || /[\\\u0000-\u0020\u007f]/.test(value)) return null;
+  // Historical return targets remain usable but always produce canonical URLs.
+  value = value.replace(/^\/crm\/workspace(?=[?#]|$)/, '/workspace');
   const path = value.split(/[?#]/, 1)[0];
-  if (path !== '/w' && path !== '/crm/workspace' && !/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(path)) return null;
+  if (path !== '/w' && path !== '/workspace' && !/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(path)) return null;
   try {
     const url = new URL(value, ORIGIN);
     if (url.origin !== ORIGIN || url.pathname !== path || /%(?:00|0a|0d|5c)/i.test(url.search + url.hash)) return null;
     const params = new URLSearchParams();
-    if (path === '/crm/workspace') {
+    if (path === '/workspace') {
       for (const key of ['companyId', 'deliveryId', 'projectId', 'contextId']) {
         const id = url.searchParams.get(key);
         if (id && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(id)) params.set(key, id);
@@ -27,19 +29,20 @@ export function safeCrmReturnTo(value) {
 
 export function crmLoginUrl(returnTo) {
   const target = safeCrmReturnTo(returnTo);
-  return '/crm' + (target ? '?returnTo=' + encodeURIComponent(target) : '');
+  return '/' + (target ? '?returnTo=' + encodeURIComponent(target) : '');
 }
 
 export function crmPageReturnTo(requestUrl) {
   const url = new URL(requestUrl, ORIGIN);
-  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo')) || (url.searchParams.get('next')==='/w'?'/w':null);
+  const next = url.searchParams.get('next');
+  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo')) || (next === '/w' || /^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(next || '') ? safeCrmReturnTo(next) : null);
   if (explicit) return explicit;
   const params = new URLSearchParams();
   for (const name of ['companyId', 'deliveryId', 'projectId', 'contextId']) {
     const value = url.searchParams.get(name);
     if (value && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value)) params.set(name, value);
   }
-  return params.size ? safeCrmReturnTo('/crm/workspace?' + params.toString()) : null;
+  return params.size ? safeCrmReturnTo('/workspace?' + params.toString()) : null;
 }
 
 export function demoReturnTo(req) {

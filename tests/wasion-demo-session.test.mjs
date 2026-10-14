@@ -19,7 +19,7 @@ function harness(respond) {
   const forbidden = new Proxy({}, { get() { throw new Error('Session verification must not use browser storage or logging'); } });
   Object.defineProperty(document, 'cookie', { get() { throw new Error('Cookies remain server-controlled'); }, set() { throw new Error('Cookies remain server-controlled'); } });
   const window = new Target(), calls = [], redirects = [], timeouts = new Map(); let nextTimer = 0;
-  const loginUrl = '/crm?returnTo=%2Fdemo%2Fwasion%2Fsearch';
+  const loginUrl = '/?returnTo=%2Fdemo%2Fwasion%2Fsearch';
   vm.runInNewContext(SESSION_CLIENT, {
     document, window, CRM_LOGIN_URL: loginUrl, CRM_PAGE_URL: '/demo/wasion/search', AbortController,
     location: { replace(value) { redirects.push(value); } }, localStorage: forbidden, sessionStorage: forbidden, console: forbidden,
@@ -34,12 +34,12 @@ function harness(respond) {
 }
 
 test('notice is initially hidden, accessible and only links to the local login page', () => {
-  const html = renderSessionNotice({ loginUrl: '/crm?returnTo=%2Fdemo%2Fwasion&x=%22%3Cscript%3E' });
+  const html = renderSessionNotice({ loginUrl: '/?returnTo=%2Fdemo%2Fwasion&x=%22%3Cscript%3E' });
   assert.match(html, /id="wd-session-notice"[^>]+hidden aria-live="polite"/);
   assert.match(html, /id="wd-session-message" role="status"/);
   assert.match(html, /&amp;x=/);
   assert.ok(!html.includes('<script>'));
-  for (const loginUrl of ['https://attacker.invalid/crm', 'javascript:alert(1)', '/crm/workspace']) assert.match(renderSessionNotice({ loginUrl }), /href="\/crm"/);
+  for (const loginUrl of ['https://attacker.invalid/crm', 'javascript:alert(1)', '/crm/workspace']) assert.match(renderSessionNotice({ loginUrl }), /href="\/"/);
 });
 
 test('fresh server-rendered pages do not automatically request an SMS or run a redundant login check', async () => {

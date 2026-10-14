@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {crmWorkspacePage} from '../server/crm-workspace-page.mjs';
 
-function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], contexts = [], proposals = [], search = '', override, returnTo = '/crm/workspace'} = {}) {
+function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], contexts = [], proposals = [], search = '', override, returnTo = '/workspace'} = {}) {
   const html = crmWorkspacePage('test-nonce', { returnTo }), ids = new Map(), roots = [], calls = [], timers = new Map(), windowListeners = new Map();
   let timerId = 0;
   class Element {
@@ -96,13 +96,13 @@ test('anonymous entry requests identity only and never fetches private business 
 });
 
 test('successful logout hides protected content and returns to the original safe workspace route', async () => {
-  const returnTo='/crm/workspace?companyId=company-A&deliveryId=delivery-A';
+  const returnTo='/workspace?companyId=company-A&deliveryId=delivery-A';
   const h=harness({returnTo});await h.flush();await h.event('logout','click');
   assert.equal(h.get('workspace').hidden,true);assert.equal(h.get('content').textContent,'');
   assert.equal(h.get('identity').textContent,'');assert.equal(h.get('action-dialog').open,false);
   assert.equal(new URL(h.state.navigation,'https://crm.example.test').searchParams.get('returnTo'),returnTo);
   const call=h.calls.find(item=>item.body?.action==='logout');assert.equal(call.options.credentials,'same-origin');assert.equal(call.options.cache,'no-store');
-  const invalid=harness({returnTo:'https://evil.example/'});await invalid.flush();await invalid.event('logout','click');assert.equal(invalid.state.navigation,'/crm');
+  const invalid=harness({returnTo:'https://evil.example/'});await invalid.flush();await invalid.event('logout','click');assert.equal(invalid.state.navigation,'/');
 });
 
 test('failed logout keeps the current page available and never claims the session ended', async () => {
@@ -365,7 +365,7 @@ test('legacy DOC and PPT appear as supported uploads and remain unpublished draf
 
 
 test('delivery UI only managers create, scopes choices, copies actual delivery text without reporting sent',async()=>{
- const delivery={id:'delivery-one',createdAt:1,documents:[{documentId:'document-one',versionId:'version-one',filename:'delivery.pdf',version:1}],message:'Synthetic delivery text',link:'https://crm.cnps.ai/crm/workspace?companyId=company-one&deliveryId=delivery-one',downloads:[],sms:{status:'not_sent'}};
+ const delivery={id:'delivery-one',createdAt:1,documents:[{documentId:'document-one',versionId:'version-one',filename:'delivery.pdf',version:1}],message:'Synthetic delivery text',link:'https://crm.cnps.ai/workspace?companyId=company-one&deliveryId=delivery-one',downloads:[],sms:{status:'not_sent'}};
  const h=harness({role:'sales_manager',override:async call=>{
  if(call.view==='deliveries')return{body:{ok:true,data:[delivery]}};if(call.body?.action==='sendDeliverySms')return{body:{ok:true,data:{status:'unavailable',message:'通知模板尚未配置'}}};
  }});await h.flush();await h.openProject();await h.flush();await h.click('交付与通知');await h.flush();
@@ -378,7 +378,7 @@ test('delivery UI only managers create, scopes choices, copies actual delivery t
 });
 
 test('delivery email action records provider submission and disables repeated sending without marking customer viewing',async()=>{
- const delivery={id:'delivery-mail',createdAt:1,documents:[],message:'Synthetic delivery',link:'https://crm.cnps.ai/crm/workspace',downloads:[],sms:{status:'not_sent'},viewedAt:null};
+ const delivery={id:'delivery-mail',createdAt:1,documents:[],message:'Synthetic delivery',link:'https://crm.cnps.ai/workspace',downloads:[],sms:{status:'not_sent'},viewedAt:null};
  const h=harness({role:'sales_manager',override:async call=>{
   if(call.view==='deliveries')return{body:{ok:true,data:[delivery]}};
   if(call.body?.action==='sendDeliveryNotification'){assert.equal(call.body.channel,'email');delivery.email={status:'submitted'};return {body:{ok:true,data:{status:'submitted',message:'邮件已被供应商接受；需查询回执确认投递。'}}};}

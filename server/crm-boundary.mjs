@@ -1,14 +1,24 @@
+import { safeCrmReturnTo, crmPageReturnTo, crmLoginUrl } from "./crm-return.mjs";
 // Shared with routing middleware. Host comes from the platform request, never
 // X-Forwarded-Host, Origin, a query parameter or a caller-supplied return URL.
 export const CRM_ORIGIN = "https://crm.cnps.ai";
 const webHosts = new Set(["www.cnps.ai", "cnps.ai"]);
 const privatePath = (path) =>
-  /^\/(?:w(?:\/|$)|crm(?:\/|$)|demo\/wasion(?:\/|$)|api\/(?:w|crm(?:-[a-z-]+)?)(?:\/|$))/.test(
+  /^\/(?:workspace(?:\/|$)|w(?:\/|$)|crm(?:\/|$)|demo\/wasion(?:\/|$)|api\/(?:w|crm(?:-[a-z-]+)?)(?:\/|$))/.test(
     path,
   );
 const crmPaths =
-  /^(?:\/(?:crm(?:\/workspace)?|w(?:\/(?:view|asset\/[a-z0-9-]+))?|demo\/wasion(?:\/[a-z0-9-]+)?)|\/api\/(?:w|crm|crm-page|crm-workspace|crm-workspace-page|crm-wasion-demo-page|crm-wasion-demo-search))$/;
-export function boundaryDecision(host, path, method, env = {}) {
+  /^(?:\/(?:workspace|w(?:\/(?:view|asset\/[a-z0-9-]+))?|demo\/wasion(?:\/[a-z0-9-]+)?)|\/api\/(?:w|crm|crm-page|crm-workspace|crm-workspace-page|crm-wasion-demo-page|crm-wasion-demo-search))$/;
+function oldEntry(path, search, method) {
+  if (!['/crm', '/crm/', '/crm/workspace', '/crm/workspace/', '/workspace/', '/crm/wasion-demo', '/crm/wasion-demo/'].includes(path)) return null;
+  if (!['GET', 'HEAD'].includes(method)) return { status: 410 };
+  if (path.startsWith('/crm/wasion-demo')) return { status: 308, location: '/demo/wasion' };
+  const location = path.startsWith('/crm/workspace') || path === '/workspace/'
+    ? safeCrmReturnTo('/workspace' + search) || '/workspace'
+    : crmLoginUrl(crmPageReturnTo('/' + search));
+  return { status: 308, location };
+}
+export function boundaryDecision(host, path, method, env = {}, search = "") {
   host = String(host || "").toLowerCase();
   if (!path.startsWith("/") || /%2f|%5c|\\/i.test(path)) return { status: 404 };
   if (
@@ -17,6 +27,11 @@ export function boundaryDecision(host, path, method, env = {}) {
   )
     return { status: 404 };
   if (webHosts.has(host)) {
+    if (path === '/workspace' || oldEntry(path, search, method)) {
+      if (!['GET', 'HEAD'].includes(method)) return { status: 410 };
+      const location = oldEntry(path, search, method)?.location || safeCrmReturnTo('/workspace' + search) || '/workspace';
+      return { status: 307, location: CRM_ORIGIN + location };
+    }
     if (
       /^\/w(?:\/asset\/[a-z0-9-]+)?$/.test(path) &&
       ["GET", "HEAD"].includes(method)
@@ -24,15 +39,12 @@ export function boundaryDecision(host, path, method, env = {}) {
       return { status: 307, location: CRM_ORIGIN + path };
     if (/^\/w(?:\/|$)/.test(path))
       return { status: method === "POST" ? 410 : 404 };
-    if (
-      /^\/crm(?:\/workspace)?$/.test(path) &&
-      ["GET", "HEAD"].includes(method)
-    )
-      return { status: 307, location: CRM_ORIGIN + path };
     return privatePath(path) ? { status: 404 } : null;
   }
   if (host === "crm.cnps.ai") {
-    if (path === "/") return { status: 307, location: "/crm" };
+    const legacy = oldEntry(path, search, method);
+    if (legacy) return legacy;
+    if (path === "/") return null;
     return crmPaths.test(path) ? null : { status: 404 };
   }
   return privatePath(path) ? { status: 404 } : null;
@@ -55,9 +67,9 @@ export function privateHeaders(res) {
 }
 export function guardPrivateRequest(req, res, env = process.env) {
   privateHeaders(res);
-  const path = new URL(req.url, CRM_ORIGIN).pathname;
+  const url = new URL(req.url, CRM_ORIGIN), path = url.pathname;
   const host = String(req.headers?.host || "").toLowerCase();
-  let decision = boundaryDecision(host, path, req.method, env);
+  let decision = boundaryDecision(host, path, req.method, env, url.search);
   if (host !== "crm.cnps.ai" && !decision) decision = { status: 404 };
   if (!decision) return false;
   res.statusCode = decision.status;
