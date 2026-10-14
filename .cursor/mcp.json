@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "cnps-infrastructure": {
+      "type": "stdio",
+      "command": "${userHome}/.local/share/cnps-crm-node/bin/node",
+      "args": [
+        "${workspaceFolder}/dev-infrastructure/mcp.mjs"
+      ]
+    },
+    "cnps-development": {
+      "type": "stdio",
+      "command": "${userHome}/.local/share/cnps-crm-node/bin/node",
+      "args": [
+        "${workspaceFolder}/scripts/crm-development-mcp.mjs"
+      ]
+    },
+    "cloudflare-api": {
+      "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-docs": {
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    }
+  }
+}

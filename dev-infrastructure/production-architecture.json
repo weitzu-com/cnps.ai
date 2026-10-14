@@ -1,0 +1,369 @@
+{
+  "verified_at": "2026-10-14T11:48:24.386054+00:00",
+  "verification": "SSH read-only: explicit source whitelist and selected docker inspect fields",
+  "ssh_host": "cnps-crm-hk",
+  "server": {
+    "public_ip": "101.47.77.53",
+    "deployment_directory": "/opt/cnps-crm",
+    "compose_project": "cnps-crm",
+    "operating_system": "Ubuntu 22.04"
+  },
+  "api_domain": "crm-api.cnps.ai",
+  "customer_domain": "crm.cnps.ai",
+  "database": {
+    "engine": "PostgreSQL 16",
+    "database": "cnps",
+    "user": "cnps",
+    "host": "db",
+    "docker_port": 5432,
+    "host_port_published": false
+  },
+  "containers": [
+    {
+      "name": "cnps-crm-server-1",
+      "image": "twentycrm/twenty:v2.46.0@sha256:bb4e94f0215cbd14c7356b0324d9b7ac10ccd077042cd6d5058ad02ef2080605",
+      "image_id": "sha256:bb4e94f0215cbd14c7356b0324d9b7ac10ccd077042cd6d5058ad02ef2080605",
+      "status": "running",
+      "health": "healthy",
+      "port_bindings": {
+        "3000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3000"
+          }
+        ]
+      },
+      "mounts": [
+        {
+          "source": "/var/lib/docker/volumes/cnps-crm_app-data/_data",
+          "destination": "/app/packages/twenty-server/.local-storage",
+          "type": "volume"
+        }
+      ],
+      "environment_keys": [
+        "APP_SECRET",
+        "REDIS_URL",
+        "ENCRYPTION_KEY",
+        "IS_WORKSPACE_CREATION_LIMITED_TO_SERVER_ADMINS",
+        "AI_MODELS_DEFAULT_BALANCED",
+        "DISABLE_CRON_JOBS_REGISTRATION",
+        "SERVER_URL",
+        "TELEMETRY_ENABLED",
+        "PG_DATABASE_URL",
+        "LOGIC_FUNCTION_TYPE",
+        "AI_PROVIDERS",
+        "DISABLE_DB_MIGRATIONS",
+        "IS_CONFIG_VARIABLES_IN_DB_ENABLED",
+        "STORAGE_TYPE",
+        "CODE_INTERPRETER_TYPE",
+        "ANALYTICS_ENABLED",
+        "AI_MODELS_DEFAULT_FAST",
+        "NODE_ENV",
+        "IS_MULTIWORKSPACE_ENABLED",
+        "NODE_PORT",
+        "PATH",
+        "NODE_VERSION",
+        "YARN_VERSION",
+        "APP_VERSION"
+      ]
+    },
+    {
+      "name": "cnps-crm-worker-1",
+      "image": "twentycrm/twenty:v2.46.0@sha256:bb4e94f0215cbd14c7356b0324d9b7ac10ccd077042cd6d5058ad02ef2080605",
+      "image_id": "sha256:bb4e94f0215cbd14c7356b0324d9b7ac10ccd077042cd6d5058ad02ef2080605",
+      "status": "running",
+      "health": null,
+      "port_bindings": {},
+      "mounts": [
+        {
+          "source": "/var/lib/docker/volumes/cnps-crm_app-data/_data",
+          "destination": "/app/packages/twenty-server/.local-storage",
+          "type": "volume"
+        }
+      ],
+      "environment_keys": [
+        "NODE_ENV",
+        "DISABLE_DB_MIGRATIONS",
+        "REDIS_URL",
+        "IS_CONFIG_VARIABLES_IN_DB_ENABLED",
+        "TELEMETRY_ENABLED",
+        "PG_DATABASE_URL",
+        "APP_SECRET",
+        "ENCRYPTION_KEY",
+        "LOGIC_FUNCTION_TYPE",
+        "ANALYTICS_ENABLED",
+        "IS_MULTIWORKSPACE_ENABLED",
+        "DISABLE_CRON_JOBS_REGISTRATION",
+        "AI_MODELS_DEFAULT_FAST",
+        "IS_WORKSPACE_CREATION_LIMITED_TO_SERVER_ADMINS",
+        "AI_MODELS_DEFAULT_BALANCED",
+        "STORAGE_TYPE",
+        "SERVER_URL",
+        "AI_PROVIDERS",
+        "NODE_PORT",
+        "CODE_INTERPRETER_TYPE",
+        "PATH",
+        "NODE_VERSION",
+        "YARN_VERSION",
+        "APP_VERSION"
+      ]
+    },
+    {
+      "name": "cnps-crm-db-1",
+      "image": "postgres:16@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+      "image_id": "sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+      "status": "running",
+      "health": "healthy",
+      "port_bindings": {},
+      "mounts": [
+        {
+          "source": "/var/lib/docker/volumes/cnps-crm_db-data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "type": "volume"
+        }
+      ],
+      "environment_keys": [
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER",
+        "PATH",
+        "GOSU_VERSION",
+        "LANG",
+        "PG_MAJOR",
+        "PG_VERSION",
+        "PGDATA"
+      ]
+    },
+    {
+      "name": "cnps-crm-redis-1",
+      "image": "redis:8@sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6",
+      "image_id": "sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6",
+      "status": "running",
+      "health": "healthy",
+      "port_bindings": {},
+      "mounts": [
+        {
+          "source": "/var/lib/docker/volumes/cnps-crm_redis-data/_data",
+          "destination": "/data",
+          "type": "volume"
+        }
+      ],
+      "environment_keys": [
+        "PATH",
+        "REDIS_VERSION"
+      ]
+    },
+    {
+      "name": "cnps-crm-file-gateway-1",
+      "image": "cnps-crm-file-gateway:kb-v2",
+      "image_id": "sha256:015cb4fe5a0cd7c36d9aef496e5e7ca52f2e63ef36f97d7d9d9b31fc663356da",
+      "status": "running",
+      "health": "healthy",
+      "port_bindings": {
+        "3200/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3200"
+          }
+        ]
+      },
+      "mounts": [
+        {
+          "source": "/var/lib/docker/volumes/cnps-crm_document-data/_data",
+          "destination": "/data",
+          "type": "volume"
+        },
+        {
+          "source": "/opt/cnps-crm/file-gateway",
+          "destination": "/gateway",
+          "type": "bind"
+        }
+      ],
+      "environment_keys": [
+        "CRM_FILE_HOST",
+        "CRM_FILE_PORT",
+        "CRM_FILE_DATA_DIR",
+        "CRM_FILE_GATEWAY_KEY",
+        "CRM_FILE_ENCRYPTION_KEY",
+        "CRM_OCR_WORKER_KEY",
+        "PATH",
+        "NODE_VERSION",
+        "YARN_VERSION",
+        "CRM_EXTRACT_PYTHON"
+      ]
+    },
+    {
+      "name": "cnps-crm-ocr-worker-1",
+      "image": "cnps-crm-ocr-worker:v2",
+      "image_id": "sha256:2a7c194570c53f76d402ebdc68a876a1de81a6151ef4dc7d9421795a9fba7b95",
+      "status": "running",
+      "health": "healthy",
+      "port_bindings": {},
+      "mounts": [
+        {
+          "source": "/opt/cnps-crm/file-gateway/ocr-worker",
+          "destination": "/worker",
+          "type": "bind"
+        }
+      ],
+      "environment_keys": [
+        "CRM_OCR_WORKER_KEY",
+        "PATH",
+        "LANG",
+        "GPG_KEY",
+        "PYTHON_VERSION",
+        "PYTHON_SHA256"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source": "/opt/cnps-crm/compose.yml",
+      "snapshot": "compose.production.example.yml",
+      "production_sha256": "ff5e13ff8b2c1d6fce85d0c35cb66f0e867322a0ccb6aeb8bf303f8df68284c5",
+      "snapshot_sha256": "eed3ddb231325769332bce334b47108d97205d9e1996802a05af527fb41d068a",
+      "placeholder_keys": [
+        "AI_PROVIDERS",
+        "APP_SECRET",
+        "ENCRYPTION_KEY",
+        "PG_DATABASE_URL",
+        "POSTGRES_PASSWORD",
+        "REDIS_URL"
+      ]
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/compose.override.yml",
+      "snapshot": "file-gateway.production.example.yml",
+      "production_sha256": "aa45e380f83d68aee316d8913a608d5d48122fd9048aa92eecc1581c90d5195b",
+      "snapshot_sha256": "39c01dd169f2f2f09bad869cd7ba8d8f3b018d73ade403c1078dee8adc7e4541",
+      "placeholder_keys": [
+        "CRM_FILE_ENCRYPTION_KEY",
+        "CRM_FILE_GATEWAY_KEY",
+        "CRM_OCR_WORKER_KEY"
+      ]
+    },
+    {
+      "source": "/etc/nginx/sites-enabled/cnps-crm-api",
+      "snapshot": "nginx.production.example.conf",
+      "production_sha256": "213ace81b118bea70d435a17b547130338693e436e72b8ea3f96ad52a5fcac0e",
+      "snapshot_sha256": "213ace81b118bea70d435a17b547130338693e436e72b8ea3f96ad52a5fcac0e"
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/package.json",
+      "snapshot": "live-file-gateway/package.json",
+      "production_sha256": "74b2ce7ebf57da663af1cd66b24d7768614d1cf5bae7e1584f5549405a8018c8",
+      "snapshot_sha256": "74b2ce7ebf57da663af1cd66b24d7768614d1cf5bae7e1584f5549405a8018c8",
+      "tracked_path": "ops/crm-file-gateway/package.json",
+      "tracked_exists": false
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/server.mjs",
+      "snapshot": "live-file-gateway/server.mjs",
+      "production_sha256": "5af8d0615f1838d38afbcb04c93aa2f866f6ec9fae83dcda7b1e55fed9b198e7",
+      "snapshot_sha256": "5af8d0615f1838d38afbcb04c93aa2f866f6ec9fae83dcda7b1e55fed9b198e7",
+      "tracked_path": "ops/crm-file-gateway/server.mjs",
+      "tracked_exists": true,
+      "tracked_sha256": "5af8d0615f1838d38afbcb04c93aa2f866f6ec9fae83dcda7b1e55fed9b198e7",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/errors.mjs",
+      "snapshot": "live-file-gateway/errors.mjs",
+      "production_sha256": "32112d961651ed548ee149a1d52c55cc9b45a55008ee20812e19c2aaf616ec26",
+      "snapshot_sha256": "32112d961651ed548ee149a1d52c55cc9b45a55008ee20812e19c2aaf616ec26",
+      "tracked_path": "ops/crm-file-gateway/errors.mjs",
+      "tracked_exists": true,
+      "tracked_sha256": "32112d961651ed548ee149a1d52c55cc9b45a55008ee20812e19c2aaf616ec26",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/validation.mjs",
+      "snapshot": "live-file-gateway/validation.mjs",
+      "production_sha256": "c6ae2b583d50f100ac328c479a52219157ae6647ee4704d1c50df2139c355b3d",
+      "snapshot_sha256": "c6ae2b583d50f100ac328c479a52219157ae6647ee4704d1c50df2139c355b3d",
+      "tracked_path": "ops/crm-file-gateway/validation.mjs",
+      "tracked_exists": true,
+      "tracked_sha256": "c6ae2b583d50f100ac328c479a52219157ae6647ee4704d1c50df2139c355b3d",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/storage.mjs",
+      "snapshot": "live-file-gateway/storage.mjs",
+      "production_sha256": "3d3b380cdd8b8536ebecb6e668b8d44a33d25c6e7aaf872ee9c2d25fc895fee2",
+      "snapshot_sha256": "3d3b380cdd8b8536ebecb6e668b8d44a33d25c6e7aaf872ee9c2d25fc895fee2",
+      "tracked_path": "ops/crm-file-gateway/storage.mjs",
+      "tracked_exists": true,
+      "tracked_sha256": "3d3b380cdd8b8536ebecb6e668b8d44a33d25c6e7aaf872ee9c2d25fc895fee2",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/extraction.mjs",
+      "snapshot": "live-file-gateway/extraction.mjs",
+      "production_sha256": "4a74b3a95577db840d7f281eb7f87447fbebcecfddf4990d6f9546e9ca251cf7",
+      "snapshot_sha256": "4a74b3a95577db840d7f281eb7f87447fbebcecfddf4990d6f9546e9ca251cf7",
+      "tracked_path": "ops/crm-file-gateway/extraction.mjs",
+      "tracked_exists": true,
+      "tracked_sha256": "4a74b3a95577db840d7f281eb7f87447fbebcecfddf4990d6f9546e9ca251cf7",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/extract.py",
+      "snapshot": "live-file-gateway/extract.py",
+      "production_sha256": "2f9f0cd0b9a29fc7915807d529c0d80e5a2b331efcadea963f499dfb135772a0",
+      "snapshot_sha256": "2f9f0cd0b9a29fc7915807d529c0d80e5a2b331efcadea963f499dfb135772a0",
+      "tracked_path": "ops/crm-file-gateway/extract.py",
+      "tracked_exists": true,
+      "tracked_sha256": "2f9f0cd0b9a29fc7915807d529c0d80e5a2b331efcadea963f499dfb135772a0",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/Dockerfile",
+      "snapshot": "live-file-gateway/Dockerfile",
+      "production_sha256": "ea2ce7fb7376f8e20a41c0beee599c66f60aa4ca62169c4f8d2df4845c11a8b0",
+      "snapshot_sha256": "ea2ce7fb7376f8e20a41c0beee599c66f60aa4ca62169c4f8d2df4845c11a8b0",
+      "tracked_path": "ops/crm-file-gateway/Dockerfile",
+      "tracked_exists": true,
+      "tracked_sha256": "ea2ce7fb7376f8e20a41c0beee599c66f60aa4ca62169c4f8d2df4845c11a8b0",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/ocr-worker/server.py",
+      "snapshot": "live-file-gateway/ocr-worker/server.py",
+      "production_sha256": "752af38bc1fc94ea9043be3ab83bafbadbe6bcc5098f1e65d10f67ba2335cd1a",
+      "snapshot_sha256": "752af38bc1fc94ea9043be3ab83bafbadbe6bcc5098f1e65d10f67ba2335cd1a",
+      "tracked_path": "ops/crm-file-gateway/ocr-worker/server.py",
+      "tracked_exists": true,
+      "tracked_sha256": "752af38bc1fc94ea9043be3ab83bafbadbe6bcc5098f1e65d10f67ba2335cd1a",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/ocr-worker/job.py",
+      "snapshot": "live-file-gateway/ocr-worker/job.py",
+      "production_sha256": "3e78702152a44fab6f4aed133b71ddaf75d607236fac6db70867d9f4f1774869",
+      "snapshot_sha256": "3e78702152a44fab6f4aed133b71ddaf75d607236fac6db70867d9f4f1774869",
+      "tracked_path": "ops/crm-file-gateway/ocr-worker/job.py",
+      "tracked_exists": true,
+      "tracked_sha256": "3e78702152a44fab6f4aed133b71ddaf75d607236fac6db70867d9f4f1774869",
+      "matches_tracked": true
+    },
+    {
+      "source": "/opt/cnps-crm/file-gateway/ocr-worker/Dockerfile",
+      "snapshot": "live-file-gateway/ocr-worker/Dockerfile",
+      "production_sha256": "e3c7091e8061730f5711148078ca653d6a38938e94883f640b4621f2a9d9e108",
+      "snapshot_sha256": "e3c7091e8061730f5711148078ca653d6a38938e94883f640b4621f2a9d9e108",
+      "tracked_path": "ops/crm-file-gateway/ocr-worker/Dockerfile",
+      "tracked_exists": true,
+      "tracked_sha256": "e3c7091e8061730f5711148078ca653d6a38938e94883f640b4621f2a9d9e108",
+      "matches_tracked": true
+    }
+  ],
+  "excluded": [
+    "environment values",
+    "private keys",
+    "authentication files",
+    "backup credentials",
+    "database contents",
+    "Docker volumes",
+    "customer documents"
+  ]
+}

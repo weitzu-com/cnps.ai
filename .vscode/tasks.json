@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {"label":"CRM: 本地开发", "type":"shell", "command":"npm run dev:crm", "isBackground":true, "problemMatcher":[], "group":{"kind":"build","isDefault":true}},
+    {"label":"CRM: 测试", "type":"shell", "command":"npm test", "problemMatcher":[], "group":"test"},
+    {"label":"CRM: 构建网站", "type":"shell", "command":"npm run build", "problemMatcher":[]},
+    {"label":"CRM: 服务器终端", "type":"shell", "command":"ssh cnps-crm-hk", "problemMatcher":[]},
+    {"label":"CRM: 服务器只读状态", "type":"shell", "command":"node dev-infrastructure/ops.mjs server_status", "problemMatcher":[]},
+    {"label":"CRM: 数据库结构", "type":"shell", "command":"node dev-infrastructure/ops.mjs database_schema", "problemMatcher":[]},
+    {"label":"CRM: Vercel 项目", "type":"shell", "command":"vercel project inspect cnps-ai --scope aipy", "problemMatcher":[]},
+    {"label":"CRM: GitHub 登录", "type":"shell", "command":"gh auth login --hostname github.com --git-protocol https --web", "problemMatcher":[]}
+  ]
+}

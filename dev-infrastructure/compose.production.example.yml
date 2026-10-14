@@ -1,0 +1,112 @@
+# Read-only production source snapshot; supply private values locally.
+name: cnps-crm
+
+# Reviewed against twenty/v2.46.0, commit 9070979232c4f37165108a2eb5a4042e0cfdc3d6.
+# Bootstrap is deliberately loopback-only. No public reverse proxy is enabled here.
+x-app-env: &app-env
+  NODE_ENV: production
+  NODE_PORT: 3000
+  SERVER_URL: ${SERVER_URL:?Set SERVER_URL in .env}
+  PG_DATABASE_URL: ${PG_DATABASE_URL}
+  REDIS_URL: ${REDIS_URL}
+  ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+  APP_SECRET: ${APP_SECRET}
+  STORAGE_TYPE: local
+  IS_CONFIG_VARIABLES_IN_DB_ENABLED: "false"
+  IS_MULTIWORKSPACE_ENABLED: "false"
+  IS_WORKSPACE_CREATION_LIMITED_TO_SERVER_ADMINS: "true"
+  TELEMETRY_ENABLED: "false"
+  ANALYTICS_ENABLED: "false"
+  LOGIC_FUNCTION_TYPE: DISABLED
+  CODE_INTERPRETER_TYPE: DISABLED
+  AI_PROVIDERS: ${AI_PROVIDERS}
+  AI_MODELS_DEFAULT_FAST: cnps-gateway/openai/gpt-4.1-mini
+  AI_MODELS_DEFAULT_BALANCED: cnps-gateway/openai/gpt-4.1-mini
+
+x-app: &app
+  image: twentycrm/twenty:v2.46.0@sha256:bb4e94f0215cbd14c7356b0324d9b7ac10ccd077042cd6d5058ad02ef2080605
+  restart: unless-stopped
+  volumes:
+    - app-data:/app/packages/twenty-server/.local-storage
+  networks: [backend, egress]
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: "3"
+
+services:
+  server:
+    <<: *app
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      <<: *app-env
+      DISABLE_DB_MIGRATIONS: "false"
+      DISABLE_CRON_JOBS_REGISTRATION: "false"
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, curl, --fail, "http://localhost:3000/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+
+  worker:
+    <<: *app
+    command: [yarn, "worker:prod"]
+    environment:
+      <<: *app-env
+      DISABLE_DB_MIGRATIONS: "true"
+      DISABLE_CRON_JOBS_REGISTRATION: "true"
+    depends_on:
+      server: {condition: service_healthy}
+      db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+
+  db:
+    image: postgres:16@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cnps
+      POSTGRES_DB: cnps
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks: [backend]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U cnps -d cnps -h localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "3"}
+
+  redis:
+    image: redis:8@sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6
+    restart: unless-stopped
+    command: [redis-server, --appendonly, "yes", --maxmemory-policy, noeviction]
+    volumes:
+      - redis-data:/data
+    networks: [backend]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "3"}
+
+networks:
+  backend:
+    internal: true
+  egress:
+
+volumes:
+  db-data:
+  app-data:
+  redis-data:

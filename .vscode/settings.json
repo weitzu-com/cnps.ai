@@ -1,0 +1,20 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "node_modules": true,
+    "dist": true,
+    ".vercel": true
+  },
+  "search.exclude": {
+    "node_modules": true,
+    "dist": true,
+    ".vercel": true,
+    "private": true,
+    ".env*": true
+  },
+  "terminal.integrated.env.osx": {
+    "PATH": "${env:HOME}/.local/share/cnps-crm-node/bin:${env:HOME}/.local/bin:${env:PATH}"
+  }
+}

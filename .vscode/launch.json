@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "CRM: 调试本地服务",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/dev-crm.mjs",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "${env:HOME}/.local/share/cnps-crm-node/bin/node",
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ]
+}

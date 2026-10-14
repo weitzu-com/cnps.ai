@@ -1,0 +1,15 @@
+---
+description: CNPS CRM development, server, database, and delivery context
+alwaysApply: true
+---
+
+Read AGENTS.md and docs/development/cursor.md before infrastructure or deployment work.
+
+- This checkout is weitzu-com/cnps.ai; crm.cnps.ai is served by Vercel project cnps-ai, team aipy. Work on codex/* or cursor/* branches.
+- Use npm run dev:crm for local CRM development. This uses synthetic in-memory data and simulated SMS. npm run serve is static-only.
+- CRM entry points are api/crm*.js; runtime, authorization, service, Twenty and document adapters are under server/. UI is server/crm-login.mjs and server/crm-workspace-page.mjs.
+- Production Twenty v2.46.0, PostgreSQL 16, Redis 8, encrypted file gateway and OCR run on the Hong Kong server via ssh cnps-crm-hk, directory /opt/cnps-crm. The database is inside Docker, without public database ports.
+- Cursor cnps-infrastructure MCP supports fixed read-only server, schema and backup checks. Use these for investigation. Keep production mutations explicit and deliberate.
+- Secrets remain in the existing Vercel/server configuration. Do not copy them into source, Cursor rules, MCP JSON, logs, or browser code. Keep keys, .env, DB exports, and backups excluded from indexing.
+- Existing Vercel preview Redis/SMS variables are shared with production; this checkout has no remote development environment. Do not pull production values into local development or assume a branch preview is isolated.
+- Run npm test and npm run build before a completed feature is submitted. Commit and push once, create a PR, and follow AGENTS.md for release.

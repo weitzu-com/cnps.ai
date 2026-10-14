@@ -11,3 +11,5 @@ dist/
 research/raw/
 output/playwright/
 output/qa/
+
+!.env.example

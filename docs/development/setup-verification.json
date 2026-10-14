@@ -1,0 +1,28 @@
+{
+  "verified_at": "2026-10-14 Asia/Shanghai",
+  "repository": "weitzu-com/cnps.ai",
+  "branch": "codex/cursor-crm-development",
+  "source_commit": "16f35cf26335125a2a15e05ad70df37c1040b2ee",
+  "runtime": "Node 24.21.0 ARM64",
+  "tests": {
+    "passed": 306,
+    "skipped": 1,
+    "failed": 0
+  },
+  "build": "passed",
+  "browser_acceptance": [
+    "administrator login and company/project workspace in in-app browser",
+    "Beta customer login and company isolation in Safari"
+  ],
+  "server_ssh": "verified",
+  "production_container_health": "verified",
+  "database_schema": "read-only verified 117 tables",
+  "backup_timer": "active with verified encrypted backup",
+  "vercel_project": "linked and read access verified",
+  "github_cursor_plugin": "connected",
+  "github_cli_push": "requires_reauthentication",
+  "cloudflare_api_mcp": "configured, requires_owner_oauth",
+  "cloudflare_control_plane_dns": "not_verified: dashboard loading",
+  "local_data": "synthetic memory, resets on restart",
+  "production_modifications": false
+}
