@@ -1,4 +1,4 @@
-import { randomBytes } from 'node:crypto';
+import { randomBytes, createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { digest, decrypt, keyBytes } from './proposal-crypto.mjs';
 import { loginPage } from './proposal-login.mjs';
@@ -27,7 +27,7 @@ async function readJson(req) {
   let body='';for await(const chunk of req){body+=chunk;if(Buffer.byteLength(body)>2048)throw new Error('Bad body');}
   return JSON.parse(body);
 }
-export function createHandler({env,storeFactory,smsFactory,loadBundle,now=()=>Date.now()}) {
+export function createHandler({env,storeFactory,smsFactory,loadBundle,activity,now=()=>Date.now()}) {
   let store;
   const storage=()=>store??=storeFactory(env);
   const secret=()=>{keyBytes(env.CNPS_PROPOSAL_SECRET);return env.CNPS_PROPOSAL_SECRET;};
@@ -41,7 +41,7 @@ export function createHandler({env,storeFactory,smsFactory,loadBundle,now=()=>Da
     try {
       const url=new URL(req.url,'https://www.cnps.ai');
       const route=url.pathname==='/api/w'?('/w'+(url.searchParams.get('route')?'/'+url.searchParams.get('route'):'')):url.pathname;
-      if(!/^\/w(?:\/(?:send|verify|logout|asset\/[a-z0-9-]+))?$/.test(route))return json(404,{error:'页面不存在。'});
+      if(!/^\/w(?:\/(?:send|verify|logout|view|asset\/[a-z0-9-]+))?$/.test(route))return json(404,{error:'页面不存在。'});
       const cookies=parseCookies(req);
       const sid=cookies[SESSION_COOKIE];
       if(req.method==='POST'){
@@ -57,10 +57,21 @@ export function createHandler({env,storeFactory,smsFactory,loadBundle,now=()=>Da
         if(!allowed().size)return json(503,{error:'访问服务正在配置，请联系项目对接人。'});
         const ip=String(req.headers['x-real-ip']||req.headers['x-forwarded-for']||req.socket?.remoteAddress||'unknown').split(',')[0].trim();
         const ipId=hash('ip',ip);
+        if(route==='/w/view'){
+          const session=validToken(sid)?await storage().get(`session:${hash('session',sid)}`):null;
+          const phone=session?.expires>now()?phoneFor(session.pid):null;
+          if(!phone)return json(401,{error:'请先登录。'});
+          await activity?.authorize(phone);
+          const viewedBundle=await loadBundle(secret());
+          const contentHash=createHash('sha256').update(viewedBundle.html).digest('hex');
+          await activity?.record(phone,'view',hash('event',sid+':view:'+contentHash),undefined,{contentHash});
+          return json(200,{ok:true});
+        }
         if(route==='/w/send'){
           if(data.consent!==true)return json(400,{error:'请先同意身份验证说明。'});
           const phone=normalizePhone(data.phone);
           if(!phone||!allowed().has(phone))return json(403,{error:'该手机号暂未获授权，请联系项目对接人。'});
+          await activity?.authorize(phone);
           // Validate the SMS configuration before reserving scarce send capacity.
           const sms=smsFactory(env),pid=hash('phone',phone);
           const date=new Date(now()+8*3600e3).toISOString();
@@ -81,7 +92,9 @@ export function createHandler({env,storeFactory,smsFactory,loadBundle,now=()=>Da
           if(!phone)return json(400,{error:'验证码无效或已过期，请重新获取。'});
           if(!await smsFactory(env).verify(phone,data.code,data.challenge))return json(400,{error:'验证码无效或已过期，请重新获取。'});
           if(!await storage().consume(data.challenge,bindingId))return json(400,{error:'验证码已使用，请重新获取。'});
+          await activity?.authorize(phone);
           const token=randomBytes(32).toString('base64url');
+          await activity?.record(phone,'login',hash('event',token+':login'));
           await storage().set(`session:${hash('session',token)}`,{pid:challenge.pid,expires:now()+8*3600e3},8*3600);
           res.setHeader('Set-Cookie',[cookie(SESSION_COOKIE,token,8*3600),cookie(CHALLENGE_COOKIE,'',0)]);
           return json(200,{ok:true});
@@ -93,16 +106,23 @@ export function createHandler({env,storeFactory,smsFactory,loadBundle,now=()=>Da
       if(validToken(sid))session=await storage().get(`session:${hash('session',sid)}`);
       const phone=session?.expires>now()?phoneFor(session.pid):null;
       if(!phone){if(route==='/w')return html(loginPage(nonce));return json(401,{error:'请先通过短信验证登录。'});}
+      await activity?.authorize(phone);
       const bundle=await loadBundle(secret());
-      if(route==='/w')return html(bundle.html.replaceAll('__VIEWER__',`${phone.slice(0,3)}****${phone.slice(-4)}`));
+      if(route==='/w'){
+        const tracker=activity?`<script nonce="__CSP_NONCE__">(()=>{let done=false;async function record(){if(done||document.visibilityState!=='visible')return;done=true;try{const r=await fetch('/w/view',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-Proposal-Request':'1'},body:'{}'});if(!r.ok)done=false;}catch{done=false;}}document.addEventListener('visibilitychange',record);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',record,{once:true});else record();})();</script>`:'';
+        return html(bundle.html.replaceAll('__VIEWER__',`${phone.slice(0,3)}****${phone.slice(-4)}`).replace('</body>',tracker+'</body>'));
+      }
       if(route.startsWith('/w/asset/')){
         const asset=bundle.assets[route.slice(9)];if(!asset)return json(404,{error:'文件不存在。'});
-        const bytes=Buffer.from(asset.data,'base64');res.statusCode=200;res.setHeader('Content-Type',asset.type);
+        const bytes=Buffer.from(asset.data,'base64');
+        if(asset.filename&&req.method==='GET'){const contentHash=createHash('sha256').update(bytes).digest('hex');await activity?.record(phone,'download',hash('event',sid+':download:'+route.slice(9)+':'+contentHash),route.slice(9),{contentHash,filename:asset.filename});}
+        res.statusCode=200;res.setHeader('Content-Type',asset.type);
         if(asset.filename)res.setHeader('Content-Disposition',`attachment; filename*=UTF-8''${encodeURIComponent(asset.filename)}`);
         res.setHeader('Content-Length',bytes.length);return res.end(req.method==='HEAD'?undefined:bytes);
       }
       return json(404,{error:'页面不存在。'});
-    } catch {
+    } catch (error) {
+      if(error?.status===404)return json(403,{error:'该方案或资料未获授权，请联系项目对接人。'});
       // Never log provider errors, phone numbers, credentials, cookies or codes.
       return json(503,{error:'访问服务暂不可用，请稍后重试或联系项目对接人。'});
     }

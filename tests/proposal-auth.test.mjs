@@ -4,13 +4,13 @@ import {randomBytes} from 'node:crypto';
 import {createHandler,normalizePhone} from '../server/proposal-handler.mjs';
 import {encrypt,decrypt,digest} from '../server/proposal-crypto.mjs';
 const phone='13800000000';
-function harness(){
+function harness(activity){
  let time=Date.now(),sends=0,verifications=0,failSms=false;
  const values=new Map(),limits=new Map();
  const env={CNPS_PROPOSAL_SECRET:randomBytes(32).toString('hex'),CNPS_PROPOSAL_ALLOWED_PHONES:phone};
  const get=name=>{const v=values.get(name);return v?.expiry>time?structuredClone(v.value):null};
  const store={async reserve(items){for(const item of items){const v=limits.get(item.name);if(v?.expiry>time&&v.count>=item.max)return false;}for(const item of items){let v=limits.get(item.name);if(!v||v.expiry<=time)v={count:0,expiry:time+item.ttl*1000};v.count++;limits.set(item.name,v);}return true;},async set(k,v,ttl){values.set(k,{value:structuredClone(v),expiry:time+ttl*1000});},async get(k){return get(k)},async del(k){values.delete(k)},async attempt(id,binding){const c=get('challenge:'+id);if(!c||c.binding!==binding||c.attempts>=5)return null;values.get('challenge:'+id).value.attempts++;return c},async consume(id,binding){const c=get('challenge:'+id);if(!c||c.binding!==binding)return false;values.delete('challenge:'+id);return true}};
- const handler=createHandler({env,storeFactory:()=>store,smsFactory:()=>({async send(){if(failSms)throw Error('provider private error');sends++},async verify(p,c){verifications++;return p===phone&&c==='123456'}}),now:()=>time,loadBundle:async()=>({html:'<h1>Private Quote __VIEWER__</h1>',assets:{pdf:{data:Buffer.from('private document').toString('base64'),type:'application/pdf',filename:'proposal.pdf'}}})});
+ const handler=createHandler({activity,env,storeFactory:()=>store,smsFactory:()=>({async send(){if(failSms)throw Error('provider private error');sends++},async verify(p,c){verifications++;return p===phone&&c==='123456'}}),now:()=>time,loadBundle:async()=>({html:'<h1>Private Quote __VIEWER__</h1>',assets:{pdf:{data:Buffer.from('private document').toString('base64'),type:'application/pdf',filename:'proposal.pdf'}}})});
  async function request(url,{method='GET',body,cookie='',origin='https://www.cnps.ai',extra={}}={}){const headers={};let output;const res={setHeader(k,v){headers[k.toLowerCase()]=v},end(v){output=v}};await handler({url,method,body,headers:{origin,'content-type':'application/json','x-proposal-request':'1',cookie,'x-real-ip':'192.0.2.1',...extra}},res);return{status:res.statusCode,headers,text:String(output||''),json(){return JSON.parse(output)}};}
  async function send(){const r=await request('/w/send',{method:'POST',body:{phone,consent:true}});assert.equal(r.status,200,r.text);return{id:r.json().challenge,cookie:r.headers['set-cookie'].split(';')[0]}}
  async function login(){const c=await send();const r=await request('/w/verify',{method:'POST',body:{challenge:c.id,code:'123456'},cookie:c.cookie});assert.equal(r.status,200,r.text);return{cookie:r.headers['set-cookie'][0].split(';')[0],challenge:c,response:r};}
@@ -40,3 +40,16 @@ for(const [prefix,cap] of [['send-day:',20],['send-month:',100]]) {
   assert.equal(h.sends(),2);assert.equal(quota.count,cap);
  });
 }
+
+test('proposal tracking separates login, visible view and download; HEAD/assets do not count',async()=>{
+ const events=[];let revoked=false;const h=harness({async authorize(){if(revoked)throw Object.assign(Error(),{status:404})},async record(...args){events.push(args)}});
+ const {cookie}=await h.login();assert.deepEqual(events.map(e=>e[1]),['login']);
+ await h.request('/w',{cookie});await h.request('/w',{cookie,method:'HEAD'});assert.equal(events.length,1);
+ await h.request('/w/view',{cookie,method:'POST',body:{}});assert.equal(events.at(-1)[1],'view');
+ await h.request('/w/asset/pdf',{cookie,method:'HEAD'});assert.equal(events.length,2);
+ await h.request('/w/asset/pdf',{cookie});assert.equal(events.at(-1)[1],'download');
+ assert.equal((await h.request('/w/view',{method:'POST',body:{}})).status,401);
+ assert.equal((await h.request('/w/view',{cookie,method:'POST',body:{},origin:'https://evil.example'})).status,403);
+ revoked=true;for(const path of ['/w','/w/asset/pdf'])assert.equal((await h.request(path,{cookie})).status,403);
+ assert.equal(events.length,3);
+});

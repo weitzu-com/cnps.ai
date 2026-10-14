@@ -237,6 +237,48 @@ export function createBusinessService({ env, store, twenty, documents, notificat
   }
   const service = {
     subjectForPhone,
+    async proposalAccess(phone, binding) {
+      const identityId = subjectForPhone(phone);
+      const principal = { identityId, identity: { role: phone === normalizePhone(env.CNPS_CRM_ADMIN_PHONE) ? 'admin' : 'customer' } };
+      if (!isAdmin(principal)) {
+        const memberships = await service.loadMemberships(phone);
+        if (!memberships.some(m => m.companyId === binding.companyId)) missing();
+      }
+      const { state, a } = await snapshot(binding.companyId, principal);
+      projectAccess(state, a, binding.projectId);
+      for (const source of Object.values(binding.documents)) {
+        const resolved = docAccess(state, a, source.documentId, source.versionId);
+        if (resolved.doc.projectId !== binding.projectId || resolved.version.id !== source.versionId || resolved.doc.activeVersionId !== source.versionId || !Number.isFinite(resolved.version.publishedAt)) missing();
+      }
+      return { principal, customer: a.role === 'customer', contactId: a.grant?.contactId };
+    },
+    async recordProposalActivity(phone, binding, kind, eventId, assetId, metadata = {}) {
+      if (!['login','view','download'].includes(kind)) fail(400,'事件类型无效。');
+      id(eventId);
+      const contentHash=metadata.contentHash ? text(metadata.contentHash,64) : null;
+      if(contentHash && !/^[a-f0-9]{64}$/.test(contentHash)) fail(400,'版本指纹无效。');
+      const filename=metadata.filename ? text(metadata.filename,300) : null;
+      if (kind === 'download' && !Object.hasOwn(binding.documents, assetId || '')) missing();
+      const verified = await service.proposalAccess(phone, binding);
+      if (!verified.customer) return; // Staff previews never become customer views.
+      return companyWrite(verified.principal, binding.companyId, (next, a) => {
+        if (a.role !== 'customer' || a.grant.contactId !== verified.contactId) missing();
+        projectAccess(next,a,binding.projectId);
+        for (const source of Object.values(binding.documents)) {
+          const current=docAccess(next,a,source.documentId,source.versionId);
+          if(current.version.id!==source.versionId || current.doc.activeVersionId!==source.versionId) missing();
+        }
+        next.proposalActivity ||= {};
+        const key=binding.id+':'+verified.principal.identityId;
+        const row=next.proposalActivity[key] ||= {proposalId:binding.id,projectId:binding.projectId,contactId:verified.contactId,recipientId:verified.principal.identityId,phoneMasked:phone.slice(0,3)+'****'+phone.slice(-4),loginCount:0,viewCount:0,downloads:[],eventIds:[]};
+        if(row.eventIds.includes(eventId))return;
+        row.eventIds.push(eventId);
+        if(kind==='login'){row.loginCount++;row.lastLoginAt=now();}
+        if(kind==='view'){row.viewCount++;row.viewedAt ||= now();row.lastViewedAt=now();row.contentHash=contentHash;}
+        if(kind==='download'){row.downloads.push({assetId,filename,contentHash,at:now()});}
+        next.events.push(event(verified.principal,'proposal.'+kind,{companyId:binding.companyId,projectId:binding.projectId,contactId:verified.contactId,phoneMasked:row.phoneMasked,proposalId:binding.id,contentHash,...(kind==='download'?{assetId,filename}:{})}));
+      },{customer:true});
+    },
     async loadMemberships(phone) {
       const pid = subjectForPhone(phone), directory = await store.getDirectory();
       const assignment = own(directory.managerAssignments, pid);
@@ -695,7 +737,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     async listDeliveries(principal, companyId, projectId) {
       const {state,a} = await snapshot(companyId, principal); projectAccess(state,a,projectId);
       return Object.values(state.deliveries || {}).filter(item => item.projectId === projectId).flatMap(item => {
-        if(a.role !== 'customer') return [deliveryView(item,a)];
+        if(a.role !== 'customer') {const activity=Object.values(state.proposalActivity||{}).filter(r=>r.projectId===projectId&&r.recipientId===item.recipientId).map(({recipientId,eventIds,...r})=>clone(r));return [{...deliveryView(item,a),proposalActivity:activity}];}
         try {return [deliveryView(deliveryAccess(state,a,item.id,principal),a)];} catch(error) {if(error instanceof BusinessError && error.status === 404)return [];throw error;}
       }).sort((a,b)=>b.createdAt-a.createdAt);
     },
