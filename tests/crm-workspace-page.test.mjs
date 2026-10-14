@@ -423,3 +423,9 @@ test('project deep link selects the authorized company and opens its project; un
  const h=harness({search:'?companyId=company-A&projectId=project-A'});await h.flush();assert.equal(h.get('view-title').textContent,'Synthetic project');
  const denied=harness({search:'?companyId=company-B&projectId=project-B'});await denied.flush();assert.equal(denied.calls.some(c=>c.view==='project'),false);assert.equal(denied.get('login-needed').hidden,false);
 });
+
+test('company profile navigation is limited to staff and renders missing fields without inventing legal identity',async()=>{
+ const profile={version:0,companyName:'Synthetic company',data:{legalName:'',creditCode:'',registeredAddress:'',businessPhone:'',website:'',invoice:{type:'digital_general',title:'',taxId:'',address:'',phone:'',bankName:'',bankAccount:'',email:''},addresses:[]},issues:['企业全称待补充']};
+ const h=harness({role:'sales_manager',override:call=>call.url?.includes('view=customerProfile')?{status:200,body:{ok:true,data:profile}}:undefined});await h.flush();assert.equal(h.get('show-profile').hidden,false);await h.event('show-profile','click');await h.flush();assert.match(h.get('content').textContent,/企业基本信息/);assert.match(h.get('content').textContent,/企业全称待补充/);
+ const customer=harness();await customer.flush();assert.equal(customer.get('show-profile').hidden,true);
+});

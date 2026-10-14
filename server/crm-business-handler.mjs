@@ -62,6 +62,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'companies': result = await service.listCompanies(principal); break;
           case 'managers': result = await service.listManagers(principal, companyId); break;
           case 'staff': result = await service.listStaff(principal); break;
+          case 'customerProfile': result = await service.getCustomerProfile(principal, companyId); break;
           case 'contacts': result = await service.listContacts(principal, companyId); break;
           case 'projects': result = await service.listProjects(principal, companyId); break;
           case 'project': {
@@ -94,7 +95,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
 
         if (!origins.has(req.headers.origin) || req.headers['x-cnps-crm'] !== '1') throw new BusinessError(403,'请求来源无效。');
         let data;
-        try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError) throw error; throw new BusinessError(400, '请求格式无效。'); }
+        try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError || error?.status === 400) throw error; throw new BusinessError(400, '请求格式无效。'); }
         const companyId = data.companyId, projectId = data.projectId;
         if(data.contextId)principal={...principal,contextId:data.contextId};
         if(['knowledgeAnswer','projectAi'].includes(data.action)&&service.authorizeAi)await service.authorizeAi(principal,companyId);
@@ -120,6 +121,8 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'knowledgeAnswer': result = await knowledgeAnswer({env,service,principal,companyId,projectId,question:data.question,documentIds:data.documentIds}); break;
           case 'projectAi': result = await projectAi({env,service,principal,companyId,projectId,question:data.question}); break;
           case 'registerCompany': result = await service.registerCompany(principal, companyId); break;
+          case 'saveCustomerProfile': result = await service.saveCustomerProfile(principal,companyId,data.fields,data.expectedVersion); break;
+          case 'previewCustomerProfile': result = await service.previewCustomerProfile(principal,companyId,data.source); break;
           case 'createCompany': result = await service.createCompany(principal, data.fields); break;
           case 'createContact': result = await service.createContact(principal, companyId, data.fields); break;
           case 'updateContact': result = await service.updateContact(principal, companyId, data.contactId, data.fields); break;
@@ -144,7 +147,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
       if(service.auditAccess)await service.auditAccess(principal,req.method==='POST'?'operation':'read',req.method==='POST'?req.body?.companyId:query('companyId'),200);
       return json(200, { ok: true, data: result });
     } catch (error) {
-      if (error instanceof BusinessError) {
+      if (error instanceof BusinessError || error?.status===400) {
         if([403,404].includes(error.status)&&service.auditDeniedAccess){try{await service.auditDeniedAccess(principal,error.status);}catch{}}
         return json(error.status, { error: error.message });
       }

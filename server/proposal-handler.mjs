@@ -46,7 +46,7 @@ export function createHandler({env,storeFactory,smsFactory,loadBundle,activity,n
       const cookies=parseCookies(req);
       const sid=cookies[SESSION_COOKIE];
       if(req.method==='POST'){
-        const origins=new Set(['https://www.cnps.ai','https://cnps.ai']);
+        const origins=new Set(['https://www.cnps.ai','https://cnps.ai','https://crm.cnps.ai']);
         if(env.VERCEL_URL)origins.add(`https://${env.VERCEL_URL}`);
         if(!origins.has(req.headers.origin)||req.headers['x-proposal-request']!=='1')return json(403,{error:'请求来源无效。'});
         let data;try{data=await readJson(req)}catch{return json(400,{error:'请求格式无效。'})}
