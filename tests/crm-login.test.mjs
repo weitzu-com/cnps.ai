@@ -108,7 +108,7 @@ test('anonymous login sends consent, enforces cooldown, verifies identity, and l
   assert.equal(h.element('code').value, '');
   assert.equal(h.element('session').hidden, false);
   assert.equal(h.element('session-role').textContent, '销售经理');
-  assert.deepEqual(h.redirects, ['/crm/workspace']);
+  assert.deepEqual(h.redirects, ['/workspace']);
   for (const call of h.calls) {
     assert.equal(call.options.credentials, 'same-origin');
     assert.equal(call.options.cache, 'no-store');

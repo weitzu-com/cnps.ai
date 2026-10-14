@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   res.setHeader('X-Frame-Options', 'DENY');
   if (!['GET', 'HEAD'].includes(req.method)) { res.statusCode = 405; return res.end(); }
   const incoming = new URL(req.url, 'https://crm.cnps.ai');
-  const returnTo = sanitizeCrmReturnTo('/crm/workspace' + incoming.search) || '/crm/workspace';
+  const returnTo = sanitizeCrmReturnTo('/workspace' + incoming.search) || '/workspace';
   try {
     if (!await getCrmRuntime().auth.loadSession(req)) { res.statusCode = 302; res.setHeader('Location', crmLoginUrl(returnTo)); return res.end(); }
     const nonce = randomBytes(18).toString('base64');

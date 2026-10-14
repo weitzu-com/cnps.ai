@@ -22,7 +22,7 @@ export default async function crmPage(req, res) {
   }
   try {
     const session=await getCrmRuntime().auth.loadSession(req);
-    if(session){res.statusCode=302;res.setHeader('Location',crmPageReturnTo(req.url)||(session.identity.role==='proposal_viewer'?'/w':'/crm/workspace'));return res.end();}
+    if(session){res.statusCode=302;res.setHeader('Location',crmPageReturnTo(req.url)||(session.identity.role==='proposal_viewer'?'/w':'/workspace'));return res.end();}
   }catch{}
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
