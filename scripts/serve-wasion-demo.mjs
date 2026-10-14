@@ -17,11 +17,13 @@ http.createServer(async (req, res) => {
   }
   if (url.pathname === '/' || url.pathname === '/crm/wasion-demo') { res.writeHead(302, { Location: '/demo/wasion' }); return res.end(); }
   if (!url.pathname.startsWith('/demo/wasion')) { res.writeHead(404); return res.end('Not found'); }
-  const slug = url.pathname === '/demo/wasion' ? 'home' : url.pathname.slice('/demo/wasion/'.length);
+  const styled = url.pathname.match(/^\/demo\/wasion\/styles\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?$/);
+  const style = styled?.[1] || 'classic';
+  const slug = styled ? styled[2] || 'home' : url.pathname === '/demo/wasion' ? 'home' : url.pathname.slice('/demo/wasion/'.length);
   const nonce = randomBytes(18).toString('base64');
   let query=url.searchParams.get('q') || '';
   if(req.method==='POST'&&slug==='search'){let raw='';for await(const chunk of req)raw+=chunk;query=new URLSearchParams(raw).get('q')||'';}
-  const html = wasionDemoPage(nonce, { slug, query });
+  const html = wasionDemoPage(nonce, { slug, query, style });
   if (!html) { res.writeHead(404); return res.end('Not found'); }
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src https://en.wasion.com; media-src https://en.wasion.com; connect-src 'self'; base-uri 'none'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'`);

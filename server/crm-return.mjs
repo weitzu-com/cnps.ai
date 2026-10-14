@@ -1,3 +1,4 @@
+import { WASION_STYLES } from './wasion-demo-styles.mjs';
 const ORIGIN = 'https://crm.cnps.ai';
 
 // Only authenticated portal pages may be a destination. Neither an external
@@ -8,7 +9,9 @@ export function safeCrmReturnTo(value) {
   // Historical return targets remain usable but always produce canonical URLs.
   value = value.replace(/^\/crm\/workspace(?=[?#]|$)/, '/workspace');
   const path = value.split(/[?#]/, 1)[0];
-  if (path !== '/w' && path !== '/workspace' && !/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(path)) return null;
+  const styled = path.match(/^\/demo\/wasion\/styles\/([a-z0-9-]+)(?:\/([a-z0-9-]+))?$/);
+  const validStyle = styled && Object.hasOwn(WASION_STYLES, styled[1]);
+  if (path !== '/w' && path !== '/workspace' && !/^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(path) && !validStyle) return null;
   try {
     const url = new URL(value, ORIGIN);
     if (url.origin !== ORIGIN || url.pathname !== path || /%(?:00|0a|0d|5c)/i.test(url.search + url.hash)) return null;
@@ -18,7 +21,7 @@ export function safeCrmReturnTo(value) {
         const id = url.searchParams.get(key);
         if (id && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(id)) params.set(key, id);
       }
-    } else if (path === '/demo/wasion/search') {
+    } else if ((path === '/demo/wasion/search' || (validStyle && styled[2] === 'search'))) {
       const query = url.searchParams.get('q');
       if (query && query.length <= 500 && !/[\u0000-\u001f\u007f]/.test(query)) params.set('q', query);
     }
@@ -35,7 +38,7 @@ export function crmLoginUrl(returnTo) {
 export function crmPageReturnTo(requestUrl) {
   const url = new URL(requestUrl, ORIGIN);
   const next = url.searchParams.get('next');
-  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo')) || (next === '/w' || /^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(next || '') ? safeCrmReturnTo(next) : null);
+  const explicit = safeCrmReturnTo(url.searchParams.get('returnTo')) || (next === '/w' || (next || '').startsWith('/demo/wasion/') || next === '/demo/wasion' ? safeCrmReturnTo(next) : null);
   if (explicit) return explicit;
   const params = new URLSearchParams();
   for (const name of ['companyId', 'deliveryId', 'projectId', 'contextId']) {

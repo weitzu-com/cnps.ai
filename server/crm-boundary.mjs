@@ -8,7 +8,7 @@ const privatePath = (path) =>
     path,
   );
 const crmPaths =
-  /^(?:\/(?:workspace|w(?:\/(?:view|asset\/[a-z0-9-]+))?|demo\/wasion(?:\/[a-z0-9-]+)?)|\/api\/(?:w|crm|crm-page|crm-workspace|crm-workspace-page|crm-wasion-demo-page|crm-wasion-demo-search))$/;
+  /^(?:\/(?:workspace|w(?:\/(?:view|asset\/[a-z0-9-]+))?|demo\/wasion(?:\/[a-z0-9-]+|\/styles\/[a-z0-9-]+(?:\/[a-z0-9-]+)?)?)|\/api\/(?:w|crm|crm-page|crm-workspace|crm-workspace-page|crm-wasion-demo-page|crm-wasion-demo-search))$/;
 function oldEntry(path, search, method) {
   if (!['/crm', '/crm/', '/crm/workspace', '/crm/workspace/', '/workspace/', '/crm/wasion-demo', '/crm/wasion-demo/'].includes(path)) return null;
   if (!['GET', 'HEAD'].includes(method)) return { status: 410 };
