@@ -1,3 +1,4 @@
+import { projectPreviews } from './crm-project-previews.mjs';
 import { knowledgeAnswer } from './crm-knowledge.mjs';
 import { projectAi } from './crm-ai.mjs';
 import { BusinessError } from './crm-business-service.mjs';
@@ -55,7 +56,11 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'staff': result = await service.listStaff(principal); break;
           case 'contacts': result = await service.listContacts(principal, companyId); break;
           case 'projects': result = await service.listProjects(principal, companyId); break;
-          case 'project': result = await service.getProject(principal, companyId, projectId); break;
+          case 'project': {
+            const project = await service.getProject(principal, companyId, projectId);
+            result = { ...project, previews: projectPreviews(companyId, project.id) };
+            break;
+          }
           case 'records': result = await service.listRecords(principal, companyId, projectId, query('type')); break;
           case 'record': result = await service.getRecord(principal, companyId, query('recordId')); break;
           case 'documents': result = await service.listDocuments(principal, companyId, projectId); break;

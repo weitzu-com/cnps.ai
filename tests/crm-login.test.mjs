@@ -74,7 +74,7 @@ test('existing session is checked without sending an SMS and identity values sta
   assert.equal(h.element('session').hidden, false);
   assert.equal(h.element('login').hidden, true);
   assert.equal(h.element('session-phone').textContent, malicious);
-  assert.equal(h.element('session-role').textContent, '管理员');
+  assert.equal(h.element('session-role').textContent, '高级管理员');
   assert.equal(h.remainingTimeouts(), 0);
 });
 

@@ -23,7 +23,7 @@ export function crmPageReturnTo(requestUrl) {
   const explicit = safeCrmReturnTo(url.searchParams.get('returnTo'));
   if (explicit) return explicit;
   const params = new URLSearchParams();
-  for (const name of ['companyId', 'deliveryId']) {
+  for (const name of ['companyId', 'deliveryId', 'projectId']) {
     const value = url.searchParams.get(name);
     if (value && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value)) params.set(name, value);
   }

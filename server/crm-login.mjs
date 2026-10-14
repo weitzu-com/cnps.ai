@@ -144,7 +144,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
       const result = await request('session');
       if (result?.authenticated === true && result.identity && typeof result.identity === 'object') {
         byId('session-phone').textContent = typeof result.identity.phoneMasked === 'string' ? result.identity.phoneMasked : '已验证手机号';
-        byId('session-role').textContent = ({admin: '管理员', customer: '客户', sales_manager: '销售经理'})[result.identity.role] || '授权用户';
+        byId('session-role').textContent = ({admin: '高级管理员', customer: '客户', sales_manager: '销售经理'})[result.identity.role] || '授权用户';
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');

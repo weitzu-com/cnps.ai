@@ -8,6 +8,7 @@ test('Demo and workspace destinations preserve path, query and fragment', () => 
     assert.equal(crmPageReturnTo(crmLoginUrl(path)), path);
   }
   assert.equal(safeCrmReturnTo('http://crm.cnps.ai/demo/wasion'), '/demo/wasion');
+  assert.equal(crmPageReturnTo('/crm?companyId=A&projectId=P'), '/crm/workspace?companyId=A&projectId=P');
   assert.equal(crmPageReturnTo('/crm?companyId=A&deliveryId=B'), '/crm/workspace?companyId=A&deliveryId=B');
 });
 test('untrusted return destinations cannot redirect outside the portal or back to login', () => {
