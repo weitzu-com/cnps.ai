@@ -76,7 +76,7 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
   const phone = byId('phone'), code = byId('code'), consent = byId('consent');
   const status = byId('status'), session = byId('session'), sessionStatus = byId('session-status');
   const loading = byId('loading'), retrySession = byId('retry-session'), logout = byId('logout');
-  let challenge = '', sentPhone = '', busy = false, countdown = 0, countdownTimer;
+  let challenge = '', sentPhone = '', busy = false, countdown = 0, countdownTimer, retryAt = 0, waitingPhone = '';
   const currentPhone = () => phone.value.trim();
   function message(element, text, ok = false) {
     element.textContent = text;
@@ -89,14 +89,19 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
     form.setAttribute('aria-busy', String(busy));
   }
   function resetChallenge() { challenge = ''; sentPhone = ''; code.value = ''; updateControls(); }
-  function startCountdown() {
+  function startCountdown(seconds = 60, number = '') {
     clearInterval(countdownTimer);
-    countdown = 60; send.textContent = countdown + '秒后重试';
-    countdownTimer = setInterval(() => {
-      countdown = Math.max(0, countdown - 1);
-      send.textContent = countdown ? countdown + '秒后重试' : '重新发送';
+    waitingPhone = number;
+    retryAt = Date.now() + Math.max(1, Math.ceil(seconds)) * 1000;
+    function refresh() {
+      countdown = Math.max(0, Math.ceil((retryAt - Date.now()) / 1000));
+      send.textContent = !countdown ? '重新发送' : countdown < 60 ? countdown + '秒后重试' : countdown === 60 ? '60秒后重试' : countdown < 3600 ? Math.ceil(countdown / 60) + '分钟后重试' : Math.ceil(countdown / 3600) + '小时后重试';
       if (!countdown) clearInterval(countdownTimer);
       updateControls();
+    }
+    refresh();
+    countdownTimer = setInterval(() => {
+      refresh();
     }, 1000);
   }
   async function request(action, data = {}) {
@@ -112,11 +117,21 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
       if (isSession && response.status === 401) return null;
       let result;
       try { result = await response.json(); } catch { throw new Error('服务暂时不可用，请稍后重试。'); }
-      if (!response.ok) throw new Error(typeof result?.error === 'string' ? result.error.slice(0, 240) : '暂时无法完成，请稍后重试。');
+      if (!response.ok) {
+        const error = new Error(typeof result?.error === 'string' ? result.error.slice(0, 240) : '暂时无法完成，请稍后重试。');
+        error.phoneLimited = result?.code === 'SMS_COOLDOWN' || result?.code === 'SMS_PHONE_DAILY_LIMIT';
+        const seconds = Number(result?.retryAfterSeconds ?? response.headers?.get('Retry-After'));
+        if (response.status === 429 && Number.isFinite(seconds) && seconds > 0) error.retryAfterSeconds = Math.min(Math.ceil(seconds), 32 * 86400);
+        else if (action === 'send' && (response.status === 429 || response.status >= 500)) error.retryAfterSeconds = 60;
+        throw error;
+      }
       return result;
     } catch (error) {
-      if (error.name === 'AbortError') throw new Error('请求超时，请检查网络后重试。');
-      if (error instanceof TypeError) throw new Error('网络连接异常，请检查网络后重试。');
+      if (error.name === 'AbortError' || error instanceof TypeError) {
+        const failure = new Error(error.name === 'AbortError' ? '请求超时，请检查网络后重试。' : '网络连接异常，请检查网络后重试。');
+        if (action === 'send') failure.retryAfterSeconds = 60;
+        throw failure;
+      }
       throw error;
     } finally { clearTimeout(timeout); }
   }
@@ -143,6 +158,9 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
     } finally { loading.hidden = true; }
   }
   phone.addEventListener('input', () => {
+    if (waitingPhone && waitingPhone !== currentPhone()) {
+      clearInterval(countdownTimer); countdown = 0; waitingPhone = ''; send.textContent = '获取验证码';
+    }
     if (challenge && sentPhone !== currentPhone()) {
       resetChallenge(); message(status, '手机号已更改，请为当前手机号获取验证码。');
     }
@@ -160,8 +178,11 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
       const result = await request('send', {phone: number, consent: true});
       if (typeof result?.challenge !== 'string' || !result.challenge) throw new Error('验证码请求未完成，请稍后重试。');
       challenge = result.challenge; sentPhone = number; code.value = '';
-      startCountdown(); message(status, '验证码已发送，请查看短信并输入6位验证码。', true);
-    } catch (error) { message(status, error.message); }
+      startCountdown(60, number); message(status, '验证码已发送，请查看短信并输入6位验证码。', true);
+    } catch (error) {
+      if (error.retryAfterSeconds) startCountdown(error.retryAfterSeconds, error.phoneLimited ? number : '');
+      message(status, error.message);
+    }
     finally { busy = false; updateControls(); if (challenge) code.focus(); }
   });
   form.addEventListener('submit', async event => {
@@ -184,7 +205,7 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
     try {
       const result = await request('logout');
       if (result?.ok !== true) throw new Error('退出未完成，请重试。');
-      clearInterval(countdownTimer); countdown = 0; send.textContent = '获取验证码';
+      clearInterval(countdownTimer); countdown = 0; waitingPhone = ''; send.textContent = '获取验证码';
       resetChallenge(); code.value = ''; consent.checked = false;
       byId('session-phone').textContent = ''; byId('session-role').textContent = '';
       session.hidden = true; form.hidden = false; retrySession.hidden = true;

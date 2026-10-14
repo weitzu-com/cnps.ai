@@ -1,6 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import { digest, encrypt, decrypt, keyBytes } from './proposal-crypto.mjs';
 import { normalizePhone } from './proposal-handler.mjs';
+import { SMS_PHONE_DAILY_LIMIT } from './sms-policy.mjs';
 
 export const CRM_SESSION_COOKIE = '__Host-cnps_crm';
 export const CRM_CHALLENGE_COOKIE = '__Host-cnps_crm_challenge';
@@ -10,6 +11,33 @@ const CHALLENGE_SECONDS = 300;
 const validToken = value => typeof value === 'string' && /^[A-Za-z0-9_-]{43}$/.test(value);
 const validId = value => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value);
 const cookie = (name, value, age) => `${name}=${value}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${age}`;
+function sendLimitResponse(blocked, timestamp) {
+  const chinaTime = new Date(timestamp + 8 * 3600e3);
+  const year = chinaTime.getUTCFullYear(), month = chinaTime.getUTCMonth(), day = chinaTime.getUTCDate();
+  const secondsUntil = boundary => Math.max(1, Math.ceil((boundary - 8 * 3600e3 - timestamp) / 1000));
+  const daySeconds = secondsUntil(Date.UTC(year, month, day + 1));
+  const monthSeconds = secondsUntil(Date.UTC(year, month + 1, 1));
+  const limits = (Array.isArray(blocked) ? blocked : []).filter(item => Number.isFinite(item?.ttl) && item.ttl > 0).map(item => ({
+    kind: item.kind,
+    retryAfterSeconds: Math.max(1, Math.ceil(Math.min(item.ttl,
+      ['phone-day', 'send-day'].includes(item.kind) ? daySeconds : item.kind === 'send-month' ? monthSeconds : item.ttl)))
+  })).sort((a, b) => b.retryAfterSeconds - a.retryAfterSeconds);
+  // Several budgets can be exhausted together. Advertise when all current
+  // blocks clear, rather than a short cooldown that hides a daily/monthly limit.
+  const limit = limits[0];
+  if (!limit) return { code: 'SMS_RATE_LIMIT', error: '验证码请求次数已达限额，请稍后重试或联系项目对接人。' };
+  const retryAt = new Date(timestamp + limit.retryAfterSeconds * 1000 + 8 * 3600e3);
+  const retryTime = `${retryAt.getUTCMonth() + 1}月${retryAt.getUTCDate()}日${String(retryAt.getUTCHours()).padStart(2, '0')}:${String(retryAt.getUTCMinutes()).padStart(2, '0')}`;
+  const messages = {
+    cooldown: ['SMS_COOLDOWN', `请等待${limit.retryAfterSeconds}秒后重新获取验证码。`],
+    'phone-day': ['SMS_PHONE_DAILY_LIMIT', `该手机号今日验证码请求次数已达限额，请于${retryTime}后再试。`],
+    'ip-hour': ['SMS_IP_HOURLY_LIMIT', `当前网络验证码请求过于频繁，请在${Math.ceil(limit.retryAfterSeconds / 60)}分钟后重试。`],
+    'send-day': ['SMS_DAILY_LIMIT', `今日验证码发送额度已用完，请联系项目对接人，或于${retryTime}后再试。`],
+    'send-month': ['SMS_MONTHLY_LIMIT', `本月验证码发送额度已用完，请联系项目对接人，或于${retryTime}后再试。`]
+  };
+  const [code, error] = messages[limit.kind] || ['SMS_RATE_LIMIT', '验证码请求次数已达限额，请稍后重试或联系项目对接人。'];
+  return { code, error, retryAfterSeconds: limit.retryAfterSeconds };
+}
 function parseCookies(req) {
   const result = {};
   for (const item of String(req.headers.cookie || '').split(';')) {
@@ -130,15 +158,23 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
         const phone = normalizePhone(data.phone);
         if (!phone || !await identityFor(phone)) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
         const sms = smsFactory(env), pid = hash('phone', phone);
-        const date = new Date(now() + 8 * 3600e3).toISOString();
+        const sendTime = now(), date = new Date(sendTime + 8 * 3600e3).toISOString();
         const limits = [
           { name: `cooldown:${pid}`, max: 1, ttl: 60 },
-          { name: `phone-day:${date.slice(0, 10)}:${pid}`, max: 5, ttl: 172800 },
+          { name: `phone-day:${date.slice(0, 10)}:${pid}`, max: SMS_PHONE_DAILY_LIMIT, ttl: 172800 },
           { name: `ip-hour:${ipId}`, max: 10, ttl: 3600 },
           { name: `send-day:${date.slice(0, 10)}`, max: 20, ttl: 172800 },
           { name: `send-month:${date.slice(0, 7)}`, max: 100, ttl: 32 * 86400 }
         ];
-        if (!await storage().reserve(limits)) return json(429, { error: '发送次数已达限额，请稍后或次日再试。' });
+        const quotaStore = storage();
+        const quota = typeof quotaStore.reserveDetailed === 'function'
+          ? await quotaStore.reserveDetailed(limits)
+          : { allowed: await quotaStore.reserve(limits), blocked: [] };
+        if (!quota.allowed) {
+          const response = sendLimitResponse(quota.blocked, sendTime);
+          if (response.retryAfterSeconds) res.setHeader('Retry-After', String(response.retryAfterSeconds));
+          return json(429, response);
+        }
         const id = randomBytes(32).toString('base64url'), binding = randomBytes(32).toString('base64url');
         await sms.send(phone, id);
         await storage().set(`challenge:${id}`, { purpose: PURPOSE, pid, subject: sealPhone(phone), binding: hash('crm-binding', binding), attempts: 0 }, CHALLENGE_SECONDS);

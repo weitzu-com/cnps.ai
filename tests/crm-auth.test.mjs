@@ -8,8 +8,8 @@ import { createHandler as createProposalHandler } from '../server/proposal-handl
 
 const adminPhone = '18700001111';
 const customerPhone = '18800002222';
-function harness({ memberDirectory = new Map() } = {}) {
-  let time = Date.UTC(2026, 9, 13), sends = 0, verifications = 0, smsFailure = false;
+function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime = Date.UTC(2026, 9, 13) } = {}) {
+  let time = startTime, sends = 0, verifications = 0, smsFailure = false;
   const env = { CNPS_PROPOSAL_SECRET: randomBytes(32).toString('hex'), CNPS_PROPOSAL_ALLOWED_PHONES: adminPhone, CNPS_CRM_ADMIN_PHONE: adminPhone };
   const limits = new Map(), values = new Map(), visits = [];
   const reserve = async items => {
@@ -25,6 +25,14 @@ function harness({ memberDirectory = new Map() } = {}) {
     }
     return true;
   };
+  const reserveDetailed = async items => {
+    const blocked = items.flatMap(item => {
+      const entry = limits.get(item.name);
+      return entry?.expiry > time && entry.count >= item.max
+        ? [{ name: item.name, kind: item.name.split(':')[0], ttl: Math.ceil((entry.expiry - time) / 1000) }] : [];
+    });
+    return blocked.length ? { allowed: false, blocked } : { allowed: await reserve(items), blocked: [] };
+  };
   const memoryStore = prefix => {
     const get = name => {
       const entry = values.get(prefix + name);
@@ -32,6 +40,7 @@ function harness({ memberDirectory = new Map() } = {}) {
     };
     return {
       reserve,
+      ...(detailedQuotas ? { reserveDetailed } : {}),
       async set(name, value, ttl) { values.set(prefix + name, { value: structuredClone(value), expiry: time + ttl * 1000 }); },
       async get(name) { return get(name); },
       async del(name) { values.delete(prefix + name); },
@@ -213,6 +222,96 @@ test('shared proposal and CRM cooldown and 100 per month budget apply before pro
   assert.equal((await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } })).status, 429);
   assert.equal(h.sends(), 2);
 });
+test('cooldown explains the exact remaining wait without changing counters or exposing identifiers', async () => {
+  const h = harness();
+  await h.send();
+  h.advance(17000);
+  const before = structuredClone([...h.limits]);
+  const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal(response.status, 429);
+  assert.deepEqual(response.json(), { code: 'SMS_COOLDOWN', error: '请等待43秒后重新获取验证码。', retryAfterSeconds: 43 });
+  assert.equal(response.headers['retry-after'], '43');
+  assert.deepEqual([...h.limits], before);
+  assert.equal(h.sends(), 1);
+  assert.ok(!response.text.includes(adminPhone));
+  assert.ok(!response.text.includes('cooldown:'));
+});
+test('existing five-send counters allow further CRM and proposal sends under the shared twenty-send allowance', async () => {
+  const h = harness();
+  await h.send();
+  const phoneDay = [...h.limits].find(([key]) => key.startsWith('phone-day:'))[1];
+  phoneDay.count = 5;
+  h.advance(61000);
+  await h.send();
+  assert.equal(phoneDay.count, 6);
+  h.advance(61000);
+  const response = await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } });
+  assert.equal(response.status, 200);
+  assert.equal(phoneDay.count, 7);
+  assert.equal([...h.limits].find(([key]) => key.startsWith('send-month:'))[1].count, 3);
+  phoneDay.count = 20;
+  h.advance(61000);
+  assert.equal((await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } })).json().code, 'SMS_PHONE_DAILY_LIMIT');
+  assert.equal((await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } })).status, 429);
+  assert.equal(h.sends(), 3);
+});
+test('simultaneous limits report the longest effective wait and dated day limits reset at China midnight', async () => {
+  const h = harness({ startTime: Date.UTC(2026, 9, 13, 15, 59, 30) });
+  await h.send();
+  const phoneDay = [...h.limits].find(([key]) => key.startsWith('phone-day:'));
+  phoneDay[1].count = 20;
+  // The daily key changes in 30 seconds, but the current cooldown lasts 60.
+  let response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal(response.json().code, 'SMS_COOLDOWN');
+  assert.equal(response.json().retryAfterSeconds, 60);
+  h.advance(31000);
+  response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal(response.json().retryAfterSeconds, 29);
+  h.advance(29000);
+  assert.equal((await h.send()).response.status, 200);
+});
+test('daily and monthly errors cap Redis retention at their China calendar boundary', async () => {
+  for (const [kind, cap, code, startTime, seconds, expectedTime] of [
+    ['phone-day', 20, 'SMS_PHONE_DAILY_LIMIT', Date.UTC(2026, 9, 13, 15, 57), 180, '10月14日00:00'],
+    ['send-day', 20, 'SMS_DAILY_LIMIT', Date.UTC(2026, 9, 13, 15, 57), 180, '10月14日00:00'],
+    ['send-month', 100, 'SMS_MONTHLY_LIMIT', Date.UTC(2026, 9, 31, 15, 57), 180, '11月1日00:00']
+  ]) {
+    const h = harness({ startTime });
+    await h.send();
+    const entry = [...h.limits].find(([key]) => key.startsWith(kind + ':'));
+    entry[1].count = cap;
+    const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+    assert.equal(response.status, 429);
+    assert.equal(response.json().code, code);
+    assert.equal(response.json().retryAfterSeconds, seconds);
+    assert.equal(response.headers['retry-after'], String(seconds));
+    assert.ok(response.json().error.includes(expectedTime));
+    assert.equal(h.sends(), 1);
+    h.advance(seconds * 1000);
+    assert.equal((await h.send()).response.status, 200);
+  }
+});
+test('an hourly network limit remains longer than a daily boundary and cannot be hidden by cooldown', async () => {
+  const h = harness({ startTime: Date.UTC(2026, 9, 13, 15, 57) });
+  await h.send();
+  [...h.limits].find(([key]) => key.startsWith('ip-hour:'))[1].count = 10;
+  [...h.limits].find(([key]) => key.startsWith('send-day:'))[1].count = 20;
+  const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal(response.json().code, 'SMS_IP_HOURLY_LIMIT');
+  assert.equal(response.json().retryAfterSeconds, 3600);
+  assert.equal(response.headers['retry-after'], '3600');
+  assert.equal(h.sends(), 1);
+});
+test('legacy boolean quota stores still enforce limits without inventing a retry time', async () => {
+  const h = harness({ detailedQuotas: false });
+  await h.send();
+  const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal(response.status, 429);
+  assert.equal(response.json().code, 'SMS_RATE_LIMIT');
+  assert.equal(response.json().retryAfterSeconds, undefined);
+  assert.equal(response.headers['retry-after'], undefined);
+  assert.equal(h.sends(), 1);
+});
 test('sessions are secure, expire after eight hours, and logout revokes them', async () => {
   const h = harness(), login = await h.login();
   assert.match(login.response.headers['set-cookie'][0], /^__Host-cnps_crm=.*; Path=\/; HttpOnly; Secure; SameSite=Strict; Max-Age=28800$/);
@@ -249,6 +348,7 @@ test('Redis adapter keeps challenge keys independent and delegates unchanged quo
   const limits = [{ name: 'send-month:2026-10', max: 100, ttl: 32 * 86400 }];
   assert.equal(await store.reserve(limits), true);
   assert.deepEqual(quotas, [limits]);
+  assert.deepEqual(await store.reserveDetailed(limits), { allowed: true, blocked: [] });
   await store.set('challenge:id', { purpose: 'crm-auth-v1' }, 300);
   await store.get('session:hash'); await store.del('session:hash');
   await store.attempt('id', 'binding'); await store.consume('id', 'binding');
@@ -256,6 +356,17 @@ test('Redis adapter keeps challenge keys independent and delegates unchanged quo
   assert.equal(seen[1][1], 'cnps:crm:auth:v1:session:hash');
   assert.equal(seen[3][1][0], 'cnps:crm:auth:v1:challenge:id');
   assert.equal(seen[4][1][0], 'cnps:crm:auth:v1:challenge:id');
+});
+test('CRM forwards shared atomic quota diagnostics without using its private auth namespace', async () => {
+  const limits = [{ name: 'phone-day:2026-10-13:opaque', max: 5, ttl: 172800 }];
+  const expected = { allowed: false, blocked: [{ name: limits[0].name, kind: 'phone-day', ttl: 90000 }] };
+  let calls = 0;
+  const store = createCrmStore({}, { redis: {}, sharedStore: {
+    async reserve() { throw new Error('Must use detailed reservation'); },
+    async reserveDetailed(items) { calls++; assert.equal(items, limits); return expected; }
+  } });
+  assert.equal(await store.reserveDetailed(limits), expected);
+  assert.equal(calls, 1);
 });
 test('Aliyun factory reuses approved channel settings but isolates provider SchemeName, never returning an OTP', async () => {
   const requests = [];

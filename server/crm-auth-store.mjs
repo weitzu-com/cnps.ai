@@ -31,6 +31,11 @@ export function createCrmStore(env, { sharedStore, redis } = {}) {
   const key = name => PREFIX + name;
   return {
     reserve: limits => shared.reserve(limits),
+    async reserveDetailed(limits) {
+      return typeof shared.reserveDetailed === 'function'
+        ? shared.reserveDetailed(limits)
+        : { allowed: await shared.reserve(limits), blocked: [] };
+    },
     async set(name, value, ttl) { await redis.set(key(name), value, { ex: ttl }); },
     async get(name) { return redis.get(key(name)); },
     async del(name) { await redis.del(key(name)); },
