@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {crmWorkspacePage} from '../server/crm-workspace-page.mjs';
 
-function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], search = '', override} = {}) {
-  const html = crmWorkspacePage('test-nonce'), ids = new Map(), roots = [], calls = [], timers = new Map();
+function harness({role = 'customer', authenticated = true, approvals = false, registered = true, projectTitle = 'Synthetic project', projectStatus = 'active', records = [], search = '', override, returnTo = '/crm/workspace'} = {}) {
+  const html = crmWorkspacePage('test-nonce', { returnTo }), ids = new Map(), roots = [], calls = [], timers = new Map(), windowListeners = new Map();
   let timerId = 0;
   class Element {
     constructor(tag) { this.tagName = tag.toUpperCase(); this.children = []; this.listeners = new Map(); this.attributes = {}; this._text = ''; this.dataset={}; this._id = ''; this.value = ''; this.hidden = false; this.disabled = false; this.checked = false; }
@@ -42,7 +42,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
   };
   const forbidden = new Proxy({}, {get() { throw Error('Secrets must not be logged or persisted in browser storage.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
-    document, URLSearchParams, crypto:{randomUUID:()=> 'synthetic-request-id'},navigator:{clipboard:{async writeText(value){state.copied=value;}}}, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
+    document, window: {addEventListener(name, handler) {windowListeners.set(name, handler);}}, URLSearchParams, crypto:{randomUUID:()=> 'synthetic-request-id'},navigator:{clipboard:{async writeText(value){state.copied=value;}}}, AbortController, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
     FileReader: class { readAsDataURL(file) { this.result = 'data:' + file.type + ';base64,' + file.base64; this.onload(); } },
     location: {search, replace(value) { state.navigation = value; }},
     setTimeout(fn) { const id = ++timerId; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); },
@@ -70,6 +70,7 @@ function harness({role = 'customer', authenticated = true, approvals = false, re
     html, state, calls, get: id => ids.get(id), walk,
     async flush() { for (let n = 0; n < 6; n++) await new Promise(resolve => setImmediate(resolve)); },
     async event(id, name) { await ids.get(id).listeners.get(name)?.({preventDefault() {}}); },
+    async windowEvent(name, event = {}) { await windowListeners.get(name)?.(event); },
     async click(label, root = 'content') { const target = walk(ids.get(root)).find(item => item.tagName === 'BUTTON' && item.textContent === label); assert.ok(target, 'Missing button: ' + label); await target.listeners.get('click')?.({preventDefault() {}}); },
     async openProject() { const target = walk(ids.get('content')).find(item => item.className === 'project-card'); assert.ok(target); await target.listeners.get('click')(); },
     check(name, value) { const target = walk(ids.get('dialog-fields')).find(item => item.tagName === 'INPUT' && item.name === name && item.value === value); assert.ok(target); target.checked = true; },
@@ -92,6 +93,47 @@ test('anonymous entry requests identity only and never fetches private business 
   assert.equal(h.get('workspace').hidden, true);
   assert.equal(h.get('login-needed').hidden, false);
   assert.equal(h.pendingTimers(), 0);
+});
+
+test('successful logout hides protected content and returns to the original safe workspace route', async () => {
+  const returnTo='/crm/workspace?companyId=company-A&deliveryId=delivery-A';
+  const h=harness({returnTo});await h.flush();await h.event('logout','click');
+  assert.equal(h.get('workspace').hidden,true);assert.equal(h.get('content').textContent,'');
+  assert.equal(h.get('identity').textContent,'');assert.equal(h.get('action-dialog').open,false);
+  assert.equal(new URL(h.state.navigation,'https://crm.example.test').searchParams.get('returnTo'),returnTo);
+  const call=h.calls.find(item=>item.body?.action==='logout');assert.equal(call.options.credentials,'same-origin');assert.equal(call.options.cache,'no-store');
+  const invalid=harness({returnTo:'https://evil.example/'});await invalid.flush();await invalid.event('logout','click');assert.equal(invalid.state.navigation,'/crm');
+});
+
+test('failed logout keeps the current page available and never claims the session ended', async () => {
+  for(const response of [{status:503,body:{error:'Unavailable'}},{body:{ok:false}}]){
+    const h=harness({override:call=>call.body?.action==='logout'?response:undefined});await h.flush();await h.event('logout','click');
+    assert.equal(h.state.navigation,undefined);assert.equal(h.get('workspace').hidden,false);assert.equal(h.get('logout').disabled,false);assert.match(h.get('message').textContent,/退出未完成/);
+  }
+});
+
+test('history restoration rechecks identity, clears revoked content and never requests an SMS', async () => {
+  const h=harness({override:(call,state)=>call.view==='session'&&state.revoked?{status:401,body:{authenticated:false}}:undefined});await h.flush();await h.openProject();
+  assert.match(h.get('content').textContent,/A real project goal/);await h.windowEvent('pagehide');assert.equal(h.get('workspace').hidden,true);assert.equal(h.get('content').textContent,'');
+  h.state.revoked=true;await h.windowEvent('pageshow',{persisted:true});await h.flush();
+  assert.equal(h.get('workspace').hidden,true);assert.equal(h.get('login-needed').hidden,false);assert.equal(h.get('login-link').hidden,false);assert.equal(h.get('retry-session').hidden,true);
+  assert.equal(h.calls.filter(call=>call.view==='session').length,2);assert.equal(h.calls.some(call=>call.body?.action==='send'),false);
+});
+
+test('restored authentication outages keep content hidden until a successful explicit retry', async () => {
+  const h=harness({override:(call,state)=>call.view==='session'&&state.outage?{status:503,body:{error:'Unavailable'}}:undefined});await h.flush();h.state.outage=true;
+  await h.windowEvent('pagehide');await h.windowEvent('pageshow',{persisted:true});await h.flush();
+  assert.equal(h.get('workspace').hidden,true);assert.equal(h.get('login-link').hidden,true);assert.equal(h.get('retry-session').hidden,false);assert.equal(h.get('retry-session').disabled,false);
+  h.state.outage=false;await h.event('retry-session','click');await h.flush();assert.equal(h.get('workspace').hidden,false);assert.equal(h.get('login-needed').hidden,true);
+  assert.equal(h.calls.some(call=>call.body?.action==='send'),false);assert.equal(h.pendingTimers(),0);
+});
+
+test('a delayed history session check cannot restore content after another navigation',async()=>{
+  let completeSession;
+  const h=harness({override:(call,state)=>call.view==='session'&&state.delay?new Promise(resolve=>{completeSession=resolve;}):undefined});await h.flush();h.state.delay=true;
+  await h.windowEvent('pagehide');await h.windowEvent('pageshow',{persisted:true});await h.flush();assert.equal(typeof completeSession,'function');await h.windowEvent('pagehide');
+  completeSession({status:200,body:{authenticated:true,identity:{role:'customer',phoneMasked:'187****1111',memberships:[]}}});await h.flush();
+  assert.equal(h.get('workspace').hidden,true);assert.equal(h.get('identity').textContent,'');assert.equal(h.get('content').textContent,'');
 });
 
 test('customer sees only API-returned company/project data and downloads the exact authorized version', async () => {

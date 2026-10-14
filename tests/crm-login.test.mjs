@@ -23,14 +23,14 @@ function harness(respond, { returnTo, search = '' } = {}) {
   element('code').checkValidity = () => /^[0-9]{6}$/.test(element('code').value);
   element('consent').checkValidity = () => element('consent').checked;
   element('login').checkValidity = () => ['phone', 'code', 'consent'].every(id => element(id).checkValidity());
-  const redirects = [], calls = [], intervals = new Map(), timeouts = new Map();
+  const calls = [], intervals = new Map(), timeouts = new Map(), windowListeners = new Map(), navigations = [];
   let nextTimer = 0, time = 0;
   class Clock extends Date { static now() { return time; } }
   const forbidden = new Proxy({}, {get() { throw Error('Browser storage or logging must not be used.'); }});
   const document = {getElementById: element};
   Object.defineProperty(document, 'cookie', {get() { throw Error('Cookies belong to the server.'); }, set() { throw Error('Cookies belong to the server.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
-    document, URLSearchParams, location:{search, replace: value => redirects.push(value)}, Date: Clock, AbortController, TypeError, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
+    document, URLSearchParams, location:{search, replace: value => navigations.push(value)}, window: {addEventListener: (name, listener) => windowListeners.set(name, listener)}, Date: Clock, AbortController, TypeError, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
     setTimeout(callback) { const id = ++nextTimer; timeouts.set(id, callback); return id; },
     clearTimeout(id) { timeouts.delete(id); },
     setInterval(callback) { const id = ++nextTimer; intervals.set(id, callback); return id; },
@@ -43,9 +43,10 @@ function harness(respond, { returnTo, search = '' } = {}) {
     }
   });
   return {
-    html, element, calls, redirects,
+    html, element, calls, navigations, redirects: navigations,
     flush: () => new Promise(resolve => setImmediate(resolve)),
     event: (id, name) => element(id).listeners.get(name)?.({preventDefault() {}}),
+    windowEvent: (name, options = {}) => windowListeners.get(name)?.(options),
     tick: (seconds = 1) => { time += seconds * 1000; [...intervals.values()].forEach(callback => callback()); },
     remainingTimeouts: () => timeouts.size
   };
@@ -122,6 +123,55 @@ test('anonymous login sends consent, enforces cooldown, verifies identity, and l
   assert.equal(h.remainingTimeouts(), 0);
 });
 
+test('a customer sees the server expiry and returns to the requested demo without sending SMS', async () => {
+  const expiresAt = Date.UTC(2026, 10, 13, 12);
+  const h = harness(() => ({body: {authenticated: true, authenticatedAt: Date.UTC(2026, 9, 14, 12), expiresAt,
+    identity: {phoneMasked: '188****2222', role: 'customer', memberships: []}}}),
+    {returnTo: '/demo/wasion/search?q=smart+meter'});
+  await h.flush();
+  assert.deepEqual(h.navigations, ['/demo/wasion/search?q=smart+meter']);
+  assert.match(h.element('session-expiry').textContent, /2026\/11\/13 20:00:00/);
+  assert.equal(h.calls.length, 1);
+  assert.ok(h.calls.every(call => call.options.method === 'GET'));
+});
+
+test('invalid return targets never redirect and ordinary CRM entry retains the logged-in screen', async () => {
+  for (const returnTo of [undefined, 'https://evil.test', '//evil.test', '/demo/wasion/../../w', '/w', '/%2f%2fevil.test']) {
+    const h = harness(() => ({body: {authenticated: true, identity: {role: 'customer'}}}), {returnTo});
+    await h.flush();
+    assert.deepEqual(h.navigations, []);
+    assert.equal(h.element('session').hidden, false);
+  }
+});
+
+test('history restore hides a prior identity and performs a new session check before showing login', async () => {
+  let authenticated = true;
+  const h = harness(() => authenticated ? {body: {authenticated: true, identity: {role: 'customer', phoneMasked: '188****2222'}}} : {status: 401});
+  await h.flush();
+  assert.equal(h.element('session').hidden, false);
+  h.windowEvent('pagehide');
+  assert.equal(h.element('session').hidden, true);
+  authenticated = false;
+  h.windowEvent('pageshow', {persisted: true});
+  await h.flush();
+  assert.equal(h.element('session').hidden, true);
+  assert.equal(h.element('session-phone').textContent, '');
+  assert.equal(h.element('login').hidden, false);
+  assert.equal(h.calls.length, 2);
+});
+
+test('an unavailable session never enables SMS or automatically redirects to another page', async () => {
+  const h = harness(() => ({status: 503, body: {error: '服务暂不可用。'}}), {returnTo: '/demo/wasion'});
+  await h.flush();
+  h.element('phone').value = '18800002222'; h.element('consent').checked = true;
+  await h.event('send', 'click');
+  assert.equal(h.calls.length, 1);
+  assert.equal(h.element('login').hidden, true);
+  assert.equal(h.element('send').disabled, true);
+  assert.equal(h.element('retry-session').hidden, false);
+  assert.deepEqual(h.navigations, []);
+});
+
 test('invalid phone or missing consent never sends; editing a sent phone invalidates its challenge', async () => {
   const h = harness(({body}) => body ? {body: {challenge: 'test-challenge'}} : {status: 401});
   await h.flush();
@@ -164,6 +214,9 @@ test('session read failures offer an actual retry and never report an authentica
   await h.flush();
   assert.equal(h.element('retry-session').hidden, false);
   assert.equal(h.element('session').hidden, true);
+  assert.equal(h.element('login').hidden, true);
+  assert.equal(h.element('send').disabled, true);
+  assert.equal(h.element('session-check-status').hidden, false);
   assert.match(h.element('status').textContent, /登录状态暂时无法确认/);
   await h.event('retry-session', 'click');
   assert.equal(h.calls.length, 2);

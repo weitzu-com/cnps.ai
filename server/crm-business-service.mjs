@@ -110,6 +110,20 @@ function viewContact(contact) {
 // documents.getObject(id,context)->{id,companyId,projectId,mimeType,size,filename};
 // documents.readObject(id,context)->Buffer. Missing adapters fail closed.
 export function createBusinessService({ env, store, twenty, documents, notifications, channels, now = () => Date.now(), newId = randomUUID }) {
+  const authEpoch = record => {
+    const value = record?.authEpoch === undefined ? 0 : record.authEpoch;
+    if (!Number.isSafeInteger(value) || value < 0) fail(503, '访问授权暂不可用。');
+    return value;
+  };
+  const nextAuthEpoch = record => {
+    const value = authEpoch(record) + 1;
+    if (!Number.isSafeInteger(value)) fail(503, '访问授权暂不可用。');
+    return value;
+  };
+  const authorizationView = record => {
+    const { authEpoch: internalEpoch, ...visible } = clone(record);
+    return visible;
+  };
   const subjectForPhone = phone => { keyBytes(env.CNPS_PROPOSAL_SECRET); const normalized = normalizePhone(phone); if (!normalized) fail(400, '手机号格式无效。'); return digest(env.CNPS_PROPOSAL_SECRET, 'phone', normalized); };
   const isAdmin = principal => principal?.identity?.role === 'admin' && validId(principal.identityId);
   function subject(principal) { if (!validId(principal?.identityId)) fail(401, '请先登录。'); return principal.identityId; }
@@ -119,8 +133,12 @@ export function createBusinessService({ env, store, twenty, documents, notificat
     if (!companyEntry(directory, companyId)) return null;
     if (isAdmin(principal)) return { role: 'admin' };
     const assignment = own(directory.managerAssignments, principal.identityId);
-    if (assignment?.active && assignment.companyIds.includes(companyId)) return { role: 'sales_manager' };
+    if (assignment?.active && assignment.companyIds.includes(companyId)) {
+      if (principal.authEpoch !== undefined && principal.authEpoch !== authEpoch(assignment)) return null;
+      return { role: 'sales_manager' };
+    }
     const grant = own(directory.memberGrants, principal.identityId);
+    if (grant && principal.authEpoch !== undefined && principal.authEpoch !== authEpoch(grant)) return null;
     return grant?.active && grant.companyId === companyId ? { role: 'customer', grant } : null;
   }
   function manage(directory, principal, companyId) { const a = access(directory, principal, companyId); if (!a || a.role === 'customer') missing(); return a; }
@@ -287,7 +305,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         if (!staff.active || staff.identityId !== pid) return [];
         const memberships = [];
         for (const companyId of assignment.companyIds) {
-          if (own(directory.companies, companyId) && await activeCompany(companyId)) memberships.push({ companyId, active: true, role: 'sales_manager', permissions: ['projects:read', 'documents:read', 'members:manage', 'projects:manage', 'documents:manage'] });
+          if (own(directory.companies, companyId) && await activeCompany(companyId)) memberships.push({ companyId, active: true, role: 'sales_manager', authEpoch: authEpoch(assignment), permissions: ['projects:read', 'documents:read', 'members:manage', 'projects:manage', 'documents:manage'] });
         }
         return memberships;
       }
@@ -300,7 +318,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       // A Twenty company can be soft-deleted while its contacts keep the old
       // relation ID. Such a tombstone must not preserve an old portal grant.
       if (!await activeCompany(grant.companyId)) return [];
-      return [{ companyId: grant.companyId, active: true, role: 'customer', permissions: ['projects:read', 'documents:read', ...(grant.allowApprovals ? ['approvals:submit'] : [])], ...(grant.projectScope === 'selected' ? { projectIds: clone(grant.projectIds) } : {}), ...(grant.documentScope === 'selected' ? { documentIds: clone(grant.documentIds) } : {}) }];
+      return [{ companyId: grant.companyId, active: true, role: 'customer', authEpoch: authEpoch(grant), permissions: ['projects:read', 'documents:read', ...(grant.allowApprovals ? ['approvals:submit'] : [])], ...(grant.projectScope === 'selected' ? { projectIds: clone(grant.projectIds) } : {}), ...(grant.documentScope === 'selected' ? { documentIds: clone(grant.documentIds) } : {}) }];
     },
     async registerCompany(principal, companyId) {
       if (!isAdmin(principal)) missing();
@@ -383,7 +401,7 @@ export function createBusinessService({ env, store, twenty, documents, notificat
           if (!isAdmin(principal)) missing();
           await directoryWrite(principal, next => {
             const assignment = own(next.managerAssignments, contact.identityId);
-            if (assignment) { assignment.active = false; assignment.version++; assignment.updatedAt = now(); next.events.push(event(principal, 'manager.revoke-phone-change', { identityId: contact.identityId, version: assignment.version })); }
+            if (assignment) { assignment.authEpoch = nextAuthEpoch(assignment); assignment.active = false; assignment.version++; assignment.updatedAt = now(); next.events.push(event(principal, 'manager.revoke-phone-change', { identityId: contact.identityId, version: assignment.version })); }
           });
         }
       }
@@ -401,9 +419,9 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         for (const companyId of selected) if (!companyEntry(next, companyId)) missing();
         if (own(next.memberGrants, staff.identityId)) fail(409, '客户身份不能同时设为跨公司经理。');
         const previous = own(next.managerAssignments, staff.identityId);
-        const assignment = { identityId: staff.identityId, staffId, companyIds: selected, active, version: (previous?.version || 0) + 1, updatedAt: now() };
+        const assignment = { identityId: staff.identityId, staffId, companyIds: selected, active, authEpoch: previous?.active && !active ? nextAuthEpoch(previous) : authEpoch(previous), version: (previous?.version || 0) + 1, updatedAt: now() };
         next.managerAssignments[staff.identityId] = assignment;
-        next.events.push(event(principal, 'manager.assign', { staffId, companyIds: selected, active, version: assignment.version })); return clone(assignment);
+        next.events.push(event(principal, 'manager.assign', { staffId, companyIds: selected, active, version: assignment.version })); return authorizationView(assignment);
       });
     },
     async listManagers(principal, companyId) {
@@ -453,9 +471,9 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         const previous = own(next.memberGrants, contact.identityId);
         if (previous && previous.companyId !== companyId) fail(409, '客户所属公司不可更改。');
         if (own(next.managerAssignments, contact.identityId)) fail(409, '经理身份不能同时设为客户身份。');
-        const grant = { identityId: contact.identityId, contactId: input.contactId, companyId, active: true, projectScope, projectIds, documentScope, documentIds, allowApprovals: input.allowApprovals === true, version: (previous?.version || 0) + 1, updatedAt: now() };
+        const grant = { identityId: contact.identityId, contactId: input.contactId, companyId, active: true, projectScope, projectIds, documentScope, documentIds, allowApprovals: input.allowApprovals === true, authEpoch: authEpoch(previous), version: (previous?.version || 0) + 1, updatedAt: now() };
         next.memberGrants[contact.identityId] = grant;
-        next.events.push(event(principal, 'member.grant', { companyId, identityId: contact.identityId, version: grant.version })); return clone(grant);
+        next.events.push(event(principal, 'member.grant', { companyId, identityId: contact.identityId, version: grant.version })); return authorizationView(grant);
       });
     },
     async revokeMember(principal, companyId, contactId) {
@@ -466,13 +484,13 @@ export function createBusinessService({ env, store, twenty, documents, notificat
         manage(next, principal, companyId);
         const grant = own(next.memberGrants, contact.identityId);
         if (!grant || grant.companyId !== companyId) missing();
-        grant.active = false; grant.version++; grant.updatedAt = now();
+        grant.authEpoch = nextAuthEpoch(grant); grant.active = false; grant.version++; grant.updatedAt = now();
         next.events.push(event(principal, 'member.revoke', { companyId, identityId: contact.identityId, version: grant.version })); return { ok: true, version: grant.version };
       });
     },
     async listMembers(principal, companyId) {
       const directory = await store.getDirectory(); manage(directory, principal, companyId);
-      return Object.values(directory.memberGrants).filter(grant => grant.companyId === companyId).map(clone);
+      return Object.values(directory.memberGrants).filter(grant => grant.companyId === companyId).map(authorizationView);
     },
     async createProject(principal, companyId, input) {
       const fields = projectFields(input, true);
