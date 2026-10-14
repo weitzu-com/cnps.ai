@@ -2,7 +2,7 @@ import { HOME_OFFERINGS, HOME_CHALLENGES, HOME_METRICS } from './wasion-experien
 
 const intro = 'Electricity metering and AMI at the heart of a connected portfolio. Find the products, solutions and project experience for your next step.';
 function proof({base}) {
- return `<section class="wv-proof wd-container" aria-label="Wasion company profile"><div class="wv-proof-heading"><span class="wd-overline">BUILT ON EXPERIENCE</span><a href="${base}/innovation">Explore innovation ↗</a></div><div class="wv-proof-grid">${HOME_METRICS.map(([value,label])=>`<div><strong>${value}</strong><span>${label}</span></div>`).join('')}</div><a class="wv-proof-source" href="https://en.wasion.com/about.html" target="_blank" rel="noopener noreferrer">As reported in Wasion’s company profile ↗</a></section>`;
+ return `<section class="wv-proof wd-container" aria-label="Wasion company profile"><div class="wv-proof-heading"><span class="wd-overline">BUILT ON EXPERIENCE</span><a href="${base}/innovation">Explore innovation ↗</a></div><div class="wv-proof-grid" id="wx-statistics">${HOME_METRICS.map(([value,label,target,decimals,suffix])=>`<div><strong><span data-wx-counter data-wx-counter-target="${target}" data-wx-counter-decimals="${decimals}" data-wx-counter-suffix="${suffix}" aria-hidden="true">${value}</span><span class="wx-counter-sr">${value}</span></strong><span>${label}</span></div>`).join('')}</div><div class="wv-proof-source wx-counter-controls"><a href="https://en.wasion.com/about.html" target="_blank" rel="noopener noreferrer">As reported in Wasion’s company profile ↗</a><button id="wx-counter-toggle" type="button" aria-controls="wx-statistics" hidden>Pause statistics</button></div></section>`;
 }
 function portfolio(ctx) {
  const {base,pages,helpers:h}=ctx;
