@@ -1,7 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import { digest, encrypt, decrypt, keyBytes } from './proposal-crypto.mjs';
 import { normalizePhone } from './proposal-handler.mjs';
-import { SMS_PHONE_DAILY_LIMIT } from './sms-policy.mjs';
+import { SMS_PHONE_DAILY_LIMIT, SMS_GLOBAL_DAILY_LIMIT, SMS_GLOBAL_MONTHLY_LIMIT } from './sms-policy.mjs';
 
 export const CRM_SESSION_COOKIE = '__Host-cnps_crm';
 export const CRM_CHALLENGE_COOKIE = '__Host-cnps_crm_challenge';
@@ -163,8 +163,8 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
           { name: `cooldown:${pid}`, max: 1, ttl: 60 },
           { name: `phone-day:${date.slice(0, 10)}:${pid}`, max: SMS_PHONE_DAILY_LIMIT, ttl: 172800 },
           { name: `ip-hour:${ipId}`, max: 10, ttl: 3600 },
-          { name: `send-day:${date.slice(0, 10)}`, max: 20, ttl: 172800 },
-          { name: `send-month:${date.slice(0, 7)}`, max: 100, ttl: 32 * 86400 }
+          { name: `send-day:${date.slice(0, 10)}`, max: SMS_GLOBAL_DAILY_LIMIT, ttl: 172800 },
+          { name: `send-month:${date.slice(0, 7)}`, max: SMS_GLOBAL_MONTHLY_LIMIT, ttl: 32 * 86400 }
         ];
         const quotaStore = storage();
         const quota = typeof quotaStore.reserveDetailed === 'function'

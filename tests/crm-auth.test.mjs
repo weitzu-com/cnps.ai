@@ -206,7 +206,7 @@ test('CRM and proposal challenges and sessions cannot authorize one another', as
   const crm = await h.login();
   assert.equal((await h.proposalRequest('/w/asset/pdf', { cookie: crm.cookie })).status, 401);
 });
-test('shared proposal and CRM cooldown and 100 per month budget apply before provider send', async () => {
+test('shared proposal and CRM cooldown and 3000 per month budget apply before provider send', async () => {
   const h = harness();
   const proposal = await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } });
   assert.equal(proposal.status, 200);
@@ -216,11 +216,31 @@ test('shared proposal and CRM cooldown and 100 per month budget apply before pro
   assert.equal((await crmSend()).status, 200);
   const month = [...h.limits.entries()].find(([key]) => key.startsWith('send-month:'));
   assert.equal(month[1].count, 2);
-  month[1].count = 100;
+  month[1].count = 3000;
   h.advance(61000);
   assert.equal((await crmSend()).status, 429);
   assert.equal((await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } })).status, 429);
   assert.equal(h.sends(), 2);
+});
+test('existing old global limits permit new CRM and proposal requests without resetting usage', async () => {
+  const h = harness();
+  await h.send();
+  const day = [...h.limits].find(([key]) => key.startsWith('send-day:'))[1];
+  const month = [...h.limits].find(([key]) => key.startsWith('send-month:'))[1];
+  day.count = 20; month.count = 100;
+  h.advance(61000);
+  await h.send();
+  h.advance(61000);
+  assert.equal((await h.proposalRequest('/w/send', { method: 'POST', body: { phone: adminPhone, consent: true } })).status, 200);
+  assert.equal(day.count, 22);
+  assert.equal(month.count, 102);
+  assert.equal(h.sends(), 3);
+  // Phone-level protection remains enforced even with account capacity.
+  [...h.limits].find(([key]) => key.startsWith('phone-day:'))[1].count = 20;
+  h.advance(61000);
+  assert.equal((await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } })).json().code, 'SMS_PHONE_DAILY_LIMIT');
+  assert.equal(day.count, 22);
+  assert.equal(month.count, 102);
 });
 test('cooldown explains the exact remaining wait without changing counters or exposing identifiers', async () => {
   const h = harness();
@@ -273,8 +293,8 @@ test('simultaneous limits report the longest effective wait and dated day limits
 test('daily and monthly errors cap Redis retention at their China calendar boundary', async () => {
   for (const [kind, cap, code, startTime, seconds, expectedTime] of [
     ['phone-day', 20, 'SMS_PHONE_DAILY_LIMIT', Date.UTC(2026, 9, 13, 15, 57), 180, '10月14日00:00'],
-    ['send-day', 20, 'SMS_DAILY_LIMIT', Date.UTC(2026, 9, 13, 15, 57), 180, '10月14日00:00'],
-    ['send-month', 100, 'SMS_MONTHLY_LIMIT', Date.UTC(2026, 9, 31, 15, 57), 180, '11月1日00:00']
+    ['send-day', 200, 'SMS_DAILY_LIMIT', Date.UTC(2026, 9, 13, 15, 57), 180, '10月14日00:00'],
+    ['send-month', 3000, 'SMS_MONTHLY_LIMIT', Date.UTC(2026, 9, 31, 15, 57), 180, '11月1日00:00']
   ]) {
     const h = harness({ startTime });
     await h.send();
@@ -295,7 +315,7 @@ test('an hourly network limit remains longer than a daily boundary and cannot be
   const h = harness({ startTime: Date.UTC(2026, 9, 13, 15, 57) });
   await h.send();
   [...h.limits].find(([key]) => key.startsWith('ip-hour:'))[1].count = 10;
-  [...h.limits].find(([key]) => key.startsWith('send-day:'))[1].count = 20;
+  [...h.limits].find(([key]) => key.startsWith('send-day:'))[1].count = 200;
   const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
   assert.equal(response.json().code, 'SMS_IP_HOURLY_LIMIT');
   assert.equal(response.json().retryAfterSeconds, 3600);
