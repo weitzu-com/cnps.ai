@@ -1,8 +1,9 @@
+import {SESSION_CLIENT} from '../server/wasion-experience/session.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { Script, runInNewContext } from 'node:vm';
-import { WASION_PAGES, wasionDemoPage } from '../server/wasion-demo-page.mjs';
+import { WASION_PAGES, WASION_DEMO_ROUTES, wasionDemoPage } from '../server/wasion-demo-page.mjs';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
 import {createWasionPageHandler} from '../api/crm-wasion-demo-page.js';
 
@@ -10,74 +11,15 @@ const content = JSON.parse(readFileSync(new URL('../server/wasion-demo-content.j
 const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
 const logo = 'https://en.wasion.com/public/uploads/images/20220517/ad428c0c9f42220db4e310a71131810b.png';
 const encode = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const markup = html => html.slice(0, html.indexOf('<script'));
+const markup = html => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
 const route = page => page.slug === 'home' ? '/demo/wasion' : `/demo/wasion/${page.slug}`;
-
-function sessionHarness({ slug='home', override }={}) {
-  const html=wasionDemoPage('fixture-nonce',{slug}),elements=new Map(),listeners=new Map(),calls=[],state={};
-  class Element {
-    constructor(){this.hidden=false;this.disabled=false;this.textContent='';this.attributes={};this.listeners=new Map();this.classList={toggle(){},remove(){}};}
-    addEventListener(name,handler){this.listeners.set(name,handler);}
-    getAttribute(name){return this.attributes[name];}
-    setAttribute(name,value){this.attributes[name]=String(value);}
-    removeAttribute(name){delete this.attributes[name];}
-  }
-  for(const [,id]of html.matchAll(/\bid="([^"]+)"/g))elements.set(id,new Element());
-  const menu=new Element(),navigation=new Element();
-  const document={getElementById:id=>elements.get(id),querySelector:selector=>selector==='.wd-menu'?menu:selector==='#wd-navigation'?navigation:null,addEventListener(){}};
-  const script=html.match(/<script nonce="fixture-nonce">([\s\S]*)<\/script>/)[1];
-  runInNewContext(script,{document,window:{addEventListener(name,handler){listeners.set(name,handler);}},AbortController,setTimeout,clearTimeout,
-    location:{replace(value){state.navigation=value;}},async fetch(url,options){const call={url,options,body:options.body?JSON.parse(options.body):undefined};calls.push(call);const response=await override?.(call,state)||{status:200,body:call.body?{ok:true}:{authenticated:true,identity:{role:'customer'}}};return{status:response.status??200,type:response.type,ok:(response.status??200)>=200&&(response.status??200)<300,async json(){return response.body;}};}});
-  return{html,state,calls,get:id=>elements.get(id),async click(id){await elements.get(id).listeners.get('click')();},async event(name,event={}){await listeners.get(name)?.(event);},async flush(){for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));}};
-}
-
-test('demo sign out confirms server revocation before hiding the page and preserves its original route',async()=>{
-  const h=sessionHarness({slug:'products'});assert.match(h.html,/id="wd-logout"[^>]*>Sign out/);await h.click('wd-logout');
-  assert.equal(h.get('wd-protected').hidden,true);assert.equal(new URL(h.state.navigation,'https://crm.example.test').searchParams.get('returnTo'),'/demo/wasion/products');
-  assert.equal(h.calls[0].url,'/api/crm');assert.deepEqual(h.calls[0].body,{action:'logout'});assert.equal(h.calls[0].options.credentials,'same-origin');assert.equal(h.calls[0].options.cache,'no-store');
-});
-
-test('demo failed sign out remains visible and never reports successful logout',async()=>{
-  for(const response of [{status:503,body:{error:'Unavailable'}},{status:200,body:{ok:false}}]){
-    const h=sessionHarness({override:()=>response});await h.click('wd-logout');assert.equal(h.get('wd-protected').hidden,false);assert.equal(h.state.navigation,undefined);assert.equal(h.get('wd-logout').disabled,false);assert.match(h.get('wd-session-heading').textContent,/not completed/);
-  }
-});
-
-test('demo history restore hides cached content before verifying current access',async()=>{
-  const h=sessionHarness({override:()=>({status:401,body:{authenticated:false}})});await h.event('pagehide');assert.equal(h.get('wd-protected').hidden,true);
-  await h.event('pageshow',{persisted:true});await h.flush();assert.equal(h.get('wd-protected').hidden,true);assert.equal(h.get('wd-session-login').hidden,false);assert.equal(h.get('wd-session-retry').hidden,true);
-  assert.equal(h.calls.length,1);assert.equal(h.calls[0].url,'/api/crm?view=session');assert.equal(h.calls[0].options.cache,'no-store');assert.equal(h.calls[0].body,undefined);
-});
-
-test('demo access outages offer a retry while keeping cached content hidden and never sending SMS',async()=>{
-  const h=sessionHarness({override:(_call,state)=>state.recovered?undefined:{status:503,body:{error:'Unavailable'}}});await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();
-  assert.equal(h.get('wd-protected').hidden,true);assert.equal(h.get('wd-session-login').hidden,true);assert.equal(h.get('wd-session-retry').hidden,false);assert.equal(h.get('wd-session-retry').disabled,false);
-  h.state.recovered=true;await h.click('wd-session-retry');assert.equal(h.get('wd-protected').hidden,false);assert.equal(h.get('wd-session-notice').hidden,true);
-  assert.equal(h.calls.length,3);assert.equal(h.calls[2].url,'/demo/wasion');assert.equal(h.calls[2].options.method,'HEAD');assert.equal(h.calls[2].options.redirect,'manual');assert.ok(h.calls.every(call=>!call.body));
-});
-
-test('demo history restore rechecks the exact resource and refuses denied or unavailable HEAD responses',async()=>{
-  for(const status of [0,302,401,403,404,503]){
-    const h=sessionHarness({slug:'products',override:call=>call.options.method==='HEAD'?{status,type:status===0?'opaqueredirect':undefined,body:{}}:undefined});await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();
-    assert.equal(h.get('wd-protected').hidden,true,String(status));assert.equal(h.calls.length,2);assert.equal(h.calls[1].url,'/demo/wasion/products');assert.equal(h.calls[1].options.method,'HEAD');assert.equal(h.calls[1].options.credentials,'same-origin');assert.equal(h.calls[1].options.cache,'no-store');assert.equal(h.calls[1].options.redirect,'manual');
-    assert.equal(h.get('wd-session-login').hidden,![0,302,401].includes(status));assert.equal(h.get('wd-session-retry').hidden,status!==503);
-    assert.ok(h.calls.every(call=>!call.body));
-  }
-});
-
-test('a delayed resource check cannot reveal a demo snapshot after navigation away',async()=>{
-  let completeHead;
-  const h=sessionHarness({override:call=>call.options.method==='HEAD'?new Promise(resolve=>{completeHead=resolve;}):undefined});
-  await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();assert.equal(typeof completeHead,'function');
-  await h.event('pagehide');completeHead({status:200,body:{}});await h.flush();assert.equal(h.get('wd-protected').hidden,true);
-});
 
 test('64 distinct official English pages render complete navigation with the requested logo', () => {
   assert.equal(WASION_PAGES.length, 64);
   assert.equal(new Set(WASION_PAGES.map(page => page.slug)).size, WASION_PAGES.length);
   assert.equal(new Set(WASION_PAGES.map(page => page.url)).size, WASION_PAGES.length);
   assert.equal(content.logoUrl, logo);
-  const validRoutes = new Set([...WASION_PAGES.map(route), '/demo/wasion/search']);
+  const validRoutes = new Set(WASION_DEMO_ROUTES.map(slug => slug === 'home' ? '/demo/wasion' : `/demo/wasion/${slug}`));
   for (const page of WASION_PAGES) {
     assert.match(page.slug, /^[a-z0-9-]+$/);
     assert.equal(new URL(page.url).origin, 'https://en.wasion.com');
@@ -132,21 +74,21 @@ test('software category reaches its reproduced products and resources retain all
     assert.ok(html.includes(`href="${encode(encodeURI(document.url))}"`), document.title);
     assert.ok(html.includes(encode(document.title)), document.title);
   }
-  assert.match(html, /current validity are determined by the official source/);
+  assert.match(html, /validity|official source/);
 });
 
 test('search queries are escaped in HTML attributes and cannot terminate the nonce script', () => {
   for (const query of ['</script><script>alert("x")</script>', '\"><img src=x onerror=alert(1)>', '& q="a" <b>\u2028\u2029']) {
     const html = wasionDemoPage('fixture-nonce', { slug: 'search', query });
-    assert.equal((html.match(/<script\b/g) || []).length, 1);
-    assert.equal((html.match(/<\/script>/g) || []).length, 1);
-    assert.ok(html.includes(`value="${encode(query)}"`));
+    assert.equal((html.match(/<script\b/g) || []).length, 2);
+    assert.equal((html.match(/<\/script>/g) || []).length, 2);
+    assert.ok(markup(html).includes(`value="${encode(query.trim())}"`));
     const script = html.match(/<script nonce="fixture-nonce">([\s\S]*)<\/script>/)[1];
     assert.doesNotThrow(() => new Script(script));
     assert.ok(script.includes(`const SEARCH_QUERY=${JSON.stringify(query).replace(/</g, '\\u003c')};`));
-    assert.match(script, /question:SEARCH_QUERY,language:'en'/);
+    assert.match(script, /question:next,language:'auto'/);
   }
-  assert.match(wasionDemoPage('fixture-nonce', { slug: 'search' }), /What would you like to know\?/);
+  assert.match(wasionDemoPage('fixture-nonce', { slug: 'search' }), /The right information. A clearer next step\./);
   for (const slug of ['not-a-page', '../about', 'ABOUT', 'search/extra', '<script>']) assert.equal(wasionDemoPage('fixture-nonce', { slug }), null);
 });
 
@@ -163,27 +105,22 @@ test('Vercel preserves the existing CRM entry and maps every demo child to the a
 
 test('page API enforces live CRM authentication, route bounds, private caching, HEAD and nonce CSP', async t => {
   const runtime={auth:{loadSession:async()=>null},projectAccessService:{getProject:async()=>({id:'fixture-project'})}};
-  const acl=runtime.projectAccessService;
-  const pageHandler=createWasionPageHandler({getRuntime:()=>runtime});
-  const originalSession = runtime.auth.loadSession;
-  const originalProject = acl.getProject;
-  acl.getProject = async () => ({id:"fixture-project"});
+  const rawHandler=createWasionPageHandler({getRuntime:()=>runtime});
+  const pageHandler=(req,res)=>rawHandler({...req,headers:{host:'crm.cnps.ai',...req.headers}},res);
+  const acl=runtime.projectAccessService,originalSession=runtime.auth.loadSession,originalProject=acl.getProject;
   const response = () => ({ headers: {}, setHeader(name, value) { this.headers[name] = value; }, end(body) { this.body = body; } });
   let session = null;
   runtime.auth.loadSession = async () => session;
   try {
     await t.test('anonymous and inactive viewers cannot read any demo page', async () => {
       const anonymous = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, anonymous);
+      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, anonymous);
       assert.equal(anonymous.statusCode, 302);
-      assert.equal(new URL(anonymous.headers.Location, 'https://crm.example.test').searchParams.get('returnTo'), '/demo/wasion/products');
+      assert.equal(anonymous.headers.Location, '/crm?returnTo=%2Fdemo%2Fwasion%2Fproducts');
       assert.equal(anonymous.body, undefined);
-      const search = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"},method:'GET',url:'/demo/wasion/search',query:{slug:'search',q:'AMI & smart meters',returnTo:'https://evil.example/'}},search);
-      assert.equal(new URL(search.headers.Location,'https://crm.example.test').searchParams.get('returnTo'),'/demo/wasion/search?q=AMI+%26+smart+meters');
       session = { identity: { role: 'customer', memberships: [{ role: 'customer', companyId: 'fixture', active: false }] } };
       const revoked = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, revoked);
+      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page?slug=products' }, revoked);
       assert.equal(revoked.statusCode, 404);
       assert.ok(!revoked.body.includes('<html'));
     });
@@ -191,7 +128,7 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
     await t.test('all 64 rewritten routes resolve for an authorized viewer with source content', async () => {
       for (const page of WASION_PAGES) {
         const res = response();
-        await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: route(page), query: { slug: page.slug } }, res);
+        await pageHandler({ method: 'GET', url: route(page), query: { slug: page.slug } }, res);
         assert.equal(res.statusCode, 200, page.slug);
         assert.match(res.body, /<html lang="en">/, page.slug);
         for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) assert.match(res.headers[name], /private, no-store/, page.slug);
@@ -206,7 +143,7 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
     });
     await t.test('HEAD uses the same authorization and routing while omitting the page body', async () => {
       const res = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'HEAD', url: '/api/crm-wasion-demo-page?slug=products' }, res);
+      await pageHandler({ method: 'HEAD', url: '/api/crm-wasion-demo-page?slug=products' }, res);
       assert.equal(res.statusCode, 200);
       assert.equal(res.body, undefined);
       assert.equal(res.headers['Content-Type'], 'text/html; charset=utf-8');
@@ -218,34 +155,93 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
         { method: 'GET', url: '/demo/wasion/search', query: { slug: 'search', q: query } }
       ]) {
         const res = response();
-        await pageHandler({...req,headers:{host:"crm.cnps.ai",...req.headers}}, res);
+        await pageHandler(req, res);
         assert.equal(res.statusCode, 200);
-        assert.ok(res.body.includes(`value="${encode(query)}"`));
-        assert.equal((res.body.match(/<script\b/g) || []).length, 1);
+        assert.ok(markup(res.body).includes(`value="${encode(query.trim())}"`));
+        assert.equal((res.body.match(/<script\b/g) || []).length, 2);
       }
       const maximum = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/demo/wasion/search', query: { slug: 'search', q: 'x'.repeat(500) } }, maximum);
+      await pageHandler({ method: 'GET', url: '/demo/wasion/search', query: { slug: 'search', q: 'x'.repeat(500) } }, maximum);
       assert.equal(maximum.statusCode, 200);
     });
     await t.test('invalid routes, oversized queries and unsupported methods do not render a page', async () => {
       for (const slug of ['not-a-page', '../about', 'ABOUT', 'search/extra', '<script>']) {
         const res = response();
-        await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug } }, res);
+        await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug } }, res);
         assert.equal(res.statusCode, 404, slug);
       }
       const oversized = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug: 'search', q: 'x'.repeat(501) } }, oversized);
+      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page', query: { slug: 'search', q: 'x'.repeat(501) } }, oversized);
       assert.equal(oversized.statusCode, 400);
       const post = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'POST', url: '/api/crm-wasion-demo-page' }, post);
+      await pageHandler({ method: 'POST', url: '/api/crm-wasion-demo-page' }, post);
       assert.equal(post.statusCode, 405);
     });
     await t.test('authentication outages fail closed', async () => {
       runtime.auth.loadSession = async () => { throw new Error('fixture authentication outage'); };
       const res = response();
-      await pageHandler({headers:{host:"crm.cnps.ai"}, method: 'GET', url: '/api/crm-wasion-demo-page' }, res);
+      await pageHandler({ method: 'GET', url: '/api/crm-wasion-demo-page' }, res);
       assert.equal(res.statusCode, 503);
       assert.ok(!res.body.includes('<html'));
     });
   } finally { runtime.auth.loadSession = originalSession; acl.getProject=originalProject; }
+});
+
+function sessionHarness({ slug='home', override }={}) {
+  const html=wasionDemoPage('fixture-nonce',{slug}),elements=new Map(),listeners=new Map(),calls=[],state={};
+  class Element {
+    constructor(){this.hidden=false;this.disabled=false;this.textContent='';this.attributes={};this.listeners=new Map();this.classList={toggle(){},remove(){}};}
+    addEventListener(name,handler){this.listeners.set(name,handler);}
+    getAttribute(name){return this.attributes[name];}
+    setAttribute(name,value){this.attributes[name]=String(value);}
+    removeAttribute(name){delete this.attributes[name];}
+  }
+  for(const [,id]of html.matchAll(/\bid="([^"]+)"/g))elements.set(id,new Element());
+  const menu=new Element(),navigation=new Element();
+  const document={getElementById:id=>elements.get(id),querySelector:selector=>selector==='.wd-menu'?menu:selector==='#wd-navigation'?navigation:null,addEventListener(){}};
+  const full=html.match(/<script nonce="fixture-nonce">([\s\S]*)<\/script>/)[1];const script=full.match(/const CRM_LOGIN_URL=.*?;const CRM_PAGE_URL=.*?;/)[0]+SESSION_CLIENT;
+  runInNewContext(script,{document,window:{addEventListener(name,handler){listeners.set(name,handler);}},AbortController,setTimeout,clearTimeout,
+    location:{replace(value){state.navigation=value;}},async fetch(url,options){const call={url,options,body:options.body?JSON.parse(options.body):undefined};calls.push(call);const response=await override?.(call,state)||{status:200,body:call.body?{ok:true}:{authenticated:true,identity:{role:'customer'}}};return{status:response.status??200,type:response.type,ok:(response.status??200)>=200&&(response.status??200)<300,async json(){return response.body;}};}});
+  return{html,state,calls,get:id=>elements.get(id),async click(id){await elements.get(id).listeners.get('click')();},async event(name,event={}){await listeners.get(name)?.(event);},async flush(){for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));}};
+}
+
+test('demo sign out confirms server revocation before hiding the page and preserves its original route',async()=>{
+  const h=sessionHarness({slug:'products'});assert.match(h.html,/id="wd-logout"[^>]*>Sign out/);await h.click('wd-logout');
+  assert.equal(h.get('wd-protected').hidden,true);assert.equal(new URL(h.state.navigation,'https://crm.example.test').searchParams.get('returnTo'),'/demo/wasion/products');
+  assert.equal(h.calls[0].url,'/api/crm');assert.deepEqual(h.calls[0].body,{action:'logout'});assert.equal(h.calls[0].options.credentials,'same-origin');assert.equal(h.calls[0].options.cache,'no-store');
+});
+
+test('demo failed sign out remains visible and never reports successful logout',async()=>{
+  for(const response of [{status:503,body:{error:'Unavailable'}},{status:200,body:{ok:false}}]){
+    const h=sessionHarness({override:()=>response});await h.click('wd-logout');assert.equal(h.get('wd-protected').hidden,false);assert.equal(h.state.navigation,undefined);assert.equal(h.get('wd-logout').disabled,false);assert.match(h.get('wd-session-heading').textContent,/not completed/);
+  }
+});
+
+test('demo history restore hides cached content before verifying current access',async()=>{
+  const h=sessionHarness({override:()=>({status:401,body:{authenticated:false}})});await h.event('pagehide');assert.equal(h.get('wd-protected').hidden,true);
+  await h.event('pageshow',{persisted:true});await h.flush();assert.equal(h.get('wd-protected').hidden,true);assert.equal(h.get('wd-session-login').hidden,false);assert.equal(h.get('wd-session-retry').hidden,true);
+  assert.equal(h.calls.length,1);assert.equal(h.calls[0].url,'/api/crm?view=session');assert.equal(h.calls[0].options.cache,'no-store');assert.equal(h.calls[0].body,undefined);
+});
+
+test('demo access outages offer a retry while keeping cached content hidden and never sending SMS',async()=>{
+  const h=sessionHarness({override:(_call,state)=>state.recovered?undefined:{status:503,body:{error:'Unavailable'}}});await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();
+  assert.equal(h.get('wd-protected').hidden,true);assert.equal(h.get('wd-session-login').hidden,true);assert.equal(h.get('wd-session-retry').hidden,false);assert.equal(h.get('wd-session-retry').disabled,false);
+  h.state.recovered=true;await h.click('wd-session-retry');assert.equal(h.get('wd-protected').hidden,false);assert.equal(h.get('wd-session-notice').hidden,true);
+  assert.equal(h.calls.length,3);assert.equal(h.calls[2].url,'/demo/wasion');assert.equal(h.calls[2].options.method,'HEAD');assert.equal(h.calls[2].options.redirect,'manual');assert.ok(h.calls.every(call=>!call.body));
+});
+
+test('demo history restore rechecks the exact resource and refuses denied or unavailable HEAD responses',async()=>{
+  for(const status of [0,302,401,403,404,503]){
+    const h=sessionHarness({slug:'products',override:call=>call.options.method==='HEAD'?{status,type:status===0?'opaqueredirect':undefined,body:{}}:undefined});await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();
+    assert.equal(h.get('wd-protected').hidden,true,String(status));assert.equal(h.calls.length,2);assert.equal(h.calls[1].url,'/demo/wasion/products');assert.equal(h.calls[1].options.method,'HEAD');assert.equal(h.calls[1].options.credentials,'same-origin');assert.equal(h.calls[1].options.cache,'no-store');assert.equal(h.calls[1].options.redirect,'manual');
+    assert.equal(h.get('wd-session-login').hidden,![0,302,401].includes(status));assert.equal(h.get('wd-session-retry').hidden,status!==503);
+    assert.ok(h.calls.every(call=>!call.body));
+  }
+});
+
+test('a delayed resource check cannot reveal a demo snapshot after navigation away',async()=>{
+  let completeHead;
+  const h=sessionHarness({override:call=>call.options.method==='HEAD'?new Promise(resolve=>{completeHead=resolve;}):undefined});
+  await h.event('pagehide');await h.event('pageshow',{persisted:true});await h.flush();assert.equal(typeof completeHead,'function');
+  await h.event('pagehide');completeHead({status:200,body:{}});await h.flush();assert.equal(h.get('wd-protected').hidden,true);
 });

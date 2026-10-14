@@ -14,7 +14,7 @@ const request = (body = { question: 'Prepayment solutions', language: 'en' }, he
   method: 'POST', headers: { origin: 'https://crm.cnps.ai', 'x-cnps-crm': '1', 'content-type': 'application/json', ...headers }, body
 });
 const response = () => ({ headers: {}, setHeader(name, value) { this.headers[name] = value; }, end(value) { this.body = value; } });
-const modelResponse = (answer, supported = true) => ({ ok: true, text: async () => JSON.stringify({ choices: [{ message: { content: JSON.stringify({ answer, supported }) } }] }) });
+const modelResponse = (answer, supported = true, language) => ({ ok: true, text: async () => JSON.stringify({ choices: [{ message: { content: JSON.stringify({ answer, supported, ...(language ? { language } : {}) }) } }] }) });
 const config = { env: { CRM_AI_API_KEY: 'test-key' }, principal, rateLimit: async () => true };
 const modelForContext = async (_url, options) => {
   const sent = JSON.parse(options.body), source = JSON.parse(sent.messages[1].content).officialSources[0];
@@ -45,6 +45,27 @@ test('exact model queries rank specific product pages and retrieve real technica
   assert.match(gateway.excerpt, /IP65/);
   assert.equal(retrieveWasionSources('aMeter99999').resultCount, 0);
   assert.equal(retrieveWasionSources('aMeter300 and IEC99999').resultCount, 0);
+});
+
+test('short product excerpts retain complete communication rows and their protocols', () => {
+  const source = WASION_SOURCES.find(page => page.id === 'i-110-series-smart-water-meter');
+  const retrieval = retrieveWasionSources('What communication options does I110 support?', { limit: 64 });
+  assert.equal(retrieval.resultCount, 1);
+  assert.equal(retrieval.results[0].excerpt, source.passages.join('\n'));
+  for (const fact of ['LoRaWAN', 'Wired M-BUS/RS485', 'Wireless M-BUS (EN13757.4)', 'EN13757.3, DLMS/COSEM,MODBUS-RTU']) {
+    assert.ok(retrieval.results[0].excerpt.includes(fact), `Missing communication evidence: ${fact}`);
+  }
+});
+
+test('new captured DTECH source has a stable route and supports AMI 2.0 discovery', () => {
+  assert.equal(WASION_SOURCES.length, 65);
+  const source = WASION_SOURCES.find(page => page.id === 'dtech-2026');
+  assert.equal(source.href, '/demo/wasion/dtech-2026');
+  assert.equal(source.url, 'https://en.wasion.com/news/120.html');
+  const found = retrieveWasionSources('DTECH Aventa AMI 2.0');
+  assert.equal(found.results[0].id, source.id);
+  assert.match(found.results[0].excerpt, /Aventa/);
+  assert.match(found.results[0].excerpt, /AMI 2\.0/);
 });
 
 test('application and communication searches prioritize their matching official solutions', () => {
@@ -91,6 +112,53 @@ test('AI prompt defaults to English even for a Chinese question, and only suppli
   assert.match(zhPrompt, /Answer in Chinese/);
   assert.equal(zh.data.language, 'zh');
   assert.equal(zh.data.ai.generated, true);
+});
+
+test('short citation codes resolve only to the supplied source and return canonical IDs', async () => {
+  let context, prompt;
+  const result = await answerWasionQuestion({ ...config, question: 'AMI', fetchImpl: async (_url, options) => {
+    const sent = JSON.parse(options.body); prompt = sent.messages[0].content;
+    context = JSON.parse(sent.messages[1].content).officialSources;
+    return modelResponse('The official pages describe utility AMI applications. [s1] A related page offers further information. [ s2 ]');
+  } });
+  assert.equal(result.data.ai.generated, true);
+  assert.match(prompt, /short citation code/);
+  assert.deepEqual(context.map(source => source.citation), ['s1', 's2', 's3', 's4', 's5', 's6']);
+  assert.ok(result.data.answer.includes(`[${context[0].id}]`));
+  assert.ok(result.data.answer.includes(`[${context[1].id}]`));
+  assert.ok(!result.data.answer.includes('[s1]'));
+  assert.deepEqual(result.data.sources.map(source => source.id), context.slice(0, 2).map(source => source.id));
+  for (const citation of ['s7', 's0', '1', 'source-1', 'invented-page']) {
+    const rejected = await answerWasionQuestion({ ...config, question: 'I110', fetchImpl: async () => modelResponse(`A claim. [${citation}]`) });
+    assert.equal(rejected.data.ai.generated, false);
+    assert.equal(rejected.data.ai.reason, 'invalid_citations');
+  }
+  for (const answer of ['Claim [s1](https://evil.example/)', 'Claim [s1] (javascript:alert(1))', 'Claim https://evil.example/ [s1]']) {
+    const rejected = await answerWasionQuestion({ ...config, question: 'I110', fetchImpl: async () => modelResponse(answer) });
+    assert.equal(rejected.data.ai.generated, false);
+    assert.equal(rejected.data.ai.reason, 'invalid_citations');
+  }
+});
+
+test('automatic mode follows question language while enforcing model-specific evidence', async () => {
+  let prompt, sentSource;
+  const result = await answerWasionQuestion({ ...config, question: '¿Qué comunicaciones admite I110?', language: 'auto', fetchImpl: async (_url, options) => {
+    const sent = JSON.parse(options.body); prompt = sent.messages[0].content;
+    sentSource = JSON.parse(sent.messages[1].content).officialSources[0];
+    return modelResponse('La página oficial incluye LoRaWAN y M-BUS. [s1]', true, 'es');
+  } });
+  assert.equal(result.status, 200);
+  assert.equal(result.data.ai.generated, true);
+  assert.equal(result.data.language, 'es');
+  assert.ok(result.data.answer.includes('[i-110-series-smart-water-meter]'));
+  assert.match(prompt, /Detect the question's natural language and answer in that same language/);
+  assert.match(prompt, /company logo is not evidence/);
+  assert.match(prompt, /exact model\/configuration/);
+  assert.match(sentSource.excerpt, /LoRaWAN/);
+  const fallback = await answerWasionQuestion({ env: {}, principal, question: 'I110 有哪些通信方式？', language: 'auto' });
+  assert.equal(fallback.status, 200);
+  assert.equal(fallback.data.language, 'zh');
+  assert.equal(fallback.data.ai.generated, false);
 });
 
 test('retrieval remains available without a key, when quota fails, and when inference fails', async () => {

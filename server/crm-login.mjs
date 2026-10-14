@@ -4,10 +4,15 @@ function escapeAttribute(value) {
   return String(value).replace(/[&<>"']/g, character => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[character]));
 }
 
-export function crmLoginPage(nonce, { returnTo } = {}) {
+export function safeDemoReturnTo(value) {
+  return typeof value === 'string' && /^\/demo\/wasion(?:\/[a-z0-9-]+)?$/.test(value) ? value : '';
+}
+
+export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
   const safeNonce = escapeAttribute(nonce);
+  const resumeSearch = sanitizeCrmReturnTo(returnTo)==='/demo/wasion/search' && typeof resumeQuestion==='string' && resumeQuestion.trim().length>0 && resumeQuestion.length<=500 && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(resumeQuestion);
   const safeReturnTo = JSON.stringify(sanitizeCrmReturnTo(returnTo)).replaceAll('<', '\\u003c');
-  return `<!doctype html>
+  let html = `<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -39,7 +44,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
     <div class="card">
       <p class="loading" id="loading" role="status">正在确认登录状态…</p>
       <p class="status" id="session-check-status" role="status" aria-live="polite" hidden></p>
-      <form id="login" hidden>
+      <form id="login" hidden>${resumeSearch ? '<p class="session-note">After verification, your search will continue from this page.</p>' : ''}
         <h2>手机号登录</h2>
         <p class="sub">客户在本浏览器验证后，30 天内免重复验证。管理员与销售经理登录有效期为 8 小时。</p>
         <div class="field">
@@ -76,6 +81,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
 (() => {
   'use strict';
   const returnTo = ${safeReturnTo};
+  const resumeSearch = ${resumeSearch};let resumeSubmitted=false;
   const byId = id => document.getElementById(id);
   const form = byId('login'), send = byId('send'), submit = byId('submit');
   const phone = byId('phone'), code = byId('code'), consent = byId('consent');
@@ -161,6 +167,7 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
+        if(resumeSearch){if(!resumeSubmitted){resumeSubmitted=true;byId('demo-resume').submit();}return;}
         if (announce || returnTo || result.identity.role==='proposal_viewer') { location.replace(returnTo || (result.identity.role==='proposal_viewer'?'/w':'/crm/workspace')); return; }
         if (announce) byId('session-title').focus();
       } else {
@@ -243,4 +250,26 @@ export function crmLoginPage(nonce, { returnTo } = {}) {
 </script>
 </body>
 </html>`;
+  if (sanitizeCrmReturnTo(returnTo)?.startsWith('/demo/wasion')) {
+    const copy = [
+      ['身份验证 · CNPS 客户工作台', 'Verify access | Wasion demo'],
+      ['CNPS.AI <span>客户工作台</span>', 'WASION <span>Private customer demo</span>'],
+      ['CLIENT ACCESS · CNPS', 'WASION DEMO · VERIFIED ACCESS'],
+      ['确认身份，<span>连接每一步合作。</span>', 'Verify once.<span>Explore the Wasion demo.</span>'],
+      ['使用手机号登录。项目资料按所属公司与授权范围开放，访问权限由项目对接人管理。', 'Use your mobile number and SMS code to verify access. Once verified, continue browsing throughout your secure session.'],
+      ['手机号登录', 'Verify your mobile number'], ['中国大陆手机号', 'Mainland China mobile number'],
+      ['短信验证码', 'SMS verification code'], ['获取验证码', 'Get code'],
+      ['验证并登录', 'Verify and enter demo'], ['请输入11位手机号', '11-digit mobile number'], ['6位验证码', '6-digit code'],
+      ['请使用您本人持有的手机号。', 'Use a mobile number you control.'],
+      ['验证码仅用于本次登录，请勿提供给他人。', 'The code is for this verification. Do not share it.'],
+      ['同意为身份验证、访问授权与登录记录处理手机号，并通过短信服务发送验证码。', 'I agree to use my mobile number for access verification and receive an SMS code.'],
+      ['使用短信验证码验证身份。资料权限以实际授权为准。', 'Verify access once for this secure session. Your existing account permissions apply.']
+    ];
+    copy.push(['客户在本浏览器验证后，30 天内免重复验证。管理员与销售经理登录有效期为 8 小时。','Customers stay verified in this browser for 30 days. Administrator and sales sessions last 8 hours.'],['手机号用于身份验证与资料访问管理。登录凭据由本浏览器安全保存；换浏览器、清除 Cookie 或主动退出后需重新验证。访问不会延长登录有效期。登录不会自动开通其他公司或项目的访问权限；需要资料授权，请联系项目对接人。','Your secure login stays in this browser. A new browser, cleared cookies, sign-out or expired access requires verification again. Browsing does not extend the expiry. Existing company and project permissions apply.'],['登录有效至 ','Access valid until '],['登录有效期由服务器核验。','Session expiry is verified by the server.']);
+    copy.push(...[["资料授权范围", "Access scope"], ["所属公司", "Company"], ["关联项目", "Project"], ["授权资料", "Authorised information"], ["项目资料仅供获授权人员查阅", "For authorised viewers only"], ["正在确认登录状态…", "Checking your session…"], ["身份验证", "Access verification"], ["手机号用于身份验证与资料访问管理。登录凭据由浏览器安全会话保存。登录不会自动开通其他公司或项目的访问权限；需要资料授权，请联系项目对接人。", "Your mobile number is used for access verification. A secure browser session keeps you signed in. For account access, contact your project representative."], ["登录状态已生效，可继续访问获授权的资料。", "Your session is active. Continue to the authorised information."], ["项目资料按公司与授权范围开放。客户方案使用独立访问授权，如提示验证身份，请按该页面完成验证。", "Your existing company and project permissions apply."], ["身份已验证", "Access verified"], ["您已登录", "You are signed in"], ["登录手机号", "Mobile number"], ["当前身份", "Account role"], ["进入客户工作台", "Open client workspace"], ["查看客户方案", "View client proposal"], ["退出登录", "Sign out"], ["重新检查登录状态", "Check session again"], ["请启用浏览器 JavaScript 后使用短信登录。", "Enable JavaScript to use SMS verification."], ["重新发送", "Resend code"], ["60秒后重试", "Retry in 60s"], ["秒后重试", "s to retry"], ["分钟后重试", "min to retry"], ["小时后重试", "h to retry"], ["服务暂时不可用，请稍后重试。", "The service is unavailable. Please try again."], ["暂时无法完成，请稍后重试。", "The request could not be completed. Please try again."], ["请求超时，请检查网络后重试。", "The request timed out. Check your connection and retry."], ["网络连接异常，请检查网络后重试。", "Check your connection and retry."], ["已验证手机号", "Verified mobile number"], ["高级管理员", "Administrator"], ["销售经理", "Sales manager"], ["授权用户", "Authorised viewer"], ["客户", "Customer"], ["登录状态未生效，请重新获取验证码。", "Your session was not confirmed. Request a new code."], ["登录状态暂时无法确认。", "Your session could not be confirmed. "], ["手机号已更改，请为当前手机号获取验证码。", "The mobile number changed. Request a code for this number."], ["正在发送验证码…", "Sending a verification code…"], ["验证码请求未完成，请稍后重试。", "The code request was not completed. Please retry."], ["验证码已发送，请查看短信并输入6位验证码。", "The code was sent. Enter the 6-digit SMS code."], ["请先为当前手机号获取验证码。", "Request a code for the current mobile number first."], ["正在验证身份…", "Verifying access…"], ["验证未完成，请重试。", "Verification was not completed. Please retry."], ["正在退出登录…", "Signing out…"], ["退出未完成，请重试。", "Sign-out was not completed. Please retry."], ["已退出登录。", "You are signed out."]]);
+    for (const [from, to] of copy.sort((a,b)=>b[0].length-a[0].length)) html = html.replaceAll(from, to);
+    html = html.replace('<html lang="zh-CN">', '<html lang="en">').replace("toLocaleString('zh-CN'","toLocaleString('en-GB'");
+  }
+  if(resumeSearch) html=html.replace('<body>',`<body><form id="demo-resume" action="/demo/wasion/search" method="post" hidden><input type="hidden" name="q" value="${escapeAttribute(resumeQuestion)}"></form>`);
+  return html;
 }
