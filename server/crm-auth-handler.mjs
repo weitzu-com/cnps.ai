@@ -12,10 +12,11 @@ const CHALLENGE_SECONDS = 300;
 const validToken = value => typeof value === 'string' && /^[A-Za-z0-9_-]{43}$/.test(value);
 const validId = value => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value);
 const cookie = (name, value, age, sameSite = 'Strict') => `${name}=${value}; Path=/; HttpOnly; Secure; SameSite=${sameSite}; Max-Age=${age}`;
-const verificationRole = identity => identity.role==='admin'?'admin':identity.contexts?.some(c=>c.role==='sales_manager')?'sales_manager':identity.role;
+// A long customer login cannot acquire a short-lived collaboration role.
+const verificationRole = identity => identity.role==='admin'?'admin':identity.contexts?.some(c=>c.role==='sales_manager')?'sales_manager':identity.contexts?.some(c=>c.role==='partner')?'partner':identity.role;
 const validEpoch = value => Number.isSafeInteger(value) && value >= 0;
 const sessionSeconds = role => role === 'customer' ? CUSTOMER_SESSION_SECONDS : STAFF_SESSION_SECONDS;
-const roleRank = role => ({ customer: 0, partner:0, proposal_viewer:0, unassigned:0, sales_manager: 1, admin: 2 })[role];
+const roleRank = role => ({ customer: 0, unassigned:0, partner:1, proposal_viewer:1, sales_manager: 2, admin: 3 })[role];
 function sendLimitResponse(blocked, timestamp) {
   const chinaTime = new Date(timestamp + 8 * 3600e3);
   const year = chinaTime.getUTCFullYear(), month = chinaTime.getUTCMonth(), day = chinaTime.getUTCDate();
