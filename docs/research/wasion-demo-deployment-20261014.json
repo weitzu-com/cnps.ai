@@ -1,0 +1,88 @@
+{
+  "project": {
+    "id": "prj_QxCNPtwoD0d7XCFGQiOqceP0Qoso",
+    "name": "cnps-ai",
+    "accountId": "team_NeVMsoOye9JK4gzGEmmRlL2X",
+    "framework": "nextjs",
+    "rootDirectory": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "nodeVersion": "24.x",
+    "git": {
+      "type": "github",
+      "org": "weitzu-com",
+      "repo": "cnps.ai",
+      "productionBranch": "main"
+    }
+  },
+  "latest_production": {
+    "id": "dpl_ARN2Acc4vEwXBeLL9gpXwso9TVug",
+    "url": "cnps-fx8p4wil4-aipy.vercel.app",
+    "name": "cnps-ai",
+    "readyState": "READY",
+    "source": "cli",
+    "target": "production",
+    "alias": [
+      "crm.cnps.ai",
+      "www.cnps.ai",
+      "cnps-ai.vercel.app",
+      "cnps.ai",
+      "cnps-ai-aipy.vercel.app"
+    ],
+    "createdAt": 1791977710795,
+    "buildingAt": 1791977711867,
+    "ready": 1791977721229,
+    "meta": {
+      "actor": "codex",
+      "githubCommitSha": null,
+      "githubCommitRef": null
+    },
+    "gitSource": null,
+    "buildSettings": {
+      "buildCommand": "npm run build",
+      "outputDirectory": "dist",
+      "framework": null,
+      "nodeVersion": "24.x"
+    }
+  },
+  "production_history": [
+    {
+      "uid": "dpl_ARN2Acc4vEwXBeLL9gpXwso9TVug",
+      "url": "cnps-fx8p4wil4-aipy.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "created": 1791977710795,
+      "git": {
+        "githubCommitSha": null,
+        "githubCommitRef": null
+      }
+    },
+    {
+      "uid": "dpl_6RTdhfaT5hADX7iuibV7MAPVt2Fh",
+      "url": "cnps-e372earoo-aipy.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "created": 1791971845593,
+      "git": {
+        "githubCommitSha": "16f35cf26335125a2a15e05ad70df37c1040b2ee",
+        "githubCommitRef": "main"
+      }
+    },
+    {
+      "uid": "dpl_F7i9HwHgPCk52XXxWrX82mpy3gwn",
+      "url": "cnps-ckaswfasl-aipy.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "created": 1791971501029,
+      "git": {
+        "githubCommitSha": "08129d2724ff34ccb8d0390f17c6170a0db7923e",
+        "githubCommitRef": "main"
+      }
+    }
+  ],
+  "observedAt": "2026-10-14T19:42:24.725915+08:00",
+  "notes": [
+    "Latest production was deployed with Vercel CLI without a Git source; Wasion demo files are untracked in recovered migration checkout.",
+    "Implementation base uses latest GitHub main and selectively adopts demo route files; credentials and production env values omitted."
+  ]
+}
