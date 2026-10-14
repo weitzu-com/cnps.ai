@@ -80,7 +80,7 @@ async function readJson(req) {
 // are ignored. Do not infer company membership from a submitted name or email.
 // This handler authenticates identity only; every business API must enforce its
 // own company/project/document ACL. A returned session is not a Twenty API token.
-export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMemberships = async () => [], recordVisit, now = () => Date.now() }) {
+export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMemberships = async () => [], recordVisit, reportFailure = event => console.warn('CNPS_CRM_AUTH_FAILURE', JSON.stringify(event)), now = () => Date.now() }) {
   let store;
   const storage = () => store ??= storeFactory(env);
   const adminPhone = () => {
@@ -126,6 +126,7 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       res.end(req.method === 'HEAD' ? undefined : JSON.stringify(data));
     };
+    let failureStage = 'configuration';
     try {
       const url = new URL(req.url, 'https://www.cnps.ai');
       if (url.pathname !== '/api/crm') return json(404, { error: '接口不存在。' });
@@ -134,6 +135,7 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
       adminPhone();
       if (req.method === 'GET' || req.method === 'HEAD') {
         if (url.searchParams.get('view') !== 'session') return json(404, { error: '接口不存在。' });
+        failureStage = 'session-read';
         const session = await loadSession(req);
         if (!session) return json(401, { authenticated: false, error: '请先通过短信验证登录。' });
         return json(200, { authenticated: true, identity: session.identity });
@@ -156,7 +158,9 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
       if (data.action === 'send') {
         if (data.consent !== true) return json(400, { error: '请先同意身份验证说明。' });
         const phone = normalizePhone(data.phone);
+        failureStage = 'authorization';
         if (!phone || !await identityFor(phone)) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
+        failureStage = 'sms-configuration';
         const sms = smsFactory(env), pid = hash('phone', phone);
         const sendTime = now(), date = new Date(sendTime + 8 * 3600e3).toISOString();
         const limits = [
@@ -166,6 +170,7 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
           { name: `send-day:${date.slice(0, 10)}`, max: SMS_GLOBAL_DAILY_LIMIT, ttl: 172800 },
           { name: `send-month:${date.slice(0, 7)}`, max: SMS_GLOBAL_MONTHLY_LIMIT, ttl: 32 * 86400 }
         ];
+        failureStage = 'storage';
         const quotaStore = storage();
         const quota = typeof quotaStore.reserveDetailed === 'function'
           ? await quotaStore.reserveDetailed(limits)
@@ -176,7 +181,9 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
           return json(429, response);
         }
         const id = randomBytes(32).toString('base64url'), binding = randomBytes(32).toString('base64url');
+        failureStage = 'sms-send';
         await sms.send(phone, id);
+        failureStage = 'storage';
         await storage().set(`challenge:${id}`, { purpose: PURPOSE, pid, subject: sealPhone(phone), binding: hash('crm-binding', binding), attempts: 0 }, CHALLENGE_SECONDS);
         res.setHeader('Set-Cookie', cookie(CRM_CHALLENGE_COOKIE, binding, CHALLENGE_SECONDS));
         return json(200, { challenge: id });
@@ -184,20 +191,25 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
       if (data.action === 'verify') {
         const binding = cookies[CRM_CHALLENGE_COOKIE];
         if (!validToken(data.challenge) || !validToken(binding) || typeof data.code !== 'string' || !/^\d{6}$/.test(data.code)) return json(400, { error: '验证码无效或已过期，请重新获取。' });
+        failureStage = 'storage';
         if (!await storage().reserve([{ name: `verify-ip:${ipId}`, max: 30, ttl: 600 }])) return json(429, { error: '验证过于频繁，请稍后重试。' });
         const bindingId = hash('crm-binding', binding);
         const challenge = await storage().attempt(data.challenge, bindingId);
         if (challenge?.purpose !== PURPOSE || !challenge.subject) return json(400, { error: '验证码无效或已过期，请重新获取。' });
         const phone = openPhone(challenge.subject);
         if (!phone || hash('phone', phone) !== challenge.pid || (data.phone !== undefined && normalizePhone(data.phone) !== phone)) return json(400, { error: '验证码无效或已过期，请重新获取。' });
+        failureStage = 'authorization';
         const identity = await identityFor(phone);
         if (!identity) return json(403, { error: '该手机号暂未获授权，请联系项目对接人。' });
+        failureStage = 'sms-verify';
         if (!await smsFactory(env).verify(phone, data.code, data.challenge)) return json(400, { error: '验证码无效或已过期，请重新获取。' });
+        failureStage = 'storage';
         if (!await storage().consume(data.challenge, bindingId)) return json(400, { error: '验证码已使用，请重新获取。' });
         const token = randomBytes(32).toString('base64url');
         const sessionName = `session:${hash('crm-session', token)}`;
         const visit = { purpose: 'crm-sms-login', identityId: challenge.pid, role: identity.role, companyIds: identity.memberships.map(entry => entry.companyId), occurredAt: now() };
         await storage().set(sessionName, { purpose: PURPOSE, pid: challenge.pid, subject: sealPhone(phone), expires: now() + SESSION_SECONDS * 1000 }, SESSION_SECONDS);
+        failureStage = 'login-record';
         try {
           // This record is an access event only; it never creates a lead/company
           // or grants membership. A trusted adapter may link it to an existing CRM contact.
@@ -212,8 +224,13 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
       }
       return json(400, { error: '请求操作无效。' });
     } catch {
-      // Never log provider errors, phone numbers, credentials, cookies or codes.
-      return json(503, { error: '访问服务暂不可用，请稍后重试或联系项目对接人。' });
+      // Log only the fixed internal stage, never provider errors, phone numbers,
+      // credentials, cookies, challenge IDs or verification codes.
+      try { reportFailure({ stage: failureStage }); } catch {}
+      const error = failureStage === 'sms-send' ? '短信发送服务暂不可用，请稍后重试。'
+        : failureStage === 'sms-verify' ? '短信验证服务暂不可用，请稍后重新获取验证码。'
+        : '访问服务暂不可用，请稍后重试或联系项目对接人。';
+      return json(503, { error, code: 'CRM_AUTH_UNAVAILABLE', stage: failureStage });
     }
   };
   handler.loadSession = loadSession;

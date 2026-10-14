@@ -2,6 +2,7 @@ import { randomBytes } from 'node:crypto';
 import { getCrmRuntime } from '../server/crm-runtime.mjs';
 import { authorizeWasionCustomer } from '../server/wasion-demo.mjs';
 import { wasionDemoPage, WASION_PAGES } from '../server/wasion-demo-page.mjs';
+import { crmLoginUrl, demoReturnTo } from '../server/crm-return.mjs';
 
 export default async function handler(req, res) {
   for (const name of ['Cache-Control', 'CDN-Cache-Control', 'Vercel-CDN-Cache-Control']) res.setHeader(name, 'private, no-store, max-age=0');
@@ -10,14 +11,14 @@ export default async function handler(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   if (!['GET', 'HEAD'].includes(req.method)) { res.statusCode = 405; return res.end(); }
-  let access, auth, service;
+  let access, auth;
   try {
-    ({ auth, service } = getCrmRuntime());
-    access = await authorizeWasionCustomer({ req, auth, service });
+    ({ auth } = getCrmRuntime());
+    access = await authorizeWasionCustomer({ req, auth });
   }
   catch { res.statusCode = 503; return res.end('Customer access could not be verified. Please try again.'); }
   if (!access) {
-    if (!await auth.loadSession(req).catch(() => null)) { res.statusCode = 302; res.setHeader('Location', '/crm'); return res.end(); }
+    if (!await auth.loadSession(req).catch(() => null)) { res.statusCode = 302; res.setHeader('Location', crmLoginUrl(demoReturnTo(req))); return res.end(); }
     res.statusCode = 404; return res.end('This page is unavailable for the current account.');
   }
   const url = new URL(req.url, 'https://crm.cnps.ai');

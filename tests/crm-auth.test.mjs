@@ -9,9 +9,9 @@ import { createHandler as createProposalHandler } from '../server/proposal-handl
 const adminPhone = '18700001111';
 const customerPhone = '18800002222';
 function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime = Date.UTC(2026, 9, 13) } = {}) {
-  let time = startTime, sends = 0, verifications = 0, smsFailure = false;
+  let time = startTime, sends = 0, verifications = 0, smsFailure = false, verifyFailure = false;
   const env = { CNPS_PROPOSAL_SECRET: randomBytes(32).toString('hex'), CNPS_PROPOSAL_ALLOWED_PHONES: adminPhone, CNPS_CRM_ADMIN_PHONE: adminPhone };
-  const limits = new Map(), values = new Map(), visits = [];
+  const limits = new Map(), values = new Map(), visits = [], failures = [];
   const reserve = async items => {
     for (const item of items) {
       const entry = limits.get(item.name);
@@ -61,9 +61,9 @@ function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime
   const crmStore = memoryStore('crm:'), proposalStore = memoryStore('proposal:');
   const smsFactory = () => ({
     async send() { if (smsFailure) throw new Error('secret provider diagnostics'); sends++; },
-    async verify(phone, code) { verifications++; return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
+    async verify(phone, code) { if (verifyFailure) throw new Error('private provider error'); verifications++; return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
   });
-  const handler = createCrmAuthHandler({ env, storeFactory: () => crmStore, smsFactory,
+  const handler = createCrmAuthHandler({ env, reportFailure: event => failures.push(event), storeFactory: () => crmStore, smsFactory,
     loadMemberships: async phone => memberDirectory.get(phone) || [], now: () => time,
     recordVisit: async visit => visits.push(visit) });
   const proposalHandler = createProposalHandler({ env, storeFactory: () => proposalStore, smsFactory,
@@ -85,11 +85,26 @@ function harness({ memberDirectory = new Map(), detailedQuotas = true, startTime
     assert.equal(response.status, 200, response.text);
     return { challenge, cookie: response.headers['set-cookie'][0].split(';')[0], response };
   }
-  return { env, handler, request, send, login, visits, values, limits, memberDirectory, advance: ms => time += ms,
-    sends: () => sends, verifications: () => verifications, failSms: () => smsFailure = true,
+  return { env, handler, request, send, login, visits, values, limits, failures, memberDirectory, advance: ms => time += ms,
+    sends: () => sends, verifications: () => verifications, failSms: () => smsFailure = true, failVerify: () => verifyFailure = true,
     proposalRequest: (url, input) => request(url, input, proposalHandler) };
 }
 const member = (role = 'customer', companyId = 'company-A') => ({ companyId, active: true, role, permissions: ['projects:read', 'documents:read'], projectIds: ['project-A'], documentIds: ['document-A'] });
+
+test('provider outages identify the failing step without logging credentials, codes or granting a session', async () => {
+  const sending = harness(); sending.failSms();
+  const failedSend = await sending.request('/api/crm', {method:'POST',body:{action:'send',phone:adminPhone,consent:true}});
+  assert.equal(failedSend.status,503); assert.equal(failedSend.json().stage,'sms-send');
+  assert.deepEqual(sending.failures,[{stage:'sms-send'}]);
+  const checking = harness(); const challenge = await checking.send(); checking.failVerify();
+  const failedVerify = await checking.request('/api/crm', {method:'POST',cookie:challenge.cookie,body:{action:'verify',challenge:challenge.id,code:'123456'}});
+  assert.equal(failedVerify.status,503); assert.equal(failedVerify.json().stage,'sms-verify');
+  assert.equal(failedVerify.headers['set-cookie'],undefined);
+  assert.deepEqual(checking.failures,[{stage:'sms-verify'}]);
+  const output = JSON.stringify([sending.failures,checking.failures,failedSend.json(),failedVerify.json()]);
+  for (const value of [adminPhone,'123456',challenge.id,'private provider error']) assert.ok(!output.includes(value));
+  assert.equal((await checking.request('/api/crm?view=session')).status,401);
+});
 
 test('only explicitly approved admin bypasses directory; original proposal allowlist is not CRM authorization', async () => {
   const h = harness();

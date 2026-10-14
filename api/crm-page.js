@@ -1,5 +1,6 @@
 import { randomBytes } from 'node:crypto';
 import { crmLoginPage } from '../server/crm-login.mjs';
+import { crmPageReturnTo } from '../server/crm-return.mjs';
 
 export default function crmPage(req, res) {
   const nonce = randomBytes(18).toString('base64');
@@ -18,5 +19,5 @@ export default function crmPage(req, res) {
   }
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.end(req.method === 'HEAD' ? undefined : crmLoginPage(nonce));
+  res.end(req.method === 'HEAD' ? undefined : crmLoginPage(nonce, { returnTo: crmPageReturnTo(req.url) }));
 }

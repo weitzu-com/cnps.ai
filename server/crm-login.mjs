@@ -1,9 +1,11 @@
+import { safeCrmReturnTo } from './crm-return.mjs';
 function escapeAttribute(value) {
   return String(value).replace(/[&<>"']/g, character => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[character]));
 }
 
-export function crmLoginPage(nonce) {
+export function crmLoginPage(nonce, { returnTo } = {}) {
   const safeNonce = escapeAttribute(nonce);
+  const destination = JSON.stringify(safeCrmReturnTo(returnTo)).replace(/</g, '\\u003c');
   return `<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -70,7 +72,7 @@ export function crmLoginPage(nonce) {
 <script nonce="${safeNonce}">
 (() => {
   'use strict';
-const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuery=new URLSearchParams();for(const key of ['companyId','deliveryId']){const value=deliveryParams.get(key);if(value&&/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value))deliveryQuery.set(key,value);}if(deliveryQuery.size)document.querySelector('a[href="/crm/workspace"]').href='/crm/workspace?'+deliveryQuery.toString();
+  const returnTarget = ${destination};
   const byId = id => document.getElementById(id);
   const form = byId('login'), send = byId('send'), submit = byId('submit');
   const phone = byId('phone'), code = byId('code'), consent = byId('consent');
@@ -146,6 +148,7 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
+        if (announce || returnTarget) { location.replace(returnTarget || '/crm/workspace'); return; }
         if (announce) byId('session-title').focus();
       } else {
         form.hidden = false; session.hidden = true;

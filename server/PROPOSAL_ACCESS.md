@@ -40,6 +40,9 @@ Failed/unknown sends still consume the reserved website quota conservatively.
 No code/phone/provider error is logged. Redis contains HMAC identifiers, random
 challenge IDs, and expiring session records, never SMS codes or phone plaintext.
 Send counters expire within 32 days. Aliyun and Vercel have their own service logs.
+CRM failures record only a fixed internal stage (for example `sms-verify` or
+`storage`), so service outages can be located without retaining provider error
+messages, credentials, challenges, phone numbers or verification codes.
 
 Volcengine delivery notifications use the same daily/monthly policy ceilings,
 but retain separate segment-weighted provider counters. Company delivery
