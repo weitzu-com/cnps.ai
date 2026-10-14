@@ -263,6 +263,7 @@ export function createAccessService({
       const contexts = memberships.map((m) => ({
         id: `member:${m.companyId}:${m.role}`,
         companyId: m.companyId,
+        companyName: d.companies[m.companyId]?.name,
         role: m.role,
         permissions: m.permissions,
       }));
@@ -437,14 +438,9 @@ export function createAccessService({
             .map((v) => v.trim().replace(/^\+86/, "")),
         );
         if (!phones.has(p.phone)) fail(404);
-        await base.proposalAccess(p.phone, binding);
-        if (assetId && Object.hasOwn(binding.documents, assetId))
-          await base.download(
-            p,
-            binding.companyId,
-            binding.documents[assetId].documentId,
-            binding.documents[assetId].versionId,
-          );
+        await base.proposalAccess(p.phone, binding, {
+          download: Boolean(assetId && Object.hasOwn(binding.documents, assetId)),
+        });
       }
       return {
         grantId: g.id,
