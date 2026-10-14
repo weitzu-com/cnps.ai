@@ -70,7 +70,7 @@ export function crmLoginPage(nonce) {
 <script nonce="${safeNonce}">
 (() => {
   'use strict';
-const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuery=new URLSearchParams();for(const key of ['companyId','deliveryId']){const value=deliveryParams.get(key);if(value&&/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value))deliveryQuery.set(key,value);}if(deliveryQuery.size)document.querySelector('a[href="/crm/workspace"]').href='/crm/workspace?'+deliveryQuery.toString();
+const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuery=new URLSearchParams();for(const key of ['companyId','deliveryId','projectId']){const value=deliveryParams.get(key);if(value&&/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(value))deliveryQuery.set(key,value);}if(deliveryQuery.size)document.querySelector('a[href="/crm/workspace"]').href='/crm/workspace?'+deliveryQuery.toString();
   const byId = id => document.getElementById(id);
   const form = byId('login'), send = byId('send'), submit = byId('submit');
   const phone = byId('phone'), code = byId('code'), consent = byId('consent');
@@ -142,7 +142,7 @@ const deliveryParams=new URLSearchParams(location.search||'');const deliveryQuer
       const result = await request('session');
       if (result?.authenticated === true && result.identity && typeof result.identity === 'object') {
         byId('session-phone').textContent = typeof result.identity.phoneMasked === 'string' ? result.identity.phoneMasked : '已验证手机号';
-        byId('session-role').textContent = ({admin: '管理员', customer: '客户', sales_manager: '销售经理'})[result.identity.role] || '授权用户';
+        byId('session-role').textContent = ({admin: '高级管理员', customer: '客户', sales_manager: '销售经理'})[result.identity.role] || '授权用户';
         resetChallenge();
         form.hidden = true; session.hidden = false;
         message(sessionStatus, '');
