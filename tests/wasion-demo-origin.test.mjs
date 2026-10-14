@@ -102,6 +102,9 @@ test('expired native POST keeps all style login recovery pages same-origin and r
     assert.ok(recovery.body.includes('id="demo-resume" action="' + wasionStyleBase(style) + '/search" method="post"'));
     assert.ok(recovery.body.includes('name="q" value="' + escape(question) + '"'));
     assert.match(recovery.headers['content-security-policy'], /form-action 'self';/);
+    assert.match(recovery.body, /class="brand-logo" src="data:image\/png;base64,[^"]+" alt="Wasion International" width="1850" height="306"/);
+    assert.match(recovery.headers['content-security-policy'], /img-src data:;/);
+    assert.doesNotMatch(recovery.headers['content-security-policy'], /img-src[^;]*(?:https?:|\*)/);
     subject.setSession(viewer);
     const resumed = response(); await subject.handler(req, resumed);
     assert.equal(resumed.statusCode, 200); assertPrivate(resumed);

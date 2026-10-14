@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import { createCrmAuthHandler, CRM_SESSION_COOKIE, CRM_CHALLENGE_COOKIE } from '../server/crm-auth-handler.mjs';
 import { createCrmStore } from '../server/crm-auth-store.mjs';
-import { createCrmSms, CRM_SMS_SCHEME } from '../server/crm-auth-sms.mjs';
+import { createCrmSms, CRM_SMS_SCHEME, crmSmsFailureCategory } from '../server/crm-auth-sms.mjs';
 import { createHandler as createProposalHandler } from '../server/proposal-handler.mjs';
 
 const adminPhone = '18700001111';
 const customerPhone = '18800002222';
-function harness({ memberDirectory = new Map(), accessDirectory, detailedQuotas = true, startTime = Date.UTC(2026, 9, 13) } = {}) {
+function harness({ memberDirectory = new Map(), accessDirectory, detailedQuotas = true, startTime = Date.UTC(2026, 9, 13), smsFactoryOverride } = {}) {
   let time = startTime, sends = 0, verifications = 0, smsFailure = false, verifyFailure = false;
   let onVerify, onSessionWrite, onVisit, directoryFailure = false, storeFailure = false;
   const env = { CNPS_PROPOSAL_SECRET: randomBytes(32).toString('hex'), CNPS_PROPOSAL_ALLOWED_PHONES: adminPhone, CNPS_CRM_ADMIN_PHONE: adminPhone };
@@ -63,10 +63,10 @@ function harness({ memberDirectory = new Map(), accessDirectory, detailedQuotas 
     };
   };
   const crmStore = memoryStore('crm:'), proposalStore = memoryStore('proposal:');
-  const smsFactory = () => ({
+  const smsFactory = smsFactoryOverride || (() => ({
     async send() { if (smsFailure) throw new Error('secret provider diagnostics'); sends++; },
     async verify(phone, code) { if (verifyFailure) throw new Error('private provider error'); verifications++; if (onVerify) { const callback = onVerify; onVerify = null; await callback(); } return [adminPhone, customerPhone].includes(phone) && code === '123456'; }
-  });
+  }));
   const handler = createCrmAuthHandler({ env, loadAccess: accessDirectory ? async phone => accessDirectory.get(phone) || {memberships:[],contexts:[],proposals:[]} : undefined, reportFailure: event => failures.push(event), storeFactory: () => crmStore, smsFactory,
     loadMemberships: async phone => { if (directoryFailure) throw new Error('fixture directory outage'); return memberDirectory.get(phone) || []; }, now: () => time,
     recordVisit: async visit => { visits.push(visit); if (onVisit) { const callback = onVisit; onVisit = null; await callback(); } } });
@@ -102,12 +102,12 @@ test('provider outages identify the failing step without logging credentials, co
   const sending = harness(); sending.failSms();
   const failedSend = await sending.request('/api/crm', {method:'POST',body:{action:'send',phone:adminPhone,consent:true}});
   assert.equal(failedSend.status,503); assert.equal(failedSend.json().stage,'sms-send');
-  assert.deepEqual(sending.failures,[{stage:'sms-send'}]);
+  assert.deepEqual(sending.failures,[{stage:'sms-send',category:'unclassified'}]);
   const checking = harness(); const challenge = await checking.send(); checking.failVerify();
   const failedVerify = await checking.request('/api/crm', {method:'POST',cookie:challenge.cookie,body:{action:'verify',challenge:challenge.id,code:'123456'}});
   assert.equal(failedVerify.status,503); assert.equal(failedVerify.json().stage,'sms-verify');
   assert.equal(failedVerify.headers['set-cookie'],undefined);
-  assert.deepEqual(checking.failures,[{stage:'sms-verify'}]);
+  assert.deepEqual(checking.failures,[{stage:'sms-verify',category:'unclassified'}]);
   const output = JSON.stringify([sending.failures,checking.failures,failedSend.json(),failedVerify.json()]);
   for (const value of [adminPhone,'123456',challenge.id,'private provider error']) assert.ok(!output.includes(value));
   assert.equal((await checking.request('/api/crm?view=session')).status,401);
@@ -566,6 +566,74 @@ test('Aliyun factory reuses approved channel settings but isolates provider Sche
   assert.equal(requests[0].returnVerifyCode, false);
   assert.equal(requests[0].autoRetry, 0);
   assert.equal(requests[0].outId, 'crm-challenge-id');
+});
+
+test('SMS provider diagnostics classify exact business and transport codes without retaining provider data', async () => {
+  const env = { ALIYUN_ACCESS_KEY_ID: 'test-key', ALIYUN_ACCESS_KEY_SECRET: 'test-secret', ALIYUN_SMS_SIGN_NAME: 'test-sign', ALIYUN_SMS_TEMPLATE_CODE: 'test-template' };
+  const cases = [
+    ['ETIMEDOUT', 'timeout'], ['ECONNRESET', 'network'],
+    ['InvalidAccessKeyId.NotFound', 'authentication'], ['isp.RAM_PERMISSION_DENY', 'permission'],
+    ['isv.OUT_OF_SERVICE', 'account'], ['biz.FREQUENCY', 'rate-limit'],
+    ['EntityNotExist.SmsTemplateCode', 'configuration'], ['isp.SYSTEM_ERROR', 'provider'],
+    ['unknown-code-with-private-data', 'unclassified'], ['__proto__', 'unclassified'],
+    ['ETIMEDOUT private-data', 'unclassified'], [123456, 'unclassified']
+  ];
+  for (const [code, category] of cases) {
+    for (const operation of ['send', 'verify', 'business-response']) {
+      const source = Object.assign(new Error('private provider message'), { code, phone: adminPhone, content: '123456', requestId: 'private-request-id', category: 'forged-category' });
+      const client = {
+        async sendSmsVerifyCode() { if (operation !== 'business-response') throw source; return { body: { code, success: false, message: source.message, model: source } }; },
+        async checkSmsVerifyCode() { throw source; }
+      };
+      const sms = createCrmSms(env, { client });
+      await assert.rejects(() => operation === 'verify' ? sms.verify(adminPhone, '123456', 'challenge') : sms.send(adminPhone, 'challenge'), error => {
+        assert.equal(crmSmsFailureCategory(error), category);
+        assert.equal(error.message, 'SMS provider unavailable');
+        assert.deepEqual(Object.keys(error), []);
+        assert.equal(error.cause, undefined);
+        assert.equal(JSON.stringify(error), '{}');
+        return true;
+      });
+    }
+  }
+  const hostile = new Proxy({}, { get() { throw new Error('private getter'); } });
+  const sms = createCrmSms(env, { client: { async sendSmsVerifyCode() { throw hostile; } } });
+  await assert.rejects(() => sms.send(adminPhone, 'challenge'), error => crmSmsFailureCategory(error) === 'unclassified');
+  const timeout = createCrmSms(env, { client: { async sendSmsVerifyCode() { throw Object.assign(new Error('private timeout details'), { name: 'RequestTimeoutError' }); } } });
+  await assert.rejects(() => timeout.send(adminPhone, 'challenge'), error => crmSmsFailureCategory(error) === 'timeout');
+  assert.equal(crmSmsFailureCategory({ category: 'timeout', code: 'ETIMEDOUT', message: adminPhone }), 'unclassified');
+  assert.equal(crmSmsFailureCategory(null), 'unclassified');
+});
+
+test('SMS failure categories stay in server logs while client responses, cooldown and invalid-code behavior stay unchanged', async () => {
+  const env = { ALIYUN_ACCESS_KEY_ID: 'test-key', ALIYUN_ACCESS_KEY_SECRET: 'test-secret', ALIYUN_SMS_SIGN_NAME: 'test-sign', ALIYUN_SMS_TEMPLATE_CODE: 'test-template' };
+  for (const stage of ['sms-send', 'sms-verify']) {
+    const providerError = Object.assign(new Error(`private ${adminPhone} 123456`), {
+      code: 'ETIMEDOUT', category: 'forged-category', requestId: 'private-request-id', credentials: 'private-credentials', content: '123456'
+    });
+    const client = {
+      async sendSmsVerifyCode() { if (stage === 'sms-send') throw providerError; return { body: { code: 'OK', success: true } }; },
+      async checkSmsVerifyCode() { throw providerError; }
+    };
+    const h = harness({ smsFactoryOverride: () => createCrmSms(env, { client }) });
+    const challenge = stage === 'sms-verify' ? await h.send() : null;
+    const response = await h.request('/api/crm', { method: 'POST', cookie: challenge?.cookie, body: challenge
+      ? { action: 'verify', challenge: challenge.id, code: '123456' }
+      : { action: 'send', phone: adminPhone, consent: true } });
+    assert.equal(response.status, 503);
+    assert.deepEqual(response.json(), { error: stage === 'sms-send' ? '短信发送服务暂不可用，请稍后重试。' : '短信验证服务暂不可用，请稍后重新获取验证码。', code: 'CRM_AUTH_UNAVAILABLE', stage });
+    assert.deepEqual(h.failures, [{ stage, category: 'timeout' }]);
+    assert.equal(response.headers['set-cookie'], undefined);
+    assert.equal(storedSession(h), undefined);
+    const output = JSON.stringify([h.failures, response.json()]);
+    for (const value of [adminPhone, '123456', 'ETIMEDOUT', 'forged-category', 'private-request-id', 'private-credentials', 'private provider']) assert.ok(!output.includes(value));
+    const retry = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+    assert.equal(retry.status, 429);
+    assert.equal(retry.json().code, 'SMS_COOLDOWN');
+    assert.equal(retry.json().retryAfterSeconds, 60);
+  }
+  const sms = createCrmSms(env, { client: { async checkSmsVerifyCode() { return { body: { code: 'isv.ValidateFail', success: false } }; } } });
+  assert.equal(await sms.verify(adminPhone, '123456', 'challenge'), false);
 });
 
 test('long customer cookies cannot become partner contexts or bypass the eight-hour policy',async()=>{
