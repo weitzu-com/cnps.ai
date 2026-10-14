@@ -1,3 +1,4 @@
+import { normalizeCustomerProfile, customerProfileIssues, parseCustomerProfileText } from './crm-customer-profile.mjs';
 import { randomUUID } from 'node:crypto';
 import { digest, keyBytes } from './proposal-crypto.mjs';
 import { normalizePhone } from './proposal-handler.mjs';
@@ -352,6 +353,32 @@ export function createBusinessService({ env, store, twenty, documents, notificat
       // Only this explicitly authenticated admin action registers a tenant.
       // Public inquiry ingestion must never call this portal registration path.
       return service.registerCompany(principal, native.id);
+    },
+    async getCustomerProfile(principal, companyId) {
+      const {directory,state}=await snapshot(companyId,principal);manage(directory,principal,companyId);
+      const native=await authoritative('getCompany',companyId);
+      const profile=state.customerProfile || {data:normalizeCustomerProfile({legalName:'',website:native.domain||''}),version:0,updatedAt:null,updatedBy:null,source:'unconfirmed'};
+      const latest=await store.getDirectory();manage(latest,principal,companyId);
+      return {...clone(profile),companyName:native.name,issues:customerProfileIssues(profile.data)};
+    },
+    async previewCustomerProfile(principal, companyId, source) {
+      const {directory}=await snapshot(companyId,principal);manage(directory,principal,companyId);await authoritative('getCompany',companyId);
+      return parseCustomerProfileText(source);
+    },
+    async saveCustomerProfile(principal, companyId, input, expectedVersion) {
+      if(!Number.isSafeInteger(expectedVersion)||expectedVersion<0)fail(400,'客户档案版本无效。');
+      const data=normalizeCustomerProfile(input);
+      await authoritative('getCompany',companyId);
+      return companyWrite(principal,companyId,next=>{
+        const previous=next.customerProfile;
+        if((previous?.version||0)!==expectedVersion)fail(409,'客户档案已被其他人修改，请刷新后重试。');
+        const profile={data,version:expectedVersion+1,updatedAt:now(),updatedBy:subject(principal),source:'staff_confirmed'};
+        next.customerProfile=profile;
+        next.customerProfileHistory ||= [];
+        next.customerProfileHistory.push({version:profile.version,at:profile.updatedAt,actorId:profile.updatedBy,data:clone(data)});
+        next.events.push(event(principal,'customer-profile.update',{companyId,version:profile.version}));
+        return {...clone(profile),issues:customerProfileIssues(data)};
+      });
     },
     async listContacts(principal, companyId) {
       const directory = await store.getDirectory(); manage(directory, principal, companyId);

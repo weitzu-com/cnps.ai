@@ -55,6 +55,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'companies': result = await service.listCompanies(principal); break;
           case 'managers': result = await service.listManagers(principal, companyId); break;
           case 'staff': result = await service.listStaff(principal); break;
+          case 'customerProfile': result = await service.getCustomerProfile(principal, companyId); break;
           case 'contacts': result = await service.listContacts(principal, companyId); break;
           case 'projects': result = await service.listProjects(principal, companyId); break;
           case 'project': {
@@ -86,7 +87,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
         if (env.VERCEL_URL) origins.add(`https://${env.VERCEL_URL}`);
         if (!origins.has(req.headers.origin) || req.headers['x-cnps-crm'] !== '1') return json(403, { error: '请求来源无效。' });
         let data;
-        try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError) throw error; throw new BusinessError(400, '请求格式无效。'); }
+        try { data = await readJson(req); } catch (error) { if (error instanceof BusinessError || error?.status === 400) throw error; throw new BusinessError(400, '请求格式无效。'); }
         const companyId = data.companyId, projectId = data.projectId;
         switch (data.action) {
           case 'createDelivery': result = await service.createDelivery(principal,companyId,projectId,data.fields); break;
@@ -98,6 +99,8 @@ export function createBusinessHandler({ env, authHandler, service }) {
           case 'knowledgeAnswer': result = await knowledgeAnswer({env,service,principal,companyId,projectId,question:data.question,documentIds:data.documentIds}); break;
           case 'projectAi': result = await projectAi({env,service,principal,companyId,projectId,question:data.question}); break;
           case 'registerCompany': result = await service.registerCompany(principal, companyId); break;
+          case 'saveCustomerProfile': result = await service.saveCustomerProfile(principal,companyId,data.fields,data.expectedVersion); break;
+          case 'previewCustomerProfile': result = await service.previewCustomerProfile(principal,companyId,data.source); break;
           case 'createCompany': result = await service.createCompany(principal, data.fields); break;
           case 'createContact': result = await service.createContact(principal, companyId, data.fields); break;
           case 'updateContact': result = await service.updateContact(principal, companyId, data.contactId, data.fields); break;
@@ -121,7 +124,7 @@ export function createBusinessHandler({ env, authHandler, service }) {
       }
       return json(200, { ok: true, data: result });
     } catch (error) {
-      if (error instanceof BusinessError) return json(error.status, { error: error.message });
+      if (error instanceof BusinessError || error?.status === 400) return json(error.status, { error: error.message });
       // Provider diagnostics, private contact fields and credentials stay server-only.
       return json(503, { error: '客户工作台暂不可用，请稍后重试。' });
     }

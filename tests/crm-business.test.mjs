@@ -993,6 +993,22 @@ test('web activity loses a concurrent authorization revocation race and writes n
  assert.equal((await h.service.listEvents(manager,'company-A')).filter(e=>e.action.startsWith('proposal.')).length,0);
 });
 
+test('customer profiles remain private to company managers with versioned concurrent updates', async () => {
+ const h=await setup();const initial=await h.service.getCustomerProfile(manager,'company-A');assert.equal(initial.version,0);assert.equal(initial.data.legalName,'');
+ await assert.rejects(h.service.getCustomerProfile(customer,'company-A'),status(404));
+ await assert.rejects(h.service.getCustomerProfile(manager,'company-B'),status(404));
+ const fields={legalName:'Synthetic company',invoice:{title:'Synthetic billing title',taxId:'123456789012345',bankAccount:'001234567890',email:'billing@example.test'},addresses:[{id:'address-A',recipient:'Synthetic recipient',phone:'18700001111',detail:'Synthetic delivery address',isDefault:true}]};
+ const saved=await h.service.saveCustomerProfile(manager,'company-A',fields,0);assert.equal(saved.version,1);assert.equal(saved.data.invoice.bankAccount,'001234567890');
+ await assert.rejects(h.service.saveCustomerProfile(manager,'company-A',fields,0),status(409));
+ await assert.rejects(h.service.saveCustomerProfile(customer,'company-A',fields,1),status(404));
+ const state=await h.store.getCompany('company-A');assert.equal(state.customerProfileHistory.length,1);assert.equal(state.events.at(-1).action,'customer-profile.update');assert.equal(state.events.at(-1).bankAccount,undefined);
+ h.beforeCommit(()=>h.service.assignManager(admin,'staff-A',['company-B']));await assert.rejects(h.service.saveCustomerProfile(manager,'company-A',fields,1),status(409));assert.equal((await h.store.getCompany('company-A')).customerProfile.version,1);
+});
+test('profile API rejects customers and keeps text extraction as an unsaved draft', async()=>{
+ const h=await setup();const denied=await h.request('view=customerProfile&companyId=company-A');assert.equal(denied.status,404);
+ const result=await h.request('',{actor:'manager',method:'POST',body:{action:'previewCustomerProfile',companyId:'company-A',source:'企业名称：Synthetic company\n税号：123456789012345\n开户账号：001234567890'}});assert.equal(result.status,200);assert.equal(result.json().data.fields['invoice.bankAccount'],'001234567890');assert.equal((await h.service.getCustomerProfile(manager,'company-A')).version,0);
+ const invalid=await h.request('',{actor:'manager',method:'POST',body:{action:'saveCustomerProfile',companyId:'company-A',expectedVersion:0,fields:{invoice:{bankAccount:'not a number'}}}});assert.equal(invalid.status,400);
+});
 
 test('two managers share the same customer records and revocation changes only one relationship', async () => {
   const h = await setup(), second = principal('actor-manager-second', 'sales_manager');
