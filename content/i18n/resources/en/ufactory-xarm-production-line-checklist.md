@@ -1,8 +1,26 @@
 You are preparing a UFACTORY xArm for an overseas production line — not a desk demo. Use this checklist to freeze the workcell, mounting, workspace, payload and reach as fields to confirm, the SDK and permissions path, and a site safety assessment. You are not collecting a lab certificate here. Confirm every numeric limit and edition against current supplier documents and your destination rules before you commit the line.
 
+## The seven checks at a glance
+
+You can treat this table as the one-screen version of the checklist: each row is one numbered section below, and a row is done only when the right-hand column is true for the exact cell you will run. The UFACTORY guidance cited here was read from UFACTORY Docs on 21 September 2026; you recheck the current documents for your edition.
+
+| # | Check | Done when |
+| --- | --- | --- |
+| 1 | Line task and workcell | station job written; fixtures, cameras, conveyors or tables in the cell named |
+| 2 | Mounting surface and base | shockproof, sturdy surface; base bolts tight; UFACTORY’s base-joint torsion and arm-weight guidance met |
+| 3 | Working space | envelope includes your end effector; people and equipment kept out; Control Box outside the working range |
+| 4 | Payload, reach and tooling | payload, reach, workspace, end effectors, fixtures and cameras confirmed for the exact edition — fields, not invented numbers |
+| 5 | SDK and permissions | edition, configuration code, firmware, developer permissions, SDK version, operating system, interfaces and examples confirmed in writing |
+| 6 | Safety assessment | qualified site owner named; complete-system risk assessment under the rules of the country where you install; safety assessment done at each install and recorded after re-install and debug |
+| 7 | Supervised acceptance | successful attempts counted against all attempts; failed runs and recovery times kept; excluded work agreed in writing |
+
+The strip below shows the four checks you freeze physically at the station: mount (2), workspace (3), fields to confirm (4) and safety (6).
+
+![Four-step readiness strip — mount / workspace / fields / safety — no fake seals](/assets/resources/ufactory-xarm-production-line-checklist-steps.webp)
+
 ## Who this checklist is for
 
-You should use this page when your overseas team is moving an xArm-class arm from evaluation toward a supervised production-line cell. You keep the sister case for workcell narrative and the parent resource for configuration and SDK procurement. You stay here for production-line readiness: what you must freeze on site before you treat the cell as line-ready.
+You should use this page when your overseas team is moving an xArm-class arm from evaluation toward a supervised production-line cell. You keep the sister case for workcell narrative and the parent resource for configuration and SDK procurement. You stay here for production-line readiness: what you must freeze on site before you treat the cell as line-ready. That covers an xArm in manufacturing: a station on a line with real workpieces, fixtures and operators, not a desk demo.
 
 ## 1. Freeze the line task and the workcell — not only the arm
 
@@ -34,8 +52,6 @@ You treat the manufacturer safety and installation manuals as inputs, not as a c
 
 You name a qualified operator and an acceptance owner on your side. You start in simulation where you can, then run controlled, supervised tests with difficult examples included. You count successful attempts against all attempts, and you preserve failed runs, recovery times and configuration changes. You agree excluded work in writing so a passing sample does not silently expand into unowned line scope.
 
-![Four-step readiness strip — mount / workspace / confirm / safety — no fake seals](/assets/resources/ufactory-xarm-production-line-checklist-steps.webp)
-
 ## What this page will not invent
 
 You will not get payload tables, reach millimetres, accuracy percentages, prices, enquiry volumes or certificate years invented for CNPS. You will not get a claim that an SDK is a complete safety design or a production-ready workcell. You will not get a CNPS partnership claim with UFACTORY or a guaranteed task result. Recheck live supplier documents and destination rules when your edition or site changes.
@@ -66,8 +82,8 @@ You confirm payload, reach, workspace, end effectors, fixtures and cameras for t
 
 You keep hardware supply and exact edition with the supplier, integration and tooling with your integrator or customer engineering team, and site safety with a qualified site owner. You assign training, maintenance and spares to an agreed service provider, and acceptance to your customer project owner. You write those names before you ask for a firm quotation.
 
-### When should you open Start a conversation from this checklist?
+### When should you send your requirement from this checklist?
 
-You open [Start a conversation](https://www.cnps.ai/en/request-quote) when you can share destination, industrial or research task, preferred platform, development needs, quantity, timeline and local support plan. You should not send only a model name. You use that path after you freeze the workcell and confirmation fields above, so the enquiry matches a production-line readiness state.
+You send your requirement through [Request a quotation for devices or a pilot.](https://www.cnps.ai/en/request-quote) when you can share destination, industrial or research task, preferred platform, development needs, quantity, timeline and local support plan. You should not send only a model name. You use that path after you freeze the workcell and confirmation fields above, so the enquiry matches a production-line readiness state.
 
 You now have a production-line readiness sequence for an overseas xArm cell: freeze the station and workcell, verify mounting and workspace, confirm payload and reach as fields, route SDK and permissions to the parent resource, record a site safety assessment, then accept only with supervised metrics. Open [Robotics procurement: configuration and SDK access](https://www.cnps.ai/en/resources/robotics-procurement) when you need that path next; keep the case study for workcell narrative. Recheck live documents when your edition or destination changes.
