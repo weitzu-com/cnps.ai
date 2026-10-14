@@ -437,3 +437,8 @@ test('company deep links select a matching authorized context and display compan
  assert.match(h.get('context-select').textContent,/Company A/);
  assert.match(h.get('context-select').textContent,/Company B/);
 });
+
+test('proposal-only identities leave the company workspace without fetching company data',async()=>{
+ const h=harness({role:'proposal_viewer',proposals:[{id:'wasion-web-v1'}]});await h.flush();
+ assert.equal(h.state.navigation,'/w');assert.equal(h.calls.some(c=>c.view==='companies'),false);assert.equal(h.get('workspace').hidden,true);
+});

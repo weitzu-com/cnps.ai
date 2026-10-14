@@ -15,7 +15,9 @@ export default async function handler(req, res) {
   const incoming = new URL(req.url, 'https://crm.cnps.ai');
   const returnTo = sanitizeCrmReturnTo('/workspace' + incoming.search) || '/workspace';
   try {
-    if (!await getCrmRuntime().auth.loadSession(req)) { res.statusCode = 302; res.setHeader('Location', crmLoginUrl(returnTo)); return res.end(); }
+    const session = await getCrmRuntime().auth.loadSession(req);
+    if (!session) { res.statusCode = 302; res.setHeader('Location', crmLoginUrl(returnTo)); return res.end(); }
+    if (session.identity.role === 'proposal_viewer') { res.statusCode = 302; res.setHeader('Location', '/w'); return res.end(); }
     const nonce = randomBytes(18).toString('base64');
     res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; object-src 'none'`);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
