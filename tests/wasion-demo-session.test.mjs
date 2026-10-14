@@ -10,11 +10,13 @@ class Target {
 }
 const pending = () => { let resolve; const promise = new Promise(done => { resolve = done; }); return { promise, resolve }; };
 
-function harness(respond) {
+function harness(respond, question) {
   const ids = ['wd-protected', 'wd-session-notice', 'wd-session-heading', 'wd-session-message', 'wd-session-login', 'wd-session-retry', 'wd-logout'];
   const elements = new Map(ids.map(id => [id, new Target()]));
   for (const id of ['wd-session-notice', 'wd-session-login', 'wd-session-retry']) elements.get(id).hidden = true;
   const dialog = { open: true, closes: 0, close() { this.open = false; this.closes += 1; } };
+  const posts = [];
+  if (question !== undefined) { elements.set('ws-query', { value: question }); elements.set('ws-form', { submit() { posts.push(elements.get('ws-query').value); } }); }
   const document = { getElementById: id => elements.get(id), querySelectorAll: () => dialog.open ? [dialog] : [] };
   const forbidden = new Proxy({}, { get() { throw new Error('Session verification must not use browser storage or logging'); } });
   Object.defineProperty(document, 'cookie', { get() { throw new Error('Cookies remain server-controlled'); }, set() { throw new Error('Cookies remain server-controlled'); } });
@@ -30,7 +32,7 @@ function harness(respond) {
       return { status: response.status ?? 200, ok: (response.status ?? 200) >= 200 && (response.status ?? 200) < 300, type: response.type || 'basic', async json() { if (response.jsonError) throw response.jsonError; return await response.body; } };
     }
   });
-  return { element: id => elements.get(id), dialog, window, calls, redirects, loginUrl, timeouts, flush: () => new Promise(resolve => setImmediate(resolve)) };
+  return { posts, element: id => elements.get(id), dialog, window, calls, redirects, loginUrl, timeouts, flush: () => new Promise(resolve => setImmediate(resolve)) };
 }
 
 test('notice is initially hidden, accessible and only links to the local login page', () => {
@@ -153,4 +155,17 @@ test('failed logout does not claim the server session ended or navigate away', a
     assert.match(h.element('wd-session-message').textContent, /not been confirmed as ended/);
     assert.equal(h.element('wd-session-login').hidden, true);
   }
+});
+
+
+test('BFCache sign-in recovery preserves the current search through native POST', async () => {
+  const question = 'I110 通信 & "参数" <check>';
+  const h = harness(async () => ({ status: 401 }), question);
+  await h.window.emit('pageshow', { persisted: true }); await h.flush();
+  assert.equal(h.element('wd-protected').hidden, true);
+  let prevented = false;
+  await h.element('wd-session-login').emit('click', { preventDefault() { prevented = true; } });
+  assert.equal(prevented, true);
+  assert.deepEqual(h.posts, [question]);
+  assert.deepEqual(h.redirects, []);
 });

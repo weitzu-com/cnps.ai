@@ -49,6 +49,22 @@ const copy = {
   }
 };
 
+// Citation existence alone does not ground a technical value. Reject numeric
+// tokens absent from the cited excerpt/title, keeping ordinary retrieval usable.
+// This is a conservative guard, not proof of semantic entailment or certification.
+function hasUnsupportedNumbers(answer, context, aliases) {
+  const numbers = text => (text.match(/\d+(?:[.,]\d+)*/g) || []).map(value =>
+    /^\d{1,3}(?:,\d{3})+$/.test(value) ? value.replace(/,/g, '') : value.replace(',', '.'));
+  let end = 0;
+  for (const match of answer.matchAll(/([\s\S]*?)((?:\[[^\]\r\n]+\]\s*)+)/g)) {
+    const cited = [...match[2].matchAll(/\[([^\]\r\n]+)\]/g)].map(token => aliases.get(token[1].trim()) || aliases.get(token[1].trim().toLowerCase()));
+    const evidence = new Set(numbers(context.filter(source => cited.includes(source.id)).map(source => source.title + '\n' + source.excerpt).join('\n')));
+    if (numbers(match[1]).some(value => !evidence.has(value))) return true;
+    end = match.index + match[0].length;
+  }
+  return numbers(answer.slice(end)).length > 0;
+}
+
 export async function answerWasionQuestion({ env = {}, question, language = 'en', fetchImpl = fetch }) {
   // The website remains English by default. Automatic mode follows the
   // question's natural language; a model code alone is answered in English.
@@ -93,6 +109,7 @@ export async function answerWasionQuestion({ env = {}, question, language = 'en'
   const tokens = [...answer.matchAll(/\[([^\]\r\n]+)\]/g)].map(match => match[1].trim());
   const ids = tokens.map(token => aliases.get(token) || (/^s\d+$/i.test(token) ? aliases.get(token.toLowerCase()) : undefined));
   if (!ids.length || ids.some(id => !id) || /https?:\/\/|\]\s*\(|\b(?:www\.|javascript:|data:)/i.test(answer)) return fallback('invalid_response', 'invalid_citations');
+  if (hasUnsupportedNumbers(answer, context, aliases)) return fallback('invalid_response', 'unsupported_numeric_claim');
   const normalizedAnswer = answer.replace(/\[([^\]\r\n]+)\]/g, (_all, token) => `[${aliases.get(token.trim()) || aliases.get(token.trim().toLowerCase())}]`);
   const used = context.filter(source => ids.includes(source.id));
   const answerLanguage = language === 'auto' && typeof generated.language === 'string' && /^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/i.test(generated.language) && generated.language.length <= 32 ? generated.language.toLowerCase() : lang;
