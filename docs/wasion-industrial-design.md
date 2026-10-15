@@ -27,11 +27,17 @@ The featured aMeter300, I-110 and WIR-3000 use the existing page records, image 
 
 Industrial omits the automatic `wd-mini-search` strip on child pages. The shared navigation search link, relevant product/solution search links and the complete search page remain available. Technical specification tables keep their exact source cells and an accessible scroll region on Industrial and Orderful.
 
+### Industrial search
+
+`server/wasion-industrial-search.mjs` decorates only the Industrial search page with static HTML and scoped CSS. The shared search title and status precede the unchanged POST form. Desktop stages the aMeter300 using the shared page record and official image; mobile prioritizes the form and example questions. Once a query is active, the product stage disappears and the header becomes compact so the cited answer and results receive priority.
+
+The answer, source chips, product cards, filters, empty/error states and body-mounted citation panel use the same warm paper, charcoal and Wasion blue system. Enlarged text can wrap the form, navigation and example questions. The citation panel also follows the existing protected container's hidden state. Search JavaScript, source validation, ranking, authorization, session recovery and other styles remain unchanged.
+
 All five styles use the same serialized search catalog, `/api/crm-wasion-demo-search` endpoint, server-side project authorization, nonce CSP and private CRM host policy. This change does not modify AI services, account quotas or session rules. Existing generic route rewrites and the style registry handle both canonical and styled paths; unknown styles remain unavailable. The Industrial compatibility aliases retain the same access boundary and resolve post-login navigation to the canonical Industrial route.
 
 ## Verification
 
-Run `node --test tests/wasion-demo-styles.test.mjs tests/wasion-demo-industrial.test.mjs` for route, content and interaction isolation regression checks. Run `npm test` and `npm run build` before release.
+Run `node --test tests/wasion-demo-styles.test.mjs tests/wasion-demo-industrial.test.mjs tests/wasion-industrial-search.test.mjs` for route, content and interaction isolation regression checks. Run `npm test` and `npm run build` before release.
 
 The regression checks cover every published style and route, canonical Industrial default equivalence, internal product paths, complete search catalog equality, official product imagery, unchanged source specification cells, a brand-led home hero, omission of the automatic search strip in Industrial and Orderful, auxiliary navigation search, current-page and question retention, POST sign-in recovery, script syntax and project access isolation. The product-stage interaction test runs the actual client code and checks click, Home/End and left/right wrapping, one visible panel and roving tab focus.
 
