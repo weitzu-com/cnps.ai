@@ -35,15 +35,15 @@ function harness(respond, { returnTo, search = '', resumeQuestion } = {}) {
   Object.defineProperty(document, 'cookie', {get() { throw Error('Cookies belong to the server.'); }, set() { throw Error('Cookies belong to the server.'); }});
   vm.runInNewContext(html.match(/<script nonce="test-nonce">([\s\S]*?)<\/script>/)[1], {
     document, URLSearchParams, location:{search, replace: value => navigations.push(value)}, window: {addEventListener: (name, listener) => windowListeners.set(name, listener)}, Date: Clock, AbortController, TypeError, console: forbidden, localStorage: forbidden, sessionStorage: forbidden,
-    setTimeout(callback) { const id = ++nextTimer; timeouts.set(id, callback); return id; },
+    setTimeout(callback, delay) { const id = ++nextTimer; timeouts.set(id, {callback, at: time + delay}); return id; },
     clearTimeout(id) { timeouts.delete(id); },
     setInterval(callback) { const id = ++nextTimer; intervals.set(id, callback); return id; },
     clearInterval(id) { intervals.delete(id); },
     async fetch(url, options) {
       const call = {url, options, body: options.body ? JSON.parse(options.body) : undefined};
       calls.push(call);
-      const {status = 200, body, headers = {}} = await respond(call);
-      return {status, ok: status >= 200 && status < 300, headers: {get: name => headers[name]}, async json() { return body; }};
+      const {status = 200, body, headers = {}, json} = await respond(call);
+      return {status, ok: status >= 200 && status < 300, headers: {get: name => headers[name]}, json: json || (async () => body)};
     }
   });
   return {
@@ -51,7 +51,11 @@ function harness(respond, { returnTo, search = '', resumeQuestion } = {}) {
     flush: () => new Promise(resolve => setImmediate(resolve)),
     event: (id, name) => element(id).listeners.get(name)?.({preventDefault() {}}),
     windowEvent: (name, options = {}) => windowListeners.get(name)?.(options),
-    tick: (seconds = 1) => { time += seconds * 1000; [...intervals.values()].forEach(callback => callback()); },
+    tick: (seconds = 1) => {
+      time += seconds * 1000;
+      for (const [id, timer] of [...timeouts]) if (timer.at <= time) { timeouts.delete(id); timer.callback(); }
+      [...intervals.values()].forEach(callback => callback());
+    },
     remainingTimeouts: () => timeouts.size
   };
 }
@@ -300,6 +304,120 @@ test('uncertain SMS delivery waits a minute before another attempt', async () =>
     h.tick(60);
     assert.equal(h.element('send').disabled, false);
     assert.equal(h.element('session').hidden, true);
+  }
+});
+
+// Model fetch's separate header/body promises and its real AbortSignal. All
+// clock advancement is local; these tests cannot contact the SMS service.
+function pendingRequest(signal) {
+  let resolve;
+  const promise = new Promise((done, reject) => {
+    resolve = done;
+    signal.addEventListener('abort', () => reject(Object.assign(new Error('private transport details'), {name: 'AbortError'})), {once: true});
+  });
+  return {promise, resolve};
+}
+
+test('slow SMS send and verify finish within the server window without duplicate requests', async () => {
+  for (const action of ['send', 'verify']) for (const phase of ['headers', 'body']) {
+    let pending, signal, authenticated = false;
+    const h = harness(call => {
+      if (!call.body) return authenticated ? {body: {authenticated: true, identity: {role: 'customer'}}} : {status: 401};
+      if (call.body.action !== action) return {body: {challenge: 'test-challenge'}};
+      signal = call.options.signal;
+      pending = pendingRequest(signal);
+      return phase === 'headers' ? pending.promise : {json: () => pending.promise};
+    });
+    await h.flush(); h.element('phone').value = '18700001111'; h.element('consent').checked = true;
+    if (action === 'verify') { await h.event('send', 'click'); h.element('code').value = '123456'; }
+    const operation = () => h.event(action === 'send' ? 'send' : 'login', action === 'send' ? 'click' : 'submit');
+    const result = operation(); await h.flush();
+    h.tick(16); await h.flush();
+    assert.equal(signal.aborted, false, 'the old 15s deadline must not interrupt SMS');
+    await operation();
+    assert.equal(h.calls.filter(call => call.body?.action === action).length, 1);
+    h.tick(13); await h.flush();
+    assert.equal(signal.aborted, false, 'allow the configured 30s API window');
+    authenticated = action === 'verify';
+    const body = action === 'send' ? {challenge: 'slow-challenge'} : {ok: true};
+    pending.resolve(phase === 'headers' ? {body} : body);
+    await result;
+    assert.equal(h.remainingTimeouts(), 0);
+    assert.equal(h.element('code').value, '');
+    if (action === 'send') {
+      assert.equal(h.element('send').textContent, '60秒后重试');
+      h.element('code').value = '123456'; h.event('code', 'input');
+      assert.equal(h.element('submit').disabled, false, 'the late challenge is usable');
+    } else assert.equal(h.element('session').hidden, false);
+    h.tick(60);
+    assert.equal(signal.aborted, false, 'settled requests must clear their timer');
+    assert.equal(h.calls.filter(call => call.body?.action === action).length, 1);
+  }
+});
+
+test('SMS deadline covers headers and body, preserves cooldown and clears entered verification codes', async () => {
+  for (const action of ['send', 'verify']) for (const phase of ['headers', 'body']) {
+    let pending, signal;
+    const h = harness(call => {
+      if (!call.body) return {status: 401};
+      if (call.body.action !== action) return {body: {challenge: 'test-challenge'}};
+      signal = call.options.signal; pending = pendingRequest(signal);
+      return phase === 'headers' ? pending.promise : {json: () => pending.promise};
+    });
+    await h.flush(); h.element('phone').value = '18700001111'; h.element('consent').checked = true;
+    if (action === 'verify') { await h.event('send', 'click'); h.element('code').value = '123456'; }
+    const result = h.event(action === 'send' ? 'send' : 'login', action === 'send' ? 'click' : 'submit');
+    await h.flush(); h.tick(34.999); await h.flush();
+    assert.equal(signal.aborted, false);
+    h.tick(0.001); await result;
+    assert.equal(signal.aborted, true);
+    assert.equal(h.remainingTimeouts(), 0);
+    assert.match(h.element('status').textContent, /请求超时/);
+    assert.doesNotMatch(h.element('status').textContent, /private|18700001111|123456/);
+    assert.equal(h.element('session').hidden, true);
+    assert.equal(h.element('code').value, '');
+    assert.equal(h.element('submit').disabled, true);
+    if (action === 'send') {
+      assert.equal(h.element('send').textContent, '60秒后重试');
+      // Late completion is not success and must not mint a usable challenge.
+      pending.resolve(phase === 'headers' ? {body: {challenge: 'late'}} : {challenge: 'late'});
+      h.tick(59); await h.event('send', 'click');
+      assert.equal(h.element('send').disabled, true);
+      assert.equal(h.calls.filter(call => call.body?.action === 'send').length, 1);
+      h.tick(1); assert.equal(h.element('send').disabled, false);
+      h.element('code').value = '123456'; h.event('code', 'input');
+      assert.equal(h.element('submit').disabled, true);
+    }
+    assert.equal(h.calls.filter(call => call.body?.action === action).length, 1, 'never automatically retry');
+  }
+});
+
+test('session reads retain the short 15s deadline and cannot enable SMS on timeout', async () => {
+  let signal;
+  const h = harness(call => { signal = call.options.signal; return pendingRequest(signal).promise; });
+  h.tick(14.999); assert.equal(signal.aborted, false);
+  h.tick(0.001); await h.flush();
+  assert.equal(signal.aborted, true);
+  assert.equal(h.element('send').disabled, true);
+  assert.equal(h.element('retry-session').hidden, false);
+  assert.equal(h.remainingTimeouts(), 0);
+  assert.equal(h.calls.length, 1);
+});
+
+test('unreadable SMS response bodies keep a cooldown for platform timeouts and uncertain delivery', async () => {
+  for (const [status, error] of [[504, new SyntaxError('private gateway HTML')], [200, new SyntaxError('private malformed JSON')], [200, new TypeError('private interrupted body')]]) {
+    const h = harness(({body}) => body ? {status, json: async () => { throw error; }} : {status: 401});
+    await h.flush(); h.element('phone').value = '18700001111'; h.element('consent').checked = true;
+    await h.event('send', 'click');
+    assert.equal(h.element('send').textContent, '60秒后重试');
+    assert.equal(h.element('send').disabled, true);
+    assert.equal(h.element('submit').disabled, true);
+    assert.doesNotMatch(h.element('status').textContent, /private/);
+    assert.equal(h.remainingTimeouts(), 0);
+    h.tick(59); await h.event('send', 'click');
+    assert.equal(h.calls.length, 2);
+    h.tick(1); assert.equal(h.element('send').disabled, false);
+    assert.equal(h.calls.length, 2, 'cooldown expiry must not resend');
   }
 });
 

@@ -1,5 +1,10 @@
 // Only fixed codes enter diagnostics; SDK messages and payloads remain private.
 const SAFE_CODES = new Set([
+  // SendSmsVerifyCode uses unprefixed Dypnsapi business codes. Keep legacy
+  // codes below for compatibility; never strip prefixes from unknown input.
+  // https://help.aliyun.com/zh/pnvs/developer-reference/api-dypnsapi-2017-05-25-sendsmsverifycode
+  'BUSINESS_LIMIT_CONTROL', 'FREQUENCY_FAIL', 'MOBILE_NUMBER_ILLEGAL',
+  'INVALID_PARAMETERS', 'FUNCTION_NOT_OPENED',
   'isv.BUSINESS_LIMIT_CONTROL', 'isv.OUT_OF_SERVICE', 'isv.AMOUNT_NOT_ENOUGH',
   'isv.DAY_LIMIT_CONTROL', 'isv.SMS_SIGNATURE_ILLEGAL', 'isv.SMS_SIGN_ILLEGAL',
   'isv.SMS_TEMPLATE_ILLEGAL', 'isv.SMS_TEMPLATE_CODE_ILLEGAL', 'isv.INVALID_PARAMETERS',

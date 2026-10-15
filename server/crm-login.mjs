@@ -123,7 +123,10 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
   }
   async function request(action, data = {}) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+    // SMS send/verify may use both 10s SDK phases plus authorization/storage.
+    // Allow api/crm.js's 30s maxDuration (vercel.json) + 5s response margin.
+    // One deadline covers headers AND body; never retry an uncertain send.
+    const timeout = setTimeout(() => controller.abort(), action === 'send' || action === 'verify' ? 35000 : 15000);
     try {
       const isSession = action === 'session';
       const response = await fetch(isSession ? '/api/crm?view=session' : '/api/crm', {
@@ -133,7 +136,14 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
       });
       if (isSession && response.status === 401) return null;
       let result;
-      try { result = await response.json(); } catch { throw new Error('服务暂时不可用，请稍后重试。'); }
+      try { result = await response.json(); } catch (error) {
+        // A body-read abort/network failure must reach the cooldown handling.
+        if (error.name === 'AbortError' || error instanceof TypeError) throw error;
+        const failure = new Error('服务暂时不可用，请稍后重试。');
+        // A platform timeout can return HTML after the provider accepted SMS.
+        if (action === 'send') failure.retryAfterSeconds = 60;
+        throw failure;
+      }
       if (!response.ok) {
         const error = new Error(typeof result?.error === 'string' ? result.error.slice(0, 240) : '暂时无法完成，请稍后重试。');
         error.phoneLimited = result?.code === 'SMS_COOLDOWN' || result?.code === 'SMS_PHONE_DAILY_LIMIT';
