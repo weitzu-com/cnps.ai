@@ -72,11 +72,18 @@ const catalogConfig = {
   'electricity-meters': ['Electricity Meters', /\/(IEC-|ANSI)/, 'electricity'], telecommunications: ['Communication', /\/(Cellular|Wi-SUN|Wired|LoRa|RF-)/, null], 'system-software': ['Software', /\/RelevantProduct\//, null],
   'water-gas-meters': ['Smart Water & Gas Metering', /\/proWateRel\//, 'water'], 'digital-grid-distribution-monitoring': [groups[2][1], /\/proIntpRel\//, 'grid'], 'intelligent-power-distribution': [groups[2][1], /\/proIntpRel\//, 'grid'], 'energy-storage': ['Energy Storage', /\/(EnergyStorageSystem|InverterUI8|BatterySwapCabinet)\//, 'storage'], 'renewable-energy': ['Energy Storage', /\/(EnergyStorageSystem|InverterUI8|BatterySwapCabinet)\//, 'storage']
 };
-function catalog(slug, E) {
+function catalogData(slug, E) {
   const [name, match, sourceKey] = catalogConfig[slug], owner = E.get(({ grid: 'intelligent-power-distribution', storage: 'renewable-energy', water: 'water-gas-meters', electricity: 'electricity-meters' })[sourceKey] || slug);
   const captured = E.pages.filter(p => p.category === 'Products' && p.pageType === 'detail' && match.test(p.url));
   const known = new Map(captured.map(p => [p.url, p])), raw = [...captured, ...(owner?.links || []).filter(l => match.test(l.url) && !known.has(l.url)).map(l => ({ ...l, title: l.text.replace(/\s*View More$/i, ''), url: l.url, paragraphs: [], features: [] }))];
   const items = [...new Map(raw.map(p => [p.url, p])).values()].map(p => { const txt = [p.title, ...(p.paragraphs || []), ...(p.features || []), ...(p.tables || []).flat(2)].join(' '); const standards = [...new Set((txt.match(/\b(?:IEC\s*\d{5}(?:-\d+)*|ANSI\s*C\d+(?:\.\d+)*)\b/gi) || []).map(value => value.toUpperCase().replace(/^(IEC|ANSI)\s*/, '$1 ').replace(/\s+/g, ' ').trim()))]; return { ...p, title: p.slug ? E.title(p) : p.title, image: p.slug ? E.image(p) : '', description: p.summary || 'Explore this product in Wasion’s published catalog.', region: 'Not specified', standard: standards.join('|') || 'Not specified', type: /prepaid|prepayment|keypad/i.test(`${p.url} ${txt}`) ? 'Prepayment' : /Smart/i.test(p.title) ? 'Smart metering' : /Cellular|RF|Gateway|Router|Communication|PLC/i.test(p.title) ? 'Communication' : /RelevantProduct/.test(p.url) ? 'Software' : 'Published portfolio' }; });
+  return { name, owner, items };
+}
+export { groups as WASION_PRODUCT_GROUPS };
+export function getProductCatalog(slug, ctx) { return catalogConfig[slug] ? catalogData(slug, context(ctx)) : null; }
+export function renderProductCatalogFilters(items, ctx, render) { return filters(items, [['type', 'Application'], ['standard', 'Listed standard'], ['region', 'Region']], context(ctx), render, 'products'); }
+function catalog(slug, E) {
+  const { name, owner, items } = catalogData(slug, E);
   return E.hero('Our Offering', name, owner?.summary || 'Explore product information published by Wasion.') + `<div class="wd-container we-content">${filters(items, [['type', 'Application'], ['standard', 'Listed standard'], ['region', 'Region']], E, r => row(r, E), 'products')}<p class="we-note">Select a product to inspect its published information. Confirm current regional availability and project requirements with Wasion.</p>${E.sources([owner?.url])}</div>`;
 }
 function map(E) {

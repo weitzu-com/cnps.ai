@@ -5,6 +5,7 @@ import { Script } from 'node:vm';
 import { wasionDemoPage, WASION_PAGES, WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
 import { WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { INDUSTRIAL_PRODUCT_CSS } from '../server/wasion-industrial-product.mjs';
+import { INDUSTRIAL_CATALOG_ROUTES } from '../server/wasion-industrial-catalog.mjs';
 
 const nonce = 'industrial-product-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -47,7 +48,7 @@ const baselines = {
     scriptTags: '37bfc1b206618237406befe0d35d62ba5c6358a1e6e4b5359e1481cb438a7e91'
   },
   industrial: {
-    nonTargetHtml: 'b049ee7f73b92bf8123f84f95bdd9309112c64ce8153baea5089626b76480a9b',
+    nonTargetHtml: '8dadf1ab7cc6d747f0468f8d411844260bbda9cad8eb129d432902199d72154a',
     scripts: 'f33e0f1d036b145133bed3fac8ea5b81880aac82c867a6b430f0020d4bcdb7df',
     scriptTags: '9131c21e9886729e4a7b1569c9713686a40eb41ea4f16be6a3954223772168e7'
   }
@@ -124,9 +125,12 @@ test('the other four styles retain their complete HTML on all 90 routes', () => 
   }
 });
 
-test('all 61 non-product-detail Industrial routes remain byte-identical, including product families and search', () => {
-  const rows = WASION_DEMO_ROUTES.filter(slug => !targetSlugs.has(slug)).map(slug => [slug, hash(wasionDemoPage(nonce, { style: 'industrial', slug }))]);
-  assert.equal(rows.length, 61);
+test('all 50 non-product-detail, non-catalog Industrial routes remain byte-identical, including search', () => {
+  // The 11 catalog pages now have their own presentation tests. This subset was
+  // calculated from the saved d9e856f baseline HTML, with only the nonce remapped.
+  const rows = WASION_DEMO_ROUTES.filter(slug => !targetSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug)).map(slug => [slug, hash(wasionDemoPage(nonce, { style: 'industrial', slug }))]);
+  assert.equal(INDUSTRIAL_CATALOG_ROUTES.length, 11);
+  assert.equal(rows.length, 50);
   assert.equal(hash(JSON.stringify(rows)), baselines.industrial.nonTargetHtml);
   for (const [query, expected] of [
     ['I110', '2312478482985f2495a83adbaac04b3e479e6b8cc105839dd642821518c651ab'],

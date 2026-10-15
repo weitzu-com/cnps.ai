@@ -6,6 +6,7 @@ import { wasionDemoPage, WASION_PAGES, WASION_DEMO_ROUTES } from '../server/wasi
 import { WASION_STYLES, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 import { renderSearch, SEARCH_CLIENT } from '../server/wasion-experience/search.mjs';
 import { decorateIndustrialSearch, INDUSTRIAL_SEARCH_CSS } from '../server/wasion-industrial-search.mjs';
+import { INDUSTRIAL_CATALOG_ROUTES } from '../server/wasion-industrial-catalog.mjs';
 import { isolationFixture } from './fixtures/wasion-isolation.mjs';
 
 const nonce = 'industrial-search-fixture';
@@ -61,19 +62,22 @@ test('Industrial search is presentation-only: original search client and every s
   }
 });
 
-test('the search treatment leaves all 60 non-search, non-product-detail Industrial routes byte-identical', () => {
+test('the search treatment leaves all 49 non-search, non-product-detail, non-catalog Industrial routes byte-identical', () => {
   // Product details have a separate presentation treatment and all 29 are now
-  // protected by wasion-industrial-product.test.mjs. This unchanged subset was
-  // re-fingerprinted from a8fcdb5, before that product treatment, with this nonce.
+  // protected by wasion-industrial-product.test.mjs. Catalog pages also have
+  // their own treatment; the remaining routes keep their original HTML.
   const productSlugs = new Set(WASION_PAGES.filter(page => page.category === 'Products' && page.pageType === 'detail').map(page => page.slug));
-  const rows = WASION_DEMO_ROUTES.filter(slug => slug !== 'search' && !productSlugs.has(slug)).map(slug => {
+  const rows = WASION_DEMO_ROUTES.filter(slug => slug !== 'search' && !productSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug)).map(slug => {
     const html = wasionDemoPage(nonce, { style: 'industrial', slug });
     assert.ok(!html.includes(INDUSTRIAL_SEARCH_CSS), slug);
     return [slug, hash(html)];
   });
   assert.equal(productSlugs.size, 29);
-  assert.equal(rows.length, 60);
-  assert.equal(hash(JSON.stringify(rows)), '80cefb204d0ef883c8ae057f27640d2ade006f912efe0023513d39aac394c3c0');
+  // Catalog exclusions are covered by wasion-industrial-catalog.test.mjs. The
+  // fingerprint comes from saved d9e856f HTML, remapping only the fixture nonce.
+  assert.equal(INDUSTRIAL_CATALOG_ROUTES.length, 11);
+  assert.equal(rows.length, 49);
+  assert.equal(hash(JSON.stringify(rows)), 'c719620d64c834f762b28c3e849d97852712bfd8c173909518b5d7decc5b6791');
 });
 
 test('Industrial search leads with its heading and one official shared product without changing query safety or result links', () => {
