@@ -621,7 +621,7 @@
     "api/crm.js": {
       "maxDuration": 30,
       "regions": [
-        "hkg1"
+        "sin1"
       ]
     },
     "api/crm-page.js": {
