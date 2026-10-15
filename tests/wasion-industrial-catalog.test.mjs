@@ -9,6 +9,7 @@ import { getProductCatalog, renderProductCatalogFilters, WASION_PRODUCT_GROUPS, 
 import { INDUSTRIAL_CATALOG_ROUTES, renderIndustrialCatalog, INDUSTRIAL_CATALOG_CSS } from '../server/wasion-industrial-catalog.mjs';
 import { isIndustrialStoryPage } from '../server/wasion-industrial-stories.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
+import { isIndustrialNewsPage } from '../server/wasion-industrial-news-events.mjs';
 
 // Retained Industrial coverage is pinned explicitly now that 09/16 is canonical.
 const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
@@ -175,7 +176,7 @@ test('the two overview pages retain four business groups and the electricity hub
   }
 });
 
-test('all 450 shared script sets and 406 remaining HTML outputs remain byte-identical', () => {
+test('all 450 shared script sets and 400 remaining HTML outputs remain byte-identical', () => {
   const clients = [], unaffected = [];
   for (const style of Object.keys(WASION_STYLES)) for (const slug of WASION_DEMO_ROUTES) {
     const html = wasionDemoPage(nonce, { style, slug });
@@ -185,14 +186,15 @@ test('all 450 shared script sets and 406 remaining HTML outputs remain byte-iden
     clients.push([style, slug, hash(JSON.stringify(scripts(html)))]);
     const story = style === 'industrial' && isIndustrialStoryPage(WASION_PAGES.find(page => page.slug === slug) || { slug });
     const companyResource = style === 'industrial' && INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug);
-    if (!expected && !story && !companyResource) unaffected.push([style, slug, hash(html)]);
+    const news = style === 'industrial' && isIndustrialNewsPage(WASION_PAGES.find(page => page.slug === slug) || { slug });
+    if (!expected && !story && !companyResource && !news) unaffected.push([style, slug, hash(html)]);
   }
   assert.equal(clients.length, 450);
-  assert.equal(unaffected.length, 406);
+  assert.equal(unaffected.length, 400);
   assert.equal(hash(JSON.stringify(clients)), '78a40086b5803484ef012ec4d754b90d81740694a2eddb42cb0cc333af39ab81');
-  // Story and company/resource pages have separate presentation coverage. This
-  // reduced subset comes from frozen 1fd2731 HTML, retaining its 09/16 routing.
-  assert.equal(hash(JSON.stringify(unaffected)), '2bedb5cb6e68fd251a3a19790e1fa78bec27c3e6102be66bbaa0e60c97d1c47b');
+  // Other modules have independent presentation tests. This subset was
+  // calculated from clean 60f2db5 HTML, changing only the fixture nonce.
+  assert.equal(hash(JSON.stringify(unaffected)), 'ba0af3ba528b4ff439b22d44aed0d1a8688800956af3a6d9a3f89c89291dc53f');
 });
 
 test('populated, empty and hostile search queries keep their complete outputs in every style', () => {

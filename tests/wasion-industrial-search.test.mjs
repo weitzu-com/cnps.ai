@@ -9,6 +9,7 @@ import { decorateIndustrialSearch, INDUSTRIAL_SEARCH_CSS } from '../server/wasio
 import { INDUSTRIAL_CATALOG_ROUTES } from '../server/wasion-industrial-catalog.mjs';
 import { isIndustrialStoryPage } from '../server/wasion-industrial-stories.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES } from '../server/wasion-industrial-company-resources.mjs';
+import { isIndustrialNewsPage } from '../server/wasion-industrial-news-events.mjs';
 import { isolationFixture } from './fixtures/wasion-isolation.mjs';
 
 // The retained search presentation has an explicit legacy route after the 09/16 rebuild.
@@ -69,13 +70,14 @@ test('Industrial search is presentation-only: original search client and every s
   }
 });
 
-test('the search treatment leaves all 16 remaining non-search Industrial routes byte-identical', () => {
+test('the search treatment leaves all 10 remaining non-search Industrial routes byte-identical', () => {
   // Product details have a separate presentation treatment and all 29 are now
   // protected by wasion-industrial-product.test.mjs. Catalog pages also have
   // their own treatment; the remaining routes keep their original HTML.
   const productSlugs = new Set(WASION_PAGES.filter(page => page.category === 'Products' && page.pageType === 'detail').map(page => page.slug));
   const stories = new Set(WASION_DEMO_ROUTES.filter(slug => isIndustrialStoryPage(WASION_PAGES.find(page => page.slug === slug) || { slug })));
-  const rows = WASION_DEMO_ROUTES.filter(slug => slug !== 'search' && !productSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug) && !stories.has(slug) && !INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug)).map(slug => {
+  const news = new Set(WASION_DEMO_ROUTES.filter(slug => isIndustrialNewsPage(WASION_PAGES.find(page => page.slug === slug) || { slug })));
+  const rows = WASION_DEMO_ROUTES.filter(slug => slug !== 'search' && !productSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug) && !stories.has(slug) && !INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug) && !news.has(slug)).map(slug => {
     const html = wasionDemoPage(nonce, { style: 'industrial', slug });
     assert.ok(!html.includes(INDUSTRIAL_SEARCH_CSS), slug);
     return [slug, hash(html)];
@@ -86,8 +88,10 @@ test('the search treatment leaves all 16 remaining non-search Industrial routes 
   assert.equal(INDUSTRIAL_CATALOG_ROUTES.length, 11);
   assert.equal(stories.size, 25);
   assert.equal(INDUSTRIAL_COMPANY_RESOURCE_ROUTES.length, 8);
-  assert.equal(rows.length, 16);
-  assert.equal(hash(JSON.stringify(rows)), '59e64af0c187e7a575f173484e84dfee1ad6703dc4d8bb1f6ba49d085f3919ea');
+  assert.equal(news.size, 6);
+  assert.equal(rows.length, 10);
+  // Remaining full HTML comes from clean 60f2db5, with only nonce remapped.
+  assert.equal(hash(JSON.stringify(rows)), 'f017c388135bd03ff3260991c407407fa5d14faf1d2afa76991d6a0f374a8d51');
 });
 
 test('Industrial search leads with its heading and one official shared product without changing query safety or result links', () => {

@@ -8,6 +8,7 @@ import { INDUSTRIAL_PRODUCT_CSS } from '../server/wasion-industrial-product.mjs'
 import { INDUSTRIAL_CATALOG_ROUTES } from '../server/wasion-industrial-catalog.mjs';
 import { isIndustrialStoryPage } from '../server/wasion-industrial-stories.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES } from '../server/wasion-industrial-company-resources.mjs';
+import { isIndustrialNewsPage } from '../server/wasion-industrial-news-events.mjs';
 
 // Retained Industrial coverage is pinned explicitly now that 09/16 is canonical.
 const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
@@ -55,7 +56,7 @@ const baselines = {
     scriptTags: '37bfc1b206618237406befe0d35d62ba5c6358a1e6e4b5359e1481cb438a7e91'
   },
   industrial: {
-    nonTargetHtml: 'c71958df102141e8ba9ec60b5cd125094db8678b9baedef58bb5105b6b258d9c',
+    nonTargetHtml: '169defab235f6227891613a8c480dca986aabbc3b22db8ca10097239d2591e19',
     scripts: '4c799bf668e6e331d4eca1b4ba0c1832accde71cfa0487637ae3d0d7f70eeafc',
     scriptTags: '871b915c72de781a325f8bc671eacc40e8614f6e39b212785ec3e21152763e51'
   }
@@ -132,15 +133,17 @@ test('the other four styles retain their complete HTML on all 90 routes', () => 
   }
 });
 
-test('all 17 remaining Industrial routes remain byte-identical, including search', () => {
-  // Catalog, story and company/resource pages have separate presentation tests.
-  // This reduced subset comes from frozen 1fd2731 HTML with its 09/16 routing.
+test('all 11 remaining Industrial routes remain byte-identical, including search', () => {
+  // Other presentation modules have independent content and isolation tests.
+  // This subset comes from clean 60f2db5 HTML, remapping only the fixture nonce.
   const stories = new Set(WASION_DEMO_ROUTES.filter(slug => isIndustrialStoryPage(WASION_PAGES.find(page => page.slug === slug) || { slug })));
-  const rows = WASION_DEMO_ROUTES.filter(slug => !targetSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug) && !stories.has(slug) && !INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug)).map(slug => [slug, hash(wasionDemoPage(nonce, { style: 'industrial', slug }))]);
+  const news = new Set(WASION_DEMO_ROUTES.filter(slug => isIndustrialNewsPage(WASION_PAGES.find(page => page.slug === slug) || { slug })));
+  const rows = WASION_DEMO_ROUTES.filter(slug => !targetSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug) && !stories.has(slug) && !INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug) && !news.has(slug)).map(slug => [slug, hash(wasionDemoPage(nonce, { style: 'industrial', slug }))]);
   assert.equal(INDUSTRIAL_CATALOG_ROUTES.length, 11);
   assert.equal(stories.size, 25);
   assert.equal(INDUSTRIAL_COMPANY_RESOURCE_ROUTES.length, 8);
-  assert.equal(rows.length, 17);
+  assert.equal(news.size, 6);
+  assert.equal(rows.length, 11);
   assert.equal(hash(JSON.stringify(rows)), baselines.industrial.nonTargetHtml);
   for (const [query, expected] of [
     ['I110', '97a66b53a7b265bee3f1a2d6ffb46c1d1aebbb00f5e7b15833a9cbfa2ce94ade'],

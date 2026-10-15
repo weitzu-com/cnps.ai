@@ -2,7 +2,7 @@
 
 ## Purpose and references
 
-Industrial is the default website direction at `/demo/wasion` and its canonical child pages. It leads with Wasion's brand, engineering products and documented project experience. AI search remains an auxiliary navigation and contextual discovery feature. Classic, Atmospheric, Planhat and Orderful retain their own complete route trees under `/demo/wasion/styles/{style}`. The former `/demo/wasion/styles/industrial` URLs remain compatibility aliases that render the same Industrial UI and generate canonical internal links.
+Industrial is the brand direction at `/demo/wasion/styles/industrial` and its child pages. It leads with Wasion's brand, engineering products and documented project experience. AI search remains an auxiliary navigation and contextual discovery feature. The concurrent 0916 Requirements rebuild is the current default at `/demo/wasion`; Classic, Atmospheric, Planhat, Orderful and Industrial retain complete explicit style routes. This news/events update preserves that default and its 198 rendered routes.
 
 - Whole-site reference: [T1 Energy on Refero](https://styles.refero.design/style/e79b761d-f476-4c5d-8943-e31a58664e4d)
 - Product presentation reference: [Figure 03 on Refero](https://styles.refero.design/style/2997507c-ba60-4653-b217-3eca4858dec8)
@@ -21,7 +21,7 @@ The featured aMeter300, I-110 and WIR-3000 use the existing page records, image 
 
 ## Shared architecture and boundaries
 
-`server/wasion-demo-styles.mjs` registers `industrial` and exports it as `WASION_DEFAULT_STYLE`. The shared `wasionStyleBase` returns `/demo/wasion` for Industrial and explicit styled bases for the other four choices. The renderer, authenticated page API and local preview consume the same default. The style gallery labels the exported default rather than a hard-coded presentation. Style links preserve the current page and search question, including the private POST recovery flow after login.
+`server/wasion-demo-styles.mjs` registers the five original styles plus `requirements`, the current `WASION_DEFAULT_STYLE`. The shared `wasionStyleBase` returns `/demo/wasion` for the default and explicit styled bases for the five explorations. The renderer, authenticated page API and local preview consume the same default. The style gallery labels the exported default rather than a hard-coded presentation. Style links preserve the current page and search question, including the private POST recovery flow after login.
 
 `server/wasion-demo-industrial.mjs` exports `renderIndustrialHome(context)`, `INDUSTRIAL_CSS` and `INDUSTRIAL_CLIENT`. The context uses the same `pages`, `helpers` and style-specific `base` as other home compositions. Only Industrial calls its custom home renderer and includes its interaction code. All child pages keep the existing content, legal notices, contact flow and rendering components, with Industrial CSS providing their visual treatment.
 
@@ -64,6 +64,14 @@ All five styles use the same serialized search catalog, `/api/crm-wasion-demo-se
 The resource opening stages real publications from the shared resource records. The same 12 records, ten linked files/videos and two entries without downloadable files retain their titles, entity/scope notices, URLs, facets and pagination. Complete covers use `contain`. A typographic Wasion cover sits beneath the remote image as a static fallback, keeping the title, content type and native links readable if the publisher's image host is unavailable. It does not create a replacement document or imply missing files are downloadable. A page-specific load/error listener hides the fallback only after the image loads successfully, and restores it after an error. The original source image URLs remain in the markup. The Media kit retains the official logo, guidance notice and native G3-PLC explained video.
 
 Page navigation connects company capabilities, global presence and resources. Contextual AI links remain secondary to brand, company information and document discovery. Scoped CSS supplies mobile card stacking, 16px form controls, 44px targets, wrapping navigation, 200% text support and the same rem-based expandable header. Shared content, all 450 original shared clients, authentication, project access, AI citations and all 442 non-target presentation outputs remain unchanged.
+
+### Industrial news and events
+
+`server/wasion-industrial-news-events.mjs` covers the newsroom, events, three existing news articles and the DTECH report. The news opening pairs Wasion's editorial headline with an attributed official photograph and featured report. Two-column image cards retain the shared publication dates, regions, content types and summaries; the original five-control keyword/topic/region/type/year filter continues using `CONTENT_CLIENT`. Card excerpts use the same 220-character limit as the former list while the searchable record and article remain complete.
+
+Article headers use the original full title, explicitly labelled publication date and region, official image and source. The original three article bodies remain intact inside a constrained reading layout. A gallery exposes the additional official photographs already in the shared records. The original animated GIF is an explicit external link, avoiding automatic animation. DTECH retains its curated report and source, with its event period and venue labelled separately from publication. Events retain the current-schedule enquiry and published past-event record; no future event, booth, registration form or industry article is invented.
+
+The shared `getNewsItems` and `renderNewsFilters` interfaces reuse the existing records and filter builder. No client JavaScript, data, AI service, authentication or access rule changes. Only the six target Industrial pages receive the new layout and scoped CSS. All 444 other original-style HTML outputs and 450 complete script sets remain byte-identical, including the existing company/resource image listener on its eight pages. The 198 default Requirements routes retain their entire HTML output. Mobile uses one column, wrapping long titles, 16px form controls, 44px targets and the existing rem-based expandable header. Readable text and navigation remain usable at 200% text size.
 
 ## Verification
 
