@@ -13,7 +13,7 @@ const SAFE_CODES = new Set([
 export class CrmSmsFailure extends Error {
   constructor(code, fallback = 'provider-rejected') {
     super('SMS provider unavailable');
-    this.name = 'CrmSmsFailure';
-    this.reason = SAFE_CODES.has(code) ? code : fallback === 'transport-unavailable' ? fallback : 'provider-rejected';
+    Object.defineProperty(this, 'name', { value: 'CrmSmsFailure' });
+    Object.defineProperty(this, 'reason', { value: SAFE_CODES.has(code) ? code : fallback === 'transport-unavailable' ? fallback : 'provider-rejected' });
   }
 }

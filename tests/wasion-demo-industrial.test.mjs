@@ -7,19 +7,23 @@ import { WASION_STYLES, WASION_DEFAULT_STYLE, wasionStyleBase } from '../server/
 import { createWasionPageHandler } from '../api/crm-wasion-demo-page.js';
 import { isolationFixture } from './fixtures/wasion-isolation.mjs';
 
-const base='/demo/wasion/styles/industrial';
+const base='/demo/wasion';
 const body=html=>html.match(/<body\b[^>]*>([\s\S]*?)<script nonce=/)[1];
 const main=html=>body(html).match(/<main id="main">([\s\S]*?)<\/main>/)[1];
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-test('Industrial adds a fifth selectable direction while preserving the existing default',()=>{
- assert.equal(WASION_DEFAULT_STYLE,'orderful');
+test('Industrial is the default while all four previous design directions retain explicit routes',()=>{
+ assert.equal(WASION_DEFAULT_STYLE,'industrial');
  assert.deepEqual(Object.keys(WASION_STYLES),['classic','atmospheric','planhat','orderful','industrial']);
  assert.equal(wasionStyleBase('industrial'),base);
  const gallery=main(wasionDemoPage('n',{slug:'styles'}));
  assert.ok(gallery.includes('href="'+base+'"'));
  assert.match(gallery,/Industrial/);
- assert.match(wasionDemoPage('n'),/<body class="wd-style-orderful wd-is-home">/);
+ assert.match(wasionDemoPage('n'),/<body class="wd-style-industrial wd-is-home">/);
+ for(const style of ['classic','atmospheric','planhat','orderful']){
+  assert.equal(wasionStyleBase(style),'/demo/wasion/styles/'+style);
+  assert.ok(gallery.includes('href="'+wasionStyleBase(style)+'"'),style+' remains selectable');
+ }
 });
 
 test('Industrial leads with brand and portfolio rather than an AI prompt',()=>{

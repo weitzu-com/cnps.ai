@@ -110,10 +110,10 @@ function legacySearch(query) {
 
 function styleSwitch() {
  const target = slug === 'styles' ? 'home' : slug;
- return `<nav class="wd-style-switch" aria-label="Preview styles"><a href="/demo/wasion/styles" aria-label="Design previews">${style === 'orderful' ? 'Styles' : 'Design previews'}</a>${Object.entries(WASION_STYLES).map(([key,value]) => `<a data-style-base="${wasionStyleBase(key)}" href="${wasionStyleBase(key)}${target === 'home' ? '' : '/' + target}${target === 'search' && query ? '?' + new URLSearchParams({q:query}) : ''}" ${style === key ? 'aria-current="true"' : ''}>${value.label}</a>`).join('')}</nav>`;
+ return `<nav class="wd-style-switch" aria-label="Preview styles"><a href="/demo/wasion/styles" aria-label="Design previews">${['industrial','orderful'].includes(style) ? 'Styles' : 'Design previews'}</a>${Object.entries(WASION_STYLES).map(([key,value]) => `<a data-style-base="${wasionStyleBase(key)}" href="${wasionStyleBase(key)}${target === 'home' ? '' : '/' + target}${target === 'search' && query ? '?' + new URLSearchParams({q:query}) : ''}" ${style === key ? 'aria-current="true"' : ''}>${value.label}</a>`).join('')}</nav>`;
 }
 function styleGallery() {
- return `<section class="wd-style-gallery wd-container"><span class="wd-overline">WASION WEBSITE PREVIEWS</span><h1>One portfolio.<br>Different perspectives.</h1><p>Choose a design direction to explore the same Wasion products, solutions and source-based search.</p>${Object.entries(WASION_STYLES).map(([key,value]) => `<a class="wd-style-choice${key === 'orderful' ? ' wd-style-recommended' : ''}" href="${wasionStyleBase(key)}">${key === 'orderful' ? '<span class="wd-recommendation">Default · Overseas customer experience</span>' : ''}<h2>${value.label} ↗</h2><p>${value.description}</p></a>`).join('')}</section>`;
+ return `<section class="wd-style-gallery wd-container"><span class="wd-overline">WASION WEBSITE PREVIEWS</span><h1>One portfolio.<br>Different perspectives.</h1><p>Choose a design direction to explore the same Wasion products, solutions and source-based search.</p>${Object.entries(WASION_STYLES).map(([key,value]) => `<a class="wd-style-choice${key === WASION_DEFAULT_STYLE ? ' wd-style-recommended' : ''}" href="${wasionStyleBase(key)}">${key === WASION_DEFAULT_STYLE ? '<span class="wd-recommendation">Default · Brand &amp; product experience</span>' : ''}<h2>${value.label} ↗</h2><p>${value.description}</p></a>`).join('')}</section>`;
 }
 
 
