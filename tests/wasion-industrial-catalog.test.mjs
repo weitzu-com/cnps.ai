@@ -8,13 +8,17 @@ import { WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { getProductCatalog, renderProductCatalogFilters, WASION_PRODUCT_GROUPS, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { INDUSTRIAL_CATALOG_ROUTES, renderIndustrialCatalog, INDUSTRIAL_CATALOG_CSS } from '../server/wasion-industrial-catalog.mjs';
 import { isIndustrialStoryPage } from '../server/wasion-industrial-stories.mjs';
+import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
 
 const nonce = 'industrial-catalog-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 const text = markup => markup.replace(/<[^>]*>/g, '').replace(/&(amp|lt|gt|quot|#39);/g, entity => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" }[entity]));
 const main = html => html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
-const scripts = html => html.match(/<script\b[^>]*>[\s\S]*?<\/script>/g);
+const scripts = html => html.match(/<script\b[^>]*>[\s\S]*?<\/script>/g).map(tag => {
+  const suffix = INDUSTRIAL_COMPANY_RESOURCES_CLIENT + '</script>';
+  return tag.endsWith(suffix) ? tag.slice(0, -suffix.length) + '</script>' : tag;
+});
 const title = page => page.title.replace(/ - (Content Page|Content|Relevant Product|Newsroom|IEC Smart Meters|IEC Prepaid Meters|ANSI Meters|Cellular Communication|Wi-SUN RF Mesh)$/, '');
 const image = page => page?.images?.find(url => url.includes('/uploads/images/')) || page?.images?.find(url => !/icon|x-pro-info|searc/i.test(url));
 const ctx = { pages: WASION_PAGES, base: '/demo/wasion', helpers: { title, image } };
@@ -166,7 +170,7 @@ test('the two overview pages retain four business groups and the electricity hub
   }
 });
 
-test('all 450 complete script sets and 414 non-catalog, non-story HTML outputs remain byte-identical', () => {
+test('all 450 shared script sets and 406 remaining HTML outputs remain byte-identical', () => {
   const clients = [], unaffected = [];
   for (const style of Object.keys(WASION_STYLES)) for (const slug of WASION_DEMO_ROUTES) {
     const html = wasionDemoPage(nonce, { style, slug });
@@ -175,14 +179,15 @@ test('all 450 complete script sets and 414 non-catalog, non-story HTML outputs r
     assert.equal(main(html).includes('class="wic-catalog"'), expected, style + ' ' + slug + ' renderer boundary');
     clients.push([style, slug, hash(JSON.stringify(scripts(html)))]);
     const story = style === 'industrial' && isIndustrialStoryPage(WASION_PAGES.find(page => page.slug === slug) || { slug });
-    if (!expected && !story) unaffected.push([style, slug, hash(html)]);
+    const companyResource = style === 'industrial' && INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug);
+    if (!expected && !story && !companyResource) unaffected.push([style, slug, hash(html)]);
   }
   assert.equal(clients.length, 450);
-  assert.equal(unaffected.length, 414);
+  assert.equal(unaffected.length, 406);
   assert.equal(hash(JSON.stringify(clients)), 'a1d7755b3fc58307899afd372813a059f5f2721dc4c99cf2f9c5200f86551810');
-  // The 25 Industrial story pages now have separate presentation coverage. This
-  // remaining subset was calculated from saved 449a5e1 HTML, changing only nonce.
-  assert.equal(hash(JSON.stringify(unaffected)), '767e9c11a7b972d7480e5ee5accf2c65a83d9c044456d65a8fca2ba3758a2525');
+  // Story and company/resource pages have their own presentation tests. This
+  // subset was calculated from saved 744ab9a HTML, changing only the nonce.
+  assert.equal(hash(JSON.stringify(unaffected)), '5d1a15b33c95dbaa73a4acbee5d005ad6f6ef75efc2113200bd856cd8cb1875b');
 });
 
 test('populated, empty and hostile search queries keep their complete outputs in every style', () => {
