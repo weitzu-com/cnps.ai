@@ -9,6 +9,9 @@ const privatePath = (path) =>
   );
 const crmPaths =
   /^(?:\/(?:workspace|w(?:\/(?:view|asset\/[a-z0-9-]+))?|demo\/wasion(?:\/[a-z0-9-]+|\/styles\/[a-z0-9-]+(?:\/[a-z0-9-]+)?)?)|\/api\/(?:w|crm|crm-page|crm-workspace|crm-workspace-page|crm-wasion-demo-page|crm-wasion-demo-search))$/;
+// Public build files used by the private demo, with no directory or document
+// access. Page/API authorization continues through the existing CRM routes.
+const crmBuildAsset = /^(?:\/assets\/fonts\/(?:manrope-5|space-grotesk-2)\.woff2|\/assets\/wasion-requirements\/[A-Za-z0-9][A-Za-z0-9-]*\.(?:webp|png|mp4|m4v))$/;
 function oldEntry(path, search, method) {
   if (!['/crm', '/crm/', '/crm/workspace', '/crm/workspace/', '/workspace/', '/crm/wasion-demo', '/crm/wasion-demo/'].includes(path)) return null;
   if (!['GET', 'HEAD'].includes(method)) return { status: 410 };
@@ -44,6 +47,7 @@ export function boundaryDecision(host, path, method, env = {}, search = "") {
   if (host === "crm.cnps.ai") {
     const legacy = oldEntry(path, search, method);
     if (legacy) return legacy;
+    if (["GET", "HEAD"].includes(method) && crmBuildAsset.test(path)) return null;
     if (path === "/") return null;
     return crmPaths.test(path) ? null : { status: 404 };
   }

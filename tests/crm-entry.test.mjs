@@ -29,6 +29,53 @@ test('new page paths cannot expose private responses on website, previews or ali
  for(const path of ['/workspace/private','/workspace%2fprivate','/crm/unknown'])assert.equal(boundaryDecision('crm.cnps.ai',path,'GET').status,404);
 });
 
+test('CRM middleware passes only GET and HEAD for the exact demo build asset namespaces',()=>{
+ const assets=['/assets/fonts/manrope-5.woff2','/assets/fonts/space-grotesk-2.woff2','/assets/wasion-requirements/product-1.webp','/assets/wasion-requirements/Company-2.png','/assets/wasion-requirements/video-1.mp4','/assets/wasion-requirements/intro-2.m4v'];
+ for(const path of assets){
+  for(const method of ['GET','HEAD']){
+   assert.equal(boundaryDecision('crm.cnps.ai',path,method),null,path+' '+method);
+   const response=middleware(new Request('https://crm.cnps.ai'+path,{method}));
+   assert.equal(response.headers.get('x-middleware-next'),'1',path+' '+method);
+   assert.equal(response.headers.get('x-middleware-rewrite'),null);
+  }
+  for(const method of ['POST','PUT','DELETE']){
+   assert.deepEqual(boundaryDecision('crm.cnps.ai',path,method),{status:404},path+' '+method);
+   const response=middleware(new Request('https://crm.cnps.ai'+path,{method}));
+   assert.equal(response.status,404,path+' '+method);
+   assert.equal(response.headers.get('x-middleware-next'),null);
+   assert.match(response.headers.get('cache-control'),/no-store/);
+  }
+ }
+});
+
+test('CRM build asset routing rejects neighboring paths, documents and hostile encodings',()=>{
+ const paths=['/assets','/assets/','/assets/fonts/','/assets/fonts/unknown.woff2','/assets/fonts/manrope-5.woff','/assets/fonts/manrope-5.woff2/extra','/assets/wasion-requirements','/assets/wasion-requirements/','/assets/wasion-requirements/.webp','/assets/wasion-requirements/-hidden.webp','/assets/wasion-requirements/file_name.webp','/assets/wasion-requirements/file.name.webp','/assets/wasion-requirements/nested/file.webp','/assets/wasion-requirements/../file.webp','/assets/wasion-requirements/file.webp/..','/assets/wasion-requirements/%2efile.webp','/assets/wasion-requirements/%2e%2e/file.webp','/assets/wasion-requirements/file%2fother.webp','/assets/wasion-requirements/file%5cother.webp','/assets/wasion-requirements/file\\other.webp','/assets/wasion-requirements/file%252fother.webp','/assets/wasion-requirements-extra/file.webp','/assets/wasion-experience/file.webp',...['html','js','json','pdf','svg','woff2','WEBP'].map(extension=>'/assets/wasion-requirements/file.'+extension)];
+ for(const path of paths)for(const method of ['GET','HEAD']){
+  assert.deepEqual(boundaryDecision('crm.cnps.ai',path,method),{status:404},path+' '+method);
+  const response=middleware(new Request('https://crm.cnps.ai'+path,{method}));
+  assert.equal(response.status,404,path+' '+method);
+  assert.equal(response.headers.get('x-middleware-next'),null);
+ }
+ // The boundary also rejects raw dot segments before URL canonicalization.
+ for(const method of ['GET','HEAD'])assert.deepEqual(boundaryDecision('crm.cnps.ai','/assets/wasion-requirements/./file.webp',method),{status:404});
+});
+
+test('public build asset exception cannot reopen preview CRM or private Demo routes',()=>{
+ const originalEnv=process.env.VERCEL_ENV;
+ try{
+  process.env.VERCEL_ENV='preview';
+  for(const path of ['/','/workspace','/demo/wasion','/demo/wasion/search','/api/crm-wasion-demo-page','/assets/fonts/manrope-5.woff2','/assets/wasion-requirements/product.webp'])for(const method of ['GET','HEAD']){
+   assert.deepEqual(boundaryDecision('crm.cnps.ai',path,method,{VERCEL_ENV:'preview'}),{status:404});
+   const response=middleware(new Request('https://crm.cnps.ai'+path,{method}));
+   assert.equal(response.status,404,path+' '+method);
+   assert.equal(response.headers.get('x-middleware-next'),null);
+  }
+  for(const host of ['preview.vercel.app','www.cnps.ai','cnps.ai'])for(const path of ['/demo/wasion','/demo/wasion/search','/api/crm-wasion-demo-page'])assert.equal(middleware(new Request('https://'+host+path)).status,404,host+' '+path);
+ }finally{
+  if(originalEnv===undefined)delete process.env.VERCEL_ENV;else process.env.VERCEL_ENV=originalEnv;
+ }
+});
+
 test('middleware and handler canonicalization agree and Vercel root routing is host scoped',async()=>{
  const request=new Request('https://crm.cnps.ai/crm/workspace?companyId=A&deliveryId=D&token=drop');
  const response=middleware(request);
