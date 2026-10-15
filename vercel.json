@@ -658,6 +658,12 @@
       "regions": [
         "hkg1"
       ]
+    },
+    "api/crm-sms-connectivity.js": {
+      "maxDuration": 15,
+      "regions": [
+        "hkg1"
+      ]
     }
   }
 }
