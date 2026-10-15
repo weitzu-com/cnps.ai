@@ -12,13 +12,17 @@ const endpoint = '/proxies/' + encodeURIComponent(GROUP);
 const canonical = value => JSON.stringify(value, (_, v) => v && !Array.isArray(v) && typeof v === 'object' ? Object.fromEntries(Object.entries(v).sort(([a], [b]) => a.localeCompare(b))) : v);
 const hash = value => createHash('sha256').update(canonical(value)).digest('hex');
 const requireThat = (condition, message) => { if (!condition) throw new Error(message); };
+export function ruleProjection(rules) {
+  return rules.map(rule => ({ ...rule, ...(rule.extra && typeof rule.extra === 'object' && !Array.isArray(rule.extra) ?
+    { extra: Object.fromEntries(Object.entries(rule.extra).filter(([key]) => !['hitCount', 'hitAt', 'missCount', 'missAt'].includes(key))) } : {}) }));
+}
 
 // Never log request/response bodies, configuration text, or the authorization value.
 export function controller({ socketPath, secret, timeoutMs = 2000 }) {
   requireThat(typeof socketPath === 'string' && socketPath.startsWith('/'), 'absolute controller socket required');
   requireThat(typeof secret === 'string' && secret.length > 0 && !/[\r\n]/.test(secret), 'controller authorization unavailable');
   return async (method, route, body) => {
-    requireThat((method === 'GET' && ['/rules', '/proxies', '/configs'].includes(route)) || (['PUT', 'DELETE'].includes(method) && route === endpoint), 'controller operation outside CRM scope');
+    requireThat((method === 'GET' && ['/rules', '/proxies', '/configs', '/connections'].includes(route)) || (['PUT', 'DELETE'].includes(method) && route === endpoint) || (method === 'DELETE' && /^\/connections\/[a-f0-9-]{36}$/.test(route)), 'controller operation outside CRM scope');
     return new Promise((resolve, reject) => {
       let finished = false;
       const done = (error, value) => { if (finished) return; finished = true; clearTimeout(timer); error ? reject(error) : resolve(value); };
@@ -60,7 +64,7 @@ export async function snapshot(call, { requireAlive = true } = {}) {
   const memberProjection = Object.fromEntries(Object.entries(proxies).map(([name, value]) => [name, Object.fromEntries(Object.entries(value).filter(([key]) => !['fixed', 'now', 'alive', 'history', 'extra'].includes(key)))]));
   const otherSelections = Object.fromEntries(Object.entries(proxies).filter(([name, value]) => name !== GROUP && Array.isArray(value.all)).map(([name, value]) => [name, { now: value.now, fixed: value.fixed }]));
   const targetPolicy = Object.fromEntries(Object.entries(group).filter(([key]) => !['fixed', 'now', 'alive', 'history', 'extra'].includes(key)));
-  return { fixed: group.fixed, now: group.now, hashes: { rules: hash(rules), configuration: hash(config), members: hash(memberProjection), otherSelections: hash(otherSelections), targetPolicy: hash(targetPolicy) }, members: group.all };
+  return { fixed: group.fixed, now: group.now, ruleHashScheme: 'static-rules-v2', hashes: { rules: hash(ruleProjection(rules)), configuration: hash(config), members: hash(memberProjection), otherSelections: hash(otherSelections), targetPolicy: hash(targetPolicy) }, members: group.all };
 }
 
 export function verifyMainSource() {
@@ -76,7 +80,7 @@ export function verifyMainSource() {
   } catch { throw new Error('route script must match merged origin/main; fetch main after PR merge'); }
 }
 
-function safe(value) { return { fixed: value.fixed, now: value.now, hashes: value.hashes }; }
+function safe(value) { return { fixed: value.fixed, now: value.now, ruleHashScheme: value.ruleHashScheme, hashes: value.hashes }; }
 const same = (a, b) => canonical(a.hashes) === canonical(b.hashes);
 async function save(filename, value, create = false) {
   if (create) return writeFile(filename, JSON.stringify(value, null, 2), { mode: 0o600, flag: 'wx' });
@@ -95,11 +99,12 @@ export async function recover({ call, action = 'check', statePath, controllerId,
   try { state = JSON.parse(await readFile(statePath, 'utf8')); }
   catch (error) { if (error.code !== 'ENOENT') throw new Error('recovery state unreadable'); }
   if (state) {
+    requireThat(state.hashSchema === 'static-rules-v2', 'legacy route state unsupported; preserve original and use a new v2 state path');
     requireThat(state.version === 1 && state.group === GROUP && state.member === MEMBER && state.controllerId === controllerId && typeof state.originalFixed === 'string' && (!state.originalFixed || before.members.includes(state.originalFixed)) && state.before?.fixed === state.originalFixed, 'recovery state scope invalid');
     requireThat(same(before, state.before), 'protected controller state changed');
   } else {
     requireThat(action === 'apply', 'saved recovery state required');
-    state = { version: 1, group: GROUP, member: MEMBER, controllerId, originalFixed: before.fixed, before: safe(before), createdAt: new Date().toISOString(), provenance, phase: 'prepared' };
+    state = { version: 1, hashSchema: 'static-rules-v2', group: GROUP, member: MEMBER, controllerId, originalFixed: before.fixed, before: safe(before), createdAt: new Date().toISOString(), provenance, phase: 'prepared' };
     await save(statePath, state, true);
   }
   const desired = action === 'apply' ? MEMBER : state.originalFixed;
@@ -134,12 +139,49 @@ export async function recover({ call, action = 'check', statePath, controllerId,
   return { action, group: GROUP, member: MEMBER, mutation, before: safe(before), after: safe(after), provenance };
 }
 
+export async function retireOwned({ call, statePath, controllerId, proof, ownerTask, context, verifySource = verifyMainSource }) {
+  const provenance = await verifySource();
+  requireThat(statePath && path.isAbsolute(statePath) && controllerId, 'saved route state required');
+  requireThat(proof && typeof ownerTask === 'string' && ownerTask.length > 0 && typeof context === 'string' && context.length > 0 && proof.ownerTask === ownerTask && proof.context === context && proof.controllerId === controllerId && proof.reason === 'task-created-pre-switch-connection', 'task ownership proof invalid');
+  const expected = proof.connection;
+  requireThat(expected && /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/.test(expected.id) && Number.isInteger(expected.sourcePort) && expected.sourcePort > 0 && expected.sourcePort <= 65535 &&
+    typeof expected.start === 'string' && Number.isFinite(Date.parse(expected.start)) && expected.host === 'crm.cnps.ai' && expected.rule === 'Domain' && expected.rulePayload === 'crm.cnps.ai' &&
+    expected.actualDestination === '76.76.21.21' && expected.destinationPort === 443 && canonical(expected.chains) === canonical(['DIRECT', GROUP]), 'exact CRM DIRECT connection proof required');
+  const state = JSON.parse(await readFile(statePath, 'utf8'));
+  requireThat(state.hashSchema === 'static-rules-v2', 'legacy route state unsupported; preserve original and use a new v2 state path');
+  requireThat(state.version === 1 && state.group === GROUP && state.member === MEMBER && state.controllerId === controllerId && state.phase === 'applied' && state.after?.fixed === MEMBER && state.before?.fixed === state.originalFixed, 'route must have applied saved state');
+  const appliedAt = Date.parse(state.appliedAt || state.updatedAt), startedAt = Date.parse(expected.start), windowStart = Date.parse(proof.ownerWindow?.start), windowEnd = Date.parse(proof.ownerWindow?.end);
+  requireThat(Number.isFinite(appliedAt) && Number.isFinite(windowStart) && Number.isFinite(windowEnd) && windowStart <= startedAt && startedAt <= windowEnd && windowEnd < appliedAt, 'owned connection must predate applied route within owner window');
+  const before = await snapshot(call);
+  requireThat(before.fixed === MEMBER && before.now === MEMBER && same(before, state.before) && same(before, state.after), 'applied route protected state changed');
+  const readConnections = async () => { const response = await call('GET', '/connections'); requireThat(Array.isArray(response?.connections), 'connection readback invalid'); return response.connections; };
+  const connections = await readConnections(), matches = connections.filter(connection => connection.id === expected.id);
+  requireThat(matches.length <= 1, 'connection identity ambiguous');
+  const live = matches[0];
+  if (live) {
+    const metadata = live.metadata;
+    requireThat(metadata && metadata.network === 'tcp' && metadata.type === 'HTTPS' && metadata.sourceIP === '127.0.0.1' && String(metadata.destinationPort) === String(expected.destinationPort) && metadata.host === expected.host && String(metadata.sourcePort) === String(expected.sourcePort) &&
+      live.start === expected.start && live.rule === expected.rule && live.rulePayload === expected.rulePayload &&
+      canonical(live.chains) === canonical(expected.chains) && (metadata.remoteDestination || metadata.destinationIP) === expected.actualDestination,
+      'live connection does not exactly match owned proof');
+    await call('DELETE', '/connections/' + encodeURIComponent(expected.id));
+  }
+  requireThat(!(await readConnections()).some(connection => connection.id === expected.id), 'owned connection retirement readback failed');
+  const after = await snapshot(call);
+  requireThat(after.fixed === MEMBER && after.now === MEMBER && same(before, after), 'protected state changed during retirement');
+  state.retiredOwnedConnections ||= [];
+  if (!state.retiredOwnedConnections.some(connection => connection.id === expected.id)) state.retiredOwnedConnections.push({ id: expected.id, at: new Date().toISOString() });
+  await save(statePath, state);
+  return { action: 'retire-owned', retiredConnectionId: expected.id, alreadyAbsent: !live, confirmedAbsent: true, mutation: Boolean(live), protectedStateUnchanged: true, provenance };
+}
+
 function option(argv, name, fallback) {
   const index = argv.indexOf(name); return index < 0 ? fallback : argv[index + 1];
 }
 export async function main(argv = process.argv.slice(2)) {
-  requireThat(argv.every((value, index) => ['--apply', '--restore'].includes(value) || ['--socket', '--config', '--state'].includes(value) || (index > 0 && ['--socket', '--config', '--state'].includes(argv[index - 1]))), 'unknown argument');
-  requireThat(!(argv.includes('--apply') && argv.includes('--restore')), 'choose one action');
+  const valued = ['--socket', '--config', '--state', '--retire-owned'];
+  requireThat(argv.every((value, index) => ['--apply', '--restore'].includes(value) || valued.includes(value) || (index > 0 && valued.includes(argv[index - 1]))), 'unknown argument');
+  requireThat(['--apply', '--restore', '--retire-owned'].filter(action => argv.includes(action)).length <= 1, 'choose one action');
   const socketPath = option(argv, '--socket', process.env.CNPS_CRM_CONTROLLER_SOCKET);
   const configuration = option(argv, '--config', process.env.CNPS_CRM_CONTROLLER_CONFIG);
   const statePath = option(argv, '--state', process.env.CNPS_CRM_ROUTE_STATE);
@@ -149,7 +191,12 @@ export async function main(argv = process.argv.slice(2)) {
   let secret;
   try { secret = line?.startsWith('"') ? JSON.parse(line) : line?.startsWith("'") && line.endsWith("'") ? line.slice(1, -1).replaceAll("''", "'") : line && !/[#\s{}\[\]]/.test(line) ? line : undefined; } catch { /* fail closed below */ }
   const call = controller({ socketPath, secret });
-  const result = await recover({ call, action: argv.includes('--apply') ? 'apply' : argv.includes('--restore') ? 'restore' : 'check', statePath, controllerId: hash({ socketPath, configuration }) });
+  const controllerId = hash({ socketPath, configuration });
+  const proofPath = option(argv, '--retire-owned');
+  requireThat(!argv.includes('--retire-owned') || proofPath && path.isAbsolute(proofPath), 'absolute owned proof path required');
+  const result = proofPath ? await retireOwned({ call, statePath, controllerId, proof: JSON.parse(await readFile(proofPath, 'utf8')),
+    ownerTask: process.env.CNPS_CRM_ROUTE_OWNER_TASK || '/root', context: process.env.CNPS_CRM_ROUTE_OWNER_CONTEXT || process.env.CODEX_THREAD_ID }) :
+    await recover({ call, action: argv.includes('--apply') ? 'apply' : argv.includes('--restore') ? 'restore' : 'check', statePath, controllerId });
   process.stdout.write(JSON.stringify(result, null, 2) + '\n');
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) main().catch(error => {

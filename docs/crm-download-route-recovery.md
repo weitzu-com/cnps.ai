@@ -23,3 +23,15 @@ node scripts/crm-download-route.mjs --socket /absolute/controller.sock --config 
 HTTP 限定 Unix socket 和白名单路径，限时、限响应体大小，响应完整 Buffer 后统一 UTF-8 解码，任何 HTTP 错误或不完整 JSON 均失败关闭。运行 `node --test tests/crm-download-route.test.mjs` 可验证 fake-controller 的 Unicode、错误、超时、安全前置条件、精确变更、幂等与恢复；测试不连接真实控制器。
 
 官方实现依据：[Mihomo Fallback](https://github.com/MetaCubeX/mihomo/blob/Meta/adapter/outboundgroup/fallback.go) 的 fixed 选择与存活检查；fixed 成员失活时自动清空并回归 fallback。[官方代理 API](https://github.com/MetaCubeX/mihomo/blob/Meta/hub/route/proxies.go) 的 PUT 更新及持久化选择、DELETE unfixed。工具不调用 delay 测试、不创建节点或更改 fallback 类型，因此保留其原有存活失败自动 fallback 行为。
+
+## 仅回收本任务自建的旧诊断连接
+
+切换 fixed 不迁移已有 TCP 连接。本任务浏览器复测中，一条 agent 自建的旧 DIRECT 连接在切换后继续下载，出现 45 秒工具等待超时，最终约 74.3 秒完整保存。该失败证据必须保留，不能用新连接的性能覆盖。
+
+只有 root agent 提供所有权安全证明后，才可运行已合并 main 版本的 `--retire-owned /absolute/proof.json`。该操作仍要求相同 controller 身份、已 applied 的 LA fixed/now、所有受保护哈希一致。它只 GET connections，在完整精确校验后 DELETE 一个明确 ID，随后 GET 确认消失。未持有证明不得推断所有权；用户连接不能使用此命令，不允许删除全部连接或其他 host、Match/native 连接。apply/restore 本身仍不触碰连接。
+
+证明包含 `ownerTask`、`context`、`controllerId`、`reason: task-created-pre-switch-connection`、`ownerWindow: {start,end}` 与 `connection: {id,sourcePort,start,host,chains,rule,rulePayload,actualDestination,destinationPort}`。context 与当前 `CODEX_THREAD_ID`（或明确的 `CNPS_CRM_ROUTE_OWNER_CONTEXT`）一致，ownerTask 与 `CNPS_CRM_ROUTE_OWNER_TASK`（默认 `/root`）一致。精确 start 字符串必须处于 agent 自有时间窗口，整个窗口早于保存的 apply 时间。限定本次 CRM Domain / DIRECT → CRM 组、远端 76.76.21.21:443、HTTPS TCP loopback 来源。proof 中不包含凭据或无关连接。状态仅追加 retired ID 和时间；已消失时两次确认后幂等成功，readback 失败不能声称成功。
+
+规则哈希采用 `static-rules-v2`：只从每条 rule 的 extra 排除 `hitCount/hitAt/missCount/missAt` 四个流量计数/时间字段，保留 `disabled` 及所有其他未知静态字段。新状态明确记录 `hashSchema: static-rules-v2`。缺少该标记的旧状态失败关闭，不忽略原 hash，不静默迁移，不覆盖原文件。
+
+本次没有旧完整规则快照，无法从含动态计数的旧哈希反推静态基线。保留 v1 状态原件，在新版本合并后指定一个新的 v2 状态路径，正常 `--apply` 记录当前受全部前置校验保护的静态基线。当前 fixed 已为 LA 时该操作零路由 mutation。这个新状态的 originalFixed 是 LA，`--restore` 也只恢复 LA；它**不能**声称恢复最初空 fixed 的自动模式。最初空 fixed 只留在未覆盖的 v1 证据中，本工具不绕过旧 hash 去恢复它。定点 retire 使用新的 v2 applied 状态，继续核验全部静态哈希。
