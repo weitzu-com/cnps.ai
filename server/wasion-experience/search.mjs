@@ -50,7 +50,7 @@ function resultMarkup(item, base, product = false) {
 export function renderSearch(query = '', base = '/demo/wasion', allowedSourceIds = null) {
   base = safeBase(base);
   query = String(query).trim().slice(0, 500);
-  const retrieved = query ? retrieveWasionSources(query, { limit: WASION_SOURCES.length }) : { results: [], resultCount: 0 };
+  const retrieved = query ? retrieveWasionSources(query, { limit: WASION_SOURCES.length, legacy: Boolean(allowedSourceIds) }) : { results: [], resultCount: 0 };
   const results = allowedSourceIds ? retrieved.results.filter(p=>allowedSourceIds.has(p.id)) : retrieved.results;
   const retrieval = {results,resultCount:results.length};
   const products = results.filter(p => p.category === 'Products'), pages = results.filter(p => p.category !== 'Products');

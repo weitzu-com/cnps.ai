@@ -208,7 +208,18 @@ test('P22–24 every model follows the eight-screen detail order and retains all
     for (const cell of (product.tables||[]).flat(2)) assert.ok(visible.includes(escape(cell)),product.slug+': '+cell);
     if(product.tables?.length) assert.ok(all(scope(html,'parameters'),node=>node.tag==='table').length,product.slug+' visible parameter table');
     assert.ok(scope(html,'solutions'));
-    assert.match(visible,/Field experience|Related field experience/);
+    // P22 requires a project pathway, but a broad solution's shared carousel is
+    // not proof that a case installed this model. Accept a sourced model case or
+    // an actionable request for that exact model, instead of rewarding a label.
+    const modelCases=all(scope(html,'solutions'),node=>Object.hasOwn(node.attrs,'data-case-evidence'));
+    assert.equal(modelCases.length,1,product.slug+' explicit model-case evidence state');
+    if(product.caseRelations?.length){
+      assert.equal(modelCases[0].attrs['data-case-evidence'],'exact-model');
+      for(const relation of product.caseRelations)assert.ok(all(modelCases[0],node=>node.attrs.href==='/demo/wasion/'+relation.id).length,product.slug+': verified case');
+    }else{
+      assert.equal(modelCases[0].attrs['data-case-evidence'],'not-established');
+      assert.ok(all(modelCases[0],node=>node.attrs.href?.startsWith('/demo/wasion/contact?intent=')&&decodeURIComponent(node.attrs.href).includes(product.title+' model-specific project reference')).length,product.slug+': actionable exact-model reference request');
+    }
     assert.ok(visible.includes('href="'+escape(encodeURI(product.url))+'"'),product.slug+' official model source');
   }
 });

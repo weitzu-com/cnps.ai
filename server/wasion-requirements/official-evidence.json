@@ -1,0 +1,877 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-15T16:12:51.518675+00:00",
+  "scope": "Additive official source evidence only. No data/business route modification and no production acceptance claim.",
+  "allowedSourceHosts": [
+    "en.wasion.com",
+    "www.wasion.cn"
+  ],
+  "baseline": {
+    "products": 86,
+    "productDirectDownloadFiles": 0,
+    "emptyFamilies": 7,
+    "plannedSolutions": 14,
+    "resourceItems": 12,
+    "originRegisterItems": 173,
+    "originRegisterSplit": {
+      "original": 83,
+      "optional": 4,
+      "implementationCompletion": 86
+    },
+    "emptyFamiliesNote": "7 is the pre-review regex baseline only. Current strict family mapping has10zero-local-detail families, including DT with2verified official external cards."
+  },
+  "newVerifiedEvidenceCounts": {
+    "newExternalModelDetailPages": 2,
+    "newOfficialRelatedProductSourceModules": 7,
+    "newOfficialRelatedProductEdges": 29,
+    "existingCertificateOriginalsFullyRead": 2,
+    "newDirectModelPDFFiles": 0,
+    "newModelSpecificCertificateFiles": 0,
+    "newApprovedVIManuals": 0,
+    "newWebAssetFiles": 0
+  },
+  "familyModels": [
+    {
+      "model": "aMeter100-DT",
+      "title": "aMeter100-DT",
+      "subtitle": "Single Phase Smart Meter",
+      "familySlug": "category-ameter100-dt-iec",
+      "familyLabel": "aMeter100 (DT) IEC",
+      "sourceURL": "https://en.wasion.com/DIN-Rail-Mounted-Meters/aMeter100-DT-Single-Phase-Smart-Meter.html",
+      "publisher": "Wasion International official English website",
+      "legalManufacturer": null,
+      "legalManufacturerStatus": "Not separately stated in the captured model page. Do not infer from publisher.",
+      "publicationDate": null,
+      "publicationDateStatus": "Not stated in model page; capture date is not a publication date.",
+      "verifiedAt": "2026-10-15T16:10:23.191739+00:00",
+      "sourceHTMLSha256": "71e22e3f17504c23b07f68959232df3fda130660ea5be28e6c1f564d188caed1",
+      "snapshotId": "d0aa5b841801d9.html",
+      "sourceRequirementPDFPages": [
+        12,
+        24,
+        25
+      ],
+      "paragraphs": [
+        "Single Phase Smart Meter"
+      ],
+      "features": [
+        "Available forms: DIN Rail Mounted",
+        "Open standard protocol: DLMS/COSEM",
+        "Comply with G0100-05",
+        "Equipped with optional local/remote controlled disconnector",
+        "Backup battery or Super-cap for RTC",
+        "Prepaid/post-paid switch-over at runtime",
+        "Highly tamper proof by design",
+        "Firmware upgrade via local port as well as OTA",
+        "Local and remote charging / topping up",
+        "Local ports: Optical port and RS-485",
+        "HAN / IHD Interface: RF or PLC / M-BUS or RS-485",
+        "Optional WAN Modules: G3-PLC",
+        "Comply with protocols: DLMS / COSEM",
+        "Measurement Behaviour",
+        "2 elements, 4 quadrants",
+        "Instantaneous Vrms, Irms, frequency, PF, kW, kvar, kVA",
+        "Rich set of energy and demand registers (A+, A-, R+, R-, +Ri, +Rc, -Ri, -Rc)",
+        "Flexible backup power for RTC, including built-in battery or super capacitor",
+        "Remote control command",
+        "Over voltage & Under voltage control",
+        "Power limit",
+        "Firmware can be upgraded via optical interface as well as WAN interface",
+        "Tamper detection, internal failure detection, power quality events, over current / current imbalance, security event, standard event",
+        "G3-PLC",
+        "Protocol: DLMS/COSEM",
+        "HLS, supporting authentication and encryption for local and remote communication"
+      ],
+      "tables": [
+        [
+          [
+            "Measurement Behaviour",
+            "2 elements, 4 quadrants"
+          ],
+          [
+            "Instantaneous Vrms, Irms, frequency, PF, kW, kvar, kVA"
+          ],
+          [
+            "Rich set of energy and demand registers (A+, A-, R+, R-, +Ri, +Rc, -Ri, -Rc)"
+          ],
+          [
+            "Backup Battery",
+            "Flexible backup power for RTC, including built-in battery or super capacitor"
+          ],
+          [
+            "Load Control",
+            "Remote control command"
+          ],
+          [
+            "Over voltage & Under voltage control"
+          ],
+          [
+            "Power limit"
+          ],
+          [
+            "Firmware Upgrade",
+            "Firmware can be upgraded via optical interface as well as WAN interface"
+          ],
+          [
+            "Event Logs",
+            "Tamper detection, internal failure detection, power quality events, over current / current imbalance, security event, standard event"
+          ],
+          [
+            "WAN Communication (optional)",
+            "G3-PLC"
+          ],
+          [
+            "Protocol: DLMS/COSEM"
+          ],
+          [
+            "HAN Communication",
+            "RS-485/M-BUS"
+          ],
+          [
+            "FSK RF, FSK PLC,G3-PLC"
+          ],
+          [
+            "Communication with in-home display"
+          ],
+          [
+            "Security",
+            "LLS, supporting 3 level passwords for local and remote communication"
+          ],
+          [
+            "HLS, supporting authentication and encryption for local and remote communication"
+          ]
+        ]
+      ],
+      "images": [
+        {
+          "url": "https://en.wasion.com/public/uploads/images/20221012/3be75d16f7ab271c58fd183a0646a92c.png",
+          "alt": "aMeter100-DT",
+          "localAsset": "/assets/wasion-requirements/ameter100-dt-official.png",
+          "sha256": "9ae606b3c0247d3bbd7b4548ca35aad40ab362cc7fc771b5cb8cd2313799b2a1",
+          "bytes": 234221
+        }
+      ],
+      "directDownloadURLs": [],
+      "directDownloadStatus": "missing-unlinked",
+      "downloadGate": true,
+      "downloadNotice": null,
+      "suggestedFields": {
+        "officialModelName": "aMeter100-DT",
+        "description": "Single Phase Smart Meter",
+        "formFactor": "DIN Rail Mounted",
+        "officialTechnicalPageURL": "https://en.wasion.com/DIN-Rail-Mounted-Meters/aMeter100-DT-Single-Phase-Smart-Meter.html",
+        "technicalDataSource": "official-html",
+        "specificationFile": null,
+        "certificationFile": null
+      },
+      "recommendedIntegration": "Add official external model cards to the existing DT family; do not silently add local product routes or change the accepted86model/198route denominator."
+    },
+    {
+      "model": "aMeter100-DTIN",
+      "title": "aMeter100-DTIN",
+      "subtitle": "Single Phase Energy Meter",
+      "familySlug": "category-ameter100-dt-iec",
+      "familyLabel": "aMeter100 (DT) IEC",
+      "sourceURL": "https://en.wasion.com/DIN-Rail-Mounted-Meters/aMeter100-DTIN-Single-Phase-Energy-Meter.html",
+      "publisher": "Wasion International official English website",
+      "legalManufacturer": null,
+      "legalManufacturerStatus": "Not separately stated in the captured model page. Do not infer from publisher.",
+      "publicationDate": null,
+      "publicationDateStatus": "Not stated in model page; capture date is not a publication date.",
+      "verifiedAt": "2026-10-15T16:10:23.192092+00:00",
+      "sourceHTMLSha256": "f85e50923b2496897a3cfb708079638153207d5e02461a05c3f46df35e0bca5d",
+      "snapshotId": "ed34c4eab9ae58.html",
+      "sourceRequirementPDFPages": [
+        12,
+        24,
+        25
+      ],
+      "paragraphs": [
+        "Single Phase Energy Meter"
+      ],
+      "features": [
+        "Available forms: DIN Rail Mounted",
+        "Optical port, Comply with IEC62056-21 standard",
+        "Equipped with optional local/remote-controlled disconnector",
+        "Flexible backup power for RTC, including internal battery, external battery(optional)",
+        "Prepaid/post-paid switch-over at runtime",
+        "Highly tamper-proof by design",
+        "Firmware upgrade via optical interface and RS485 interface",
+        "Comply with protocol: DLMS(IEC62056-21 mode E)",
+        "Measurement",
+        "1 element, 4 quadrant",
+        "Instantaneous Vrms, Irma, Frequency, PF, kW, kVAr, kVA",
+        "Lots of energy and demand registers (A+, A-, R+, R-, +Ri, +Rc, -Ri, -Rc)",
+        "RTC",
+        "Clock accuracy (daily deviation): ≤ 0.5s/day",
+        "DST",
+        "Tariff",
+        "Up to 4 tariff rate",
+        "Up to 50 exception day/Holiday",
+        "Up to 6 seasons and 6 week tables",
+        "Up to 8 day tables and each table has 14 entries",
+        "Active and passive calendar support",
+        "Battery Backup",
+        "Flexible backup power for RTC, including internal battery, external battery (optional)",
+        "Load Profile",
+        "Data recorded 60 days (15 minutes)",
+        "Date recorded with kW",
+        "Firmware upgrading",
+        "The firmware can be upgraded via optical interface and RS485 interface",
+        "Profile",
+        "Hourly load profiles（15min(default), up to 20 channels, up to 60 days)",
+        "Daily load profiles（24h, up to 20 channels, up to 64 days）",
+        "Month billing profiles, Up to 24 billing records and 20 channels",
+        "Configurable interval and capture objects of load profile",
+        "Event Record",
+        "Fraud detection (Meter cover, terminal cover, current reverse, magnetic detect etc.)",
+        "Failure detection (Memory error, relay error, battery low voltage, clock invalid etc.)",
+        "Power quality event (Under voltage /Over voltage (Sag/Swell), Power up/down, etc.)",
+        "Over current/Over load",
+        "Security event (Parameters change, clock adjust, etc.)",
+        "Standard event log (Power up/on, time synchronization, etc.)",
+        "Communication",
+        "RS485",
+        "Protocol: DLMS(IEC62056-21 mode E)",
+        "Security",
+        "LLS support 3 level passwords for local and remotely communication",
+        "HLS support authentication and encryption for local"
+      ],
+      "tables": [
+        [
+          [
+            "Measurement",
+            "1 element, 4 quadrant"
+          ],
+          [
+            "Instantaneous Vrms, Irma, Frequency, PF, kW, kVAr, kVA"
+          ],
+          [
+            "Lots of energy and demand registers (A+, A-, R+, R-, +Ri, +Rc, -Ri, -Rc)"
+          ],
+          [
+            "RTC",
+            "Clock accuracy (daily deviation): ≤ 0.5s/day"
+          ],
+          [
+            "DST"
+          ],
+          [
+            "Tariff",
+            "Up to 4 tariff rate"
+          ],
+          [
+            "Up to 50 exception day/Holiday"
+          ],
+          [
+            "Up to 6 seasons and 6 week tables"
+          ],
+          [
+            "Up to 8 day tables and each table has 14 entries"
+          ],
+          [
+            "Active and passive calendar support"
+          ],
+          [
+            "Battery Backup",
+            "Flexible backup power for RTC, including internal battery, external battery (optional)"
+          ],
+          [
+            "Load Profile",
+            "Data recorded 60 days (15 minutes)"
+          ],
+          [
+            "Date recorded with kW"
+          ],
+          [
+            "Firmware upgrading",
+            "The firmware can be upgraded via optical interface and RS485 interface"
+          ],
+          [
+            "Profile",
+            "Hourly load profiles（15min(default), up to 20 channels, up to 60 days)"
+          ],
+          [
+            "Daily load profiles（24h, up to 20 channels, up to 64 days）"
+          ],
+          [
+            "Month billing profiles, Up to 24 billing records and 20 channels"
+          ],
+          [
+            "Configurable interval and capture objects of load profile"
+          ],
+          [
+            "Event Record",
+            "Fraud detection (Meter cover, terminal cover, current reverse, magnetic detect etc.)"
+          ],
+          [
+            "Failure detection (Memory error, relay error, battery low voltage, clock invalid etc.)"
+          ],
+          [
+            "Power quality event (Under voltage /Over voltage (Sag/Swell), Power up/down, etc.)"
+          ],
+          [
+            "Over current/Over load"
+          ],
+          [
+            "Security event (Parameters change, clock adjust, etc.)"
+          ],
+          [
+            "Standard event log (Power up/on, time synchronization, etc.)"
+          ],
+          [
+            "Communication",
+            "RS485"
+          ],
+          [
+            "Optical port, Comply with IEC62056-21 standard"
+          ],
+          [
+            "Protocol: DLMS(IEC62056-21 mode E)"
+          ],
+          [
+            "Security",
+            "LLS support 3 level passwords for local and remotely communication"
+          ],
+          [
+            "HLS support authentication and encryption for local"
+          ]
+        ]
+      ],
+      "images": [
+        {
+          "url": "https://en.wasion.com/public/uploads/images/20221019/49a7986a7b33c5652bc001cdfd5b0589.png",
+          "alt": "aMeter100-DTIN",
+          "localAsset": "/assets/wasion-requirements/ameter100-dtin-official.png",
+          "sha256": "73d736ba375798bf552fb2067f62452aff815385a6d9ccce2d29cac10ec8e53d",
+          "bytes": 291368
+        }
+      ],
+      "directDownloadURLs": [],
+      "directDownloadStatus": "missing-unlinked",
+      "downloadGate": true,
+      "downloadNotice": null,
+      "suggestedFields": {
+        "officialModelName": "aMeter100-DTIN",
+        "description": "Single Phase Energy Meter",
+        "formFactor": "DIN Rail Mounted",
+        "officialTechnicalPageURL": "https://en.wasion.com/DIN-Rail-Mounted-Meters/aMeter100-DTIN-Single-Phase-Energy-Meter.html",
+        "technicalDataSource": "official-html",
+        "specificationFile": null,
+        "certificationFile": null
+      },
+      "recommendedIntegration": "Add official external model cards to the existing DT family; do not silently add local product routes or change the accepted86model/198route denominator."
+    }
+  ],
+  "solutionRelatedProducts": [
+    {
+      "sourceURL": "https://en.wasion.com/soluPage/3.html",
+      "sourceTitle": "Cluster Metering Solutions",
+      "verifiedAt": "2026-10-15T16:10:23.193485+00:00",
+      "sourceHTMLSha256": "0e8df6f4db08343a935e26f4b23e72af19791848bec93d2b5390d35a1ce85a97",
+      "snapshotId": "0a3289d87af515.html",
+      "sourceRequirementPDFPages": [
+        4,
+        12,
+        20,
+        22,
+        24
+      ],
+      "evidenceKind": "official-related-product",
+      "selector": "Exact anchor inside official HTML block starting Related Products and ending before Success Stories / contact / footer; excludes global navigation and common case carousel.",
+      "relatedProducts": [
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-Poly-Phase-Smart-Meter.html",
+          "title": "aMeter300-GT",
+          "subtitle": "Poly-phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GT-Single-Phase-Smart-Meter.html",
+          "title": "aMeter100-GT",
+          "subtitle": "Single Phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/Wired-Communication/WFET1600U-Data-Concentrator-Unit.html",
+          "title": "WFET1600U",
+          "subtitle": "Data Concentrator Unit"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/Wired-Communication/WFCT-980-Data-Concentrator-Unit.html",
+          "title": "WFCT-980",
+          "subtitle": "Data Concentrator Unit"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html",
+          "title": "HMPM",
+          "subtitle": "for the Android platform to set parameters, read/copy data from meters with HHU"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/DIN-Rail-Mounted-Meters/aMeter100-DT-Single-Phase-Smart-Meter.html",
+          "title": "aMeter100-DT",
+          "subtitle": ""
+        },
+        {
+          "sourceURL": "https://en.wasion.com/DIN-Rail-Mounted-Meters/aMeter100-DTIN-Single-Phase-Energy-Meter.html",
+          "title": "aMeter100-DTIN",
+          "subtitle": "Single Phase Energy Meter"
+        }
+      ],
+      "caseRelationshipStatus": "Do not treat the shared Success Stories carousel as a project-specific or model-specific deployment relationship.",
+      "scopeBoundary": "Official Related Products means the publisher recommends this product on this solution page. It does not prove every listed model was deployed together or in a named project."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/soluPage/1.html",
+      "sourceTitle": "Cellular-based AMI Solutions",
+      "verifiedAt": "2026-10-15T16:10:23.194822+00:00",
+      "sourceHTMLSha256": "cfee4744779c2f5651d7a4bdbfa8f13f1e7e6236e4f1ec6f80677429ef6220d2",
+      "snapshotId": "0d15f80cbcbdcf.html",
+      "sourceRequirementPDFPages": [
+        4,
+        12,
+        20,
+        22,
+        24
+      ],
+      "evidenceKind": "official-related-product",
+      "selector": "Exact anchor inside official HTML block starting Related Products and ending before Success Stories / contact / footer; excludes global navigation and common case carousel.",
+      "relatedProducts": [
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GT-Single-Phase-Smart-Meter.html",
+          "title": "aMeter100-GT",
+          "subtitle": "Single Phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/Cellular-Communication/Cellular-Module.html",
+          "title": "Cellular Module",
+          "subtitle": "GPRS/3G/4G"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/Cellular-Communication/NB-IoT-GPRS-Network-Interface-Module.html",
+          "title": "NB-IoT & GPRS",
+          "subtitle": "Network Interface Card/Module"
+        }
+      ],
+      "caseRelationshipStatus": "Do not treat the shared Success Stories carousel as a project-specific or model-specific deployment relationship.",
+      "scopeBoundary": "Official Related Products means the publisher recommends this product on this solution page. It does not prove every listed model was deployed together or in a named project."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/soluPage/7.html",
+      "sourceTitle": "Prepayment Solutions",
+      "verifiedAt": "2026-10-15T16:10:26.717959+00:00",
+      "sourceHTMLSha256": "cbf7fa8985718f8f7262af8e0c0c86a8805e33866a5b4cea07560778b1e2840a",
+      "snapshotId": "3878552759d67d.html",
+      "sourceRequirementPDFPages": [
+        4,
+        12,
+        20,
+        22,
+        24
+      ],
+      "evidenceKind": "official-related-product",
+      "selector": "Exact anchor inside official HTML block starting Related Products and ending before Success Stories / contact / footer; excludes global navigation and common case carousel.",
+      "relatedProducts": [
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GT-Single-Phase-Smart-Meter.html",
+          "title": "aMeter100-GT",
+          "subtitle": "Single Phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Prepayment-Vending-Management-System.html",
+          "title": "PVMS",
+          "subtitle": "Prepayment Vending Management System"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/proWateRel/I-110-Series-Smart-Water-Meter.html",
+          "title": "I-110 Series",
+          "subtitle": "Smart Water Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Prepaid-Meters/aMeter100-KT-Single-Phase-Smart-Meter.html",
+          "title": "aMeter100-KT",
+          "subtitle": "Single Phase Smart Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Prepaid-Meters/aMeter300-KT-Poly-Phase-Smart-Meter.html",
+          "title": "aMeter300-KT",
+          "subtitle": "Poly-phase Smart Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-KT-Single-Phase-Keypad-Meter.html",
+          "title": "DDSD101-KT",
+          "subtitle": "Single Phase Keypad Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html",
+          "title": "HMPM",
+          "subtitle": "for the Android platform to set parameters, read/copy data from meters with HHU"
+        }
+      ],
+      "caseRelationshipStatus": "Do not treat the shared Success Stories carousel as a project-specific or model-specific deployment relationship.",
+      "scopeBoundary": "Official Related Products means the publisher recommends this product on this solution page. It does not prove every listed model was deployed together or in a named project."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/soluPage/5.html",
+      "sourceTitle": "Energy Loss Reduction Solutions",
+      "verifiedAt": "2026-10-15T16:10:26.742843+00:00",
+      "sourceHTMLSha256": "629db6ec5ac6734dc770bd2327bf7a95826bd33d81edb7f9df09899cfb88389f",
+      "snapshotId": "0d730f9a614478.html",
+      "sourceRequirementPDFPages": [
+        4,
+        12,
+        20,
+        22,
+        24
+      ],
+      "evidenceKind": "official-related-product",
+      "selector": "Exact anchor inside official HTML block starting Related Products and ending before Success Stories / contact / footer; excludes global navigation and common case carousel.",
+      "relatedProducts": [
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-Poly-Phase-Smart-Meter.html",
+          "title": "aMeter300-GT",
+          "subtitle": "Poly-phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-CT-Three-Phase-Smart-Energy-Meter.html",
+          "title": "aMeter300 (CT)",
+          "subtitle": "Three Phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Meter-Data-Reading.html",
+          "title": "Meter Data Reading (MDR)",
+          "subtitle": "Head End System (HES)"
+        }
+      ],
+      "caseRelationshipStatus": "Do not treat the shared Success Stories carousel as a project-specific or model-specific deployment relationship.",
+      "scopeBoundary": "Official Related Products means the publisher recommends this product on this solution page. It does not prove every listed model was deployed together or in a named project."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/soluPage/4.html",
+      "sourceTitle": "Walk/Drive By Solutions",
+      "verifiedAt": "2026-10-15T16:10:26.977027+00:00",
+      "sourceHTMLSha256": "3a6df1ad05ec978759be033499491f7b03e2b2efe84e1f2ba1b376cd3bb148a1",
+      "snapshotId": "07e5ea8d860cc8.html",
+      "sourceRequirementPDFPages": [
+        4,
+        12,
+        20,
+        22,
+        24
+      ],
+      "evidenceKind": "official-related-product",
+      "selector": "Exact anchor inside official HTML block starting Related Products and ending before Success Stories / contact / footer; excludes global navigation and common case carousel.",
+      "relatedProducts": [
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GT-Single-Phase-Smart-Meter.html",
+          "title": "aMeter100-GT",
+          "subtitle": "Single Phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html",
+          "title": "HMPM",
+          "subtitle": "for the Android platform to set parameters, read/copy data from meters with HHU"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Ordinary-Meters/DDS102-Single-Phase-Energy-Meter.html",
+          "title": "DDS102",
+          "subtitle": "Single Phase Energy Meter"
+        }
+      ],
+      "caseRelationshipStatus": "Do not treat the shared Success Stories carousel as a project-specific or model-specific deployment relationship.",
+      "scopeBoundary": "Official Related Products means the publisher recommends this product on this solution page. It does not prove every listed model was deployed together or in a named project."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/soluPage/Energy-Pro.html",
+      "sourceTitle": "Meter-to-Cash Solutions (Energy-Pro)",
+      "verifiedAt": "2026-10-15T16:10:29.417916+00:00",
+      "sourceHTMLSha256": "bc49deda91436965d839164e3caf375d8f6216b9c777a2336c7703b7d83993b5",
+      "snapshotId": "859e92b75ee038.html",
+      "sourceRequirementPDFPages": [
+        4,
+        12,
+        20,
+        22,
+        24
+      ],
+      "evidenceKind": "official-related-product",
+      "selector": "Exact anchor inside official HTML block starting Related Products and ending before Success Stories / contact / footer; excludes global navigation and common case carousel.",
+      "relatedProducts": [
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Universal-Device-Integration-System.html",
+          "title": "Universal Device Integration System (UDIS)",
+          "subtitle": "An Advanced Head End System (HES)"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Key-Management-System.html",
+          "title": "KMS",
+          "subtitle": "Key Management System"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Energy-Data-Integration-System.html",
+          "title": "Energy Data Integration System (EDIS)",
+          "subtitle": "Energy Data Integration System(MDMS)"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Smart-Network-Management-System.html",
+          "title": "SNMS",
+          "subtitle": "Smart Network Management System"
+        }
+      ],
+      "caseRelationshipStatus": "Do not treat the shared Success Stories carousel as a project-specific or model-specific deployment relationship.",
+      "scopeBoundary": "Official Related Products means the publisher recommends this product on this solution page. It does not prove every listed model was deployed together or in a named project."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/soluPage/6.html",
+      "sourceTitle": "TMS (Transformer Monitoring System)",
+      "verifiedAt": "2026-10-15T16:10:30.020779+00:00",
+      "sourceHTMLSha256": "d2330180d369d4459a0d035dc261d941a8c4eb383f650c98e38fcb4f31fbcf55",
+      "snapshotId": "1c1f2ce1a72747.html",
+      "sourceRequirementPDFPages": [
+        4,
+        12,
+        20,
+        22,
+        24
+      ],
+      "evidenceKind": "official-related-product",
+      "selector": "Exact anchor inside official HTML block starting Related Products and ending before Success Stories / contact / footer; excludes global navigation and common case carousel.",
+      "relatedProducts": [
+        {
+          "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-CT-Three-Phase-Smart-Energy-Meter.html",
+          "title": "aMeter300 (CT)",
+          "subtitle": "Three Phase Smart Energy Meter"
+        },
+        {
+          "sourceURL": "https://en.wasion.com/RelevantProduct/Meter-Data-Reading.html",
+          "title": "Meter Data Reading (MDR)",
+          "subtitle": "Head End System (HES)"
+        }
+      ],
+      "caseRelationshipStatus": "Do not treat the shared Success Stories carousel as a project-specific or model-specific deployment relationship.",
+      "scopeBoundary": "Official Related Products means the publisher recommends this product on this solution page. It does not prove every listed model was deployed together or in a named project."
+    }
+  ],
+  "certificates": [
+    {
+      "id": "official-iso9001-hungary",
+      "title": "ISO 9001:2015 — Wasion Hungary Kft.",
+      "sourceURL": "https://en.wasion.com/public/uploads/files/20250506/HUBUD_000110_GenericCertificate_Final Hungary.pdf",
+      "discoveredOn": "https://en.wasion.com/resources.html",
+      "entity": "Wasion Hungary Kft.",
+      "site": "H-2100 Gödöllő, Táncsics Mihály út 11.",
+      "certificateNumber": "HU24/00000110",
+      "standard": "ISO 9001:2015",
+      "issuer": "SGS United Kingdom Ltd",
+      "scope": "Management system covering manufacture/service of electric consumption meters and related technical advice. Hungarian-language original; English scope paraphrased.",
+      "modelScope": [],
+      "modelScopeStatus": "No specific meter model list; cannot be attached as certification of every product.",
+      "validFrom": "2024-09-18",
+      "validUntil": "2027-09-17",
+      "conditions": "Subject to satisfactory surveillance audits.",
+      "issueDate": "2024-09-18",
+      "sourcePDFPages": [
+        1
+      ],
+      "sourceRequirementPDFPages": [
+        23,
+        24,
+        29,
+        33
+      ],
+      "verifiedBy": "Full original PDF download and pypdf text extraction; not an independent SGS registry validation.",
+      "sha256": "44a9b6f03e53767f46be99e4bc018556973f86122040ad288179decf03305236",
+      "bytes": 533249,
+      "snapshotId": "92ad93580f1308.pdf",
+      "status": "verified-original-certificate-metadata",
+      "newAsset": false
+    },
+    {
+      "id": "official-iso45001-hungary",
+      "title": "ISO 45001:2018 — Wasion Hungary Kft.",
+      "sourceURL": "https://en.wasion.com/public/uploads/files/20251001/2025.09.23 SGS_ISO 45001_2018_HUBUD_000091_EN.pdf",
+      "discoveredOn": "https://en.wasion.com/resources.html",
+      "entity": "Wasion Hungary Kft.",
+      "site": "H-2100 Gödöllő, Táncsics Mihály út 11.",
+      "certificateNumber": "HU25/00000091",
+      "standard": "ISO 45001:2018",
+      "issuer": "SGS Société Générale de Surveillance SA",
+      "scope": "Management system covering manufacture/service of electric consumption meters and related technical advice.",
+      "modelScope": [],
+      "modelScopeStatus": "No specific meter model list; management-system certificate does not establish model-level product certification.",
+      "validFrom": "2025-09-23",
+      "validUntil": "2028-09-22",
+      "conditions": "Subject to satisfactory surveillance audits.",
+      "issueDate": "2025-09-23",
+      "sourcePDFPages": [
+        1
+      ],
+      "sourceRequirementPDFPages": [
+        23,
+        24,
+        29,
+        33
+      ],
+      "verifiedBy": "Full original PDF download and pypdf text extraction; not an independent SGS registry validation.",
+      "sha256": "54aeaf456ce67fc2d00af223e42762e3b2884e62ba8808775206a4b18d393a14",
+      "bytes": 1853279,
+      "snapshotId": "500010f7fb957d.pdf",
+      "status": "verified-original-certificate-metadata",
+      "newAsset": false
+    },
+    {
+      "id": "official-mid-quality-system-image",
+      "title": "EU quality system approval CE-435 — Wasion Hungary Kft.",
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250506/MID 证书-CE-435-kWh-Wasion Hungary KFT-December 2024_00.png",
+      "discoveredOn": "https://en.wasion.com/resources.html",
+      "entity": "Wasion Hungary Kft.",
+      "certificateNumber": "CE-435",
+      "standard": null,
+      "scope": "Image heading states EU quality system approval for active electrical energy meters. Full scope is referred to the annex, which is not linked in current source HTML.",
+      "modelScope": [],
+      "modelScopeStatus": "Specific approved models not established by the published cover image. Annex required.",
+      "directPDFURL": null,
+      "validUntil": "2027-12-03",
+      "dateEvidence": "Expiry legible in existing official certificate image; original PDF/annex unavailable.",
+      "sourcePDFPages": [],
+      "sourceRequirementPDFPages": [
+        23,
+        24,
+        29,
+        33
+      ],
+      "status": "partial-cover-image-only",
+      "newAsset": false
+    },
+    {
+      "id": "official-iso14001-hungary-image",
+      "title": "Certificate ISO 14001 Wasion Hungary Kft.",
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251001/2025.09.25 SGS_ISO 14001_2015_HUBUD_000098_EN_01.png",
+      "discoveredOn": "https://en.wasion.com/resources.html",
+      "entity": "Wasion Hungary Kft.",
+      "directPDFURL": null,
+      "modelScope": [],
+      "sourceRequirementPDFPages": [
+        23,
+        24,
+        29,
+        33
+      ],
+      "status": "missing-original-pdf-current-source-ux-file-empty",
+      "newAsset": false
+    }
+  ],
+  "gasDocumentStatus": {
+    "model": "ZG-D-1.6~4",
+    "sourceURL": "https://en.wasion.com/proWateRel/ZG-D-1.6-4-Smart-Residential-Gas-Meter.html",
+    "verifiedAt": "2026-10-15T16:12:51.518675+00:00",
+    "sourceHTMLSha256": "c3c59f075070127921a96cf2e4159d426c0fc880401a1adcfe48f5b45c2d8894",
+    "snapshotId": "a3f9c54047671c.html",
+    "directDownloadURLs": [],
+    "status": "missing-official-download-explicitly-not-available",
+    "officialNotice": "The download file will be available soon!",
+    "sourceRequirementPDFPages": [
+      22,
+      24,
+      33
+    ],
+    "standardsMentionedInOfficialHTML": [
+      "EN1359",
+      "OIML R31/137"
+    ],
+    "standardClaimBoundary": "Published model-page standard claims are not substitutes for a model certificate PDF; options/configuration may differ.",
+    "suggestedFields": {
+      "technicalPageURL": "https://en.wasion.com/proWateRel/ZG-D-1.6-4-Smart-Residential-Gas-Meter.html",
+      "specificationFile": null,
+      "downloadStatus": "not-available-in-official-source",
+      "certificationFile": null
+    }
+  },
+  "brandVIStatus": {
+    "status": "missing-approved-manual",
+    "currentResourcePage": "https://en.wasion.com/resources.html",
+    "checkedAt": "2026-10-15T16:12:51.518675+00:00",
+    "sourceRequirementPDFPages": [
+      5,
+      9,
+      32
+    ],
+    "availableExistingAssets": [
+      "Official white logo PNG",
+      "Official company film",
+      "Company profile sheet/presentation"
+    ],
+    "missing": [
+      "Approved VI manual PDF",
+      "Logo usage clearspace/color/minimum-size specification",
+      "Explicit approved variants and customer usage approval"
+    ],
+    "boundary": "An available official logo or company profile does not establish a complete approved visual-identity manual."
+  },
+  "targetedSearchOutcomes": [
+    {
+      "target": "WID4000 / WID-4000",
+      "status": "missing-in-targeted-official-search",
+      "scope": "Official English catalog and bounded official-domain searches checked; WID-2000 is available but must not substitute."
+    },
+    {
+      "target": "BURIT100",
+      "status": "missing-in-targeted-official-search",
+      "scope": "No exact official source/model found in bounded search; retain requested name and ask client for source."
+    },
+    {
+      "target": "aMeter100/300(EU) IEC",
+      "status": "partial-series-level-evidence-only",
+      "sourceURL": "https://en.wasion.com/news/Wasion-Enlit-Europe-2025.html",
+      "scope": "Official news describes MID-certified smart meters and Europe-tailored AMI, but does not identify exact100/300EU model or its approved certificate annex. Existing generic ameter models must not silently fillEU category."
+    },
+    {
+      "target": "WIMC300",
+      "status": "unresolved-name-must-not-substitute",
+      "scope": "SMC100 cabinet meter and Large Power Unit are different official names. Catalog-match regex is not model identity proof."
+    },
+    {
+      "target": "Distribution Transformers",
+      "status": "partial-product-family-level-news-only",
+      "sourceURL": "https://en.wasion.com/news/120.html",
+      "scope": "Official DTECH2026 news describes pole-mounted/pad-mounted distribution transformer forms but exact model datasheets not supplied."
+    },
+    {
+      "target": "Distribution RTU / IoT Edge",
+      "status": "missing-exact-model-source",
+      "scope": "Do not assign arbitrary recloser/router based on broad term match."
+    },
+    {
+      "target": "Transformer Monitoring",
+      "status": "official-solution-and-related-products-verified-not-a-new-independent-sku",
+      "sourceURL": "https://en.wasion.com/soluPage/6.html",
+      "scope": "Official TMS page and exact CT-meter/MDR recommendations found; no dedicated TMS SKU/datasheet inferred."
+    }
+  ],
+  "integrationBoundary": {
+    "demo": "English demo pages with Chinese/English AI questions, current official content evidence and safe missing-data states.",
+    "formalPhase": [
+      "Formal CMS/content operations",
+      "Complete multilingual website and region-approved copy",
+      "Real lead receiving/persistence/delivery integration",
+      "Original PDFp34US-cloud/compute/storage/bandwidth/CDN/security/backup/three-yearcost obligations"
+    ],
+    "productionClaims": "Evidence collection alone is not merged, deployed, live accepted or customer accepted."
+  },
+  "sourceCaptureDate": "2026-10-16",
+  "localIntegrationSnapshot": {
+    "status": "integrated-in-local-code-awaiting-live-acceptance",
+    "snapshotFile": "reviewed-family-inventory.json",
+    "localProductDetails": 86,
+    "internalRoutes": 198,
+    "zeroLocalDetailFamilyCount": 10,
+    "familiesWithOfficialExternalModels": 1,
+    "officialExternalModelCards": 2,
+    "familiesStillMissingExactModelMaterial": 9,
+    "canonicalOfficialProductLinks": 24,
+    "canonicalExternalDTLinks": 2,
+    "legacyWalkDriveOfficialProductLinks": 3,
+    "sourceModuleProductEdgesTotal": 29,
+    "canonicalSelectionRelevanceLinks": 79,
+    "productInstalledCaseRelations": 0,
+    "boundary": "Selection relevance and common carousel recommendations are not product integration or installed-in-project evidence. No claim that current code is deployed or live accepted."
+  }
+}
