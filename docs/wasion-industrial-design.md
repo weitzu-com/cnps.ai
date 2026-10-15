@@ -47,11 +47,21 @@ The shared `getProductCatalog` and `renderProductCatalogFilters` interfaces in `
 
 Only these 11 Industrial pages receive the catalog CSS. Product details, search, login, all non-target routes and the four other styles stay unchanged. Inputs use 16px text and 52px height; category navigation wraps, cards use one to three columns, and the rem-based header container query preserves navigation at enlarged text sizes.
 
+### Industrial solutions and case studies
+
+`server/wasion-industrial-stories.mjs` covers 25 Industrial routes: the solution and challenge indexes, four challenges, Next Gen AMI, nine published solutions, both case-study indexes and seven project details. A real, attributed project cover leads each index. Application navigation connects the existing challenge paths and case studies. Solution previews link to the official page and use `contain`, preserving the full publisher image, including any video-preview artwork. The existing overview, discovery tabs, capabilities, product and project relationships, sources and native keyboard interactions remain intact.
+
+Case details present the original project image, client, region, full project description and source. Highlighted quantities are extracted from the shared case paragraphs and retain `over`, historical periods and `each energy station` where published. PV and storage capacity remain capacity; estimated generation is not promoted to an achieved result. No performance percentages or project compatibility claims are added. `wasion-story-covers.json` maps seven covers to exact case links verified in the saved official HTML. The shared `getCaseStudies` and `renderCaseStudyFilters` exports preserve the original case derivation, facets, search, empty/reset states and six-at-a-time pagination.
+
+Only the 25 target pages receive the scoped story CSS. The home, products, catalog, search, login, DTECH, all other Industrial pages and the other four styles retain their complete original HTML. Body text and inputs remain readable at mobile widths and 200% root text size; images, long titles, controls, navigation and footer wrap within the viewport. The rem-based header query reuses the existing dark mobile menu and shared JavaScript.
+
 All five styles use the same serialized search catalog, `/api/crm-wasion-demo-search` endpoint, server-side project authorization, nonce CSP and private CRM host policy. This change does not modify AI services, account quotas or session rules. Existing generic route rewrites and the style registry handle both canonical and styled paths; unknown styles remain unavailable. The Industrial compatibility aliases retain the same access boundary and resolve post-login navigation to the canonical Industrial route.
 
 ## Verification
 
 Run `node --test tests/wasion-demo-styles.test.mjs tests/wasion-demo-industrial.test.mjs tests/wasion-industrial-search.test.mjs tests/wasion-industrial-product.test.mjs tests/wasion-industrial-catalog.test.mjs` for route, content and interaction isolation regression checks. Run `npm run build` followed by `npm test` before release; tests read built output, so these steps must not run concurrently. Use a clean temporary source archive for final build validation when synchronized generated files are unreliable.
+
+`tests/wasion-industrial-stories.test.mjs` additionally locks all 425 non-target HTML outputs and all 450 scripts to the pre-change baseline, the shared source data, complete solution content, case descriptions, image provenance, safe links, project quantities, section semantics and real shared filter/tab client behavior.
 
 The regression checks cover every published style and route, canonical Industrial default equivalence, internal product paths, complete search catalog equality, official product imagery, unchanged source specification cells, a brand-led home hero, omission of the automatic search strip in Industrial and Orderful, auxiliary navigation search, current-page and question retention, POST sign-in recovery, script syntax and project access isolation. The product-stage interaction test runs the actual client code and checks click, Home/End and left/right wrapping, one visible panel and roving tab focus.
 
