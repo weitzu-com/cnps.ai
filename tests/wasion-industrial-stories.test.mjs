@@ -8,6 +8,7 @@ import { WASION_STYLES as ALL_WASION_STYLES } from '../server/wasion-demo-styles
 import { CHALLENGES, EXPERIENCE_ROUTES, EXPERIENCE_RELATIONSHIPS, getCaseStudies, renderCaseStudyFilters, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { isIndustrialStoryPage, renderIndustrialStory, projectHighlights, INDUSTRIAL_STORIES_CSS } from '../server/wasion-industrial-stories.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
+import { isIndustrialNewsPage } from '../server/wasion-industrial-news-events.mjs';
 
 // Retained Industrial coverage is pinned explicitly now that 09/16 is canonical.
 const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
@@ -68,7 +69,7 @@ test('all 18 official records and the existing challenges, relationships and exp
   assert.equal(isIndustrialStoryPage(null), false);
 });
 
-test('all 450 shared script sets and 417 non-story, non-company/resource HTML pages remain byte-identical', () => {
+test('all 450 shared script sets and 411 remaining HTML pages remain byte-identical', () => {
   const clients = [], unaffected = [];
   for (const style of Object.keys(WASION_STYLES)) for (const slug of WASION_DEMO_ROUTES) {
     const html = wasionDemoPage(nonce, { style, slug });
@@ -78,14 +79,15 @@ test('all 450 shared script sets and 417 non-story, non-company/resource HTML pa
     assert.equal(main(html).includes('class="wis-experience-page'), expected, style + ' ' + slug + ' markup scope');
     clients.push([style, slug, hash(JSON.stringify(scripts(html)))]);
     const companyResource = style === 'industrial' && INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug);
-    if (!expected && !companyResource) unaffected.push([style, slug, hash(html)]);
+    const news = style === 'industrial' && isIndustrialNewsPage(pageInfo(slug));
+    if (!expected && !companyResource && !news) unaffected.push([style, slug, hash(html)]);
   }
   assert.equal(clients.length, 450);
-  assert.equal(unaffected.length, 417);
+  assert.equal(unaffected.length, 411);
   assert.equal(hash(JSON.stringify(clients)), 'fcf17ee75cfaf97c1578f050206396fab1d9b39bc88d3a2c11bbc483bce94765');
-  // The eight company/resource pages have separate presentation coverage; this
-  // reduced subset comes from frozen 1fd2731 HTML, retaining its 09/16 routing.
-  assert.equal(hash(JSON.stringify(unaffected)), '930898e5355d888a33af73ef825557504851abc4ae86743f5d2153a989aedfed');
+  // Other modules have independent coverage. This subset comes from clean
+  // 60f2db5 HTML, remapping only the fixture nonce.
+  assert.equal(hash(JSON.stringify(unaffected)), '082eee68e80c68caa56349298456d0891a4cf4f63b37e7ce4bcf9d5c3d227106');
 });
 
 for (const page of solutions) test('solution retains its complete original body, capabilities and discovery semantics: ' + page.slug, () => {

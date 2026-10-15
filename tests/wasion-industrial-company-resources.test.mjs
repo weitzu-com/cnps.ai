@@ -7,6 +7,7 @@ import { WASION_STYLES as ALL_WASION_STYLES } from '../server/wasion-demo-styles
 import { EXPERIENCE_ROUTES, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { FACTORIES } from '../server/wasion-experience/content-data.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, renderIndustrialCompanyResources, INDUSTRIAL_COMPANY_RESOURCES_CSS, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
+import { isIndustrialNewsPage } from '../server/wasion-industrial-news-events.mjs';
 
 // The retained presentation is explicit now that 09/16 is the canonical demo.
 const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
@@ -61,7 +62,7 @@ test('the eight-page presentation retains all official records and the documente
   assert.equal(renderIndustrialCompanyResources('search', {}, '<p>Original content</p>'), '<p>Original content</p>');
 });
 
-test('all 450 shared script sets and 442 non-target HTML pages remain byte-identical, with only eight exact image-client suffixes', () => {
+test('all 450 shared script sets and 436 remaining HTML pages remain byte-identical, with only eight exact image-client suffixes', () => {
   const clients = [], unaffected = [];
   for (const style of Object.keys(WASION_STYLES)) for (const slug of WASION_DEMO_ROUTES) {
     const html = wasionDemoPage(nonce, { style, slug });
@@ -76,19 +77,22 @@ test('all 450 shared script sets and 442 non-target HTML pages remain byte-ident
       tags[tags.length - 1] = tags.at(-1).slice(0, -suffix.length) + '</script>';
     }
     clients.push([style, slug, hash(JSON.stringify(tags))]);
-    if (!expected) unaffected.push([style, slug, hash(html)]);
-    else {
+    const news = style === 'industrial' && isIndustrialNewsPage(WASION_PAGES.find(page => page.slug === slug) || { slug });
+    if (!expected && !news) unaffected.push([style, slug, hash(html)]);
+    else if (expected) {
       assert.ok(html.indexOf('id="wd-protected"') < html.indexOf('class="wic-page '));
       assert.equal((html.match(/<style\b/g) || []).length, 1);
       assert.match(html, /<style nonce="industrial-company-resources-fixture">/);
     }
   }
   assert.equal(clients.length, 450);
-  assert.equal(unaffected.length, 442);
+  assert.equal(unaffected.length, 436);
   // Frozen 1fd2731 output already contains the approved 09/16 default and
   // retained Industrial relocation; all unaffected bytes were compared to it.
   assert.equal(hash(JSON.stringify(clients)), 'bb89ed6298ca96a0d194ac5bed70a621270ef89ef1d389b13c5471112c1bbbd7');
-  assert.equal(hash(JSON.stringify(unaffected)), '19f96d1a5d4cb22435280a509d21e8f1594db7d1e248cec867a7d74f4f4f4db8');
+  // Six news/event pages have their own presentation coverage. This subset
+  // comes from clean 60f2db5 HTML, remapping only the fixture nonce.
+  assert.equal(hash(JSON.stringify(unaffected)), '12d7e919b7813c1b0c1e64b351af32553daddb17220b98cedfb4e823ae644c0d');
 });
 
 for (const slug of targets) test('complete original content, widgets and sources remain intact: ' + slug, () => {
