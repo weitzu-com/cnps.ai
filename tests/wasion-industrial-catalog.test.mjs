@@ -7,6 +7,7 @@ import { wasionDemoPage, WASION_PAGES, WASION_DEMO_ROUTES } from '../server/wasi
 import { WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { getProductCatalog, renderProductCatalogFilters, WASION_PRODUCT_GROUPS, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { INDUSTRIAL_CATALOG_ROUTES, renderIndustrialCatalog, INDUSTRIAL_CATALOG_CSS } from '../server/wasion-industrial-catalog.mjs';
+import { isIndustrialStoryPage } from '../server/wasion-industrial-stories.mjs';
 
 const nonce = 'industrial-catalog-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -165,7 +166,7 @@ test('the two overview pages retain four business groups and the electricity hub
   }
 });
 
-test('all 450 complete script sets and 439 non-target HTML outputs remain byte-identical', () => {
+test('all 450 complete script sets and 414 non-catalog, non-story HTML outputs remain byte-identical', () => {
   const clients = [], unaffected = [];
   for (const style of Object.keys(WASION_STYLES)) for (const slug of WASION_DEMO_ROUTES) {
     const html = wasionDemoPage(nonce, { style, slug });
@@ -173,12 +174,15 @@ test('all 450 complete script sets and 439 non-target HTML outputs remain byte-i
     assert.equal(html.includes(INDUSTRIAL_CATALOG_CSS), expected, style + ' ' + slug + ' CSS boundary');
     assert.equal(main(html).includes('class="wic-catalog"'), expected, style + ' ' + slug + ' renderer boundary');
     clients.push([style, slug, hash(JSON.stringify(scripts(html)))]);
-    if (!expected) unaffected.push([style, slug, hash(html)]);
+    const story = style === 'industrial' && isIndustrialStoryPage(WASION_PAGES.find(page => page.slug === slug) || { slug });
+    if (!expected && !story) unaffected.push([style, slug, hash(html)]);
   }
   assert.equal(clients.length, 450);
-  assert.equal(unaffected.length, 439);
+  assert.equal(unaffected.length, 414);
   assert.equal(hash(JSON.stringify(clients)), 'a1d7755b3fc58307899afd372813a059f5f2721dc4c99cf2f9c5200f86551810');
-  assert.equal(hash(JSON.stringify(unaffected)), 'bcad72013d0371c85662270a02434ea5eedaf4b309528a5494f09ffa5be7482e');
+  // The 25 Industrial story pages now have separate presentation coverage. This
+  // remaining subset was calculated from saved 449a5e1 HTML, changing only nonce.
+  assert.equal(hash(JSON.stringify(unaffected)), '767e9c11a7b972d7480e5ee5accf2c65a83d9c044456d65a8fca2ba3758a2525');
 });
 
 test('populated, empty and hostile search queries keep their complete outputs in every style', () => {

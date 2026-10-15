@@ -88,15 +88,28 @@ test('client trust catalog includes every server source and each source resolves
   }
 });
 
-test('case studies use the PDF image-card grid with every source case route and working facet metadata', () => {
-  const html = main(wasionDemoPage('integration-nonce', { slug: 'case-studies' }));
-  assert.match(html, /class="we-filter-list we-case-grid"/);
-  for (const page of WASION_PAGES.filter(p => p.category === 'Success Stories' && p.pageType === 'detail')) {
-    assert.ok(html.includes(`href="/demo/wasion/${page.slug}"`), page.slug);
+test('case studies keep seven image cards, source routes and original facet metadata in all five styles', () => {
+  const cases = WASION_PAGES.filter(page => page.category === 'Success Stories' && page.pageType === 'detail');
+  for (const style of Object.keys(WASION_STYLES)) {
+    const html = main(wasionDemoPage('integration-nonce', { style, slug: 'case-studies' }));
+    const rows = [...html.matchAll(/<article class="we-filter-item"([^>]*)>([\s\S]*?)<\/article>/g)];
+    const prefix = style === 'industrial' ? 'wis' : 'we';
+    assert.match(html, /class="we-filter-list we-case-grid"/);
+    assert.match(html, /class="we-filter-scope" data-page-size="6" aria-label="case studies"/);
+    assert.equal(rows.length, 7, style + ' complete case records');
+    assert.equal((html.match(new RegExp('class="' + prefix + '-case-card"', 'g')) || []).length, 7, style + ' card treatment');
+    assert.equal((html.match(new RegExp('class="' + prefix + '-case-media"', 'g')) || []).length, 7, style + ' image links');
+    for (const [index, page] of cases.entries()) {
+      const [, attrs, card] = rows[index];
+      const region = page.paragraphs.find(value => /^Country or Region\s*:/i.test(value)).replace(/^Country or Region\s*:\s*/i, '');
+      const topic = ['agricultural-pv-and-energy-storage-complementary-project', 'the-intelligent-microgrid-energy-station-project'].includes(page.slug) ? 'Energy storage & microgrids' : 'Metering';
+      assert.ok(card.includes(`href="${wasionStyleBase(style)}/${page.slug}"`), style + ' ' + page.slug);
+      assert.ok(attrs.includes(`data-q="${encode((page.title + ' ' + page.summary).toLowerCase())}"`));
+      assert.ok(attrs.includes(`data-region="${encode(region)}"`));
+      assert.ok(attrs.includes(`data-topic="${encode(topic)}"`));
+    }
+    for (const facet of ['q', 'region', 'topic']) assert.ok(html.includes(`data-filter="${facet}"`), style + ' ' + facet);
   }
-  assert.equal((html.match(/class="we-case-media"/g) || []).length, 7);
-  assert.ok(html.includes('data-filter="region"'));
-  assert.ok(html.includes('data-filter="topic"'));
 });
 
 test('solution content retains canonical detail fragment anchors and technical table captions', () => {
