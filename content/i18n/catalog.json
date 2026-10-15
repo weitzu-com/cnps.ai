@@ -128,14 +128,15 @@
         "label": "Official engineering and X reference",
         "region": "Global developer ecosystem",
         "technology": "reComputer / Seeed Wiki",
-        "summary": "A demonstration becomes useful for procurement when its configuration and engineering path are visible.",
+        "summary": "Seeed edge hardware demo for procurement: map the four-camera config to Wiki engineering docs and a customization path, then check latency and recovery.",
         "facts": "Seeed’s official X post describes a four-camera edge setup. Its public Wiki repository and customization service provide separate engineering and lifecycle references, from requirements to verification and production.",
-        "lesson": "A short video can introduce a possibility. The procurement page should then provide a system diagram, device list, environment assumptions and a test plan that an engineer can assess.",
+        "lesson": "A short video can introduce a possibility. The procurement page should then provide a system diagram, device list and environment assumptions an engineer can assess, mapped to the Wiki and the customization path.",
         "limits": "The X post is a demonstration claim. It does not establish independent performance measurements or a ready-made CNPS solution. Compatibility must be checked on the chosen configuration.",
         "evaluation": [
-          "List the camera interfaces, compute module and software versions.",
+          "List the camera interfaces, compute module and software versions against the Wiki.",
+          "Require a system diagram, device list and environment assumptions an engineer can assess.",
           "Measure end-to-end latency, not just model inference.",
-          "Test failure recovery and sustained operation."
+          "Test failure recovery and sustained operation before a site decision."
         ],
         "sources": [
           [
@@ -1303,14 +1304,15 @@
         "label": "官方工程资料与 X 参考",
         "region": "全球开发者生态",
         "technology": "reComputer / Seeed Wiki",
-        "summary": "展示配置与工程实施路径后，演示才更有助于采购决策。",
+        "summary": "Seeed 边缘硬件演示如何支撑采购：把四摄像头配置对到 Wiki 工程资料与定制路径，再核对延迟与恢复。",
         "facts": "Seeed 官方 X 帖子介绍了四摄像头边缘配置。其公开 Wiki 仓库及定制服务分别提供工程与生命周期资料，覆盖需求、验证和生产。",
-        "lesson": "短视频可以介绍可能性。采购页面随后应提供系统图、设备清单、环境假设及供工程师评估的测试计划。",
+        "lesson": "短视频可以介绍可能性。采购页面随后应提供系统图、设备清单与环境假设，并对到 Wiki 工程资料与定制路径，供工程师评估。",
         "limits": "X 帖子属于演示声明，不能证明独立性能测量或现成的 CNPS 方案。应按选定配置检查兼容性。",
         "evaluation": [
-          "列出摄像头接口、计算模块与软件版本。",
+          "对照 Wiki 列出摄像头接口、计算模块与软件版本。",
+          "要求提供系统图、设备清单和环境假设，供工程师评估。",
           "测量端到端延迟，不只测模型推理。",
-          "测试故障恢复与持续运行。"
+          "在做现场决定前测试故障恢复与持续运行。"
         ],
         "sources": [
           [
@@ -2512,14 +2514,15 @@
         "label": "مرجع هندسي رسمي ومنشور على X",
         "region": "منظومة المطورين العالمية",
         "technology": "reComputer / Seeed Wiki",
-        "summary": "يصبح العرض مفيداً للشراء عندما تتضح إعداداته ومسار تنفيذه الهندسي.",
+        "summary": "عرض Seeed للأجهزة الطرفية للشراء: اربط إعداد الكاميرات الأربع بوثائق Wiki ومسار التخصيص، ثم تحقق من زمن الاستجابة والتعافي.",
         "facts": "يصف منشور Seeed الرسمي على X إعداداً طرفياً بأربع كاميرات. ويوفر مستودع Wiki العام وخدمة التخصيص مراجع مستقلة للهندسة ودورة الحياة، من المتطلبات إلى التحقق والإنتاج.",
-        "lesson": "يمكن لمقطع قصير تقديم احتمال تقني. ثم ينبغي أن توفر صفحة الشراء مخطط النظام وقائمة الأجهزة وافتراضات البيئة وخطة اختبار يمكن للمهندس تقييمها.",
+        "lesson": "يمكن لمقطع قصير تقديم احتمال تقني. ثم ينبغي أن توفر صفحة الشراء مخطط النظام وقائمة الأجهزة وافتراضات البيئة التي يمكن للمهندس تقييمها، مربوطة بوثائق Wiki ومسار التخصيص.",
         "limits": "منشور X ادعاء عرض توضيحي. لا يثبت قياسات أداء مستقلة أو حلاً جاهزاً من CNPS. يجب التحقق من التوافق على التكوين المختار.",
         "evaluation": [
-          "حدد واجهات الكاميرات ووحدة الحوسبة وإصدارات البرمجيات.",
+          "اذكر واجهات الكاميرات ووحدة الحوسبة وإصدارات البرمجيات مقابل Wiki.",
+          "اطلب مخطط النظام وقائمة الأجهزة وافتراضات البيئة التي يمكن للمهندس تقييمها.",
           "قس زمن الاستجابة الكلي، وليس استدلال النموذج وحده.",
-          "اختبر التعافي من الأعطال والتشغيل المستمر."
+          "اختبر التعافي من الأعطال والتشغيل المستمر قبل قرار الموقع."
         ],
         "sources": [
           [

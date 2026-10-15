@@ -204,7 +204,24 @@ for(const l of locales){
   save(l,'/solutions/'+x.slug,x.title,x.short,hero(l,'/solutions/'+x.slug,x.title,x.short,link(l,'/request-quote?solution='+x.slug,x.action),t[categoryKey[x.category]])+`<div class="container article-layout"><article class="prose">${body}</article>${side(l,'/request-quote?solution='+x.slug)}</div>`,{faq});
  }
  save(l,'/case-studies',t.cases,t.caseText,hero(l,'/case-studies',t.caseTitle,t.caseText)+`<section class="section container" data-collection>${collectionTools(l,['Applications','Hardware'])}<div class="catalog-grid three">${c.cases.map(x=>card(l,x,'cases')).join('')}</div><p class="notice">${t.caseNotice}</p></section>`);
- for(const x of c.cases){const body=`<p class="tag">${esc(x.label)}</p><p>${esc(x.region)} · <bdi>${esc(x.technology)}</bdi></p><h2>${t.facts}</h2><p>${esc(x.facts)}</p><h2>${t.lesson}</h2><p>${esc(x.lesson)}</p><h2>${t.limitation}</h2><p>${esc(x.limits)}</p><h2>${t.evaluate}</h2><ul>${x.evaluation.map(v=>`<li>${esc(v)}</li>`).join('')}</ul><h2>${t.evidence}</h2><ul>${x.sources.map(([n,u])=>`<li><a href="${esc(u)}">${esc(n)} ↗</a></li>`).join('')}</ul>`;save(l,'/case-studies/'+x.slug,x.title,x.summary,hero(l,'/case-studies/'+x.slug,x.title,x.summary,'',t.cases)+`<div class="container article-layout"><article class="prose">${localLinks(body,l)}</article>${side(l,'/request-quote?solution='+x.solution)}</div>`);}
+ for(const x of c.cases){
+  const evalList=tag=>`<${tag}>${x.evaluation.map(v=>`<li>${esc(v)}</li>`).join('')}</${tag}>`;
+  let body=`<p class="tag">${esc(x.label)}</p><p>${esc(x.region)} · <bdi>${esc(x.technology)}</bdi></p><h2>${t.facts}</h2><p>${esc(x.facts)}</p><h2>${t.lesson}</h2><p>${esc(x.lesson)}</p><h2>${t.limitation}</h2><p>${esc(x.limits)}</p><h2>${t.evaluate}</h2>${evalList('ul')}<h2>${t.evidence}</h2><ul>${x.sources.map(([n,u])=>`<li><a href="${esc(u)}">${esc(n)} ↗</a></li>`).join('')}</ul>`;
+  let caseOpts;
+  if(x.slug==='seeed-engineering'){
+   const glanceTitle={en:'Procurement method glance',zh:'采购方法速览',ar:'لمحة طريقة الشراء'}[l];
+   const glanceIntro={en:'Four checks connect this demonstration to the Wiki and the customization path before a site decision.',zh:'现场决定前，用四项核对把这次演示接到 Wiki 工程资料与定制路径。',ar:'أربعة فحوصات تربط هذا العرض بوثائق Wiki ومسار التخصيص قبل قرار الموقع.'}[l];
+   const methodAlt={en:'Four procurement checks — Interfaces, Diagram, Latency, Recovery — Seeed engineering method diagram',zh:'四项采购核对 — 接口、系统图、延迟、恢复 — Seeed 工程方法示意图',ar:'أربعة فحوصات للشراء — الواجهات، المخطط، زمن الاستجابة، التعافي — مخطط طريقة Seeed الهندسية'}[l];
+   const glance=`<h2>${esc(glanceTitle)}</h2><p>${esc(glanceIntro)}</p>${evalList('ol')}<figure><img src="/assets/resources/seeed-engineering-method-glance.webp" alt="${esc(methodAlt)}" width="1280" height="720" loading="lazy"></figure>`;
+   const sisterTitle=l==='en'?'Seeed and Intflow: a local solution built on edge hardware':c.cases.find(y=>y.slug==='seeed-intflow').title;
+   const surveyTitle=c.resources.find(y=>y.slug==='edge-ai-survey').title;
+   const quoteAnchor=l==='en'?'Request a quotation for devices or a pilot.':inquiryPages['/request-quote'].h1[l];
+   const related=`<p><a href="${route(l,'/case-studies/seeed-intflow')}">${esc(sisterTitle)}</a></p><p><a href="${route(l,'/resources/edge-ai-survey')}">${esc(surveyTitle)}</a></p><p><a href="${route(l,'/request-quote?solution='+x.solution)}">${esc(quoteAnchor)}</a></p>`;
+   body=`<p class="tag">${esc(x.label)}</p><p>${esc(x.region)} · <bdi>${esc(x.technology)}</bdi></p>${glance}<h2>${t.facts}</h2><p>${esc(x.facts)}</p><h2>${t.lesson}</h2><p>${esc(x.lesson)}</p><h2>${t.limitation}</h2><p>${esc(x.limits)}</p><h2>${t.evaluate}</h2>${evalList('ul')}${related}<h2>${t.evidence}</h2><ul>${x.sources.map(([n,u])=>`<li><a href="${esc(u)}">${esc(n)} ↗</a></li>`).join('')}</ul>`;
+   caseOpts={socialImage:editorial.socialImage('seeed-engineering')};
+  }
+  save(l,'/case-studies/'+x.slug,x.title,x.summary,hero(l,'/case-studies/'+x.slug,x.title,x.summary,'',t.cases)+`<div class="container article-layout"><article class="prose">${localLinks(body,l)}</article>${side(l,'/request-quote?solution='+x.solution)}</div>`,caseOpts);
+ }
  const reportName=translations({en:'FastGPT × CNPS: Global growth and delivery',zh:'FastGPT × CNPS：出海增长与交付',ar:'FastGPT × CNPS: النمو العالمي وتسليم المشاريع'},l);
  const reportDescription=l==='en'?'FastGPT × CNPS global growth playbook (research Sep 2026): 28 chapters on buyer decisions, pilot acceptance, licensing and data checks, budgets, 90-day gates.':t.translatedNote;
  const guideCards=guides.map(g=>localeCard(g,'/guides/','Procurement'));
