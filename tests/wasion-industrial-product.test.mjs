@@ -7,6 +7,7 @@ import { WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { INDUSTRIAL_PRODUCT_CSS } from '../server/wasion-industrial-product.mjs';
 import { INDUSTRIAL_CATALOG_ROUTES } from '../server/wasion-industrial-catalog.mjs';
 import { isIndustrialStoryPage } from '../server/wasion-industrial-stories.mjs';
+import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES } from '../server/wasion-industrial-company-resources.mjs';
 
 const nonce = 'industrial-product-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -49,7 +50,7 @@ const baselines = {
     scriptTags: '37bfc1b206618237406befe0d35d62ba5c6358a1e6e4b5359e1481cb438a7e91'
   },
   industrial: {
-    nonTargetHtml: '527907fa1b254834ad42f1b3aa68e2d89d11be0f240a882a87c7ffa8906982f5',
+    nonTargetHtml: 'c50d3583b8993481b8079950cf220e6e792f413ac359faf001d6a88b9e89b772',
     scripts: 'f33e0f1d036b145133bed3fac8ea5b81880aac82c867a6b430f0020d4bcdb7df',
     scriptTags: '9131c21e9886729e4a7b1569c9713686a40eb41ea4f16be6a3954223772168e7'
   }
@@ -126,14 +127,15 @@ test('the other four styles retain their complete HTML on all 90 routes', () => 
   }
 });
 
-test('all 25 non-product-detail, non-catalog, non-story Industrial routes remain byte-identical, including search', () => {
-  // Catalog and story pages have separate presentation tests. This remaining
-  // subset comes from saved 449a5e1 HTML, with only the fixture nonce remapped.
+test('all 17 remaining Industrial routes remain byte-identical, including search', () => {
+  // Catalog, story and company/resource pages have separate presentation tests.
+  // This subset comes from saved 744ab9a HTML, remapping only the fixture nonce.
   const stories = new Set(WASION_DEMO_ROUTES.filter(slug => isIndustrialStoryPage(WASION_PAGES.find(page => page.slug === slug) || { slug })));
-  const rows = WASION_DEMO_ROUTES.filter(slug => !targetSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug) && !stories.has(slug)).map(slug => [slug, hash(wasionDemoPage(nonce, { style: 'industrial', slug }))]);
+  const rows = WASION_DEMO_ROUTES.filter(slug => !targetSlugs.has(slug) && !INDUSTRIAL_CATALOG_ROUTES.includes(slug) && !stories.has(slug) && !INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug)).map(slug => [slug, hash(wasionDemoPage(nonce, { style: 'industrial', slug }))]);
   assert.equal(INDUSTRIAL_CATALOG_ROUTES.length, 11);
   assert.equal(stories.size, 25);
-  assert.equal(rows.length, 25);
+  assert.equal(INDUSTRIAL_COMPANY_RESOURCE_ROUTES.length, 8);
+  assert.equal(rows.length, 17);
   assert.equal(hash(JSON.stringify(rows)), baselines.industrial.nonTargetHtml);
   for (const [query, expected] of [
     ['I110', '2312478482985f2495a83adbaac04b3e479e6b8cc105839dd642821518c651ab'],
