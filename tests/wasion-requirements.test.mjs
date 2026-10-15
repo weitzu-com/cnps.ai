@@ -437,3 +437,11 @@ test('P28 country preference selects an initial region and retains global fallba
   assert.equal(anonymous.statusCode,302);
   assert.equal(anonymous.body,undefined,'country preference cannot bypass authentication');
 });
+
+
+test('published ISO originals show exact certificate metadata without attaching it to unspecified models',()=>{
+ const certificates=RESOURCE_ITEMS.filter(r=>r.certificateMetadata);assert.equal(certificates.length,2);
+ const html=stripRaw(page('certifications'));
+ for(const r of certificates){const m=r.certificateMetadata;assert.equal(m.status,'verified-original-certificate-metadata');assert.equal(m.modelScope.length,0);assert.equal(r.date,m.issueDate);for(const value of [m.certificateNumber,m.issuer,m.scope])assert.ok(html.includes(escape(value)),value);}
+ assert.match(html,/September 17, 2027/);assert.match(html,/September 22, 2028/);assert.match(html,/does not establish certification of every product/);
+});

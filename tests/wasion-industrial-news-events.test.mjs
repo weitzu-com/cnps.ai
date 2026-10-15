@@ -88,10 +88,11 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
     assert.ok(!main(html).includes('class="win-page'));
     return [slug, hash(html)];
   });
-  // Advanced only for the reviewed static-image and intrinsic ESG sizing fix.
-  // Frozen aef68f2 matches on all 198 pages after removing just those image
-  // fields and ESG selectors; source facts, links and other markup are exact.
-  assert.equal(hash(JSON.stringify(rows)), '8aa724be615f133519a6def4a62293d5c59dd27d0a15a675b9721823466a797f');
+  // Advanced from the independently reproduced e0f24ba baseline for the
+  // reviewed 2026-10-16 product relations, bilingual evidence search, responsive
+  // interactions, visual fixes and source-backed certificate metadata. Raw
+  // source records and retained Industrial HTML/client snapshots stay frozen.
+  assert.equal(hash(JSON.stringify(rows)), 'd0c6178d89f23a30b04264604bc5f9a36763d7d0d69e54a78391d1016278cd7c');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
