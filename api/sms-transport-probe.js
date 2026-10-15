@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     return res.end();
   }
   const started = Date.now();
-  const native = (method = 'GET', family) => => new Promise(resolve => {
+  const native = (method = 'GET', family) => new Promise(resolve => {
     const phases = {};
     const elapsed = () => Date.now() - started;
     const request = https.request({ host: endpoint, path: '/', method, family, agent: false, timeout: 10000 }, response => {
