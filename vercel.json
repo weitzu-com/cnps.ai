@@ -621,7 +621,7 @@
     "api/crm.js": {
       "maxDuration": 30,
       "regions": [
-        "hkg1"
+        "sin1"
       ]
     },
     "api/crm-page.js": {
@@ -657,24 +657,6 @@
       "includeFiles": "server/wasion-demo-content.json",
       "regions": [
         "hkg1"
-      ]
-    },
-    "api/sms-transport-probe.js": {
-      "maxDuration": 15,
-      "regions": [
-        "hkg1"
-      ]
-    },
-    "api/sms-transport-probe-sin.js": {
-      "maxDuration": 15,
-      "regions": [
-        "sin1"
-      ]
-    },
-    "api/sms-transport-probe-iad.js": {
-      "maxDuration": 15,
-      "regions": [
-        "iad1"
       ]
     }
   }
