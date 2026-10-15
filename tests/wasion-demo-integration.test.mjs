@@ -62,18 +62,18 @@ test('integrated nonce scripts parse and malicious questions cannot escape marku
     assert.ok(main(rendered).includes(`value="${encode(query.trim())}"`));
     assert.ok(!main(rendered).includes('<script>alert(1)</script>'));
     assert.ok(!main(rendered).includes('<img src=x onerror=alert(1)>'));
-    assert.ok(rendered.includes(`const SEARCH_QUERY=${JSON.stringify(query).replace(/</g, '\\u003c')};`));
+    assert.ok(rendered.includes(`const SEARCH_QUERY=${JSON.stringify(query).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029')};`));
   }
 });
 
 test('integrated shell preserves PDF navigation, English default and demo boundaries', () => {
   const html = wasionDemoPage('integration-nonce');
   assert.match(html, /<html lang="en">/);
-  const primary = body(html).match(/<nav id="wd-navigation"[\s\S]*?<\/nav>/)?.[0];
+  const primary = body(html).match(/<nav class="wr-main-nav" id="wr-navigation"[\s\S]*?<\/nav>/)?.[0];
   for (const label of ['Our Offering', 'Your Challenges', 'Company', 'Resources', 'Contact']) assert.ok(primary.includes(label), label);
-  for (const label of ['Investors', 'Newsroom', 'Careers', 'International sites', 'English']) assert.ok(body(html).includes(label), label);
-  assert.ok(body(html).includes('mailto:sales@wasion.com'));
-  assert.ok(body(html).includes('Private customer demo'));
+  for (const label of ['Investors', 'Newsroom', 'Careers', 'International Sites', 'English']) assert.ok(body(html).includes(label), label);
+  assert.ok(body(html).includes('mailto:marketing@wasion.com'));
+  assert.ok(body(html).includes('Private customer preview'));
   assert.match(html, /<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">/);
 });
 
@@ -90,7 +90,7 @@ test('client trust catalog includes every server source and each source resolves
 
 test('case studies keep seven image cards, source routes and original facet metadata in all five styles', () => {
   const cases = WASION_PAGES.filter(page => page.category === 'Success Stories' && page.pageType === 'detail');
-  for (const style of Object.keys(WASION_STYLES)) {
+  for (const style of Object.keys(WASION_STYLES).filter(style => style !== 'requirements')) {
     const html = main(wasionDemoPage('integration-nonce', { style, slug: 'case-studies' }));
     const rows = [...html.matchAll(/<article class="we-filter-item"([^>]*)>([\s\S]*?)<\/article>/g)];
     const prefix = style === 'industrial' ? 'wis' : 'we';
@@ -114,7 +114,7 @@ test('case studies keep seven image cards, source routes and original facet meta
 
 test('solution content retains canonical detail fragment anchors and technical table captions', () => {
   for (const page of WASION_PAGES.filter(p => p.category === 'Solutions' && p.pageType === 'detail')) {
-    const html = main(wasionDemoPage('integration-nonce', { slug: page.slug }));
+    const html = main(wasionDemoPage('integration-nonce', { slug: page.slug, style: 'industrial' }));
     assert.ok(html.includes('id="overview"'), page.slug);
     assert.ok(html.includes('id="documents"'), page.slug);
     if (page.features?.length) assert.ok(html.includes('id="features"'), page.slug);

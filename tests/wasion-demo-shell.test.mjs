@@ -244,7 +244,7 @@ test('integrated page scripts and structured data remain valid for search, home,
   }
 });
 
-test('authenticated POST search retains private caching and restricts media to the official host', async () => {
+test('authenticated POST search retains private caching and restricts media to local mirrors and the official host', async () => {
   const runtime={auth:{loadSession:async()=>({identityId:'test-viewer',identity:{role:'admin'}})},projectAccessService:{getProject:async()=>({id:'fixture-project'})}};
   const rawHandler=createWasionPageHandler({getRuntime:()=>runtime});const pageHandler=(req,res)=>rawHandler({...req,headers:{host:'crm.cnps.ai',...req.headers}},res);
   const originalSession=runtime.auth.loadSession;
@@ -254,8 +254,8 @@ test('authenticated POST search retains private caching and restricts media to t
     await pageHandler({ method: 'POST', url: '/demo/wasion/search', query: { slug: 'search' }, headers: { origin: 'https://crm.cnps.ai', 'content-type': 'application/x-www-form-urlencoded' }, body: 'q=Three-phase+smart+meters' }, res);
     assert.equal(res.statusCode, 200);
     assert.ok(res.body.includes('Three-phase smart meters'));
-    assert.match(res.headers['Content-Security-Policy'], /media-src https:\/\/en\.wasion\.com;/);
-    assert.match(res.headers['Content-Security-Policy'], /img-src https:\/\/en\.wasion\.com;/);
+    assert.match(res.headers['Content-Security-Policy'], /media-src 'self' https:\/\/en\.wasion\.com;/);
+    assert.match(res.headers['Content-Security-Policy'], /img-src 'self' https:\/\/en\.wasion\.com;/);
     assert.match(res.headers['Content-Security-Policy'], /connect-src 'self';/);
     assert.match(res.headers['Content-Security-Policy'], /form-action 'self' mailto:;/);
     assert.match(res.headers['Cache-Control'], /private, no-store/);

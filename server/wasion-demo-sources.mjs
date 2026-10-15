@@ -1,4 +1,5 @@
 import corpus from './wasion-demo-content.json' with { type: 'json' };
+import { PRODUCTS } from './wasion-requirements/data.mjs';
 import { DTECH } from './wasion-experience/content-data.mjs';
 
 // Public pages captured from the official English site. Stable page slugs are
@@ -16,7 +17,7 @@ const isContent = text => text && !/^(?:subscribe|read more|learn more|make it y
 const normalize = text => clean(text).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[‐‑–—-]/g, ' ').replace(/[^a-z0-9\p{Script=Han}]+/gu, ' ').trim();
 const compact = text => normalize(text).replace(/\s/g, '');
 
-export const WASION_SOURCES = [...(corpus.pages || []).filter(page => page.slug !== DTECH.slug), DTECH].filter(page => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug || '') && isOfficial(page.url || page.sourceUrl)).map(page => {
+export const WASION_SOURCES = [...(corpus.pages || []).filter(page => page.slug !== DTECH.slug), DTECH,...PRODUCTS.filter(p=>!(corpus.pages||[]).some(old=>old.slug===p.slug))].filter(page => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.slug || '') && isOfficial(page.url || page.sourceUrl)).map(page => {
   const tableValues = new Set(textLeaves(page.tables));
   const paragraphs = unique(textLeaves(page.paragraphs)).filter(text => isContent(text) && !tableValues.has(text));
   const features = unique(textLeaves(page.features)).filter(isContent);

@@ -1,0 +1,6280 @@
+{
+  "https://en.wasion.com/ANSI-Meters/Libra-1A-ANSI-Standard-Conventional-Meter.html": {
+    "url": "https://en.wasion.com/ANSI-Meters/Libra-1A-ANSI-Standard-Conventional-Meter.html",
+    "sourceURL": "https://en.wasion.com/ANSI-Meters/Libra-1A-ANSI-Standard-Conventional-Meter.html",
+    "title": "Libra 1A - ANSI Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:52.849955+00:00",
+    "sourceHTMLSha256": "d46ce17cc6d0222eea7720a0060ac8085f0474173292b9368b65dde0b1af259b",
+    "sourceBytes": 55375,
+    "paragraphs": [
+      "ANSI Standard Conventional Meter",
+      "Communication protected by multiple level passwords"
+    ],
+    "features": [
+      "Available forms: 1S, 2S",
+      "Comply with ANSI C12.1, ANSI C12.20",
+      "Accuracy: CA 0.2/0.5",
+      "Replaceable battery",
+      "Highly tamper-proof by design",
+      "Modular architecture for both hardware and firmware"
+    ],
+    "tables": [
+      [
+        [
+          "Event detection",
+          "Tamper detection (current reverse, Open cover detection, Optional Magnetic field detection )"
+        ],
+        [
+          "Self-diagnosis (memory error, battery voltage low)"
+        ],
+        [
+          "Tariff",
+          "Single tariff"
+        ],
+        [
+          "Communication",
+          "Local optical port"
+        ],
+        [
+          "Security",
+          "Communication protected by multiple level passwords"
+        ]
+      ]
+    ],
+    "headings": [
+      "Libra 1A",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230111/ansi-libra 1A no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230111/ansi-libra 1A no bg.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "ANSI Standard Conventional Meter"
+  },
+  "https://en.wasion.com/IEC-Prepaid-Meters/DTSY341-Three-Phase-Smart-Prepayment-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Prepaid-Meters/DTSY341-Three-Phase-Smart-Prepayment-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Prepaid-Meters/DTSY341-Three-Phase-Smart-Prepayment-Meter.html",
+    "title": "DTSY341 - IEC Prepaid Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:52.850375+00:00",
+    "sourceHTMLSha256": "7314f68529412a9106a48e8bd83932f39276dbfc0e82fd5911eade901dbfc422",
+    "sourceBytes": 56381,
+    "paragraphs": [
+      "Three Phase Smart Prepayment Meter",
+      "Over current/current imbalance"
+    ],
+    "features": [
+      "Plug and play module for WAN communication: G3-PLC, BPLC, GPRS, 3G, 4G, Wi-SUN, etc.",
+      "Open standard protocol: DLMS/COSEM",
+      "Local and remote firmware upgrade",
+      "Flexible load control with an internal breaker",
+      "Wired M-BUS interface for multi-utility functionality",
+      "Wired communication with UIU/IHD",
+      "Highest-level information security",
+      "Replaceable battery"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Tamper detection (meter and terminal cover open, current reverse, magnetic field detection, etc.)"
+        ],
+        [
+          "Internal failure detection (memory error, relay error, battery low, clock invalid, etc.)"
+        ],
+        [
+          "Over current/current imbalance"
+        ],
+        [
+          "Security events (parameters change, clock adjustment, etc.)"
+        ],
+        [
+          "WAN Communication (optional)",
+          "Plug and play module to support a rich set of communication technologies"
+        ],
+        [
+          "G3-PLC, BPLC"
+        ],
+        [
+          "GPRS/3G/4G"
+        ],
+        [
+          "Third-party communication modules (Trilliant OSDI/RPMA, ITRON, HUAWEI, NURI, etc.)"
+        ],
+        [
+          "Protocol: DLMS/COSEME"
+        ],
+        [
+          "HAN Communication",
+          "RS485/M-BUS"
+        ],
+        [
+          "FSK RF, FSK PLC"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS, supporting authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "DTSY341",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220922/75092e873b41c7ba94b23d0d6563a2fc.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220922/75092e873b41c7ba94b23d0d6563a2fc.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Three Phase Smart Prepayment Meter"
+  },
+  "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J6-Single-Phase-Smart-Prepayment-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J6-Single-Phase-Smart-Prepayment-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J6-Single-Phase-Smart-Prepayment-Meter.html",
+    "title": "DDSD101-J6 - IEC Prepaid Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:52.851838+00:00",
+    "sourceHTMLSha256": "cd7095f9765308f9edfab0393441c32d5cb3e4df64a811a8107735922d1caed4",
+    "sourceBytes": 59651,
+    "paragraphs": [
+      "Single Phase Smart Prepayment Meter",
+      "Instantaneous Vrms, Irma, Frequency, PF,kW, kVA",
+      "Up to 100 exceptions for special holidays / public holidays",
+      "Up to 12 seasons and 12-week tables",
+      "Up to 8-day tables and each table has 10 entries",
+      "Active and passive calendar support",
+      "Failure detection (Memory error, relay error, battery low voltage, clock invalid, etc.)",
+      "Power quality event (Under voltage / Over voltage / Over current, etc.)",
+      "Power limit support",
+      "Three levels for remaining credit alarm",
+      "Password protected communication with Optical Port"
+    ],
+    "features": [
+      "Cost-effective",
+      "Complies with IEC62055-41 and IEC61107 standards",
+      "High security and reliability",
+      "Active energy measurement with 0.01kWh resolution",
+      "Configurable Prepaid & Post-paid Mode",
+      "Internal Relay",
+      "Configurable prepaid and post-paid mode",
+      "Low credit alarm and trip-out as energy purchasing reminders for customers",
+      "Rich Tamper-proof Features"
+    ],
+    "tables": [
+      [
+        [
+          "Measurement",
+          "2 element, 4 quadrant"
+        ],
+        [
+          "Instantaneous Vrms, Irma, Frequency, PF,kW, kVA"
+        ],
+        [
+          "Rich in Energy and Demand Registers"
+        ],
+        [
+          "Tariff",
+          "Up to 4 tariff"
+        ],
+        [
+          "Up to 100 exceptions for special holidays / public holidays"
+        ],
+        [
+          "Up to 12 seasons and 12-week tables"
+        ],
+        [
+          "Up to 8-day tables and each table has 10 entries"
+        ],
+        [
+          "Active and passive calendar support"
+        ],
+        [
+          "Event Logs",
+          "Tamper detection (Meter cover open, terminal cover open, current reverse, etc.)"
+        ],
+        [
+          "Failure detection (Memory error, relay error, battery low voltage, clock invalid, etc.)"
+        ],
+        [
+          "Power quality event (Under voltage / Over voltage / Over current, etc.)"
+        ],
+        [
+          "Security event (Parameters change, clock adjust, etc.)"
+        ],
+        [
+          "Load Control",
+          "Local control command support"
+        ],
+        [
+          "Power limit support"
+        ],
+        [
+          "Prepayment Function",
+          "Configurable prepayment and post-payment mode"
+        ],
+        [
+          "Three levels for remaining credit alarm"
+        ],
+        [
+          "Emergency credit, friendly time and friendly days support"
+        ],
+        [
+          "Security",
+          "Password protected communication with Optical Port"
+        ]
+      ]
+    ],
+    "headings": [
+      "DDSD101-J6",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230406/DDSD101-J6 no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230406/DDSD101-J6 no bg.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Single Phase Smart Prepayment Meter"
+  },
+  "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J7-Single-Phase-Smart-Prepayment-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J7-Single-Phase-Smart-Prepayment-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J7-Single-Phase-Smart-Prepayment-Meter.html",
+    "title": "DDSD101-J7 - IEC Prepaid Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:52.852107+00:00",
+    "sourceHTMLSha256": "e5de535a0653b387be8763610b4faee5e41ea6603fc929f17a2f6c04d047c0d5",
+    "sourceBytes": 60850,
+    "paragraphs": [
+      "Single Phase Smart Prepayment Meter",
+      "Instantaneous Vrms, Irma, Frequency, PF, kW, kVAr, kVA",
+      "Up to 100 exception day/Holiday",
+      "Up to 6 seasons and 6 week tables",
+      "Up to 8 day tables and each table has 14 entries",
+      "Active and passive calendar support",
+      "Power quality event (Under voltage /Over voltage (Sag/Swell), Power up/down, etc.)",
+      "Over current / current imbalance",
+      "Over current control support",
+      "Power limit support",
+      "Energy and power profiles（15min(default), up to 20 channels, up to 60 days)",
+      "Daily profiles（24h, up to 20 channels, up to 64 days）",
+      "Month billing profiles, Up to 24 billing records and 20 channels",
+      "Configurable interval and capture objects of load profile",
+      "Prepayment Function (Optional)",
+      "Three levels for remaining credit alarm",
+      "LLS support 3 level passwords for local communication",
+      "HLS support authentication and encryption for local communication"
+    ],
+    "features": [
+      "Cost-effective",
+      "Complies with IEC62052, IEC62053 and IEC62055 standards",
+      "High security and reliability",
+      "Configurable prepaid and post-paid mode",
+      "Class 1.0 active energy measurement accuracy",
+      "Wide operating temperature for harsh environments",
+      "Low power consumption and long service life",
+      "Built-in 90A bi-stable relay for load control",
+      "High surge withstand and EMC immunity",
+      "IP54 protection for indoor applications"
+    ],
+    "tables": [
+      [
+        [
+          "Measurement",
+          "2 element, 4 quadrant"
+        ],
+        [
+          "Instantaneous Vrms, Irma, Frequency, PF, kW, kVAr, kVA"
+        ],
+        [
+          "Lots of energy and demand registers (A+, A-, R+, R-, +Ri, +Rc, -Ri, -Rc)"
+        ],
+        [
+          "Tariff",
+          "Up to 8 tariff"
+        ],
+        [
+          "Up to 100 exception day/Holiday"
+        ],
+        [
+          "Up to 6 seasons and 6 week tables"
+        ],
+        [
+          "Up to 8 day tables and each table has 14 entries"
+        ],
+        [
+          "Active and passive calendar support"
+        ],
+        [
+          "Event Records",
+          "Fraud detection (Meter cover, terminal cover, current reverse, magnetic detect etc.)"
+        ],
+        [
+          "Power quality event (Under voltage /Over voltage (Sag/Swell), Power up/down, etc.)"
+        ],
+        [
+          "Over current / current imbalance"
+        ],
+        [
+          "Security event (Parameters change, clock adjust, etc.)"
+        ],
+        [
+          "Load Control",
+          "Remote control command support"
+        ],
+        [
+          "Over current control support"
+        ],
+        [
+          "Power limit support"
+        ],
+        [
+          "Profile",
+          "Energy and power profiles（15min(default), up to 20 channels, up to 60 days)"
+        ],
+        [
+          "Daily profiles（24h, up to 20 channels, up to 64 days）"
+        ],
+        [
+          "Month billing profiles, Up to 24 billing records and 20 channels"
+        ],
+        [
+          "Configurable interval and capture objects of load profile"
+        ],
+        [
+          "Prepayment Function (Optional)",
+          "Configurable prepayment and post-payment mode"
+        ],
+        [
+          "Three levels for remaining credit alarm"
+        ],
+        [
+          "Emergency credit, friendly time and friendly days support"
+        ],
+        [
+          "Security (LLS or HLS)",
+          "LLS support 3 level passwords for local communication"
+        ],
+        [
+          "HLS support authentication and encryption for local communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "DDSD101-J7",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20260630/DDAD101-J7.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20260630/DDAD101-J7.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Single Phase Smart Prepayment Meter"
+  },
+  "https://en.wasion.com/IEC-Ordinary-Meters/DTSD341-Three-Phase-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Ordinary-Meters/DTSD341-Three-Phase-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Ordinary-Meters/DTSD341-Three-Phase-Energy-Meter.html",
+    "title": "DTSD341 - IEC Ordinary Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:55.874236+00:00",
+    "sourceHTMLSha256": "a612faadd79da112278ceff0ec30be1b6ab8b6ad7b4f2afbe86cfa2ae7af25a9",
+    "sourceBytes": 61309,
+    "paragraphs": [
+      "Three Phase Energy Meter",
+      "Measurement Behaviour",
+      "Instantaneous Vrms, Irma, Frequency",
+      "Reactive energy (optional)",
+      "Clock accuracy (daily deviation): ≤ 0.5s/day",
+      "Support power off display",
+      "Support RTC clock",
+      "Up to 4 tariff rate",
+      "Easy configuration",
+      "Billing data Including energy and max demand",
+      "Data recorded 60 days (15 minutes)",
+      "Date recorded with kW",
+      "Demand cycle configurable, the default is 15 minutes",
+      "Phase Absence indication",
+      "Reverse current indication",
+      "Large digit LCD display, easy for reading",
+      "Display readable when power off",
+      "Wide viewing angle",
+      "Meter cover open, Record 25 events",
+      "Terminal open, Record 25 events",
+      "Current reverse, Record 25 events",
+      "Built-in RF module",
+      "Optical port (optional)",
+      "Protocol: IEC62056-21 mode C",
+      "Communication is password protected"
+    ],
+    "features": [
+      "Three phase four wires RF energy meter, designed for residential and small commercial consumers",
+      "Accuracy: class 1.0 for kWh, class 2.0 for kvarh",
+      "Through wireless RF communication, perform meter data reading and parameter setting (Optional)",
+      "Voltage range: 3x120/240 V, 3x127/220 V (-20% to +20%)",
+      "Optical port (Optional)",
+      "Open standard protocol: IEC62056-21",
+      "Highest-level information security",
+      "Built-in battery/supercapacitor optional",
+      "Active energy and Reactive energy measurement",
+      "TOU, LP, Demand, Event Log Etc. functions",
+      "Ultrasonic welding support"
+    ],
+    "tables": [
+      [
+        [
+          "Measurement Behaviour",
+          "Instantaneous Vrms, Irma, Frequency"
+        ],
+        [
+          "Active energy"
+        ],
+        [
+          "Reactive energy (optional)"
+        ],
+        [
+          "RTC",
+          "Clock accuracy (daily deviation): ≤ 0.5s/day"
+        ],
+        [
+          "Battery Backup",
+          "Support power off display"
+        ],
+        [
+          "Support RTC clock"
+        ],
+        [
+          "Tariff",
+          "Up to 4 tariff rate"
+        ],
+        [
+          "Easy configuration"
+        ],
+        [
+          "Billing Data",
+          "Billing data Including energy and max demand"
+        ],
+        [
+          "Load Profile",
+          "Data recorded 60 days (15 minutes)"
+        ],
+        [
+          "Date recorded with kW"
+        ],
+        [
+          "Demand",
+          "Demand cycle configurable, the default is 15 minutes"
+        ],
+        [
+          "LED for Alarm",
+          "Phase Absence indication"
+        ],
+        [
+          "Reverse current indication"
+        ],
+        [
+          "LED for Display",
+          "Large digit LCD display, easy for reading"
+        ],
+        [
+          "Display readable when power off"
+        ],
+        [
+          "Wide viewing angle"
+        ],
+        [
+          "Event record",
+          "Meter cover open, Record 25 events"
+        ],
+        [
+          "Terminal open, Record 25 events"
+        ],
+        [
+          "Current reverse, Record 25 events"
+        ],
+        [
+          "Phase Absence"
+        ],
+        [
+          "Reverse current"
+        ],
+        [
+          "Communication",
+          "Built-in RF module"
+        ],
+        [
+          "Optical port (optional)"
+        ],
+        [
+          "Protocol: IEC62056-21 mode C"
+        ],
+        [
+          "Security",
+          "Communication is password protected"
+        ]
+      ]
+    ],
+    "headings": [
+      "DTSD341",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220922/277d585ac1500035d21e95b0d0a8f54a.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220922/277d585ac1500035d21e95b0d0a8f54a.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Three Phase Energy Meter"
+  },
+  "https://en.wasion.com/IEC-Ordinary-Meters/DDS102-Single-Phase-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Ordinary-Meters/DDS102-Single-Phase-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Ordinary-Meters/DDS102-Single-Phase-Energy-Meter.html",
+    "title": "DDS102 - IEC Ordinary Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:55.958372+00:00",
+    "sourceHTMLSha256": "5bfcdc2e186e0f8a796ed91cc8805865c1cb54eff6c4fbb0c6936911ddac0e24",
+    "sourceBytes": 58945,
+    "paragraphs": [
+      "Single Phase Energy Meter",
+      "Measurement Behaviour",
+      "Instantaneous Vrms, Irma, Frequency",
+      "Clock accuracy (daily deviation): ≤ 0.5s/day",
+      "Support power off display",
+      "Support RTC clock",
+      "Data recorded 45 days (15 minutes)",
+      "Date recorded with kW, KVAR, kWh, voltage, current",
+      "Demand cycle configurable, the default is 15 minutes",
+      "Large digit LCD display, easy for reading",
+      "Display readable when power off",
+      "LCD backlight to increase readability in low-light condition",
+      "Wide viewing angle",
+      "Bypass of mainline and load line, Record 25 events",
+      "Current reverse, Record 25 events",
+      "External magnetic tamper, Record 25 events",
+      "Protocol: IEC62056-21 mode C",
+      "Communication is password protected"
+    ],
+    "features": [
+      "Single phase two wires static electricity meter, designed for residential consumers",
+      "Optical port(Optional)",
+      "Accuracy: class 1.0 for kWh, class 2.0 for kvarh",
+      "Open standard protocol: IEC62056-21",
+      "Highest-level information security",
+      "Built-in battery/super capacitor optional",
+      "Active energy and Reactive energy measurement",
+      "TOU, LP, Demand, Event Log Etc. functions",
+      "Ultrasonic welding support"
+    ],
+    "tables": [
+      [
+        [
+          "Measurement Behaviour",
+          "Instantaneous Vrms, Irma, Frequency"
+        ],
+        [
+          "Active energy"
+        ],
+        [
+          "RTC",
+          "Clock accuracy (daily deviation): ≤ 0.5s/day"
+        ],
+        [
+          "Battery Backup",
+          "Support power off display"
+        ],
+        [
+          "Support RTC clock"
+        ],
+        [
+          "Load Profile",
+          "Data recorded 45 days (15 minutes)"
+        ],
+        [
+          "Date recorded with kW, KVAR, kWh, voltage, current"
+        ],
+        [
+          "Demand",
+          "Demand cycle configurable, the default is 15 minutes"
+        ],
+        [
+          "LCD for Display",
+          "Large digit LCD display, easy for reading"
+        ],
+        [
+          "Display readable when power off"
+        ],
+        [
+          "LCD backlight to increase readability in low-light condition"
+        ],
+        [
+          "Wide viewing angle"
+        ],
+        [
+          "Event record",
+          "Bypass of mainline and load line, Record 25 events"
+        ],
+        [
+          "Current reverse, Record 25 events"
+        ],
+        [
+          "External magnetic tamper, Record 25 events"
+        ],
+        [
+          "Optical port",
+          "Protocol: IEC62056-21 mode C"
+        ],
+        [
+          "Security",
+          "Communication is password protected"
+        ]
+      ]
+    ],
+    "headings": [
+      "DDS102",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20221012/39b8102f7fbf6a71ab96eda52723281e.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20221012/39b8102f7fbf6a71ab96eda52723281e.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Single Phase Energy Meter"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-CT-Three-Phase-Smart-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-CT-Three-Phase-Smart-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-CT-Three-Phase-Smart-Energy-Meter.html",
+    "title": "aMeter300 (CT) - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:56.376153+00:00",
+    "sourceHTMLSha256": "539882bf616f7f201e8460ffed4765c052960855c6bfc751f35569eb6645cff8",
+    "sourceBytes": 59875,
+    "paragraphs": [
+      "Three Phase Smart Energy Meter",
+      "Standard event log (Power up/on, time synchronization, etc)",
+      "Communication error, unauthorized access.",
+      "Over current control support",
+      "RF-Mesh, Wi-SUN compliance",
+      "Third part communication technology(Trilliant OSDI/RPMA, ITRON, HUAWEI, NURI, etc)"
+    ],
+    "features": [
+      "Plug and play module for WAN communication with the independent module box",
+      "4 quadrants measurement: instantaneous Vrms, Irms, frequency, PF, kW, kvar, kVA",
+      "Support direct connection and current transformer type",
+      "Accuracy: Class 0.5S or Class 0.2S for kWh; Class 2.0 for kvarh",
+      "Up to 50th harmonic measurement: power quality analysis, THD, sag/swell/dip support",
+      "Open standard protocol: DLMS/COSEM",
+      "Flexible load control with an internal breaker",
+      "Anti-tamper design",
+      "Firmware upgrade via local interface and OTA",
+      "Support LLS and HLS, DLMS Green book suite 0, suite 1",
+      "Rich set of auxiliary interface support",
+      "Wired M-Bus interface connects with water/gas meter"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Fraud detection log (Meter cover, terminal cover, current reverse, magnetic detect, etc.)"
+        ],
+        [
+          "Failure detection log (Memory error, relay error, battery low voltage, clock invalid etc.)"
+        ],
+        [
+          "Power quality event log (Under voltage / over voltage (Sag/Swell), over current/current imbalance, neutral missing, long/short power cut, Power up/down, etc.)"
+        ],
+        [
+          "Standard event log (Power up/on, time synchronization, etc)"
+        ],
+        [
+          "Communication error, unauthorized access."
+        ],
+        [
+          "Security event log (Parameters change, clock adjust, etc.)"
+        ],
+        [
+          "Load Control",
+          "Remote control command support"
+        ],
+        [
+          "Over current control support"
+        ],
+        [
+          "Power limit support"
+        ],
+        [
+          "WAN Communication (optional)",
+          "Plug and play module to support various communication technology"
+        ],
+        [
+          "G3 PLC or BPLC"
+        ],
+        [
+          "RF-Mesh, Wi-SUN compliance"
+        ],
+        [
+          "GPRS, 3G, 4G"
+        ],
+        [
+          "Third part communication technology(Trilliant OSDI/RPMA, ITRON, HUAWEI, NURI, etc)"
+        ],
+        [
+          "Protocol: DLMS/COSEME"
+        ],
+        [
+          "HAN Communication",
+          "RS485/M-BUS"
+        ],
+        [
+          "FSK RF, FSK PLC"
+        ],
+        [
+          "Built-in RF/PLC module communicates with the in-home display unit"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS, supporting authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "aMeter300 (CT)",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220922/4ee1fb176dd137a462a0b7c948ac72a2.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220922/4ee1fb176dd137a462a0b7c948ac72a2.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Three Phase Smart Energy Meter"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/SMC100-Wasion-Cabinet-Meters.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/SMC100-Wasion-Cabinet-Meters.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/SMC100-Wasion-Cabinet-Meters.html",
+    "title": "SMC100 - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:57.542827+00:00",
+    "sourceHTMLSha256": "b830c34a5f05f760313f890147cf38e351d38116fdd7968c3e5396dd0509d359",
+    "sourceBytes": 56482,
+    "paragraphs": [
+      "Wasion Cabinet Meters",
+      "Cabinet Tamper detection",
+      "Internal failure detection (memory error, battery low, clock invalid, etc.)",
+      "Security events (parameters change, clock adjustment, etc.)",
+      "WAN Communication (optional)",
+      "HAN Communication (optional)",
+      "LLS, supporting 3-level passwords for local and remote communication",
+      "HLS, supporting authentication and encryption for local and remote communication"
+    ],
+    "features": [
+      "Support up to 12 single phases, 6 two phases, and 4 three-phase meter connection",
+      "Support up to 100A maximum current",
+      "Bidirectional metering for import/export active energy, and 4 quadrants reactive energy",
+      "Accuracy: class B for kWh; class A for kvarh",
+      "Internal relay design",
+      "Support up to 8 tariff energy records and mass memory",
+      "Wireless communication with remote display",
+      "Pole mounting installation",
+      "Anti-tamper box design",
+      "Open standard protocol DLMS/COSEM",
+      "Firmware upgrade via local interface & OTA"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Cabinet Tamper detection"
+        ],
+        [
+          "Internal failure detection (memory error, battery low, clock invalid, etc.)"
+        ],
+        [
+          "Power quality events (DRP/DRC, short and long-term interruption, etc.)"
+        ],
+        [
+          "Security events (parameters change, clock adjustment, etc.)"
+        ],
+        [
+          "WAN Communication (optional)",
+          "Wi-SUN, Lora"
+        ],
+        [
+          "GPRS/3G/4G"
+        ],
+        [
+          "HAN Communication (optional)",
+          "RF"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS, supporting authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "SMC100",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230927/SMC100 产品图.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230927/SMC100 产品图.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Wasion Cabinet Meters"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD1034-Three-Phase-Smart-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD1034-Three-Phase-Smart-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD1034-Three-Phase-Smart-Energy-Meter.html",
+    "title": "aMeter300-AD1034 - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:59.186925+00:00",
+    "sourceHTMLSha256": "a1bef64a14765b0d51b2277ebfa874967a27941b26d647f635ae892900da1bda",
+    "sourceBytes": 56811,
+    "paragraphs": [
+      "Three Phase Smart Meter",
+      "Standard/fraud/alarm events",
+      "Security events (parameters change, clock adjustment, etc.)",
+      "Over current control"
+    ],
+    "features": [
+      "Three phase four wire connection",
+      "Support up to 120A maximum current",
+      "Bidirectional metering (GD Meter) for import/export energy, and 4 quadrants of energy",
+      "Accuracy: Class B",
+      "Plug and play module (hot swappable)",
+      "Flexible load control with internal relay",
+      "Mass memory and white tariff record",
+      "Firmware upgrade via local interface & OTA",
+      "ABNT optical port",
+      "DLMS/COSEM open protocol and ABNT protocol",
+      "Rich anti-tamper features",
+      "Certified by INMETRO"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Tamper detection (Meter and terminal cover open, current reverse, magnetic eld detection, etc.)"
+        ],
+        [
+          "Internal failure detection (memory error, relay error, battery low, clock invalid, etc.)"
+        ],
+        [
+          "Power quality events (DRP/DRC, short and long term interruptions, over current / over load, current imbalance, etc.)"
+        ],
+        [
+          "Standard/fraud/alarm events"
+        ],
+        [
+          "Security events (parameters change, clock adjustment, etc.)"
+        ],
+        [
+          "Load Control",
+          "Remote relay control command"
+        ],
+        [
+          "Over current control"
+        ],
+        [
+          "Load/demand limiter control"
+        ],
+        [
+          "WAN Communication(optional)",
+          "G3-PLC, BPLC, Wi-SUN"
+        ],
+        [
+          "GPRS/3G/4G"
+        ],
+        [
+          "CAT-M, NB-loT"
+        ],
+        [
+          "HAN Communication",
+          "RS485/RS232/SSU"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS, supporting authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "aMeter300-AD1034",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AD1034产品图.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AD1034产品图.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Three Phase Smart Meter"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD0534-200-Three-Phase-Smart-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD0534-200-Three-Phase-Smart-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD0534-200-Three-Phase-Smart-Energy-Meter.html",
+    "title": "aMeter300-AD0534-200 - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:59.731285+00:00",
+    "sourceHTMLSha256": "55a9dee51efb475042cddab7a555afe6cff475f19610ae92c824536d2bad4262",
+    "sourceBytes": 56920,
+    "paragraphs": [
+      "Three Phase C& Smart Meter",
+      "Standard/fraud/alarm events",
+      "Security events (parameters change, clock adjustment, etc.)"
+    ],
+    "features": [
+      "Three phase four wire connection",
+      "Support up to 200A current",
+      "Bidirectional metering (GD Meter) for import/export energy, and 4 quadrants energy",
+      "Plug and play module for WAN communication",
+      "Mass memory and white and green tariff record",
+      "Firmware upgrade via local interface and OTA",
+      "DIMS/COSEM open protocol and ABNT protocol",
+      "Rich anti-tamper features",
+      "Certified by INMETRO"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Tamper detection (Meter and terminal cover open, current reverse, magnetic eld detection, etc.)"
+        ],
+        [
+          "Internal failure detection (memory error, battery low, clock invalid, etc.)"
+        ],
+        [
+          "Power quality events (DRP/DRC, short and long term interruption, current imbalance, etc.)"
+        ],
+        [
+          "Standard/fraud/alarm events"
+        ],
+        [
+          "Security events (parameters change, clock adjustment, etc.)"
+        ],
+        [
+          "WAN Communication(optional)",
+          "G3-PLC, BPLC, Wi-SUN"
+        ],
+        [
+          "GPRS/3G/4G"
+        ],
+        [
+          "CAT-M, NB-loT"
+        ],
+        [
+          "HAN Communication(optional)",
+          "RS485/RS232/SSU"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS, supporting authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "aMeter300-AD0534-200",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AD 产品图.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AD 产品图.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Three Phase C& Smart Meter"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AC0534-Three-Phase-Smart-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AC0534-Three-Phase-Smart-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AC0534-Three-Phase-Smart-Energy-Meter.html",
+    "title": "aMeter300-AC0534 - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:40:59.836822+00:00",
+    "sourceHTMLSha256": "d75230989e68bf8455cdd4ff870b52eb5cee8e9946e42bc3bc33ee38acf52a4b",
+    "sourceBytes": 56931,
+    "paragraphs": [
+      "Three Phase C&l Indirect Smart Meter",
+      "Standard/fraud/alarm events",
+      "Security events (parameters change, clock adjustment, etc.)"
+    ],
+    "features": [
+      "Three phase indirect (CT and CT/PT) connection",
+      "Bidirectional metering (GD Meter) for import/export energy, and 4 quadrants of energy",
+      "Accuracy: Class C",
+      "Plug and play module for WAN communication",
+      "Mass memory and white, green and blue tariff record",
+      "Firmware upgrade via local interface & OTA",
+      "ABNI optical port",
+      "DIMS/COSEM open protocol and ABNT protocol",
+      "Rich anti-tamper features",
+      "Certified by INMETRO"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Tamper detection (Meter and terminal cover open, current reverse, magnetic eld detection, etc.)"
+        ],
+        [
+          "Internal failure detection (memory error, battery low, clock invalid, etc.)"
+        ],
+        [
+          "Power quality events (DRP/DRC,DMCR/UFER, short and long term interruption, etc.)"
+        ],
+        [
+          "Standard/fraud/alarm events"
+        ],
+        [
+          "Security events (parameters change, clock adjustment, etc.)"
+        ],
+        [
+          "WAN Communication (optional)",
+          "G3-PLC, BPLC, Wi-SUN"
+        ],
+        [
+          "GPRS/3G/4G"
+        ],
+        [
+          "CAT-M. NB-loT"
+        ],
+        [
+          "HAN Communication(optional)",
+          "RS485/RS232/SSU"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS, supporting authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "aMeter300-AC0534",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AC0534 产品图.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AC0534 产品图.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Three Phase C&l Indirect Smart Meter"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/aMeter100-BD-Single-Two-Phase-Smart-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-BD-Single-Two-Phase-Smart-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-BD-Single-Two-Phase-Smart-Energy-Meter.html",
+    "title": "aMeter100-BD - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:02.897366+00:00",
+    "sourceHTMLSha256": "5a1855e531b56eb0644f06a8df8ae2cfa277f5b97d38ffec9e59683681da03c3",
+    "sourceBytes": 57723,
+    "paragraphs": [
+      "Single/Two Phase Smart Meter",
+      "Standard/fraud/alarm events",
+      "Security events (parameters change, clock adjustment, etc.)",
+      "Over current control"
+    ],
+    "features": [
+      "Single phase two wire, single phase three wire and two phase three wire connection",
+      "Bidirectional metering (GD Meter) for import/export energy, and 4 quadrants of energy",
+      "Accuracy: class B",
+      "Plug and play module (hot swappable)",
+      "Flexible load control with internal relay",
+      "Mass memory and white tariff record",
+      "Firmware upgrade via local interface & OTA",
+      "ABNT optical port",
+      "DIMS/COSEM open protocol and ABNT protocol",
+      "Rich anti-tamper features",
+      "Certified by INMETRO"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Tamper detection (Meter and terminal cover open, current reverse, magnetic eld detection, etc.)"
+        ],
+        [
+          "Internal failure detection (memory error, relay error, battery low, clock invalid, etc.)"
+        ],
+        [
+          "Power quality events (DRP/DRC, short and long term interruption, over current / over load, current imbalance, etc.)"
+        ],
+        [
+          "Standard/fraud/alarm events"
+        ],
+        [
+          "Security events (parameters change, clock adjustment, etc.)"
+        ],
+        [
+          "Load Control",
+          "Remote relay control command"
+        ],
+        [
+          "Over current control"
+        ],
+        [
+          "Load/demand limiter control"
+        ],
+        [
+          "WAN Communication (optional)",
+          "G3-PLC, BPLC, Wi-SUN"
+        ],
+        [
+          "GPRS/3G/4G"
+        ],
+        [
+          "CAT-M. NB-loT"
+        ],
+        [
+          "HAN Communication",
+          "RS485/RS232/SSU"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS, supporting authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "aMeter100-BD",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230928/aMeter100-BD 产品图.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230928/aMeter100-BD 产品图.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Single/Two Phase Smart Meter"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GTRU-Single-Phase-Smart-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GTRU-Single-Phase-Smart-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GTRU-Single-Phase-Smart-Energy-Meter.html",
+    "title": "aMeter100(GTRU) - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:03.391458+00:00",
+    "sourceHTMLSha256": "f3f97bddea6efab4fa0267b0c89dc5738a9e0fa2baeb009285e63a379aad59c9",
+    "sourceBytes": 57591,
+    "paragraphs": [
+      "Single Phase Smart Energy Meter",
+      "Standard event log (Power up/on, time synchronization, etc.)"
+    ],
+    "features": [
+      "IP64 protection",
+      "Plug-and-play module for WAN communication (optional) with the independent module box",
+      "4 quadrants measurement: instantaneous Vrms, Irms, frequency, PF, kW, kvar, kVA",
+      "Accuracy: Class 1 for kWh, Class 2 for kvarh",
+      "Prepaid and Post-paid modes (runtime switchable)",
+      "Latest STS version (STS6)",
+      "Optional 4G (LTE) embedded module with auto fallback on GPRS",
+      "Rich Anti-Tampers features",
+      "Firmware upgrade via optical interface and WAN interface",
+      "Wall and pole-top mountable",
+      "Optional IHD / UIU / CIU"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Fraud detection (Meter cover, terminal cover, current reverse, magnetic detect etc.)"
+        ],
+        [
+          "Failure detection (Memory error, relay error, battery low voltage, clock invalid etc.)"
+        ],
+        [
+          "Power quality event (Under voltage /Over voltage (Sag/Swell), Power up/down, etc.)"
+        ],
+        [
+          "Standard event log (Power up/on, time synchronization, etc.)"
+        ],
+        [
+          "Security events (Parameters change, clock adjust, etc.)"
+        ],
+        [
+          "Load Control",
+          "Remote control command support"
+        ],
+        [
+          "Over current control support"
+        ],
+        [
+          "Power limit support"
+        ],
+        [
+          "WAN Communication (optional)",
+          "G3 PLC or BPLC"
+        ],
+        [
+          "GPRS/3G/4G/NB-IoT"
+        ],
+        [
+          "Wi-SUN"
+        ],
+        [
+          "Protocol: DLMS/COSEME"
+        ],
+        [
+          "HAN Communication",
+          "Built-in RF module"
+        ],
+        [
+          "Communication with in-home display"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS support authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "aMeter100(GTRU)",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220922/7195a00d550e060f7c322fadd72698f0.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220922/7195a00d550e060f7c322fadd72698f0.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Single Phase Smart Energy Meter"
+  },
+  "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GTRU-Three-Phase-Smart-Energy-Meter.html": {
+    "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GTRU-Three-Phase-Smart-Energy-Meter.html",
+    "sourceURL": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GTRU-Three-Phase-Smart-Energy-Meter.html",
+    "title": "aMeter300(GTRU) - IEC Smart Meters",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:03.690250+00:00",
+    "sourceHTMLSha256": "eec7b7733672f2ae9d44b1499b46cdca66189e32090674ca765fbf03b67f4bd1",
+    "sourceBytes": 57756,
+    "paragraphs": [
+      "Three Phase Smart Energy Meter",
+      "Over current / current imbalance",
+      "Standard event log (Power up/on, time synchronization, etc.)"
+    ],
+    "features": [
+      "IP64 protection",
+      "Plug-and-play module for WAN communication (optional) with the independent module box",
+      "4 quadrants measurement: instantaneous Vrms, Irms, frequency, PF, kW, kvar, kVA",
+      "Accuracy: Class 1 for kWh, Class 2 for kvarh",
+      "Prepaid and Post-paid modes (runtime switchable)",
+      "Latest STS version (STS6)",
+      "Optional 4G (LTE) embedded module with auto fallback on GPRS",
+      "Rich Anti-Tampers features",
+      "Firmware upgrade via optical interface and WAN interface",
+      "Wall and pole-top mountable",
+      "Optional IHD / UIU / CIU"
+    ],
+    "tables": [
+      [
+        [
+          "Event Logs",
+          "Fraud detection (Meter cover, terminal cover, current reverse, magnetic detect etc.)"
+        ],
+        [
+          "Failure detection (Memory error, relay error, battery low voltage, clock invalid etc.)"
+        ],
+        [
+          "Power quality event (Under voltage /Over voltage (Sag/Swell), Power up/down, etc.)"
+        ],
+        [
+          "Over current / current imbalance"
+        ],
+        [
+          "Standard event log (Power up/on, time synchronization, etc.)"
+        ],
+        [
+          "Security events (Parameters change, clock adjust, etc.)"
+        ],
+        [
+          "Load Control",
+          "Remote control command support"
+        ],
+        [
+          "Over current control support"
+        ],
+        [
+          "Power limit support"
+        ],
+        [
+          "WAN Communication (optional)",
+          "G3 PLC or BPLC"
+        ],
+        [
+          "GPRS/3G/4G/NB-IoT"
+        ],
+        [
+          "Wi-SUN"
+        ],
+        [
+          "Protocol: DLMS/COSEME"
+        ],
+        [
+          "HAN Communication",
+          "Built-in RF module"
+        ],
+        [
+          "Communication with in-home display"
+        ],
+        [
+          "Security",
+          "LLS, supporting 3-level passwords for local and remote communication"
+        ],
+        [
+          "HLS support authentication and encryption for local and remote communication"
+        ]
+      ]
+    ],
+    "headings": [
+      "aMeter300(GTRU)",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220922/15d457bffaf2745c1be9e5fc4dbffd22.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220922/15d457bffaf2745c1be9e5fc4dbffd22.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Three Phase Smart Energy Meter"
+  },
+  "https://en.wasion.com/Wired-Communication/WID-2000-Data-Concentrator.html": {
+    "url": "https://en.wasion.com/Wired-Communication/WID-2000-Data-Concentrator.html",
+    "sourceURL": "https://en.wasion.com/Wired-Communication/WID-2000-Data-Concentrator.html",
+    "title": "WID-2000 - Wired Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:03.790038+00:00",
+    "sourceHTMLSha256": "801601af2b54ee395b08d2d5f155abcd8893a20bc1a38c4a4a0ece0e9b596e72",
+    "sourceBytes": 57929,
+    "paragraphs": [
+      "Data Concentrator",
+      "Reference voltage AC 230V/400V",
+      "Rated frequency (fn) 50Hz or 60Hz",
+      "Electromagnetic Compatibility",
+      "Fast Instantaneous Pulse Group 4kV",
+      "Fast transient burst main circuits 4kV",
+      "Air discharge, 15kV, 10 cycles",
+      "Normal Operation range -25℃ to +55℃",
+      "Limit operation range -40℃ to +70℃",
+      "Limit range for storage and transport -45℃ to +85℃",
+      "Up to 95% non-condensing",
+      "Product lifetime ≥ 15 years",
+      "Battery lifetime 10 years",
+      "Dimension (W × H × D)",
+      "160 × 180 × 89 mm"
+    ],
+    "features": [
+      "Supports both concentrator and Gateway functionality",
+      "Supports G3-PLC in downlink channel",
+      "Interoperability is preserved by supporting DLMS/COSEM protocol both in uplink and downlink channels",
+      "Both polling and pushing mechanisms are supported for data reading/event reporting",
+      "Multi-layer security is considered both in G3-PLC-MAC layer as well as in DLMS application layer",
+      "Integrated Web server for local and remote access"
+    ],
+    "tables": [
+      [
+        [
+          "Voltage",
+          "Reference voltage AC 230V/400V"
+        ],
+        [
+          "operating voltage range 70%-130%Un"
+        ],
+        [
+          "Frequency",
+          "Rated frequency (fn) 50Hz or 60Hz"
+        ],
+        [
+          "Frequency range 47.5Hz to 52.5Hz or 57.5Hz to 62.5Hz"
+        ],
+        [
+          "Electromagnetic Compatibility",
+          "Fast Instantaneous Pulse Group 4kV"
+        ],
+        [
+          "Fast transient burst main circuits 4kV"
+        ],
+        [
+          "Immunity to Impulse Voltage 6kV"
+        ],
+        [
+          "Electrostatic Discharge Contact discharge, 8kV, 10 cycles Air discharge, 15kV, 10 cycles"
+        ],
+        [
+          "Temperature",
+          "Normal Operation range -25℃ to +55℃"
+        ],
+        [
+          "Limit operation range -40℃ to +70℃"
+        ],
+        [
+          "Limit range for storage and transport -45℃ to +85℃"
+        ],
+        [
+          "Humidity",
+          "Up to 95% non-condensing"
+        ],
+        [
+          "Protection degree",
+          "IP54"
+        ],
+        [
+          "Lifetime",
+          "Product lifetime ≥ 15 years"
+        ],
+        [
+          "Battery lifetime 10 years"
+        ],
+        [
+          "Dimension (W × H × D)",
+          "160 × 180 × 89 mm"
+        ],
+        [
+          "Weight",
+          "1000g"
+        ]
+      ]
+    ],
+    "headings": [
+      "WID-2000",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20251209/WID2000 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20251209/WID2000 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Data Concentrator"
+  },
+  "https://en.wasion.com/Wired-Communication/G3-PLC-Network-Interface-Module.html": {
+    "url": "https://en.wasion.com/Wired-Communication/G3-PLC-Network-Interface-Module.html",
+    "sourceURL": "https://en.wasion.com/Wired-Communication/G3-PLC-Network-Interface-Module.html",
+    "title": "G3-PLC - Wired Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:06.078036+00:00",
+    "sourceHTMLSha256": "f30eb53a8192e87c19974885e954643ed068ba26405032c4db2e639a7e30ffdb",
+    "sourceBytes": 57406,
+    "paragraphs": [
+      "Network Interface Card / Module",
+      "110 to 240 V L-N , 70% to 120% Un",
+      "OFDM (ROBO, DBPSK, DQPSK, D8PSK)",
+      "Communication frequency range",
+      "CENELEC A (32 to 95 kHz), FCC (154 to 487 kHz)",
+      "IEEE P1901.2, ITU G9903, IEEE 802.15.4, 6LoWPAN, IPv6, DLMS/COSEM",
+      "Receive sensitivity",
+      "-78 dBm (FCC) / -85 dBm (CENELEC-A)",
+      "Nodes management capacity",
+      "Max. 1024 nodes in one network",
+      "Limit operating temperature",
+      "-40 °C to +85 °C",
+      "Relative humidity",
+      "≤ 95%, non-condensing"
+    ],
+    "features": [
+      "OFDM-based PHY (BPSK, QPSK, 8PSK) makes efficient use of the spectrum",
+      "Comply with regulations of world regulatory bodies such as CENELEC, ARIB, and FCC (10 kHz - 490 kHz)",
+      "Based on standards: IEEE, ITU, IEC/CENELEC and IEC/SAE",
+      "Security (AES-128 cryptographic engine for optimum data security)",
+      "Mesh routing protocol to determine the best path between remote network nodes (maximum nodes 1024 & maximum hops 14)",
+      "Over the power line update firmware (OTP)",
+      "DLMS interface with meter",
+      "G3-PLC alliance certified"
+    ],
+    "tables": [
+      [
+        [
+          "Nominal voltage",
+          "110 to 240 V L-N , 70% to 120% Un"
+        ],
+        [
+          "Line frequency",
+          "47.5 to 63 Hz"
+        ],
+        [
+          "Modulation",
+          "OFDM (ROBO, DBPSK, DQPSK, D8PSK)"
+        ],
+        [
+          "Communication frequency range",
+          "CENELEC A (32 to 95 kHz), FCC (154 to 487 kHz)"
+        ],
+        [
+          "Standards",
+          "IEEE P1901.2, ITU G9903, IEEE 802.15.4, 6LoWPAN, IPv6, DLMS/COSEM"
+        ],
+        [
+          "Data rate",
+          "Max. 142 Kbps"
+        ],
+        [
+          "Receive sensitivity",
+          "-78 dBm (FCC) / -85 dBm (CENELEC-A)"
+        ],
+        [
+          "Nodes management capacity",
+          "Max. 1024 nodes in one network"
+        ],
+        [
+          "Maximum hopes",
+          "14"
+        ],
+        [
+          "Limit operating temperature",
+          "-40 °C to +85 °C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "G3-PLC",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220613/c875747d2fcabf0d551bc633ec63548e.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220613/c875747d2fcabf0d551bc633ec63548e.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Network Interface Card / Module"
+  },
+  "https://en.wasion.com/Wired-Communication/BPLC-Network-Interface-Module.html": {
+    "url": "https://en.wasion.com/Wired-Communication/BPLC-Network-Interface-Module.html",
+    "sourceURL": "https://en.wasion.com/Wired-Communication/BPLC-Network-Interface-Module.html",
+    "title": "BPLC - Wired Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:06.807490+00:00",
+    "sourceHTMLSha256": "761d94a81371c293aa07da7473328124466054153fdfd0ade350b48745a23292",
+    "sourceBytes": 57052,
+    "paragraphs": [
+      "Network Interface Card / Module",
+      "110 to 240 V L-N",
+      "Communication frequency range",
+      "0.7 to 12 MHz, 4 working bands can be configured",
+      "Home Plug Green PHY (HPGP), DLMS/COSEM",
+      "10 Mbps (PHY layer), > 1 Mbps (Application layer)",
+      "Max. 1015 slave nodes in one network",
+      "Limit operating temperature",
+      "-40 °C to +85 °C",
+      "Relative humidity",
+      "≤ 95%, non-condensing"
+    ],
+    "features": [
+      "High communication speed up to 10 Mbps, real-time data collection",
+      "2 to 30 MHz bandwidth, multi-subcarrier communication with strong anti-interference ability",
+      "Mature IP routing technology and fast networking speed",
+      "Two-way communication, active reporting of alarms",
+      "Large node capacity and wide application range",
+      "Online communication network management and device firmware upgrade",
+      "Open standard based, DLMS interface with meter",
+      "Suitable for applications like line loss analysis, meter reading, billing, demand side management, etc."
+    ],
+    "tables": [
+      [
+        [
+          "Nominal voltage",
+          "110 to 240 V L-N"
+        ],
+        [
+          "Line frequency",
+          "47.5 to 63 Hz"
+        ],
+        [
+          "Modulation",
+          "OFDM"
+        ],
+        [
+          "Communication frequency range",
+          "0.7 to 12 MHz, 4 working bands can be configured"
+        ],
+        [
+          "Standards",
+          "Home Plug Green PHY (HPGP), DLMS/COSEM"
+        ],
+        [
+          "Data rate",
+          "10 Mbps (PHY layer), > 1 Mbps (Application layer)"
+        ],
+        [
+          "Nodes management capacity",
+          "Max. 1015 slave nodes in one network"
+        ],
+        [
+          "Maximum hopes",
+          "15"
+        ],
+        [
+          "Limit operating temperature",
+          "-40 °C to +85 °C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "BPLC",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220613/46b4cbd59ec677854547e9520128382b.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220613/46b4cbd59ec677854547e9520128382b.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Network Interface Card / Module"
+  },
+  "https://en.wasion.com/Wired-Communication/WFET1600U-Data-Concentrator-Unit.html": {
+    "url": "https://en.wasion.com/Wired-Communication/WFET1600U-Data-Concentrator-Unit.html",
+    "sourceURL": "https://en.wasion.com/Wired-Communication/WFET1600U-Data-Concentrator-Unit.html",
+    "title": "WFET1600U - Wired Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:06.989365+00:00",
+    "sourceHTMLSha256": "ef3ce3009cb5bd6af40da955b2a2d648b0db1435638d0e6f688b5d8df71645b8",
+    "sourceBytes": 58729,
+    "paragraphs": [
+      "Data Concentrator Unit",
+      "3 × 220 / 380 V AC, 70% to 130% Un",
+      "Data communication interface",
+      "Uplink: Ethernet/2G/3G/4G (PnP)",
+      "Downlink: RS-485/G3-PLC/BPLC (PnP)",
+      "Local communication interface",
+      "3 x RS-485 interfaces; 1 x Ethernet interface",
+      "1 x RS232; 1 x optical port; 1 x USB (host)",
+      "Web server maintenance interface",
+      "DLMS/COSEM, DLMS Gateway, DSMR, ANSI",
+      "Yes, clock accuracy (daily deviation): ≤ 0.5 s",
+      "RTC battery 10 years",
+      "Ingress protection",
+      "Dimension (W × H × D)",
+      "290 × 180 × 95 mm",
+      "Limit operating temperature",
+      "Relative humidity",
+      "≤ 95%, non-condensing"
+    ],
+    "features": [
+      "160 × 160 mm dot matrix LCD",
+      "Highly reliable and long service life",
+      "High capacity non-volatile flash and memory",
+      "Plug & play communication modules",
+      "Supports DLMS/COSEM, DLMS gateway, ANSI and DSMR",
+      "High security for WAN and NAN communication",
+      "Automatic detection of new meters",
+      "Real-time monitoring, collection and storing of meter data and events",
+      "Automatic alarm reporting when abnormal events are detected",
+      "Online firmware upgrade for meters and DCU itself"
+    ],
+    "tables": [
+      [
+        [
+          "Nominal voltage",
+          "3 × 220 / 380 V AC, 70% to 130% Un"
+        ],
+        [
+          "Line frequency",
+          "47.5 to 63 Hz"
+        ],
+        [
+          "Data communication interface",
+          "Uplink: Ethernet/2G/3G/4G (PnP)"
+        ],
+        [
+          "Downlink: RS-485/G3-PLC/BPLC (PnP)"
+        ],
+        [
+          "Local communication interface",
+          "3 x RS-485 interfaces; 1 x Ethernet interface"
+        ],
+        [
+          "1 x RS232; 1 x optical port; 1 x USB (host)"
+        ],
+        [
+          "Web server maintenance interface"
+        ],
+        [
+          "Protocols",
+          "DLMS/COSEM, DLMS Gateway, DSMR, ANSI"
+        ],
+        [
+          "RTC",
+          "Yes, clock accuracy (daily deviation): ≤ 0.5 s"
+        ],
+        [
+          "Battery lifetime",
+          "RTC battery 10 years"
+        ],
+        [
+          "Ingress protection",
+          "IP54"
+        ],
+        [
+          "Dimension (W × H × D)",
+          "290 × 180 × 95 mm"
+        ],
+        [
+          "Weight",
+          "2 kg"
+        ],
+        [
+          "Limit operating temperature",
+          "-40°C to +85°C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "WFET1600U",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240131/WFET1600U775X735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240131/WFET1600U775X735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Data Concentrator Unit"
+  },
+  "https://en.wasion.com/Wired-Communication/WFCT-980-Data-Concentrator-Unit.html": {
+    "url": "https://en.wasion.com/Wired-Communication/WFCT-980-Data-Concentrator-Unit.html",
+    "sourceURL": "https://en.wasion.com/Wired-Communication/WFCT-980-Data-Concentrator-Unit.html",
+    "title": "WFCT-980 - Wired Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:07.202067+00:00",
+    "sourceHTMLSha256": "ec8d100c37e18487344cc721d0a8c9ffa75e1dcb044349d41817cd8137d4d3eb",
+    "sourceBytes": 61632,
+    "paragraphs": [
+      "Data Concentrator Unit",
+      "3 × 220 / 380 V AC , 70% to 130% Un",
+      "Data communication interface",
+      "Uplink: Ethernet/2G/3G/4G (PnP)",
+      "Downlink: RS-485/G3-PLC (PnP)",
+      "Local communication interface",
+      "1 x RS-485 interface; 1 x Ethernet interface",
+      "1 x Wi-Fi modem (optional)",
+      "Internal web server for maintenance",
+      "Manages up to 500 PLC meters",
+      "On-demand & scheduled reading",
+      "1 GB non-volatile flash for data storage",
+      "Stores 60 days of data of 500 meters for daily billing",
+      "DLMS/COSEM, DLMS Gateway, DSMR, ANSI",
+      "Ingress protection",
+      "Dimension (W × H × D)",
+      "160 × 180 × 89 mm",
+      "Limit operating temperature",
+      "Relative humidity",
+      "≤ 95%, non-condensing"
+    ],
+    "features": [
+      "IP54 protection",
+      "Supports both DIN rail and hook mounting",
+      "Supports both concentrator and gateway functionality",
+      "Preserves interoperability by supporting DLMS/COSEM protocol both in uplink and downlink channels",
+      "Considers multi-layer security in both PLC- MAC layer and in DLMS application layer"
+    ],
+    "tables": [
+      [
+        [
+          "Nominal voltage",
+          "3 × 220 / 380 V AC , 70% to 130% Un"
+        ],
+        [
+          "Line frequency",
+          "47.5 to 63 Hz"
+        ],
+        [
+          "Data communication interface",
+          "Uplink: Ethernet/2G/3G/4G (PnP)"
+        ],
+        [
+          "Downlink: RS-485/G3-PLC (PnP)"
+        ],
+        [
+          "Local communication interface",
+          "1 x RS-485 interface; 1 x Ethernet interface"
+        ],
+        [
+          "1 x Wi-Fi modem (optional)"
+        ],
+        [
+          "Internal web server for maintenance"
+        ],
+        [
+          "Capacity",
+          "Manages up to 500 PLC meters"
+        ],
+        [
+          "On-demand & scheduled reading"
+        ],
+        [
+          "Data storage",
+          "1 GB non-volatile flash for data storage"
+        ],
+        [
+          "Stores 60 days of data of 500 meters for daily billing"
+        ],
+        [
+          "Protocols",
+          "DLMS/COSEM, DLMS Gateway, DSMR, ANSI"
+        ],
+        [
+          "Ingress protection",
+          "IP54"
+        ],
+        [
+          "Dimension (W × H × D)",
+          "160 × 180 × 89 mm"
+        ],
+        [
+          "Weight",
+          "1 kg"
+        ],
+        [
+          "Limit operating temperature",
+          "-40°C to +85°C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "WFCT-980",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220613/04ef867975ab6524e67ac2165280a4c6.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220613/04ef867975ab6524e67ac2165280a4c6.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Data Concentrator Unit"
+  },
+  "https://en.wasion.com/Wired-Communication/Ethernet-Network-Interface-Module.html": {
+    "url": "https://en.wasion.com/Wired-Communication/Ethernet-Network-Interface-Module.html",
+    "sourceURL": "https://en.wasion.com/Wired-Communication/Ethernet-Network-Interface-Module.html",
+    "title": "Ethernet - Wired Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:09.408465+00:00",
+    "sourceHTMLSha256": "72ada47e73a1e3c40865ea5a7219e911a5599a3a4c884326ae16768531d43f70",
+    "sourceBytes": 55277,
+    "paragraphs": [
+      "Network Interface Card/Module",
+      "Uplink communication",
+      "Ethernet 10 Mbps or 100 Mbps (PHY rate)",
+      "Downlink communication",
+      "DLMS/COSEM, ANSI, TCP/IP",
+      "Limit operating temperature",
+      "≤ 95%, non-condensing",
+      "Insulation protection",
+      "Electrostatic discharge IEC61000-4-2",
+      "Air discharge, 15 kV, 10 cycles"
+    ],
+    "features": [
+      "Dynamic and static IP setting",
+      "Configuration through the local port and also through the remote HES system",
+      "Supports 2 channels in TCP Server mode",
+      "Supports 4 channels in TCP Client mode, only valid mapping will be activated",
+      "Stable and reliable communication, supports real-time data collection and remote load control",
+      "Remote firmware upgrade over Ethernet"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "+12 V DC"
+        ],
+        [
+          "Uplink communication",
+          "Ethernet 10 Mbps or 100 Mbps (PHY rate)"
+        ],
+        [
+          "Downlink communication",
+          "UART"
+        ],
+        [
+          "Protocols",
+          "DLMS/COSEM, ANSI, TCP/IP"
+        ],
+        [
+          "Limit operating temperature",
+          "-40°C to +85°C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ],
+        [
+          "Insulation protection",
+          "Class II"
+        ],
+        [
+          "Electrostatic discharge IEC61000-4-2",
+          "Air discharge, 15 kV, 10 cycles"
+        ]
+      ]
+    ],
+    "headings": [
+      "Ethernet",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20221017/5390cc00f17c8c936f6882b0ce4d6173.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20221017/5390cc00f17c8c936f6882b0ce4d6173.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Network Interface Card/Module"
+  },
+  "https://en.wasion.com/Wired-Communication/Hybrid-Communication-Module.html": {
+    "url": "https://en.wasion.com/Wired-Communication/Hybrid-Communication-Module.html",
+    "sourceURL": "https://en.wasion.com/Wired-Communication/Hybrid-Communication-Module.html",
+    "title": "Hybrid - Wired Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:09.607531+00:00",
+    "sourceHTMLSha256": "7cbfa704694ba9de3d89b4509ba1c60be20da6f985002281b8a184b2dc6b97cc",
+    "sourceBytes": 58296,
+    "paragraphs": [
+      "Communication Module",
+      "Operation Temperature",
+      "Maximum Transmission Power",
+      "Maximum Transmission Rate"
+    ],
+    "features": [
+      "One single NIC provides PLC and RF two communication channels",
+      "Unified wired and wireless protocol stack based on G3-PLC standard",
+      "Frequency hopping RF, with better anti-interference performance",
+      "Expanded network coverage area at nearly the same cost",
+      "RF & PLC combo for enhanced network stability",
+      "Handling complicated application scenarios such as the basement, obstacles, etc.",
+      "Supports switching to WI-SUN (optional)",
+      "SNMP/CoAP support",
+      "Suite1 support (optional)",
+      "High-speed data supports massive access",
+      "Protocol transparent mode",
+      "Supports IOT with open internatioanl standards"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "5V/3.3V"
+        ],
+        [
+          "Operation Temperature",
+          "-40~85°C"
+        ],
+        [
+          "Certification",
+          "G3 Hybrid"
+        ],
+        [
+          "PLC",
+          "Physical Layer",
+          "IEEE 802.15.4"
+        ],
+        [
+          "Support Frequency band",
+          "CENELECA(32 to 95 kHZ, FCC(154 to 487 kHz)"
+        ],
+        [
+          "Support Standards",
+          "IEEE P1901.2,ITUG9903,IEEE 802.15.4.6LoWPAN,|Pv6"
+        ],
+        [
+          "Maximum Transmission rate",
+          "280 kbps"
+        ],
+        [
+          "RF",
+          "Physical Layer",
+          "IEEE 802.15.4"
+        ],
+        [
+          "Support ISM",
+          "315,433,490,868,915,920 MHz"
+        ],
+        [
+          "Maximum Transmission Power",
+          "30dBm"
+        ],
+        [
+          "Maximum Transmission Rate",
+          "400 kbps"
+        ],
+        [
+          "Single Hop Transmission Distance",
+          "Up to 1 km"
+        ],
+        [
+          "Receiving Sensitivity",
+          "-109dBm at 50Kbps"
+        ]
+      ]
+    ],
+    "headings": [
+      "Hybrid",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20241030/G3-Hybrid-775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20241030/G3-Hybrid-775x735.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Communication Module"
+  },
+  "https://en.wasion.com/Cellular-Communication/DC201-Standalone-Cellular-Modem.html": {
+    "url": "https://en.wasion.com/Cellular-Communication/DC201-Standalone-Cellular-Modem.html",
+    "sourceURL": "https://en.wasion.com/Cellular-Communication/DC201-Standalone-Cellular-Modem.html",
+    "title": "DC201 - Cellular Communication",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:10.323095+00:00",
+    "sourceHTMLSha256": "c2a6cb2d7a0603039a10b728674d131c7c6ce37c9e2eab6a6834ca5ba52c9431",
+    "sourceBytes": 59239,
+    "paragraphs": [
+      "Standalone Cellular Modem",
+      "Nominal: 230 VAC",
+      "Minimum: 150 VAC",
+      "Maximum: 460 VAC (for 24H)",
+      "Standard Optical (IEC 62056-21)",
+      "Optional RS-485 for Troubleshooting",
+      "Cellular Antenna Socket Type",
+      "Cellular Receiving Sensitivity",
+      "SIM Type and Interface",
+      "Supported protocols",
+      "Insulation Protection",
+      "Ingress protection",
+      "Operation Condition"
+    ],
+    "features": [
+      "Supports GPRS (2.5G), 3G and LTE (4G) cellular networks at the same time",
+      "Works both in transparent and gateway (DLMS / COSEM) modes",
+      "Optional last-gasp feature to report power outage",
+      "OTA firmware upgrade",
+      "Industrial compact design",
+      "External battery for RTC",
+      "Optical port, and RS-485 communication",
+      "Supports TCP/FTP/DNS protocol"
+    ],
+    "tables": [
+      [
+        [
+          "Working Voltage",
+          "Nominal: 230 VAC"
+        ],
+        [
+          "Minimum: 150 VAC"
+        ],
+        [
+          "Maximum: 460 VAC (for 24H)"
+        ],
+        [
+          "Uplink",
+          "GPRS, 3G and 4G"
+        ],
+        [
+          "Downlink",
+          "RS-485"
+        ],
+        [
+          "Local Ports",
+          "Standard Optical (IEC 62056-21)"
+        ],
+        [
+          "Optional RS-485 for Troubleshooting"
+        ],
+        [
+          "Cellular Antenna Socket Type",
+          "SMA"
+        ],
+        [
+          "Cellular Receiving Sensitivity",
+          "<-108.5dBm"
+        ],
+        [
+          "SIM Type and Interface",
+          "2FF, 1.8V/3V"
+        ],
+        [
+          "Supported protocols",
+          "TCP/UDP/FTP/DNS"
+        ],
+        [
+          "Insulation Protection",
+          "Class II"
+        ],
+        [
+          "Casing Material",
+          "PC + GF (Plastic)"
+        ],
+        [
+          "Ingress protection",
+          "IP 52"
+        ],
+        [
+          "Dimension (mm)",
+          "162 (L) x 49 (W) x 116 (D)"
+        ],
+        [
+          "Operation Condition",
+          "-40 °C to +70 °C @ < 95% RH"
+        ]
+      ]
+    ],
+    "headings": [
+      "DC201",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230105/DC201 no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230105/DC201 no bg.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Standalone Cellular Modem"
+  },
+  "https://en.wasion.com/LoRa-LoRaWAN/WFCT-950-LoRaWAN-Gateway.html": {
+    "url": "https://en.wasion.com/LoRa-LoRaWAN/WFCT-950-LoRaWAN-Gateway.html",
+    "sourceURL": "https://en.wasion.com/LoRa-LoRaWAN/WFCT-950-LoRaWAN-Gateway.html",
+    "title": "WFCT-950 - LoRa / LoRaWAN",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:11.202608+00:00",
+    "sourceHTMLSha256": "a5cb3866ed9e3c387eb55a687bb6ecbed6a45f89748e2d1c01fcaae3c9866e08",
+    "sourceBytes": 58636,
+    "paragraphs": [
+      "PoE + DC/DC module, 802.3at: 36 V to 57 V down to 12 V DC",
+      "Or external AC-DC adapter, 12 V DC",
+      "470 to 510 MHZ / 863 to 870 MHz / 902 to 928 MHz",
+      "1 x 10/100 Mbps Ethernet (RJ-45)",
+      "Supports PoE + (802.3) Powered",
+      "N-type LoRa, GPS, GPRS/3G/4G",
+      "Communication interfaces",
+      "WAN backhaul: GPRS/3G/4G LTE/Ethernet",
+      "Local maintenance: RS232/USB/Ethernet",
+      "Transmission power",
+      "20 dBm or 27 dBm",
+      "Receiving sensitivity",
+      "Uplink 8 channels, downlink 1 channel",
+      "DLSM/COSEM, MQTT",
+      "Ingress protection",
+      "Mounting options",
+      "Operating temperature range",
+      "-10°C to +75°C, normal temperature version",
+      "-40°C to +85°C, wide temperature version",
+      "Relative humidity",
+      "5% to 95%, non-condensing"
+    ],
+    "features": [
+      "Support class-A and class-C end devices; GPS clock synchronization, channel diversity, multiple spreading factors, and ADR functions",
+      "Global and regional frequencies defined by LoRa Alliance",
+      "Flexible channel diversity combinations",
+      "IPv6 stack with SCHC (Static Context Header Compression)"
+    ],
+    "tables": [
+      [
+        [
+          "Nominal voltage",
+          "PoE + DC/DC module, 802.3at: 36 V to 57 V down to 12 V DC Or external AC-DC adapter, 12 V DC"
+        ],
+        [
+          "Frequency range",
+          "470 to 510 MHZ / 863 to 870 MHz / 902 to 928 MHz"
+        ],
+        [
+          "Ethernet",
+          "1 x 10/100 Mbps Ethernet (RJ-45)"
+        ],
+        [
+          "Supports PoE + (802.3) Powered"
+        ],
+        [
+          "RF antennas",
+          "N-type LoRa, GPS, GPRS/3G/4G"
+        ],
+        [
+          "Communication interfaces",
+          "WAN backhaul: GPRS/3G/4G LTE/Ethernet"
+        ],
+        [
+          "FAN: LoRaWAN"
+        ],
+        [
+          "Local maintenance: RS232/USB/Ethernet"
+        ],
+        [
+          "Transmission power",
+          "20 dBm or 27 dBm"
+        ],
+        [
+          "Receiving sensitivity",
+          "-139 dBm @ SF12"
+        ],
+        [
+          "Channel",
+          "Uplink 8 channels, downlink 1 channel"
+        ],
+        [
+          "Protocol",
+          "DLSM/COSEM, MQTT"
+        ],
+        [
+          "Ingress protection",
+          "Outdoor, IP66"
+        ],
+        [
+          "Mounting options",
+          "Pole mounting; wall mounting"
+        ],
+        [
+          "Operating temperature range",
+          "-10°C to +75°C, normal temperature version"
+        ],
+        [
+          "-40°C to +85°C, wide temperature version"
+        ],
+        [
+          "Relative humidity",
+          "5% to 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "WFCT-950",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220614/16e86432652307516974f65fcf321106.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220614/16e86432652307516974f65fcf321106.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "PoE + DC/DC module, 802.3at: 36 V to 57 V down to 12 V DC"
+  },
+  "https://en.wasion.com/LoRa-LoRaWAN/LoRaWAN-Network-Interface-Module.html": {
+    "url": "https://en.wasion.com/LoRa-LoRaWAN/LoRaWAN-Network-Interface-Module.html",
+    "sourceURL": "https://en.wasion.com/LoRa-LoRaWAN/LoRaWAN-Network-Interface-Module.html",
+    "title": "LoRaWAN - LoRa / LoRaWAN",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:12.594539+00:00",
+    "sourceHTMLSha256": "ce41b1f480ad3bae4df43675fd26829518ba3466ca6b064029eb6b38fc7f6be9",
+    "sourceBytes": 56052,
+    "paragraphs": [
+      "Network Interface Card/Module",
+      "Consumption (transmission)",
+      "< 140 mA @ 22 dBm",
+      "0.018 to 62.5 Kbps",
+      "LoRaWAN®, IPv6 stack with SCHC, DLMS/COSEM, ANSI, MQTT",
+      "1 to 22 dBm (adjustable)",
+      "Receiving sensitivity",
+      "Limit operating temperature",
+      "-40 °C to +85 °C",
+      "Relative humidity",
+      "≤ 95%, non-condensing"
+    ],
+    "features": [
+      "Full, two-way 900-928 MHz LoRa™ communication",
+      "Max100mW transmitter on the meter, 500mW transmitter on data collectors",
+      "Long Range = high sensi, -137 dBm, 3 to 5 km coverage range",
+      "Robust security and encryption (Advanced Encryption Standard)",
+      "Dynamic network discovery and self-healing operations",
+      "Scheduled and on-demand meter reading",
+      "Time synchronization and management",
+      "Over-the-air meter programming",
+      "Power outage and restoration notification"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "5 V DC"
+        ],
+        [
+          "Consumption (transmission)",
+          "< 140 mA @ 22 dBm"
+        ],
+        [
+          "Modulation",
+          "LoRa"
+        ],
+        [
+          "Frequency range",
+          "902 to 928 MHz"
+        ],
+        [
+          "Data rate",
+          "0.018 to 62.5 Kbps"
+        ],
+        [
+          "Standards",
+          "LoRaWAN®, IPv6 stack with SCHC, DLMS/COSEM, ANSI, MQTT"
+        ],
+        [
+          "Transmission power",
+          "1 to 22 dBm (adjustable)"
+        ],
+        [
+          "Receiving sensitivity",
+          "148 dbm @ BER = 0.1%"
+        ],
+        [
+          "Limit operating temperature",
+          "-40 °C to +85 °C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "LoRaWAN",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220614/fa3bf30b8d4a147c9300ed15abdce9eb.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220614/fa3bf30b8d4a147c9300ed15abdce9eb.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Network Interface Card/Module"
+  },
+  "https://en.wasion.com/Wi-SUN-RF-Mesh/Wi-SUN-RF-Mesh-Network-Interface-Module.html": {
+    "url": "https://en.wasion.com/Wi-SUN-RF-Mesh/Wi-SUN-RF-Mesh-Network-Interface-Module.html",
+    "sourceURL": "https://en.wasion.com/Wi-SUN-RF-Mesh/Wi-SUN-RF-Mesh-Network-Interface-Module.html",
+    "title": "Wi-SUN RF Mesh - Wi-SUN RF Mesh",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:13.441897+00:00",
+    "sourceHTMLSha256": "ab7da831bfcee616a1bc247fb1624807b9df42cd2029261659b111d937480e59",
+    "sourceBytes": 57001,
+    "paragraphs": [
+      "Network Interface Card/Module",
+      "Consumption (transmission)",
+      "IEEE802.15.4g/e, 6LoWPAN, IPv6, DLMS/COSEM, ANSI",
+      "Up to 500 mw (27 dBm) / 1000 mw (30 dBm)",
+      "Receiving sensitivity",
+      "DLMS Suit0, AES256, SHA-256, RSA-1024 or ECC-256",
+      "Nodes management capacity",
+      "Limit operating temperature",
+      "Relative humidity",
+      "≤ 95%, non-condensing"
+    ],
+    "features": [
+      "Programmable frequency band (902~928MHz US/BZ) and PHY operational mode",
+      "Highly secure (certificate-based authentication), long service life (open standard based, upgradeable), and long-range communication (sub GHz, mesh)",
+      "Easy to install and maintain (self-forming/healing mesh network, upgradeable)",
+      "Ability to scale up easily to thousands of nodes (optimal use of frequency band)",
+      "Reliable and resilient (mesh, multiple channels, demonstrated interference tolerance)",
+      "Low latency, low cost, and high energy efficiency",
+      "Multi-vendor interoperability"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "12 to 16 V DC"
+        ],
+        [
+          "Consumption (transmission)",
+          "< 400 mA"
+        ],
+        [
+          "Modulation",
+          "FSK, GFSK"
+        ],
+        [
+          "Frequency range",
+          "902 to 928 MHz"
+        ],
+        [
+          "Data rate",
+          "50 to 300 kbps"
+        ],
+        [
+          "Standards",
+          "IEEE802.15.4g/e, 6LoWPAN, IPv6, DLMS/COSEM, ANSI"
+        ],
+        [
+          "Transmission power",
+          "Up to 500 mw (27 dBm) / 1000 mw (30 dBm)"
+        ],
+        [
+          "Receiving sensitivity",
+          "-110 dBm @ 50 kbps"
+        ],
+        [
+          "Security",
+          "DLMS Suit0, AES256, SHA-256, RSA-1024 or ECC-256"
+        ],
+        [
+          "Nodes management capacity",
+          "1024 nodes"
+        ],
+        [
+          "Maximum hopes",
+          "16"
+        ],
+        [
+          "Limit operating temperature",
+          "-40 °C to +85 °C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "Wi-SUN RF Mesh",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220614/41f91176576cd42301f4087de034ca8b.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220614/41f91176576cd42301f4087de034ca8b.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Network Interface Card/Module"
+  },
+  "https://en.wasion.com/Wi-SUN-RF-Mesh/DC-210-Data-Repeater.html": {
+    "url": "https://en.wasion.com/Wi-SUN-RF-Mesh/DC-210-Data-Repeater.html",
+    "sourceURL": "https://en.wasion.com/Wi-SUN-RF-Mesh/DC-210-Data-Repeater.html",
+    "title": "DC 210 - Wi-SUN RF Mesh",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:14.299836+00:00",
+    "sourceHTMLSha256": "2acab3ce1ef58a1286e6f8d78fc7a9d20f2448ae63463d270f16209feccdbbc1",
+    "sourceBytes": 57434,
+    "paragraphs": [
+      "100 V to 300 V AC, 50 Hz / 60 Hz",
+      "Embedded backup battery > 8 hours, with normal / wide temperature range options",
+      "Frequency band: 902 to 928 MHz",
+      "Conducted output power: max. 500 to 1000 mW",
+      "Data rate: 50 to 300kbps",
+      "DLMS/COSEM, ANSI, IEEE802.15.4g/4e, 6LowPAN, IPv6",
+      "Omnidirectional antenna",
+      "Pole mounting & wall mounting",
+      "160 x 120 x 65 mm",
+      "Limit operating temperature",
+      "-10 to +85°C, normal temperature versionn",
+      "-40 to +85°C, wide temperature version",
+      "Operating humidity",
+      "10 to 90%, non-condensing"
+    ],
+    "features": [
+      "​A relay node expanding the signal range of FAN",
+      "Compliance with DLMS/COSEM, ANSI standard, and Wi-SUN FAN specification",
+      "Wall or pole installation",
+      "Wide AC operation voltage range"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "100 V to 300 V AC, 50 Hz / 60 Hz"
+        ],
+        [
+          "Battery",
+          "Embedded backup battery > 8 hours, with normal / wide temperature range options"
+        ],
+        [
+          "FAN interface",
+          "Frequency band: 902 to 928 MHz"
+        ],
+        [
+          "Conducted output power: max. 500 to 1000 mW"
+        ],
+        [
+          "Data rate: 50 to 300kbps"
+        ],
+        [
+          "Protocol",
+          "DLMS/COSEM, ANSI, IEEE802.15.4g/4e, 6LowPAN, IPv6"
+        ],
+        [
+          "Security",
+          "AES, 802.1x"
+        ],
+        [
+          "Wi-SUN antenna",
+          "Omnidirectional antenna"
+        ],
+        [
+          "Installation",
+          "Pole mounting & wall mounting"
+        ],
+        [
+          "Dimension",
+          "160 x 120 x 65 mm"
+        ],
+        [
+          "Ingress protection",
+          "IP65"
+        ],
+        [
+          "Life time",
+          "≥ 10 years"
+        ],
+        [
+          "Limit operating temperature",
+          "-10 to +85°C, normal temperature versionn"
+        ],
+        [
+          "-40 to +85°C, wide temperature version"
+        ],
+        [
+          "Operating humidity",
+          "10 to 90%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "DC 210",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20221019/cdd43bf4d6f8f9e245065082a7907a75.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20221019/cdd43bf4d6f8f9e245065082a7907a75.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "100 V to 300 V AC, 50 Hz / 60 Hz"
+  },
+  "https://en.wasion.com/RF-P2P/RF-P2P-Dongle.html": {
+    "url": "https://en.wasion.com/RF-P2P/RF-P2P-Dongle.html",
+    "sourceURL": "https://en.wasion.com/RF-P2P/RF-P2P-Dongle.html",
+    "title": "RF P2P Dongle - RF P2P",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:14.501346+00:00",
+    "sourceHTMLSha256": "46a7cea85efd12411a1abced64601ef1cd456c3619e1c496d4f85ecb61e946d5",
+    "sourceBytes": 56134,
+    "paragraphs": [
+      "Typical 1800 mAh lithium battery (optional)",
+      "GFSK (RF-FSK Dongle), LoRa (RF-LoRa Dongle)",
+      "Downlink communication",
+      "RF-FSK P2P (RF-FSK Dongle), RF-LoRa P2P (RF-LoRa Dongle)",
+      "RF-FSK 433 to 453 MHz, Bluetooth 2.4 GHz (RF-FSK Dongle)",
+      "LoRa 433 to 453 MHz, Bluetooth 2.4 GHz (RF-FSK Dongle)",
+      "Portable mobile device",
+      "Limit operating temperature",
+      "Relative humidity",
+      "≤ 95%, non-condensing"
+    ],
+    "features": [
+      "Multiple spreading factors (SF5 to SF12)",
+      "170 dBm link budget",
+      "Long communication distance, high receiving sensitivity, ideal communication",
+      "distance up to 2 kilometers",
+      "Low power consumption, 1 μA minimum standby current in sleep mode",
+      "Wide working frequency, working voltage and working temperature ranges; strong anti-interference ability"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "5 V DC"
+        ],
+        [
+          "Battery backup",
+          "Typical 1800 mAh lithium battery (optional)"
+        ],
+        [
+          "Modulation",
+          "GFSK (RF-FSK Dongle), LoRa (RF-LoRa Dongle)"
+        ],
+        [
+          "Uplink communication",
+          "Bluetooth / USB"
+        ],
+        [
+          "Downlink communication",
+          "RF-FSK P2P (RF-FSK Dongle), RF-LoRa P2P (RF-LoRa Dongle)"
+        ],
+        [
+          "Frequency range",
+          "RF-FSK 433 to 453 MHz, Bluetooth 2.4 GHz (RF-FSK Dongle)"
+        ],
+        [
+          "LoRa 433 to 453 MHz, Bluetooth 2.4 GHz (RF-FSK Dongle)"
+        ],
+        [
+          "Protocols",
+          "DLMS/COSEM, ANSI"
+        ],
+        [
+          "Installation",
+          "Portable mobile device"
+        ],
+        [
+          "Limit operating temperature",
+          "-40 °C to +85 °C"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ]
+      ]
+    ],
+    "headings": [
+      "RF P2P Dongle",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220614/40b25682ec25d64fd3a39e8d70402d76.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220614/40b25682ec25d64fd3a39e8d70402d76.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Typical 1800 mAh lithium battery (optional)"
+  },
+  "https://en.wasion.com/RF-P2P/RF-LoRa-P2P-NIC.html": {
+    "url": "https://en.wasion.com/RF-P2P/RF-LoRa-P2P-NIC.html",
+    "sourceURL": "https://en.wasion.com/RF-P2P/RF-LoRa-P2P-NIC.html",
+    "title": "RF LoRa P2P - RF P2P",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:15.811426+00:00",
+    "sourceHTMLSha256": "370693269b567217964ed223a94e4ef155a4f80874798b4ec8d79ba6a416bb4a",
+    "sourceBytes": 56729,
+    "paragraphs": [
+      "3.0 to 3.6 V DC, nominal 3.3 V",
+      "Uplink with a dongle: RF-LoRa P2P, Downlink with meter: UART",
+      "ITU-R 433 to 453 MHz / 902 to 928 MHz",
+      "DLMS/COSEM, ANSI",
+      "Transmission range",
+      "Up to 2 km (LOS)",
+      "Transmission power",
+      "1 to 22 dBm (adjustable)",
+      "SF10/125 kHz: -134 dBm SF7/125 kHz: -124 dBm",
+      "Air transmission data rate",
+      "1200 to 115200 bps",
+      "≤ 95%, non-condensing",
+      "Limit operating temperature",
+      "-40 °C to +85 °C"
+    ],
+    "features": [
+      "Multiple spreading factors (SF5 to SF12)",
+      "170 dBm link budget",
+      "Long communication distance, high receiving sensitivity, ideal communication distance up to 2 kilometers",
+      "Low power consumption, 1 μA minimum standby current in sleep mode",
+      "Wide working frequency, working voltage and working temperature ranges; strong anti-interference ability"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "3.0 to 3.6 V DC, nominal 3.3 V"
+        ],
+        [
+          "Consumption",
+          "Uplink with a dongle: RF-LoRa P2P, Downlink with meter: UART"
+        ],
+        [
+          "Modulation",
+          "LoRa"
+        ],
+        [
+          "Frequency range",
+          "ITU-R 433 to 453 MHz / 902 to 928 MHz"
+        ],
+        [
+          "Protocols",
+          "DLMS/COSEM, ANSI"
+        ],
+        [
+          "Transmission range",
+          "Up to 2 km (LOS)"
+        ],
+        [
+          "Transmission power",
+          "1 to 22 dBm (adjustable)"
+        ],
+        [
+          "Receiving sensitivity",
+          "SF10/125 kHz: -134 dBm SF7/125 kHz: -124 dBm"
+        ],
+        [
+          "Air transmission data rate",
+          "1.76 to 62.5 Kbps"
+        ],
+        [
+          "UART data rate",
+          "1200 to 115200 bps"
+        ],
+        [
+          "Installation",
+          "Installed inside meters/dongles"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ],
+        [
+          "Limit operating temperature",
+          "-40 °C to +85 °C"
+        ]
+      ]
+    ],
+    "headings": [
+      "RF LoRa P2P",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220614/be5615fe6e19457b385016bf85d4d5c7.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220614/be5615fe6e19457b385016bf85d4d5c7.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "3.0 to 3.6 V DC, nominal 3.3 V"
+  },
+  "https://en.wasion.com/RF-P2P/RF-FSK-P2P-NIC.html": {
+    "url": "https://en.wasion.com/RF-P2P/RF-FSK-P2P-NIC.html",
+    "sourceURL": "https://en.wasion.com/RF-P2P/RF-FSK-P2P-NIC.html",
+    "title": "RF-FSK P2P - RF P2P",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:16.352669+00:00",
+    "sourceHTMLSha256": "f12d9328409a968b3853244e22e9740a198a9f58e8bba54031b605fe10a053b9",
+    "sourceBytes": 56744,
+    "paragraphs": [
+      "2.6 to 3.6 V DC, nominal 3.3 V",
+      "Uplink with a dongle: RF-FSK P2P, Downlink with meter: UART",
+      "ITU-R 433 to 453 MHz",
+      "DLMS/COSEM, ANSI",
+      "Transmission range",
+      "Up to 200 m (LOS)",
+      "Transmission power",
+      "5 to 20 dBm @ 3.3 V",
+      "-110 dBm @ 1 Kbps",
+      "Air transmission data rate",
+      "1200 to 115200 bps",
+      "≤ 95%, non-condensing",
+      "Limit operating temperature",
+      "-40 °C to +85 °C"
+    ],
+    "features": [
+      "Works in unlicensed ISM frequency band",
+      "Provides full access to meters within distance of hundreds of meters",
+      "Suitable for various simple and complex applications, providing utilities",
+      "convenient, simple, efficient and low-cost services",
+      "Ideal for walk-by and drive-by metering",
+      "Suitable for smart homes, street lamp control, intelligent buildings and similar applications"
+    ],
+    "tables": [
+      [
+        [
+          "Supply voltage",
+          "2.6 to 3.6 V DC, nominal 3.3 V"
+        ],
+        [
+          "Consumption",
+          "Uplink with a dongle: RF-FSK P2P, Downlink with meter: UART"
+        ],
+        [
+          "Modulation",
+          "GFSK"
+        ],
+        [
+          "Frequency range",
+          "ITU-R 433 to 453 MHz"
+        ],
+        [
+          "Protocols",
+          "DLMS/COSEM, ANSI"
+        ],
+        [
+          "Transmission range",
+          "Up to 200 m (LOS)"
+        ],
+        [
+          "Transmission power",
+          "5 to 20 dBm @ 3.3 V"
+        ],
+        [
+          "Receiving sensitivity",
+          "-110 dBm @ 1 Kbps"
+        ],
+        [
+          "Air transmission data rate",
+          "50 to 31.2 Kbps"
+        ],
+        [
+          "UART data rate",
+          "1200 to 115200 bps"
+        ],
+        [
+          "Installation",
+          "Installed inside meters/dongles"
+        ],
+        [
+          "Relative humidity",
+          "≤ 95%, non-condensing"
+        ],
+        [
+          "Limit operating temperature",
+          "-40 °C to +85 °C"
+        ]
+      ]
+    ],
+    "headings": [
+      "RF-FSK P2P",
+      "Key Features",
+      "Technical Specification"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220614/a38a7e1612eb18ed49e9a3b83016e3c9.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220614/a38a7e1612eb18ed49e9a3b83016e3c9.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "2.6 to 3.6 V DC, nominal 3.3 V"
+  },
+  "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html": {
+    "url": "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html",
+    "sourceURL": "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html",
+    "title": "HMPM - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:17.117925+00:00",
+    "sourceHTMLSha256": "89a09fe67b919977a27a103ee159b779b2dfac0acd60d7536c5c6ef1e2f97cfe",
+    "sourceBytes": 60153,
+    "paragraphs": [
+      "for the Android platform to set parameters, read/copy data from meters with HHU",
+      "Support Chinese, English, and French",
+      "App follows system language",
+      "IEC1107, IEC62056",
+      "Android 5.0 and above",
+      "USB-OTG: Optical cable, Dongle-RF, Dongle-Lora",
+      "Bluetooth: Classic Bluetooth, Bluetooth-RF",
+      "Data read: Read as a scheme, Single or multi-reading, Manual enter data",
+      "Parameter set: Set as a scheme, Manual set value",
+      "Identification: APP registration, Account password login",
+      "Communication: Hardware certification, High, Low-level security",
+      "File processing: AES encryption, Transmission encryption",
+      "Level: Admin, Operator",
+      "Authorization： Read, Set and Update",
+      "Management: Create, Delete",
+      "Local: Result stored in the database, Data exported to CSV file",
+      "Cloud: Remote sFTP server, Compressed, encrypted",
+      "Maintain Token/Card",
+      "Batch Token/Free Token",
+      "Support: Local language, Encryption, Export file template, the Module function"
+    ],
+    "features": [
+      "Support Android 6.0 and higher versions",
+      "Compatible with Wasion MPMS19 PC Software",
+      "Support IEC62056 communication protocol",
+      "Support local serial communication",
+      "Configurable baud rate"
+    ],
+    "tables": [
+      [
+        [
+          "Language",
+          "Support Chinese, English, and French"
+        ],
+        [
+          "App follows system language"
+        ],
+        [
+          "Protocol",
+          "IEC1107, IEC62056"
+        ],
+        [
+          "Compatibility",
+          "Android 5.0 and above"
+        ],
+        [
+          "Channel",
+          "USB-OTG: Optical cable, Dongle-RF, Dongle-Lora"
+        ],
+        [
+          "Bluetooth: Classic Bluetooth, Bluetooth-RF"
+        ],
+        [
+          "Function",
+          "Data read: Read as a scheme, Single or multi-reading, Manual enter data"
+        ],
+        [
+          "Parameter set: Set as a scheme, Manual set value"
+        ],
+        [
+          "Firmware update"
+        ],
+        [
+          "Security",
+          "Identification: APP registration, Account password login"
+        ],
+        [
+          "Communication: Hardware certification, High, Low-level security"
+        ],
+        [
+          "File processing: AES encryption, Transmission encryption"
+        ],
+        [
+          "Level: Admin, Operator"
+        ],
+        [
+          "Authorization： Read, Set and Update"
+        ],
+        [
+          "Management: Create, Delete"
+        ],
+        [
+          "Data",
+          "Local: Result stored in the database, Data exported to CSV file"
+        ],
+        [
+          "Cloud: Remote sFTP server, Compressed, encrypted"
+        ],
+        [
+          "Maintain Token/Card"
+        ],
+        [
+          "Batch Token/Free Token"
+        ],
+        [
+          "Customization",
+          "Support: Local language, Encryption, Export file template, the Module function"
+        ]
+      ]
+    ],
+    "headings": [
+      "HMPM",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220929/22cbbe344d74d1b8a6a1561a7c6bddd4.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220929/22cbbe344d74d1b8a6a1561a7c6bddd4.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "for the Android platform to set parameters, read/copy data from meters with HHU"
+  },
+  "https://en.wasion.com/RelevantProduct/Energy-Data-Integration-System.html": {
+    "url": "https://en.wasion.com/RelevantProduct/Energy-Data-Integration-System.html",
+    "sourceURL": "https://en.wasion.com/RelevantProduct/Energy-Data-Integration-System.html",
+    "title": "Energy Data Integration System (EDIS) - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:18.629329+00:00",
+    "sourceHTMLSha256": "42e5b7ebb9d71ab8c969b2a2248af2d03c16403cf41ee82b9380906de713f865",
+    "sourceBytes": 64934,
+    "paragraphs": [
+      "Energy Data Integration System(MDMS)",
+      "Archives Management",
+      "Device Archive Maintenance",
+      "Power Grid Asset Maintenance",
+      "Asset Operation Log",
+      "Data Collection Management",
+      "Load Profile (Minutely, Hourly, Daily & Monthly)",
+      "Instantaneous Data",
+      "Consumption Analysis",
+      "C&I and residential user energy consumption data, including minutely, hourly, daily & monthly",
+      "Loss analysis object energy consumption data",
+      "Metrological Parameters Change Management",
+      "Meter Replacement",
+      "CT/PT Replacement",
+      "Reading Register Overflow",
+      "Meter Reading Input",
+      "Data Version Query",
+      "Power Quality Management",
+      "Voltage Qualification Rate Management",
+      "Outage Event Query",
+      "Outage Duration Statistics",
+      "Line Loss Management",
+      "Line Loss Analysis",
+      "Three-phase Unbalanced Rate Analysis",
+      "Power Quality Analysis",
+      "FTP & NTP Configuration",
+      "Anti-theft Detecting",
+      "Abnormality Overview",
+      "Customer Profile Analysis",
+      "Collection Quality Analysis"
+    ],
+    "features": [
+      "Data sourcing/importing from multiple sources",
+      "Rich CIS integration adapter",
+      "Automated VEE processes",
+      "Multi-dimensional Line Loss Analysis",
+      "Automated data synchronization across utility systems",
+      "Pre-built integration with Head End System and other AMI systems"
+    ],
+    "tables": [
+      [
+        [
+          "Archives Management",
+          "Device Archive Maintenance"
+        ],
+        [
+          "Power Grid Asset Maintenance"
+        ],
+        [
+          "Asset Operation Log"
+        ],
+        [
+          "Data Collection Management",
+          "Load Profile (Minutely, Hourly, Daily & Monthly)"
+        ],
+        [
+          "Instantaneous Data"
+        ],
+        [
+          "Maximum Demand"
+        ],
+        [
+          "Consumption Analysis",
+          "C&I and residential user energy consumption data, including minutely, hourly, daily & monthly"
+        ],
+        [
+          "Loss analysis object energy consumption data"
+        ],
+        [
+          "Metrological Parameters Change Management",
+          "Meter Replacement"
+        ],
+        [
+          "CT/PT Replacement"
+        ],
+        [
+          "Bypass Events"
+        ],
+        [
+          "Reading Register Overflow"
+        ],
+        [
+          "Meter Reading Input"
+        ],
+        [
+          "VEE",
+          "Rule Management"
+        ],
+        [
+          "VEE Monitoring"
+        ],
+        [
+          "Data Edition"
+        ],
+        [
+          "Data Version Query"
+        ],
+        [
+          "Power Quality Management",
+          "Voltage Qualification Rate Management"
+        ],
+        [
+          "Outage Event Query"
+        ],
+        [
+          "Outage Duration Statistics"
+        ],
+        [
+          "Line Loss Management",
+          "Line Loss Model"
+        ],
+        [
+          "Line Loss Analysis"
+        ],
+        [
+          "Power Quality Analysis",
+          "Load Rate"
+        ],
+        [
+          "",
+          "Three-phase Unbalanced Rate Analysis"
+        ],
+        [
+          "Power Quality Analysis",
+          "FTP & NTP Configuration"
+        ],
+        [
+          "Anti-theft Detecting",
+          "Abnormality Overview"
+        ],
+        [
+          "Customer Profile Analysis"
+        ],
+        [
+          "Collection Quality Analysis",
+          "DCU Online Rate Analysis"
+        ],
+        [
+          "Data Success Rate Analysis"
+        ],
+        [
+          "Alarm Management",
+          "Alarm Level Management"
+        ],
+        [
+          "Alarm Statistics"
+        ],
+        [
+          "Alarm Work Order Generation"
+        ],
+        [
+          "Work Order Statistics"
+        ],
+        [
+          "System Management",
+          "User Management"
+        ],
+        [
+          "Role Management"
+        ]
+      ]
+    ],
+    "headings": [
+      "Energy Data Integration System (EDIS)",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230110/EDIS no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230110/EDIS no bg.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Energy Data Integration System(MDMS)"
+  },
+  "https://en.wasion.com/RelevantProduct/Smart-Network-Management-System.html": {
+    "url": "https://en.wasion.com/RelevantProduct/Smart-Network-Management-System.html",
+    "sourceURL": "https://en.wasion.com/RelevantProduct/Smart-Network-Management-System.html",
+    "title": "SNMS - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:18.975913+00:00",
+    "sourceHTMLSha256": "641441c3ad5d25e88ba7cb0e1390f81458cc398c9ce92242c3efac4629bdb117",
+    "sourceBytes": 62045,
+    "paragraphs": [
+      "Smart Network Management System",
+      "System Configuration",
+      "System running parameter configuration",
+      "User/permission management",
+      "Asset Management",
+      "Device Asset Management",
+      "MIB Information management",
+      "Operation & Performance Monitoring",
+      "Network device status monitoring",
+      "Network device status detection",
+      "Network topology monitoring and visualization",
+      "Map information visualization",
+      "Network performance metrics measurement and analysis",
+      "Statistics & Reporting",
+      "Device Configuration",
+      "Remote control and configuration",
+      "Support control and configuration of MIB-2 object sets",
+      "Support control and configuration of custom objects",
+      "Fault Management",
+      "Device event and alarm management",
+      "Fault diagnosis and analysis"
+    ],
+    "features": [
+      "AMI network equipment (DCU/Gateway/Meter communication module) management",
+      "Remote control of AMI network equipment based on SNMP V2/V3",
+      "Real-time monitoring of AMI communication network topology status",
+      "AMI communication network performance analysis",
+      "AMI communication network event and alarm management",
+      "DCU/Gateway device running health status monitoring",
+      "AMI communication network fault analysis and diagnosis",
+      "AMI communication network traffic statistics"
+    ],
+    "tables": [
+      [
+        [
+          "System Configuration",
+          "System running parameter configuration"
+        ],
+        [
+          "User/permission management"
+        ],
+        [
+          "Log & Audit"
+        ],
+        [
+          "Asset Management",
+          "Device Asset Management"
+        ],
+        [
+          "MIB Information management"
+        ],
+        [
+          "Operation & Performance Monitoring",
+          "Network device status monitoring"
+        ],
+        [
+          "Network device status detection"
+        ],
+        [
+          "Network topology monitoring and visualization"
+        ],
+        [
+          "Map information visualization"
+        ],
+        [
+          "Network performance metrics measurement and analysis"
+        ],
+        [
+          "Statistics & Reporting"
+        ],
+        [
+          "Device Configuration",
+          "Remote control and configuration"
+        ],
+        [
+          "Support control and configuration of MIB-2 object sets"
+        ],
+        [
+          "Support control and configuration of custom objects"
+        ],
+        [
+          "Fault Management",
+          "Device event and alarm management"
+        ],
+        [
+          "Fault diagnosis and analysis"
+        ]
+      ]
+    ],
+    "headings": [
+      "SNMS",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230110/SNMS no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230110/SNMS no bg.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "Smart Network Management System"
+  },
+  "https://en.wasion.com/proWateRel/D-100-Series-Ultrasonic-Water-Meter.html": {
+    "url": "https://en.wasion.com/proWateRel/D-100-Series-Ultrasonic-Water-Meter.html",
+    "sourceURL": "https://en.wasion.com/proWateRel/D-100-Series-Ultrasonic-Water-Meter.html",
+    "title": "D-100 Series - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:19.683213+00:00",
+    "sourceHTMLSha256": "f779828482478c591004e2ca51d69376c3b9cea1e9904e3c0cbf0294851e64ce",
+    "sourceBytes": 59123,
+    "paragraphs": [
+      "Ultrasonic Water Meter",
+      "Prepaid Functions",
+      "Max.8 steps of water tariff",
+      "Wireless M-BUS (EN13757- 4), Walk-by/Driver-by",
+      "LoRaWAN , LoRaWAN and Wireless M-Bus(Optional)",
+      "NB-IoT, NB-IoT and Wireless M-Bus",
+      "Protocol: EN13757.3, DLMS/COSEM,MODBUS-RTU",
+      "Advanced Functions",
+      "Anti-tamper(open case, open battery cover, remove meter, etc.) detection & log",
+      "History data, such as hourly data, daily data, monthly data, etc.",
+      "Event log, such as top-up, valve open/close, etc."
+    ],
+    "features": [
+      "DN15~DN40, ultrasonic measurement",
+      "IS0 4064/EN14154/0IML R49 Standard",
+      "Low starting flow rate",
+      "Class C or R250/R400,MAP16,P63,T50",
+      "Integrated design of water meter and valve.",
+      "Touch key, Large size dot-matrix LCD and backlight.",
+      "Non-contact RF card prepaid or STS4/6 prepaid(IEC62055-41).",
+      "Optical(EC62056-21), Wired or wireless communication.",
+      "Prepayment, AMR/AMl, Prepayment +AMR/AMI.Ultra-low power design",
+      "battery separation for metering and communication",
+      "Installation in any position, lP68 protection, suitable for outdoorinstallation",
+      "10 year battery life time",
+      "LoraWan and M-Bus dual communication supportable"
+    ],
+    "tables": [
+      [
+        [
+          "Prepaid Functions",
+          "Support prepaid/postpaid mode, and it can be switched"
+        ],
+        [
+          "RF(M1 or NFC CPU) card prepaid"
+        ],
+        [
+          "STS prepaid(TokenCarrier: RF card or UIU)"
+        ],
+        [
+          "Max.8 steps of water tariff"
+        ],
+        [
+          "Anti-storage, Insufficient water warning, Self-defined overdraft"
+        ],
+        [
+          "Communication",
+          "Optical(IEC62056-21)"
+        ],
+        [
+          "RS485/Wired M-Bus"
+        ],
+        [
+          "Wireless M-BUS (EN13757- 4), Walk-by/Driver-by"
+        ],
+        [
+          "LoRaWAN , LoRaWAN and Wireless M-Bus(Optional)"
+        ],
+        [
+          "NB-IoT, NB-IoT and Wireless M-Bus"
+        ],
+        [
+          "Protocol: EN13757.3, DLMS/COSEM,MODBUS-RTU"
+        ],
+        [
+          "Advanced Functions",
+          "Emergency water, Holidays Management, Non-switch-off during off-duty"
+        ],
+        [
+          "Monthly free consumption of water"
+        ],
+        [
+          "Collect taxes and fees by water charges"
+        ],
+        [
+          "Alarm and Event logs",
+          "Low-Battery detection & log"
+        ],
+        [
+          "Water return, meter reversal and meter stop detection & log"
+        ],
+        [
+          "Leakage (continuous water use, valve failure, etc.) detection & log"
+        ],
+        [
+          "Anti-tamper(open case, open battery cover, remove meter, etc.) detection & log"
+        ],
+        [
+          "History data, such as hourly data, daily data, monthly data, etc."
+        ],
+        [
+          "Event log, such as top-up, valve open/close, etc."
+        ],
+        [
+          "Security",
+          "Data encryption, AES-128, STS"
+        ],
+        [
+          "Communication security, EN13757-7"
+        ]
+      ]
+    ],
+    "headings": [
+      "D-100 Series",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230228/D100 Series Ultrasonic Water Meter no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230228/D100 Series Ultrasonic Water Meter no bg.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Ultrasonic Water Meter"
+  },
+  "https://en.wasion.com/proWateRel/ZG-D-1.6-4-Smart-Residential-Gas-Meter.html": {
+    "url": "https://en.wasion.com/proWateRel/ZG-D-1.6-4-Smart-Residential-Gas-Meter.html",
+    "sourceURL": "https://en.wasion.com/proWateRel/ZG-D-1.6-4-Smart-Residential-Gas-Meter.html",
+    "title": "ZG-D-1.6~4 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:20.199195+00:00",
+    "sourceHTMLSha256": "c3c59f075070127921a96cf2e4159d426c0fc880401a1adcfe48f5b45c2d8894",
+    "sourceBytes": 57360,
+    "paragraphs": [
+      "Smart Residential Gas Meter",
+      "Prepaid Functions",
+      "Anti-storage (purchase limitation)",
+      "Self-defined overdraft",
+      "Wireless M-BUS (EN13757.4), Walk-by/Driver-by",
+      "Protocol: EN13757.3, DLMS/COSEM, MODBUS-RTU",
+      "Alarm and Event logs",
+      "Anti-tamper (open case, magnetic interference etc.) detection & log",
+      "History data, such as hourly data, daily data, monthly data, etc.",
+      "Event log, such as top-up, valve open/close, etc."
+    ],
+    "features": [
+      "G1.6~G4, diaphragm gas meter",
+      "EN1359, OIML R31/137 Standard",
+      "Class 1.5, Vc=1.2dm³, Pmax: 50KPa, -25℃~55℃",
+      "Steel shell, Pressure measuring point(Optional)",
+      "With devices to prevent reverse flow and prevent the registration of reverse flow",
+      "Integrated design of gas meter and valve",
+      "Touch button, LCD and backlight",
+      "Non-contact RF card prepaid",
+      "Wired or wireless communication",
+      "IP65 protection"
+    ],
+    "tables": [
+      [
+        [
+          "Prepaid Functions",
+          "Support prepaid/postpaid mode, and it can be switched"
+        ],
+        [
+          "RF card prepaid (Optional)"
+        ],
+        [
+          "Max.8 steps of gas tariff"
+        ],
+        [
+          "Anti-storage (purchase limitation)"
+        ],
+        [
+          "Insufficient gas warning"
+        ],
+        [
+          "Self-defined overdraft"
+        ],
+        [
+          "Communication",
+          "Wired M-BUS/RS485"
+        ],
+        [
+          "LoRaWAN/NB-IoT"
+        ],
+        [
+          "Wireless M-BUS (EN13757.4), Walk-by/Driver-by"
+        ],
+        [
+          "Protocol: EN13757.3, DLMS/COSEM, MODBUS-RTU"
+        ],
+        [
+          "Alarm and Event logs",
+          "Low-Battery detection & log"
+        ],
+        [
+          "Overflow, continuous small flow and meter stop detection & log"
+        ],
+        [
+          "Leakage (continuous gas use, valve failure, etc.) detection & log"
+        ],
+        [
+          "Anti-tamper (open case, magnetic interference etc.) detection & log"
+        ],
+        [
+          "History data, such as hourly data, daily data, monthly data, etc."
+        ],
+        [
+          "Event log, such as top-up, valve open/close, etc."
+        ],
+        [
+          "Security",
+          "Data encryption, AES-128, STS"
+        ],
+        [
+          "Communication security"
+        ]
+      ]
+    ],
+    "headings": [
+      "ZG-D-1.6~4",
+      "Key Features",
+      "Main Functions"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220531/d9c927cdd120f8f12efbc88032d4648a.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220531/d9c927cdd120f8f12efbc88032d4648a.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Smart Residential Gas Meter"
+  },
+  "https://en.wasion.com/proIntpRel/High-Voltage-AC-Automatic-Recloser.html": {
+    "url": "https://en.wasion.com/proIntpRel/High-Voltage-AC-Automatic-Recloser.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/High-Voltage-AC-Automatic-Recloser.html",
+    "title": "WE-CHZ-27/630 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:21.983482+00:00",
+    "sourceHTMLSha256": "ffaeaed5d454d959250a47277ec62fdc7998ae8dd4b27a493ec004ba619decba",
+    "sourceBytes": 61020,
+    "paragraphs": [
+      "High Voltage AC Automatic Recloser"
+    ],
+    "features": [
+      "Remote signaling function: Accurately collect switch status information;",
+      "Telemetry function: collect switch AC analog data information;",
+      "Remote control function: support the remote control function of the remote master station;",
+      "Overcurrent protection: with a definite time limit and inverse time limit overcurrent protection function;",
+      "Grounding protection: It has the function of researching and judging small current grounding protection of different neutral point grounding systems;",
+      "Reclosing function: parameters such as reclosing times and interval times can be set according to the user's needs to realize the reclosing function."
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "Rated voltage",
+          "kV",
+          "27"
+        ],
+        [
+          "Rated current",
+          "A",
+          "630"
+        ],
+        [
+          "Rated frequency",
+          "Hz",
+          "50/60"
+        ],
+        [
+          "Rated short-circuit breaking current",
+          "kA",
+          "12.5"
+        ],
+        [
+          "Rated short-circuit making current (peak value)",
+          "kA",
+          "32.5"
+        ],
+        [
+          "Rated short-time withstand current",
+          "kA",
+          "12.5"
+        ],
+        [
+          "Rated power frequency withstand voltage (phase-to-phase/to-ground)",
+          "kV",
+          "60"
+        ],
+        [
+          "Rated lightning impulse withstand voltage (phase-to-phase/to-ground)",
+          "kV",
+          "125"
+        ],
+        [
+          "Nominal operating sequence",
+          "",
+          "O-0. 5 s-CO- 2s- CO- 5 s-CO -Latch"
+        ],
+        [
+          "Rated short circuit duration",
+          "Second-rate",
+          "3"
+        ],
+        [
+          "Mechanical life",
+          "- 40 ℃ to + 70 ℃",
+          "10000 _"
+        ],
+        [
+          "Degree of protection",
+          "",
+          "IP65"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE-CHZ-27/630",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230809/High Voltage AC Automatic Recloser no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230809/High Voltage AC Automatic Recloser no bg.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "High Voltage AC Automatic Recloser"
+  },
+  "https://en.wasion.com/proIntpRel/JYL-60-Fault-Indicator.html": {
+    "url": "https://en.wasion.com/proIntpRel/JYL-60-Fault-Indicator.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/JYL-60-Fault-Indicator.html",
+    "title": "JYL-60 Fault Indicator - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:22.063779+00:00",
+    "sourceHTMLSha256": "6024b1a064da22d954e15689d798304681774213b17f8ea41a17c3c617a25b25",
+    "sourceBytes": 61953,
+    "paragraphs": [
+      "Distribution Line Fault Detectors Technology",
+      "System Voltage Range",
+      "+/-3A when current < 100A +/-3% when current ≥ 100A",
+      "8 to 40 mm (0.31 to 1.61 in)",
+      "24 hours standard; (adjustable)",
+      "147mm ×76 mm×76mm"
+    ],
+    "features": [
+      "Immediate and accurate detection of fault location",
+      "Fault recording",
+      "Wireless remote communication",
+      "Line voltage: 3kV~35kV",
+      "Load current: 0A~630A",
+      "Maximum short circuit current: 30kA/2s",
+      "Protection class: IP67",
+      "Zero-sequence current synthesis",
+      "Micro-power wireless network for transfer of events to the master station"
+    ],
+    "tables": [
+      [
+        [
+          "System Voltage Range",
+          "3kv to 35 kV"
+        ],
+        [
+          "Operating Value Range",
+          "2 to 630A"
+        ],
+        [
+          "Maximum Fault Current",
+          "20kA/2s"
+        ],
+        [
+          "CT Charging Current",
+          "+/-3A when current < 100A +/-3% when current ≥ 100A"
+        ],
+        [
+          "Metering Precision",
+          "Insufficient gas warning"
+        ],
+        [
+          "Outer Diameter Clamping Range",
+          "8 to 40 mm (0.31 to 1.61 in)"
+        ],
+        [
+          "Fault Current Enduring Duration",
+          "20~40ms"
+        ],
+        [
+          "Switching On Response Time",
+          "0.2s"
+        ],
+        [
+          "Reset Time",
+          "24 hours standard; (adjustable)"
+        ],
+        [
+          "Flashing Hours",
+          "≥2000 hours"
+        ],
+        [
+          "Flipping Times",
+          "3000"
+        ],
+        [
+          "Operating Temperature Range",
+          "- 40 ℃ to + 70 ℃"
+        ],
+        [
+          "Power consumption",
+          "≤40µA"
+        ],
+        [
+          "IP Protection Class",
+          "IP67"
+        ],
+        [
+          "Weight",
+          "≤550g"
+        ],
+        [
+          "Dimension",
+          "147mm ×76 mm×76mm"
+        ],
+        [
+          "EMC",
+          "Class 4"
+        ],
+        [
+          "Uplink communication mode",
+          "Micro power wireless"
+        ],
+        [
+          "Wireless Communication Distance",
+          "≥50 meters"
+        ]
+      ]
+    ],
+    "headings": [
+      "JYL-60 Fault Indicator",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230227/JYL no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230227/JYL no bg.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Distribution Line Fault Detectors Technology"
+  },
+  "https://en.wasion.com/proIntpRel/Outdoor-High-Voltage-Smart-Vacuum-Circuit-Breaker.html": {
+    "url": "https://en.wasion.com/proIntpRel/Outdoor-High-Voltage-Smart-Vacuum-Circuit-Breaker.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/Outdoor-High-Voltage-Smart-Vacuum-Circuit-Breaker.html",
+    "title": "ZW32-12 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:23.092955+00:00",
+    "sourceHTMLSha256": "1eadffb29df358ffec3a88944e671c4c1a640b75d0cd5c2bcfd698744b48c389",
+    "sourceBytes": 56107,
+    "paragraphs": [
+      "Outdoor High-Voltage Smart Vacuum Circuit Breaker"
+    ],
+    "features": [
+      "No hazard of fire or explosion",
+      "Moisture and condensation prevention",
+      "Reliable mechanical interlock to prevent misoperation",
+      "Spring mechanism and magnetic actuator mechanism available",
+      "Manual and automatic energy storage and trip/close"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "Rated Voltage",
+          "kA",
+          "12"
+        ],
+        [
+          "Rated insulation level",
+          "1 min power frequency withstand voltage",
+          "kA",
+          "42"
+        ],
+        [
+          "Lighting impulse withstand voltage(peak)",
+          "kA",
+          "75"
+        ],
+        [
+          "Rated Current",
+          "A",
+          "630,1250"
+        ],
+        [
+          "Rated short-circuit breaking current",
+          "kA",
+          "25"
+        ],
+        [
+          "Rated short-circuit making current (peak)",
+          "kA",
+          "63"
+        ],
+        [
+          "Rated operating sequence",
+          "",
+          "O-0.3s-CO-180s-CO"
+        ],
+        [
+          "Out-of-phase breaking current",
+          "kA",
+          "6.3"
+        ],
+        [
+          "Rated short circuit duration",
+          "S",
+          "4"
+        ],
+        [
+          "Rated short-circuit current breaking times",
+          "Times",
+          "30"
+        ],
+        [
+          "Arcing time",
+          "ms",
+          "≤15"
+        ],
+        [
+          "Breaking time",
+          "ms",
+          "≤80"
+        ],
+        [
+          "Mechanical endurance",
+          "Times",
+          "10000"
+        ]
+      ]
+    ],
+    "headings": [
+      "ZW32-12",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220528/80a9bc6f29cfa382d48b5422125e5a70.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220528/80a9bc6f29cfa382d48b5422125e5a70.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Outdoor High-Voltage Smart Vacuum Circuit Breaker"
+  },
+  "https://en.wasion.com/proIntpRel/24.html": {
+    "url": "https://en.wasion.com/proIntpRel/24.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/24.html",
+    "title": "ZW20-12 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:23.349567+00:00",
+    "sourceHTMLSha256": "74ad7da4806fc3eee6da2f1b31ede8b232ecf3222f598a8284cb3b8334e664fa",
+    "sourceBytes": 56126,
+    "paragraphs": [
+      "Outdoor High-Voltage Smart Vacuum Circuit Breaker"
+    ],
+    "features": [
+      "Anti-contamination and oxidation-resistant",
+      "Explosion-proof",
+      "Spring mechanism and magnetic actuator mechanism available",
+      "Manual and automatic energy storage and trip/close",
+      "Overcurrent protection and zero-sequence overcurrent protection"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "Rated Voltage",
+          "kA",
+          "12"
+        ],
+        [
+          "Rated insulation level",
+          "1 min power frequency withstand voltage",
+          "kA",
+          "42"
+        ],
+        [
+          "Lighting impulse withstand voltage(peak)",
+          "kA",
+          "75"
+        ],
+        [
+          "Rated Current",
+          "A",
+          "630"
+        ],
+        [
+          "Rated short-circuit breaking current",
+          "kA",
+          "25"
+        ],
+        [
+          "Rated short-circuit making current (peak)",
+          "kA",
+          "63"
+        ],
+        [
+          "Rated operating sequence",
+          "",
+          "O-0.3s-CO-180s-CO"
+        ],
+        [
+          "Out-of-phase breaking current",
+          "kA",
+          "6.3"
+        ],
+        [
+          "Rated short circuit duration",
+          "S",
+          "4"
+        ],
+        [
+          "Rated short-circuit current breaking times",
+          "Times",
+          "30"
+        ],
+        [
+          "Arcing time",
+          "ms",
+          "≤15"
+        ],
+        [
+          "Breaking time",
+          "ms",
+          "≤80"
+        ],
+        [
+          "Mechanical endurance",
+          "Times",
+          "10000"
+        ]
+      ]
+    ],
+    "headings": [
+      "ZW20-12",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220528/7717e9dfd98c6fa821e1c10303de3138.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220528/7717e9dfd98c6fa821e1c10303de3138.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Outdoor High-Voltage Smart Vacuum Circuit Breaker"
+  },
+  "https://en.wasion.com/proIntpRel/SF6-Gas-Insulated-Ring-Main-Unit.html": {
+    "url": "https://en.wasion.com/proIntpRel/SF6-Gas-Insulated-Ring-Main-Unit.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/SF6-Gas-Insulated-Ring-Main-Unit.html",
+    "title": "WS-FL-12 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:25.014849+00:00",
+    "sourceHTMLSha256": "bb542c110aa08d6e057aab7bb1a20b3985d095269ae6acbcb04cd3446ad7052e",
+    "sourceBytes": 65848,
+    "paragraphs": [
+      "SF6 Gas Insulated Ring Main Unit",
+      "1 min power frequency withstand voltage",
+      "Phase to ground, phase to phase",
+      "Between contacts",
+      "Lighting impulse withstand voltage(peak)",
+      "Partial discharge",
+      "Rated short-time withstand current -4s",
+      "Rated peak withstand current",
+      "Rated short-circuit making current (peak)",
+      "Rated short-circuit breaking current",
+      "Mechanical endurance",
+      "Internal arc test (IAC)",
+      "Rated pressure of SF6 gas (20℃)",
+      "Note: ① The rated current of the load switch-fuse combination is limited by the fuse."
+    ],
+    "features": [
+      "Up to 30-year maintenance-free",
+      "Compact and modular design",
+      "Simple installation"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "",
+          "",
+          "C",
+          "F",
+          "V"
+        ],
+        [
+          "Rated Voltage",
+          "kV",
+          "12/24/40.5",
+          "12/24/40.5",
+          "12/24/40.5"
+        ],
+        [
+          "1 min power frequency withstand voltage",
+          "Phase to ground, phase to phase",
+          "kV",
+          "42/50/95",
+          "42/50/95",
+          "42/50/95"
+        ],
+        [
+          "Between contacts",
+          "kV",
+          "48/60/110",
+          "48/60/110",
+          "48/60/110"
+        ],
+        [
+          "Lighting impulse withstand voltage(peak)",
+          "Phase to ground, phase to phase",
+          "kV",
+          "75/95/185",
+          "75/95/185",
+          "75/95/185"
+        ],
+        [
+          "Between contacts",
+          "kV",
+          "85/115/215",
+          "85/115/215",
+          "85/115/215"
+        ],
+        [
+          "Partial discharge",
+          "pC",
+          "20",
+          "20",
+          "20"
+        ],
+        [
+          "Rated Current",
+          "A",
+          "630",
+          "①",
+          "630/1250"
+        ],
+        [
+          "Rated short-time withstand current -4s",
+          "kV",
+          "20",
+          "",
+          "20/25"
+        ],
+        [
+          "Rated peak withstand current",
+          "kV",
+          "50",
+          "",
+          "50/63"
+        ],
+        [
+          "Rated short-circuit making current (peak)",
+          "kV",
+          "50",
+          "100",
+          "50/63"
+        ],
+        [
+          "Rated short-circuit breaking current",
+          "kA",
+          "",
+          "40",
+          "20/25"
+        ],
+        [
+          "Mechanical endurance",
+          "kA",
+          "5000",
+          "5000",
+          "10000"
+        ],
+        [
+          "Internal arc test (IAC)",
+          "Times",
+          "20",
+          "20",
+          "20(25)"
+        ],
+        [
+          "Rated pressure of SF6 gas (20℃)",
+          "kA/0.5sMPa",
+          "0.04",
+          "0.04",
+          "0.04"
+        ],
+        [
+          "Note: ① The rated current of the load switch-fuse combination is limited by the fuse."
+        ]
+      ]
+    ],
+    "headings": [
+      "WS-FL-12",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220531/b327b67a51dd2c05e19f9a0422bb3e20.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220531/b327b67a51dd2c05e19f9a0422bb3e20.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "SF6 Gas Insulated Ring Main Unit"
+  },
+  "https://en.wasion.com/proIntpRel/High-Voltage-Metal-Clad-Switchgear.html": {
+    "url": "https://en.wasion.com/proIntpRel/High-Voltage-Metal-Clad-Switchgear.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/High-Voltage-Metal-Clad-Switchgear.html",
+    "title": "KYN28-12 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:26.364134+00:00",
+    "sourceHTMLSha256": "e934fccfcc82d1f2d129145f1e56465bde6adb79416496da85a092ea7d0b3186",
+    "sourceBytes": 61782,
+    "paragraphs": [
+      "High Voltage Metal-Clad Switchgear",
+      "1 min power frequency withstand voltage",
+      "Phase to ground, phase to phase",
+      "Between contacts",
+      "Lighting impulse withstand voltage(peak)",
+      "Partial frequency",
+      "630,1250,1600,2500,3150,4000",
+      "Rated peak withstand current",
+      "40,50,63,80,100,125",
+      "Rated short-circuit withstand current",
+      "16,20,25,31.5,40,50",
+      "Rated short-circuit duration",
+      "Rated short-circuit breaking current",
+      "Rated short-circuit making current (peak)",
+      "Protection level",
+      "Circuit breaker door open: IP2X",
+      "Length*depth*height",
+      "800(1000)*1500*2300"
+    ],
+    "features": [
+      "Reliable interlock device",
+      "Double bending process",
+      "Pressure release plates of three high-pressure chambers",
+      "Interchangeability of circuit breaker and handcart"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "Rated Voltage",
+          "kV",
+          "12"
+        ],
+        [
+          "1 min power frequency withstand voltage",
+          "Phase to ground, phase to phase",
+          "kV",
+          "42"
+        ],
+        [
+          "Between contacts",
+          "kV",
+          "48"
+        ],
+        [
+          "Lighting impulse withstand voltage(peak)",
+          "Phase to ground, phase to phase",
+          "kV",
+          "75"
+        ],
+        [
+          "Between contacts",
+          "kV",
+          "85"
+        ],
+        [
+          "Partial frequency",
+          "Hz",
+          "20"
+        ],
+        [
+          "Rated Current",
+          "A",
+          "630,1250,1600,2500,3150,4000"
+        ],
+        [
+          "Rated peak withstand current",
+          "kV",
+          "40,50,63,80,100,125"
+        ],
+        [
+          "Rated short-circuit withstand current",
+          "kV",
+          "16,20,25,31.5,40,50"
+        ],
+        [
+          "Rated short-circuit duration",
+          "s",
+          "4"
+        ],
+        [
+          "Rated short-circuit breaking current",
+          "kA",
+          "16,20,25,31.5,40,50"
+        ],
+        [
+          "Rated short-circuit making current (peak)",
+          "kA",
+          "40,50,63,80,100,125"
+        ],
+        [
+          "Protection level",
+          "",
+          "Enclosure:IP4X"
+        ],
+        [
+          "Circuit breaker door open: IP2X"
+        ],
+        [
+          "Weight",
+          "kg",
+          "700~1200"
+        ],
+        [
+          "Length*depth*height",
+          "mm",
+          "800(1000)*1500*2300"
+        ]
+      ]
+    ],
+    "headings": [
+      "KYN28-12",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220601/b028c39ca3788173d1518ad985d9ad33.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220601/b028c39ca3788173d1518ad985d9ad33.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "High Voltage Metal-Clad Switchgear"
+  },
+  "https://en.wasion.com/proIntpRel/WEV-12-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html": {
+    "url": "https://en.wasion.com/proIntpRel/WEV-12-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/WEV-12-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html",
+    "title": "WEV-12 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:26.722127+00:00",
+    "sourceHTMLSha256": "f23b546923202e1ce9a361eb24c9e5ddf21e97adef720b7ed0c894e38c7cf8a3",
+    "sourceBytes": 63587,
+    "paragraphs": [
+      "Indoor High-Voltage Vacuum Circuit Breaker",
+      "1 min power frequency withstand voltage",
+      "Lighting impulse withstand voltage(peak)",
+      "Rated short-circuit breaking current",
+      "Rated short-circuit making current (peak)",
+      "Rated switching capacitor inrush current",
+      "Rated operating sequence",
+      "Permissible wearing accumulated depth for movable and fixed contact",
+      "Closing time,Opening time",
+      "Mechanical endurance",
+      "Contacting travel",
+      "Center distance between phases",
+      "Opening speed, Closing speed",
+      "Three-phase opening and closing asynchronism",
+      "Length*depth*height",
+      "682*598*638(≤1600A), 882*589*725(≥2000A)"
+    ],
+    "features": [
+      "All-solid-sealed pole technology, high-performance of corrosion resistance",
+      "Patented trip unit",
+      "The simple overall structure, can be customized according to customers",
+      "Rebound and re-ignition prevention",
+      "No bounce during closing-operation"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "Rated Voltage",
+          "kV",
+          "12"
+        ],
+        [
+          "1 min power frequency withstand voltage",
+          "kV",
+          "42"
+        ],
+        [
+          "Lighting impulse withstand voltage(peak)",
+          "kV",
+          "75"
+        ],
+        [
+          "Rated current",
+          "A",
+          "630/1250",
+          "1600~40002"
+        ],
+        [
+          "Rated short-circuit breaking current",
+          "kA",
+          "25/31.5",
+          "31.5/40"
+        ],
+        [
+          "Rated short-circuit making current (peak)",
+          "kV",
+          "50/63",
+          "80/100"
+        ],
+        [
+          "Rated switching capacitor inrush current",
+          "kV",
+          "12.5"
+        ],
+        [
+          "Rated operating sequence",
+          "",
+          "O-0.3s-CO-180s-CO"
+        ],
+        [
+          "Permissible wearing accumulated depth for movable and fixed contact",
+          "mm",
+          "3"
+        ],
+        [
+          "Closing time,Opening time",
+          "ms",
+          "≤50, ≤70"
+        ],
+        [
+          "Mechanical endurance",
+          "Times",
+          "20000"
+        ],
+        [
+          "Clearance between open contacts",
+          "mm",
+          "11±1 (9±1)"
+        ],
+        [
+          "Contacting travel",
+          "mm",
+          "3.5±0.5"
+        ],
+        [
+          "Center distance between phases",
+          "mm",
+          "300±1.5"
+        ],
+        [
+          "Opening speed, Closing speed",
+          "m/s",
+          "0.9~1.2,0.4~0.8"
+        ],
+        [
+          "Bouncing time",
+          "ms",
+          "≤2, (40KA≤3)"
+        ],
+        [
+          "Three-phase opening and closing asynchronism",
+          "ms",
+          "≤2"
+        ],
+        [
+          "Length*depth*height",
+          "mm",
+          "682*598*638(≤1600A), 882*589*725(≥2000A)"
+        ]
+      ]
+    ],
+    "headings": [
+      "WEV-12",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220623/29bba38500d9df26a93792f018726391.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220623/29bba38500d9df26a93792f018726391.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Indoor High-Voltage Vacuum Circuit Breaker"
+  },
+  "https://en.wasion.com/proIntpRel/WEV-40.5-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html": {
+    "url": "https://en.wasion.com/proIntpRel/WEV-40.5-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/WEV-40.5-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html",
+    "title": "WEV-40.5 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:27.065341+00:00",
+    "sourceHTMLSha256": "e5fa70e6357e29805ba36cfe160c1d2721fccd6235bfab8e031dec375ffff2bd",
+    "sourceBytes": 62998,
+    "paragraphs": [
+      "Indoor High-Voltage Vacuum Circuit Breaker",
+      "1 min power frequency withstand voltage",
+      "Lighting impulse withstand voltage(peak)",
+      "Rated short-circuit breaking current",
+      "Rated short-circuit making current (peak)",
+      "Rated switching capacitor inrush current",
+      "Rated operating sequence",
+      "Permissible wearing accumulated depth for movable and fixed contact",
+      "Closing time, Opening time",
+      "Mechanical endurance",
+      "Contacting travel",
+      "Center distance between phases",
+      "Opening speed, Closing speed",
+      "Three-phase opening and closing asynchronism",
+      "Length*depth*height"
+    ],
+    "features": [
+      "Integrated design. The special spring operating mechanism is stable and reliable without additional adjustment",
+      "High insulation performance, dust-proof and keep foreign matter from entering the main conductive circuit",
+      "Compact structure"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "Rated Voltage",
+          "kV",
+          "40.5"
+        ],
+        [
+          "1 min power frequency withstand voltage",
+          "kV",
+          "95"
+        ],
+        [
+          "Lighting impulse withstand voltage(peak)",
+          "kV",
+          "185"
+        ],
+        [
+          "Rated current",
+          "A",
+          "1250 1600 2500"
+        ],
+        [
+          "Rated short-circuit breaking current",
+          "kA",
+          "31.5 31.5 31.5"
+        ],
+        [
+          "Rated short-circuit making current (peak)",
+          "kV",
+          "80"
+        ],
+        [
+          "Rated switching capacitor inrush current",
+          "kV",
+          "12.5"
+        ],
+        [
+          "Rated operating sequence",
+          "",
+          "O-0.3s-CO-180s-CO"
+        ],
+        [
+          "Permissible wearing accumulated depth for movable and fixed contact",
+          "mm",
+          "3"
+        ],
+        [
+          "Closing time, Opening time",
+          "ms",
+          "≤90,≤50, ≤15"
+        ],
+        [
+          "Mechanical endurance",
+          "Times",
+          "10000"
+        ],
+        [
+          "Clearance between open contacts",
+          "mm",
+          "20±2"
+        ],
+        [
+          "Contacting travel",
+          "mm",
+          "6±1"
+        ],
+        [
+          "Center distance between phases",
+          "mm",
+          "300±1.5"
+        ],
+        [
+          "Opening speed, Closing speed",
+          "m/s",
+          "1.7±0.2, 0.5~0.9"
+        ],
+        [
+          "Bouncing time",
+          "ms",
+          "≤3"
+        ],
+        [
+          "Three-phase opening and closing asynchronism",
+          "ms",
+          "≤2"
+        ],
+        [
+          "Length*depth*height",
+          "mm",
+          "1194*915*1695"
+        ]
+      ]
+    ],
+    "headings": [
+      "WEV-40.5",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220623/2ec6e0b0bd5a2d35046f2a11a421e496.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220623/2ec6e0b0bd5a2d35046f2a11a421e496.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Indoor High-Voltage Vacuum Circuit Breaker"
+  },
+  "https://en.wasion.com/proIntpRel/Miniature-Circuit-Breaker.html": {
+    "url": "https://en.wasion.com/proIntpRel/Miniature-Circuit-Breaker.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/Miniature-Circuit-Breaker.html",
+    "title": "WS65-63 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:28.762612+00:00",
+    "sourceHTMLSha256": "605479b3c70f1b9872be48998202c172157b050e5d4632dbc9c6614d97663bf6",
+    "sourceBytes": 62362,
+    "paragraphs": [
+      "Miniature Circuit Breaker",
+      "Frame level rated current (A)",
+      "Rated current (A)",
+      "6, 10, 16, 20, 25, 32, 40, 50, 63",
+      "Rated voltage(V)",
+      "Rated residual operating current (mA)",
+      "Rated residual non-operation Current (mA)",
+      "Rated residual making and break capacity (A)",
+      "Breaking time under/at I△n",
+      "Over-current instantaneous trip type"
+    ],
+    "features": [
+      "Special energy storage mechanism",
+      "Double contact mechanism",
+      "Reversing tripping mechanism",
+      "The unique design of the port cover"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Data"
+        ],
+        [
+          "Frame level rated current (A)",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        [
+          "Poles number(P)",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        [
+          "Neutral line",
+          "N",
+          "",
+          "N",
+          "",
+          ""
+        ],
+        [
+          "Rated current (A)",
+          "6, 10, 16, 20, 25, 32, 40, 50, 63"
+        ],
+        [
+          "Rated voltage(V)",
+          "230",
+          "400"
+        ],
+        [
+          "Rated residual operating current (mA)",
+          "30",
+          "30",
+          "50",
+          "100",
+          "300"
+        ],
+        [
+          "Rated residual non-operation Current (mA)",
+          "15",
+          "15",
+          "25",
+          "50",
+          "150"
+        ],
+        [
+          "Rated residual making and break capacity (A)",
+          "2000"
+        ],
+        [
+          "Breaking time under/at I△n",
+          "＜0.1"
+        ],
+        [
+          "Over-current instantaneous trip type",
+          "C, D"
+        ]
+      ]
+    ],
+    "headings": [
+      "WS65-63",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220623/0b0af453c019c191013b862cb366e2b8.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220623/0b0af453c019c191013b862cb366e2b8.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Miniature Circuit Breaker"
+  },
+  "https://en.wasion.com/proIntpRel/Miniature-Leakage-Circuit-Breaker.html": {
+    "url": "https://en.wasion.com/proIntpRel/Miniature-Leakage-Circuit-Breaker.html",
+    "sourceURL": "https://en.wasion.com/proIntpRel/Miniature-Leakage-Circuit-Breaker.html",
+    "title": "WS65LE-63 - Relevant Product",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:29.898213+00:00",
+    "sourceHTMLSha256": "8391a3ce2f3cf31ecacf693f9f61fee5631481c14a82b951c52ef02f4d4bbd0f",
+    "sourceBytes": 55483,
+    "paragraphs": [
+      "Miniature Leakage Circuit Breaker",
+      "1,2,3,4,5,6,10,16,20,25,32,40,50,63",
+      "Trip characteristics",
+      "Mechanical endurance",
+      "Rated short-circuit breaking capacity"
+    ],
+    "features": [
+      "Maximum terminal connection capacity 35mm², torque 3.5N*m",
+      "Applicable to the installation of various devices and robust wiring",
+      "IP20 protection level"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "Unit",
+          "Data"
+        ],
+        [
+          "Rated current",
+          "A",
+          "1,2,3,4,5,6,10,16,20,25,32,40,50,63"
+        ],
+        [
+          "Poles number",
+          "",
+          "1,2,3,4"
+        ],
+        [
+          "Trip characteristics",
+          "",
+          "C:5InA~10InA, D:10InA~16InA"
+        ],
+        [
+          "Mechanical endurance",
+          "Times",
+          "Not less than 10000"
+        ],
+        [
+          "Rated short-circuit breaking capacity",
+          "kA",
+          "6"
+        ]
+      ]
+    ],
+    "headings": [
+      "WS65LE-63",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20220623/cb9b253ebebcdee8978dfd60991d2aec.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20220623/cb9b253ebebcdee8978dfd60991d2aec.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Miniature Leakage Circuit Breaker"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK-2.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK-2.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK-2.html",
+    "title": "R SERIES RECTANGULAR STACK - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:30.088831+00:00",
+    "sourceHTMLSha256": "678a5bc50f7d6bcda288c8c792e9328eeb58aa90ab4635e5753395e284541458",
+    "sourceBytes": 74474,
+    "paragraphs": [
+      "Alkaline Pro Hydrogen Generation Systems",
+      "General Information",
+      "15000 mm * 3000 mm * 3000 mm",
+      "6000 mm * 3000 mm * 3000 mm",
+      "24000 mm * 3000 mm * 3000 mm",
+      "8000 mm * 3000 mm * 6000 mm"
+    ],
+    "features": [
+      "Compact——1/4 of size and weight, containerized delivery",
+      "Economy——Full use of green electricity to make a higher revenue",
+      "Efficient——5~20s dynamic response, 10~110% load",
+      "Reliable——No quality issues since its operation in 2011"
+    ],
+    "tables": [
+      [
+        [
+          "General Information"
+        ],
+        [
+          "",
+          "KARE - 500",
+          "KARE - 1000"
+        ],
+        [
+          "H2 Nominal Flow (Nm3 /h)",
+          "500",
+          "1000"
+        ],
+        [
+          "Dynamic Response (S)",
+          "< 20",
+          "< 20"
+        ],
+        [
+          "Cold Start Time (Min）",
+          "≤ 30",
+          "≤ 30"
+        ],
+        [
+          "Flow Range (V/V)",
+          "10～110 %",
+          "10～110 %"
+        ],
+        [
+          "Purity (V/V) *",
+          "＞99.999 %",
+          "＞99.999 %"
+        ],
+        [
+          "Dew Point (℃)",
+          "≤ -71",
+          "≤ -71"
+        ],
+        [
+          "Outlet Pressure (MPa)",
+          "1.6",
+          "1.6"
+        ],
+        [
+          "Operating Temp. (℃)",
+          "80 ± 5",
+          "80 ± 5"
+        ],
+        [
+          "DC Consumption (kWh/Nm3 )",
+          "3.8 ~ 4.6",
+          "3.8 ~ 4.6"
+        ],
+        [
+          "Power Supply (V)",
+          "10k 50 Hz AC",
+          "10k 50 Hz AC"
+        ],
+        [
+          "Current Density（A/m2）",
+          "8000"
+        ],
+        [
+          "Overhaul Period of Electrolytic Cell（Year）",
+          "≥ 10"
+        ],
+        [
+          "Electro Module"
+        ],
+        [
+          "Dimensions",
+          "15000 mm * 3000 mm * 3000 mm 6000 mm * 3000 mm * 3000 mm",
+          "24000 mm * 3000 mm * 3000 mm 8000 mm * 3000 mm * 6000 mm"
+        ],
+        [
+          "Main Power (kW)",
+          "2362",
+          "4724"
+        ],
+        [
+          "Weight ( T )",
+          "49 + 18",
+          "99 + 31"
+        ]
+      ]
+    ],
+    "headings": [
+      "R SERIES RECTANGULAR STACK",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240619/R SERIES 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240619/R SERIES 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Alkaline Pro Hydrogen Generation Systems"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK.html",
+    "title": "R SERIES RECTANGULAR STACK - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:30.106394+00:00",
+    "sourceHTMLSha256": "c7ee6c7d641b75b9d99128ea39ba19975c65a72dfc9d2206b47c02f4d63549f6",
+    "sourceBytes": 74607,
+    "paragraphs": [
+      "Alkaline Pro Hydrogen Generation Systems",
+      "General Information",
+      "8000 mm * 3000 mm * 3000 mm",
+      "3000 mm * 3000 mm * 3000mm",
+      "6000 mm * 3000 mm * 3000 mm"
+    ],
+    "features": [
+      "Compact——1/4 of size and weight, containerized delivery",
+      "Economy——Full use of green electricity to make a higher revenue",
+      "Efficient——5~20s dynamic response, 10~110% load",
+      "Reliable——No quality issues since its operation in 2011"
+    ],
+    "tables": [
+      [
+        [
+          "General Information"
+        ],
+        [
+          "",
+          "KARE - 50",
+          "KARE - 100"
+        ],
+        [
+          "H2 Nominal Flow (Nm3 /h)",
+          "50",
+          "100"
+        ],
+        [
+          "Dynamic Response (S)",
+          "< 20",
+          "< 20"
+        ],
+        [
+          "Cold Start Time (Min）",
+          "≤ 30",
+          "≤ 30"
+        ],
+        [
+          "Flow Range (V/V)",
+          "10～110 %",
+          "10～110 %"
+        ],
+        [
+          "Purity (V/V) *",
+          "＞99.999 %",
+          "＞99.999 %"
+        ],
+        [
+          "Dew Point (℃)",
+          "≤ -71",
+          "≤ -71"
+        ],
+        [
+          "Outlet Pressure (MPa)",
+          "0.8",
+          "0.8"
+        ],
+        [
+          "Operating Temp. (℃)",
+          "80 ± 5",
+          "80 ± 5"
+        ],
+        [
+          "DC Consumption (kWh/Nm3 )",
+          "3.7 ~ 4.8",
+          "3.7 ~ 4.8"
+        ],
+        [
+          "Power Supply (V)",
+          "380 50 Hz AC",
+          "380 50 Hz AC"
+        ],
+        [
+          "Current Density（A/m2）",
+          "8000"
+        ],
+        [
+          "Overhaul Period of Electrolytic Cell（Year）",
+          "≥ 10"
+        ],
+        [
+          "Electro Module"
+        ],
+        [
+          "Dimensions",
+          "8000 mm * 3000 mm * 3000 mm 3000 mm * 3000 mm * 3000mm",
+          "10000 mm * 3000 mm * 3000 mm 6000 mm * 3000 mm * 3000 mm"
+        ],
+        [
+          "Main Power (kW)",
+          "241",
+          "482"
+        ],
+        [
+          "Weight ( T )",
+          "4.8 + 2.4",
+          "7.3 + 3.4"
+        ]
+      ]
+    ],
+    "headings": [
+      "R SERIES RECTANGULAR STACK",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240614/R SERIES STACK 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240614/R SERIES STACK 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Alkaline Pro Hydrogen Generation Systems"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/WE-PORTABLE-STATION.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/WE-PORTABLE-STATION.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/WE-PORTABLE-STATION.html",
+    "title": "WE PORTABLE STATION - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:32.021459+00:00",
+    "sourceHTMLSha256": "562f63044360319580b22437c8c11d337332caf2ebfbf2393c158f4b72c63196",
+    "sourceBytes": 62119,
+    "paragraphs": [
+      "USB / Type - C / PD / AC / DC"
+    ],
+    "features": [
+      "CUSTOMIZED FOR YOU: AC Socket can be customized according to different countries/regions.",
+      "FOR HOME USE: Suitable for emergencies such as power shortages, power cuts, CPAP operation, hurricanes, typhoons, earthquakes, and other disasters.",
+      "MULTIPLE CHARGE INPUTS: Supports input via AC adapter, car charger, solar panel, Type-C, and a combination of AC Adapter + Type-C PD .",
+      "VERSATILE OUTDOOR APPLICATIONS: Perfect for camping, traveling, hiking, fishing, business trips, and more.",
+      "UNIVERSAL CHARGING CAPABILITIES: Compatible with AC, DC, and USB output devices.",
+      "CERTIFICATIONS: FCC & CE certifications."
+    ],
+    "tables": [
+      [
+        [
+          "Model",
+          "S 300 / S 600 / S 1200 / S 1600"
+        ],
+        [
+          "Battery",
+          "LMFP"
+        ],
+        [
+          "Capacity",
+          "300 Wh / 600 Wh / 1200 Wh / 1600 Wh"
+        ],
+        [
+          "AC Output",
+          "110 / 220 V"
+        ],
+        [
+          "Output Type",
+          "USB / Type - C / PD / AC / DC"
+        ],
+        [
+          "Life Cycle",
+          "4000 Times"
+        ],
+        [
+          "Net Weight",
+          "3.9 kg / 6.9 kg / 13.8 kg / 16.9 kg"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE PORTABLE STATION",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240614/WE PORTABLE STATION 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240614/WE PORTABLE STATION 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "USB / Type - C / PD / AC / DC"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/OFF-GRID-RESIDENTIAL-BATTERY.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/OFF-GRID-RESIDENTIAL-BATTERY.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/OFF-GRID-RESIDENTIAL-BATTERY.html",
+    "title": "OFF-GRID RESIDENTIAL BATTERY - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:32.833235+00:00",
+    "sourceHTMLSha256": "72da9890a3f8992f843d47e6ab7cfdb4d55a64c97fbe846b86053c287cd18316",
+    "sourceBytes": 68162,
+    "paragraphs": [
+      "Lithium Iron Phosphate",
+      "Floor Installation",
+      "0-90 % Non-Condensing",
+      "550 mm * 442 mm * 200 mm",
+      "IEC 61000， IEC 62619， UN 38.3"
+    ],
+    "features": [
+      "Suitable for small & medium-sized system applications",
+      "Fast dynamic response speed of energy storage system",
+      "Can maximize the benefits of photovoltaic power generation",
+      "Improving power quality",
+      "Can switch between parallel and off-grid, providing emergency power supply for important loads"
+    ],
+    "tables": [
+      [
+        [
+          "Battery Type",
+          "Lithium Iron Phosphate"
+        ],
+        [
+          "Rated Voltage",
+          "48 V"
+        ],
+        [
+          "Battery Capacity",
+          "7.2 kWh"
+        ],
+        [
+          "0.5C Battery Life",
+          "＞4000 times"
+        ],
+        [
+          "General"
+        ],
+        [
+          "Protection Degree",
+          "IP 20"
+        ],
+        [
+          "Installation Method",
+          "Floor Installation"
+        ],
+        [
+          "Operating Temperature",
+          "-20°C ~ 60°C"
+        ],
+        [
+          "Relative Humidity",
+          "0-90 % Non-Condensing"
+        ],
+        [
+          "Weight",
+          "60 kg"
+        ],
+        [
+          "Dimensions",
+          "550 mm * 442 mm * 200 mm"
+        ],
+        [
+          "Certificates",
+          "IEC 61000， IEC 62619， UN 38.3"
+        ],
+        [
+          "Warranty",
+          "5 years"
+        ]
+      ]
+    ],
+    "headings": [
+      "OFF-GRID RESIDENTIAL BATTERY",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240614/OFF GRID RESIDENTIAL BATTERY 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240614/OFF GRID RESIDENTIAL BATTERY 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Lithium Iron Phosphate"
+  },
+  "https://en.wasion.com/InverterUI8/OFF-GRID-RESIDENTIAL-INVERTER.html": {
+    "url": "https://en.wasion.com/InverterUI8/OFF-GRID-RESIDENTIAL-INVERTER.html",
+    "sourceURL": "https://en.wasion.com/InverterUI8/OFF-GRID-RESIDENTIAL-INVERTER.html",
+    "title": "OFF-GRID RESIDENTIAL INVERTER - Inverter",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:33.518185+00:00",
+    "sourceHTMLSha256": "d117add0c15696f9663017b1aff5895cad2004dbf23d32cc9d6e835624b724f4",
+    "sourceBytes": 64492,
+    "paragraphs": [
+      "3000 VA / 3000 W",
+      "120 V / 240 V ± 5%",
+      "Lithium Iron Phosphate Battery",
+      "519 mm * 305 mm * 126 mm"
+    ],
+    "features": [
+      "Suitable for small & medium-sized system applications",
+      "Fast dynamic response speed of energy storage system",
+      "Can maximize the benefits of photovoltaic power generation",
+      "Improving power quality",
+      "Can switch between parallel and off-grid, providing emergency power supply for important loads"
+    ],
+    "tables": [
+      [
+        [
+          "Rated Power",
+          "3000 VA / 3000 W"
+        ],
+        [
+          "AC Voltage Regulation",
+          "120 V / 240 V ± 5%"
+        ],
+        [
+          "AC Frequency",
+          "50 Hz / 60 H"
+        ],
+        [
+          "Efficiency (Peak)",
+          "0.93"
+        ],
+        [
+          "Adapter battery"
+        ],
+        [
+          "Battery Type",
+          "Lithium Iron Phosphate Battery"
+        ],
+        [
+          "Rated Voltage",
+          "48 V"
+        ],
+        [
+          "Maximum Discharge Current - Continuous",
+          "75 A"
+        ],
+        [
+          "Structure"
+        ],
+        [
+          "Net Weight",
+          "12 kg"
+        ],
+        [
+          "Dimensions",
+          "519 mm * 305 mm * 126 mm"
+        ]
+      ]
+    ],
+    "headings": [
+      "OFF-GRID RESIDENTIAL INVERTER",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240614/OFF-GRID RESIDENTIAL INVERTER-775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240614/OFF-GRID RESIDENTIAL INVERTER-775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "3000 VA / 3000 W"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/WE-STACK.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/WE-STACK.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/WE-STACK.html",
+    "title": "WE STACK - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:33.955348+00:00",
+    "sourceHTMLSha256": "97b3915d1b22709304ca1dde9cb6a59c8076c85cad98393a80ebb2c16216b99f",
+    "sourceBytes": 75763,
+    "paragraphs": [
+      "5000 W - 15000 W",
+      "600 mm * 580 mm * 300 mm ( Inverter ),",
+      "600mm * 350 mm * 300 mm ( Per Battery Pack)",
+      "Modbus， RS 485， Wifi，4G",
+      "EN 61000-6-2，EN 61000-6-3，EN 61000-6-4，UN 38.3"
+    ],
+    "features": [
+      "Suitable for small & medium-sized system applications",
+      "Fast dynamic response speed of energy storage system",
+      "Can maximize the benefits of photovoltaic power generation",
+      "Improving power quality",
+      "Can switch between parallel and off-grid, providing emergency power supply for important loads"
+    ],
+    "tables": [
+      [
+        [
+          "AC Input"
+        ],
+        [
+          "Switching Time",
+          "<50 m"
+        ],
+        [
+          "Power Grid Voltage",
+          "110 / 230 Vac",
+          "50 / 60 H"
+        ],
+        [
+          "Generator Contrlo&Input",
+          "Supported"
+        ],
+        [
+          "AC Output"
+        ],
+        [
+          "Max Output Power",
+          "5000 W - 15000 W"
+        ],
+        [
+          "Rated Frequency",
+          "50-60 Hz"
+        ],
+        [
+          "Battery"
+        ],
+        [
+          "Rated Voltage",
+          "48 V"
+        ],
+        [
+          "Capacity",
+          "5 / 10 / 15 / 20 / 25 / 30 kWh"
+        ],
+        [
+          "Depth of Discharge",
+          "90%"
+        ],
+        [
+          "Battery Life",
+          "4000 times"
+        ],
+        [
+          "General"
+        ],
+        [
+          "Protection Degree",
+          "IP 20"
+        ],
+        [
+          "Operating Temperature",
+          "-10°C～50°C"
+        ],
+        [
+          "Cooling Method",
+          "Natural"
+        ],
+        [
+          "Relative Humidity",
+          "0-100 %"
+        ],
+        [
+          "Dimensions",
+          "600 mm * 580 mm * 300 mm ( Inverter ), 600mm * 350 mm * 300 mm ( Per Battery Pack)"
+        ],
+        [
+          "Communication Port",
+          "RS 485"
+        ],
+        [
+          "Communication",
+          "Modbus， RS 485， Wifi，4G"
+        ],
+        [
+          "Certificates",
+          "EC 62109-1， IEC 62109-2， IEC 62040， EN 61000-6-1, EN 61000-6-2，EN 61000-6-3，EN 61000-6-4，UN 38.3"
+        ],
+        [
+          "Warranty",
+          "5 years"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE STACK",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240613/WE STACK 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240613/WE STACK 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "5000 W - 15000 W"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/MOBILE-ENERGY.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/MOBILE-ENERGY.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/MOBILE-ENERGY.html",
+    "title": "WE MOBILE - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:35.811234+00:00",
+    "sourceHTMLSha256": "863883d5359dbbfa077f5a87aa8d992aa4f281c71632234d24922cb16966796b",
+    "sourceBytes": 69272,
+    "paragraphs": [
+      "Liquid Cooling 100kW / 215kWh、60kW / 129kWh",
+      "DC Specification",
+      "Structure Specification",
+      "Thermal Aerosol+Pack-level Perluoro Hexane Fire Extinguishing Device"
+    ],
+    "features": [
+      "Suitable for grid-connected applications with batch vehicle charging needs",
+      "Priority should be given to local consumption for solar power generation, followed by energy storage and charging",
+      "The system has a high comprehensive energy efficiency and convenient management",
+      "Energy storage systems and photovoltaic systems can improve local electricity stability",
+      "Adjusting the charging and discharging strategies based on local electricity pricing policies optimizes local energy consumption"
+    ],
+    "tables": [
+      [
+        [
+          "DC Specification"
+        ],
+        [
+          "Battery",
+          "LFP 3.2 V / 280 Ah"
+        ],
+        [
+          "Rated Capacity",
+          "215.04 kWh",
+          "129.024 kWh"
+        ],
+        [
+          "Rated Voltage",
+          "768 V",
+          "460.8 V"
+        ],
+        [
+          "Battery Voltage Range",
+          "648 V～864 V",
+          "388.8 V～518.4 V"
+        ],
+        [
+          "Cycling Span",
+          "≥6000 times（90%DOD，80%EOL）",
+          "≥6000 times（90%DOD，80%EOL）"
+        ],
+        [
+          "Structure Specification"
+        ],
+        [
+          "Fire Fighting System",
+          "Thermal Aerosol+Pack-level Perluoro Hexane Fire Extinguishing Device"
+        ],
+        [
+          "Cooling Method",
+          "Liquid Cooling"
+        ],
+        [
+          "Dimension",
+          "3000 mm * 1420 mm * 1500 mm",
+          "2300 mm * 1420 mm * 1500 mm"
+        ],
+        [
+          "Weight",
+          "≈3 t",
+          "≈2.2 t"
+        ],
+        [
+          "Protection Degree",
+          "IP 54"
+        ],
+        [
+          "Certificates",
+          "UL 9540A, IEC 62619，IEC 62477, UL 1973"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE MOBILE",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240613/WE MOBILE 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240613/WE MOBILE 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Liquid Cooling 100kW / 215kWh、60kW / 129kWh"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/WE-FARM.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/WE-FARM.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/WE-FARM.html",
+    "title": "WE FARM - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:36.451892+00:00",
+    "sourceHTMLSha256": "211a2ebf33301c5ce392e444513bfb1e9692f78ebe300de5b54cbaad35e5d4a5",
+    "sourceBytes": 67226,
+    "paragraphs": [
+      "Air Cooling 250kW / 204kWh",
+      "DC Specification",
+      "LFP 3.2 V / 280 Ah",
+      "Structure Specification",
+      "Fire Suppression Ball"
+    ],
+    "features": [
+      "Use renewable energy to protect the environment and save energy",
+      "Ensure a stable power supply",
+      "Suitable for small and medium power supply system applications",
+      "Achieve self-sufficiency in energy and water resources in rural areas",
+      "Reduce system operating costs, cost-effective and efficient",
+      "Improve the efficiency of water resource utilization and ensure the water demand of crops",
+      "Apply intelligent management to modernize agricultural production"
+    ],
+    "tables": [
+      [
+        [
+          "DC Specification"
+        ],
+        [
+          "Battery",
+          "LFP 3.2 V / 280 Ah"
+        ],
+        [
+          "Rated Capacity",
+          "215.04 kWh"
+        ],
+        [
+          "Rated Voltage",
+          "768 V"
+        ],
+        [
+          "Battery Voltage Range",
+          "648 V - 864 V"
+        ],
+        [
+          "Cycling Span",
+          "≥6000 times（90%DOD，80%EOL）"
+        ],
+        [
+          "Structure Specification"
+        ],
+        [
+          "Fire Fighting System",
+          "Fire Suppression Ball"
+        ],
+        [
+          "Cooling Method",
+          "Air Cooling"
+        ],
+        [
+          "Dimension",
+          "3270 mm * 2220 mm * 2440 mm"
+        ],
+        [
+          "Weight",
+          "≈5.2 t"
+        ],
+        [
+          "Protection Degree",
+          "IP 54"
+        ],
+        [
+          "Certificates",
+          "UL 9540A，IEC 62619，IEC 62477，UL 1973"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE FARM",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240613/WEFARM775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240613/WEFARM775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Air Cooling 250kW / 204kWh"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/WE-NODE.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/WE-NODE.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/WE-NODE.html",
+    "title": "WE NODE - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:36.531453+00:00",
+    "sourceHTMLSha256": "8581d24699602deefc57617d2a05d88e0bb4c83be2b75142071d45860fadb06a",
+    "sourceBytes": 66521,
+    "paragraphs": [
+      "Liquid Cooling 100kW / 215kWh",
+      "DC Specification",
+      "LFP 3.2V / 280 Ah",
+      "Structure Specification",
+      "Aerosol/Case Fire Suppression"
+    ],
+    "features": [
+      "High performance battery cells",
+      "Bidirectional active balancing BMS",
+      "Fluorine based safe and efficient fire protection system",
+      "Efficient PCS and intelligent energy management system"
+    ],
+    "tables": [
+      [
+        [
+          "DC Specification"
+        ],
+        [
+          "Battery",
+          "LFP 3.2V / 280 Ah"
+        ],
+        [
+          "Rated Capacity",
+          "215 kWh"
+        ],
+        [
+          "Rated Voltage",
+          "768 V"
+        ],
+        [
+          "Battery Voltage Range",
+          "648 V～864 V"
+        ],
+        [
+          "Cycling Span",
+          "≥6000 times（90%DOD，80%EOL）"
+        ],
+        [
+          "Structure Specification"
+        ],
+        [
+          "Fire Fighting System",
+          "Aerosol/Case Fire Suppression"
+        ],
+        [
+          "Cooling Method",
+          "Liquid Cooling"
+        ],
+        [
+          "Dimension",
+          "1300 mm * 1330 mm * 2100 mm"
+        ],
+        [
+          "Weight",
+          "2.2 t"
+        ],
+        [
+          "Protection Degree",
+          "IP 54"
+        ],
+        [
+          "Certificates",
+          "UL 9540A, IEC 62619，IEC 62477，UL 1973"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE NODE",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240618/WE NODE 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240618/WE NODE 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Liquid Cooling 100kW / 215kWh"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/WE-NODE-PREMIUM.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/WE-NODE-PREMIUM.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/WE-NODE-PREMIUM.html",
+    "title": "WE NODE PREMIUM - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:37.014811+00:00",
+    "sourceHTMLSha256": "07322c7f84d7417c361fcd5a7bde22e6d4e2940f99759572d4c21021093e7507",
+    "sourceBytes": 69471,
+    "paragraphs": [
+      "Industrial & Commercial Energy Storage System： Liquid Cooling 150kW / 313kWh、200kW / 344kWh",
+      "DC Specification",
+      "LFP 3.2 V / 314 Ah",
+      "842.4 V ~ 1123.2 V",
+      "Structure Specification",
+      "Aerosol/Case Fire Suppression"
+    ],
+    "features": [
+      "High performance battery cells",
+      "Bidirectional active balancing BMS",
+      "Fluorine based safe and efficient fire protection system",
+      "Efficient PCS and intelligent energy management system"
+    ],
+    "tables": [
+      [
+        [
+          "DC Specification"
+        ],
+        [
+          "Battery",
+          "LFP 3.2 V / 314 Ah",
+          "LFP 3.2 V / 280 Ah"
+        ],
+        [
+          "Rated Capacity",
+          "313 kWh",
+          "344 kWh"
+        ],
+        [
+          "Rated Voltage",
+          "998.4 V",
+          "1228.8 V"
+        ],
+        [
+          "Battery Voltage Range",
+          "842.4 V ~ 1123.2 V",
+          "1036.8 V～1382.4 V"
+        ],
+        [
+          "Cycling Span",
+          "8000 times（90%DOD，70%EOL）",
+          "≥6000 times（90%DOD，80%EOL）"
+        ],
+        [
+          "Structure Specification"
+        ],
+        [
+          "Fire Fighting System",
+          "Aerosol/Case Fire Suppression"
+        ],
+        [
+          "Cooling Method",
+          "Liquid Cooling"
+        ],
+        [
+          "Dimension",
+          "1300 mm * 1510 mm * 2400 mm",
+          "1600 mm * 1349 mm * 2412 mm"
+        ],
+        [
+          "Weight",
+          "≈3 t",
+          "3.5 t"
+        ],
+        [
+          "Protection Degree",
+          "IP 54"
+        ],
+        [
+          "Certificates",
+          "UL 9540A, IEC 62619，IEC 62477, UL 1973"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE NODE PREMIUM",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240612/WE NODE PREMIUM775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240612/WE NODE PREMIUM775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Industrial & Commercial Energy Storage System： Liquid Cooling 150kW / 313kWh、200kW / 344kWh"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/WE-CUBE.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/WE-CUBE.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/WE-CUBE.html",
+    "title": "WE CUBE - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:39.095960+00:00",
+    "sourceHTMLSha256": "7dc43319f50c955568d0e88af74ac3703d18f61a059d4dfcfd26ad2529091577",
+    "sourceBytes": 66632,
+    "paragraphs": [
+      "Air Cooling 500kW / 1000kWh",
+      "DC Specification",
+      "Structure Specification"
+    ],
+    "features": [
+      "Higher energy density system with advanced battery",
+      "Higher efficiency",
+      "Longer cycle life",
+      "Integrated with local controllers, HVAC and FSS to enable unified communication, ensure system safety, and maximize system efficiency",
+      "Highly integrated system with separate inverter and battery sections to allow flexible transportation and on-site installation"
+    ],
+    "tables": [
+      [
+        [
+          "DC Specification"
+        ],
+        [
+          "Battery",
+          "LEP 3.2 V / 280 Ah"
+        ],
+        [
+          "Rated Capacity",
+          "1075.2 kWh"
+        ],
+        [
+          "Rated Voltage",
+          "768 V"
+        ],
+        [
+          "Battery Voltage Range",
+          "648 V ～ 864 V"
+        ],
+        [
+          "Cycling Span",
+          "≥6000 times（90%DOD，80%EOL）"
+        ],
+        [
+          "Structure Specification"
+        ],
+        [
+          "Fire Fighting System",
+          "Thermal Aerosol"
+        ],
+        [
+          "Cooling Method",
+          "Air Cooling"
+        ],
+        [
+          "Dimension",
+          "6058 mm * 2438 mm * 2896 mm"
+        ],
+        [
+          "Weight",
+          "≈18 t"
+        ],
+        [
+          "Protection Degree",
+          "IP 54"
+        ],
+        [
+          "Certificates",
+          "UL 9540A, IEC 62619，IEC 62477, UL 1973"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE CUBE",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240617/WE CUBE 775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240617/WE CUBE 775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Air Cooling 500kW / 1000kWh"
+  },
+  "https://en.wasion.com/EnergyStorageSystem/WE-CUBE-PREMIUM.html": {
+    "url": "https://en.wasion.com/EnergyStorageSystem/WE-CUBE-PREMIUM.html",
+    "sourceURL": "https://en.wasion.com/EnergyStorageSystem/WE-CUBE-PREMIUM.html",
+    "title": "WE CUBE PREMIUM - Energy Storage System",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:39.724098+00:00",
+    "sourceHTMLSha256": "fc69eaecd4b2fbb92f2208b1c9e9fe352e3e045f0f46370c0a37f7811b0f8ab7",
+    "sourceBytes": 68709,
+    "paragraphs": [
+      "Liquid Cooling 1.375MW / 2.75MWh、2.5MW / 5MWh",
+      "DC Specification",
+      "LFP 3.2 V / 280 Ah",
+      "1102.4 V - 1479.6 V",
+      "Structure Specification",
+      "Optional Fire Protection at Cabin/Cluster/Package Level"
+    ],
+    "features": [
+      "Higher energy density system with advanced battery",
+      "Higher efficiency",
+      "Longer cycle life",
+      "Integrated with local controllers, HVAC and FSS to enable unified communication, ensure system safety, and maximize system efficiency",
+      "Highly integrated system with separate inverter and battery sections to allow flexible transportation and on-site installation"
+    ],
+    "tables": [
+      [
+        [
+          "DC Specification"
+        ],
+        [
+          "Battery",
+          "LFP 3.2 V / 280 Ah",
+          "LFP 3.2 V / 314 Ah"
+        ],
+        [
+          "Rated Capacity",
+          "2.75 MWh",
+          "5 MWh"
+        ],
+        [
+          "Rated Voltage",
+          "1331.2 V"
+        ],
+        [
+          "Battery Voltage Range",
+          "1102.4 V - 1479.6 V"
+        ],
+        [
+          "Cycling Span",
+          "≥6000 times（90%DOD，80%EOL）",
+          "8000 times（90%DOD，70%EOL）"
+        ],
+        [
+          "Structure Specification"
+        ],
+        [
+          "Fire Fighting System",
+          "Optional Fire Protection at Cabin/Cluster/Package Level"
+        ],
+        [
+          "Cooling Method",
+          "Liquid Cooling"
+        ],
+        [
+          "Dimension",
+          "6058 mm * 2600 mm * 2896 mm",
+          "6500 mm * 2600 mm * 2896 mm"
+        ],
+        [
+          "Weight",
+          "27 t",
+          "48 t"
+        ],
+        [
+          "Protection Degree",
+          "IP 54 / IP 55"
+        ],
+        [
+          "Certificates",
+          "UL 9540A，IEC 62619，IEC 62477，UL 1973"
+        ]
+      ]
+    ],
+    "headings": [
+      "WE CUBE PREMIUM",
+      "Key Features"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20240611/WECUBEPREMIUM775x735.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20240611/WECUBEPREMIUM775x735.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Liquid Cooling 1.375MW / 2.75MWh、2.5MW / 5MWh"
+  },
+  "https://en.wasion.com/BatterySwapCabinet/Intelligent-Charging-Cabinets.html": {
+    "url": "https://en.wasion.com/BatterySwapCabinet/Intelligent-Charging-Cabinets.html",
+    "sourceURL": "https://en.wasion.com/BatterySwapCabinet/Intelligent-Charging-Cabinets.html",
+    "title": "Intelligent Charging Cabinet - Battery Swap Cabinet",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:40.094109+00:00",
+    "sourceHTMLSha256": "23f2c0389f37aa0532ebe8abeacc7cb75b5fd427cd0608183fa905b60c34af9c",
+    "sourceBytes": 70710,
+    "paragraphs": [
+      "W Series / E Series / S Series",
+      "1.5mm galvanized sheet",
+      "CY0096 - 75 - 10A",
+      "2600 With protective net",
+      "DC 12V High-speed Silent Fan",
+      "Residual Current Pperated Circuit Breaker 1P+N 50mA",
+      "Electronic Lock (Standard)",
+      "H1760*W1070*D670"
+    ],
+    "features": [
+      "Quick battery-swap",
+      "Data monitoring",
+      "Efficient operation",
+      "Anti-Theft Tracking",
+      "Intelligent management",
+      "Safety protection",
+      "Performance guarantee",
+      "Professional customization"
+    ],
+    "tables": [
+      [
+        [
+          "Item",
+          "W Series",
+          "E Series",
+          "S Series"
+        ],
+        [
+          "Cabinet",
+          "1.5mm galvanized sheet 1800X1000X600mm",
+          "1.2mm galvanized sheet",
+          "1.0mm galvanized sheet"
+        ],
+        [
+          "Charging Power Module",
+          "DMZ -[48]7520CHII",
+          "-",
+          "-"
+        ],
+        [
+          "High-Frequency Switching Rectifier",
+          "DZY- 4850HI",
+          "-",
+          "-"
+        ],
+        [
+          "Battery Charger",
+          "CY0096 - 75 - 10A",
+          "CY0096 -75-10A",
+          "CY0096 - 75 - 10A"
+        ],
+        [
+          "Cabinet Control Power Module",
+          "DMZ -[48]1225CHI",
+          "12V-150W/LRS-150-12",
+          "12V-150W/LRS-150-12"
+        ],
+        [
+          "Channel Control Panel",
+          "TB0729 - CK- TT20",
+          "CK2101B",
+          "CK2101B"
+        ],
+        [
+          "Main Control Board",
+          "TB0729 - ZK- TT20",
+          "ZK1301A- 4G-BC",
+          "ZK1301A- 4G-BC"
+        ],
+        [
+          "Test board",
+          "TB0729-JC-TT20",
+          "JC1101B",
+          "JC1101B"
+        ],
+        [
+          "Power Subrack",
+          "DUZC-4850CHI",
+          "-",
+          "-"
+        ],
+        [
+          "Battery Presence Detection Function",
+          "√",
+          "-",
+          "-"
+        ],
+        [
+          "12.1 Inch Touchscreen",
+          "√"
+        ],
+        [
+          "DCComponent",
+          "Camera (Standard)",
+          "√",
+          "√"
+        ],
+        [
+          "AC220V High-speed Silent Fan",
+          "120*120*38mm",
+          "-",
+          "-"
+        ],
+        [
+          "2600 With protective net",
+          "-",
+          "-"
+        ],
+        [
+          "Speed 2600",
+          "-",
+          "-"
+        ],
+        [
+          "DC 12V High-speed Silent Fan",
+          "120*120*25mm"
+        ],
+        [
+          "2600 With protective net"
+        ],
+        [
+          "Speed 2600"
+        ],
+        [
+          "DC blower",
+          "DC 12V",
+          "DC 12V",
+          "-"
+        ],
+        [
+          "60*60*15mm",
+          "60*60*15mm",
+          "-"
+        ],
+        [
+          "Speed 2000",
+          "Speed 2000",
+          "-"
+        ],
+        [
+          "S-Type Aerosol Fire Extinguisher",
+          "√"
+        ],
+        [
+          "AC Rail Table",
+          "Single-phase energy meter"
+        ],
+        [
+          "DC12V Metal Indicator Light",
+          "√"
+        ],
+        [
+          "Channel Temperature Probe",
+          "Temperature Sensor Probe"
+        ],
+        [
+          "Cabinet Sensor Probe",
+          "Temperature Sensor Probe"
+        ],
+        [
+          "Male Disc Antenna",
+          "√"
+        ],
+        [
+          "Lightning Arrester (Standard)",
+          "√"
+        ],
+        [
+          "Smoke Sensor",
+          "Point-type photoelectric smoke detector"
+        ],
+        [
+          "12V Wired Immersion Detector",
+          "√"
+        ],
+        [
+          "Residual Current Pperated Circuit Breaker 1P+N 50mA",
+          "1P+N 50mA"
+        ],
+        [
+          "Electronic Lock (Standard)",
+          "√"
+        ],
+        [
+          "Packing Plate",
+          "H115*W1120*D610"
+        ],
+        [
+          "Packing Box",
+          "H1760*W1070*D670"
+        ]
+      ]
+    ],
+    "headings": [
+      "Intelligent Charging Cabinet",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20221019/741b5deeb3a134850909c8f38d5fb285.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20221019/741b5deeb3a134850909c8f38d5fb285.png",
+    "downloads": [],
+    "downloadNotice": null,
+    "summary": "W Series / E Series / S Series"
+  },
+  "https://en.wasion.com/InverterUI8/WPVI-TPH-Smart-Inverter-Solution.html": {
+    "url": "https://en.wasion.com/InverterUI8/WPVI-TPH-Smart-Inverter-Solution.html",
+    "sourceURL": "https://en.wasion.com/InverterUI8/WPVI-TPH-Smart-Inverter-Solution.html",
+    "title": "WPVI TPH 6000~12000 BH-US - Inverter",
+    "sourceFetchStatus": 200,
+    "capturedAt": "2026-10-15T09:41:40.286035+00:00",
+    "sourceHTMLSha256": "12d714091e3bfedc202229a2b9ea75d171f3b51a48d0530ae29bd0e40ffe26b3",
+    "sourceBytes": 67784,
+    "paragraphs": [
+      "Smart Inverter Solution",
+      "16A/16A or 25A/25A"
+    ],
+    "features": [
+      "NEMA 4X & Natural Convection",
+      "16A PV input current to support ultra-high power PV modules",
+      "Fast battery charging with up to 50A battery charging current",
+      "Peak power capability of 1.5 times rated power to better handle motor-type loads",
+      "Seamless transition to battery power when the grid is down",
+      "Support multiple communication: Wi-Fi/Ethernet/4G/5G(Optional)"
+    ],
+    "tables": [
+      [
+        [
+          "Model Name",
+          "TPH6000 BH-US",
+          "TPH8000 BH-US",
+          "TPH10000H-US",
+          "TPH12000BH-US"
+        ],
+        [
+          "PV String Input Data"
+        ],
+        [
+          "Max. PV Array Power @STC",
+          "9000W",
+          "12000W",
+          "15000W",
+          "18000W"
+        ],
+        [
+          "Max. DC Voltage",
+          "1100V"
+        ],
+        [
+          "MPPT Voltage Range",
+          "180-1000V"
+        ],
+        [
+          "Nominal DC Voltage",
+          "600V"
+        ],
+        [
+          "Start Voltage",
+          "125V"
+        ],
+        [
+          "Min. DC Voltage",
+          "80V"
+        ],
+        [
+          "Max. DC Input Current",
+          "13A/13A or 16A/16A"
+        ],
+        [
+          "Max. DC Short Current",
+          "16A/16A or 25A/25A"
+        ],
+        [
+          "Number of MPPT",
+          "2"
+        ],
+        [
+          "PV Strings per MPPT",
+          "1/1"
+        ],
+        [
+          "PV Switch",
+          "Integrated"
+        ],
+        [
+          "Battery Input Data"
+        ],
+        [
+          "Battery Type",
+          "Lithium/Lead-acid"
+        ],
+        [
+          "Battery Voltage Range",
+          "125-600V"
+        ],
+        [
+          "Max. Charging/Discharging Current",
+          "40A"
+        ],
+        [
+          "AC Output Data (On-grid)"
+        ],
+        [
+          "AC Nominal Power",
+          "6000W",
+          "8000W",
+          "10000W",
+          "12000W"
+        ],
+        [
+          "Max. Apparent Power",
+          "6600VA",
+          "8800VA",
+          "11000VA",
+          "13200VA"
+        ],
+        [
+          "Rated AC Current",
+          "8.7A",
+          "11.5 A",
+          "14.4 A",
+          "17.3A"
+        ],
+        [
+          "Nominal AC Voltage/ Range",
+          "380/400V,3W+N+PE"
+        ],
+        [
+          "Grid Frequency/ Range [Hz]",
+          "50/60"
+        ],
+        [
+          "Power Factor [cos φ]",
+          "0.8 leading~0.8 lagging"
+        ],
+        [
+          "Total Harmonic Distortion [THDi]",
+          "< 3% (at nominal power)"
+        ],
+        [
+          "Efficiency"
+        ],
+        [
+          "Max. Efficiency",
+          "97.9% / 98.2%"
+        ],
+        [
+          "CEC Efficiency",
+          "97.2% / 97.5%"
+        ],
+        [
+          "Protection"
+        ],
+        [
+          "AC Short-circuit Protection",
+          "Integrated"
+        ],
+        [
+          "Overload Protection",
+          "Integrated"
+        ],
+        [
+          "General Data"
+        ],
+        [
+          "Consumption at Standby",
+          "<1W"
+        ],
+        [
+          "Cooling Method",
+          "Natural Convection"
+        ],
+        [
+          "Ambient Humidity",
+          "0%～95% Non-condensing"
+        ],
+        [
+          "ngress Protection",
+          "NEMA 4X (IP65)"
+        ],
+        [
+          "Standard Warranty",
+          "5 Years"
+        ]
+      ]
+    ],
+    "headings": [
+      "WPVI TPH 6000~12000 BH-US",
+      "Key Features",
+      "Technical Parameters"
+    ],
+    "images": [
+      "https://en.wasion.com/public/uploads/images/20230614/WPVI TPH no bg.png"
+    ],
+    "image": "https://en.wasion.com/public/uploads/images/20230614/WPVI TPH no bg.png",
+    "downloads": [],
+    "downloadNotice": "The download file will be available soon!",
+    "summary": "Smart Inverter Solution"
+  }
+}

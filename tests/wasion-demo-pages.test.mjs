@@ -24,13 +24,13 @@ test('64 distinct official English pages render complete navigation with the req
   for (const page of WASION_PAGES) {
     assert.match(page.slug, /^[a-z0-9-]+$/);
     assert.equal(new URL(page.url).origin, 'https://en.wasion.com');
-    const html = wasionDemoPage('fixture-nonce', { slug: page.slug });
+    const html = wasionDemoPage('fixture-nonce', { slug: page.slug, style: 'industrial' });
     assert.ok(html, page.slug);
     assert.match(html, /^<!doctype html><html lang="en">/, page.slug);
     assert.equal((markup(html).match(/<h1\b/g) || []).length, 1, page.slug);
     assert.ok(markup(html).includes(`src="${logo}"`), page.slug);
     assert.match(html, /aria-label="Main navigation"/, page.slug);
-    assert.ok(html.includes('href="/demo/wasion/search"'), `Missing AI search entry on ${page.slug}`);
+    assert.ok(html.includes('href="/demo/wasion/styles/industrial/search"'), `Missing AI search entry on ${page.slug}`);
     assert.match(html, /<a class="wd-skip" href="#main">Skip to content<\/a>/, page.slug);
     for (const [, href] of markup(html).matchAll(/href="(\/demo\/wasion[^"?#]*)/g)) {
       assert.ok(validRoutes.has(href), `${page.slug} links to unknown route ${href}`);
@@ -40,7 +40,7 @@ test('64 distinct official English pages render complete navigation with the req
 
 test('every reproduced page exposes its own official source link', () => {
   for (const page of WASION_PAGES) {
-    const html = markup(wasionDemoPage('fixture-nonce', { slug: page.slug }));
+    const html = markup(wasionDemoPage('fixture-nonce', { slug: page.slug, style: 'industrial' }));
     assert.ok(html.includes(`href="${encode(encodeURI(page.url))}"`), `Missing source link on ${page.slug}`);
   }
 });
@@ -49,7 +49,7 @@ test('product and solution details preserve their published features and technic
   const details = WASION_PAGES.filter(page => page.pageType === 'detail' && ['Products', 'Solutions'].includes(page.category));
   assert.ok(details.length > 20);
   for (const page of details) {
-    const html = markup(wasionDemoPage('fixture-nonce', { slug: page.slug }));
+    const html = markup(wasionDemoPage('fixture-nonce', { slug: page.slug, style: 'industrial' }));
     for (const feature of page.features || []) assert.ok(html.includes(encode(feature)), `${page.slug}: ${feature}`);
     if (page.features?.length) assert.match(html, /id="features"/, page.slug);
     if (page.tables?.length) {
@@ -63,13 +63,13 @@ test('product and solution details preserve their published features and technic
 });
 
 test('software category reaches its reproduced products and resources retain all official download links', () => {
-  const software = markup(wasionDemoPage('fixture-nonce', { slug: 'system-software' }));
+  const software = markup(wasionDemoPage('fixture-nonce', { slug: 'system-software', style: 'industrial' }));
   const softwarePages = WASION_PAGES.filter(page => new URL(page.url).pathname.startsWith('/RelevantProduct/'));
   assert.ok(softwarePages.length >= 8);
-  for (const page of softwarePages) assert.ok(software.includes(`href="${route(page)}"`), page.slug);
+  for (const page of softwarePages) assert.ok(software.includes(`href="${wasionStyleBase('industrial')}/${page.slug}"`), page.slug);
   const resources = WASION_PAGES.find(page => page.slug === 'resources');
   assert.ok(resources.downloads.length >= 6);
-  const html = markup(wasionDemoPage('fixture-nonce', { slug: 'resources' }));
+  const html = markup(wasionDemoPage('fixture-nonce', { slug: 'resources', style: 'industrial' }));
   for (const document of resources.downloads) {
     assert.equal(new URL(document.url).origin, 'https://en.wasion.com');
     assert.ok(html.includes(`href="${encode(encodeURI(document.url))}"`), document.title);
@@ -86,7 +86,7 @@ test('search queries are escaped in HTML attributes and cannot terminate the non
     assert.ok(markup(html).includes(`value="${encode(query.trim())}"`));
     const script = html.match(/<script nonce="fixture-nonce">([\s\S]*)<\/script>/)[1];
     assert.doesNotThrow(() => new Script(script));
-    assert.ok(script.includes(`const SEARCH_QUERY=${JSON.stringify(query).replace(/</g, '\\u003c')};`));
+    assert.ok(script.includes(`const SEARCH_QUERY=${JSON.stringify(query).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029')};`));
     assert.match(script, /question:next,language:'auto'/);
   }
   assert.match(wasionDemoPage('fixture-nonce', { slug: 'search' }), /The right information. A clearer next step\./);
@@ -143,7 +143,7 @@ test('page API enforces live CRM authentication, route bounds, private caching, 
         const nonce = res.body.match(/<script nonce="([^"]+)">/)[1];
         assert.ok(res.headers['Content-Security-Policy'].includes(`script-src 'nonce-${nonce}'`));
         assert.ok(res.headers['Content-Security-Policy'].includes(`style-src 'nonce-${nonce}'`));
-        assert.ok(res.headers['Content-Security-Policy'].includes('img-src https://en.wasion.com;'));
+        assert.ok(res.headers['Content-Security-Policy'].includes("img-src 'self' https://en.wasion.com;"));
         assert.ok(res.headers['Content-Security-Policy'].includes("frame-ancestors 'none'"));
         assert.equal(res.headers['X-Frame-Options'], 'DENY');
       }
