@@ -107,7 +107,7 @@ export const INDUSTRIAL_SEARCH_CSS = `
 .wd-style-industrial #ws-search :focus-visible{outline:2px solid var(--red);outline-offset:4px}
 .wd-style-industrial .ws-contact :focus-visible{outline-color:#fff}
 .wd-style-industrial .ws-cite-panel{color:var(--ink);background:#fff;border:1px solid #827e76;border-radius:1.5rem;padding:1.5rem;box-shadow:0 12px 32px #2424261f;font:400 1rem/1.6 var(--wi-display)}
-.wd-style-industrial .ws-cite-panel h3{font-size:1.4rem;font-weight:300;line-height:1.3;letter-spacing:-.025em;margin-right:2.25rem}
+.wd-style-industrial .ws-cite-panel h3{font-size:1.4rem;font-weight:300;line-height:1.3;letter-spacing:-.025em;margin-right:2.25rem;overflow-wrap:anywhere}
 .wd-style-industrial .ws-cite-panel a{color:var(--red);min-height:2.75rem;display:flex;align-items:center;font-size:.9375rem;padding:.75rem 0}
 .wd-style-industrial .ws-cite-panel .ws-cite-close{border-radius:.75rem;color:var(--ink);top:.65rem;right:.65rem}
 .wd-style-industrial .ws-cite-panel :focus-visible{outline:2px solid var(--red);outline-offset:3px}
