@@ -48,7 +48,9 @@ export function createCrmSms(env, { client: injectedClient } = {}) {
   }
   const client = injectedClient || new Client(new OpenApi.Config({
     accessKeyId: env.ALIYUN_ACCESS_KEY_ID, accessKeySecret: env.ALIYUN_ACCESS_KEY_SECRET,
-    endpoint: 'dypnsapi.aliyuncs.com', connectTimeout: 5000, readTimeout: 10000
+    // httpx keeps Node's connectTimeout as a socket inactivity timeout after
+    // connection. A shorter value would truncate the response window, too.
+    endpoint: 'dypnsapi.aliyuncs.com', connectTimeout: 10000, readTimeout: 10000
   }));
   const base = (phone, id) => ({ countryCode: '86', phoneNumber: phone, schemeName: CRM_SMS_SCHEME, outId: `crm-${id}` });
   return {
