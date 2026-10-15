@@ -664,6 +664,18 @@
       "regions": [
         "hkg1"
       ]
+    },
+    "api/sms-transport-probe-sin.js": {
+      "maxDuration": 15,
+      "regions": [
+        "sin1"
+      ]
+    },
+    "api/sms-transport-probe-iad.js": {
+      "maxDuration": 15,
+      "regions": [
+        "iad1"
+      ]
     }
   }
 }
