@@ -15,6 +15,7 @@ import { renderEditorialHome, PLANHAT_CSS, ORDERFUL_CSS, OVERSEAS_CSS, OVERSEAS_
 import { renderIndustrialHome, INDUSTRIAL_CSS, INDUSTRIAL_CLIENT } from './wasion-demo-industrial.mjs';
 import { decorateIndustrialSearch, INDUSTRIAL_SEARCH_CSS } from './wasion-industrial-search.mjs';
 import { renderIndustrialProduct, INDUSTRIAL_PRODUCT_CSS } from './wasion-industrial-product.mjs';
+import { INDUSTRIAL_CATALOG_ROUTES, renderIndustrialCatalog, INDUSTRIAL_CATALOG_CSS } from './wasion-industrial-catalog.mjs';
 const STYLE_CSS = Object.freeze({classic:'',atmospheric:ATMOSPHERIC_CSS,planhat:PLANHAT_CSS,orderful:ORDERFUL_CSS+OVERSEAS_CSS,industrial:INDUSTRIAL_CSS});
 export const WASION_DEMO_ROUTES = [...WASION_PAGES.map(p => p.slug), ...EXPERIENCE_ROUTES.map(p => p.slug), ...LEGAL_ROUTES.map(p => p.slug), 'search', 'styles'];
 export const isWasionDemoSlug = slug => WASION_DEMO_ROUTES.includes(slug);
@@ -127,6 +128,8 @@ function renderPage() {
   const heading = slug === 'styles' ? 'Design previews' : slug === 'search' ? 'AI search' : slug === 'home' ? 'Electricity metering & connected utilities' : title(page);
   let body = slug === 'styles' ? styleGallery() : slug === 'home' ? (style === 'industrial' ? renderIndustrialHome(context) : renderEditorialHome(style,context) || renderHome(context)) : slug === 'search' ? renderSearch(query,base) : slug === 'contact' ? renderContact(context) : renderLegalPage(slug,base) || renderExperiencePage(slug,context);
   if (slug === 'search' && style === 'industrial') body = decorateIndustrialSearch(body,context);
+  const industrialCatalog = style === 'industrial' && INDUSTRIAL_CATALOG_ROUTES.includes(slug);
+  if (industrialCatalog) body = renderIndustrialCatalog(slug,context);
   const industrialProduct = style === 'industrial' && page?.category === 'Products' && page?.pageType === 'detail';
   if (industrialProduct) body = renderIndustrialProduct(page,{...context,generatedAt:content.generatedAt});
   if (!body && page.category === 'Solutions' && page.pageType === 'detail') body = renderSolutionExperience(page,context);
@@ -139,8 +142,9 @@ function renderPage() {
   const styleClient = style === 'industrial' ? INDUSTRIAL_CLIENT : '';
   const searchStyle = slug === 'search' && style === 'industrial' ? INDUSTRIAL_SEARCH_CSS : '';
   const productStyle = industrialProduct ? INDUSTRIAL_PRODUCT_CSS : '';
+  const catalogStyle = industrialCatalog ? INDUSTRIAL_CATALOG_CSS : '';
   const pageUrl=slug==='home'?base:base+'/'+slug;const loginUrl=crmLoginUrl(pageUrl);
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${metadata}<style nonce="${escape(nonce)}">${CSS}${SHELL_CSS}${CONTENT_CSS}${SEARCH_CSS}${DISCOVERY_CSS}${CONTACT_CSS}${SESSION_CSS}${STYLE_CSS[style]}${searchStyle}${productStyle}${STYLE_SWITCH_CSS}</style></head><body${style !== 'classic' ? ` class="wd-style-${style} ${slug === 'home' ? 'wd-is-home' : ''}"` : ''}>${renderSessionNotice({loginUrl})}<div id="wd-protected">${styleSwitch()}${renderHeader(slug,context)}${!['industrial','orderful'].includes(style) && !['home','search','styles'].includes(slug) ? `<div class="wd-mini-search wd-container">${searchForm()}</div>` : ''}<main id="main">${body}</main>${renderFooter(context)}${renderCookiePreferences(base,{showTrigger:false})}</div><script nonce="${escape(nonce)}">const WASION_BASE=${JSON.stringify(base)};const CRM_LOGIN_URL=${JSON.stringify(loginUrl).replace(/</g,'\\u003c')};const CRM_PAGE_URL=${JSON.stringify(pageUrl).replace(/</g,'\\u003c')};const WASION_DATA=${JSON.stringify(data).replace(/</g,'\\u003c')};const SEARCH_QUERY=${JSON.stringify(query).replace(/</g,'\\u003c')};(()=>{${client}})();${SESSION_CLIENT}${SHELL_CLIENT}${CONTENT_CLIENT}${DISCOVERY_CLIENT}${CONTACT_CLIENT}${STYLE_SWITCH_CLIENT}${OVERSEAS_CLIENT}${styleClient}</script></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${metadata}<style nonce="${escape(nonce)}">${CSS}${SHELL_CSS}${CONTENT_CSS}${SEARCH_CSS}${DISCOVERY_CSS}${CONTACT_CSS}${SESSION_CSS}${STYLE_CSS[style]}${searchStyle}${productStyle}${catalogStyle}${STYLE_SWITCH_CSS}</style></head><body${style !== 'classic' ? ` class="wd-style-${style} ${slug === 'home' ? 'wd-is-home' : ''}"` : ''}>${renderSessionNotice({loginUrl})}<div id="wd-protected">${styleSwitch()}${renderHeader(slug,context)}${!['industrial','orderful'].includes(style) && !['home','search','styles'].includes(slug) ? `<div class="wd-mini-search wd-container">${searchForm()}</div>` : ''}<main id="main">${body}</main>${renderFooter(context)}${renderCookiePreferences(base,{showTrigger:false})}</div><script nonce="${escape(nonce)}">const WASION_BASE=${JSON.stringify(base)};const CRM_LOGIN_URL=${JSON.stringify(loginUrl).replace(/</g,'\\u003c')};const CRM_PAGE_URL=${JSON.stringify(pageUrl).replace(/</g,'\\u003c')};const WASION_DATA=${JSON.stringify(data).replace(/</g,'\\u003c')};const SEARCH_QUERY=${JSON.stringify(query).replace(/</g,'\\u003c')};(()=>{${client}})();${SESSION_CLIENT}${SHELL_CLIENT}${CONTENT_CLIENT}${DISCOVERY_CLIENT}${CONTACT_CLIENT}${STYLE_SWITCH_CLIENT}${OVERSEAS_CLIENT}${styleClient}</script></body></html>`;
 }
 
 return renderPage();
