@@ -13,6 +13,7 @@ import { WASION_STYLES, WASION_DEFAULT_STYLE, wasionStyleBase } from './wasion-d
 import { ATMOSPHERIC_CSS } from './wasion-demo-atmospheric.mjs';
 import { renderEditorialHome, PLANHAT_CSS, ORDERFUL_CSS, OVERSEAS_CSS, OVERSEAS_CLIENT } from './wasion-demo-editorial.mjs';
 import { renderIndustrialHome, INDUSTRIAL_CSS, INDUSTRIAL_CLIENT } from './wasion-demo-industrial.mjs';
+import { decorateIndustrialSearch, INDUSTRIAL_SEARCH_CSS } from './wasion-industrial-search.mjs';
 const STYLE_CSS = Object.freeze({classic:'',atmospheric:ATMOSPHERIC_CSS,planhat:PLANHAT_CSS,orderful:ORDERFUL_CSS+OVERSEAS_CSS,industrial:INDUSTRIAL_CSS});
 export const WASION_DEMO_ROUTES = [...WASION_PAGES.map(p => p.slug), ...EXPERIENCE_ROUTES.map(p => p.slug), ...LEGAL_ROUTES.map(p => p.slug), 'search', 'styles'];
 export const isWasionDemoSlug = slug => WASION_DEMO_ROUTES.includes(slug);
@@ -124,6 +125,7 @@ function renderPage() {
   if (!page && !['search', 'styles'].includes(slug)) return null;
   const heading = slug === 'styles' ? 'Design previews' : slug === 'search' ? 'AI search' : slug === 'home' ? 'Electricity metering & connected utilities' : title(page);
   let body = slug === 'styles' ? styleGallery() : slug === 'home' ? (style === 'industrial' ? renderIndustrialHome(context) : renderEditorialHome(style,context) || renderHome(context)) : slug === 'search' ? renderSearch(query,base) : slug === 'contact' ? renderContact(context) : renderLegalPage(slug,base) || renderExperiencePage(slug,context);
+  if (slug === 'search' && style === 'industrial') body = decorateIndustrialSearch(body,context);
   if (!body && page.category === 'Solutions' && page.pageType === 'detail') body = renderSolutionExperience(page,context);
   if (!body) body = slug === 'policy' ? company(page) : page.pageType === 'detail' ? detail(page) : ['products','solutions','success-stories','newsroom','resources',...Object.keys(groupDescriptions)].includes(slug) ? collection(page) : company(page);
   if (page?.category === 'Products' && page?.pageType === 'detail') body += renderRelatedExperience(page,context);
@@ -132,8 +134,9 @@ function renderPage() {
   const metadata = buildDemoMetadata({slug,title:heading,description,page,nonce,base});
   const client = slug === 'search' ? SEARCH_CLIENT : CLIENT;
   const styleClient = style === 'industrial' ? INDUSTRIAL_CLIENT : '';
+  const searchStyle = slug === 'search' && style === 'industrial' ? INDUSTRIAL_SEARCH_CSS : '';
   const pageUrl=slug==='home'?base:base+'/'+slug;const loginUrl=crmLoginUrl(pageUrl);
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${metadata}<style nonce="${escape(nonce)}">${CSS}${SHELL_CSS}${CONTENT_CSS}${SEARCH_CSS}${DISCOVERY_CSS}${CONTACT_CSS}${SESSION_CSS}${STYLE_CSS[style]}${STYLE_SWITCH_CSS}</style></head><body${style !== 'classic' ? ` class="wd-style-${style} ${slug === 'home' ? 'wd-is-home' : ''}"` : ''}>${renderSessionNotice({loginUrl})}<div id="wd-protected">${styleSwitch()}${renderHeader(slug,context)}${!['industrial','orderful'].includes(style) && !['home','search','styles'].includes(slug) ? `<div class="wd-mini-search wd-container">${searchForm()}</div>` : ''}<main id="main">${body}</main>${renderFooter(context)}${renderCookiePreferences(base,{showTrigger:false})}</div><script nonce="${escape(nonce)}">const WASION_BASE=${JSON.stringify(base)};const CRM_LOGIN_URL=${JSON.stringify(loginUrl).replace(/</g,'\\u003c')};const CRM_PAGE_URL=${JSON.stringify(pageUrl).replace(/</g,'\\u003c')};const WASION_DATA=${JSON.stringify(data).replace(/</g,'\\u003c')};const SEARCH_QUERY=${JSON.stringify(query).replace(/</g,'\\u003c')};(()=>{${client}})();${SESSION_CLIENT}${SHELL_CLIENT}${CONTENT_CLIENT}${DISCOVERY_CLIENT}${CONTACT_CLIENT}${STYLE_SWITCH_CLIENT}${OVERSEAS_CLIENT}${styleClient}</script></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${metadata}<style nonce="${escape(nonce)}">${CSS}${SHELL_CSS}${CONTENT_CSS}${SEARCH_CSS}${DISCOVERY_CSS}${CONTACT_CSS}${SESSION_CSS}${STYLE_CSS[style]}${searchStyle}${STYLE_SWITCH_CSS}</style></head><body${style !== 'classic' ? ` class="wd-style-${style} ${slug === 'home' ? 'wd-is-home' : ''}"` : ''}>${renderSessionNotice({loginUrl})}<div id="wd-protected">${styleSwitch()}${renderHeader(slug,context)}${!['industrial','orderful'].includes(style) && !['home','search','styles'].includes(slug) ? `<div class="wd-mini-search wd-container">${searchForm()}</div>` : ''}<main id="main">${body}</main>${renderFooter(context)}${renderCookiePreferences(base,{showTrigger:false})}</div><script nonce="${escape(nonce)}">const WASION_BASE=${JSON.stringify(base)};const CRM_LOGIN_URL=${JSON.stringify(loginUrl).replace(/</g,'\\u003c')};const CRM_PAGE_URL=${JSON.stringify(pageUrl).replace(/</g,'\\u003c')};const WASION_DATA=${JSON.stringify(data).replace(/</g,'\\u003c')};const SEARCH_QUERY=${JSON.stringify(query).replace(/</g,'\\u003c')};(()=>{${client}})();${SESSION_CLIENT}${SHELL_CLIENT}${CONTENT_CLIENT}${DISCOVERY_CLIENT}${CONTACT_CLIENT}${STYLE_SWITCH_CLIENT}${OVERSEAS_CLIENT}${styleClient}</script></body></html>`;
 }
 
 return renderPage();
