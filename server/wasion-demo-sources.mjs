@@ -1,6 +1,7 @@
 import corpus from './wasion-demo-content.json' with { type: 'json' };
 import { PRODUCTS } from './wasion-requirements/data.mjs';
 import { DTECH } from './wasion-experience/content-data.mjs';
+import { wasionModelTokens } from './wasion-experience/models.mjs';
 
 // Public pages captured from the official English site. Stable page slugs are
 // also the only citation identifiers the AI may use.
@@ -57,11 +58,14 @@ const concepts = [
   { terms: ['energy pro', 'meter to cash', '营收'], keys: ['energy pro', 'meter to cash'], boost: 55 }
 ];
 
+const modelPrefixes = new Set(WASION_SOURCES.flatMap(source => wasionModelTokens(source.searchText)).map(model => model.match(/^[a-z]+/)[0]));
+const sourceModels = new Map(WASION_SOURCES.map(source => [source.id, wasionModelTokens(source.searchText, modelPrefixes)]));
+
 function queryDetails(question) {
   const normalized = normalize(question);
   const active = concepts.filter(concept => concept.terms.some(term => (` ${normalized} `).includes(` ${normalize(term)} `) || normalized.includes(term) && /\p{Script=Han}/u.test(term)));
   const tokens = unique(normalized.split(' ').filter(term => term.length > 1 && !stopWords.has(term)));
-  const models = unique((question.toLowerCase().match(/\b[a-z]{1,12}[ -]?\d{2,6}[a-z\d-]*\b/g) || []).map(compact));
+  const models = wasionModelTokens(question, modelPrefixes);
   return { normalized, active, tokens, models };
 }
 
@@ -69,14 +73,13 @@ const containsTerm = (text, term) => (` ${text} `).includes(` ${term} `) || /\p{
 
 function scoreSource(source, query, frequencies) {
   const title = normalize(`${source.title} ${source.descriptor}`), body = normalize(source.searchText);
-  const titleCompact = compact(source.title), bodyCompact = compact(source.searchText);
+  const titleModels = wasionModelTokens(source.title, modelPrefixes), pageModels = sourceModels.get(source.id);
   // A requested model or standard must actually occur in the captured page.
-  if (query.models.length && !query.models.some(model => bodyCompact.includes(model))) return 0;
+  if (query.models.length && !query.models.some(model => pageModels.includes(model))) return 0;
   let score = 0;
   for (const model of query.models) {
-    if (titleCompact === model) score += 260;
-    else if (titleCompact.includes(model)) score += 190;
-    else if (bodyCompact.includes(model)) score += 60;
+    if (titleModels.includes(model)) score += 260;
+    else if (pageModels.includes(model)) score += 60;
   }
   if (query.models.length) score += query.tokens.filter(token => !query.models.includes(compact(token)) && containsTerm(normalize(source.title), token)).length * 90;
   for (const token of query.tokens) {
@@ -125,7 +128,7 @@ function relevantExcerpt(source, query) {
 // Deterministic retrieval remains usable even when the AI gateway is offline.
 export function retrieveWasionSources(question, { limit = 12 } = {}) {
   const query = queryDetails(question);
-  if (query.models.some(model => !WASION_SOURCES.some(source => compact(source.searchText).includes(model)))) return { resultCount: 0, results: [] };
+  if (query.models.some(model => !WASION_SOURCES.some(source => sourceModels.get(source.id).includes(model)))) return { resultCount: 0, results: [] };
   const frequencies = new Map(query.tokens.map(token => [token, WASION_SOURCES.filter(source => containsTerm(normalize(source.searchText), token)).length]));
   const matches = WASION_SOURCES.map(source => ({ source, score: scoreSource(source, query, frequencies) }))
     .filter(match => match.score >= 6).sort((a, b) => b.score - a.score || a.source.id.localeCompare(b.source.id));

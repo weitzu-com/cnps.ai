@@ -1,0 +1,797 @@
+{
+  "baselineCommit": "c29e903dd94274092be1c75ee67ad537dc6f8ab5",
+  "sourceAudit": {
+    "observedAt": "2026-10-14T23:47:12.853657+00:00",
+    "results": [
+      {
+        "slug": "home",
+        "url": "https://en.wasion.com/",
+        "status": 200,
+        "final_url": "https://en.wasion.com/",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "about",
+        "url": "https://en.wasion.com/about.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/about.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "products",
+        "url": "https://en.wasion.com/products.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/products.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "solutions",
+        "url": "https://en.wasion.com/solutions.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/solutions.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "success-stories",
+        "url": "https://en.wasion.com/SuccessStories.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/SuccessStories.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "resources",
+        "url": "https://en.wasion.com/resources.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/resources.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "careers",
+        "url": "https://en.wasion.com/careers.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/careers.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "newsroom",
+        "url": "https://en.wasion.com/news.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/news.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "contact",
+        "url": "https://en.wasion.com/contact.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/contact.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "electricity-meters",
+        "url": "https://en.wasion.com/ElectricityMeters.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/ElectricityMeters.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "telecommunications",
+        "url": "https://en.wasion.com/Telecommunications.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/Telecommunications.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "system-software",
+        "url": "https://en.wasion.com/SystemSoftware.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/SystemSoftware.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "water-gas-meters",
+        "url": "https://en.wasion.com/WaterGasMeters.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/WaterGasMeters.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "renewable-energy",
+        "url": "https://en.wasion.com/RenewableEnergy.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RenewableEnergy.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "intelligent-power-distribution",
+        "url": "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "wisun-solutions",
+        "url": "https://en.wasion.com/soluPage/WiSUN-Solutions.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/WiSUN-Solutions.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "cluster-metering-solutions",
+        "url": "https://en.wasion.com/soluPage/3.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/3.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "cellular-based-ami-solutions",
+        "url": "https://en.wasion.com/soluPage/1.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/1.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "walk-drive-by-solutions",
+        "url": "https://en.wasion.com/soluPage/4.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/4.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "energy-loss-reduction-solutions",
+        "url": "https://en.wasion.com/soluPage/5.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/5.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "prepayment-solutions",
+        "url": "https://en.wasion.com/soluPage/7.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/7.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "tms-transformer-monitoring-system",
+        "url": "https://en.wasion.com/soluPage/6.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/6.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "energy-pro",
+        "url": "https://en.wasion.com/soluPage/Energy-Pro.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/Energy-Pro.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "wasion-g3-plc-rf-hybrid-solutions",
+        "url": "https://en.wasion.com/soluPage/Wasion-G3-PLC-RF-Hybrid-Solutions.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/soluPage/Wasion-G3-PLC-RF-Hybrid-Solutions.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "agricultural-pv-and-energy-storage-complementary-project",
+        "url": "https://en.wasion.com/caseStor/Agricultural-PV-and-Energy-Storage-Complementary-Project.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/caseStor/Agricultural-PV-and-Energy-Storage-Complementary-Project.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "metering-solutions-for-cfe-in-mexico",
+        "url": "https://en.wasion.com/caseStor/Metering-Solutions-for-CFE-in-Mexico.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/caseStor/Metering-Solutions-for-CFE-in-Mexico.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "breb-epc-for-ami-project",
+        "url": "https://en.wasion.com/caseStor/BREB-EPC-for-AMI-Project.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/caseStor/BREB-EPC-for-AMI-Project.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "cie-ami-project-in-cote-divoire",
+        "url": "https://en.wasion.com/caseStor/CIE-AMI-Project-in-Cote-dIvoire.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/caseStor/CIE-AMI-Project-in-Cote-dIvoire.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "the-intelligent-microgrid-energy-station-project",
+        "url": "https://en.wasion.com/caseStor/The-Intelligent-Microgrid-Energy-Station-Project.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/caseStor/The-Intelligent-Microgrid-Energy-Station-Project.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "metering-solutions-for-tanesco",
+        "url": "https://en.wasion.com/caseStor/Metering-Solutions-for-TANESCO.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/caseStor/Metering-Solutions-for-TANESCO.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "cet-ami-project-for-sec",
+        "url": "https://en.wasion.com/caseStor/CET-AMI-Project-for-SEC.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/caseStor/CET-AMI-Project-for-SEC.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter300-ctvt-three-phase-smart-energy-meter",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-CTVT-Three-Phase-Smart-Energy-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-CTVT-Three-Phase-Smart-Energy-Meter.html",
+        "title_found": true,
+        "technical_cells": 25,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "wasion-metering-cabinet-large-power-unit",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/Wasion-Metering-Cabinet-Large-Power-Unit.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/Wasion-Metering-Cabinet-Large-Power-Unit.html",
+        "title_found": true,
+        "technical_cells": 48,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter100-single-phase-smart-energy-meter",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-Single-Phase-Smart-Energy-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-Single-Phase-Smart-Energy-Meter.html",
+        "title_found": true,
+        "technical_cells": 28,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter300-three-phase-smart-energy-meter",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-Three-Phase-Smart-Energy-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-Three-Phase-Smart-Energy-Meter.html",
+        "title_found": true,
+        "technical_cells": 30,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter151-single-phase-smart-energy-meter",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter151-Single-Phase-Smart-Energy-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/aMeter151-Single-Phase-Smart-Energy-Meter.html",
+        "title_found": true,
+        "technical_cells": 32,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter351-three-phase-smart-energy-meter",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter351-Three-Phase-Smart-Energy-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/aMeter351-Three-Phase-Smart-Energy-Meter.html",
+        "title_found": true,
+        "technical_cells": 32,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter300-gt-poly-phase-smart-meter",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-Poly-Phase-Smart-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-Poly-Phase-Smart-Meter.html",
+        "title_found": true,
+        "technical_cells": 21,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter100-gt-single-phase-smart-meter",
+        "url": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GT-Single-Phase-Smart-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GT-Single-Phase-Smart-Meter.html",
+        "title_found": true,
+        "technical_cells": 21,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter100-kt-single-phase-smart-meter",
+        "url": "https://en.wasion.com/IEC-Prepaid-Meters/aMeter100-KT-Single-Phase-Smart-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Prepaid-Meters/aMeter100-KT-Single-Phase-Smart-Meter.html",
+        "title_found": true,
+        "technical_cells": 21,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ameter300-kt-poly-phase-smart-meter",
+        "url": "https://en.wasion.com/IEC-Prepaid-Meters/aMeter300-KT-Poly-Phase-Smart-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Prepaid-Meters/aMeter300-KT-Poly-Phase-Smart-Meter.html",
+        "title_found": true,
+        "technical_cells": 21,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "ddsd101-kt-single-phase-keypad-meter",
+        "url": "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-KT-Single-Phase-Keypad-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-KT-Single-Phase-Keypad-Meter.html",
+        "title_found": true,
+        "technical_cells": 22,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "libra-3c-multi-function-energy-meter",
+        "url": "https://en.wasion.com/ANSI-Meters/Libra-3C-Multi-function-Energy-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/ANSI-Meters/Libra-3C-Multi-function-Energy-Meter.html",
+        "title_found": true,
+        "technical_cells": 21,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "libra-1c-single-phase-energy-meter",
+        "url": "https://en.wasion.com/ANSI-Meters/Libra-1C-Single-Phase-Energy-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/ANSI-Meters/Libra-1C-Single-Phase-Energy-Meter.html",
+        "title_found": true,
+        "technical_cells": 20,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "field-deployment-manager",
+        "url": "https://en.wasion.com/RelevantProduct/Field-Deployment-Manager.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/Field-Deployment-Manager.html",
+        "title_found": true,
+        "technical_cells": 31,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "pki-certificate-management-system",
+        "url": "https://en.wasion.com/RelevantProduct/PKI-Certificate-Management-System.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/PKI-Certificate-Management-System.html",
+        "title_found": true,
+        "technical_cells": 32,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "utilities-customer-information-systems",
+        "url": "https://en.wasion.com/RelevantProduct/Utilities-Customer-Information-Systems.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/Utilities-Customer-Information-Systems.html",
+        "title_found": true,
+        "technical_cells": 30,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "universal-device-integration-system",
+        "url": "https://en.wasion.com/RelevantProduct/Universal-Device-Integration-System.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/Universal-Device-Integration-System.html",
+        "title_found": true,
+        "technical_cells": 50,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "meter-data-reading",
+        "url": "https://en.wasion.com/RelevantProduct/Meter-Data-Reading.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/Meter-Data-Reading.html",
+        "title_found": true,
+        "technical_cells": 30,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "prepayment-vending-management-system",
+        "url": "https://en.wasion.com/RelevantProduct/Prepayment-Vending-Management-System.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/Prepayment-Vending-Management-System.html",
+        "title_found": true,
+        "technical_cells": 31,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "key-management-system",
+        "url": "https://en.wasion.com/RelevantProduct/Key-Management-System.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/Key-Management-System.html",
+        "title_found": true,
+        "technical_cells": 16,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "meter-parameters-management-system",
+        "url": "https://en.wasion.com/RelevantProduct/Meter-Parameters-Management-System.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/RelevantProduct/Meter-Parameters-Management-System.html",
+        "title_found": true,
+        "technical_cells": 34,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "lxc-d-ultrasonic-bulk-water-meter",
+        "url": "https://en.wasion.com/proWateRel/LXC-D-Ultrasonic-Bulk-Water-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/proWateRel/LXC-D-Ultrasonic-Bulk-Water-Meter.html",
+        "title_found": true,
+        "technical_cells": 48,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "lxc-ultrasonic-water-meter",
+        "url": "https://en.wasion.com/proWateRel/LXC-Ultrasonic-Water-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/proWateRel/LXC-Ultrasonic-Water-Meter.html",
+        "title_found": true,
+        "technical_cells": 26,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "i-110-series-smart-water-meter",
+        "url": "https://en.wasion.com/proWateRel/I-110-Series-Smart-Water-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/proWateRel/I-110-Series-Smart-Water-Meter.html",
+        "title_found": true,
+        "technical_cells": 25,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "c-210-series-smart-water-meter",
+        "url": "https://en.wasion.com/proWateRel/C-210-Series-Smart-Water-Meter.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/proWateRel/C-210-Series-Smart-Water-Meter.html",
+        "title_found": true,
+        "technical_cells": 25,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "cellular-module",
+        "url": "https://en.wasion.com/Cellular-Communication/Cellular-Module.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/Cellular-Communication/Cellular-Module.html",
+        "title_found": true,
+        "technical_cells": 14,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "nb-iot-gprs-network-interface-module",
+        "url": "https://en.wasion.com/Cellular-Communication/NB-IoT-GPRS-Network-Interface-Module.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/Cellular-Communication/NB-IoT-GPRS-Network-Interface-Module.html",
+        "title_found": true,
+        "technical_cells": 25,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "wir-3000-rf-communication-router",
+        "url": "https://en.wasion.com/Wi-SUN-RF-Mesh/WIR-3000-RF-Communication-Router.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/Wi-SUN-RF-Mesh/WIR-3000-RF-Communication-Router.html",
+        "title_found": true,
+        "technical_cells": 25,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "wfct-960-wisun-gateway",
+        "url": "https://en.wasion.com/Wi-SUN-RF-Mesh/WFCT-960-WiSUN-Gateway.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/Wi-SUN-RF-Mesh/WFCT-960-WiSUN-Gateway.html",
+        "title_found": true,
+        "technical_cells": 34,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "president-daniel-francisco-chapo-republic-mozambique-visited-wasion",
+        "url": "https://en.wasion.com/news/President-Daniel-Francisco-Chapo-Republic-Mozambique-visited-Wasion.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/news/President-Daniel-Francisco-Chapo-Republic-Mozambique-visited-Wasion.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "hungarian-ambassador-visit-wasion",
+        "url": "https://en.wasion.com/news/Hungarian-Ambassador-Visit-Wasion.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/news/Hungarian-Ambassador-Visit-Wasion.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "wasion-international-2025-annual-summary-commendation-conference",
+        "url": "https://en.wasion.com/news/Wasion-International-2025-Annual-Summary-Commendation-Conference.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/news/Wasion-International-2025-Annual-Summary-Commendation-Conference.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "policy",
+        "url": "https://en.wasion.com/policy.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/policy.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      },
+      {
+        "slug": "dtech-2026",
+        "url": "https://en.wasion.com/news/120.html",
+        "status": 200,
+        "final_url": "https://en.wasion.com/news/120.html",
+        "title_found": true,
+        "technical_cells": 0,
+        "missing_cells": [],
+        "missing_features": []
+      }
+    ]
+  },
+  "anonymousProductionChecks": {
+    "observedAt": "2026-10-14T23:48:22.605784+00:00",
+    "results": [
+      {
+        "case": "root",
+        "url": "https://crm.cnps.ai/",
+        "method": "GET",
+        "status": 200,
+        "headers": {
+          "Cache-Control": "private, no-store, max-age=0",
+          "Referrer-Policy": "no-referrer",
+          "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet"
+        },
+        "has_demo_resume": false,
+        "has_wasion_login": false,
+        "has_public_home": false
+      },
+      {
+        "case": "anonymous-demo",
+        "url": "https://crm.cnps.ai/demo/wasion",
+        "method": "GET",
+        "status": 302,
+        "headers": {
+          "Cache-Control": "private, no-store, max-age=0",
+          "Location": "/?returnTo=%2Fdemo%2Fwasion",
+          "Referrer-Policy": "same-origin",
+          "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet"
+        },
+        "has_demo_resume": false,
+        "has_wasion_login": false,
+        "has_public_home": false
+      },
+      {
+        "case": "anonymous-session",
+        "url": "https://crm.cnps.ai/api/crm?view=session",
+        "method": "GET",
+        "status": 401,
+        "headers": {
+          "Cache-Control": "private, no-store, max-age=0",
+          "Referrer-Policy": "no-referrer",
+          "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet"
+        },
+        "has_demo_resume": false,
+        "has_wasion_login": false,
+        "has_public_home": false
+      },
+      {
+        "case": "anonymous-search-api",
+        "url": "https://crm.cnps.ai/api/crm-wasion-demo-search",
+        "method": "POST",
+        "status": 404,
+        "headers": {
+          "Cache-Control": "private, no-store, max-age=0",
+          "Referrer-Policy": "no-referrer",
+          "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet"
+        },
+        "has_demo_resume": false,
+        "has_wasion_login": false,
+        "has_public_home": false
+      },
+      {
+        "case": "post-recovery",
+        "url": "https://crm.cnps.ai/demo/wasion/search",
+        "method": "POST",
+        "status": 200,
+        "headers": {
+          "Cache-Control": "private, no-store, max-age=0",
+          "Referrer-Policy": "same-origin",
+          "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet"
+        },
+        "has_demo_resume": true,
+        "has_wasion_login": true,
+        "has_public_home": false,
+        "question_preserved": true
+      },
+      {
+        "case": "public-host-demo",
+        "url": "https://cnps.ai/demo/wasion",
+        "method": "GET",
+        "status": 308,
+        "headers": {
+          "Cache-Control": "public, max-age=0, must-revalidate",
+          "Location": "https://www.cnps.ai/demo/wasion"
+        },
+        "has_demo_resume": false,
+        "has_wasion_login": false,
+        "has_public_home": false
+      },
+      {
+        "case": "public-host-final",
+        "url": "https://www.cnps.ai/demo/wasion",
+        "status": 404,
+        "final_url": "https://www.cnps.ai/demo/wasion",
+        "has_login_form": false,
+        "has_phone_input": false,
+        "has_demo_content": false,
+        "title": null
+      },
+      {
+        "case": "root-content",
+        "url": "https://crm.cnps.ai/",
+        "status": 200,
+        "final_url": "https://crm.cnps.ai/",
+        "has_login_form": true,
+        "has_phone_input": true,
+        "has_demo_content": false,
+        "title": "身份验证 · CNPS 客户工作台"
+      }
+    ]
+  },
+  "validation": {
+    "baseline": {
+      "tests": 580,
+      "pass": 579,
+      "skip": 1
+    },
+    "baselineWithNewRegressionCases": {
+      "tests": 15,
+      "pass": 10,
+      "fail": 5
+    },
+    "patched": {
+      "tests": 587,
+      "pass": 586,
+      "skip": 1
+    },
+    "build": "passed",
+    "diffCheck": "passed"
+  },
+  "deployment": {
+    "githubVercelCommitStatus": "success",
+    "statusUrl": "https://vercel.com/aipy/cnps-ai/FQ8Yu7EPsvfwGDmeFLvS9HAoH66q",
+    "productionAliasCommitIndependentlyVerified": false
+  },
+  "limits": [
+    "No authenticated production customer session available.",
+    "SMS delivery, live AI, real cross-customer isolation and full login recovery remain pending.",
+    "Technical-text match does not verify manufacturer claims or semantic entailment of generated answers."
+  ]
+}
