@@ -110,5 +110,13 @@
       "zh": "文档堆通过五个关口节点连向地球轮廓 — FastGPT × CNPS 出海增长方案主图，无伪造证书",
       "ar": "حزمة مستندات مرتبطة عبر خمس بوابات بمخطط للعالم — صورة دليل FastGPT × CNPS للنمو العالمي، بلا شهادات مزيفة"
     }
+  },
+  "seeed-engineering": {
+    "file": "seeed-engineering",
+    "alt": {
+      "en": "Hardware board linked by a teal path to an engineering document stack in navy — Seeed demo-to-docs method hero, no fake certificates",
+      "zh": "深蓝背景：板卡经青色路径连向工程文档堆 — Seeed 演示到文档方法主图，无伪造证书",
+      "ar": "لوحة عتاد مربوطة بمسار سماوي بحزمة وثائق هندسية على خلفية كحلية — صورة طريقة Seeed، بلا شهادات مزيفة"
+    }
   }
 }
