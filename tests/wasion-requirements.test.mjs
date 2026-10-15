@@ -50,6 +50,27 @@ const modules = html => {
 const scope = (html, id) => byId(tree(html), id);
 const attrs = (html, name) => all(tree(html), node => Object.hasOwn(node.attrs, name));
 
+test('static images and search catalog do not offer baked video play buttons, and alias heroes retain their own source artwork', () => {
+  const videoCovers = new Set([
+    '9528fb29db5c-aae63a864fabdc081649bb69b8676df7.webp','aca8ae9047bf-def19dcd6e83a03b3f3fdf79442d9224.webp',
+    'ad680768d09d-g3-hybrid.webp','8415204f36dc-energypro430x340.webp','cca4f1a3af11-91275158bf7e3769fca6a36b2d20982b.webp',
+    'fac9ed6c68df-e4ce4c1541825e05d9153c41cd39af09.webp','9830d94b0eae-6c310bece3c373e7c13a3c77b84a85ac.webp',
+    'cd400ffbbeed-2e6d51dfed2ec14a138b75411b5099d0.webp','a2c4ff8f79b8-5bc60336a205122cceaee36f7127b6d3.webp'
+  ].map(name=>'/assets/wasion-requirements/'+name));
+  for(const slug of WASION_DEMO_ROUTES){
+    for(const img of all(tree(page(slug)),node=>node.tag==='img'))assert.ok(!videoCovers.has(img.attrs.src),slug+': misleading static video cover');
+  }
+  const catalog=JSON.parse(page('search').match(/const WASION_DATA=([\s\S]*?);const SEARCH_QUERY=/)[1]);
+  for(const record of catalog)assert.ok(!videoCovers.has(record.image),record.id+': static search image');
+  for(const [slug,filename] of [['cellular-based-ami-solutions','wasion-engineering-film-12s.webp'],['wasion-g3-plc-rf-hybrid-solutions','7a455a925f9c-g3-hybrid.webp'],['energy-pro','eeab56d92746-energyprosolution800x450.webp']]){
+    const hero=all(tree(page(slug)),node=>hasClass(node,'wr-hero-backdrop'))[0];
+    assert.equal(hero.attrs.src,'/assets/wasion-requirements/'+filename,slug);
+  }
+  const resources=stripRaw(page('collateral-videos'));
+  assert.match(resources,/Play video/);
+  assert.match(resources,/wasion-company-film-official\.mp4/);
+});
+
 test('09/16 requirements is the canonical design and retained designs have explicit route bases', () => {
   assert.equal(WASION_DEFAULT_STYLE, 'requirements');
   assert.equal(wasionStyleBase(), '/demo/wasion');

@@ -75,7 +75,7 @@ test('all 450 complete script sets and 444 non-target full HTML pages retain the
   assert.equal(hash(JSON.stringify(unaffected)), '7af9be9a778af728eca51a611cef817e147028e6a1829657bfa06adfc721939f');
 });
 
-test('all 198 upstream default Requirements pages retain their complete original HTML', () => {
+test('all 198 default Requirements pages retain their complete approved HTML', () => {
   assert.equal(Object.keys(ALL_WASION_STYLES).length, 6);
   assert.equal(WASION_DEMO_ROUTES.length, 90);
   assert.equal(REQUIREMENTS_ROUTES.length, 198);
@@ -88,7 +88,10 @@ test('all 198 upstream default Requirements pages retain their complete original
     assert.ok(!main(html).includes('class="win-page'));
     return [slug, hash(html)];
   });
-  assert.equal(hash(JSON.stringify(rows)), '0874691c4f3cedd07d34b4acfe5e0ffb7a32e5d0ebfd8fc5a8850b4490b123a0');
+  // Advanced only for the reviewed static-image and intrinsic ESG sizing fix.
+  // Frozen aef68f2 matches on all 198 pages after removing just those image
+  // fields and ESG selectors; source facts, links and other markup are exact.
+  assert.equal(hash(JSON.stringify(rows)), '8aa724be615f133519a6def4a62293d5c59dd27d0a15a675b9721823466a797f');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {

@@ -10,7 +10,23 @@ export const cleanTitle=p=>String(p?.title||'').replace(/ - (Content Page|Conten
 export const slugify=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 export const page=slug=>PAGES.find(p=>p.slug===slug);
 export const asset=url=>assetMap[url]||url||'';
-export const image=p=>p?.slug==='about'?'/assets/wasion-requirements/e82ea74f875b-picabout.webp':asset(p?.image||p?.images?.find(u=>u.includes('/uploads/images/'))||p?.images?.find(u=>!(/icon|x-pro-info|searc/i).test(u))||'');
+// These official video covers contain a baked-in play button. Static imagery
+// uses existing clean artwork or documented company-film frames; asset() keeps
+// the original cover available to actual video links and resource cards.
+const media='/assets/wasion-requirements/';
+const staticImages=Object.freeze({
+ '9528fb29db5c-aae63a864fabdc081649bb69b8676df7.webp':'wasion-engineering-film-12s.webp',
+ 'aca8ae9047bf-def19dcd6e83a03b3f3fdf79442d9224.webp':'wasion-engineering-film-12s.webp',
+ 'ad680768d09d-g3-hybrid.webp':'7a455a925f9c-g3-hybrid.webp',
+ '8415204f36dc-energypro430x340.webp':'eeab56d92746-energyprosolution800x450.webp',
+ 'cca4f1a3af11-91275158bf7e3769fca6a36b2d20982b.webp':'wasion-engineering-film-12s.webp',
+ 'fac9ed6c68df-e4ce4c1541825e05d9153c41cd39af09.webp':'wasion-engineering-film-12s.webp',
+ '9830d94b0eae-6c310bece3c373e7c13a3c77b84a85ac.webp':'wasion-engineering-film-12s.webp',
+ 'cd400ffbbeed-2e6d51dfed2ec14a138b75411b5099d0.webp':'wasion-robotics-production-film-07s.webp',
+ 'a2c4ff8f79b8-5bc60336a205122cceaee36f7127b6d3.webp':'wasion-engineering-film-12s.webp'
+});
+export const staticImage=url=>{const local=asset(url);return local.startsWith(media)&&staticImages[local.slice(media.length)]?media+staticImages[local.slice(media.length)]:local;};
+export const image=p=>p?.slug==='about'?'/assets/wasion-requirements/e82ea74f875b-picabout.webp':staticImage(p?.image||p?.images?.find(u=>u.includes('/uploads/images/'))||p?.images?.find(u=>!(/icon|x-pro-info|searc/i).test(u))||'');
 export const LOGO=asset(corpus.logoUrl);
 export const FILM='https://en.wasion.com/public/uploads/files/20230718/about.mp4';
 export const GROUPS=[
