@@ -86,10 +86,23 @@ export const INDUSTRIAL_PRODUCT_CSS = `
 .wip-related .wd-card-image img{object-fit:contain;padding:1.5rem}
 .wip-related .wd-card-body{padding:1.5rem;border-top:1px solid var(--line)}
 .wip-related .wd-card-body h3{font:400 1.5rem/1.25 var(--wi-tech);letter-spacing:-.04em}
+.wd-style-industrial:has(.wip-product) .wd-header{container-type:inline-size}
+.wd-style-industrial:has(.wip-product) .wd-nav{flex-wrap:wrap}
+.wd-style-industrial:has(.wip-product) .wd-nav nav{min-width:0;max-width:100%;flex-wrap:wrap}
 .wd-style-industrial:has(.wip-product) .wd-contact-band h2{overflow-wrap:anywhere}
 .wd-style-industrial:has(.wip-product) :is(.wd-contact-band .wd-container>div,.wd-footer-top>div){min-width:0;max-width:100%;overflow-wrap:anywhere}
 .wd-style-industrial:has(.wip-product) .wd-contact-band .wd-button{max-width:100%;white-space:normal}
-@media(max-width:639px){.wd-style-industrial:has(.wip-product) .wd-nav{flex-wrap:wrap}.wd-style-industrial:has(.wip-product) .wd-brand{max-width:100%}.wd-style-industrial:has(.wip-product) .wx-utility nav{flex-wrap:wrap}.wd-style-industrial:has(.wip-product) .wx-footer .wd-footer-top{grid-template-columns:repeat(2,minmax(0,1fr))}.wip-specifications{padding:1.5rem 0;border-inline:0;border-radius:0;background:transparent}.wip-product .wd-tables :is(td,th){min-width:10rem;padding:.875rem}.wip-product .wd-button{width:100%}}
+@media(max-width:639px){.wd-style-industrial:has(.wip-product) .wd-header{container-type:inline-size}
+.wd-style-industrial:has(.wip-product) .wd-nav{flex-wrap:wrap}.wd-style-industrial:has(.wip-product) .wd-brand{max-width:100%}.wd-style-industrial:has(.wip-product) .wx-utility nav{flex-wrap:wrap}.wd-style-industrial:has(.wip-product) .wx-footer .wd-footer-top{grid-template-columns:repeat(2,minmax(0,1fr))}.wip-specifications{padding:1.5rem 0;border-inline:0;border-radius:0;background:transparent}.wip-product .wd-tables :is(td,th){min-width:10rem;padding:.875rem}.wip-product .wd-button{width:100%}}
+@container (width < 64rem){
+.wd-style-industrial:has(.wip-product) .wd-nav{min-height:5rem;gap:.75rem}
+.wd-style-industrial:has(.wip-product) .wd-nav>.wd-brand{margin-right:auto}
+.wd-style-industrial:has(.wip-product) .wd-menu{display:flex}
+.wd-style-industrial:has(.wip-product) .wd-nav>nav{display:none;order:5;flex-direction:column;align-items:stretch;width:100%;margin:0;padding:1rem;max-height:calc(100svh - 6rem);overflow-y:auto}
+.wd-style-industrial:has(.wip-product) .wd-nav>nav.wd-open{display:flex;max-height:calc(100svh - 6rem)}
+.wd-style-industrial:has(.wip-product) .wx-mega-panel{position:static;display:block;padding:1rem;box-shadow:none}
+.wd-style-industrial:has(.wip-product) .wx-mega-links{grid-template-columns:1fr}
+}
 @media(min-width:640px){.wip-image{height:27rem}.wip-product .wd-feature-list{grid-template-columns:repeat(2,minmax(0,1fr))}.wip-related .wd-card-image{height:18rem}}
 @media(min-width:768px){.wip-hero{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:2.5rem;padding-bottom:3rem}.wip-image{height:30rem}.wip-stage-label,.wip-stage figcaption{padding:1.25rem 1.75rem}.wip-overview,.wip-documents{grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:3rem;padding-block:4rem}.wip-features,.wip-related{padding-block:4rem}.wip-specifications{padding:2rem}.wip-related .wip-heading{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:0 2rem}.wip-related .wip-heading>.wip-label{flex-basis:100%}}
 @media(min-width:1024px){.wip-hero{gap:4rem;padding-block:.75rem 4rem}.wip-image{height:31rem;padding:2rem}.wip-image img{max-height:28rem}.wip-specifications{grid-template-columns:minmax(0,.8fr) minmax(0,2fr);gap:3rem;padding:2.5rem}.wip-specifications .wip-heading{align-self:start;position:sticky;top:8rem}.wip-product .wd-feature-list{column-gap:3rem}}

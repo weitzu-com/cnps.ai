@@ -180,7 +180,7 @@ test('the isolated product CSS supplies visible keyboard focus without external 
   assert.match(INDUSTRIAL_PRODUCT_CSS, /\.wip-product :is\(a,button\):focus-visible,\.wip-product \.wd-tables:focus-visible\{outline:/);
   // Split selector lists only at outer commas, preserving :is() and :has().
   for (const [, rule] of INDUSTRIAL_PRODUCT_CSS.matchAll(/([^{}]+)\{/g)) {
-    if (rule.trim().startsWith('@media')) continue;
+    if (/^@(?:media|container)\b/.test(rule.trim())) continue;
     const selectors = [];
     let depth = 0, start = 0;
     for (let index = 0; index < rule.length; index++) {
