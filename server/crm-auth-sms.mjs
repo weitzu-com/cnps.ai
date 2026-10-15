@@ -2,6 +2,7 @@ import Dypnsapi from '@alicloud/dypnsapi20170525';
 import OpenApi from '@alicloud/openapi-client';
 
 const Client = Dypnsapi.default || Dypnsapi;
+import { CrmSmsFailure } from './crm-sms-failure.mjs';
 export const CRM_SMS_SCHEME = 'cnpscrm';
 
 // Provider errors can contain credentials, a phone number or the SMS content.
@@ -18,8 +19,8 @@ const failureCodes = new Map([
   ...['isv.INVALID_PARAMETERS', 'isv.MOBILE_NUMBER_ILLEGAL', 'isv.PRODUCT_UNSUBSCRIBE', 'isv.PRODUCT_UN_SUBSCRIPT', 'InvalidParameter.SmsTemplateCode', 'EntityNotExist.SmsTemplateCode', 'EntityNotExist.SmsSignName'].map(code => [code, 'configuration']),
   ...['isp.SYSTEM_ERROR', 'isp.UNKNOWN', 'isp.UNKNOWN_ERR_CODE'].map(code => [code, 'provider'])
 ]);
-const failureFor = code => {
-  const error = new Error('SMS provider unavailable');
+const failureFor = (code, fallback) => {
+  const error = new CrmSmsFailure(code, fallback);
   failureCategories.set(error, typeof code === 'string' ? failureCodes.get(code) || 'unclassified' : 'unclassified');
   return error;
 };
@@ -34,7 +35,7 @@ async function providerCall(callback) {
     try { code = error?.code; } catch {}
     // The SDK's httpx transport marks connection/read timeouts by name only.
     try { if (!failureCodes.has(code) && error?.name === 'RequestTimeoutError') code = 'ETIMEDOUT'; } catch {}
-    throw failureFor(code);
+    throw failureFor(code, 'transport-unavailable');
   }
 }
 
