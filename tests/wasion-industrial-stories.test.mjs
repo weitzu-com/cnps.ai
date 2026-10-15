@@ -7,6 +7,7 @@ import { wasionDemoPage as renderWasionDemoPage, WASION_PAGES, WASION_LEGACY_ROU
 import { WASION_STYLES as ALL_WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { CHALLENGES, EXPERIENCE_ROUTES, EXPERIENCE_RELATIONSHIPS, getCaseStudies, renderCaseStudyFilters, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { isIndustrialStoryPage, renderIndustrialStory, projectHighlights, INDUSTRIAL_STORIES_CSS } from '../server/wasion-industrial-stories.mjs';
+import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
 
 // Retained Industrial coverage is pinned explicitly now that 09/16 is canonical.
 const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
@@ -17,7 +18,10 @@ const hash = value => createHash('sha256').update(value).digest('hex');
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 const text = markup => markup.replace(/<[^>]*>/g, '').replace(/&(amp|lt|gt|quot|#39);/g, entity => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" }[entity]));
 const main = html => html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
-const scripts = html => html.match(/<script\b[^>]*>[\s\S]*?<\/script>/g);
+const scripts = html => html.match(/<script\b[^>]*>[\s\S]*?<\/script>/g).map(tag => {
+  const suffix = INDUSTRIAL_COMPANY_RESOURCES_CLIENT + '</script>';
+  return tag.endsWith(suffix) ? tag.slice(0, -suffix.length) + '</script>' : tag;
+});
 const title = page => page.title.replace(/ - (Content Page|Content|Relevant Product|Newsroom|IEC Smart Meters|IEC Prepaid Meters|ANSI Meters|Cellular Communication|Wi-SUN RF Mesh)$/, '');
 const image = page => page?.images?.find(url => url.includes('/uploads/images/')) || page?.images?.find(url => !/icon|x-pro-info|searc/i.test(url));
 const ctx = { pages: WASION_PAGES, base: '/demo/wasion/styles/industrial', helpers: { title, image } };
@@ -64,7 +68,7 @@ test('all 18 official records and the existing challenges, relationships and exp
   assert.equal(isIndustrialStoryPage(null), false);
 });
 
-test('all 450 complete script sets and 425 non-target HTML pages remain byte-identical', () => {
+test('all 450 shared script sets and 417 non-story, non-company/resource HTML pages remain byte-identical', () => {
   const clients = [], unaffected = [];
   for (const style of Object.keys(WASION_STYLES)) for (const slug of WASION_DEMO_ROUTES) {
     const html = wasionDemoPage(nonce, { style, slug });
@@ -73,12 +77,15 @@ test('all 450 complete script sets and 425 non-target HTML pages remain byte-ide
     assert.equal(html.includes(INDUSTRIAL_STORIES_CSS), expected, style + ' ' + slug + ' CSS scope');
     assert.equal(main(html).includes('class="wis-experience-page'), expected, style + ' ' + slug + ' markup scope');
     clients.push([style, slug, hash(JSON.stringify(scripts(html)))]);
-    if (!expected) unaffected.push([style, slug, hash(html)]);
+    const companyResource = style === 'industrial' && INDUSTRIAL_COMPANY_RESOURCE_ROUTES.includes(slug);
+    if (!expected && !companyResource) unaffected.push([style, slug, hash(html)]);
   }
   assert.equal(clients.length, 450);
-  assert.equal(unaffected.length, 425);
+  assert.equal(unaffected.length, 417);
   assert.equal(hash(JSON.stringify(clients)), 'fcf17ee75cfaf97c1578f050206396fab1d9b39bc88d3a2c11bbc483bce94765');
-  assert.equal(hash(JSON.stringify(unaffected)), '946e2f0f4d7a84d197f8f3d2ad2a9dd4adb2dd434a8756028587e8119ece8ea8');
+  // The eight company/resource pages have separate presentation coverage; this
+  // reduced subset comes from frozen 1fd2731 HTML, retaining its 09/16 routing.
+  assert.equal(hash(JSON.stringify(unaffected)), '930898e5355d888a33af73ef825557504851abc4ae86743f5d2153a989aedfed');
 });
 
 for (const page of solutions) test('solution retains its complete original body, capabilities and discovery semantics: ' + page.slug, () => {
