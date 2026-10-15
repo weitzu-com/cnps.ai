@@ -659,7 +659,7 @@
         "hkg1"
       ]
     },
-    "api/crm-sms-connectivity.js": {
+    "api/sms-transport-probe.js": {
       "maxDuration": 15,
       "regions": [
         "hkg1"
