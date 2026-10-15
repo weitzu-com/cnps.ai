@@ -75,7 +75,7 @@ test('all 450 complete script sets and 444 non-target full HTML pages retain the
   assert.equal(hash(JSON.stringify(unaffected)), '7af9be9a778af728eca51a611cef817e147028e6a1829657bfa06adfc721939f');
 });
 
-test('all 198 upstream default Requirements pages retain their complete original HTML', () => {
+test('all 198 default Requirements pages retain their complete approved HTML', () => {
   assert.equal(Object.keys(ALL_WASION_STYLES).length, 6);
   assert.equal(WASION_DEMO_ROUTES.length, 90);
   assert.equal(REQUIREMENTS_ROUTES.length, 198);
@@ -88,7 +88,11 @@ test('all 198 upstream default Requirements pages retain their complete original
     assert.ok(!main(html).includes('class="win-page'));
     return [slug, hash(html)];
   });
-  assert.equal(hash(JSON.stringify(rows)), '0874691c4f3cedd07d34b4acfe5e0ffb7a32e5d0ebfd8fc5a8850b4490b123a0');
+  // Advanced from the independently reproduced e0f24ba baseline for the
+  // reviewed 2026-10-16 product relations, bilingual evidence search, responsive
+  // interactions, visual fixes and source-backed certificate metadata. Raw
+  // source records and retained Industrial HTML/client snapshots stay frozen.
+  assert.equal(hash(JSON.stringify(rows)), 'd0c6178d89f23a30b04264604bc5f9a36763d7d0d69e54a78391d1016278cd7c');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {

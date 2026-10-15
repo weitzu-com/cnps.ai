@@ -122,8 +122,8 @@ function relevantExcerpt(source, query) {
   return [...selected].sort((a, b) => a - b).map(index => source.passages[index]).join('\n').slice(0, 4200) || complete.slice(0, 4200) || source.summary;
 }
 
-// Deterministic retrieval remains usable even when the AI gateway is offline.
-export function retrieveWasionSources(question, { limit = 12 } = {}) {
+// Retained designs keep their existing source ordering and browser fallback.
+function retrieveLegacyWasionSources(question, { limit = 12 } = {}) {
   const query = queryDetails(question);
   if (query.models.some(model => !WASION_SOURCES.some(source => compact(source.searchText).includes(model)))) return { resultCount: 0, results: [] };
   const frequencies = new Map(query.tokens.map(token => [token, WASION_SOURCES.filter(source => containsTerm(normalize(source.searchText), token)).length]));
@@ -135,6 +135,111 @@ export function retrieveWasionSources(question, { limit = 12 } = {}) {
       id: source.id, slug: source.slug, title: source.title, category: source.category,
       url: source.url, href: source.href, summary: source.summary, images: source.images,
       image: source.image, downloads: source.downloads, excerpt: relevantExcerpt(source, query), score: Math.round(score * 10) / 10
+    }))
+  };
+}
+
+// This self-contained ranker is also embedded in the requirements browser
+// fallback. Its translations describe search intent, never product facts.
+export function rankRequirementsSearchPages(pages, question) {
+  const normal = value => String(value || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[‐‑–—-]/g, ' ').replace(/([a-z0-9])([\p{Script=Han}])/gu, '$1 $2').replace(/([\p{Script=Han}])([a-z0-9])/gu, '$1 $2').replace(/[^a-z0-9\p{Script=Han}]+/gu, ' ').trim().replace(/\s+/g, ' ');
+  const compact = value => normal(value).replace(/\s/g, '');
+  const modelTokens = value => [...String(value || '').toLowerCase().matchAll(/\b[a-z]{1,12}[ -]?\d{2,6}[a-z\d]*(?:[-/.][a-z\d]+)*\b/g)].map(match => compact(match[0]));
+  const terms = (text, value) => (' ' + text + ' ').includes(' ' + normal(value) + ' ');
+  const groups = [
+    { words: ['three phase','threephase','poly phase','polyphase','三相'], keys: ['three phase','poly phase'], boost: 40 },
+    { words: ['single phase','singlephase','单相'], keys: ['single phase'], boost: 40 },
+    { words: ['electricity meter','electricity meters','electric meter','smart meter','smart meters','电表','智能电表'], keys: ['electricity meters','smart meter','energy meter'], boost: 45 },
+    { words: ['prepaid','prepayment','pay as you go','预付费','预付'], keys: ['prepayment','prepaid'], boost: 45 },
+    { words: ['ami','advanced metering infrastructure','智能抄表','高级计量'], keys: ['ami','advanced metering'], boost: 35 },
+    { words: ['wi sun','wisun'], keys: ['wi sun','wisun'], boost: 55 },
+    { words: ['g3 plc','g3plc','g3'], keys: ['g3 plc','g3plc'], boost: 55 },
+    { words: ['water','水表','水计量'], keys: ['water'], boost: 40 },
+    { words: ['gas','燃气','气表'], keys: ['gas'], boost: 40 },
+    { words: ['communication','communications','telecommunications','通信','通讯'], keys: ['communication','telecommunication'], boost: 25 },
+    { words: ['energy loss','line loss','loss reduction','线损','降损','窃电'], keys: ['energy loss','loss reduction'], boost: 150 },
+    { words: ['energy pro','meter to cash','营收','营收保证','收入保证'], keys: ['energy pro','meter to cash'], boost: 65 },
+    { words: ['company','about wasion','公司','成立','研发'], keys: ['about wasion','company','establishment','r d'], boost: 35 }
+  ];
+  const query = normal(question);
+  if (!query) return [];
+  const active = groups.filter(group => group.words.some(word => /\p{Script=Han}/u.test(word) ? query.includes(word) : terms(query, word)));
+  const stop = new Set('a an and are as at be by can could do does for from has have how i in into is it me of on or our please tell that the their this to us use was what when where which who with would you your about find show need want suitable support supports product products solution solutions meter meters metering wasion options available published sources cover'.split(' '));
+  const tokens = [...new Set(query.split(' ').filter(token => token.length > 1 && !stop.has(token) && !/\p{Script=Han}/u.test(token)))];
+  const requested = [...new Set(modelTokens(question))];
+  const sourceText = source => [source.title, source.text, source.searchText, source.excerpt, source.summary].filter(Boolean).join(' ');
+  const available = new Map(pages.map(source => [source.id, [...new Set(modelTokens(sourceText(source)))]]));
+  if (requested.some(model => ![...available.values()].some(models => models.includes(model)))) return [];
+  const resourceIntent = /\b(download|catalog(?:ue)?|datasheet|manual|documents?)\b|下载|目录|资料|规格书|手册/i.test(question);
+  const solutionIntent = /\bsolutions?\b|方案/.test(query);
+  const certificateIntent = /certif|\b(?:listed|listing|approved|approval|compliant|compliance|conforms?|conformity|conformant|recognized|recognised|accredited|rated)\b|认证|证书|资质|通过|符合|获证|列名|获批|合规/i.test(question);
+  const requestedProtocols = tokens.filter(token => ['sts','lorawan','dlms','cosem'].includes(token));
+  const categoryIds = new Set(['products','electricity-meters','telecommunications','system-software','water-gas-meters','intelligent-power-distribution','renewable-energy']);
+  const namedProducts = pages.filter(source => source.category === 'Products' && !categoryIds.has(source.id) && normal(source.title).length >= 3 && terms(query, normal(source.title)));
+  const longestName = Math.max(0, ...namedProducts.map(source => normal(source.title).length));
+  const namedIds = new Set(namedProducts.filter(source => normal(source.title).length === longestName).map(source => source.id));
+  const asksMeters = /\bmeters?\b|\bmetering\b|电表|电能表|水表|气表/.test(query);
+  const asksStorage = /\b(?:energy storage|battery|batteries|bess)\b|储能|电池/.test(query);
+  const uplinkIntent = /\bDL\s*\/\s*UL\b|\buplink\b|\bdata\s+rate\b/i.test(question);
+  const certificateCodes = [...query.matchAll(/\b(ul|mid|ce|inmetro|iso|iec|ansi|sts|atex|ukca|csa|tuv|vde|enec)(?:\s*(\d{3,6}[a-z]?))?\b/g)].filter(match => certificateIntent || match[2] || !uplinkIntent && (asksMeters || asksStorage) && ['ul','mid','atex','ukca','csa','tuv','vde','enec'].includes(match[1])).map(match => ({code:match[1],number:match[2]||''}));
+  const certificateSubjectTokens = tokens.filter(token => !/^(?:certif\w*|listed|listing|approved|approval|compliant|compliance|conforms?|conformity|conformant|recognized|recognised|accredited|rated|safety)$/.test(token));
+  const certificateEvidence = (source, request) => {
+    const passages = Array.isArray(source.passages) ? source.passages : String(source.excerpt || source.text || '').split('\n');
+    return passages.some(passage => {
+      // In modem specifications UL means uplink. Remove those rate labels
+      // before looking for an actual UL standard or certification context.
+      const cleaned = request.code === 'ul' ? String(passage).replace(/\bDL\s*\/\s*UL(?:\s*(?:ST|MT))?/gi,'').replace(/\/\s*UL\s*(?:ST|MT)\b/gi,'').replace(/\bUL\s+(?:data\s+)?rate\b/gi,'') : passage;
+      const text = normal(cleaned);
+      if (request.number) return new RegExp('\\b'+request.code+'\\s*'+request.number+'\\b','i').test(text);
+      if (new RegExp('\\b'+request.code+'\\s*\\d{3,6}[a-z]?\\b','i').test(text)) return true;
+      return new RegExp('\\b'+request.code+'\\b','i').test(text) && /certif|\blisted\b|\blisting\b|\bsafety\b|\bstandards?\b|\bcomply\b|\bconform|认证|证书|列名|安全/.test(text);
+    });
+  };
+  const frequency = new Map(tokens.map(token => [token, pages.filter(source => terms(normal(sourceText(source)), token)).length]));
+  return pages.filter(source => source.id !== 'home').map(source => {
+    const title = normal(source.title), body = normal(sourceText(source)), models = available.get(source.id);
+    if (requested.length && !requested.every(model => models.includes(model))) return { source, score: 0 };
+    if (!requested.length && requestedProtocols.some(protocol => !terms(body, protocol))) return { source, score: 0 };
+    const titleModels = modelTokens(source.title);
+    const specificProduct = source.category === 'Products' && (namedIds.has(source.id) || requested.some(model => !/^(?:ul|iec|iso|ansi|en|din)\d/.test(model) && titleModels.includes(model)));
+    if (certificateIntent && !specificProduct && !certificateCodes.length && certificateSubjectTokens.length && !certificateSubjectTokens.some(token => terms(body, token))) return { source, score: 0 };
+    if (certificateCodes.length && !specificProduct) {
+      if (certificateCodes.some(request => !certificateEvidence(source, request))) return { source, score: 0 };
+      const productScope = normal([source.title,source.descriptor,source.summary].filter(Boolean).join(' '));
+      if (asksMeters && !/\bmeter(?:s|ing)?\b|电表|电能表|水表|气表/.test(productScope)) return { source, score: 0 };
+      if (asksStorage && !/\b(?:storage|battery|batteries|bess)\b/.test(body)) return { source, score: 0 };
+    }
+    let score = requested.reduce((sum, model) => sum + (titleModels.includes(model) ? 260 : 60), 0);
+    for (const token of tokens) {
+      const weight = Math.log(1 + pages.length / Math.max(1, frequency.get(token)));
+      score += (terms(title, token) ? 14 : terms(body, token) ? 3 : 0) * weight;
+    }
+    for (const group of active) score += group.keys.some(key => terms(title, key)) ? group.boost : group.keys.some(key => terms(body, key)) ? group.boost / 3 : 0;
+    if (!requested.length && active.length && source.category === 'Solutions' && score > 0) score += 5;
+    if (title === query) score += 2000;
+    else if (namedIds.has(source.id)) score += 500;
+    if (solutionIntent && source.category === 'Solutions' && score > 0) score += 70;
+    if (resourceIntent && (source.category === 'Resources' || source.downloads?.length)) {
+      score += 180;
+      const downloads = normal((source.downloads || []).map(item => item.title).join(' '));
+      for (const group of active) if (group.keys.some(key => terms(downloads, key))) score += 100;
+    }
+    if (certificateIntent && !requested.length && source.category === 'Resources') score += 90;
+    return { source, score };
+  }).filter(item => item.score >= 6).sort((a, b) => b.score - a.score || String(a.source.id).localeCompare(String(b.source.id))).map(({ source, score }) => ({ ...source, score: Math.round(score * 10) / 10 }));
+}
+
+// Deterministic retrieval remains usable even when the AI gateway is offline.
+export function retrieveWasionSources(question, { limit = 12, legacy = false } = {}) {
+  if (legacy) return retrieveLegacyWasionSources(question, { limit });
+  const query = queryDetails(question);
+  const matches = rankRequirementsSearchPages(WASION_SOURCES, question);
+  return {
+    resultCount: matches.length,
+    results: matches.slice(0, limit).map(source => ({
+      id: source.id, slug: source.slug, title: source.title, category: source.category,
+      url: source.url, href: source.href, summary: source.summary, images: source.images,
+      image: source.image, downloads: source.downloads, excerpt: relevantExcerpt(source, query), score: source.score
     }))
   };
 }
