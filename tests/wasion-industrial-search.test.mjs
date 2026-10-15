@@ -61,14 +61,19 @@ test('Industrial search is presentation-only: original search client and every s
   }
 });
 
-test('the search treatment leaves all 89 other Industrial routes byte-identical', () => {
-  const rows = WASION_DEMO_ROUTES.filter(slug => slug !== 'search').map(slug => {
+test('the search treatment leaves all 60 non-search, non-product-detail Industrial routes byte-identical', () => {
+  // Product details have a separate presentation treatment and all 29 are now
+  // protected by wasion-industrial-product.test.mjs. This unchanged subset was
+  // re-fingerprinted from a8fcdb5, before that product treatment, with this nonce.
+  const productSlugs = new Set(WASION_PAGES.filter(page => page.category === 'Products' && page.pageType === 'detail').map(page => page.slug));
+  const rows = WASION_DEMO_ROUTES.filter(slug => slug !== 'search' && !productSlugs.has(slug)).map(slug => {
     const html = wasionDemoPage(nonce, { style: 'industrial', slug });
     assert.ok(!html.includes(INDUSTRIAL_SEARCH_CSS), slug);
     return [slug, hash(html)];
   });
-  assert.equal(rows.length, 89);
-  assert.equal(hash(JSON.stringify(rows)), 'eede3452641ab05ffa0d477675f24d5d3e05c38a52bf957fd06b6e09c6f8189e');
+  assert.equal(productSlugs.size, 29);
+  assert.equal(rows.length, 60);
+  assert.equal(hash(JSON.stringify(rows)), '80cefb204d0ef883c8ae057f27640d2ade006f912efe0023513d39aac394c3c0');
 });
 
 test('Industrial search leads with its heading and one official shared product without changing query safety or result links', () => {

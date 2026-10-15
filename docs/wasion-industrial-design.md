@@ -33,11 +33,17 @@ Industrial omits the automatic `wd-mini-search` strip on child pages. The shared
 
 The answer, source chips, product cards, filters, empty/error states and body-mounted citation panel use the same warm paper, charcoal and Wasion blue system. Enlarged text can wrap the form, navigation and example questions. The citation panel also follows the existing protected container's hidden state. Search JavaScript, source validation, ranking, authorization, session recovery and other styles remain unchanged.
 
+### Industrial product details
+
+`server/wasion-industrial-product.mjs` renders only Industrial pages whose shared records have `category: Products` and `pageType: detail`. All 29 hardware and software details use the same official content. A white product stage preserves each complete image with `contain`; model typography, the technical-information action and quiet source/AI links guide product evaluation. Key features remain the original list. Technical information has a wide, keyboard-focusable table, with the original captions, rows, cells and colspan values preserved. No specification groups are inferred from flattened source rows.
+
+Mobile removes the technical panel's extra inset to give the table more reading space. Section anchors and the desktop technical heading account for the sticky header. Long model names, source titles, navigation and footer content wrap at enlarged text sizes. Official source notices and unavailable-download text remain visible; related products reuse the shared product-card helper. No product content, client scripts, AI service, session or access policy changes. Non-product pages and all four other styles retain their complete HTML output.
+
 All five styles use the same serialized search catalog, `/api/crm-wasion-demo-search` endpoint, server-side project authorization, nonce CSP and private CRM host policy. This change does not modify AI services, account quotas or session rules. Existing generic route rewrites and the style registry handle both canonical and styled paths; unknown styles remain unavailable. The Industrial compatibility aliases retain the same access boundary and resolve post-login navigation to the canonical Industrial route.
 
 ## Verification
 
-Run `node --test tests/wasion-demo-styles.test.mjs tests/wasion-demo-industrial.test.mjs tests/wasion-industrial-search.test.mjs` for route, content and interaction isolation regression checks. Run `npm test` and `npm run build` before release.
+Run `node --test tests/wasion-demo-styles.test.mjs tests/wasion-demo-industrial.test.mjs tests/wasion-industrial-search.test.mjs tests/wasion-industrial-product.test.mjs` for route, content and interaction isolation regression checks. Run `npm run build` followed by `npm test` before release; tests read built output, so these steps must not run concurrently.
 
 The regression checks cover every published style and route, canonical Industrial default equivalence, internal product paths, complete search catalog equality, official product imagery, unchanged source specification cells, a brand-led home hero, omission of the automatic search strip in Industrial and Orderful, auxiliary navigation search, current-page and question retention, POST sign-in recovery, script syntax and project access isolation. The product-stage interaction test runs the actual client code and checks click, Home/End and left/right wrapping, one visible panel and roving tab focus.
 
