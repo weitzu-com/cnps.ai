@@ -3,11 +3,15 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
-import { wasionDemoPage, WASION_PAGES, WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
-import { WASION_STYLES } from '../server/wasion-demo-styles.mjs';
+import { wasionDemoPage as renderWasionDemoPage, WASION_PAGES, WASION_LEGACY_ROUTES as WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
+import { WASION_STYLES as ALL_WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { CHALLENGES, EXPERIENCE_ROUTES, EXPERIENCE_RELATIONSHIPS, getCaseStudies, renderCaseStudyFilters, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { isIndustrialStoryPage, renderIndustrialStory, projectHighlights, INDUSTRIAL_STORIES_CSS } from '../server/wasion-industrial-stories.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
+
+// Retained Industrial coverage is pinned explicitly now that 09/16 is canonical.
+const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
+const wasionDemoPage = (nonce, options = {}) => renderWasionDemoPage(nonce, { style: 'industrial', ...options });
 
 const nonce = 'industrial-stories-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -20,7 +24,7 @@ const scripts = html => html.match(/<script\b[^>]*>[\s\S]*?<\/script>/g).map(tag
 });
 const title = page => page.title.replace(/ - (Content Page|Content|Relevant Product|Newsroom|IEC Smart Meters|IEC Prepaid Meters|ANSI Meters|Cellular Communication|Wi-SUN RF Mesh)$/, '');
 const image = page => page?.images?.find(url => url.includes('/uploads/images/')) || page?.images?.find(url => !/icon|x-pro-info|searc/i.test(url));
-const ctx = { pages: WASION_PAGES, base: '/demo/wasion', helpers: { title, image } };
+const ctx = { pages: WASION_PAGES, base: '/demo/wasion/styles/industrial', helpers: { title, image } };
 const raw = WASION_PAGES.filter(page => ['Solutions', 'Success Stories'].includes(page.category));
 const solutions = raw.filter(page => page.category === 'Solutions' && page.pageType === 'detail');
 const cases = raw.filter(page => page.category === 'Success Stories' && page.pageType === 'detail');
@@ -35,18 +39,19 @@ const section = (markup, id) => {
 };
 
 // Frozen from main 449a5e1d242b2aabcf6e0fd10175a4596ea75624 before
-// the presentation change. Solution tail fingerprints cover all original
+// the presentation change. HTML and script fingerprints were refreshed for the
+// intentional 09/16 default and retained Industrial route relocation. Solution tails cover all original
 // paragraphs, capabilities, discovery panels, relationships and source links.
 const solutionTails = {
-  'wisun-solutions': 'ea0d235263d5c689a385cb098a80b654bde02b8d781215a78bcc40cd44fb3226',
-  'cluster-metering-solutions': '3bfdbb3716207776cb44e28e725848ba1a23f67aabf395657c6ad171c6fdd215',
-  'cellular-based-ami-solutions': 'e2ff73a22d664fa1c401796d94ad210780a4af629d80f2b2f07881f4e667b81f',
-  'walk-drive-by-solutions': 'cb27c43d6e40b447d20093907f58ccabf3a4f6319862af4deda7e7d901f7c60c',
-  'energy-loss-reduction-solutions': '2a7993643785a6a5e9f1f6e4acb12ac95a7230f7ccea3de84f23d832e8baf84e',
-  'prepayment-solutions': 'de650f8e4b768db254e88c0a0f1329327db52c53c6d55bb73ed3e629f126f526',
-  'tms-transformer-monitoring-system': '69797657081b5eebab7de488302dd4bbd8a679d04e143e091bdc1478fff4cb41',
-  'energy-pro': '7e8f52c6ea41d3e1a61fe00f66183bcc0033af3946a116d247eefc3fbca717f6',
-  'wasion-g3-plc-rf-hybrid-solutions': '6cff05bbcca2c38306781cf77fba0b04610408a34c7e09d2222e78611478f65e'
+  'wisun-solutions': 'e9655fe178ede3dd3c8edc623cab09a7642c2c8afc5226cf45da698a63c976e5',
+  'cluster-metering-solutions': 'cff37532a0d09673cffaaa65b9ac5f0da3c7f8eaabcc71c86d78434dc1db3719',
+  'cellular-based-ami-solutions': 'a1d3d91d43bb5e91f42a0599f054bd8c3d5921edf8ecf264bfef3c0034495593',
+  'walk-drive-by-solutions': '90b0b0b90480a3e768fae5386a57be2db2483e9441d8ad1211b58388a2193fd7',
+  'energy-loss-reduction-solutions': '45f388ab05d7980f33797e9313be37b2e24f4518d127820308ed225652f27e7d',
+  'prepayment-solutions': '665299a35947e48456ee3277fa5887b32311d4ca796bebe05d7d01e68a20f564',
+  'tms-transformer-monitoring-system': '5d5bf8188f8e52de07f6d272989db39816cccae0eb7222e6b400ba95fad83225',
+  'energy-pro': 'fdb547388c90972eba30682b2b0d753dc95cb41c20c6c6b5f6f739363c100bea',
+  'wasion-g3-plc-rf-hybrid-solutions': '698a2c9ddf4d4d9e7391c973fca74785173d0d9c0953cac1a76cdbbac36377a1'
 };
 
 test('all 18 official records and the existing challenges, relationships and experience metadata remain unchanged', () => {
@@ -77,10 +82,10 @@ test('all 450 shared script sets and 417 non-story, non-company/resource HTML pa
   }
   assert.equal(clients.length, 450);
   assert.equal(unaffected.length, 417);
-  assert.equal(hash(JSON.stringify(clients)), 'ead792dc3916f37479222d57325b2bdb8319dacdbe12a29b9d2145cbe3486bea');
+  assert.equal(hash(JSON.stringify(clients)), 'fcf17ee75cfaf97c1578f050206396fab1d9b39bc88d3a2c11bbc483bce94765');
   // The eight company/resource pages have separate presentation coverage; this
-  // subset comes from saved 744ab9a HTML, remapping only the fixture nonce.
-  assert.equal(hash(JSON.stringify(unaffected)), '41d9aaff2a896ac8ec53a862003bb6f5a0ba503aa1a9bd6ae30f820d82240478');
+  // reduced subset comes from frozen 1fd2731 HTML, retaining its 09/16 routing.
+  assert.equal(hash(JSON.stringify(unaffected)), '930898e5355d888a33af73ef825557504851abc4ae86743f5d2153a989aedfed');
 });
 
 for (const page of solutions) test('solution retains its complete original body, capabilities and discovery semantics: ' + page.slug, () => {
@@ -98,7 +103,7 @@ for (const page of solutions) test('solution retains its complete original body,
   assert.match(markup, /does not establish a certified architecture, wiring topology or product compatibility/);
   assert.match(markup, /They do not establish a certified system configuration or model compatibility/);
   const rel = EXPERIENCE_RELATIONSHIPS[page.slug];
-  if (rel) for (const slug of [rel.challenge, ...rel.products, ...rel.cases]) assert.ok(markup.includes('href="/demo/wasion/' + slug + '"'));
+  if (rel) for (const slug of [rel.challenge, ...rel.products, ...rel.cases]) assert.ok(markup.includes('href="/demo/wasion/styles/industrial/' + slug + '"'));
   const tabs = [...markup.matchAll(/<button\b[^>]*role="tab"[^>]*>/g)].map(([tag]) => attributes(tag));
   const panels = [...markup.matchAll(/<div\b[^>]*role="tabpanel"[^>]*>/g)].map(([tag]) => ({ ...attributes(tag), hidden: /\shidden(?:\s|>)/.test(tag) }));
   assert.ok(tabs.length >= 2);
@@ -129,7 +134,7 @@ for (const page of cases) test('project retains complete source context, origina
   assert.ok(documents.includes('href="' + escape(encodeURI(page.url)) + '"'));
   assert.match(documents, /Confirm specifications, availability and project suitability with Wasion/);
   assert.match(documents, /target="_blank" rel="noopener noreferrer"/);
-  assert.ok(markup.includes('href="/demo/wasion/contact"'));
+  assert.ok(markup.includes('href="/demo/wasion/styles/industrial/contact"'));
   const ai = markup.match(/<a class="wis-ai" href="([^"]+)"/)[1];
   assert.equal(new URL(ai, 'https://crm.cnps.ai').searchParams.get('q'), 'Tell me about ' + title(page));
   assert.doesNotMatch(markup, /<form\b/);
@@ -173,7 +178,7 @@ test('the case directories preserve seven source-backed rows, original filter at
       assert.deepEqual(attrs, { 'data-q': (item.title + ' ' + item.description).toLowerCase(), 'data-region': item.region, 'data-topic': item.topic });
       assert.ok(row.body.includes('<h3>'));
       assert.ok(row.body.includes(escape(item.title)));
-      assert.ok(row.body.includes('href="/demo/wasion/' + item.slug + '"'));
+      assert.ok(row.body.includes('href="/demo/wasion/styles/industrial/' + item.slug + '"'));
       assert.ok(row.body.includes('href="' + escape(encodeURI(item.url)) + '"'));
       assert.ok(row.body.includes('src="' + escape(encodeURI(covers[item.slug])) + '"'));
       assert.equal(text(row.body.match(/<p\b[^>]*>([\s\S]*?)<\/p>/)[1]), item.description.slice(0, 260) + (item.description.length > 260 ? '…' : ''));
@@ -203,14 +208,14 @@ test('all 25 pages retain accessible navigation, unique IDs, resolving anchors a
     assert.match(scene['aria-label'], /^Open official Wasion page: /);
     const nav = markup.match(/<nav class="wis-nav[^>]*>([\s\S]*?)<\/nav>/)[1];
     assert.equal((nav.match(/<a\b/g) || []).length, 6);
-    for (const path of ['solutions', ...CHALLENGES.map(challenge => challenge.slug), 'case-studies']) assert.ok(nav.includes('href="/demo/wasion/' + path + '"'));
+    for (const path of ['solutions', ...CHALLENGES.map(challenge => challenge.slug), 'case-studies']) assert.ok(nav.includes('href="/demo/wasion/styles/industrial/' + path + '"'));
     const ids = [...markup.matchAll(/\bid="([^"]+)"/g)].map(([, id]) => id);
     assert.equal(ids.length, new Set(ids).size, slug + ' unique IDs');
     for (const [, id] of markup.matchAll(/aria-labelledby="([^"]+)"/g)) assert.ok(ids.includes(id), slug + ' named section ' + id);
-    for (const [, href] of markup.matchAll(/href="(\/demo\/wasion[^\"]*)"/g)) {
+    for (const [, href] of markup.matchAll(/href="(\/demo\/wasion\/styles\/industrial[^\"]*)"/g)) {
       const url = new URL(text(href), 'https://crm.cnps.ai');
       if (!url.hash) continue;
-      const linkedSlug = url.pathname.slice('/demo/wasion/'.length);
+      const linkedSlug = url.pathname.slice('/demo/wasion/styles/industrial/'.length);
       assert.ok(WASION_DEMO_ROUTES.includes(linkedSlug));
       assert.ok(rendered(linkedSlug).includes('id="' + url.hash.slice(1) + '"'), slug + ' resolving anchor ' + href);
     }

@@ -1,22 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { WASION_PAGES, WASION_DEMO_ROUTES, wasionDemoPage } from '../server/wasion-demo-page.mjs';
+import { WASION_PAGES, WASION_LEGACY_ROUTES as WASION_DEMO_ROUTES, wasionDemoPage as renderWasionDemoPage } from '../server/wasion-demo-page.mjs';
 import { HOME_OFFERINGS } from '../server/wasion-experience/shell.mjs';
 
+const wasionDemoPage = (nonce, options = {}) => renderWasionDemoPage(nonce, { style: 'industrial', ...options });
 const base = '/demo/wasion/styles/orderful';
 const orderfulPage = (nonce, options = {}) => wasionDemoPage(nonce, { ...options, style: 'orderful' });
 const body = html => html.match(/<body\b[^>]*>([\s\S]*?)<script nonce=/)[1];
 const main = html => html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
 const escape = value => value.replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 
-test('canonical Industrial homepage leads with the Wasion brand and its own engineering film', () => {
+test('retained Industrial homepage leads with the Wasion brand and its own engineering film', () => {
   const html = wasionDemoPage('n'), content = main(html);
   const hero = content.match(/<section class="wi-hero"[\s\S]*?<\/section>/)[0];
   assert.match(html, /<body class="wd-style-industrial wd-is-home">/);
   assert.match(hero, /WASION INTERNATIONAL/);
   assert.match(hero, /<h1 id="wi-hero-title">Intelligence for<br>the energy ahead\.<\/h1>/);
-  assert.match(hero, /href="\/demo\/wasion\/our-offering">Explore our portfolio/);
-  assert.match(hero, /href="\/demo\/wasion\/about">Discover Wasion/);
+  assert.match(hero, /href="\/demo\/wasion\/styles\/industrial\/our-offering">Explore our portfolio/);
+  assert.match(hero, /href="\/demo\/wasion\/styles\/industrial\/about">Discover Wasion/);
   const about = WASION_PAGES.find(page => page.slug === 'about');
   const poster = hero.match(/<img\b[^>]*class="wi-hero-poster"[^>]*src="([^"]+)"[^>]*>/);
   assert.ok(poster, 'official engineering poster is present before video loads');
@@ -30,7 +31,7 @@ test('canonical Industrial homepage leads with the Wasion brand and its own engi
   assert.doesNotMatch(body(html), /<form\b[^>]*role="search"|wv-quick-search|wd-mini-search/);
 });
 
-test('canonical Industrial product stages reuse all three official products and keep AI assistance after project stories', () => {
+test('retained Industrial product stages reuse all three official products and keep AI assistance after project stories', () => {
   const html = wasionDemoPage('n'), content = main(html);
   const featured = ['ameter300-three-phase-smart-energy-meter', 'i-110-series-smart-water-meter', 'wir-3000-rf-communication-router'];
   assert.equal((content.match(/role="tab" /g) || []).length, featured.length);
@@ -40,14 +41,14 @@ test('canonical Industrial product stages reuse all three official products and 
     const panel = content.match(new RegExp('<div class="wi-product-panel" id="wi-panel-' + slug + '"[\\s\\S]*?(?=<div class="wi-product-panel"|</section>)'))[0];
     const image = panel.match(/<img\b[^>]*src="([^"]+)"/)[1];
     assert.ok(page.images.some(url => new URL(url).href === image), slug + ' retains its official product image');
-    assert.ok(panel.includes('href="/demo/wasion/' + slug + '"'));
-    assert.ok(panel.includes('href="/demo/wasion/contact"'));
+    assert.ok(panel.includes('href="/demo/wasion/styles/industrial/' + slug + '"'));
+    assert.ok(panel.includes('href="/demo/wasion/styles/industrial/contact"'));
   }
-  for (const [slug] of HOME_OFFERINGS) assert.ok(content.includes('href="/demo/wasion/' + slug + '"'), slug);
+  for (const [slug] of HOME_OFFERINGS) assert.ok(content.includes('href="/demo/wasion/styles/industrial/' + slug + '"'), slug);
   assert.ok(content.indexOf('<aside class="wi-search-help') > content.indexOf('<section class="wi-projects"'), 'auxiliary search follows product and project content');
   assert.match(content, /<aside class="wi-search-help[^>]*aria-label="Product information assistance"/);
-  assert.match(content, /href="\/demo\/wasion\/search">Search Wasion with AI/);
-  assert.match(body(html), /class="wd-search-trigger" href="\/demo\/wasion\/search" aria-label="Open AI search"/);
+  assert.match(content, /href="\/demo\/wasion\/styles\/industrial\/search">Search Wasion with AI/);
+  assert.match(body(html), /class="wd-search-trigger" href="\/demo\/wasion\/styles\/industrial\/search" aria-label="Open AI search"/);
 });
 
 test('the retained Orderful homepage leads with Wasion and four linked official product families', () => {

@@ -1,25 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runInNewContext } from 'node:vm';
-import { wasionDemoPage, WASION_PAGES, WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
+import { wasionDemoPage, WASION_PAGES, WASION_LEGACY_ROUTES as WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
 import { INDUSTRIAL_CLIENT } from '../server/wasion-demo-industrial.mjs';
 import { WASION_STYLES, WASION_DEFAULT_STYLE, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 import { createWasionPageHandler } from '../api/crm-wasion-demo-page.js';
 import { isolationFixture } from './fixtures/wasion-isolation.mjs';
 
-const base='/demo/wasion';
+const base='/demo/wasion/styles/industrial';
 const body=html=>html.match(/<body\b[^>]*>([\s\S]*?)<script nonce=/)[1];
 const main=html=>body(html).match(/<main id="main">([\s\S]*?)<\/main>/)[1];
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-test('Industrial is the default while all four previous design directions retain explicit routes',()=>{
- assert.equal(WASION_DEFAULT_STYLE,'industrial');
- assert.deepEqual(Object.keys(WASION_STYLES),['classic','atmospheric','planhat','orderful','industrial']);
+test('Industrial remains available at its explicit route while requirements is the default',()=>{
+ assert.equal(WASION_DEFAULT_STYLE,'requirements');
+ assert.deepEqual(Object.keys(WASION_STYLES),['requirements','classic','atmospheric','planhat','orderful','industrial']);
  assert.equal(wasionStyleBase('industrial'),base);
  const gallery=main(wasionDemoPage('n',{slug:'styles'}));
  assert.ok(gallery.includes('href="'+base+'"'));
  assert.match(gallery,/Industrial/);
- assert.match(wasionDemoPage('n'),/<body class="wd-style-industrial wd-is-home">/);
+ assert.match(wasionDemoPage('n',{style:'industrial'}),/<body class="wd-style-industrial wd-is-home">/);
  for(const style of ['classic','atmospheric','planhat','orderful']){
   assert.equal(wasionStyleBase(style),'/demo/wasion/styles/'+style);
   assert.ok(gallery.includes('href="'+wasionStyleBase(style)+'"'),style+' remains selectable');

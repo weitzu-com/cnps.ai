@@ -5,6 +5,10 @@ import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
 import { authorizeWasionCustomer, answerWasionQuestion, createWasionSearchHandler } from '../server/wasion-demo.mjs';
 import { WASION_SOURCES, retrieveWasionSources } from '../server/wasion-demo-sources.mjs';
+import corpus from '../server/wasion-demo-content.json' with { type: 'json' };
+import { PRODUCTS } from '../server/wasion-requirements/data.mjs';
+import { rankSearchPages } from '../server/wasion-experience/search.mjs';
+import { wasionDemoPage } from '../server/wasion-demo-page.mjs';
 
 const identity = { role: 'customer', memberships: [{ companyId: wasionPreviewBinding.companyId, role: 'customer' }] };
 const service = { async getProject(principal, companyId, projectId) { assert.equal(companyId,wasionPreviewBinding.companyId);assert.equal(projectId,wasionPreviewBinding.projectId);if(principal.identity.role!=='admin'&&!principal.identity.memberships?.some(m=>m.companyId===companyId&&m.active!==false))throw new BusinessError(404,'Denied');return {id:projectId}; } };
@@ -21,8 +25,12 @@ const modelForContext = async (_url, options) => {
   return modelResponse(`The official page describes ${source.title}. [${source.id}]`);
 };
 
-test('captured corpus provides more than 25 canonical pages with stable internal citation links', () => {
-  assert.ok(WASION_SOURCES.length > 25);
+test('captured corpus provides 122 official sources including every model with stable internal citation links', () => {
+  assert.equal(WASION_SOURCES.length,122);
+  assert.equal(PRODUCTS.length,86);
+  const modelIds=new Set(PRODUCTS.map(product=>product.slug));
+  assert.equal(WASION_SOURCES.filter(source=>source.category==='Products'&&modelIds.has(source.id)).length,86);
+  for(const product of PRODUCTS)assert.equal(WASION_SOURCES.find(source=>source.id===product.slug)?.url,product.url,product.title);
   assert.equal(new Set(WASION_SOURCES.map(source => source.id)).size, WASION_SOURCES.length);
   for (const source of WASION_SOURCES) {
     assert.equal(new URL(source.url).hostname, 'en.wasion.com');
@@ -58,7 +66,10 @@ test('short product excerpts retain complete communication rows and their protoc
 });
 
 test('new captured DTECH source has a stable route and supports AMI 2.0 discovery', () => {
-  assert.equal(WASION_SOURCES.length, 65);
+  const legacyIds=new Set([...corpus.pages.map(page=>page.slug),'dtech-2026']);
+  assert.equal(corpus.pages.length,64);
+  assert.equal(WASION_SOURCES.filter(source=>legacyIds.has(source.id)).length,65,'original page and DTECH source subset remains intact');
+  assert.equal(WASION_SOURCES.filter(source=>!legacyIds.has(source.id)).length,57,'previously uncaptured official model sources are now searchable');
   const source = WASION_SOURCES.find(page => page.id === 'dtech-2026');
   assert.equal(source.href, '/demo/wasion/dtech-2026');
   assert.equal(source.url, 'https://en.wasion.com/news/120.html');
@@ -66,6 +77,20 @@ test('new captured DTECH source has a stable route and supports AMI 2.0 discover
   assert.equal(found.results[0].id, source.id);
   assert.match(found.results[0].excerpt, /Aventa/);
   assert.match(found.results[0].excerpt, /AMI 2\.0/);
+});
+
+test('new official models resolve once in backend retrieval, client ranking and the canonical search result before AI', () => {
+  for(const [query,id]of [['DDSD101-J6','product-ddsd101-j6'],['DTSD341','product-dtsd341-three-phase-energy-meter'],['DDS102','product-dds102-single-phase-energy-meter'],['DTSY341','product-dtsy341-three-phase-smart-prepayment-meter']]){
+    const retrieval=retrieveWasionSources(query);
+    assert.equal(retrieval.resultCount,1,query);
+    assert.deepEqual(retrieval.results.map(source=>source.id),[id]);
+    assert.deepEqual(rankSearchPages(WASION_SOURCES,query).map(source=>source.id),[id]);
+    const html=wasionDemoPage('model-source-test',{slug:'search',query});
+    assert.ok(html.includes('href="/demo/wasion/'+id+'"'),query+' real model destination');
+    const embedded=JSON.parse(html.match(/const WASION_DATA=([\s\S]*?);const SEARCH_QUERY=/)[1]);
+    assert.equal(embedded.length,122);
+    assert.deepEqual(rankSearchPages(embedded,query).map(source=>source.id),[id]);
+  }
 });
 
 test('application and communication searches prioritize their matching official solutions', () => {

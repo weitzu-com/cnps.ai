@@ -1,3 +1,4 @@
+import {visitorRegionForCountry} from '../server/wasion-requirements/visitor-region.mjs';
 import { WASION_STYLES, WASION_DEFAULT_STYLE, wasionStyleBase } from '../server/wasion-demo-styles.mjs';
 import {crmLoginPage} from '../server/crm-login.mjs';
 import {guardPrivateRequest} from '../server/crm-boundary.mjs';
@@ -23,7 +24,7 @@ return async function handler(req,res) {
   const style = typeof req.query?.style === 'string' ? req.query.style : url.searchParams.get('style') || WASION_DEFAULT_STYLE;
   const base = wasionStyleBase(style);
   let query = typeof req.query?.q === 'string' ? req.query.q : url.searchParams.get('q') || '';
-  if (!Object.hasOwn(WASION_STYLES, style) || !/^[a-z0-9-]+$/.test(slug) || !isWasionDemoSlug(slug)) {res.statusCode=404;return res.end('Page not found.')}
+  if (!Object.hasOwn(WASION_STYLES, style) || !/^[a-z0-9-]+$/.test(slug) || !isWasionDemoSlug(slug,style)) {res.statusCode=404;return res.end('Page not found.')}
   if(query.length>500){res.statusCode=400;return res.end('Please use a question of 500 characters or fewer.')}
   if (req.method === 'POST') {
     if (slug !== 'search') { res.statusCode = 405; return res.end(); }
@@ -54,9 +55,9 @@ return async function handler(req,res) {
   }
 
   const nonce = randomBytes(18).toString('base64');
-  res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src https://en.wasion.com; media-src https://en.wasion.com; connect-src 'self'; base-uri 'none'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'`);
+  res.setHeader('Content-Security-Policy', `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src 'self' https://en.wasion.com; media-src 'self' https://en.wasion.com; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'`);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.statusCode = 200; return res.end(req.method === 'HEAD' ? undefined : wasionDemoPage(nonce, { slug, query, style }));
+  res.statusCode = 200; return res.end(req.method === 'HEAD' ? undefined : wasionDemoPage(nonce, { slug, query, style, visitorRegion:visitorRegionForCountry(req.headers?.['x-vercel-ip-country']) }));
 }
 
 }

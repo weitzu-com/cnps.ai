@@ -1,3 +1,4 @@
+import {renderRequirementsPage, REQUIREMENTS_ROUTES} from './wasion-requirements/index.mjs';
 import {crmLoginUrl} from './crm-navigation.mjs';
 import {renderSessionNotice,SESSION_CSS,SESSION_CLIENT} from './wasion-experience/session.mjs';
 import { wasionWorkspaceHref } from './crm-project-previews.mjs';
@@ -19,10 +20,12 @@ import { INDUSTRIAL_CATALOG_ROUTES, renderIndustrialCatalog, INDUSTRIAL_CATALOG_
 import { isIndustrialStoryPage, renderIndustrialStory, INDUSTRIAL_STORIES_CSS } from './wasion-industrial-stories.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, renderIndustrialCompanyResources, INDUSTRIAL_COMPANY_RESOURCES_CSS, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from './wasion-industrial-company-resources.mjs';
 const STYLE_CSS = Object.freeze({classic:'',atmospheric:ATMOSPHERIC_CSS,planhat:PLANHAT_CSS,orderful:ORDERFUL_CSS+OVERSEAS_CSS,industrial:INDUSTRIAL_CSS});
-export const WASION_DEMO_ROUTES = [...WASION_PAGES.map(p => p.slug), ...EXPERIENCE_ROUTES.map(p => p.slug), ...LEGAL_ROUTES.map(p => p.slug), 'search', 'styles'];
-export const isWasionDemoSlug = slug => WASION_DEMO_ROUTES.includes(slug);
-export function wasionDemoPage(nonce, { slug = 'home', query = '', style = WASION_DEFAULT_STYLE } = {}) {
+export const WASION_LEGACY_ROUTES = [...WASION_PAGES.map(p => p.slug), ...EXPERIENCE_ROUTES.map(p => p.slug), ...LEGAL_ROUTES.map(p => p.slug), 'search', 'styles'];
+export const WASION_DEMO_ROUTES = [...new Set([...WASION_LEGACY_ROUTES,...REQUIREMENTS_ROUTES])];
+export const isWasionDemoSlug = (slug,style) => (style&&style!=='requirements'?WASION_LEGACY_ROUTES:WASION_DEMO_ROUTES).includes(slug);
+export function wasionDemoPage(nonce, { slug = 'home', query = '', style = WASION_DEFAULT_STYLE, visitorRegion = '' } = {}) {
 if (!Object.hasOwn(WASION_STYLES, style)) return null;
+if(style==='requirements') return renderRequirementsPage(nonce,{slug,query,visitorRegion});
 const base = wasionStyleBase(style);
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const title = page => page.title.replace(/ - (Content Page|Content|Relevant Product|Newsroom|IEC Smart Meters|IEC Prepaid Meters|ANSI Meters|Cellular Communication|Wi-SUN RF Mesh)$/, '');
@@ -128,7 +131,7 @@ function renderPage() {
   const page = find(slug) || EXPERIENCE_ROUTES.find(p => p.slug === slug) || LEGAL_ROUTES.find(p => p.slug === slug);
   if (!page && !['search', 'styles'].includes(slug)) return null;
   const heading = slug === 'styles' ? 'Design previews' : slug === 'search' ? 'AI search' : slug === 'home' ? 'Electricity metering & connected utilities' : title(page);
-  let body = slug === 'styles' ? styleGallery() : slug === 'home' ? (style === 'industrial' ? renderIndustrialHome(context) : renderEditorialHome(style,context) || renderHome(context)) : slug === 'search' ? renderSearch(query,base) : slug === 'contact' ? renderContact(context) : renderLegalPage(slug,base) || renderExperiencePage(slug,context);
+  let body = slug === 'styles' ? styleGallery() : slug === 'home' ? (style === 'industrial' ? renderIndustrialHome(context) : renderEditorialHome(style,context) || renderHome(context)) : slug === 'search' ? renderSearch(query,base,new Set([...WASION_PAGES,DTECH].map(p=>p.slug))) : slug === 'contact' ? renderContact(context) : renderLegalPage(slug,base) || renderExperiencePage(slug,context);
   if (slug === 'search' && style === 'industrial') body = decorateIndustrialSearch(body,context);
   const industrialCatalog = style === 'industrial' && INDUSTRIAL_CATALOG_ROUTES.includes(slug);
   if (industrialCatalog) body = renderIndustrialCatalog(slug,context);

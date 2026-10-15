@@ -1,0 +1,4275 @@
+{
+  "generatedAt": "2026-10-15T09:43:31.367Z",
+  "allowedHost": "en.wasion.com",
+  "description": "Official Wasion assets downloaded from the source URLs. Resized without enlargement and encoded as WebP for local delivery; original official logo retained. No replacement product imagery.",
+  "total": 233,
+  "downloaded": 232,
+  "failed": 1,
+  "assets": [
+    {
+      "sourceURL": "https://en.wasion.com/public/static/modules/cms/images/closeiconimfaz1.png",
+      "sourcePages": [
+        "https://en.wasion.com/"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a97b946aed9c-closeiconimfaz1.webp",
+      "sourceBytes": 1247,
+      "localBytes": 242,
+      "width": 18,
+      "height": 18,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "185c2548cd031c105bab0793c77d527ff6d564962466e0e84c365606274d221f",
+      "fetchedAt": "2026-10-15T09:38:27.240Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/static/modules/cms/images/picabout.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/e82ea74f875b-picabout.webp",
+      "sourceBytes": 523150,
+      "localBytes": 51522,
+      "width": 1920,
+      "height": 991,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "1c66a965428f6073b36df6cca5a9da475567d3d6f3026dbc52d142729845da41",
+      "fetchedAt": "2026-10-15T09:37:12.508Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/static/modules/cms/images/piccontact.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/contact.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/b3c631a0b8f5-piccontact.webp",
+      "sourceBytes": 46448,
+      "localBytes": 9906,
+      "width": 1920,
+      "height": 1080,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "6e529a34550c0d9ac2db682faf9c49d29b8c25b567f9700d4d758bd53d02005a",
+      "fetchedAt": "2026-10-15T09:37:12.720Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/static/modules/cms/images/picspicsolutionolu.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/solutions.html"
+      ],
+      "priority": false,
+      "status": "failed",
+      "error": "Command failed: curl --fail --location --max-time 35 --silent --show-error --header Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8 --header Accept-Language: en-US,en;q=0.9 --header Sec-Fetch-Dest: image --header Sec-Fetch-Mode: no-cors --header Sec-Fetch-Site: same-origin --output /tmp/wasion-21dc0ed53102.bin https://en.wasion.com/public/static/modules/cms/images/picspicsolutionolu.jpg\ncurl: (56) The requested URL returned error: 404\n",
+      "fetchedAt": "2026-10-15T09:38:59.191Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/static/modules/cms/images/searchiconimfa1.png",
+      "sourcePages": [
+        "https://en.wasion.com/"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/fed0a57d731a-searchiconimfa1.webp",
+      "sourceBytes": 1608,
+      "localBytes": 410,
+      "width": 28,
+      "height": 29,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "25ff654ff23b0fd42dac644cf97de114e43edf7eee551afa029534af56f333e9",
+      "fetchedAt": "2026-10-15T09:38:26.729Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/static/modules/cms/images/weisheng1.gif",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:42:23.673Z",
+      "localPath": "/assets/wasion-requirements/7435ecaad40c-weisheng1.webp",
+      "sourceBytes": 11534935,
+      "localBytes": 32942,
+      "width": 750,
+      "height": 563,
+      "sourceFormat": "gif",
+      "hasAlpha": true,
+      "sha256": "8ed13bfc890a18684904491f4d8fa472ef4c80e00430ca0f3c6e861be05ba3ae",
+      "retried": true,
+      "optimizationNote": "Static first-frame WebP preview from official animated source."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/14be514508503cbd3669532df75b4b26.png",
+      "sourcePages": [
+        "https://en.wasion.com/"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/69b94a85c3d7-14be514508503cbd3669532df75b4b26.webp",
+      "sourceBytes": 1802,
+      "localBytes": 522,
+      "width": 49,
+      "height": 49,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "fcb0fd25ddbaffc6894076b01f33eb6e21fdfe59ba80f00680b9d0018b87f240",
+      "fetchedAt": "2026-10-15T09:38:29.109Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/4e4e332d76596748805b51f46dd03e40.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/06ec30cd8a76-4e4e332d76596748805b51f46dd03e40.webp",
+      "sourceBytes": 76846,
+      "localBytes": 34044,
+      "width": 1919,
+      "height": 789,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "0956dfdf54294b00e6777f7dc7ce9d2c11dccdf912290838b6aa549ee44e4d9d",
+      "fetchedAt": "2026-10-15T09:37:17.202Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/ad428c0c9f42220db4e310a71131810b.png",
+      "sourcePages": [
+        "https://en.wasion.com/"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/wasion-logo-original.png",
+      "sourceBytes": 31276,
+      "localBytes": 31276,
+      "width": 1850,
+      "height": 306,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "9f0e13d77ce36c810f7b71fedea007f47f86a2abd465963237e452dc64ab71a9",
+      "fetchedAt": "2026-10-15T09:37:08.558Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/b5351d87595d0701db16c017820c88e1.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4c75b887777f-b5351d87595d0701db16c017820c88e1.webp",
+      "sourceBytes": 98913,
+      "localBytes": 48666,
+      "width": 1920,
+      "height": 790,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "2f331e7884d2b057123e6219415c180cf4e6db8e3f3f7128cb45fbd5736e7e3c",
+      "fetchedAt": "2026-10-15T09:37:22.108Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/c37641c0c5b62374e599375a3fa39067.png",
+      "sourcePages": [
+        "https://en.wasion.com/"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/342a30d381c5-c37641c0c5b62374e599375a3fa39067.webp",
+      "sourceBytes": 1796,
+      "localBytes": 552,
+      "width": 48,
+      "height": 48,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "da706bedf8ced6bca202d69c5a3d48fcc47545189b3e6aa70a42fc1a12b4d4a3",
+      "fetchedAt": "2026-10-15T09:38:28.608Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/ddcf9e398ef56204afebfd57196f2c84.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/ElectricityMeters.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a333ced60f6d-ddcf9e398ef56204afebfd57196f2c84.webp",
+      "sourceBytes": 29528,
+      "localBytes": 9522,
+      "width": 1920,
+      "height": 801,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "c0ab163c99c59bc38a892604ce8b60d29f9775d074221aaafda507cffd8f6a0c",
+      "fetchedAt": "2026-10-15T09:39:27.852Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/e609bb862c10daae5aeb517fea620e3d.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/WaterGasMeters.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/e1b9434c7617-e609bb862c10daae5aeb517fea620e3d.webp",
+      "sourceBytes": 76475,
+      "localBytes": 33120,
+      "width": 1920,
+      "height": 790,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "fcb0c3d55a31e0f6e5f80e8207b0fd67ba53e1f018ef4f8b192a474674d1271e",
+      "fetchedAt": "2026-10-15T09:37:19.884Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220518/51db9fd067ac1327a2718051e34c0b69.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/careers.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/92fbfba6373e-51db9fd067ac1327a2718051e34c0b69.webp",
+      "sourceBytes": 31515,
+      "localBytes": 7766,
+      "width": 1920,
+      "height": 1081,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "f9589d9dc04581bc19bb806a2415683d6dd383f2fcdeb88e1274442ef0410c2b",
+      "fetchedAt": "2026-10-15T09:37:11.210Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220524/3eb685e2c6c53c590e9f1d0d7c5439f3.png",
+      "sourcePages": [
+        "https://en.wasion.com/"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/15ae76c0e1dd-3eb685e2c6c53c590e9f1d0d7c5439f3.webp",
+      "sourceBytes": 31492,
+      "localBytes": 14644,
+      "width": 1850,
+      "height": 306,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "4b188c84e4ddc0550333116b8a74fbcde0ec03f15efdd57b3b253c0e77e87d94",
+      "fetchedAt": "2026-10-15T09:38:26.681Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220527/347178f328f0838ed1a235921f96eb55.png",
+      "sourcePages": [
+        "https://en.wasion.com/Telecommunications.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/951e3dd79e79-347178f328f0838ed1a235921f96eb55.webp",
+      "sourceBytes": 1029672,
+      "localBytes": 28206,
+      "width": 1919,
+      "height": 790,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "680ea02c0f0a855cc90e8ec1f59451b35ddbda383aa016c8c638a887e5abd2be",
+      "fetchedAt": "2026-10-15T09:37:23.668Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220527/8701987e5f90e55bf938d3789e37de96.png",
+      "sourcePages": [
+        "https://en.wasion.com/WaterGasMeters.html",
+        "https://en.wasion.com/proWateRel/C-210-Series-Smart-Water-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/5d26366daff7-8701987e5f90e55bf938d3789e37de96.webp",
+      "sourceBytes": 246085,
+      "localBytes": 21298,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "d39938fb5eda5d6b4f70d9d0f781eb2e8175eaedfcc9f629a963aa1898d7ab13",
+      "fetchedAt": "2026-10-15T09:39:45.319Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220527/cd052be6330cd0a35b217ce4cbe56a9c.png",
+      "sourcePages": [
+        "https://en.wasion.com/WaterGasMeters.html",
+        "https://en.wasion.com/proWateRel/I-110-Series-Smart-Water-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a61d485006b0-cd052be6330cd0a35b217ce4cbe56a9c.webp",
+      "sourceBytes": 256140,
+      "localBytes": 20978,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "adf052ad9b65bbda9ac83926fed62f0312b66685bc2e977c451f652383212a36",
+      "fetchedAt": "2026-10-15T09:39:45.013Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220528/3ac9b8e6ed964a01c0b8c45fc748bfc4.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/SF6-Gas-Insulated-Ring-Main-Unit.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/1cca2dc579b1-3ac9b8e6ed964a01c0b8c45fc748bfc4.webp",
+      "sourceBytes": 360377,
+      "localBytes": 25918,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "b743ed0efcd40c42c01f7851f32ce151663a6840a7e91686c0909c9ad7efcd4a",
+      "fetchedAt": "2026-10-15T09:39:56.286Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220528/7717e9dfd98c6fa821e1c10303de3138.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/24.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/0bb6b7d1fdf1-7717e9dfd98c6fa821e1c10303de3138.webp",
+      "sourceBytes": 498852,
+      "localBytes": 79020,
+      "width": 760,
+      "height": 681,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "ca5d5585f52e9ddad4d367eb436ba37fe79e32ed2dd406415103cb88d184f1b1",
+      "fetchedAt": "2026-10-15T09:43:17.364Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220528/80a9bc6f29cfa382d48b5422125e5a70.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/Outdoor-High-Voltage-Smart-Vacuum-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9093c18c74ff-80a9bc6f29cfa382d48b5422125e5a70.webp",
+      "sourceBytes": 507253,
+      "localBytes": 92600,
+      "width": 726,
+      "height": 701,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "44de6f1e27d5efa2f109dd4ba9aa4b91743e1856c2c21c351088423d1d469e01",
+      "fetchedAt": "2026-10-15T09:43:17.110Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220528/8401e472d1126cda1fcebcc22f8de3e7.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/24.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6e8877238c6a-8401e472d1126cda1fcebcc22f8de3e7.webp",
+      "sourceBytes": 355562,
+      "localBytes": 29558,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "5c91ba3e341397dbb8a908066076a39895965ca4a038b48e3467860958fd35ef",
+      "fetchedAt": "2026-10-15T09:39:56.297Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220528/d6dcbb740b75cb55c0ac31fe9a8a0598.png",
+      "sourcePages": [
+        "https://en.wasion.com/ElectricityMeters.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6a8ef7a20964-d6dcbb740b75cb55c0ac31fe9a8a0598.webp",
+      "sourceBytes": 366222,
+      "localBytes": 30684,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "ee8b4a753e172cd34e7ae46a6d1ae5685669db6abbdfd5caed01c8fa4c3b38bb",
+      "fetchedAt": "2026-10-15T09:39:27.406Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220528/f1269e32b3036c9d8462b2471d2b14ba.png",
+      "sourcePages": [
+        "https://en.wasion.com/WaterGasMeters.html",
+        "https://en.wasion.com/proWateRel/ZG-D-1.6-4-Smart-Residential-Gas-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c56c00d2b339-f1269e32b3036c9d8462b2471d2b14ba.webp",
+      "sourceBytes": 240890,
+      "localBytes": 9946,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "aff3b3f824a337f536cc9268ba7799c5ed567423f8f1fe205e45bef1fc421439",
+      "fetchedAt": "2026-10-15T09:39:44.876Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/15a9d56274cdd09d8f74fa966e61c952.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6c274ec6b7f0-15a9d56274cdd09d8f74fa966e61c952.webp",
+      "sourceBytes": 96471,
+      "localBytes": 8650,
+      "width": 280,
+      "height": 391,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "59494e737e0c2cda3d7d01cd6cd4a8b415fd9a1aaa79a1f4282c1978336246b5",
+      "fetchedAt": "2026-10-15T09:38:35.052Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/19849b447e116efcb9bece4bb8cd428d.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c9000fb380cf-19849b447e116efcb9bece4bb8cd428d.webp",
+      "sourceBytes": 141947,
+      "localBytes": 22516,
+      "width": 280,
+      "height": 396,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "c6e2dae48b478250db30f5cd0757d3278289286b6c2b0d6a1d877d1e62bd2966",
+      "fetchedAt": "2026-10-15T09:38:35.099Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/26a981cfd3c0e1c1aa9b4d5f0f85d914.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2f910185056a-26a981cfd3c0e1c1aa9b4d5f0f85d914.webp",
+      "sourceBytes": 92633,
+      "localBytes": 15128,
+      "width": 280,
+      "height": 362,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "ec0894c4eb0bb7b1ce1f27e16d1bf9733c60bea5542d87967c85a4ae65671ac5",
+      "fetchedAt": "2026-10-15T09:38:38.929Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/316dfb27c1cfc36806f87812cd864e0a.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/88562a9ae768-316dfb27c1cfc36806f87812cd864e0a.webp",
+      "sourceBytes": 151393,
+      "localBytes": 18930,
+      "width": 280,
+      "height": 396,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "028d973a611b4a36162b7e6eaab162d89751a5d04f9ee2624b7ca5b9f59cb7ea",
+      "fetchedAt": "2026-10-15T09:38:43.578Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/52e93d9407be2d6d6cfe72f6f0b5a2ec.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2685b5c84afa-52e93d9407be2d6d6cfe72f6f0b5a2ec.webp",
+      "sourceBytes": 66673,
+      "localBytes": 20346,
+      "width": 280,
+      "height": 403,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "92d383673294f867480eaf34dbec1a5da71697ffc32669e0217e45f77b4d1cbb",
+      "fetchedAt": "2026-10-15T09:38:31.741Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/5348dcb9bc643d1efb1bbd19ad0e55a9.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4f5832992cd7-5348dcb9bc643d1efb1bbd19ad0e55a9.webp",
+      "sourceBytes": 80117,
+      "localBytes": 14722,
+      "width": 280,
+      "height": 390,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "91c7ede309f68d89c0877680528e823980e6ba26392fc4a4c2e4baeb049a7cd6",
+      "fetchedAt": "2026-10-15T09:38:38.386Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/706fbedf4a38c5c4cd224d1fd6b1dbd4.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6a3630a59ecb-706fbedf4a38c5c4cd224d1fd6b1dbd4.webp",
+      "sourceBytes": 121226,
+      "localBytes": 19344,
+      "width": 280,
+      "height": 395,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "58ee71159c20945a25bba0e20ae30cec61829b5d0ee25b17983b6e5e36cebc2e",
+      "fetchedAt": "2026-10-15T09:38:38.696Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/8505e1b9947f2887038f4481b1b81195.png",
+      "sourcePages": [
+        "https://en.wasion.com/ElectricityMeters.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/816deb1776d5-8505e1b9947f2887038f4481b1b81195.webp",
+      "sourceBytes": 254265,
+      "localBytes": 18120,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "5076e011d799dd5d7b7dead15a20cdc0cc6deb01e183a10f3a6fe57459e3e56b",
+      "fetchedAt": "2026-10-15T09:39:27.513Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/a2b8cb13f7760cdbbb83bb9b7d677eaa.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/07918a0262c6-a2b8cb13f7760cdbbb83bb9b7d677eaa.webp",
+      "sourceBytes": 86798,
+      "localBytes": 15134,
+      "width": 280,
+      "height": 391,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "eff115cd031a2a1cfb8010b07fba1fcc594ea29ef3422f2b7572c11d0c483e33",
+      "fetchedAt": "2026-10-15T09:38:42.672Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220530/baefa8f4b903029fb48ac6da0cf6cdcb.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/688a2b83642b-baefa8f4b903029fb48ac6da0cf6cdcb.webp",
+      "sourceBytes": 105774,
+      "localBytes": 29964,
+      "width": 280,
+      "height": 404,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "813624874e946e8c96c73c3d94e8d2ab18ad40e6c3a250db54b82252863cb1eb",
+      "fetchedAt": "2026-10-15T09:38:32.711Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220531/67cc2a7a46ebae09eea9c69d207eecf7.png",
+      "sourcePages": [
+        "https://en.wasion.com/ElectricityMeters.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/fdf655a4f9d8-67cc2a7a46ebae09eea9c69d207eecf7.webp",
+      "sourceBytes": 120045,
+      "localBytes": 10668,
+      "width": 460,
+      "height": 460,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "58c31777eea0dbcae28307cd90f972f84b66ccbd00a0be9e3ad71a957c73c5a1",
+      "fetchedAt": "2026-10-15T09:39:26.873Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220531/855f18bd880fe7fb19f38737f94f7110.png",
+      "sourcePages": [
+        "https://en.wasion.com/proWateRel/I-110-Series-Smart-Water-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/808542d7b209-855f18bd880fe7fb19f38737f94f7110.webp",
+      "sourceBytes": 361489,
+      "localBytes": 35086,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "fab7dc51d2c64fa38daa5fcf7a36239c2aa06745e2067f4f3faa4f9e18ed5a6d",
+      "fetchedAt": "2026-10-15T09:38:22.881Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220531/94a0ce25dd16d2c26bed78b4544b1b09.png",
+      "sourcePages": [
+        "https://en.wasion.com/ElectricityMeters.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/10d61a36e736-94a0ce25dd16d2c26bed78b4544b1b09.webp",
+      "sourceBytes": 323804,
+      "localBytes": 24650,
+      "width": 920,
+      "height": 920,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "a6140465607cb1162dd828b0a33284c10307ba1001ec9f8a2c7ab002feebc112",
+      "fetchedAt": "2026-10-15T09:39:33.183Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220531/a331bd8631e7516189d38982f6d46382.png",
+      "sourcePages": [
+        "https://en.wasion.com/proWateRel/C-210-Series-Smart-Water-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/63be4adf173b-a331bd8631e7516189d38982f6d46382.webp",
+      "sourceBytes": 384889,
+      "localBytes": 40570,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "b92362e1ab3cf51ded2e73e9cba4a1c2189c75a09e7e61b2e0d3ac44d80621a3",
+      "fetchedAt": "2026-10-15T09:38:23.001Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220531/b327b67a51dd2c05e19f9a0422bb3e20.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/SF6-Gas-Insulated-Ring-Main-Unit.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/53a2bc91899b-b327b67a51dd2c05e19f9a0422bb3e20.webp",
+      "sourceBytes": 517058,
+      "localBytes": 48860,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "fc7ef6855b0adbccd4fa1010577b4cb6f2c6057db2f3991e804465f137b87efd",
+      "fetchedAt": "2026-10-15T09:43:18.283Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220531/d9c927cdd120f8f12efbc88032d4648a.png",
+      "sourcePages": [
+        "https://en.wasion.com/proWateRel/ZG-D-1.6-4-Smart-Residential-Gas-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/70641f5205ce-d9c927cdd120f8f12efbc88032d4648a.webp",
+      "sourceBytes": 346808,
+      "localBytes": 26998,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "3face5c824f3de03202b32ad131ac3a0db0dc89cce031e98c23c26499699118f",
+      "fetchedAt": "2026-10-15T09:43:14.074Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220601/b028c39ca3788173d1518ad985d9ad33.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/High-Voltage-Metal-Clad-Switchgear.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2ca42834da35-b028c39ca3788173d1518ad985d9ad33.webp",
+      "sourceBytes": 292959,
+      "localBytes": 29078,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "3a802495c65d50210c34403649312617cb089b70237080e584138868544ce0a4",
+      "fetchedAt": "2026-10-15T09:43:18.016Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220601/e18a220f6d872360c5d7b2ef99f51b42.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/High-Voltage-Metal-Clad-Switchgear.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/06e22eaa75ba-e18a220f6d872360c5d7b2ef99f51b42.webp",
+      "sourceBytes": 271289,
+      "localBytes": 15386,
+      "width": 775,
+      "height": 775,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "60ceff7fb1982e38f28fa107e720d13dcf8313f1e872d225d289974784dfd273",
+      "fetchedAt": "2026-10-15T09:39:56.223Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220613/04ef867975ab6524e67ac2165280a4c6.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wired-Communication/WFCT-980-Data-Concentrator-Unit.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/51f2f0353e59-04ef867975ab6524e67ac2165280a4c6.webp",
+      "sourceBytes": 260455,
+      "localBytes": 19186,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "dc978b1edc21b0a4157c439d0ce242d463dba0a00687f29170c1decba6c35382",
+      "fetchedAt": "2026-10-15T09:43:03.441Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220613/31160ff7e88f4b4053d386cab945f845.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Prepaid-Meters/aMeter100-KT-Single-Phase-Smart-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/b60beaf76b01-31160ff7e88f4b4053d386cab945f845.webp",
+      "sourceBytes": 372243,
+      "localBytes": 43624,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "140e8726402a4c2efc37f56cac9c5d2ecfc0b73473aad599ec8bfc3b4edf4fda",
+      "fetchedAt": "2026-10-15T09:38:05.474Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220613/46b4cbd59ec677854547e9520128382b.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wired-Communication/BPLC-Network-Interface-Module.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ab3ff3c9faf5-46b4cbd59ec677854547e9520128382b.webp",
+      "sourceBytes": 416658,
+      "localBytes": 27194,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "5dcc3e667b3a0c363b22df6adc987c4d2e402bda6215a1fa7d953149f196cc6c",
+      "fetchedAt": "2026-10-15T09:43:02.727Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220613/77b206e1193392955f074fd23ae00f88.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Prepaid-Meters/aMeter300-KT-Poly-Phase-Smart-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/3e4c039ad1e9-77b206e1193392955f074fd23ae00f88.webp",
+      "sourceBytes": 354479,
+      "localBytes": 38430,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "daf41ab86617bd21e780258072436443627c9b3c7bd8f6433b3ce7fe1b94a1f7",
+      "fetchedAt": "2026-10-15T09:38:06.138Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220613/a6aff1e604c64dfaa6ddfca78ffeff81.png",
+      "sourcePages": [
+        "https://en.wasion.com/ANSI-Meters/Libra-3C-Multi-function-Energy-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a98ce52c3104-a6aff1e604c64dfaa6ddfca78ffeff81.webp",
+      "sourceBytes": 483167,
+      "localBytes": 45698,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "38c4d8557b5d2647b1d7fc84dfe1245cc5d5b535741476e75e7c28dcf95d43a8",
+      "fetchedAt": "2026-10-15T09:38:07.841Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220613/c875747d2fcabf0d551bc633ec63548e.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wired-Communication/G3-PLC-Network-Interface-Module.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4af1b88644a0-c875747d2fcabf0d551bc633ec63548e.webp",
+      "sourceBytes": 363458,
+      "localBytes": 33248,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8fd32afa949ee2e16719456192055e1a2a27eb584f77a77c63b8228509614707",
+      "fetchedAt": "2026-10-15T09:43:02.606Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/0867f89fa03e2c30e62ca7343347c0d3.png",
+      "sourcePages": [
+        "https://en.wasion.com/Cellular-Communication/NB-IoT-GPRS-Network-Interface-Module.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/53bd2af787b6-0867f89fa03e2c30e62ca7343347c0d3.webp",
+      "sourceBytes": 229557,
+      "localBytes": 26558,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "e1f673cf4847b741b3c8e9be30a2944e733d4ee7a0977739b03d2a0d30c7332f",
+      "fetchedAt": "2026-10-15T09:38:22.867Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/16e86432652307516974f65fcf321106.png",
+      "sourcePages": [
+        "https://en.wasion.com/LoRa-LoRaWAN/WFCT-950-LoRaWAN-Gateway.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/aef8f2f81cca-16e86432652307516974f65fcf321106.webp",
+      "sourceBytes": 172284,
+      "localBytes": 15048,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "e7c80cc9246fdda9cbe255bb7bac03ebb691a6e45befd7fbde9d96f24a58f8af",
+      "fetchedAt": "2026-10-15T09:43:06.041Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/2c17a9da4d63856065a905162dec2ad6.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/7b268e74a70f-2c17a9da4d63856065a905162dec2ad6.webp",
+      "sourceBytes": 61426,
+      "localBytes": 7452,
+      "width": 235,
+      "height": 333,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "0a35cb7a56a92103bf3d4d3647f79019886ca9854d4b2d6daf36e2c27cec8186",
+      "fetchedAt": "2026-10-15T09:39:17.348Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/329b8e540a2e95bad43f06b45e97fc5f.png",
+      "sourcePages": [
+        "https://en.wasion.com/Telecommunications.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/1563693aa2e0-329b8e540a2e95bad43f06b45e97fc5f.webp",
+      "sourceBytes": 110811,
+      "localBytes": 3804,
+      "width": 920,
+      "height": 460,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "5792c2cf0b6ff9163d45060c5a413c926ac39a1105f26fb34ff3b9661e688490",
+      "fetchedAt": "2026-10-15T09:39:30.942Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/37789939ce045db5240464ec58a4feb9.png",
+      "sourcePages": [
+        "https://en.wasion.com/Cellular-Communication/Cellular-Module.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d0c69fccbb4e-37789939ce045db5240464ec58a4feb9.webp",
+      "sourceBytes": 288950,
+      "localBytes": 29290,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "62dbd1717504b43af27025fe4dad89539d92b8ad2b40338b5fc8edbc801699db",
+      "fetchedAt": "2026-10-15T09:38:23.775Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/40b25682ec25d64fd3a39e8d70402d76.png",
+      "sourcePages": [
+        "https://en.wasion.com/RF-P2P/RF-P2P-Dongle.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d9798543d0a7-40b25682ec25d64fd3a39e8d70402d76.webp",
+      "sourceBytes": 277304,
+      "localBytes": 20926,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "a11bb92c27b88be1a20deec93b5b914f888ca14f811b177e44e94edcdb3987b2",
+      "fetchedAt": "2026-10-15T09:43:10.123Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/41f91176576cd42301f4087de034ca8b.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wi-SUN-RF-Mesh/Wi-SUN-RF-Mesh-Network-Interface-Module.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/5eacb16e8da0-41f91176576cd42301f4087de034ca8b.webp",
+      "sourceBytes": 291842,
+      "localBytes": 28098,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "1ca48f00ab0d202da155728bc8534e838e320cf7e78e9453cf1569c45aa2583c",
+      "fetchedAt": "2026-10-15T09:43:07.226Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/62634f6b826dccabfc042d2cf3316e5b.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GT-Poly-Phase-Smart-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c08058bae503-62634f6b826dccabfc042d2cf3316e5b.webp",
+      "sourceBytes": 357778,
+      "localBytes": 35952,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "f1e7a226e46af272364a57a25f68734f2d839f9a515e0bd8485a72ab5c25c989",
+      "fetchedAt": "2026-10-15T09:38:01.534Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/87bd9075e1af777877d4703f571f6a29.png",
+      "sourcePages": [
+        "https://en.wasion.com/Telecommunications.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/51d4cd321ae6-87bd9075e1af777877d4703f571f6a29.webp",
+      "sourceBytes": 88061,
+      "localBytes": 5504,
+      "width": 460,
+      "height": 460,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "1fdd5dc4ce877f93e4781a7228bde946ddea580878c5a2d271d08b4bfbc11220",
+      "fetchedAt": "2026-10-15T09:39:31.262Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/87c75ae3a5d8e74e36f1e0a3995b47dc.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wi-SUN-RF-Mesh/WFCT-960-WiSUN-Gateway.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/67b43469f9d2-87c75ae3a5d8e74e36f1e0a3995b47dc.webp",
+      "sourceBytes": 285038,
+      "localBytes": 25962,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "47d967a47c911402dfb7e65edbe9c59ccb657c5543ec2fa212e9d2f3456d6cc5",
+      "fetchedAt": "2026-10-15T09:38:24.195Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/9946587f39798203b10ecc33e36f07d3.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-KT-Single-Phase-Keypad-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/af14b430728d-9946587f39798203b10ecc33e36f07d3.webp",
+      "sourceBytes": 316864,
+      "localBytes": 37378,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "98277e4562509a65b0399bce379904b2c6e378f1ac8d0613075e05f4128e5193",
+      "fetchedAt": "2026-10-15T09:38:11.457Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/9f133be6a5bcafe7d94b4cdc7543014b.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/7e8416e460d2-9f133be6a5bcafe7d94b4cdc7543014b.webp",
+      "sourceBytes": 68620,
+      "localBytes": 7376,
+      "width": 235,
+      "height": 332,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "c33033761c4d327c874f8f6b7ce6c04565df30a07389dde7b4025781300c3607",
+      "fetchedAt": "2026-10-15T09:39:19.455Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/a38a7e1612eb18ed49e9a3b83016e3c9.png",
+      "sourcePages": [
+        "https://en.wasion.com/RF-P2P/RF-FSK-P2P-NIC.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ecc68fa00c6f-a38a7e1612eb18ed49e9a3b83016e3c9.webp",
+      "sourceBytes": 199497,
+      "localBytes": 33286,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "605b23cc580f18852302ad5f462b2b2d6fe94fe0e4900c626e08b5f3d09b89a7",
+      "fetchedAt": "2026-10-15T09:43:09.623Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/a7d2cbd2ad012def5d63b7ee5027cd2d.png",
+      "sourcePages": [
+        "https://en.wasion.com/Telecommunications.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/abda9895f20e-a7d2cbd2ad012def5d63b7ee5027cd2d.webp",
+      "sourceBytes": 76175,
+      "localBytes": 4334,
+      "width": 460,
+      "height": 460,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "6b5908108225a924b40b347950bd7fd4add9ec39710ad16f8919ecb6262d2c4d",
+      "fetchedAt": "2026-10-15T09:39:31.615Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/be5615fe6e19457b385016bf85d4d5c7.png",
+      "sourcePages": [
+        "https://en.wasion.com/RF-P2P/RF-LoRa-P2P-NIC.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2ef203e33ee7-be5615fe6e19457b385016bf85d4d5c7.webp",
+      "sourceBytes": 194623,
+      "localBytes": 31888,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "dc07bb4ab79aa4b66d1689e1d0f5b5d6e65ec02ed0150276f10d53216b22c087",
+      "fetchedAt": "2026-10-15T09:43:09.791Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/ca8bb2bdce86f11d642110a81e1a0c64.png",
+      "sourcePages": [
+        "https://en.wasion.com/Telecommunications.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/bb89ce93254a-ca8bb2bdce86f11d642110a81e1a0c64.webp",
+      "sourceBytes": 320858,
+      "localBytes": 13318,
+      "width": 920,
+      "height": 920,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "35211cfaa743b035e6b6fb3c49e78e9dac4d9dd4f9941c84bd36375221555892",
+      "fetchedAt": "2026-10-15T09:39:31.917Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/d6ff900b611bc419a97a52c6271fd375.png",
+      "sourcePages": [
+        "https://en.wasion.com/Telecommunications.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/047d80f9bbf2-d6ff900b611bc419a97a52c6271fd375.webp",
+      "sourceBytes": 140737,
+      "localBytes": 5454,
+      "width": 920,
+      "height": 460,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "df1a614612c7f91e8a8a63cb6a75bcede703b07463abae0e07db75fdca2b188e",
+      "fetchedAt": "2026-10-15T09:39:29.936Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/ec8bb8294f780167dbb2712a14e9f10c.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GT-Single-Phase-Smart-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/708b85526398-ec8bb8294f780167dbb2712a14e9f10c.webp",
+      "sourceBytes": 401380,
+      "localBytes": 40582,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "045653b5e540f907ff0bdab008d5a9e7cf1037790ef4c9860c6f85fc881c54c6",
+      "fetchedAt": "2026-10-15T09:38:03.019Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220614/fa3bf30b8d4a147c9300ed15abdce9eb.png",
+      "sourcePages": [
+        "https://en.wasion.com/LoRa-LoRaWAN/LoRaWAN-Network-Interface-Module.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/cedf335644e2-fa3bf30b8d4a147c9300ed15abdce9eb.webp",
+      "sourceBytes": 291127,
+      "localBytes": 27376,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "bf5f4708b8d7ba91ddabbf4b3d1ac4f6fcdd347aea04b6930548f7c1a13e2b7e",
+      "fetchedAt": "2026-10-15T09:43:07.349Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/0b0af453c019c191013b862cb366e2b8.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/Miniature-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/fb5f25f2c878-0b0af453c019c191013b862cb366e2b8.webp",
+      "sourceBytes": 279331,
+      "localBytes": 27744,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "d24cbf83711c75491d241bf77ea62c88e7b3e319473e2528b98da7cd58de41cc",
+      "fetchedAt": "2026-10-15T09:43:20.999Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/0e331edf015454f6a3782d057fb99e20.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/Miniature-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/734ab18a35a2-0e331edf015454f6a3782d057fb99e20.webp",
+      "sourceBytes": 176021,
+      "localBytes": 11386,
+      "width": 612,
+      "height": 612,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "88abfc55774572d20bcaa79ea77494b372a19a5b00a23018170f5882723791ec",
+      "fetchedAt": "2026-10-15T09:39:59.646Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/220f3449a581afbf97b8328de5df4365.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/WEV-40.5-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d817390e3e0e-220f3449a581afbf97b8328de5df4365.webp",
+      "sourceBytes": 195463,
+      "localBytes": 14378,
+      "width": 612,
+      "height": 612,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "99e891aadcea8a62616900191df7166499141b813c99a0d1c424f5cf05680329",
+      "fetchedAt": "2026-10-15T09:39:58.181Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/29bba38500d9df26a93792f018726391.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/WEV-12-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/cb5a3cab2c5e-29bba38500d9df26a93792f018726391.webp",
+      "sourceBytes": 372112,
+      "localBytes": 43838,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "130c9fde4846cd57aab7d4345d603dc15a9de1c5fc4c15b3e848605c8a4a1ab4",
+      "fetchedAt": "2026-10-15T09:43:19.475Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/2b2ff97bd379003bda1f34defbd7828f.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/WEV-12-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6b10ecc7c474-2b2ff97bd379003bda1f34defbd7828f.webp",
+      "sourceBytes": 238894,
+      "localBytes": 19878,
+      "width": 612,
+      "height": 612,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "b596e62c07d8b7da93a93d118f38d20a503bad530309d7649e6ec5332fcca0e8",
+      "fetchedAt": "2026-10-15T09:39:57.646Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/2ec6e0b0bd5a2d35046f2a11a421e496.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/WEV-40.5-Indoor-High-Voltage-Vacuum-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d84d428b2308-2ec6e0b0bd5a2d35046f2a11a421e496.webp",
+      "sourceBytes": 299938,
+      "localBytes": 37742,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "7bad3e24cd17e7f275bfc668116f720861625be2fd82010daf6544eeda470087",
+      "fetchedAt": "2026-10-15T09:43:20.145Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/833d9b3257783e6aa431dd949da166ff.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/Miniature-Leakage-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a6d5ec1f6278-833d9b3257783e6aa431dd949da166ff.webp",
+      "sourceBytes": 179182,
+      "localBytes": 10716,
+      "width": 612,
+      "height": 612,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "ce153ca3e8f046354defcdaa8857d4f8fcc5838210ed608d5f87dfd8f4dfac64",
+      "fetchedAt": "2026-10-15T09:39:59.519Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220623/cb9b253ebebcdee8978dfd60991d2aec.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/Miniature-Leakage-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f728213a563d-cb9b253ebebcdee8978dfd60991d2aec.webp",
+      "sourceBytes": 295336,
+      "localBytes": 23402,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "0023ea8aca05c538b20fa657709160041a7bb2a42581861b2696d73c242eb907",
+      "fetchedAt": "2026-10-15T09:43:22.014Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220922/15d457bffaf2745c1be9e5fc4dbffd22.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter300-GTRU-Three-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/12950ebd9d4c-15d457bffaf2745c1be9e5fc4dbffd22.webp",
+      "sourceBytes": 440573,
+      "localBytes": 34798,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "e327ded3134e2a111ce768f521d44fa26acdf6e5c0302a3784165b76305906a3",
+      "fetchedAt": "2026-10-15T09:43:00.797Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220922/277d585ac1500035d21e95b0d0a8f54a.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Ordinary-Meters/DTSD341-Three-Phase-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/b4ab79671695-277d585ac1500035d21e95b0d0a8f54a.webp",
+      "sourceBytes": 466791,
+      "localBytes": 54492,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "0cfcd205fb345f9d7c5e4b5388830fcc8e800f45f86b6e0b446fd5981729a713",
+      "fetchedAt": "2026-10-15T09:42:52.955Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220922/4ee1fb176dd137a462a0b7c948ac72a2.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter300-CTVT-Three-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a6e311da81f7-4ee1fb176dd137a462a0b7c948ac72a2.webp",
+      "sourceBytes": 392119,
+      "localBytes": 33908,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "e686a2c091abf859540346ce3c9c19d54a49ab9e7cd968d086a7d9bb3ee9ca64",
+      "fetchedAt": "2026-10-15T09:37:54.832Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220922/662565d6a9588df5e3a04cf3bbe039f8.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter151-Single-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2cd28f37ca68-662565d6a9588df5e3a04cf3bbe039f8.webp",
+      "sourceBytes": 374623,
+      "localBytes": 27306,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "838e435436a74dac32125d5f87e7d270cd99a0783b5299bdd287bebe3a5a08bb",
+      "fetchedAt": "2026-10-15T09:37:59.443Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220922/7195a00d550e060f7c322fadd72698f0.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter100-GTRU-Single-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2f4f93d99207-7195a00d550e060f7c322fadd72698f0.webp",
+      "sourceBytes": 433092,
+      "localBytes": 33466,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "c22e7548b711c6ec372beedf37580396544388a94b92de2604cccfd82c9c931f",
+      "fetchedAt": "2026-10-15T09:42:59.928Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220922/75092e873b41c7ba94b23d0d6563a2fc.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Prepaid-Meters/DTSY341-Three-Phase-Smart-Prepayment-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a72c8d3df08f-75092e873b41c7ba94b23d0d6563a2fc.webp",
+      "sourceBytes": 436238,
+      "localBytes": 43492,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "a156c80a3c854a6b72001b09096e8d56b644c9ec200b1ba1100ef1193d87d6a6",
+      "fetchedAt": "2026-10-15T09:42:54.741Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220929/0b226d67978735597fe2852669c76cac.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Prepayment-Vending-Management-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/82542a7cac44-0b226d67978735597fe2852669c76cac.webp",
+      "sourceBytes": 129020,
+      "localBytes": 21166,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "491519defd85c04ce3649f98af5501df382db86517294b933558340a49266804",
+      "fetchedAt": "2026-10-15T09:39:36.819Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220929/22cbbe344d74d1b8a6a1561a7c6bddd4.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/bf28236c603c-22cbbe344d74d1b8a6a1561a7c6bddd4.webp",
+      "sourceBytes": 286122,
+      "localBytes": 38938,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "369004b87aaf5f47af7db8ea87951ae301f523227594290bc5599cd37ae89a9f",
+      "fetchedAt": "2026-10-15T09:43:10.964Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220929/456c0af3504cfad2371850a7add583cd.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Prepayment-Vending-Management-System.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/297a5b6f4644-456c0af3504cfad2371850a7add583cd.webp",
+      "sourceBytes": 216107,
+      "localBytes": 37264,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "044f7962399d103d3b0b7fce1ea24c1a2e154e18f4beeb21252cf473113f6e52",
+      "fetchedAt": "2026-10-15T09:38:16.056Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220929/45b88bbb53f9cdd0e390c2ea56b9bedc.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Meter-Data-Reading.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a4c851f1d1ee-45b88bbb53f9cdd0e390c2ea56b9bedc.webp",
+      "sourceBytes": 135309,
+      "localBytes": 35344,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "2dcbb1595759325520541f85d25601df6da069dd2f33c957e3ffe647a5391a7a",
+      "fetchedAt": "2026-10-15T09:38:12.174Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220929/641a962e1d090b636f5e2a4e84fbe18a.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Meter-Data-Reading.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/89a2bbc15bf5-641a962e1d090b636f5e2a4e84fbe18a.webp",
+      "sourceBytes": 127025,
+      "localBytes": 22002,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "cd0fc8f45bc1c55da207dae3e9c66a89f54f3bce54e9e05cdb98ae85b5a0459f",
+      "fetchedAt": "2026-10-15T09:39:36.743Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220929/91275158bf7e3769fca6a36b2d20982b.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/5.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/cca4f1a3af11-91275158bf7e3769fca6a36b2d20982b.webp",
+      "sourceBytes": 142876,
+      "localBytes": 21910,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "d38223f2e69e9d88e686c063f7f12aeee828d0c80693a4388a0b42938ecf6353",
+      "fetchedAt": "2026-10-15T09:37:27.485Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220930/5bc60336a205122cceaee36f7127b6d3.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/4.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a2c4ff8f79b8-5bc60336a205122cceaee36f7127b6d3.webp",
+      "sourceBytes": 130873,
+      "localBytes": 27890,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "8b9613a83a314ce8d6355a0766645505ca77eb397d5f0da130fa22448d43ca50",
+      "fetchedAt": "2026-10-15T09:37:25.671Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220930/6c310bece3c373e7c13a3c77b84a85ac.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/7.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9830d94b0eae-6c310bece3c373e7c13a3c77b84a85ac.webp",
+      "sourceBytes": 101309,
+      "localBytes": 16874,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "b9309b976d8faa5c8c56d548eda913ddca06271c39af2ebf9f6f5ecde5b43b12",
+      "fetchedAt": "2026-10-15T09:37:28.384Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220930/aae63a864fabdc081649bb69b8676df7.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/1.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9528fb29db5c-aae63a864fabdc081649bb69b8676df7.webp",
+      "sourceBytes": 172912,
+      "localBytes": 36286,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "50ca05bb661e7bbb6b76e9c6ee0b4ce350b96ff02d75359ba1e4a9f72d276346",
+      "fetchedAt": "2026-10-15T09:37:24.662Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220930/def19dcd6e83a03b3f3fdf79442d9224.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/WiSUN-Solutions.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/aca8ae9047bf-def19dcd6e83a03b3f3fdf79442d9224.webp",
+      "sourceBytes": 201151,
+      "localBytes": 39374,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "f5c80c6905910e402ce345ee45e7effc5020d737ff6e466eb797db8c917bc1ec",
+      "fetchedAt": "2026-10-15T09:37:24.812Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220930/e4ce4c1541825e05d9153c41cd39af09.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/6.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/fac9ed6c68df-e4ce4c1541825e05d9153c41cd39af09.webp",
+      "sourceBytes": 191936,
+      "localBytes": 36654,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "f69f0781206ebd27df36c6d98b638d4abf7c7d5e31a8d01b1df0b428459a43a7",
+      "fetchedAt": "2026-10-15T09:37:28.478Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221011/2bf034a11e9d8c409dd082c03d457ca7.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/14cc0fe727e2-2bf034a11e9d8c409dd082c03d457ca7.webp",
+      "sourceBytes": 67141,
+      "localBytes": 8666,
+      "width": 315,
+      "height": 315,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "676b904849b565f97ee093ac41a9eb76a7e1d07b2470dadb6dbb6c77871f5708",
+      "fetchedAt": "2026-10-15T09:38:51.125Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221011/a343d488dc16d75f059d1fd368b62e91.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6be5fa0dbdb5-a343d488dc16d75f059d1fd368b62e91.webp",
+      "sourceBytes": 75139,
+      "localBytes": 8814,
+      "width": 315,
+      "height": 315,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "e68639c5f20e8d3be22bee921e70e736f269af0c15dfd12ec6c38785bd0b2770",
+      "fetchedAt": "2026-10-15T09:38:53.611Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221011/afd0254126dee9b077bf3bb2d721b40d.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f5d08c45bd18-afd0254126dee9b077bf3bb2d721b40d.webp",
+      "sourceBytes": 49534,
+      "localBytes": 8316,
+      "width": 315,
+      "height": 315,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "4ec37bad6affc91df351a3824b99f065f20660ed1d5143661c874f6dcf1f1cc6",
+      "fetchedAt": "2026-10-15T09:38:47.223Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221011/c2c43d10ccb79856a6af97794a423947.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c2606138bbe2-c2c43d10ccb79856a6af97794a423947.webp",
+      "sourceBytes": 95496,
+      "localBytes": 12322,
+      "width": 315,
+      "height": 315,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "f79296dff0fab5a88b41b50aa07f3fbb1b6c2915d2f1e06d5f7a75481583d6b6",
+      "fetchedAt": "2026-10-15T09:37:08.441Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221012/39b8102f7fbf6a71ab96eda52723281e.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Ordinary-Meters/DDS102-Single-Phase-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/92fed2be7cee-39b8102f7fbf6a71ab96eda52723281e.webp",
+      "sourceBytes": 482364,
+      "localBytes": 49848,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "852bab1b9bc34c3cc0cb795237b07897fcf38535182039131112fad90fe0d488",
+      "fetchedAt": "2026-10-15T09:42:53.520Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221012/79c41306fb6a2ed9d5ef17729f7b6494.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/158f1d9afbb3-79c41306fb6a2ed9d5ef17729f7b6494.webp",
+      "sourceBytes": 64042,
+      "localBytes": 9534,
+      "width": 315,
+      "height": 315,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "a0c618ac6c57ac1d3fac8fca974c6e83e513d13899f5165958f5f4a77673043d",
+      "fetchedAt": "2026-10-15T09:38:45.905Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221012/8cfd061828f07058077e7f3516fe0cd3.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/solutions.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/460f1caab5af-8cfd061828f07058077e7f3516fe0cd3.webp",
+      "sourceBytes": 645714,
+      "localBytes": 115008,
+      "width": 1000,
+      "height": 600,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "15bcf4934bee89d8574d15e605b94536f1ad959ade96c5c8db80faa717652ac3",
+      "fetchedAt": "2026-10-15T09:39:12.528Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221012/ee7e5311d3fc1f40d384c99f5aeaa14d.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/ElectricityMeters.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/3e499b5adf9d-ee7e5311d3fc1f40d384c99f5aeaa14d.webp",
+      "sourceBytes": 47670,
+      "localBytes": 7312,
+      "width": 460,
+      "height": 460,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "5e117f016ec0410f47ef3dae132dc93d969899414ba8e67aa254da17d0a2c522",
+      "fetchedAt": "2026-10-15T09:39:26.103Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221012/f53d913f103d84ebf68640510bf4c293.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f1fcd40ad087-f53d913f103d84ebf68640510bf4c293.webp",
+      "sourceBytes": 12714,
+      "localBytes": 2618,
+      "width": 77,
+      "height": 100,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8685e08d6c3f711bb48ee38d7d24a5ff9533d0b18559f3e77f94e2be2ccf9592",
+      "fetchedAt": "2026-10-15T09:38:53.616Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221013/2e6d51dfed2ec14a138b75411b5099d0.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/3.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/cd400ffbbeed-2e6d51dfed2ec14a138b75411b5099d0.webp",
+      "sourceBytes": 61296,
+      "localBytes": 11072,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "7f1bac1bb9f2391222052ad79cc9d16aca35b62b6c77ba61ca557575b357ce28",
+      "fetchedAt": "2026-10-15T09:37:24.331Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221017/5390cc00f17c8c936f6882b0ce4d6173.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wired-Communication/Ethernet-Network-Interface-Module.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/958c73d12b06-5390cc00f17c8c936f6882b0ce4d6173.webp",
+      "sourceBytes": 366743,
+      "localBytes": 65398,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "91ed190158aa01780003e7b7c95bb47f0c25473e782ec2e6c75b6af5f95d0d8c",
+      "fetchedAt": "2026-10-15T09:43:04.884Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221017/92a5c4cf133292a62a438e69fad31a8c.png",
+      "sourcePages": [
+        "https://en.wasion.com/Telecommunications.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2fb0a4528ed2-92a5c4cf133292a62a438e69fad31a8c.webp",
+      "sourceBytes": 177717,
+      "localBytes": 9258,
+      "width": 460,
+      "height": 460,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "84349e88e69561d0078f64587c3631019e73cb9b34f4cd9f56e3ff5e0abd4778",
+      "fetchedAt": "2026-10-15T09:39:33.808Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221018/035bfaf787e8fe03fc8a186f6dceed04.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/eaff835f45b9-035bfaf787e8fe03fc8a186f6dceed04.webp",
+      "sourceBytes": 11562,
+      "localBytes": 2252,
+      "width": 77,
+      "height": 100,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8be1c9f4dd25b8bf50c1acadb8ff5cf1ff6e151fd64a434fd00cd478aeeb8128",
+      "fetchedAt": "2026-10-15T09:38:56.239Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221018/4e46644f2c4b733bdc34fc07fde28e44.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/97f016f4588f-4e46644f2c4b733bdc34fc07fde28e44.webp",
+      "sourceBytes": 11231,
+      "localBytes": 2220,
+      "width": 77,
+      "height": 100,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "0e23cf864826834fcbd9fe17fb09af22e48b58b19ec73f6840e26bfc2c00b44d",
+      "fetchedAt": "2026-10-15T09:38:56.036Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221018/761e52872ee34ffaa31bec5f190a0a37.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/71973e31f496-761e52872ee34ffaa31bec5f190a0a37.webp",
+      "sourceBytes": 12695,
+      "localBytes": 2378,
+      "width": 77,
+      "height": 100,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "11f8fc628a3c33fcf5866ef11e95a50bb230846459ee251ded0b514958b1f124",
+      "fetchedAt": "2026-10-15T09:38:58.707Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221019/741b5deeb3a134850909c8f38d5fb285.png",
+      "sourcePages": [
+        "https://en.wasion.com/BatterySwapCabinet/Intelligent-Charging-Cabinets.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2e3f78685f09-741b5deeb3a134850909c8f38d5fb285.webp",
+      "sourceBytes": 191706,
+      "localBytes": 19698,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "184a5cdec1f62a6aa3fa2492c89952730c369db65ab0521a77057cd3798b6c58",
+      "fetchedAt": "2026-10-15T09:43:29.671Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221019/cdd43bf4d6f8f9e245065082a7907a75.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wi-SUN-RF-Mesh/DC-210-Data-Repeater.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/5d3a07bc90aa-cdd43bf4d6f8f9e245065082a7907a75.webp",
+      "sourceBytes": 319589,
+      "localBytes": 24082,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "5f74b525c3c8e6d8ec6a22b4aa4ca4087df2bdde2a410bfe5cbfc1ab13b7e1ea",
+      "fetchedAt": "2026-10-15T09:43:08.904Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221025/2289f628ffc8ecf288a542623260b6ff.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ec5b99d7b732-2289f628ffc8ecf288a542623260b6ff.webp",
+      "sourceBytes": 185415,
+      "localBytes": 27410,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "d9b4f25529162491cc7aceb1c34f1fdf1400b160a64ca2c2afb441355df70e45",
+      "fetchedAt": "2026-10-15T09:39:40.266Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221107/a8f5a9fa59005df5f2bd0fe828af7bba.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/solutions.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/745e1953df3f-a8f5a9fa59005df5f2bd0fe828af7bba.webp",
+      "sourceBytes": 862230,
+      "localBytes": 84650,
+      "width": 2400,
+      "height": 1350,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "b973692afcac0792867fce8c8fde6e438bed9dc495a4df75e9e2c3427867a8c1",
+      "fetchedAt": "2026-10-15T09:37:20.071Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221108/8e58ede9de762b20efd7df9977ec85e9.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/Outdoor-High-Voltage-Smart-Vacuum-Circuit-Breaker.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a48d64f2cd93-8e58ede9de762b20efd7df9977ec85e9.webp",
+      "sourceBytes": 213119,
+      "localBytes": 39864,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "47c7e70577b9c87e281561b35873bd4dfca8d9178691ebb5b9a19fb4a2355831",
+      "fetchedAt": "2026-10-15T09:39:54.920Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230105/DC201 no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/Cellular-Communication/DC201-Standalone-Cellular-Modem.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/713ec6e1d124-DC201-no-bg.webp",
+      "sourceBytes": 246746,
+      "localBytes": 22634,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "a8731d1e272168b19ff2caa046a14b15c03ca2f791a7f01e0bc8dff85d401e8e",
+      "fetchedAt": "2026-10-15T09:43:06.277Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230109/UDIS no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Universal-Device-Integration-System.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/3c381768fa91-UDIS-no-bg.webp",
+      "sourceBytes": 301804,
+      "localBytes": 35918,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "aa0f9f250672a67f246162fe4dfc6128f375774e2222c0698918b829b2102a00",
+      "fetchedAt": "2026-10-15T09:38:12.935Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230110/EDIS no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Energy-Data-Integration-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/5061b9ebe2fe-EDIS-no-bg.webp",
+      "sourceBytes": 191424,
+      "localBytes": 35974,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "ff568260bf9d60f5c9da6b184097afc7b21f3caab9fc3bf53607d2290de0f492",
+      "fetchedAt": "2026-10-15T09:43:11.407Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230110/EDIS.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Energy-Data-Integration-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c42ac9b5dbf2-EDIS.webp",
+      "sourceBytes": 116332,
+      "localBytes": 18694,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "20efe7cb4e255df1bcfd157df244ce13a84eb51cbc77aee70e0f0533e8db38f0",
+      "fetchedAt": "2026-10-15T09:39:40.529Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230110/SKMS no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Key-Management-System.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d4bfcd095c9f-SKMS-no-bg.webp",
+      "sourceBytes": 234471,
+      "localBytes": 27112,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "1625dec9d63776777baafde5673a2d085767357ee3be30e66a81d4804cf4f97a",
+      "fetchedAt": "2026-10-15T09:38:16.016Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230110/SKMS.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Key-Management-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6531ef9ffc29-SKMS.webp",
+      "sourceBytes": 151146,
+      "localBytes": 8964,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "0316907d8cbd55141af51e6eee7f774b61b8fd29f77e996a0871a3e5ff3262bd",
+      "fetchedAt": "2026-10-15T09:39:38.260Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230110/SNMS no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Smart-Network-Management-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/980c25d0e8e3-SNMS-no-bg.webp",
+      "sourceBytes": 192306,
+      "localBytes": 29808,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "bf9f9bdd8b4f110a05a769a35b55b79014f8fe61540d4a35d4863a933efdef37",
+      "fetchedAt": "2026-10-15T09:43:12.604Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230110/SNMS.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Smart-Network-Management-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/fb208b254d87-SNMS.webp",
+      "sourceBytes": 115104,
+      "localBytes": 13568,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "de9edd49e0c0b3253e690b43eded5d1794f7ca1be62dab3c134188cd920197ca",
+      "fetchedAt": "2026-10-15T09:39:41.627Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230110/UDIS.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Universal-Device-Integration-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/001553eaead9-UDIS.webp",
+      "sourceBytes": 217016,
+      "localBytes": 20534,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "6e3ffada5dcbcf52592959161e0c17a1d1a7414c5fe632cca0e468862f2f0f12",
+      "fetchedAt": "2026-10-15T09:39:36.950Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230111/ansi-libra 1A no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/ANSI-Meters/Libra-1A-ANSI-Standard-Conventional-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2ce70fb9e138-ansi-libra-1A-no-bg.webp",
+      "sourceBytes": 488013,
+      "localBytes": 42930,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8d2542fd4b65635e1f06373b097c8c89c6df60a4e6bbb7fb45761feed7db0b0e",
+      "fetchedAt": "2026-10-15T09:42:53.985Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230227/JYL no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/JYL-60-Fault-Indicator.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/0bea3eb381bc-JYL-no-bg.webp",
+      "sourceBytes": 546561,
+      "localBytes": 64654,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "c70444ed4c41b475957cd433bb43b6319b8796280f768675ff40b1f0de71b973",
+      "fetchedAt": "2026-10-15T09:43:16.142Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230227/JYL.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/JYL-60-Fault-Indicator.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/965d388999b4-JYL.webp",
+      "sourceBytes": 451025,
+      "localBytes": 40578,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "9d0b070e553f77bf14de7af0d81da3aaf08b133d2fc453a6a7e57aaae731277d",
+      "fetchedAt": "2026-10-15T09:39:56.800Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230228/D100 Series Ultrasonic Water Meter no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/proWateRel/D-100-Series-Ultrasonic-Water-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d3b63e3ef47a-D100-Series-Ultrasonic-Water-Meter-no-bg.webp",
+      "sourceBytes": 418448,
+      "localBytes": 38452,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "e2aab1f0a2ea699325185a0fcc8ada5cac850d804a08bfe78f2882be03154d4b",
+      "fetchedAt": "2026-10-15T09:43:13.747Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230228/D100 Series Ultrasonic Water Meter.png",
+      "sourcePages": [
+        "https://en.wasion.com/WaterGasMeters.html",
+        "https://en.wasion.com/proWateRel/D-100-Series-Ultrasonic-Water-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/caa6752f60f6-D100-Series-Ultrasonic-Water-Meter.webp",
+      "sourceBytes": 322324,
+      "localBytes": 24428,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "7affea6944b406cc657837c69c4ad3fa79c54315274e572e0574c4ca415ae876",
+      "fetchedAt": "2026-10-15T09:39:47.165Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230406/DDSD101-J6 no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J6-Single-Phase-Smart-Prepayment-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/e81f1f680e9e-DDSD101-J6-no-bg.webp",
+      "sourceBytes": 366979,
+      "localBytes": 38022,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8bdc917d0a7b7b6cac24c4574ea16b3f69e237edda95c1c8756d2a171eb724c9",
+      "fetchedAt": "2026-10-15T09:42:53.269Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230614/WPVI TPH no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/InverterUI8/WPVI-TPH-Smart-Inverter-Solution.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/eb8723643751-WPVI-TPH-no-bg.webp",
+      "sourceBytes": 197029,
+      "localBytes": 16786,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "25bd54bc6e9500614f73b819ee2ef413ebb80074233078f3dbd2e511f37c231c",
+      "fetchedAt": "2026-10-15T09:43:29.921Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230718/bf26f180da218f833f6cfa653f72f4e.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SuccessStories.html",
+        "breb-epc-for-ami-project"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/10b7dd491498-bf26f180da218f833f6cfa653f72f4e.webp",
+      "sourceBytes": 371855,
+      "localBytes": 70252,
+      "width": 830,
+      "height": 500,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "249baf5363cd592cc1c3fc005e5b6755cabdf5e2feea31c3acb3797a07752dc8",
+      "fetchedAt": "2026-10-15T09:39:13.124Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230718/孟加拉项目BREB-1.png",
+      "sourcePages": [
+        "https://en.wasion.com/caseStor/BREB-EPC-for-AMI-Project.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a1faeb975336-BREB-1.webp",
+      "sourceBytes": 1460685,
+      "localBytes": 171166,
+      "width": 1200,
+      "height": 600,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "c1e683f42748b5cb527748aa8f02c763436b62d505abd62fe86defa2c342eed2",
+      "fetchedAt": "2026-10-15T09:37:50.976Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230720/Group 1.png",
+      "sourcePages": [
+        "https://en.wasion.com/caseStor/Agricultural-PV-and-Energy-Storage-Complementary-Project.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/68b8d05cb671-Group-1.webp",
+      "sourceBytes": 1201251,
+      "localBytes": 141788,
+      "width": 1200,
+      "height": 600,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "1be9b0f876c616b51de7db51e682630d10ef988cbf9d780f7e44a2d17cf8b642",
+      "fetchedAt": "2026-10-15T09:37:47.662Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230720/海南粤水电项目830x500.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SuccessStories.html",
+        "agricultural-pv-and-energy-storage-complementary-project"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/8388b606624d-830x500.webp",
+      "sourceBytes": 165297,
+      "localBytes": 100472,
+      "width": 830,
+      "height": 500,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "5657eae49f33f8441f755d46fe9ad33832ea02f9e1923c43e485f5227bf86ac5",
+      "fetchedAt": "2026-10-15T09:39:04.879Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230727/success stories copy.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SuccessStories.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4cf17a1f28f5-success-stories-copy.webp",
+      "sourceBytes": 292796,
+      "localBytes": 69644,
+      "width": 414,
+      "height": 896,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "611a3282e0945ba6c91572c10f532d644af1c7110caf0ca1a0f24fde3b59fc64",
+      "fetchedAt": "2026-10-15T09:39:05.305Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230727/success stories.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SuccessStories.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/28eea79d56fd-success-stories.webp",
+      "sourceBytes": 1289147,
+      "localBytes": 342154,
+      "width": 1920,
+      "height": 857,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "4375bed3d7fe3a0d8781da78afcba51b4b8a6fcd1cb2e1c577e80244d8ca16aa",
+      "fetchedAt": "2026-10-15T09:37:19.270Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/new energy-mobile copy.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/1f3aae2c8348-new-energy-mobile-copy.webp",
+      "sourceBytes": 16686,
+      "localBytes": 2510,
+      "width": 77,
+      "height": 100,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "59ea53fc1a82cb7304ca6f939df03afad8cf1a2e051b27fc49803872fa606ea6",
+      "fetchedAt": "2026-10-15T09:38:58.363Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/new energy.png",
+      "sourcePages": [
+        "https://en.wasion.com/products.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f8e61bf287f5-new-energy.webp",
+      "sourceBytes": 67753,
+      "localBytes": 9498,
+      "width": 315,
+      "height": 315,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "54ae90ce41ab868ff23b38818bfbeb1aa036c7ebf443696c2f83ebceacf7a4f0",
+      "fetchedAt": "2026-10-15T09:38:50.192Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/坦桑项目.png",
+      "sourcePages": [
+        "https://en.wasion.com/caseStor/Metering-Solutions-for-TANESCO.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2132b721bfc7-image.webp",
+      "sourceBytes": 1108008,
+      "localBytes": 111368,
+      "width": 1200,
+      "height": 600,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "b19e1a9861b6a497b813315ef63c5333d123052fed84b3c7f953af5ca1e4afdb",
+      "fetchedAt": "2026-10-15T09:37:49.845Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/坦桑项目封面图.jpg",
+      "sourcePages": [
+        "metering-solutions-for-tanesco"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/fc643ed2105f-image.webp",
+      "sourceBytes": 302579,
+      "localBytes": 53768,
+      "width": 830,
+      "height": 500,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "e29a816850e3f358b46dcd9954e73ecaa1c1a2fbbd882da3fb20ab06adabf201",
+      "fetchedAt": "2026-10-15T09:40:37.070Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/新能源背景图.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/13de8d11bd5e-image.webp",
+      "sourceBytes": 492545,
+      "localBytes": 31954,
+      "width": 1919,
+      "height": 790,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "223eae97ae07e919fc2fc74c3910352a1f1ee3233246fa339ca71021fca0fdf7",
+      "fetchedAt": "2026-10-15T09:37:26.241Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/沙特.png",
+      "sourcePages": [
+        "https://en.wasion.com/caseStor/CET-AMI-Project-for-SEC.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/3cc6d7266b87-image.webp",
+      "sourceBytes": 1325593,
+      "localBytes": 139386,
+      "width": 1200,
+      "height": 600,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "9ac0b4ca17703b217e090e996a24a2a860fccb35f870fcbc44178eca41a18bf1",
+      "fetchedAt": "2026-10-15T09:38:02.513Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/沙特项目封面.jpg",
+      "sourcePages": [
+        "cet-ami-project-for-sec"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/1da9a49bea6c-image.webp",
+      "sourceBytes": 337466,
+      "localBytes": 58038,
+      "width": 830,
+      "height": 500,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "1b972f8bba466453ce382aec865e70f0eac198314dad366543b52988472c4f36",
+      "fetchedAt": "2026-10-15T09:40:38.597Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/科特迪瓦项目.png",
+      "sourcePages": [
+        "https://en.wasion.com/caseStor/CIE-AMI-Project-in-Cote-dIvoire.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/709b5cff15a0-image.webp",
+      "sourceBytes": 1324482,
+      "localBytes": 142912,
+      "width": 1200,
+      "height": 600,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "5f1a4fc8158ebfb7ce8dadac00b1dab831ffcdf4194e50762f1f9c093bce5b3e",
+      "fetchedAt": "2026-10-15T09:37:47.076Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/科特迪瓦项目封面图.jpg",
+      "sourcePages": [
+        "cie-ami-project-in-cote-divoire"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a80928ab135f-image.webp",
+      "sourceBytes": 463888,
+      "localBytes": 97914,
+      "width": 830,
+      "height": 500,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "c7a70c7aaeb12c518288aa208e9cb9a2fba3669f4c8b86f0241ebe804ae867d2",
+      "fetchedAt": "2026-10-15T09:40:36.861Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/墨西哥.png",
+      "sourcePages": [
+        "https://en.wasion.com/caseStor/Metering-Solutions-for-CFE-in-Mexico.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4b2c65b5246b-image.webp",
+      "sourceBytes": 1307667,
+      "localBytes": 141120,
+      "width": 1200,
+      "height": 600,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "561249e4c1a299bd35d82378e38c2c8e6eff440c56220c5ae598705dd09f3968",
+      "fetchedAt": "2026-10-15T09:37:43.401Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/墨西哥项目封面图.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/SuccessStories.html",
+        "metering-solutions-for-cfe-in-mexico"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/424a95292d22-image.webp",
+      "sourceBytes": 293372,
+      "localBytes": 48406,
+      "width": 830,
+      "height": 500,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "ccceaacfd4b6b600f2a71cb89b311ee745e0eb4c4bc9bd6d2a9546d54de24ea8",
+      "fetchedAt": "2026-10-15T09:39:12.141Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230804/可可西里封面.jpg",
+      "sourcePages": [
+        "the-intelligent-microgrid-energy-station-project"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ec0cc14eabde-image.webp",
+      "sourceBytes": 347224,
+      "localBytes": 81446,
+      "width": 830,
+      "height": 500,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "979d4ab355bd1db79eb49f082924931804dc32deab4c69a8381438cdb018fb7e",
+      "fetchedAt": "2026-10-15T09:40:36.627Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230804/可可西里项目.png",
+      "sourcePages": [
+        "https://en.wasion.com/caseStor/The-Intelligent-Microgrid-Energy-Station-Project.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2455a45380ad-image.webp",
+      "sourceBytes": 1060075,
+      "localBytes": 126110,
+      "width": 1200,
+      "height": 600,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "32d870cd3dfb9a4745b3d15370fc9e4452ef7b3fb4f7ef3050613099d6d2dcb0",
+      "fetchedAt": "2026-10-15T09:37:53.962Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230809/High Voltage AC Automatic Recloser no bg.png",
+      "sourcePages": [
+        "https://en.wasion.com/proIntpRel/High-Voltage-AC-Automatic-Recloser.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a16c2734908d-High-Voltage-AC-Automatic-Recloser-no-bg.webp",
+      "sourceBytes": 419296,
+      "localBytes": 53570,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "37074b4c27fbba4ac85b6481f049d87fd71073bf44ce76ebfb594e9f08701af2",
+      "fetchedAt": "2026-10-15T09:43:14.573Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230809/High Voltage AC Automatic Recloser.png",
+      "sourcePages": [
+        "https://en.wasion.com/IntelligentPowerDistribution.html",
+        "https://en.wasion.com/proIntpRel/High-Voltage-AC-Automatic-Recloser.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c9f3a377fe10-High-Voltage-AC-Automatic-Recloser.webp",
+      "sourceBytes": 347342,
+      "localBytes": 24620,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "72febc5d956ea7c2858c4731096bce32e81530b1d3aef255170af18ae1d3356e",
+      "fetchedAt": "2026-10-15T09:39:54.315Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230927/SMC100 产品图.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/SMC100-Wasion-Cabinet-Meters.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/1892ede78d59-SMC100.webp",
+      "sourceBytes": 297777,
+      "localBytes": 25322,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "0ab6ca848348b0eeeeb7988d39d65ef18b27d6841528b0178cdca6a36e636c0c",
+      "fetchedAt": "2026-10-15T09:42:56.752Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230928/aMeter100-BD 产品图.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter100-BD-Single-Two-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/69dea13e0e04-aMeter100-BD.webp",
+      "sourceBytes": 338136,
+      "localBytes": 30826,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "466cfb774140763f1b5e8699ce7a0bcafcf26a07fcef3d27398767c7e31d99ca",
+      "fetchedAt": "2026-10-15T09:42:59.068Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AC0534 产品图.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AC0534-Three-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a6a230d8ccae-aMeter300-AC0534.webp",
+      "sourceBytes": 355545,
+      "localBytes": 32476,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8bd089fa06126f34f6a40903cbda4f207094b527b42782eb3610541e9eebf519",
+      "fetchedAt": "2026-10-15T09:42:58.150Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AD 产品图.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD0534-200-Three-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ced0a78d2f37-aMeter300-AD.webp",
+      "sourceBytes": 388157,
+      "localBytes": 39362,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "902c1df8cfbab41d5f93caa6ca671911cd9e3c0d4b7197ab77ebd1fb9284144f",
+      "fetchedAt": "2026-10-15T09:42:58.085Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230928/aMeter300-AD1034产品图.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter300-AD1034-Three-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4c4db1073698-aMeter300-AD1034.webp",
+      "sourceBytes": 431106,
+      "localBytes": 35754,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "492a60e882e9487d3297c1521a9f9f50cd801530afde01b6855847f4076971d6",
+      "fetchedAt": "2026-10-15T09:42:57.671Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231026/ameter100product.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter100-Single-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a97ce029e443-ameter100product.webp",
+      "sourceBytes": 384683,
+      "localBytes": 30970,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "90cc4f15c737698b2f92e3d5ae04693eb5b43b6cf60b10f71f1547fecec4871c",
+      "fetchedAt": "2026-10-15T09:37:56.344Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231026/ameter300product.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter300-Three-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/a9a426217669-ameter300product.webp",
+      "sourceBytes": 387782,
+      "localBytes": 31176,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "bdf30bc991e79c038ae8f89a61c412a22861a5adb49f217a9a22065eb2f29eba",
+      "fetchedAt": "2026-10-15T09:38:00.594Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231026/ameter351产品图.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/aMeter351-Three-Phase-Smart-Energy-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ae1480c08fde-ameter351.webp",
+      "sourceBytes": 331685,
+      "localBytes": 24768,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "f628afc81ebc35b438167cb5825bf8c9a2d0c2bea1053854132eb6e6d02c4122",
+      "fetchedAt": "2026-10-15T09:38:01.696Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231106/MPMS-backgounds.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Meter-Parameters-Management-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/738bfadd089a-MPMS-backgounds.webp",
+      "sourceBytes": 269605,
+      "localBytes": 24146,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "aa042cf1a5e7876898279471daf694da0b9a88b8f666894db067fd9c9077dcd0",
+      "fetchedAt": "2026-10-15T09:39:40.653Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231106/MPMSxnobackground.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Meter-Parameters-Management-System.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/209f4f204cc4-MPMSxnobackground.webp",
+      "sourceBytes": 288096,
+      "localBytes": 37040,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "9989f174c8f4b6b481ec374f4ead879e4a89f641a98f63656c6d38e7896c08f9",
+      "fetchedAt": "2026-10-15T09:38:17.133Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231107/Wasion Company Profile Presentation.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/8c701c79349e-Wasion-Company-Profile-Presentation.webp",
+      "sourceBytes": 59520,
+      "localBytes": 8306,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "96211b39c8115f93d679f31380350baedb931c7f3a4245982a51f218ff173bd5",
+      "fetchedAt": "2026-10-15T09:39:18.964Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231113/Wasion Company Profile Sheet.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ca0745b1c0c0-Wasion-Company-Profile-Sheet.webp",
+      "sourceBytes": 77490,
+      "localBytes": 14634,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "0f6c2cbc035485397d045b4d1d92f91a8d3acf12769a131f869cb7b32fa56fe6",
+      "fetchedAt": "2026-10-15T09:39:16.959Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20231116/Careers mobile.png",
+      "sourcePages": [
+        "https://en.wasion.com/careers.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/dca43f593b74-Careers-mobile.webp",
+      "sourceBytes": 10630,
+      "localBytes": 1602,
+      "width": 418,
+      "height": 743,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "0cb5c3acbf8f1d239b92b4c4c04cd79252af3093688e4afabcad904d6b40dbfc",
+      "fetchedAt": "2026-10-15T09:39:19.799Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240130/Libra 1C 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/ANSI-Meters/Libra-1C-Single-Phase-Energy-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/82f79ae8ea6c-Libra-1C-775x735.webp",
+      "sourceBytes": 416167,
+      "localBytes": 41568,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "129a02f586aa02f9e44deb6841b2f3497019b41c46b2e8ef74e03fdcd006ffad",
+      "fetchedAt": "2026-10-15T09:38:12.894Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240131/WFET1600U775X735.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wired-Communication/WFET1600U-Data-Concentrator-Unit.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9ec20ce4aea1-WFET1600U775X735.webp",
+      "sourceBytes": 217848,
+      "localBytes": 23276,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "3b0ad21f243365fb7b7fda280bc5a36604a3fd217c0881ff59b57e7768a07a83",
+      "fetchedAt": "2026-10-15T09:43:03.193Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240206/g3 hybrid 播放图.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/Wasion-G3-PLC-RF-Hybrid-Solutions.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ad680768d09d-g3-hybrid.webp",
+      "sourceBytes": 239266,
+      "localBytes": 49116,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "2de096208db52e485c792126094fbeaa74ed2ba1d211f28d44f7a59009657f52",
+      "fetchedAt": "2026-10-15T09:37:31.903Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240206/g3 hybrid封面图.png",
+      "sourcePages": [
+        "https://en.wasion.com/solutions.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/7a455a925f9c-g3-hybrid.webp",
+      "sourceBytes": 778131,
+      "localBytes": 98628,
+      "width": 800,
+      "height": 450,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "c72b76aa3d427762ea1ebe2f20a658aaf0f64bc6c7b968352d11233176986e1e",
+      "fetchedAt": "2026-10-15T09:39:10.816Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240224/G3-PLC + RF Hybrid Solutions.png",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/7588a4a12e19-G3-PLC-RF-Hybrid-Solutions.webp",
+      "sourceBytes": 173234,
+      "localBytes": 23428,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "592647509ca1c5f97fba4fa54c20a47640a1ac6f9f191ffad303d19b64bc09a1",
+      "fetchedAt": "2026-10-15T09:39:17.653Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240224/Wasion AMI Solutions for Dtech2024.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/5f777e9d2626-Wasion-AMI-Solutions-for-Dtech2024.webp",
+      "sourceBytes": 39039,
+      "localBytes": 5984,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "b872fa7dfa5f95c67b61054af6b6cbd7d51cb4880bd83349b13c7edb1d2bf8c3",
+      "fetchedAt": "2026-10-15T09:39:15.949Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240515/energyprosolution800x450.png",
+      "sourcePages": [
+        "https://en.wasion.com/solutions.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/eeab56d92746-energyprosolution800x450.webp",
+      "sourceBytes": 378664,
+      "localBytes": 39146,
+      "width": 800,
+      "height": 450,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "2b21cd57559bd90b51c0ead268cee94eaf9096d6e9ba88ae03ccf5fa317bd118",
+      "fetchedAt": "2026-10-15T09:39:06.500Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240517/energypro430x340.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/soluPage/Energy-Pro.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/8415204f36dc-energypro430x340.webp",
+      "sourceBytes": 127186,
+      "localBytes": 25306,
+      "width": 440,
+      "height": 340,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "b62407b1f6784031271a3ec70a2063a7c1cee83f25f5ed989274bd14cfe92c26",
+      "fetchedAt": "2026-10-15T09:37:28.235Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240517/UDIS 773x735-no background.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Utilities-Customer-Information-Systems.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9ce4cef94b3a-UDIS-773x735-no-background.webp",
+      "sourceBytes": 196058,
+      "localBytes": 35990,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "4ec6c59d99270834f534e98838d000398289a7031ffd252c13f353db071ac736",
+      "fetchedAt": "2026-10-15T09:38:18.103Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240611/WECUBEPREMIUM775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/WE-CUBE-PREMIUM.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/0b7819ccff8c-WECUBEPREMIUM775x735.webp",
+      "sourceBytes": 146092,
+      "localBytes": 15752,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "11e122a220e0e58313ed737a3d86692f1c2f1d4c7803ffc46c53f036d72bb166",
+      "fetchedAt": "2026-10-15T09:43:28.724Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240612/WE NODE PREMIUM775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/WE-NODE-PREMIUM.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/3ee230efadb2-WE-NODE-PREMIUM775x735.webp",
+      "sourceBytes": 137943,
+      "localBytes": 16968,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "0dbed6636969dae0a557bd5941efd22c56023febd9f0d7225cb197d83c459d8a",
+      "fetchedAt": "2026-10-15T09:43:27.741Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240612/WENODE735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/WE-NODE-PREMIUM.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/784b1a688803-WENODE735x735.webp",
+      "sourceBytes": 136904,
+      "localBytes": 16820,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "4097bedca1465ee0b96305a8c8e15885156202fe2f596192ac0b880236bad06b",
+      "fetchedAt": "2026-10-15T09:39:52.053Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240613/WE MOBILE 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/MOBILE-ENERGY.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/07462f9eac52-WE-MOBILE-775x735.webp",
+      "sourceBytes": 119425,
+      "localBytes": 13760,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "672b1c095942bb7b7f28b3ee44730709c6b7182c9bb65efb4e6716596692c8e6",
+      "fetchedAt": "2026-10-15T09:43:26.093Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240613/WE STACK 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/WE-STACK.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d5ebd116b3ca-WE-STACK-775x735.webp",
+      "sourceBytes": 69748,
+      "localBytes": 4594,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "fba4703012cc50f50ed9779a9e02234433a7e652beae942818ce4d432fc3e309",
+      "fetchedAt": "2026-10-15T09:43:24.662Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240613/WE STACK735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/WE-STACK.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/6bb89fbb8031-WE-STACK735x735.webp",
+      "sourceBytes": 69212,
+      "localBytes": 4422,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "a4634aaeafa55cc33bbea9c007bc513f9183120fa1ec07b21af178bbd86a2201",
+      "fetchedAt": "2026-10-15T09:39:49.271Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240613/WEFARM735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/WE-FARM.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/83e1f5d0a51a-WEFARM735x735.webp",
+      "sourceBytes": 185496,
+      "localBytes": 19020,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "288a5ff4b21c026c5cb1f1016e16935ef97ae3bdd39ed45143d4f6923fbcaacd",
+      "fetchedAt": "2026-10-15T09:39:52.465Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240613/WEFARM775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/WE-FARM.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/da51761181b9-WEFARM775x735.webp",
+      "sourceBytes": 187801,
+      "localBytes": 19168,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "845e07146843ba42ffdf5d2fbcf09d6c229788f6717b334ef877181eccfff61a",
+      "fetchedAt": "2026-10-15T09:43:25.924Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240613/WEMOBILE 735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/MOBILE-ENERGY.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/524fb0507612-WEMOBILE-735x735.webp",
+      "sourceBytes": 118688,
+      "localBytes": 13272,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "9916d133d9e43616028a6afa40003672215caaba23339cbfa7ac497e23af42b8",
+      "fetchedAt": "2026-10-15T09:39:51.451Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/OFF GRID RESIDENTIAL BATTERY -735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/OFF-GRID-RESIDENTIAL-BATTERY.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/405d44e7e5d6-OFF-GRID-RESIDENTIAL-BATTERY-735x735.webp",
+      "sourceBytes": 75985,
+      "localBytes": 7562,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8ba6d55ee8ae22e2cf81de908c0c997a7934dabb1b0113611d8fa88e04ef2f4f",
+      "fetchedAt": "2026-10-15T09:39:48.351Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/OFF GRID RESIDENTIAL BATTERY 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/OFF-GRID-RESIDENTIAL-BATTERY.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/25ae2aeadf41-OFF-GRID-RESIDENTIAL-BATTERY-775x735.webp",
+      "sourceBytes": 134124,
+      "localBytes": 11994,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "36950e552628047ccf80f13639a651cd50c6d18b6479669cd5b69b8da7266a88",
+      "fetchedAt": "2026-10-15T09:43:22.724Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/OFF GRID RESIDENTIAL_inverter 735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/InverterUI8/OFF-GRID-RESIDENTIAL-INVERTER.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/d7c86f481f53-OFF-GRID-RESIDENTIAL-inverter-735x735.webp",
+      "sourceBytes": 98389,
+      "localBytes": 7128,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "c71f42cfa4acf35d2a2bd95c423dd23f6ccdcc80a9ac6728ad6993d6acb65ad3",
+      "fetchedAt": "2026-10-15T09:39:48.367Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/OFF-GRID RESIDENTIAL INVERTER-775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/InverterUI8/OFF-GRID-RESIDENTIAL-INVERTER.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/83b514c33dbd-OFF-GRID-RESIDENTIAL-INVERTER-775x735.webp",
+      "sourceBytes": 131786,
+      "localBytes": 9064,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "f180b32ccb16285cadcdb8112d2b58a6549981df5e5e5e3f8272a4d1d7d0db0f",
+      "fetchedAt": "2026-10-15T09:43:24.636Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/R SERIES STACK 735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f6670a650431-R-SERIES-STACK-735x735.webp",
+      "sourceBytes": 305120,
+      "localBytes": 25680,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "63b92723d2ff1a7f6dd1ef6cbbcc5a8c2ef3863bae16479f520d8e337213a426",
+      "fetchedAt": "2026-10-15T09:39:46.418Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/R SERIES STACK 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/e0ff390611cf-R-SERIES-STACK-775x735.webp",
+      "sourceBytes": 306527,
+      "localBytes": 25780,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "0a9458393c6182f40c5e38a83f95a675a268eab29be2d31ae8c287008c560160",
+      "fetchedAt": "2026-10-15T09:43:21.795Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/WE PORTABLE STATION 735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/WE-PORTABLE-STATION.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/058a76bc1c4b-WE-PORTABLE-STATION-735x735.webp",
+      "sourceBytes": 165008,
+      "localBytes": 10898,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "d28d58b01b2513d021e8e75c9b92638da3613fc602805d80b65719aad7d7b9bf",
+      "fetchedAt": "2026-10-15T09:39:48.573Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240614/WE PORTABLE STATION 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/WE-PORTABLE-STATION.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/af5eb6037094-WE-PORTABLE-STATION-775x735.webp",
+      "sourceBytes": 234971,
+      "localBytes": 13828,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "7c98b1e00c325dae1eaf0d880e1a8971ac003b4e9d05f32d30f70dc37573d0ce",
+      "fetchedAt": "2026-10-15T09:43:22.883Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240617/We Cube 735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/WE-CUBE.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4c92f46c5b37-We-Cube-735x735.webp",
+      "sourceBytes": 209876,
+      "localBytes": 21564,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8c3ce7703391a9a66ffb62443f840f5938265a058881421cf56168568910906d",
+      "fetchedAt": "2026-10-15T09:39:52.608Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240617/WE CUBE 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/WE-CUBE.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f4a15b6d4898-WE-CUBE-775x735.webp",
+      "sourceBytes": 979802,
+      "localBytes": 45490,
+      "width": 2094,
+      "height": 1985,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "136628e2ccdd39e71fc0b10dc1e46015ae13b2a234f90a074f8fe24497c9de4e",
+      "fetchedAt": "2026-10-15T09:43:31.359Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240618/WE NODE 735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/WE-NODE.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c7b1c1bc74ee-WE-NODE-735x735.webp",
+      "sourceBytes": 116602,
+      "localBytes": 10758,
+      "width": 735,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "3f412e09d10adaa3d05642d2ab53c16d90a253910def465440e76d071b2f1b09",
+      "fetchedAt": "2026-10-15T09:39:51.366Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240618/WE NODE 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/WE-NODE.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/e494363f2f7f-WE-NODE-775x735.webp",
+      "sourceBytes": 117352,
+      "localBytes": 10744,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "3d2bb1c973b347260edb7c5f97f3deb2327da5433a400a23ca6f2f282b621f22",
+      "fetchedAt": "2026-10-15T09:43:27.134Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240619/R SERIES 735x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/RenewableEnergy.html",
+        "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK-2.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/856f0824242d-R-SERIES-735x735.webp",
+      "sourceBytes": 1261912,
+      "localBytes": 55588,
+      "width": 1985,
+      "height": 1985,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "af38939fa9657c23b58613b1be088e1b5de4c9596d5d1892a4aa93647a21e38a",
+      "fetchedAt": "2026-10-15T09:39:49.447Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240619/R SERIES 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/EnergyStorageSystem/R-SERIES-RECTANGULAR-STACK-2.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/3c585b267547-R-SERIES-775x735.webp",
+      "sourceBytes": 1277929,
+      "localBytes": 55562,
+      "width": 2094,
+      "height": 1985,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "67e8149f9a33f8cb6f572571c1e0190b38745656b5e5015d386c4a6da224bbad",
+      "fetchedAt": "2026-10-15T09:43:24.989Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20240815/2024.05.31 Minőség Politika280x410.png",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/5b0c0f9ce3d4-2024-05-31-Mino-se-g-Politika280x410.webp",
+      "sourceBytes": 65795,
+      "localBytes": 15098,
+      "width": 280,
+      "height": 410,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "1bb79ffb280bf01aba5adf1e71ffedf7ea196cf7f1f984cf49e5af5ceb41e89d",
+      "fetchedAt": "2026-10-15T09:38:31.069Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20241030/G3-Hybrid-775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wired-Communication/Hybrid-Communication-Module.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/1337f85c21a3-G3-Hybrid-775x735.webp",
+      "sourceBytes": 268933,
+      "localBytes": 19424,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "d7d959053dc0fa4b339d5544f0e5821c7c3aacc714045eb60cd0cbfc46da174f",
+      "fetchedAt": "2026-10-15T09:43:06.311Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250210/wir-3000 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wi-SUN-RF-Mesh/WIR-3000-RF-Communication-Router.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/c5b984165e87-wir-3000-775x735.webp",
+      "sourceBytes": 169075,
+      "localBytes": 20132,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "8c75dce6b9b00ed664dcf3d3c3737d8f19d715effcee2d447c2b8e5fdd45644b",
+      "fetchedAt": "2026-10-15T09:38:24.592Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250309/头图-婧容版.pic.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/ElectricityMeters.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/01b2606098aa-pic.webp",
+      "sourceBytes": 365646,
+      "localBytes": 46402,
+      "width": 1920,
+      "height": 789,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "00114d15fe84fbb1e0f5f02a4adbdc4d18fadd13e61bda6890bab557b49efeee",
+      "fetchedAt": "2026-10-15T09:37:18.563Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250506/HUBUD_000110_GenericCertificate_Final Hungary_00.png",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/ede08e040287-HUBUD-000110-GenericCertificate-Final-Hungary-.webp",
+      "sourceBytes": 75767,
+      "localBytes": 11672,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "92a8ca517fa9901b683223be42bd8fba17d844635ff62b7298f23f81bb45ed56",
+      "fetchedAt": "2026-10-15T09:39:16.127Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250506/MID 证书-CE-435-kWh-Wasion Hungary KFT-December 2024_00.png",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9dd07ae25f4e-MID-CE-435-kWh-Wasion-Hungary-KFT-December-202.webp",
+      "sourceBytes": 44811,
+      "localBytes": 10304,
+      "width": 240,
+      "height": 340,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "601d3ec7fb16fb6f0b6d6b854228d4a344f6745f98319e7a53e8db053ac76265",
+      "fetchedAt": "2026-10-15T09:39:14.917Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250513/LPU-775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Smart-Meters/Wasion-Metering-Cabinet-Large-Power-Unit.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/da835c9924f0-LPU-775x735.webp",
+      "sourceBytes": 424348,
+      "localBytes": 48490,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "f7e086d1f4258ea6b7f1af2bb53e5a045376669e565be7e7a88a41cba4891276",
+      "fetchedAt": "2026-10-15T09:37:54.562Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250917/GDPR-HU-CPN-1.png",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f1a6e872de55-GDPR-HU-CPN-1.webp",
+      "sourceBytes": 25806,
+      "localBytes": 7774,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "448ce98addab334cf715a69b04c3706c128b4e765424e75b278efa8573e028b5",
+      "fetchedAt": "2026-10-15T09:39:12.881Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251001/2025.06.01 Integrated Policy EN v2 signed_01.png",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/cf2b73d8adb7-2025-06-01-Integrated-Policy-EN-v2-signed-01.webp",
+      "sourceBytes": 73631,
+      "localBytes": 14438,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "9fa5903c48537e2069c01167c3adc0b09ea1f7b8508572ab4aaa4f8211c25af5",
+      "fetchedAt": "2026-10-15T09:37:09.721Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251001/2025.09.23 SGS_ISO 45001_2018_HUBUD_000091_EN_01.png",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/3723f0eb5795-2025-09-23-SGS-ISO-45001-2018-HUBUD-000091-EN-.webp",
+      "sourceBytes": 74222,
+      "localBytes": 12212,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "954c479ca7ea90ddb0d35c656bdc54329ee72d3be207c736e1ee4355d1b98c08",
+      "fetchedAt": "2026-10-15T09:39:13.932Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251001/2025.09.25 SGS_ISO 14001_2015_HUBUD_000098_EN_01.png",
+      "sourcePages": [
+        "https://en.wasion.com/resources.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/aaca5ba9e255-2025-09-25-SGS-ISO-14001-2015-HUBUD-000098-EN-.webp",
+      "sourceBytes": 71077,
+      "localBytes": 11320,
+      "width": 235,
+      "height": 340,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "18bc03be68fd9fe75dfb8cd26151aeb9dae1d92c3dd160fdf7cfc739b6ddf0af",
+      "fetchedAt": "2026-10-15T09:39:10.147Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251024/LXC-D 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/proWateRel/LXC-D-Ultrasonic-Bulk-Water-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/5361b1fd27db-LXC-D-775x735.webp",
+      "sourceBytes": 191316,
+      "localBytes": 18860,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "bf06d304fc43f5a62fd3a00c47eb4c67402eb3b9c7ea91623433bb937300d805",
+      "fetchedAt": "2026-10-15T09:38:17.836Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251024/LXC-D with B.png",
+      "sourcePages": [
+        "https://en.wasion.com/WaterGasMeters.html",
+        "https://en.wasion.com/proWateRel/LXC-D-Ultrasonic-Bulk-Water-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/99d377f7daa4-LXC-D-with-B.webp",
+      "sourceBytes": 87369,
+      "localBytes": 6942,
+      "width": 688,
+      "height": 475,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "e7812fdbc4e9e8a72bb514c0cbb10988f91d4d9154a98ad4dded6be121b6b1af",
+      "fetchedAt": "2026-10-15T09:39:40.382Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251024/水表LXC 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/proWateRel/LXC-Ultrasonic-Water-Meter.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9af8e9c0671d-LXC-775x735.webp",
+      "sourceBytes": 138880,
+      "localBytes": 27698,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "84e1b0390914846dfde26b5be1c675abd8c22d55339a805031fffc34e6e04ec6",
+      "fetchedAt": "2026-10-15T09:38:17.953Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251024/水表LXC with B.png",
+      "sourcePages": [
+        "https://en.wasion.com/WaterGasMeters.html",
+        "https://en.wasion.com/proWateRel/LXC-Ultrasonic-Water-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f23786ab4a47-LXC-with-B.webp",
+      "sourceBytes": 64499,
+      "localBytes": 7452,
+      "width": 688,
+      "height": 475,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "9832b90fbf8ee757a2489321cfb8bfd732712e0c8fb8d5e021e55d417a22425f",
+      "fetchedAt": "2026-10-15T09:39:41.575Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251122/缩略图.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/93240968abe1-image.webp",
+      "sourceBytes": 79593,
+      "localBytes": 37512,
+      "width": 423,
+      "height": 275,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "e6db9d7ac59b457ae406a8d367710cfc164c449d1821549c463a0c4ebed78646",
+      "fetchedAt": "2026-10-15T09:39:23.070Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251209/FDM 封面图V2.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Field-Deployment-Manager.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f132435c276a-FDM-V2.webp",
+      "sourceBytes": 144532,
+      "localBytes": 16418,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "a0eebb36585b4c2b6d0e663626755a3447dbb9c5f8aed0828a61d7794e977820",
+      "fetchedAt": "2026-10-15T09:39:34.116Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251209/FDM.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/Field-Deployment-Manager.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f0861eb222d8-FDM.webp",
+      "sourceBytes": 132949,
+      "localBytes": 27052,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "551afb6c40eaa36688a943197b04ab7aff41f83506d6b4bb0dc0f09a1e878c2f",
+      "fetchedAt": "2026-10-15T09:38:07.467Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251209/PKI 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/PKI-Certificate-Management-System.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4abc9c6c6806-PKI-775x735.webp",
+      "sourceBytes": 259244,
+      "localBytes": 25108,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "9ae2b3a9f84136ffdac5e3b48c235f52974652ec2563a518d39796610ac624a9",
+      "fetchedAt": "2026-10-15T09:39:36.061Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251209/PKI.png",
+      "sourcePages": [
+        "https://en.wasion.com/RelevantProduct/PKI-Certificate-Management-System.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/8168ba32fd87-PKI.webp",
+      "sourceBytes": 251699,
+      "localBytes": 33546,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "49f2d4ebbac2b81cb6473d13a496342307e4499fd1d757fa1f8e3e2d5c0290bf",
+      "fetchedAt": "2026-10-15T09:38:10.234Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251209/UDIS 封面图.png",
+      "sourcePages": [
+        "https://en.wasion.com/SystemSoftware.html",
+        "https://en.wasion.com/RelevantProduct/Utilities-Customer-Information-Systems.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/4a3216b6681d-UDIS.webp",
+      "sourceBytes": 184177,
+      "localBytes": 23056,
+      "width": 775,
+      "height": 725,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "5a4241e53853426a6a32c2a8c821b26df9d500bd077b54ad982d0d091c1b767b",
+      "fetchedAt": "2026-10-15T09:39:35.721Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251209/WID2000 775x735.png",
+      "sourcePages": [
+        "https://en.wasion.com/Wired-Communication/WID-2000-Data-Concentrator.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/644ad9b4867d-WID2000-775x735.webp",
+      "sourceBytes": 280661,
+      "localBytes": 14438,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "7e422a31c4fe6b4615842604be83a05aaad9d45c6c273ce49c6ac2cfc338b728",
+      "fetchedAt": "2026-10-15T09:43:02.130Z",
+      "role": "exact_product_detail_image"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20251222/上市20周年主视觉缩略图.png",
+      "sourcePages": [
+        "https://en.wasion.com/news.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/db488f6d91b9-20.webp",
+      "sourceBytes": 225726,
+      "localBytes": 27822,
+      "width": 423,
+      "height": 275,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "2d1abd018a764ba67564b9daf5e2b2969052afe8a7733e1c436d35e7013f8c10",
+      "fetchedAt": "2026-10-15T09:39:24.029Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260116/美展邀请函缩略图.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/56b51210068a-image.webp",
+      "sourceBytes": 112745,
+      "localBytes": 19332,
+      "width": 423,
+      "height": 275,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "dab5d9573a32d8e3fcf0b3bbb798a62d56b742e61e8ea8988be00871dd164574",
+      "fetchedAt": "2026-10-15T09:39:22.603Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260208/26美展照片423x275.png",
+      "sourcePages": [
+        "https://en.wasion.com/news.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/9e82256e2c2b-26-423x275.webp",
+      "sourceBytes": 244450,
+      "localBytes": 39416,
+      "width": 423,
+      "height": 275,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "a82e1e1a17e86279c4d1d3d6c468d456655d580fb5872c73f2baef51b878b849",
+      "fetchedAt": "2026-10-15T09:39:24.249Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260211/2025 Annual Summary and Commendation Conference423x275.png",
+      "sourcePages": [
+        "https://en.wasion.com/news.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/2eb26a3be1ed-2025-Annual-Summary-and-Commendation-Conferenc.webp",
+      "sourceBytes": 200329,
+      "localBytes": 31984,
+      "width": 423,
+      "height": 275,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "69d32d5080d6a786fb9c646ef6914b0355459f7b1f035685236fa57288a5edcc",
+      "fetchedAt": "2026-10-15T09:39:22.875Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260211/GIF_20260211163302278.gif",
+      "sourcePages": [
+        "https://en.wasion.com/news/Wasion-International-2025-Annual-Summary-Commendation-Conference.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:41:48.131Z",
+      "localPath": "/assets/wasion-requirements/60eaff88570b-GIF-20260211163302278.webp",
+      "sourceBytes": 6394188,
+      "localBytes": 150640,
+      "width": 1082,
+      "height": 720,
+      "sourceFormat": "gif",
+      "hasAlpha": true,
+      "sha256": "4bb17686e236820e7f6ab58894f7d4b656ef7cf25bfcdc615afdee67f65f261d",
+      "retried": true,
+      "optimizationNote": "Static first-frame WebP preview from official animated source."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260211/LYL_3216.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news/Wasion-International-2025-Annual-Summary-Commendation-Conference.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:41:44.319Z",
+      "localPath": "/assets/wasion-requirements/83a0d1f6f0e6-LYL-3216.webp",
+      "sourceBytes": 5930379,
+      "localBytes": 263654,
+      "width": 4000,
+      "height": 2666,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "9b2a8fc0ac12a620941155022a88f84e95b844893400b0d7f6693a875a2e541d",
+      "retried": true
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260211/LYL_3387.png",
+      "sourcePages": [
+        "https://en.wasion.com/news/Wasion-International-2025-Annual-Summary-Commendation-Conference.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/f77553edb9f7-LYL-3387.webp",
+      "sourceBytes": 1456362,
+      "localBytes": 74328,
+      "width": 1320,
+      "height": 880,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "f2ed9a5839cc276078fd1e969361ddf89d2b1470f636eed0c7c37bc263ecc27b",
+      "fetchedAt": "2026-10-15T09:40:15.397Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260211/LYL_3479.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news/Wasion-International-2025-Annual-Summary-Commendation-Conference.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:41:45.743Z",
+      "localPath": "/assets/wasion-requirements/c9098044bbae-LYL-3479.webp",
+      "sourceBytes": 6019280,
+      "localBytes": 167356,
+      "width": 4000,
+      "height": 2666,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "ddb63229a2b85aec5c4d288053f8d77b45461128b946ba0105bb4beaa8a5c839",
+      "retried": true
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260211/LYL_4112.png",
+      "sourcePages": [
+        "https://en.wasion.com/news/Wasion-International-2025-Annual-Summary-Commendation-Conference.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:41:52.069Z",
+      "localPath": "/assets/wasion-requirements/0a05c18f23b6-LYL-4112.webp",
+      "sourceBytes": 3822141,
+      "localBytes": 185624,
+      "width": 2000,
+      "height": 1333,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "33d6b378ac4e37a22fbe2154300295d316769ac31deda078771aa9fc48259911",
+      "retried": true
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260320/☺️b2699c16c40f537a0633326dc0f549a7.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news/Hungarian-Ambassador-Visit-Wasion.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/58d5fbbde60e-b2699c16c40f537a0633326dc0f549a7.webp",
+      "sourceBytes": 2031428,
+      "localBytes": 180620,
+      "width": 6000,
+      "height": 4033,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "3ca8339b5be4f407d5299edc30e9298372d1626314a6742852b0599194a91502",
+      "fetchedAt": "2026-10-15T09:38:56.023Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260320/432x235.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/bb3d68d1abba-432x235.webp",
+      "sourceBytes": 56301,
+      "localBytes": 21916,
+      "width": 423,
+      "height": 275,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "0b1280a6411a75f8a6c7ecaa074427859d659045791bc28c7dd83ad50d5706d7",
+      "fetchedAt": "2026-10-15T09:39:21.052Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260320/DQ2A8235.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news/Hungarian-Ambassador-Visit-Wasion.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:42:17.384Z",
+      "localPath": "/assets/wasion-requirements/159de62941c6-DQ2A8235.webp",
+      "sourceBytes": 7816539,
+      "localBytes": 122142,
+      "width": 4847,
+      "height": 3232,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "918f6263a79dd2146a08fff5a3fea7de39e289e779cd968f232de338bb5476b6",
+      "retried": true
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260320/小DQ2A8047.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news/Hungarian-Ambassador-Visit-Wasion.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:42:03.979Z",
+      "localPath": "/assets/wasion-requirements/6c88361c3fec-DQ2A8047.webp",
+      "sourceBytes": 4852036,
+      "localBytes": 145574,
+      "width": 5692,
+      "height": 3795,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "98b9a505aa27011ed16baf1bcaa22f5e5994e158049ef5956bb866008ebea869",
+      "retried": true
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260320/小DQ2A8206.jpg",
+      "sourcePages": [
+        "https://en.wasion.com/news/Hungarian-Ambassador-Visit-Wasion.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:42:07.837Z",
+      "localPath": "/assets/wasion-requirements/4915371fbf5f-DQ2A8206.webp",
+      "sourceBytes": 5449269,
+      "localBytes": 146492,
+      "width": 5810,
+      "height": 3874,
+      "sourceFormat": "jpeg",
+      "hasAlpha": false,
+      "sha256": "5fb4ca8ffb00b47955af56df0ee8a68d4c58659ca84b41bb8fe5acfa7acaa68c",
+      "retried": true
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260420/b1755b73e286e1644d02cff2f22349c1.png",
+      "sourcePages": [
+        "https://en.wasion.com/news/President-Daniel-Francisco-Chapo-Republic-Mozambique-visited-Wasion.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "fetchedAt": "2026-10-15T09:42:17.450Z",
+      "localPath": "/assets/wasion-requirements/135b547743d6-b1755b73e286e1644d02cff2f22349c1.webp",
+      "sourceBytes": 3637848,
+      "localBytes": 222450,
+      "width": 1791,
+      "height": 1194,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "41e62c7b39f646aee0381fdfc9faeab8ae307ba03693a2826976b00cce88c33f",
+      "retried": true
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260420/莫桑比克总统来访合影770x430.png",
+      "sourcePages": [
+        "https://en.wasion.com/news.html"
+      ],
+      "priority": true,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/290ba963d4ef-770x430.webp",
+      "sourceBytes": 551121,
+      "localBytes": 59166,
+      "width": 770,
+      "height": 430,
+      "sourceFormat": "png",
+      "hasAlpha": false,
+      "sha256": "e2e44cebf58f8cff326259ba1bdc191687136968dc9607e9932f4447904fe090",
+      "fetchedAt": "2026-10-15T09:37:16.080Z"
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20260630/DDAD101-J7.png",
+      "sourcePages": [
+        "https://en.wasion.com/IEC-Prepaid-Meters/DDSD101-J7-Single-Phase-Smart-Prepayment-Meter.html"
+      ],
+      "priority": false,
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/8aa44db4ed28-DDAD101-J7.webp",
+      "sourceBytes": 487305,
+      "localBytes": 39910,
+      "width": 775,
+      "height": 735,
+      "sourceFormat": "png",
+      "hasAlpha": true,
+      "sha256": "865f8cd48d7d8dc0302ef0f32a7ef9dc35c9565202f3b3fd0655316b76828016",
+      "fetchedAt": "2026-10-15T09:42:53.111Z",
+      "role": "exact_product_detail_image"
+    }
+  ],
+  "videos": [
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/files/20230718/about.mp4",
+      "sourcePages": [
+        "https://en.wasion.com/about.html"
+      ],
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/wasion-company-film-official.mp4",
+      "sourceBytes": 4677858,
+      "localBytes": 4677858,
+      "sha256": "f5ee24df0fe7780152851ab218921f90000b26776e8f67ff460f7795fc53c07a",
+      "fetchedAt": "2026-10-15T09:42:23.677Z",
+      "containerVerified": {
+        "topLevelBoxes": [
+          "ftyp",
+          "free",
+          "mdat",
+          "moov"
+        ],
+        "durationSeconds": 13.846,
+        "avc1Video": true,
+        "allBoxesComplete": true
+      }
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/files/20221014/e2eac84789dbac60503f8c906ebbe857.m4v",
+      "sourcePages": [
+        "https://en.wasion.com/"
+      ],
+      "status": "downloaded",
+      "localPath": "/assets/wasion-requirements/wasion-home-film-official.m4v",
+      "sourceBytes": 14523485,
+      "localBytes": 14523485,
+      "sha256": "0791e5569fc20350fa3f704e55c9ab8fe50a52639d7df3d7d3697e81c943d89a",
+      "fetchedAt": "2026-10-15T09:43:31.367Z",
+      "containerVerified": {
+        "topLevelBoxes": [
+          "ftyp",
+          "free",
+          "mdat",
+          "moov"
+        ],
+        "durationSeconds": 30.166,
+        "avc1Video": true,
+        "allBoxesComplete": true
+      }
+    }
+  ],
+  "curatedAssets": [
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230727/success stories.jpg",
+      "localPath": "/assets/wasion-requirements/28eea79d56fd-success-stories.webp",
+      "visualRole": "hero_scene_desktop",
+      "visualInspection": "reviewed_contact_sheet",
+      "cropGuidance": "Real transmission lines in forest; safe atmospheric cover."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230727/success stories copy.jpg",
+      "localPath": "/assets/wasion-requirements/4cf17a1f28f5-success-stories-copy.webp",
+      "visualRole": "hero_scene_mobile",
+      "visualInspection": "reviewed_contact_sheet",
+      "cropGuidance": "Official portrait art direction of the same transmission-line scene."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/static/modules/cms/images/picabout.jpg",
+      "localPath": "/assets/wasion-requirements/e82ea74f875b-picabout.webp",
+      "visualRole": "research_scene",
+      "visualInspection": "reviewed_contact_sheet",
+      "cropGuidance": "Engineer with electronic circuit design; atmospheric cover.",
+      "heroUseAssessment": "Depth-of-field photo of engineer back and PCB screen. Full-height cover crops can look blurred; prefer the company film robotics still for a crisp innovation hero."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20221107/a8f5a9fa59005df5f2bd0fe828af7bba.jpg",
+      "localPath": "/assets/wasion-requirements/745e1953df3f-a8f5a9fa59005df5f2bd0fe828af7bba.webp",
+      "visualRole": "industrial_scene",
+      "visualInspection": "reviewed_contact_sheet",
+      "cropGuidance": "Industrial pipe corridor; no product-model attribution."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20250309/头图-婧容版.pic.jpg",
+      "localPath": "/assets/wasion-requirements/01b2606098aa-pic.webp",
+      "visualRole": "electricity_catalog",
+      "visualInspection": "reviewed_contact_sheet",
+      "cropGuidance": "Official product composition. Preserve model identity; use contain."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20220517/b5351d87595d0701db16c017820c88e1.jpg",
+      "localPath": "/assets/wasion-requirements/4c75b887777f-b5351d87595d0701db16c017820c88e1.webp",
+      "visualRole": "distribution_catalog",
+      "visualInspection": "reviewed_contact_sheet",
+      "cropGuidance": "Official distribution product composition. Use contain."
+    },
+    {
+      "sourceURL": "https://en.wasion.com/public/uploads/images/20230803/新能源背景图.png",
+      "localPath": "/assets/wasion-requirements/13de8d11bd5e-image.webp",
+      "visualRole": "energy_catalog",
+      "visualInspection": "reviewed_contact_sheet",
+      "cropGuidance": "Official energy product composition. Use contain."
+    }
+  ],
+  "caseImageGuidance": "All seven case-detail body images are official collages with blue date/country strips; preserve their full frame with contain. They are not replacement cinematic hero photographs.",
+  "integrityCheck": {
+    "imageDecodeChecked": 232,
+    "videoByteAndHashChecked": 2,
+    "errors": [],
+    "allMappedFilesExist": true,
+    "checkedAt": "2026-10-15T09:44:47.477864+00:00",
+    "videoStillDecodeAndHashChecked": 3,
+    "videoStillErrors": []
+  },
+  "productDetailCapture": {
+    "file": "server/wasion-requirements/enriched-products.json",
+    "sourcePages": 58,
+    "successfulSourceFetches": 58,
+    "exactProductImageCount": 58,
+    "specificationTablePages": 58,
+    "scope": "Official en.wasion.com catalog detail pages only. Source HTML SHA-256 and capturedAt stored per record. Download links included only when actually linked."
+  },
+  "contactSheetReviewFiles": [
+    "/private/tmp/wasion-0916-official-scene-contact-sheet.jpg",
+    "/private/tmp/wasion-0916-official-scenes-complete-contact-sheet.jpg"
+  ],
+  "optimizationPolicy": {
+    "originalLogo": "Retained the original downloaded PNG bytes.",
+    "rasterPreviews": "Resized without enlargement within1920x1400, retained alpha where present, WebP quality84. Animated GIF previews use their first frame; original source URL remains recorded.",
+    "video": "Original byte streams retained; no re-encoding. Both files have complete MP4 structures and AVC video tracks."
+  },
+  "videoStillDerivatives": [
+    {
+      "timestampSeconds": 3,
+      "filename": "wasion-factory-exterior-film-03s.webp",
+      "visualRole": "company_hero",
+      "description": "Clear wide exterior view of a Wasion factory building and branded entrance from the official company film.",
+      "sourceURL": "https://en.wasion.com/public/uploads/files/20230718/about.mp4",
+      "sourceLocalPath": "/assets/wasion-requirements/wasion-company-film-official.mp4",
+      "sourceVideoSha256": "f5ee24df0fe7780152851ab218921f90000b26776e8f67ff460f7795fc53c07a",
+      "extractedFramePNGsha256": "f509adfc23f03c6ec3bfc14bb31bb28e711835a01d80735b70e0c745586da16d",
+      "localPath": "/assets/wasion-requirements/wasion-factory-exterior-film-03s.webp",
+      "localBytes": 234688,
+      "width": 1920,
+      "height": 1080,
+      "sha256": "57a84b02f1a112c20ee759c4c018985f66b6bc6286fc7db181143cc3ac7139cf",
+      "extraction": "ffmpeg -ss <timestamp> -i official-video -frames:v 1; original uncropped frame encoded as WebP.",
+      "visualInspection": "Contact sheet and full frame reviewed; no generated content, no cropping, no color manipulation.",
+      "createdAt": "2026-10-15T10:58:33.008Z"
+    },
+    {
+      "timestampSeconds": 7,
+      "filename": "wasion-robotics-production-film-07s.webp",
+      "visualRole": "innovation_hero",
+      "description": "Real automated factory cell with industrial robot arms and enclosed manufacturing equipment from the official company film.",
+      "sourceURL": "https://en.wasion.com/public/uploads/files/20230718/about.mp4",
+      "sourceLocalPath": "/assets/wasion-requirements/wasion-company-film-official.mp4",
+      "sourceVideoSha256": "f5ee24df0fe7780152851ab218921f90000b26776e8f67ff460f7795fc53c07a",
+      "extractedFramePNGsha256": "8ff476d5eac5fc68c086073b6fe7711f0f812f732d997a053e8b15c53c3f660a",
+      "localPath": "/assets/wasion-requirements/wasion-robotics-production-film-07s.webp",
+      "localBytes": 148294,
+      "width": 1920,
+      "height": 1080,
+      "sha256": "062ead0a4b107906421c30e5bdd0d074ce9907d933fd75d89b545e4921da1063",
+      "extraction": "ffmpeg -ss <timestamp> -i official-video -frames:v 1; original uncropped frame encoded as WebP.",
+      "visualInspection": "Contact sheet and full frame reviewed; no generated content, no cropping, no color manipulation.",
+      "createdAt": "2026-10-15T10:58:33.254Z"
+    },
+    {
+      "timestampSeconds": 12,
+      "filename": "wasion-engineering-film-12s.webp",
+      "visualRole": "engineering_supporting_scene",
+      "description": "Wasion staff member in branded white coat working at a keyboard. The source framing shows torso and hand; no full face.",
+      "sourceURL": "https://en.wasion.com/public/uploads/files/20230718/about.mp4",
+      "sourceLocalPath": "/assets/wasion-requirements/wasion-company-film-official.mp4",
+      "sourceVideoSha256": "f5ee24df0fe7780152851ab218921f90000b26776e8f67ff460f7795fc53c07a",
+      "extractedFramePNGsha256": "4e3e9a34f44a94b778ff5a4271021894b3618bccc9d0757be31628e5e9ea9bdc",
+      "localPath": "/assets/wasion-requirements/wasion-engineering-film-12s.webp",
+      "localBytes": 61074,
+      "width": 1920,
+      "height": 1080,
+      "sha256": "70585a991415f13fdc9d09d0e42f7ea266537bdd4e4bc3e4c20da794d2f702cd",
+      "extraction": "ffmpeg -ss <timestamp> -i official-video -frames:v 1; original uncropped frame encoded as WebP.",
+      "visualInspection": "Contact sheet and full frame reviewed; no generated content, no cropping, no color manipulation.",
+      "createdAt": "2026-10-15T10:58:33.480Z"
+    }
+  ],
+  "videoStillReview": {
+    "contactSheet": "/private/tmp/wasion-video-stills.jpg",
+    "companyTimestampsSeconds": [
+      0.5,
+      3,
+      5,
+      7,
+      9,
+      12
+    ],
+    "homeTimestampsSeconds": [
+      2,
+      8,
+      16,
+      24
+    ],
+    "homeFilmAssessment": "Blue CGI product rotations rather than real industrial photography. Do not use as a factory hero photograph.",
+    "companyFilmAssessment": "Real factory exterior, circuit board manufacturing, industrial robots, production line and staff footage."
+  }
+}

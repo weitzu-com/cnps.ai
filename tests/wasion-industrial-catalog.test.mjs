@@ -3,12 +3,16 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
-import { wasionDemoPage, WASION_PAGES, WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
-import { WASION_STYLES } from '../server/wasion-demo-styles.mjs';
+import { wasionDemoPage as renderWasionDemoPage, WASION_PAGES, WASION_LEGACY_ROUTES as WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
+import { WASION_STYLES as ALL_WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { getProductCatalog, renderProductCatalogFilters, WASION_PRODUCT_GROUPS, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { INDUSTRIAL_CATALOG_ROUTES, renderIndustrialCatalog, INDUSTRIAL_CATALOG_CSS } from '../server/wasion-industrial-catalog.mjs';
 import { isIndustrialStoryPage } from '../server/wasion-industrial-stories.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
+
+// Retained Industrial coverage is pinned explicitly now that 09/16 is canonical.
+const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
+const wasionDemoPage = (nonce, options = {}) => renderWasionDemoPage(nonce, { style: 'industrial', ...options });
 
 const nonce = 'industrial-catalog-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
@@ -21,7 +25,7 @@ const scripts = html => html.match(/<script\b[^>]*>[\s\S]*?<\/script>/g).map(tag
 });
 const title = page => page.title.replace(/ - (Content Page|Content|Relevant Product|Newsroom|IEC Smart Meters|IEC Prepaid Meters|ANSI Meters|Cellular Communication|Wi-SUN RF Mesh)$/, '');
 const image = page => page?.images?.find(url => url.includes('/uploads/images/')) || page?.images?.find(url => !/icon|x-pro-info|searc/i.test(url));
-const ctx = { pages: WASION_PAGES, base: '/demo/wasion', helpers: { title, image } };
+const ctx = { pages: WASION_PAGES, base: '/demo/wasion/styles/industrial', helpers: { title, image } };
 const preview = value => { const valueText = String(value || '').replace(/\s+/g, ' ').trim(); return valueText.length > 220 ? valueText.slice(0, 217).trimEnd() + '…' : valueText; };
 const itemProjection = item => ({ title: item.title, slug: item.slug || '', url: item.url, image: item.image, description: item.description, region: item.region, standard: item.standard, type: item.type });
 const articles = markup => [...markup.matchAll(/<article class="we-filter-item"([^>]*)>([\s\S]*?)<\/article>/g)].map(([, attributes, body]) => ({ attributes, body }));
@@ -29,7 +33,8 @@ const dataAttributes = attributes => Object.fromEntries([...attributes.matchAll(
 const targets = ['products', 'our-offering', 'electricity-metering-data-management', 'electricity-meters', 'telecommunications', 'system-software', 'water-gas-meters', 'digital-grid-distribution-monitoring', 'intelligent-power-distribution', 'energy-storage', 'renewable-energy'];
 
 // Captured from main d9e856fd338f937a47f0ae5550d2b2a22b1b57ab before
-// this treatment. Full HTML and script snapshots use this fixed nonce. Data
+// this treatment. HTML and script snapshots were refreshed for the intentional
+// 09/16 default and retained Industrial route relocation. Full HTML and script snapshots use this fixed nonce. Data
 // projections come from the old private catalog builder, captured in memory.
 const leaves = {
   'electricity-meters': [27, 'df7c559eab9bea781b5bf6cfefb578c0d097e1ead9403deea58475b6ba1e29cd'],
@@ -79,13 +84,13 @@ for (const slug of Object.keys(leaves)) test('Industrial catalog preserves rows,
     const heading = body.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/)[1];
     assert.equal(text(heading).replace(/\s*↗$/, ''), item.title);
     assert.equal(text(body.match(/<p\b[^>]*>([\s\S]*?)<\/p>/)[1]), preview(item.description));
-    const destination = item.slug ? '/demo/wasion/' + item.slug : encodeURI(item.url);
+    const destination = item.slug ? '/demo/wasion/styles/industrial/' + item.slug : encodeURI(item.url);
     const anchors = [...body.matchAll(/<a\b[^>]*>/g)].map(([tag]) => tag);
     assert.equal(anchors.filter(tag => tag.includes('href="' + escape(destination) + '"')).length, 3, 'image, title and action share the source-backed destination');
     assert.ok(body.includes('href="' + escape(encodeURI(item.url)) + '"'), 'official product source retained or added');
     if (!item.slug) for (const tag of anchors) {
       assert.match(tag, /target="_blank" rel="noopener noreferrer"/);
-      assert.doesNotMatch(tag, /href="\/demo\/wasion\//);
+      assert.doesNotMatch(tag, /href="\/demo\/wasion\/styles\/industrial\//);
     }
   }
   const originalFilters = renderProductCatalogFilters(items, ctx, item => '<span>' + escape(item.title) + '</span>');
@@ -147,7 +152,7 @@ test('the two overview pages retain four business groups and the electricity hub
     const groups = slug === 'electricity-metering-data-management' ? [['electricity-meters', 'Electricity products'], ['telecommunications', 'Communication'], ['system-software', 'Software']] : WASION_PRODUCT_GROUPS;
     assert.equal(cards.length, groups.length);
     for (const [index, [key, name, description]] of groups.entries()) {
-      assert.equal(cards[index][1], '/demo/wasion/' + key);
+      assert.equal(cards[index][1], '/demo/wasion/styles/industrial/' + key);
       assert.ok(cards[index][2].includes('<h3>' + escape(name) + '</h3>'));
       const expectedDescription = description || WASION_PAGES.find(page => page.slug === key).summary;
       assert.ok(cards[index][2].includes(escape(expectedDescription)));
@@ -158,13 +163,13 @@ test('the two overview pages retain four business groups and the electricity hub
       : ['ameter300-three-phase-smart-energy-meter', 'i-110-series-smart-water-meter', 'wir-3000-rf-communication-router'];
     for (const model of models) {
       const page = WASION_PAGES.find(item => item.slug === model);
-      assert.ok(stage.includes('href="/demo/wasion/' + model + '"'));
+      assert.ok(stage.includes('href="/demo/wasion/styles/industrial/' + model + '"'));
       assert.ok(stage.includes('src="' + escape(encodeURI(image(page))) + '"'));
     }
     if (slug === 'electricity-metering-data-management') {
       for (const label of ['1,200+', '9.4%', '100M+', '50+', 'Published certifications', 'Product catalogs and explained video']) assert.ok(markup.includes(label));
       for (const path of ['about.html', 'ElectricityMeters.html', 'resources.html']) assert.ok(markup.includes('href="https://en.wasion.com/' + path + '"'));
-      for (const path of ['certifications', 'collateral-videos']) assert.ok(markup.includes('href="/demo/wasion/' + path + '"'));
+      for (const path of ['certifications', 'collateral-videos']) assert.ok(markup.includes('href="/demo/wasion/styles/industrial/' + path + '"'));
     } else assert.ok(markup.includes('href="https://en.wasion.com/products.html"'));
     assert.doesNotMatch(markup, /<form\b/);
   }
@@ -184,20 +189,20 @@ test('all 450 shared script sets and 406 remaining HTML outputs remain byte-iden
   }
   assert.equal(clients.length, 450);
   assert.equal(unaffected.length, 406);
-  assert.equal(hash(JSON.stringify(clients)), 'a1d7755b3fc58307899afd372813a059f5f2721dc4c99cf2f9c5200f86551810');
-  // Story and company/resource pages have their own presentation tests. This
-  // subset was calculated from saved 744ab9a HTML, changing only the nonce.
-  assert.equal(hash(JSON.stringify(unaffected)), '5d1a15b33c95dbaa73a4acbee5d005ad6f6ef75efc2113200bd856cd8cb1875b');
+  assert.equal(hash(JSON.stringify(clients)), '78a40086b5803484ef012ec4d754b90d81740694a2eddb42cb0cc333af39ab81');
+  // Story and company/resource pages have separate presentation coverage. This
+  // reduced subset comes from frozen 1fd2731 HTML, retaining its 09/16 routing.
+  assert.equal(hash(JSON.stringify(unaffected)), '2bedb5cb6e68fd251a3a19790e1fa78bec27c3e6102be66bbaa0e60c97d1c47b');
 });
 
 test('populated, empty and hostile search queries keep their complete outputs in every style', () => {
   const queries = ['I110', 'aMeter300 </script><script>alert(1)</script> & AMI', 'Unknown I999999 meter'];
   const expected = {
-    classic: ['3d0077567c40ce4b36b8cfa9371dec9e3dc45a176ba45f77b964a278d601c298', 'aff4e822a3a24691ab18adeb0122433f7339edab1acdf48850916c09a14d7c35', '28cbf654b1abaf61dafeb4178bd544a1347bf5f1f6094ada8c3ffd29120e3b95'],
-    atmospheric: ['8ccb2ba3076ab65a7cc1652e38de8c3dc38728759831a2eb4053d72e9a504547', '711a2940b57cb8773b8f1d485cbfcb7ff32146d47e6725134d29e8b1fdbae11a', '02d68b97e1a858c84b0324ba99e61714958855ffded07e379d0856993ba96bdd'],
-    planhat: ['7cb9bd83821c6ac5f2aaed61b9ecf9493f0d69c7e2fb099543a942dc53c4e80e', '878d20e0e7ebe569c11feb684de1018bb3c731b27add6e7810b42c131ccbc3d8', 'ee1f94e601972a622b412d8cd4706a1a01572bb2f9f999e4ef03e47e2803ba4a'],
-    orderful: ['2a037a40b32a9d08ccdcba7aea20a723edb6243f5d390b626747bd1f48b783b8', '4661538143d95ecd85779d05faeb8281e75bcd9c2677b07aaf15bacb3178ea4f', 'b6b1ec6dcd3c3c3c085296b35052ddae1d27a6b74fc4e90d0ae5f51599d91ed5'],
-    industrial: ['de112f26a1365ea12e9776b5ad3cee3b1f2ce11e7be496fa05bdccc09d5273b4', '28a3d1f765d86f9091cf745f8efdb7a7233a705bd24788450c852c46159ba08b', 'd02ae01abdc2bd30640764a225f4ab2caf0108f8a3d6669771329b45e3c90293']
+    classic: ['8e2fcc718e844a359ba1abfe33514b67aa9aa66bc27b1f14a4ed84b7c27c375c', 'cc2b2232d82a91f0f8701436c3e1175f6c82c550d9a8d7fc5aabf563705e4db4', '049cb21acf6b223ab8574b4bde1ba43d716496bdaa68d244eabf6f5f52f31a6e'],
+    atmospheric: ['6d5d9c0a596734cb995aa0145f878fd833d4819c173ff92db55f22b4ad516e13', '9b8b363814f16bbff604aab5fede53f624626d6a2d85f9f2aac1789d7d1f2fd5', '86d972033f220b1a35e3b2d83bb7bba63e39e6b89caae7e6368e23872b88d8ea'],
+    planhat: ['092b70268b1ebd5df31a51e946542a1c02e4a0d22ff6e57c3ec3d0c9c972ca2d', 'f7fbca7145e8107b2453374aaf284b28a082302572d9424ef555602ddc971b81', '452f8560910a57278b499926450f77f4065f2fade9805a4fdbdaec3663cdf855'],
+    orderful: ['cd93f427c4f779bcd66d23e542fbfb22b3357054d8244ac2bf32341144179825', 'c57bb370dfe0c882efb03cf7b10f9ad0c517db2a92338d667974aaca33182357', '53a73c8d3a6d122ff8be41f73cee8ba74f1c060819bdbc88b8bdf65eb832bed5'],
+    industrial: ['7f7cea51c3026bce78354b0c3d22e37c65258e06d2f97fcadfe805d34ee612da', '650671934c1592f677a118069fa4c61aec3d79107393681b6d3db94875a948e6', '107df635b384e33eb473a2be4e9d74c850b0e9677727f5d89e9250ef67fae5f5']
   };
   for (const style of Object.keys(WASION_STYLES)) for (const [index, query] of queries.entries()) assert.equal(hash(wasionDemoPage(nonce, { style, slug: 'search', query })), expected[style][index], style + ' query ' + index);
 });
@@ -214,7 +219,7 @@ test('category navigation, named native controls and keyboard focus remain avail
     assert.equal(ids.length, new Set(ids).size);
     for (const [, fragment] of markup.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(fragment));
     assert.match(markup, /aria-label="Breadcrumb"/);
-    assert.ok(markup.includes('/demo/wasion/search?q='), 'AI remains an auxiliary link');
+    assert.ok(markup.includes('/demo/wasion/styles/industrial/search?q='), 'AI remains an auxiliary link');
     assert.doesNotMatch(markup, /<script\b|\b(?:onclick|onerror|onload)=/);
   }
   assert.match(INDUSTRIAL_CATALOG_CSS, /\.wic-catalog :is\(a,button,input,select,summary\):focus-visible\{outline:/);

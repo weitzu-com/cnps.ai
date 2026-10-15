@@ -2,12 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { runInNewContext } from 'node:vm';
-import { wasionDemoPage, WASION_PAGES, WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
-import { WASION_STYLES } from '../server/wasion-demo-styles.mjs';
+import { wasionDemoPage as renderWasionDemoPage, WASION_PAGES, WASION_LEGACY_ROUTES as WASION_DEMO_ROUTES } from '../server/wasion-demo-page.mjs';
+import { WASION_STYLES as ALL_WASION_STYLES } from '../server/wasion-demo-styles.mjs';
 import { EXPERIENCE_ROUTES, CONTENT_CLIENT } from '../server/wasion-experience/content.mjs';
 import { FACTORIES } from '../server/wasion-experience/content-data.mjs';
 import { INDUSTRIAL_COMPANY_RESOURCE_ROUTES, renderIndustrialCompanyResources, INDUSTRIAL_COMPANY_RESOURCES_CSS, INDUSTRIAL_COMPANY_RESOURCES_CLIENT } from '../server/wasion-industrial-company-resources.mjs';
 
+// The retained presentation is explicit now that 09/16 is the canonical demo.
+const WASION_STYLES = Object.fromEntries(Object.entries(ALL_WASION_STYLES).filter(([style]) => style !== 'requirements'));
+const wasionDemoPage = (nonce, options = {}) => renderWasionDemoPage(nonce, { style: 'industrial', ...options });
+const base = '/demo/wasion/styles/industrial';
 const nonce = 'industrial-company-resources-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
@@ -23,6 +27,9 @@ const articles = markup => [...markup.matchAll(/<article class="we-filter-item"(
 // The cover fallback is an extra visual layer. Remove only that explicitly
 // named wrapper and its original img's added hidden flag for the old-body lock.
 const originalImages = markup => markup.replace(/<div class="wic-resource-cover">[\s\S]*?(<img hidden [^>]*>)<\/div>/g, (_, img) => img.replace('<img hidden ', '<img '));
+// Content locks retain main's original bodies; only the intentional legacy
+// route relocation is normalized. Actual navigation is checked below.
+const originalPaths = markup => markup.replaceAll(base, '/demo/wasion');
 
 // Captured from main 744ab9ac937b494c46109108ec1c0bf30bda8de1 before this
 // presentation change. Full target bodies, rows and carousel markup are fixed
@@ -78,8 +85,10 @@ test('all 450 shared script sets and 442 non-target HTML pages remain byte-ident
   }
   assert.equal(clients.length, 450);
   assert.equal(unaffected.length, 442);
-  assert.equal(hash(JSON.stringify(clients)), '6fa8e99487c73fca4ea1219f0876b1087a67b6bc320c3f26bf723e61b037b681');
-  assert.equal(hash(JSON.stringify(unaffected)), 'db11654e5efeebc720ae5d1cfcc19144e2b9cad57d0dd0b80a361ba2c680198c');
+  // Frozen 1fd2731 output already contains the approved 09/16 default and
+  // retained Industrial relocation; all unaffected bytes were compared to it.
+  assert.equal(hash(JSON.stringify(clients)), 'bb89ed6298ca96a0d194ac5bed70a621270ef89ef1d389b13c5471112c1bbbd7');
+  assert.equal(hash(JSON.stringify(unaffected)), '19f96d1a5d4cb22435280a509d21e8f1594db7d1e248cec867a7d74f4f4f4db8');
 });
 
 for (const slug of targets) test('complete original content, widgets and sources remain intact: ' + slug, () => {
@@ -91,7 +100,7 @@ for (const slug of targets) test('complete original content, widgets and sources
   const tail = originalImages(markup.slice(start, markup.lastIndexOf('</div>')))
     .replace('<div class="wd-container we-content wic-content" id="wic-content">', '<div class="wd-container we-content">')
     .replace(/<select aria-label="(?:Region|Topic|Content type)" data-filter=/g, '<select data-filter=');
-  assert.equal(hash(tail), originalTails[slug]);
+  assert.equal(hash(originalPaths(tail)), originalTails[slug]);
   const route = EXPERIENCE_ROUTES.find(page => page.slug === slug) || WASION_PAGES.find(page => page.slug === slug);
   for (const url of [...(route.sourceUrls || []), route.url].filter(Boolean)) assert.ok(markup.includes('href="' + escape(encodeURI(url)) + '"'), url);
 });
@@ -100,7 +109,7 @@ test('all resource and project rows preserve their original order, previews, fac
   for (const [slug, [count, rowsHash, optionsHash]] of Object.entries(rowBaselines)) {
     const markup = rendered(slug), rows = articles(markup);
     assert.equal(rows.length, count, slug);
-    assert.equal(hash(JSON.stringify(rows.map(row => ({ attrs: row.attrs, body: originalImages(row.body) })))), rowsHash, slug + ' complete original rows');
+    assert.equal(hash(JSON.stringify(rows.map(row => ({ attrs: row.attrs, body: originalPaths(originalImages(row.body)) })))), rowsHash, slug + ' complete original rows');
     const selects = [...markup.matchAll(/<select\b[^>]*>[\s\S]*?<\/select>/g)].map(([select]) => select.replace(/ aria-label="[^"]+"/, ''));
     assert.equal(hash(JSON.stringify(selects)), optionsHash, slug + ' original facets and values');
     for (const [, select] of markup.matchAll(/(<select\b[^>]*>)/g)) assert.match(select, /aria-label="(?:Region|Topic|Content type)"/);
@@ -203,7 +212,7 @@ test('company facts retain source scope, accessible schematic locations and life
     for (const factory of FACTORIES) {
       assert.ok(markup.includes('<summary>' + factory.country + '<span>' + factory.region + '</span></summary>'));
       assert.ok(markup.includes(escape(factory.description)));
-      assert.ok(markup.includes('href="/demo/wasion/' + (factory.caseSlug || 'certifications') + '"'));
+      assert.ok(markup.includes('href="' + base + '/' + (factory.caseSlug || 'certifications') + '"'));
     }
     if (slug !== 'global-presence') for (const value of ['1,200+', '9.4%', '100M+', '50+']) assert.ok(markup.includes(value));
     if (['company', 'about'].includes(slug)) for (const value of ['2000', '2005', 'Technical consultation', 'Installation', 'Training', 'Maintenance', 'Troubleshooting']) assert.ok(markup.includes(value));
@@ -231,12 +240,12 @@ test('the new hierarchy has named navigation, resolving anchors and auxiliary AI
     assert.ok(nav.includes('aria-label="' + (company ? 'Company' : 'Resource') + ' navigation"'));
     assert.equal((nav.match(/<a\b/g) || []).length, 5);
     assert.equal((nav.match(/aria-current="page"/g) || []).length, 1);
-    assert.ok(nav.includes('href="/demo/wasion/' + slug + '" aria-current="page"'));
+    assert.ok(nav.includes('href="' + base + '/' + slug + '" aria-current="page"'));
     const ids = [...markup.matchAll(/\bid="([^"]+)"/g)].map(([, id]) => id);
     assert.equal(ids.length, new Set(ids).size, slug + ' unique IDs');
     for (const [, fragment] of markup.matchAll(/href="#([^\"]+)"/g)) assert.ok(ids.includes(fragment), slug + ' anchor ' + fragment);
     const ai = attributes(markup.match(/<a class="wic-ai"[^>]*>/)[0]);
-    assert.equal(new URL(ai.href, 'https://crm.cnps.ai').pathname, '/demo/wasion/search');
+    assert.equal(new URL(ai.href, 'https://crm.cnps.ai').pathname, base + '/search');
     assert.ok(new URL(ai.href, 'https://crm.cnps.ai').searchParams.get('q'));
     assert.doesNotMatch(markup, /<script\b|\b(?:onclick|onerror|onload)=|<form\b[^>]*action=[^>]*search/);
     for (const [, tag] of markup.matchAll(/(<a\b[^>]*target="_blank"[^>]*>)/g)) {

@@ -16,6 +16,11 @@ test('preview attaches only after authorization of the exact bound project',asyn
  }
 });
 test('demo links back to its exact CRM project on every page',()=>{
- for(const slug of WASION_DEMO_ROUTES){const html=wasionDemoPage('test',{slug});assert.ok(html.includes('Client workspace'));assert.ok(html.includes('class="wd-workspace-return"'));assert.ok(html.includes('.wx-utility nav>a.wd-workspace-return{display:block'));
- assert.ok(html.includes(wasionWorkspaceHref.replaceAll('&','&amp;')));}
+ for(const slug of WASION_DEMO_ROUTES){
+  const html=wasionDemoPage('test',{slug});
+  const link=html.match(/<a\b[^>]*class="[^"]*\bwd-workspace-return\b[^"]*"[^>]*>Client workspace<\/a>/)?.[0];
+  assert.ok(link,slug+' named project return link');
+  assert.ok(link.includes('href="'+wasionWorkspaceHref.replaceAll('&','&amp;')+'"'),slug+' exact bound company and project');
+  assert.match(html,/\.wr-utility a,\.wr-utility summary\{[^}]*display:flex/);
+ }
 });
