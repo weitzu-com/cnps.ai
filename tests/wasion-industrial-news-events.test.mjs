@@ -99,7 +99,10 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
   // business CSS and86 parameter sections were replaced. All1499 source rows
   // and2606 cells retain their original spans and text.
   // Earlier source/keyboard/visual evidence stays separately frozen.
-  assert.equal(hash(JSON.stringify(rows)), 'de2f41e776dae2a71c1abc65811ccb268d44f635a2943210d2138a6d614ae8b0');
+  // A later clean56f65a9 comparison advanced de2f41e7 only by removing the
+  // unused film dialog: all198 pages lacked any opener, and the real Media
+  // Kit inline video, styles, scripts and visible content remain identical.
+  assert.equal(hash(JSON.stringify(rows)), 'c5916b5eed7999fc9996d75df2aa15e395b696af97543cbf0f561b93b06b4fb8');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
