@@ -91,8 +91,8 @@ test('all 198 Requirements pages retain approved content with reviewed homepage 
     assert.ok(html.includes('href="http://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
     assert.ok(!html.includes('href="https://www.wasion.com/"'), slug);
     assert.ok(!html.includes('href="https://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
-    // Only the reviewed homepage-card and hero framing CSS changes. Reversing those exact
-    // geometry declarations must recover the complete previous 198-page HTML.
+    // Retain the geometry reversal pin with the current embedded search catalog.
+    // The later search change adds only download metadata and the shared ranker.
     const previousHtml = html
       .replace('linear-gradient(90deg,#001e45f7,#001e45c4 50%,#001e45c4)', 'linear-gradient(90deg,#001e45f7,#001e45c4 50%,#001e4533)')
       .replace('.wr-hero-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;', '.wr-hero-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;')
@@ -115,9 +115,12 @@ test('all 198 Requirements pages retain approved content with reviewed homepage 
   // The next clean955 comparison adds only I110's source-attribution notice:
   // its RPMA row remains under the original Alarm and Event logs parent.
   // The other197 complete outputs, all styles/scripts and the grids match.
-  assert.equal(hash(JSON.stringify(priorRows)), 'a269ed4e54f6c9c10ef8444785a8a0f5eecdd463bb7e217284195be9d1b5ddd7');
-  // Five local matrix views and 20 local hero views confirm complete devices and caption framing.
-  assert.equal(hash(JSON.stringify(rows)), '8659ff67d678a549cc39b198053ba3048eb725df828cd8d76e5e3e3a4a5d86c3');
+  assert.equal(hash(JSON.stringify(priorRows)), 'f68b1995a5045460147f31966ac93e587fcc003df53af5300f4831791c45e79e');
+  // Advanced after exact reversal against clean a721 recovered all 198 parent outputs:
+  // remove embedded download fields and restore only the search-page rank function.
+  // Visible unqueried markup and all styles remain identical.
+  // The prior a721 full-page pin was 8659ff67d678a549cc39b198053ba3048eb725df828cd8d76e5e3e3a4a5d86c3.
+  assert.equal(hash(JSON.stringify(rows)), 'b7c2b017d9ab43f94049cb315aecd119159e723aa173da678689c8ec5137f23f');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {

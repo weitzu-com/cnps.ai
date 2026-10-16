@@ -175,6 +175,7 @@ export function rankRequirementsSearchPages(pages, question) {
   const certificateIntent = /certif|\b(?:listed|listing|approved|approval|compliant|compliance|conforms?|conformity|conformant|recognized|recognised|accredited|rated)\b|认证|证书|资质|通过|符合|获证|列名|获批|合规/i.test(question);
   const requestedProtocols = tokens.filter(token => ['sts','lorawan','dlms','cosem'].includes(token));
   const categoryIds = new Set(['products','electricity-meters','telecommunications','system-software','water-gas-meters','intelligent-power-distribution','renewable-energy']);
+  const exactProductIds = new Set(pages.filter(source => source.category === 'Products' && !categoryIds.has(source.id) && normal(source.title) === query).map(source => source.id));
   const namedProducts = pages.filter(source => source.category === 'Products' && !categoryIds.has(source.id) && normal(source.title).length >= 3 && terms(query, normal(source.title)));
   const longestName = Math.max(0, ...namedProducts.map(source => normal(source.title).length));
   const namedIds = new Set(namedProducts.filter(source => normal(source.title).length === longestName).map(source => source.id));
@@ -198,6 +199,17 @@ export function rankRequirementsSearchPages(pages, question) {
   const frequency = new Map(tokens.map(token => [token, pages.filter(source => terms(normal(sourceText(source)), token)).length]));
   return pages.filter(source => source.id !== 'home').map(source => {
     const title = normal(source.title), body = normal(sourceText(source)), models = available.get(source.id);
+    if (exactProductIds.size && !exactProductIds.has(source.id)) return { source, score: 0 };
+    // A general document request must lead to an available relevant file,
+    // while a named model can still expose its honest missing-document path.
+    if (resourceIntent && !requested.length && !namedIds.size) {
+      const documentTokens = tokens.filter(token => !/^(?:download|catalog(?:ue)?|datasheet|manual|documents?)$/.test(token));
+      const relevantDownload = (source.downloads || []).some(item => {
+        const label = normal(item.title);
+        return (!documentTokens.length && !active.length) || documentTokens.some(token => terms(label, token)) || active.some(group => group.keys.some(key => terms(label, key)));
+      });
+      if (!relevantDownload) return { source, score: 0 };
+    }
     if (requested.length && !requested.every(model => models.includes(model))) return { source, score: 0 };
     if (!requested.length && requestedProtocols.some(protocol => !terms(body, protocol))) return { source, score: 0 };
     const titleModels = modelTokens(source.title);
