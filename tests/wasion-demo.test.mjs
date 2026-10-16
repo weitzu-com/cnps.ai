@@ -356,7 +356,9 @@ test('AI receives exact-source notes and instructions to retain both disputed wo
           ? `官网两处表述为“${note.quotes[0]}”与“${note.quotes[1]}”，适用要求需向威胜确认。[${source.citation}]`
           : `The source lists "${note.quotes[0]}" and "${note.quotes[1]}"; confirm the applicable requirement with Wasion. [${source.citation}]`);
       } });
-      assert.equal(result.data.ai.generated, true);
+      assert.equal(result.data.ai.generated, false, 'Disputed fields proactively mentioned by a model-overview answer are returned as official-source clarification.');
+      assert.equal(result.data.ai.status, 'source_clarification');
+      assert.equal(result.data.ai.generationRequestAttempted, true);
       assert.match(prompt, /both quoted source values or wordings with their original field labels/);
       assert.match(prompt, /confirmation with Wasion is needed/);
       assert.match(prompt, /Do not choose one value, reconcile or convert/);

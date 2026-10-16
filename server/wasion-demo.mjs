@@ -1,7 +1,7 @@
 import { wasionPreviewBinding } from './crm-project-previews.mjs';
 import { BusinessError } from './crm-business-service.mjs';
-import { retrieveWasionSources } from './wasion-demo-sources.mjs';
-import { getWasionSourceNotes } from './wasion-source-notes.mjs';
+import { WASION_SOURCES, retrieveWasionSources } from './wasion-demo-sources.mjs';
+import { getWasionSourceNotes, getWasionQuestionClarification, getWasionAnswerClarification } from './wasion-source-notes.mjs';
 
 const json = (res, status, value) => {
   res.statusCode = status;
@@ -116,6 +116,21 @@ export async function answerWasionQuestion({ env = {}, question, language = 'en'
     answer: messages[status], language: lang, sources: context, ...retrieval,
     ai: { generated: false, status, reason }
   } });
+  const sourceClarification = (clarification, generationRequestAttempted) => {
+    const published = clarification.source;
+    const source = retrieval.results.find(source => source.id === published.id) || {
+      id: published.id, slug: published.slug, title: published.title, category: published.category,
+      url: published.url, href: published.href, summary: published.summary, images: published.images,
+      image: published.image, downloads: published.downloads, excerpt: published.passages.join('\n')
+    };
+    const results = [source, ...retrieval.results.filter(item => item.id !== source.id)];
+    return { status: 200, data: { ...retrieval, results, resultCount: Math.max(retrieval.resultCount, results.length),
+      answer: clarification.answer, language: lang, sources: [source],
+      ai: { generated: false, status: 'source_clarification', reason: generationRequestAttempted ? 'published_field_difference_after_inference' : 'published_field_difference', generationRequestAttempted }
+    } };
+  };
+  const clarification = getWasionQuestionClarification({ question: question.trim(), language: lang, sourceCatalog: WASION_SOURCES });
+  if (clarification) return sourceClarification(clarification, false);
   if (!context.length) return fallback('no_match', 'no_relevant_source');
   if (!env.CRM_AI_API_KEY) return fallback('unavailable', 'not_configured');
   // Daily usage does not gate this private demo. The request handler verifies
@@ -152,6 +167,8 @@ export async function answerWasionQuestion({ env = {}, question, language = 'en'
   if (!ids.length || ids.some(id => !id) || /https?:\/\/|\]\s*\(|\b(?:www\.|javascript:|data:)/i.test(answer)) return fallback('invalid_response', 'invalid_citations');
   const normalizedAnswer = answer.replace(/\[([^\]\r\n]+)\]/g, (_all, token) => `[${aliases.get(token.trim()) || aliases.get(token.trim().toLowerCase())}]`);
   if (!hasSupportedCapabilityScope(normalizedAnswer, context)) return fallback('invalid_response', 'unsupported_source_scope');
+  const generatedClarification = getWasionAnswerClarification({ question: question.trim(), answer: normalizedAnswer, citedSourceIds: ids, language: lang, sourceCatalog: WASION_SOURCES });
+  if (generatedClarification) return sourceClarification(generatedClarification, true);
   const used = context.filter(source => ids.includes(source.id));
   const answerLanguage = language === 'auto' && typeof generated.language === 'string' && /^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/i.test(generated.language) && generated.language.length <= 32 ? generated.language.toLowerCase() : lang;
   return { status: 200, data: { answer: normalizedAnswer.trim(), language: answerLanguage, sources: used, ...retrieval, ai: { generated: true, status: 'generated' } } };

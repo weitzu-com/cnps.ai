@@ -24,3 +24,73 @@ const SOURCE_NOTES = new Map([
 export function getWasionSourceNotes(id) {
   return (SOURCE_NOTES.get(id) || []).map(note => ({ ...note, quotes: [...note.quotes] }));
 }
+
+// Three reviewed field questions use literal publisher wording, not inference.
+// A model appearing only in retrieval/context must never select this branch.
+const QUESTION_RULES = [
+  {
+    id: 'product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu',
+    model: /\bHMPM\b(?!-[a-z0-9])/iu,
+    field: q => /\b(?:android|os)\s+(?:versions?|requirements?|compatibility)\b|\boperating[- ]system\b|\bandroid\s*\d|\b(?:requires?|supports?|runs? on|compatible with)\s+(?:android|os)\b|安卓|操作系统|系统版本/iu.test(q),
+    labels: ['Key Features', 'Main Functions / Compatibility'],
+    en: 'These published statements do not establish the applicable minimum OS requirement for your HMPM software version. Confirm the applicable OS requirement and software version with Wasion before selection.',
+    zh: '这些原文尚不能确认当前 HMPM 软件版本适用的最低操作系统要求。选型前请威胜确认适用的操作系统要求和软件版本。'
+  },
+  {
+    id: 'product-jyl-60-fault-indicator-distribution-line-fault-detectors-technology',
+    model: /\bJYL[ -]?60\b/iu,
+    field: q => /\b(?:short[- ]?circuit|fault)\s+current\b|短路电流|故障电流/iu.test(q)
+      || /\b(?:current ratings?|maximum current)\b|电流(?:额定|指标)|(?:最大|额定)电流/iu.test(q)
+        && !/\b(?:load|operating)\s+current\b|\boperating value\b|负载电流|工作电流|动作电流/iu.test(q),
+    labels: ['Key Features / Maximum short circuit current', 'Technical Parameters / Maximum Fault Current'],
+    en: 'These field labels differ. The available source does not establish that they are interchangeable measurements of the same current limit. Confirm the applicable ratings and test conditions with Wasion.',
+    zh: '这两个字段名称不同，现有资料未证明它们是同一电流限值的可互换指标。请威胜确认适用的额定指标和试验条件。'
+  },
+  {
+    id: 'product-we-cube-air-cooling-500kw-1000kwh',
+    model: /\bWE[ -]+CUBE\b(?!-[a-z0-9]|[ -]+(?:PREMIUM|PLUS|PRO|LITE))/iu,
+    field: q => /\bcapacit(?:y|ies)\b|\b(?:rated|nominal|usable|gross)\s+energy\b|容量|额定储能|1000\s*kwh[^。！？?\n]*1075[.]2|1075[.]2\s*kwh[^。！？?\n]*1000/iu.test(q),
+    labels: ['Product subtitle', 'DC Specification / Rated Capacity'],
+    en: 'The headline and rated-capacity figures may use different bases; their relationship is not confirmed by the available source. Confirm the applicable capacity definition and configuration with Wasion before selection.',
+    zh: '标题标称值与额定容量可能采用不同口径，现有资料未确认它们的关系。选型前请威胜确认适用的容量定义和配置。'
+  }
+];
+
+function questionRule(question) {
+  if (typeof question !== 'string') return null;
+  const q = question.normalize('NFKC').replace(/[‐‑–—−]/g, '-');
+  const named = QUESTION_RULES.filter(rule => rule.model.test(q));
+  if (named.length !== 1) return null;
+  const rule = named[0];
+  // Exclude another requested model/standard rather than answering its question
+  // with a nearby reviewed model. Ordinary words before numbers are not models.
+  const numericWords = new Set(['android','version','versions','capacity','cooling','or','and','for','of','is','as','at','to','in','from','than','with']);
+  const otherCode = [...q.matchAll(/\b([a-z]{1,12})[ -]?\d{2,6}[a-z\d]*(?:[-/.][a-z\d]+)*\b/giu)]
+    .some(match => !numericWords.has(match[1].toLowerCase()) && !(rule.id.includes('jyl-60-') && match[0].replace(/[^a-z0-9]/giu, '').toLowerCase() === 'jyl60'));
+  if (otherCode) return null;
+  return { rule, q };
+}
+
+function sourceClarification(rule, language, sourceCatalog) {
+  const note = getWasionSourceNotes(rule.id)[0];
+  const source = sourceCatalog.find(source => source.id === rule.id && source.url === note.sourceURL);
+  // Use the full trusted source, not its potentially shortened query excerpt.
+  if (!source || !note.quotes.every(quote => (source.passages || []).some(passage => passage.includes(quote)))) return null;
+  const intro = language === 'zh' ? '官方资料澄清：原厂页面包含以下字段表述。' : 'Official-source clarification: the published page contains the following field statements.';
+  const answer = [intro, ...note.quotes.map((quote, index) => `${rule.labels[index]}: “${quote}”`), language === 'zh' ? rule.zh : rule.en].join('\n\n');
+  return { answer, source };
+}
+
+export function getWasionQuestionClarification({ question, language = 'en', sourceCatalog = [] } = {}) {
+  const match = questionRule(question);
+  return match && match.rule.field(match.q) ? sourceClarification(match.rule, language, sourceCatalog) : null;
+}
+
+export function getWasionAnswerClarification({ question, answer, citedSourceIds = [], language = 'en', sourceCatalog = [] } = {}) {
+  const match = questionRule(question);
+  if (!match || typeof answer !== 'string' || !citedSourceIds.includes(match.rule.id)) return null;
+  // Citation IDs can themselves contain "android" or the capacity. They are
+  // identity tokens, not a claim about a disputed field in the answer body.
+  const body = answer.replace(/\[[^\]\r\n]+\]/g, '');
+  return match.rule.field(body) ? sourceClarification(match.rule, language, sourceCatalog) : null;
+}

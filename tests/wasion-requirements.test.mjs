@@ -326,6 +326,22 @@ class FakeElement {
 }
 function clientContext(roots={}){return {document:{hidden:false,getElementById:()=>null,querySelector:()=>null,querySelectorAll:selector=>roots[selector]||[],addEventListener(){}},matchMedia:()=>({matches:true,addEventListener(){}}),URLSearchParams,location:{search:''},setTimeout,clearTimeout,setInterval,clearInterval};}
 
+test('open dialogs wrap native Tab at both boundaries without focusing hidden or disabled controls', () => {
+  const dialog=new FakeElement();dialog.open=true;
+  const first=new FakeElement(),middle=new FakeElement(),last=new FakeElement(),hidden=new FakeElement(),disabled=new FakeElement();
+  for(const el of [first,middle,last,hidden,disabled]){el.tabIndex=0;el.getClientRects=()=>[{}];}
+  hidden.getClientRects=()=>[];disabled.disabled=true;
+  dialog.children.set('a[href],button,input,select,textarea,[tabindex]',[first,middle,last,hidden,disabled]);
+  const context=clientContext({dialog:[dialog]});context.getComputedStyle=()=>({visibility:'visible'});
+  for(const el of [first,middle,last])el.focus=()=>{context.document.activeElement=el;};
+  runInNewContext(BASE_CLIENT,context);
+  let prevented=0;const tab=(shiftKey=false)=>dialog.emit('keydown',{key:'Tab',shiftKey,preventDefault(){prevented++;}});
+  context.document.activeElement=last;tab();assert.equal(context.document.activeElement,first);assert.equal(prevented,1);
+  tab(true);assert.equal(context.document.activeElement,last);assert.equal(prevented,2);
+  context.document.activeElement=middle;tab();assert.equal(context.document.activeElement,middle);assert.equal(prevented,2);
+  dialog.open=false;context.document.activeElement=last;tab();assert.equal(prevented,2);
+});
+
 test('catalogue and resource filters combine facets, expose empty recovery, reset and append fresh records', () => {
   const root=new FakeElement({limit:'2'}),form=new FakeElement(),q=new FakeElement({facet:'q'}),topic=new FakeElement({facet:'topic'}),reset=new FakeElement(),more=new FakeElement(),count=new FakeElement(),empty=new FakeElement();
   const records=[['meter a','metering'],['meter b','metering'],['meter c','metering'],['water a','water']].map(([q,topic])=>new FakeElement({q,topic}));

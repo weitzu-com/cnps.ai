@@ -86,14 +86,20 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
     assert.match(html, /<body class="wd-style-requirements /);
     assert.ok(!html.includes(INDUSTRIAL_NEWS_EVENTS_CSS));
     assert.ok(!main(html).includes('class="win-page'));
+    assert.ok(html.includes('href="https://www.wasion.cn/"'), slug);
+    assert.ok(html.includes('href="http://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
+    assert.ok(!html.includes('href="https://www.wasion.com/"'), slug);
+    assert.ok(!html.includes('href="https://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
     return [slug, hash(html)];
   });
-  // Advanced from 81d5cd1d for three exact-model source clarification notes
-  // and the AMI catalogue edition notice. Both published values/labels remain
-  // visible with a confirmation request; no raw parameter is changed. The
-  // preceding excerpt/artwork/utility fixes keep their separate twenty-view
-  // local evidence. Industrial/source/client snapshots stay frozen.
-  assert.equal(hash(JSON.stringify(rows)), 'e31e57541e3d6779e7ff189ec87c83c550a59c0aeb64b7182e9e20f8096f4410');
+  // Advanced from e31e5754 for the shared dialog's native Tab/Shift+Tab wrap
+  // and two official external destinations: the
+  // official CN site is wasion.cn; the publisher's investor page uses HTTP
+  // (the forced HTTPS URL fails certificate-name validation). An independent
+  // clean 0268 archive comparison confirmed these literal href replacements
+  // and the exact shared-client replacement are the complete difference on
+  // all198 pages. Earlier clarification/visual evidence stays separate.
+  assert.equal(hash(JSON.stringify(rows)), '9417e42fea1549a80ab90fdbeb03812cc0eed574ce49eb8036557db7fbe9a3d7');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
