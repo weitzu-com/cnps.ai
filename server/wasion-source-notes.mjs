@@ -1,6 +1,12 @@
 // Exact-source clarification only. Preserve the publisher's original wording;
 // different field names or nominal/rated values are not automatically errors.
 const SOURCE_NOTES = new Map([
+  ['i-110-series-smart-water-meter', [{
+    sourceURL: 'https://en.wasion.com/proWateRel/I-110-Series-Smart-Water-Meter.html',
+    field: 'Communication / Alarm and Event logs — original table row groups',
+    quotes: ['Wired M-BUS/RS485', 'LoRaWAN', 'Wireless M-BUS (EN13757.4), Walk-by/Driver-by', 'Protocol: EN13757.3, DLMS/COSEM,MODBUS-RTU', 'RPMA, Cellular (2G, 3G, 4G, NB-IoT), PLC, RF and Ethernet'],
+    message: 'The original Communication group spans the four rows beginning with Wired M-BUS/RS485. The RPMA/Cellular/PLC/RF/Ethernet row is instead inside the original Alarm and Event logs group. This grouping does not establish whether those items are supported communication options. Confirm their field attribution and available interfaces with Wasion; the original table has not been regrouped.'
+  }]],
   ['product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu', [{
     sourceURL: 'https://en.wasion.com/RelevantProduct/Wasion-Meterview-APP.html',
     field: 'Key Features / Main Functions — Compatibility',
@@ -25,9 +31,18 @@ export function getWasionSourceNotes(id) {
   return (SOURCE_NOTES.get(id) || []).map(note => ({ ...note, quotes: [...note.quotes] }));
 }
 
-// Three reviewed field questions use literal publisher wording, not inference.
+// Reviewed field questions use literal publisher wording, not inference.
 // A model appearing only in retrieval/context must never select this branch.
 const QUESTION_RULES = [
+  {
+    id: 'i-110-series-smart-water-meter',
+    model: /\bI[ -]?110\b(?!-[a-z0-9])/iu,
+    field: q => /\bcommunicat\w*\b|通信|通讯|\bRPMA\b|\bCellular\b|蜂窝|\bEthernet\b|以太网|\b(?:RF|2G|3G|4G|PLC|NB-IoT)\b/iu.test(q.replace(/\bRF[\s‐‑–—−-]+card\b|RF卡|射频卡/giu, '')),
+    answerField: q => /\bRPMA\b|\bCellular\b|蜂窝|\bEthernet\b|以太网|\b(?:RF|2G|3G|4G|PLC|NB-IoT)\b/iu.test(q.replace(/\bRF[\s‐‑–—−-]+card\b|RF卡|射频卡/giu, '')),
+    labels: ['Communication / row 1', 'Communication / row 2', 'Communication / row 3', 'Communication / row 4', 'Alarm and Event logs / original RPMA row'],
+    en: 'The original Communication group contains the first four quoted rows. The RPMA/Cellular/PLC/RF/Ethernet row is under Alarm and Event logs in the original table. Its field attribution and availability as communication interfaces need confirmation with Wasion; do not infer either support or non-support from that placement.',
+    zh: '原表 Communication 分组包含前四条引文；RPMA/Cellular/PLC/RF/Ethernet 这一行则位于原表 Alarm and Event logs 分组内。该行的字段归属及这些通信接口是否可用，需向威胜确认；不能仅凭该位置推定支持或不支持。'
+  },
   {
     id: 'product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu',
     model: /\bHMPM\b(?!-[a-z0-9])/iu,
@@ -66,7 +81,10 @@ function questionRule(question) {
   // with a nearby reviewed model. Ordinary words before numbers are not models.
   const numericWords = new Set(['android','version','versions','capacity','cooling','or','and','for','of','is','as','at','to','in','from','than','with']);
   const otherCode = [...q.matchAll(/\b([a-z]{1,12})[ -]?\d{2,6}[a-z\d]*(?:[-/.][a-z\d]+)*\b/giu)]
-    .some(match => !numericWords.has(match[1].toLowerCase()) && !(rule.id.includes('jyl-60-') && match[0].replace(/[^a-z0-9]/giu, '').toLowerCase() === 'jyl60'));
+    .some(match => {
+      const namedModel = rule.model.exec(match[0]);
+      return !numericWords.has(match[1].toLowerCase()) && !(namedModel && namedModel.index === 0 && namedModel[0].length === match[0].length);
+    });
   if (otherCode) return null;
   return { rule, q };
 }
@@ -92,5 +110,5 @@ export function getWasionAnswerClarification({ question, answer, citedSourceIds 
   // Citation IDs can themselves contain "android" or the capacity. They are
   // identity tokens, not a claim about a disputed field in the answer body.
   const body = answer.replace(/\[[^\]\r\n]+\]/g, '');
-  return match.rule.field(body) ? sourceClarification(match.rule, language, sourceCatalog) : null;
+  return (match.rule.answerField || match.rule.field)(body) ? sourceClarification(match.rule, language, sourceCatalog) : null;
 }

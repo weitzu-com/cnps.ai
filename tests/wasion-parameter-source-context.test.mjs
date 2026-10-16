@@ -10,7 +10,7 @@ for (const id of [
 ]) test('AI context preserves exact published parameter grid and parent groups: '+id,async()=>{
   const product=PRODUCTS.find(product=>product.id===id);assert.ok(product?.parameterTables.length);
   let requests=0;
-  const response=await answerWasionQuestion({question:product.title,env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
+  const response=await answerWasionQuestion({question:'Describe '+product.title,env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
     requests++;
     const sent=JSON.parse(options.body),sources=JSON.parse(sent.messages[1].content).officialSources;
     const source=sources.find(source=>source.id===id);assert.ok(source);

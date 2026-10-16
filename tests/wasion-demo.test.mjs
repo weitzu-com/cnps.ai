@@ -173,12 +173,12 @@ test('short citation codes resolve only to the supplied source and return canoni
   assert.ok(!result.data.answer.includes('[s1]'));
   assert.deepEqual(result.data.sources.map(source => source.id), context.slice(0, 2).map(source => source.id));
   for (const citation of ['s7', 's0', '1', 'source-1', 'invented-page']) {
-    const rejected = await answerWasionQuestion({ ...config, question: 'I110', fetchImpl: async () => modelResponse(`A claim. [${citation}]`) });
+    const rejected = await answerWasionQuestion({ ...config, question: 'Describe I110 key features', fetchImpl: async () => modelResponse(`A claim. [${citation}]`) });
     assert.equal(rejected.data.ai.generated, false);
     assert.equal(rejected.data.ai.reason, 'invalid_citations');
   }
   for (const answer of ['Claim [s1](https://evil.example/)', 'Claim [s1] (javascript:alert(1))', 'Claim https://evil.example/ [s1]']) {
-    const rejected = await answerWasionQuestion({ ...config, question: 'I110', fetchImpl: async () => modelResponse(answer) });
+    const rejected = await answerWasionQuestion({ ...config, question: 'Describe I110 key features', fetchImpl: async () => modelResponse(answer) });
     assert.equal(rejected.data.ai.generated, false);
     assert.equal(rejected.data.ai.reason, 'invalid_citations');
   }
@@ -288,6 +288,37 @@ test('one solution keeps its actual partial/full and custom capabilities', async
   }
 });
 
+test('captured loss-reduction extensions need evidence in each cited solution', async () => {
+  for (const [language, build] of [
+    ['zh', cite => `Wi-SUN RF Mesh解决方案适用于AMI和物联网，具备高通信稳定性和大范围覆盖，有助于线损管理和降低${cite(solutionIds.wisun)}。`],
+    ['zh', cite => `整体AMI解决方案和智能计量系统支持定制化，间接助力线损控制和降低${cite('solutions')}。`],
+    ['en', cite => `Wi-SUN provides reliable AMI communication and helps reduce energy loss${cite(solutionIds.wisun)}.`],
+    ['en', cite => `Energy losses are reduced by Wi-SUN${cite(solutionIds.wisun)}.`],
+    ['en', cite => `Wi-SUN helps reduce losses${cite(solutionIds.wisun)}.`],
+    ['en', cite => `Wi-SUN offers loss reduction${cite(solutionIds.wisun)}.`],
+    ['zh', cite => `Wi-SUN可以降低电损${cite(solutionIds.wisun)}。`],
+    ['en', cite => `Cellular AMI supports line loss management${cite(solutionIds.cell)}.`],
+    ['zh', cite => `线损治理方案可定位技术损耗${cite(solutionIds.loss)}。上述方案都能降低线损${cite(solutionIds.loss)}${cite(solutionIds.wisun)}。`]
+  ]) {
+    const result = await scopedSolutionAnswer(build, language);
+    assert.equal(result.data.ai.generated, false, build(id => `[${id}]`));
+    assert.equal(result.data.ai.reason, 'unsupported_source_scope');
+    assert.ok(result.data.results.some(source => source.id === solutionIds.loss));
+  }
+});
+
+test('loss reduction remains available with its own source and explicit uncertainty for other solutions', async () => {
+  for (const [language, build] of [
+    ['en', cite => `Energy Loss Reduction locates technical losses and helps reduce energy loss${cite(solutionIds.loss)}.`],
+    ['zh', cite => `线损治理方案能够定位技术性及非技术性损耗，提供数据支撑的线损降低${cite(solutionIds.loss)}。`],
+    ['en', cite => `Cannot confirm energy loss reduction for Wi-SUN from this excerpt${cite(solutionIds.wisun)}. Energy Loss Reduction locates technical losses${cite(solutionIds.loss)}.`],
+    ['zh', cite => `无法确认Wi-SUN降低线损的能力${cite(solutionIds.wisun)}。线损治理方案能够降低线损${cite(solutionIds.loss)}。`]
+  ]) {
+    const result = await scopedSolutionAnswer(build, language);
+    assert.equal(result.data.ai.generated, true, `${build(id => `[${id}]`)} => ${result.data.ai.reason}`);
+  }
+});
+
 test('multiple solutions retain separately attributed capabilities and genuinely shared customization', async () => {
   for (const build of [
     cite => `Energy Loss Reduction offers partial or full implementation ${cite(solutionIds.loss)}; Wi-SUN is customized to client requirements ${cite(solutionIds.wisun)}; Cellular AMI offers global coverage ${cite(solutionIds.cell)}.`,
@@ -304,11 +335,12 @@ test('multiple solutions retain separately attributed capabilities and genuinely
   }
 });
 
-test('source clarifications retain both literal official statements on three exact canonical IDs', () => {
+test('source clarifications retain literal official statements on exact canonical IDs', () => {
   const expected = [
     ['product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu', ['Support Android 6.0 and higher versions', 'Android 5.0 and above']],
     ['product-jyl-60-fault-indicator-distribution-line-fault-detectors-technology', ['Maximum short circuit current: 30kA/2s', '20kA/2s']],
-    ['product-we-cube-air-cooling-500kw-1000kwh', ['Air Cooling 500kW / 1000kWh', '1075.2 kWh']]
+    ['product-we-cube-air-cooling-500kw-1000kwh', ['Air Cooling 500kW / 1000kWh', '1075.2 kWh']],
+    ['i-110-series-smart-water-meter', ['Wired M-BUS/RS485', 'LoRaWAN', 'Wireless M-BUS (EN13757.4), Walk-by/Driver-by', 'Protocol: EN13757.3, DLMS/COSEM,MODBUS-RTU', 'RPMA, Cellular (2G, 3G, 4G, NB-IoT), PLC, RF and Ethernet']]
   ];
   for (const [id, quotes] of expected) {
     const notes = getWasionSourceNotes(id);
@@ -328,7 +360,7 @@ test('source clarifications retain both literal official statements on three exa
 
 test('aliases, related models and unrelated source IDs do not acquire source-specific clarifications', () => {
   for (const id of [null, undefined, {}, '__proto__', 'constructor', 'HMPM', 'JYL-60', 'WE CUBE',
-    'product-hmpm', 'i-110-series-smart-water-meter', 'resources',
+    'product-hmpm', 'i-1100-series-smart-water-meter', 'resources',
     'product-we-cube-premium-liquid-cooling-1-375mw-2-75mwh-2-5mw-5mwh']) {
     assert.deepEqual(getWasionSourceNotes(id), [], String(id));
   }
@@ -343,7 +375,7 @@ test('AI receives exact-source notes and instructions to retain both disputed wo
   for (const [question, id] of models) {
     for (const language of ['en', 'zh']) {
       let sentSources, prompt;
-      const result = await answerWasionQuestion({ ...config, question, language, fetchImpl: async (_url, options) => {
+      const result = await answerWasionQuestion({ ...config, question: 'Describe '+question, language, fetchImpl: async (_url, options) => {
         const sent = JSON.parse(options.body);
         prompt = sent.messages[0].content;
         sentSources = JSON.parse(sent.messages[1].content).officialSources;
@@ -367,12 +399,87 @@ test('AI receives exact-source notes and instructions to retain both disputed wo
       assert.equal(result.data.language, language);
     }
   }
-  const unaffected = await answerWasionQuestion({ ...config, question: 'I110', fetchImpl: async (_url, options) => {
+  const unaffected = await answerWasionQuestion({ ...config, question: 'Describe DDS102 features', fetchImpl: async (_url, options) => {
     const sources = JSON.parse(JSON.parse(options.body).messages[1].content).officialSources;
     assert.ok(sources.every(source => source.sourceNotes === undefined));
     return modelForContext(_url, options);
   } });
   assert.equal(unaffected.data.ai.generated, true);
+});
+
+test('I110 clarification preserves the actual original parent groups without relocating the RPMA row', async () => {
+  const product = PRODUCTS.find(product => product.id === 'i-110-series-smart-water-meter');
+  const table = product.parameterTables[0];
+  assert.equal(table.officialBodySha256, '92fac088269c78bdc4cff27e324b999b760268c5b8ee96dd7faa315226caede1');
+  assert.deepEqual(table.rows[5].cells[0], { text: 'Communication', tag: 'td', rowspan: 4, colspan: 2 });
+  assert.deepEqual(table.rows[12].cells[0], { text: 'Alarm and Event logs', tag: 'td', rowspan: 6, colspan: 2 });
+  assert.equal(table.rows[13].cells[0].text, getWasionSourceNotes(product.id)[0].quotes[4]);
+  for (const [question, language] of [
+    ['What communication options does I110 support?', 'en'],
+    ['I110支持哪些通信方式？', 'zh'],
+    ['Does I110 support RF?', 'en'],
+    ['I110支持RF吗？', 'zh'],
+    ['Does I-110 support cellular communication?', 'en']
+  ]) {
+    let calls = 0;
+    const result = await answerWasionQuestion({ ...config, question, language, fetchImpl: async () => { calls++; throw new Error('No provider needed for an unresolved source field.'); } });
+    assert.equal(calls, 0);
+    assert.equal(result.data.ai.generated, false);
+    assert.equal(result.data.ai.status, 'source_clarification');
+    assert.equal(result.data.ai.generationRequestAttempted, false);
+    assert.equal(result.data.sources[0].id, product.id);
+    assert.match(result.data.answer, /Alarm and Event logs/);
+    assert.match(result.data.answer, /Communication/);
+    assert.match(result.data.answer, /confirm|确认/);
+    for (const quote of getWasionSourceNotes(product.id)[0].quotes) assert.ok(result.data.answer.includes(quote));
+  }
+});
+
+test('I110 overview cannot promote the ambiguous row into a confirmed interface list', async () => {
+  for (const [answer, expectedClarification] of [
+    ['The I110 supports RPMA, Cellular, PLC, RF and Ethernet.', true],
+    ['I110支持蜂窝通信和以太网。', true],
+    ['The I110 supports RF.', true],
+    ['The I110 supports 2G and 4G.', true],
+    ['The source lists LoRaWAN and wired M-BUS/RS485.', false],
+    ['The source lists RF card prepaid as optional.', false],
+    ['The source lists RF-card prepaid as optional.', false]
+  ]) {
+    const result = await answerWasionQuestion({ ...config, question: 'Describe I-110 Series key features', fetchImpl: async (_url, options) => {
+      const sources = JSON.parse(JSON.parse(options.body).messages[1].content).officialSources;
+      const source = sources.find(source => source.id === 'i-110-series-smart-water-meter');
+      assert.deepEqual(source.sourceNotes, getWasionSourceNotes(source.id));
+      return modelResponse(`${answer} [${source.citation}]`);
+    } });
+    assert.equal(result.data.ai.generated, !expectedClarification);
+    if (expectedClarification) {
+      assert.equal(result.data.ai.status, 'source_clarification');
+      assert.equal(result.data.ai.generationRequestAttempted, true);
+      assert.match(result.data.answer, /do not infer either support or non-support/);
+    }
+  }
+});
+
+test('exact official model titles and known bare codes locate original product information without rewriting tables', async () => {
+  let providerCalls = 0;
+  for (const product of PRODUCTS) {
+    const result = await answerWasionQuestion({ ...config, question: product.title, fetchImpl: async () => { providerCalls++; assert.fail('A model lookup must not generate a new table summary.'); } });
+    assert.equal(result.data.ai.generated, false, product.title);
+    assert.ok(['model_match', 'source_clarification'].includes(result.data.ai.status), product.title+': '+result.data.ai.status);
+    assert.equal(result.data.results[0].id, product.id, product.title);
+    assert.equal(result.data.results[0].url, product.url, product.title);
+    assert.ok(result.data.answer);
+  }
+  for (const question of ['DDS102','DTSD341','I110','I-110','Libra 1A','aMeter300','HMPM','WE CUBE']) {
+    const result = await answerWasionQuestion({ ...config, question, fetchImpl: async () => { providerCalls++; assert.fail('Known bare code lookup must not generate.'); } });
+    assert.equal(result.data.ai.generated, false, question);
+    assert.equal(result.data.ai.status, 'model_match', question);
+  }
+  assert.equal(providerCalls, 0);
+  let fieldCalls=0;
+  const field = await answerWasionQuestion({ ...config, question: 'Describe DDS102 key features', fetchImpl: async (...args) => {fieldCalls++;return modelForContext(...args);} });
+  assert.equal(fieldCalls,1);
+  assert.equal(field.data.ai.generated,true);
 });
 
 test('retrieval remains available without an AI key or when inference fails', async () => {
@@ -409,7 +516,7 @@ test('no matching source avoids inference, and an unsupported model answer falls
 
 test('invented, missing or out-of-context citations never disclose model output', async () => {
   for (const text of ['Claim [invented-page]', 'An uncited claim.', 'Claim [wisun-solutions]', 'Claim [prepayment-solutions](https://evil.example/)']) {
-    const result = await answerWasionQuestion({ ...config, question: 'WFCT-960', fetchImpl: async () => modelResponse(text) });
+    const result = await answerWasionQuestion({ ...config, question: 'Describe WFCT-960 features', fetchImpl: async () => modelResponse(text) });
     assert.equal(result.data.ai.generated, false);
     assert.equal(result.data.ai.status, 'invalid_response');
     assert.ok(!result.data.answer.includes(text));
@@ -520,7 +627,7 @@ test('demo search does not read legacy quota storage bindings while generating a
   await createWasionSearchHandler({
     service, env: searchEnv, auth: makeAuth(identity),
     fetchImpl: async (...args) => { providerCalls++; return modelForContext(...args); }
-  })(request({ question: 'I110 communication', language: 'en' }), res);
+  })(request({ question: 'Describe I110 key features', language: 'en' }), res);
   assert.equal(res.statusCode, 200); assert.equal(providerCalls, 1);
   const { data } = JSON.parse(res.body);
   assert.equal(data.ai.generated, true);

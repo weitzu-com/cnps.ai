@@ -26,7 +26,7 @@ for(const [id,en,zh,bad] of examples){
   assert.match(result.data.answer,language==='zh'?/不推定或改写正确单位和数值/:/no corrected units or values are inferred/);
  });
  test('a model overview cannot turn uncertain original wording into a generated rating: '+id,async()=>{
-  let requests=0;const result=await answerWasionQuestion({question:p.title,env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
+  let requests=0;const result=await answerWasionQuestion({question:'Describe '+p.title,env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
    requests++;const source=JSON.parse(JSON.parse(options.body).messages[1].content).officialSources.find(source=>source.id===id);assert.ok(source.sourceWarnings);return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({supported:true,answer:bad+' ['+source.citation+']'})}}]})};
   }});
   assert.equal(requests,1);assert.equal(result.data.ai.generated,false);assert.equal(result.data.ai.generationRequestAttempted,true);assert.ok(!result.data.answer.includes(bad));
@@ -38,14 +38,14 @@ for(const [question,language,bad] of [
  ['WS-FL-12','en','Its gas vessel operates at0.04MPa.'],
  ['WS-FL-12','zh','其气室在0.04兆帕下运行。']
 ])test('a cited disputed value cannot bypass clarification by omitting its field noun: '+language+' '+question,async()=>{
- let requests=0;const result=await answerWasionQuestion({question,language,env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
+ let requests=0;const result=await answerWasionQuestion({question:'Describe '+question,language,env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
   requests++;const sources=JSON.parse(JSON.parse(options.body).messages[1].content).officialSources;
   return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({supported:true,language,answer:bad+' ['+sources[0].citation+']'})}}]})};
  }});
  assert.equal(requests,1);assert.equal(result.data.ai.generated,false);assert.equal(result.data.ai.status,'source_clarification');assert.equal(result.data.ai.generationRequestAttempted,true);assert.ok(!result.data.answer.includes(bad));
 });
 test('unambiguous model capability survives the bounded disputed-value guard',async()=>{
- const result=await answerWasionQuestion({question:'ZW32-12',env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
+ const result=await answerWasionQuestion({question:'Describe ZW32-12 features',env:{CRM_AI_API_KEY:'test-key'},fetchImpl:async(_url,options)=>{
   const sources=JSON.parse(JSON.parse(options.body).messages[1].content).officialSources;
   return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({supported:true,answer:'It provides manual and automatic energy storage. ['+sources[0].citation+']'})}}]})};
  }});
