@@ -66,9 +66,13 @@ test('static images and search catalog do not offer baked video play buttons, an
     const hero=all(tree(page(slug)),node=>hasClass(node,'wr-hero-backdrop'))[0];
     assert.equal(hero.attrs.src,'/assets/wasion-requirements/'+filename,slug);
   }
-  const resources=stripRaw(page('collateral-videos'));
-  assert.match(resources,/Play video/);
-  assert.match(resources,/wasion-company-film-official\.mp4/);
+  const videoLinks=[...stripRaw(page('collateral-videos')).matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
+    .filter(([, ,body])=>body.replace(/<[^>]*>/g,'').trim()==='Play video')
+    .map(([,attrs])=>decode(attrs.match(/href="([^"]*)"/)[1]));
+  assert.deepEqual(videoLinks.sort(),[
+    'https://en.wasion.com/public/uploads/files/20230718/about.mp4',
+    'https://en.wasion.com/public/uploads/files/20240206/G3-PLC%20Hybrid%20explained%20video.mp4'
+  ]);
 });
 
 test('09/16 requirements is the canonical design and retained designs have explicit route bases', () => {
