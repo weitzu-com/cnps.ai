@@ -100,14 +100,15 @@
         "label": "Vendor-published deployment reference",
         "region": "South Korea, Europe and Japan",
         "technology": "Seeed / Intflow EdgeFarm",
-        "summary": "A livestock monitoring reference shows the partnership between application expertise and edge devices.",
+        "summary": "Seeed and Intflow livestock monitoring on edge hardware: local specialist + reComputer pattern—evaluate animals, ground truth, and total cost per camera.",
         "facts": "A Seeed case-study collection hosted by PNY describes Intflow’s livestock monitoring solution and lists deployments in South Korea, Spain, Japan, Austria and Poland. It identifies a Seeed reComputer device in the solution.",
         "lesson": "The transferable pattern is a local specialist owning the application and site relationship while a hardware supplier supports the device platform. Scope the full system, including the cameras and ongoing service.",
         "limits": "The material is vendor-published. Its claimed improvements are not used here as a forecast. It does not establish a CNPS distribution relationship or suitability for a new site.",
         "evaluation": [
           "Define the animals or objects and the observation conditions.",
           "Use representative footage with agreed ground truth.",
-          "Calculate total cost per camera and per site."
+          "Confirm who owns the application versus who supplies the edge hardware.",
+          "Calculate total cost per camera and per site, including cameras and ongoing service."
         ],
         "sources": [
           [
@@ -1276,14 +1277,15 @@
         "label": "厂商发布的部署参考",
         "region": "韩国、欧洲与日本",
         "technology": "Seeed / Intflow EdgeFarm",
-        "summary": "畜牧监测参考展示了应用专业能力与边缘设备的合作方式。",
+        "summary": "Seeed 与 Intflow 畜牧边缘监测：本地应用方 + reComputer 模式——核对动物/对象、标注真值与每路摄像头总成本。",
         "facts": "PNY 托管的 Seeed 案例集介绍了 Intflow 的畜牧监测方案，列出韩国、西班牙、日本、奥地利和波兰的部署，并指出方案使用了 Seeed reComputer 设备。",
         "lesson": "可借鉴的模式是：本地行业专家负责应用和现场客户关系，硬件供应商支持设备平台。应规划完整系统，包括摄像头与持续服务。",
         "limits": "材料由厂商发布，此处不将其宣称的改善效果用作预测。它不能证明 CNPS 拥有分销关系，也不能证明适用于新现场。",
         "evaluation": [
           "明确动物或识别对象及观察条件。",
           "使用具有代表性的影像及约定的真实标注。",
-          "计算每台摄像头和每个现场的总成本。"
+          "确认应用归属方与边缘硬件供应方各自职责。",
+          "计算每台摄像头和每个现场的总成本，含摄像头与持续服务。"
         ],
         "sources": [
           [
@@ -2486,14 +2488,15 @@
         "label": "مرجع نشر أصدره المورّد",
         "region": "كوريا الجنوبية وأوروبا واليابان",
         "technology": "Seeed / Intflow EdgeFarm",
-        "summary": "يوضح مرجع مراقبة الماشية التعاون بين الخبرة التطبيقية والأجهزة الطرفية.",
+        "summary": "مرجع Seeed وIntflow لمراقبة الماشية على الحافة: متخصص محلي + جهاز reComputer—قيّم الحيوانات والحقيقة المرجعية والتكلفة لكل كاميرا.",
         "facts": "تصف مجموعة دراسات حالات Seeed المستضافة لدى PNY حل Intflow لمراقبة الماشية، وتذكر عمليات نشر في كوريا الجنوبية وإسبانيا واليابان والنمسا وبولندا. وتحدد جهاز Seeed reComputer ضمن الحل.",
         "lesson": "النمط القابل للاستفادة هو تولّي متخصص محلي التطبيق والعلاقة مع الموقع، مع دعم مورّد الأجهزة لمنصة الجهاز. حدد نطاق النظام كاملاً، بما يشمل الكاميرات والخدمة المستمرة.",
         "limits": "المادة منشورة من المورّد، ولا نستخدم التحسينات المعلنة فيها كتوقعات. وهي لا تثبت علاقة توزيع مع CNPS أو ملاءمة موقع جديد.",
         "evaluation": [
           "حدد الحيوانات أو الأجسام وظروف المراقبة.",
           "استخدم لقطات تمثل الواقع مع بيانات مرجعية متفق عليها.",
-          "احسب التكلفة الإجمالية لكل كاميرا ولكل موقع."
+          "أكد من يملك التطبيق ومن يورد أجهزة الحوسبة الطرفية.",
+          "احسب التكلفة الإجمالية لكل كاميرا ولكل موقع، بما في ذلك الكاميرات والخدمة المستمرة."
         ],
         "sources": [
           [

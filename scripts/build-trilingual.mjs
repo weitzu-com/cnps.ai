@@ -219,6 +219,17 @@ for(const l of locales){
    const related=`<p><a href="${route(l,'/case-studies/seeed-intflow')}">${esc(sisterTitle)}</a></p><p><a href="${route(l,'/resources/edge-ai-survey')}">${esc(surveyTitle)}</a></p><p><a href="${route(l,'/request-quote?solution='+x.solution)}">${esc(quoteAnchor)}</a></p>`;
    body=`<p class="tag">${esc(x.label)}</p><p>${esc(x.region)} · <bdi>${esc(x.technology)}</bdi></p>${glance}<h2>${t.facts}</h2><p>${esc(x.facts)}</p><h2>${t.lesson}</h2><p>${esc(x.lesson)}</p><h2>${t.limitation}</h2><p>${esc(x.limits)}</p><h2>${t.evaluate}</h2>${evalList('ul')}${related}<h2>${t.evidence}</h2><ul>${x.sources.map(([n,u])=>`<li><a href="${esc(u)}">${esc(n)} ↗</a></li>`).join('')}</ul>`;
    caseOpts={socialImage:editorial.socialImage('seeed-engineering')};
+  }else if(x.slug==='seeed-intflow'){
+   const glanceTitle={en:'Evaluation method glance',zh:'评估方法速览',ar:'لمحة طريقة التقييم'}[l];
+   const glanceIntro={en:'Four checks turn this livestock edge reference into a transferable local-specialist + hardware pattern before a site decision.',zh:'现场决定前，用四项核对把畜牧边缘参考转成「本地专家 + 硬件」可迁移模式。',ar:'أربعة فحوصات تحول مرجع الماشية الطرفي إلى نمط قابل للنقل: متخصص محلي + عتاد، قبل قرار الموقع.'}[l];
+   const methodAlt={en:'Four evaluation checks — Animals, Ground truth, Ownership, Cost — Seeed Intflow method diagram',zh:'四项评估核对 — 动物/对象、标注真值、归属、成本 — Seeed Intflow 方法示意图',ar:'أربعة فحوصات للتقييم — الحيوانات، الحقيقة المرجعية، الملكية، التكلفة — مخطط طريقة Seeed وIntflow'}[l];
+   const glance=`<h2>${esc(glanceTitle)}</h2><p>${esc(glanceIntro)}</p>${evalList('ol')}<figure><img src="/assets/resources/seeed-intflow-method-glance.webp" alt="${esc(methodAlt)}" width="1280" height="720" loading="lazy"></figure>`;
+   const sisterTitle=l==='en'?'Seeed: connect a hardware demonstration to engineering documentation':c.cases.find(y=>y.slug==='seeed-engineering').title;
+   const surveyTitle=c.resources.find(y=>y.slug==='edge-ai-survey').title;
+   const quoteAnchor=l==='en'?'Request a quotation for devices or a pilot.':inquiryPages['/request-quote'].h1[l];
+   const related=`<p><a href="${route(l,'/case-studies/seeed-engineering')}">${esc(sisterTitle)}</a></p><p><a href="${route(l,'/resources/edge-ai-survey')}">${esc(surveyTitle)}</a></p><p><a href="${route(l,'/request-quote?solution='+x.solution)}">${esc(quoteAnchor)}</a></p>`;
+   body=`<p class="tag">${esc(x.label)}</p><p>${esc(x.region)} · <bdi>${esc(x.technology)}</bdi></p>${glance}<h2>${t.facts}</h2><p>${esc(x.facts)}</p><h2>${t.lesson}</h2><p>${esc(x.lesson)}</p><h2>${t.limitation}</h2><p>${esc(x.limits)}</p><h2>${t.evaluate}</h2>${evalList('ul')}${related}<h2>${t.evidence}</h2><ul>${x.sources.map(([n,u])=>`<li><a href="${esc(u)}">${esc(n)} ↗</a></li>`).join('')}</ul>`;
+   caseOpts={socialImage:editorial.socialImage('seeed-intflow')};
   }
   save(l,'/case-studies/'+x.slug,x.title,x.summary,hero(l,'/case-studies/'+x.slug,x.title,x.summary,'',t.cases)+`<div class="container article-layout"><article class="prose">${localLinks(body,l)}</article>${side(l,'/request-quote?solution='+x.solution)}</div>`,caseOpts);
  }

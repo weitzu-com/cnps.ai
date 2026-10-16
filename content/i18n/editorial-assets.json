@@ -118,5 +118,13 @@
       "zh": "深蓝背景：板卡经青色路径连向工程文档堆 — Seeed 演示到文档方法主图，无伪造证书",
       "ar": "لوحة عتاد مربوطة بمسار سماوي بحزمة وثائق هندسية على خلفية كحلية — صورة طريقة Seeed، بلا شهادات مزيفة"
     }
+  },
+  "seeed-intflow": {
+    "file": "seeed-intflow",
+    "alt": {
+      "en": "Local specialist node linked by a teal path to an edge device block in navy — Seeed + Intflow livestock edge method hero, no fake certificates",
+      "zh": "深蓝背景：本地应用节点经青色路径连向边缘设备块 — Seeed 与 Intflow 畜牧边缘方法主图，无伪造证书",
+      "ar": "عقدة متخصص محلي مربوطة بمسار سماوي بوحدة حوسبة طرفية على خلفية كحلية — صورة طريقة Seeed وIntflow، بلا شهادات مزيفة"
+    }
   }
 }
