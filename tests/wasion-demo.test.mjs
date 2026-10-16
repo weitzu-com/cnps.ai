@@ -9,6 +9,7 @@ import corpus from '../server/wasion-demo-content.json' with { type: 'json' };
 import { PRODUCTS } from '../server/wasion-requirements/data.mjs';
 import { rankSearchPages } from '../server/wasion-experience/search.mjs';
 import { wasionDemoPage } from '../server/wasion-demo-page.mjs';
+import { getWasionSourceNotes } from '../server/wasion-source-notes.mjs';
 
 const identity = { role: 'customer', memberships: [{ companyId: wasionPreviewBinding.companyId, role: 'customer' }] };
 const service = { async getProject(principal, companyId, projectId) { assert.equal(companyId,wasionPreviewBinding.companyId);assert.equal(projectId,wasionPreviewBinding.projectId);if(principal.identity.role!=='admin'&&!principal.identity.memberships?.some(m=>m.companyId===companyId&&m.active!==false))throw new BusinessError(404,'Denied');return {id:projectId}; } };
@@ -301,6 +302,75 @@ test('multiple solutions retain separately attributed capabilities and genuinely
     assert.equal(result.data.ai.generated, true, `${build(id => `[${id}]`)} => ${result.data.ai.reason}`);
     assert.ok(result.data.sources.length >= 2);
   }
+});
+
+test('source clarifications retain both literal official statements on three exact canonical IDs', () => {
+  const expected = [
+    ['product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu', ['Support Android 6.0 and higher versions', 'Android 5.0 and above']],
+    ['product-jyl-60-fault-indicator-distribution-line-fault-detectors-technology', ['Maximum short circuit current: 30kA/2s', '20kA/2s']],
+    ['product-we-cube-air-cooling-500kw-1000kwh', ['Air Cooling 500kW / 1000kWh', '1075.2 kWh']]
+  ];
+  for (const [id, quotes] of expected) {
+    const notes = getWasionSourceNotes(id);
+    assert.equal(notes.length, 1);
+    assert.deepEqual(notes[0].quotes, quotes);
+    const source = WASION_SOURCES.find(source => source.id === id);
+    assert.equal(notes[0].sourceURL, source.url);
+    for (const quote of quotes) assert.ok(source.passages.join('\n').includes(quote), `${id}: ${quote}`);
+    assert.match(notes[0].message, /confirm/i);
+    assert.ok(notes[0].field);
+    notes[0].quotes[0] = 'local mutation';
+    assert.deepEqual(getWasionSourceNotes(id)[0].quotes, quotes, 'one consumer cannot change later source notes');
+  }
+  assert.match(getWasionSourceNotes(expected[1][0])[0].message, /field labels differ/);
+  assert.match(getWasionSourceNotes(expected[2][0])[0].message, /may use different bases/);
+});
+
+test('aliases, related models and unrelated source IDs do not acquire source-specific clarifications', () => {
+  for (const id of [null, undefined, {}, '__proto__', 'constructor', 'HMPM', 'JYL-60', 'WE CUBE',
+    'product-hmpm', 'i-110-series-smart-water-meter', 'resources',
+    'product-we-cube-premium-liquid-cooling-1-375mw-2-75mwh-2-5mw-5mwh']) {
+    assert.deepEqual(getWasionSourceNotes(id), [], String(id));
+  }
+});
+
+test('AI receives exact-source notes and instructions to retain both disputed wordings without choosing a rating', async () => {
+  const models = [
+    ['HMPM', 'product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu'],
+    ['JYL-60', 'product-jyl-60-fault-indicator-distribution-line-fault-detectors-technology'],
+    ['WE CUBE', 'product-we-cube-air-cooling-500kw-1000kwh']
+  ];
+  for (const [question, id] of models) {
+    for (const language of ['en', 'zh']) {
+      let sentSources, prompt;
+      const result = await answerWasionQuestion({ ...config, question, language, fetchImpl: async (_url, options) => {
+        const sent = JSON.parse(options.body);
+        prompt = sent.messages[0].content;
+        sentSources = JSON.parse(sent.messages[1].content).officialSources;
+        const source = sentSources.find(source => source.id === id);
+        assert.ok(source, `${question} must resolve to its canonical source`);
+        assert.deepEqual(source.sourceNotes, getWasionSourceNotes(id));
+        for (const other of sentSources.filter(source => source.id !== id)) assert.equal(other.sourceNotes, undefined, other.id);
+        const note = source.sourceNotes[0];
+        return modelResponse(language === 'zh'
+          ? `官网两处表述为“${note.quotes[0]}”与“${note.quotes[1]}”，适用要求需向威胜确认。[${source.citation}]`
+          : `The source lists "${note.quotes[0]}" and "${note.quotes[1]}"; confirm the applicable requirement with Wasion. [${source.citation}]`);
+      } });
+      assert.equal(result.data.ai.generated, true);
+      assert.match(prompt, /both quoted source values or wordings with their original field labels/);
+      assert.match(prompt, /confirmation with Wasion is needed/);
+      assert.match(prompt, /Do not choose one value, reconcile or convert/);
+      assert.match(prompt, /do not establish model-specific certification/);
+      assert.match(prompt, /exact model\/configuration/);
+      assert.equal(result.data.language, language);
+    }
+  }
+  const unaffected = await answerWasionQuestion({ ...config, question: 'I110', fetchImpl: async (_url, options) => {
+    const sources = JSON.parse(JSON.parse(options.body).messages[1].content).officialSources;
+    assert.ok(sources.every(source => source.sourceNotes === undefined));
+    return modelForContext(_url, options);
+  } });
+  assert.equal(unaffected.data.ai.generated, true);
 });
 
 test('retrieval remains available without an AI key or when inference fails', async () => {
