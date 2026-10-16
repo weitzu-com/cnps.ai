@@ -94,6 +94,7 @@ test('all 198 Requirements pages retain approved content with reviewed homepage 
     // Only the reviewed homepage-card and hero framing CSS changes. Reversing those exact
     // geometry declarations must recover the complete previous 198-page HTML.
     const previousHtml = html
+      .replace('linear-gradient(90deg,#001e45f7,#001e45c4 50%,#001e45c4)', 'linear-gradient(90deg,#001e45f7,#001e45c4 50%,#001e4533)')
       .replace('.wr-hero-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;', '.wr-hero-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;')
       .replace('.wr-offering-tile-media{aspect-ratio:8/5;', '.wr-offering-tile-media{height:13rem;')
       .replace('.wr-offering-tile-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;', '.wr-offering-tile-media img{width:100%;height:100%;object-fit:cover;');
@@ -116,7 +117,7 @@ test('all 198 Requirements pages retain approved content with reviewed homepage 
   // The other197 complete outputs, all styles/scripts and the grids match.
   assert.equal(hash(JSON.stringify(priorRows)), 'a269ed4e54f6c9c10ef8444785a8a0f5eecdd463bb7e217284195be9d1b5ddd7');
   // Five local matrix views and 20 local hero views confirm complete devices and caption framing.
-  assert.equal(hash(JSON.stringify(rows)), 'a3e303626045b405e7e7eee35c1dcf77fd347452b9e1de080686627983be077d');
+  assert.equal(hash(JSON.stringify(rows)), '8659ff67d678a549cc39b198053ba3048eb725df828cd8d76e5e3e3a4a5d86c3');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
