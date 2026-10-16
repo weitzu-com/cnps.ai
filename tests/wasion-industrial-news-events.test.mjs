@@ -102,7 +102,10 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
   // A later clean56f65a9 comparison advanced de2f41e7 only by removing the
   // unused film dialog: all198 pages lacked any opener, and the real Media
   // Kit inline video, styles, scripts and visible content remain identical.
-  assert.equal(hash(JSON.stringify(rows)), 'c5916b5eed7999fc9996d75df2aa15e395b696af97543cbf0f561b93b06b4fb8');
+  // The next clean955 comparison adds only I110's source-attribution notice:
+  // its RPMA row remains under the original Alarm and Event logs parent.
+  // The other197 complete outputs, all styles/scripts and the grids match.
+  assert.equal(hash(JSON.stringify(rows)), 'a269ed4e54f6c9c10ef8444785a8a0f5eecdd463bb7e217284195be9d1b5ddd7');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {

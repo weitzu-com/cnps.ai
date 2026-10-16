@@ -29,9 +29,15 @@ for(const id of models)test('published specification differences are visible wit
  assert.ok(html.includes('Specifications below reproduce the published model information.'));
 });
 test('unaffected product detail does not receive another model’s source note',()=>{
- const html=wasionDemoPage('source-notes-review',{slug:'i-110-series-smart-water-meter'});
+ const html=wasionDemoPage('source-notes-review',{slug:'lxc-ultrasonic-water-meter'});
  assert.ok(!html.includes('aria-label="Published information to confirm"'));
- assert.deepEqual(getWasionSourceNotes('i-110-series-smart-water-meter'),[]);
+ assert.deepEqual(getWasionSourceNotes('lxc-ultrasonic-water-meter'),[]);
+});
+test('source clarification never borrows a base model for an unknown suffix or another model',()=>{
+ for(const question of ['JYL-60-PLUS maximum fault current?','JYL-60/PLUS maximum fault current?','I110/PRO communication?','Does I1100 support RF?','I110 and I999999 communication options?']){
+  assert.equal(getWasionQuestionClarification({question,sourceCatalog:WASION_SOURCES}),null,question);
+  assert.equal(getWasionAnswerClarification({question,answer:'The model supports RF and 4G.',citedSourceIds:['i-110-series-smart-water-meter'],sourceCatalog:WASION_SOURCES}),null,question);
+ }
 });
 test('AMI publication keeps its official label and link while distinguishing an unconfirmed edition',()=>{
  const item=RESOURCE_ITEMS.find(r=>r.id==='resource-6');
@@ -119,7 +125,7 @@ test('model context, different fields, longer model names and multiple subjects 
 test('ordinary parameters still generate while no-key and unknown-model boundaries retain their actual fallback modes',async()=>{
  for(const question of ['HMPM communication protocols','What is the JYL-60 load current rating?','WE CUBE operating temperature']){
   let calls=0;
-  const result=await answerWasionQuestion({question,env:{CRM_AI_API_KEY:'local-fixture'},fetchImpl:async(_url,options)=>{
+  const result=await answerWasionQuestion({question:'Describe '+question,env:{CRM_AI_API_KEY:'local-fixture'},fetchImpl:async(_url,options)=>{
    calls++;const context=JSON.parse(JSON.parse(options.body).messages[1].content).officialSources;
    return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({answer:'The published model page provides further information. ['+context[0].citation+']',supported:true})}}]})};
   }});
@@ -157,7 +163,7 @@ test('model-overview answers cannot repeat the actually observed unsafe HMPM/JYL
  // citation code. The third is a synthetic capacity-inference regression.
  for(const fixture of observed){
   let calls=0;
-  const result=await answerWasionQuestion({question:fixture.question,language:fixture.language,env:{CRM_AI_API_KEY:'local-fixture'},fetchImpl:async(_url,options)=>{
+  const result=await answerWasionQuestion({question:'Describe '+fixture.question,language:fixture.language,env:{CRM_AI_API_KEY:'local-fixture'},fetchImpl:async(_url,options)=>{
    calls++;const source=JSON.parse(JSON.parse(options.body).messages[1].content).officialSources.find(s=>s.id===fixture.id);assert.ok(source);
    const answer=fixture.answer.replaceAll('[1]','['+source.citation+']');
    return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({answer,supported:true})}}]})};
@@ -189,7 +195,7 @@ test('ordinary generated communication/load/temperature claims stay generated an
   ['JYL-60','JYL-60 has a load current rating of0A to630A.'],
   ['WE CUBE','The cooling method is Air Cooling.']
  ]){
-  const result=await answerWasionQuestion({question,env:{CRM_AI_API_KEY:'local-fixture'},fetchImpl:async(_url,options)=>{
+  const result=await answerWasionQuestion({question:'Describe '+question,env:{CRM_AI_API_KEY:'local-fixture'},fetchImpl:async(_url,options)=>{
    const source=JSON.parse(JSON.parse(options.body).messages[1].content).officialSources[0];
    return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({answer:claim+' ['+source.citation+']',supported:true})}}]})};
   }});
@@ -210,6 +216,6 @@ test('post-inference source clarification cannot disclose content after project 
   calls++;const source=JSON.parse(JSON.parse(options.body).messages[1].content).officialSources.find(s=>s.id===models[0]);
   return {ok:true,text:async()=>JSON.stringify({choices:[{message:{content:JSON.stringify({answer:'HMPM supports Android 5.0 and above. ['+source.citation+']',supported:true})}}]})};
  }});
- await handler({method:'POST',headers:{origin:'https://crm.cnps.ai','x-cnps-crm':'1'},body:{question:'HMPM',language:'en'}},res);
+ await handler({method:'POST',headers:{origin:'https://crm.cnps.ai','x-cnps-crm':'1'},body:{question:'Describe HMPM features',language:'en'}},res);
  assert.equal(sessions,2);assert.equal(projects,2);assert.equal(calls,1);assert.equal(res.statusCode,404);assert.ok(!res.body.includes('Android'));
 });

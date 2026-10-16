@@ -46,7 +46,7 @@ for(const fixture of AUDIT_QUESTIONS)test('local retrieval evidence / '+fixture.
   assert.equal(fallback.status,200);
   assert.equal(fallback.data.language,fixture.language);
   assert.equal(fallback.data.ai.generated,false,'local deterministic fallback is not production AI validation');
-  assert.equal(fallback.data.ai.status,fixture.expectedCount===0?'no_match':'unavailable');
+  assert.equal(fallback.data.ai.status,fixture.expectedCount===0?'no_match':fixture.expectedFirst==='i-110-series-smart-water-meter'?'source_clarification':'unavailable');
   if(fixture.mustNotClaimCertification){
     assert.equal(retrieval.results[0].id,'product-dds102-single-phase-energy-meter');
     assert.doesNotMatch(retrieval.results[0].excerpt,/\bMID\b|certified|certificate/i,'the actual DDS102 source does not establish MID certification');

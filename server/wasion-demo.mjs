@@ -6,6 +6,10 @@ import { PRODUCTS } from './wasion-requirements/data.mjs';
 import {getWasionParameterWarning,getWasionParameterClarification} from './wasion-parameter-warnings.mjs';
 
 const productsBySourceId = new Map(PRODUCTS.map(product => [product.id, product]));
+const modelLookupAliases = new Map([
+  ['hmpm', 'product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu'],
+  ['wecube', 'product-we-cube-air-cooling-500kw-1000kwh']
+]);
 
 const json = (res, status, value) => {
   res.statusCode = status;
@@ -41,6 +45,7 @@ const copy = {
     unavailable: 'AI summary is currently unavailable. Browse the official pages below or contact a Wasion expert.',
     invalid_response: 'A reliably sourced AI summary could not be generated. Browse the official pages below or contact a Wasion expert.',
     no_match: 'No matching information was found in these official Wasion pages. Try a product model, application or communication technology, or contact a Wasion expert.',
+    model_match: 'Matching official model information is listed below. Open the product page for the original specifications, available documents and information requiring confirmation. Ask a specific technical question if you need help with a particular field.',
     method: 'This request method is not supported.', auth: 'Customer access could not be verified. Please try again.',
     denied: 'This page is unavailable or your account is not authorized.', origin: 'Invalid request origin.', body: 'Invalid request format.'
   },
@@ -49,12 +54,13 @@ const copy = {
     unavailable: 'AI摘要暂不可用。您仍可查看下方匹配的官网资料，或联系威胜专家。',
     invalid_response: '暂时无法生成有可靠来源的AI摘要，请查看下方官网资料或联系威胜专家。',
     no_match: '这些威胜官网页面未找到相关资料。请尝试产品型号、应用场景或通信技术，或联系威胜专家。',
+    model_match: '下方已列出匹配的官方型号资料。请打开产品页查看原始参数、可用资料和待确认信息；如需了解某项指标，请提出具体技术问题。',
     method: '请求方式不支持。', auth: '客户权限暂时无法核验，请稍后重试。',
     denied: '页面不存在或当前手机号未获授权。', origin: '请求来源无效。', body: '请求格式无效。'
   }
 };
 
-// A bounded scope check for two capabilities that were generalized across
+// A bounded scope check for capabilities that were generalized across
 // unrelated solution sources in a real answer. This is not general semantic
 // verification: the remaining claims still need source review. Never use a
 // capability found in one excerpt as evidence that every discussed source has it.
@@ -64,7 +70,13 @@ const scopedCapabilities = [
     source: /\bpartial(?:ly)?[\s/]*(?:or|and)?[\s/]*full(?:y)?\s+(?:implementation|deployment)\b|(?:部分|局部)[^。！？.!?;；\n]{0,12}(?:全系统|全部|完整|整体|全面|全量)[^。！？.!?;；\n]{0,8}(?:实施|部署)/iu
   },
   { claim: /\bcustomi[sz](?:ed|able|ation|e|ing)\b|\btailor(?:ed|-made)\b|定制|客制/iu,
-    source: /\bcustomi[sz](?:ed|able|ation|e|ing)\b|\btailor(?:ed|-made)\b|定制|客制/iu }
+    source: /\bcustomi[sz](?:ed|able|ation|e|ing)\b|\btailor(?:ed|-made)\b|定制|客制/iu },
+  {
+    // AMI connectivity and revenue assurance alone do not establish a loss
+    // reduction/management capability for that particular source or solution.
+    claim: /\b(?:energy|line|technical|non[- ]technical)\s+loss(?:es)?\b[^。！？.!?;；\n]{0,40}\b(?:reduc\w*|lower\w*|cut\w*|manag\w*|control\w*|monitor\w*)\b|\bloss(?:es)?\s+(?:reduction|management|control|monitoring|mitigation)\b|\b(?:reduc\w*|lower\w*|cut\w*|manag\w*|control\w*|detect\w*|monitor\w*)\s+(?:(?:energy|line|technical|non[- ]technical)\s+)?loss(?:es)?\b|降损|减损|(?:降低|减少|削减|管理|治理|控制|检测|监测)[^，,。！？.!?;；\n]{0,15}(?:线损|电损|能量损耗|能源损耗|电能损耗)|(?:线损|电损|能量损耗|能源损耗|电能损耗)[^，,。！？.!?;；\n]{0,18}(?:降低|减少|削减|管理|治理|控制|检测|监测)/iu,
+    source: /\b(?:energy|line|technical|non[- ]technical)\s+loss(?:es)?\b|线损|电损|能量损耗|能源损耗|电能损耗/iu
+  }
 ];
 const sharedSolutionScope = /\b(?:all|both|every|each|these|those|other)\b[^。！？.!?;；\n]{0,45}\b(?:solutions?|systems?|offerings?|approaches?)\b|\b(?:solutions?|systems?)\b[^。！？.!?;；\n]{0,25}\b(?:all|both|each)\b|\b(?:all|both)\s+(?:can|may|are|offer|provide|support|allow|enable)\b|\b(?:they|all of them|both of them|each of them)\b|(?:这些|这两种|上述|以上|所有|全部|各|其余|其他|其它)[^。！？.!?;；\n]{0,18}(?:方案|系统)|(?:方案|系统)[^。！？.!?;；\n]{0,12}(?:均|都|皆|全部)|(?:均|都|皆)(?:可|能|支持|提供)|它们|两者|二者/iu;
 const unsupportedCapabilityNegation = /\b(?:not|never|cannot|can't|doesn't|don't)\s+(?:support|offer|allow|provide|enable|permit)\b|(?:不|未)(?:支持|提供|允许|具备)|不能(?:实施|部署|定制)/iu;
@@ -138,6 +150,16 @@ export async function answerWasionQuestion({ env = {}, question, language = 'en'
   const tableClarification=getWasionParameterClarification({question:question.trim(),language:lang,products:PRODUCTS,sourceCatalog:WASION_SOURCES,context});
   if(tableClarification)return sourceClarification(tableClarification,false);
   if (!context.length) return fallback('no_match', 'no_relevant_source');
+  // A model name is a lookup task, not a request to rewrite its entire table.
+  // Keep source cell groups, units and qualifiers in the original detail page.
+  // Natural-language field questions continue through the cited answer path.
+  const model = productsBySourceId.get(context[0].id);
+  const modelKey = value => String(value).normalize('NFKD').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+  const queryKey = modelKey(question.trim());
+  const exactTitle = model && modelKey(model.title) === queryKey;
+  const bareCode = model && /^[a-z]{1,12}[ -]?\d{1,6}[a-z\d]*(?:[-/.][a-z\d]+)*$/i.test(question.trim()) && modelKey(model.title).startsWith(queryKey);
+  const knownAlias = model && modelLookupAliases.get(queryKey) === model.id;
+  if (exactTitle || bareCode || knownAlias) return fallback('model_match', 'exact_model_lookup');
   if (!env.CRM_AI_API_KEY) return fallback('unavailable', 'not_configured');
   // Daily usage does not gate this private demo. The request handler verifies
   // the phone session and project grant before and after generating an answer.
