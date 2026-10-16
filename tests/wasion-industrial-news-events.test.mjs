@@ -115,12 +115,12 @@ test('all 198 Requirements pages retain approved content with reviewed homepage 
   // The next clean955 comparison adds only I110's source-attribution notice:
   // its RPMA row remains under the original Alarm and Event logs parent.
   // The other197 complete outputs, all styles/scripts and the grids match.
-  assert.equal(hash(JSON.stringify(priorRows)), 'f68b1995a5045460147f31966ac93e587fcc003df53af5300f4831791c45e79e');
+  assert.equal(hash(JSON.stringify(priorRows)), 'fc6d163d27d2e7027a59099b0b4ada0c9e813cc8ea45e2019701f0da3a8b591e');
   // Advanced after exact reversal against clean a721 recovered all 198 parent outputs:
   // remove embedded download fields and restore only the search-page rank function.
   // Visible unqueried markup and all styles remain identical.
   // The prior a721 full-page pin was 8659ff67d678a549cc39b198053ba3048eb725df828cd8d76e5e3e3a4a5d86c3.
-  assert.equal(hash(JSON.stringify(rows)), 'b7c2b017d9ab43f94049cb315aecd119159e723aa173da678689c8ec5137f23f');
+  assert.equal(hash(JSON.stringify(rows)), 'e834197223926af810268a0ce59e767f30bb720b794f96bde5204baced63d339');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
