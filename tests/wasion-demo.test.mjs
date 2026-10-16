@@ -24,6 +24,24 @@ const modelForContext = async (_url, options) => {
   const sent = JSON.parse(options.body), source = JSON.parse(sent.messages[1].content).officialSources[0];
   return modelResponse(`The official page describes ${source.title}. [${source.id}]`);
 };
+// Local provider fixtures use the actual supplied excerpts and short-code map;
+// none of these regression cases calls a provider or replaces a live answer.
+const scopedSolutionAnswer = (build, language = 'en') => answerWasionQuestion({
+  ...config, language, question: '有哪些降低线损的AMI方案？',
+  fetchImpl: async (_url, options) => {
+    const sources = JSON.parse(JSON.parse(options.body).messages[1].content).officialSources;
+    const cite = id => {
+      const source = sources.find(source => source.id === id);
+      assert.ok(source, `Regression source must be in the actual retrieval context: ${id}`);
+      return `[${source.citation}]`;
+    };
+    return modelResponse(build(cite));
+  }
+});
+const solutionIds = {
+  loss: 'energy-loss-reduction-solutions', cell: 'cellular-based-ami-solutions',
+  prepay: 'prepayment-solutions', wisun: 'wisun-solutions'
+};
 
 test('captured corpus provides 122 official sources including every model with stable internal citation links', () => {
   assert.equal(WASION_SOURCES.length,122);
@@ -184,6 +202,105 @@ test('automatic mode follows question language while enforcing model-specific ev
   assert.equal(fallback.status, 200);
   assert.equal(fallback.data.language, 'zh');
   assert.equal(fallback.data.ai.generated, false);
+});
+
+test('source scope prompt requires per-solution capability evidence without dropping certification and option boundaries', async () => {
+  let prompt;
+  await answerWasionQuestion({ ...config, question: 'AMI', fetchImpl: async (_url, options) => {
+    prompt = JSON.parse(options.body).messages[0].content;
+    return modelForContext(_url, options);
+  } });
+  assert.match(prompt, /each capability to the specific solution/);
+  assert.match(prompt, /every solution covered by the claim/);
+  assert.match(prompt, /partial\/full implementation and customization/);
+  assert.match(prompt, /exact model\/configuration/);
+  assert.match(prompt, /Preserve optional\/configuration qualifiers/);
+});
+
+test('captured Chinese cross-solution generalization is rejected against its real four sources', async () => {
+  const result = await scopedSolutionAnswer(cite => '降低线损的AMI方案包括：基于智能电表的数据采集和主站复杂处理的能量损耗减少解决方案，能够定位和分类多种技术性和非技术性损耗，包括电表篡改和未授权操作；基于蜂窝网络的AMI方案，提供高速、安全、全球覆盖的通信，便于快速连接智能电表；Wi-SUN RF Mesh方案，适用于AMI和物联网，具备高通信稳定性和大范围覆盖；以及集成预付费解决方案，结合智能电表和通信技术，实现自动测量和管理能源数据。这些方案均可根据客户需求定制，支持部分或全系统实施，提升线损检测和管理能力，带来明显的经济效益和安全保障' + [solutionIds.loss, solutionIds.cell, solutionIds.prepay, solutionIds.wisun].map(cite).join('') + '。', 'zh');
+  assert.equal(result.data.ai.generated, false);
+  assert.equal(result.data.ai.status, 'invalid_response');
+  assert.equal(result.data.ai.reason, 'unsupported_source_scope');
+  assert.match(result.data.answer, /可靠来源/);
+  assert.ok(result.data.results.some(source => source.id === solutionIds.loss));
+  assert.ok(result.data.sources.every(source => source.excerpt));
+  assert.ok(!result.data.answer.includes('这些方案均可'));
+});
+
+test('partial/full implementation and customization need support in every cited source', async () => {
+  const cases = [
+    cite => `All these solutions support partial or full implementation. ${cite(solutionIds.loss)}${cite(solutionIds.wisun)}`,
+    cite => `Both solutions can be customized to each client's requirements. ${cite(solutionIds.loss)}${cite(solutionIds.cell)}`,
+    cite => `Wi-SUN supports full deployment. ${cite(solutionIds.wisun)}`,
+    cite => `Cellular-based AMI can be implemented in part or in full. ${cite(solutionIds.cell)}`,
+    cite => `Prepayment can be customised to client requirements. ${cite(solutionIds.prepay)}`,
+    cite => `这些方案均可定制。${cite(solutionIds.loss)}${cite(solutionIds.prepay)}`,
+    cite => `Wi-SUN方案支持部分或全系统实施。${cite(solutionIds.wisun)}`
+  ];
+  for (const build of cases) {
+    const result = await scopedSolutionAnswer(build);
+    assert.equal(result.data.ai.generated, false, build(id => `[${id}]`));
+    assert.equal(result.data.ai.reason, 'unsupported_source_scope');
+  }
+});
+
+test('a single supporting citation cannot hide a blanket capability for other discussed solutions', async () => {
+  for (const blanket of [
+    'All of these solutions support partial or full implementation.',
+    'All can be customized to client requirements.',
+    'They can be customized to client requirements.',
+    'The other solutions can be tailored to client requirements.',
+    'These solutions all support full deployment.',
+    '这些方案均支持部分或全系统实施。',
+    '两者均可定制。',
+    '上述方案都可定制。'
+  ]) {
+    const result = await scopedSolutionAnswer(cite => `Cellular AMI offers global coverage ${cite(solutionIds.cell)}. Wi-SUN is an RF mesh solution ${cite(solutionIds.wisun)}. ${blanket} ${cite(solutionIds.loss)}`);
+    assert.equal(result.data.ai.generated, false, blanket);
+    assert.equal(result.data.ai.reason, 'unsupported_source_scope');
+  }
+});
+
+test('an uncertainty disclaimer or prior citation cannot excuse a later unsupported positive capability', async () => {
+  for (const build of [
+    cite => `Cannot confirm customization for Cellular, but these solutions can be customized ${cite(solutionIds.cell)}${cite(solutionIds.loss)}.`,
+    cite => `Cannot confirm customization for Cellular but these solutions can be customized ${cite(solutionIds.cell)}${cite(solutionIds.loss)}.`,
+    cite => `未确认定制能力，但这些方案均可定制${cite(solutionIds.cell)}${cite(solutionIds.loss)}。`,
+    cite => `Cellular AMI offers global coverage ${cite(solutionIds.cell)}. These solutions support partial or full implementation.`
+  ]) {
+    const result = await scopedSolutionAnswer(build);
+    assert.equal(result.data.ai.generated, false);
+    assert.equal(result.data.ai.reason, 'unsupported_source_scope');
+  }
+});
+
+test('one solution keeps its actual partial/full and custom capabilities', async () => {
+  for (const build of [
+    cite => `Energy Loss Reduction offers partial or full implementation and can be customized to each client's requirements ${cite(solutionIds.loss)}.`,
+    cite => `Energy Loss Reduction can be implemented in part or in full ${cite(solutionIds.loss)}.`,
+    cite => `线损治理方案可根据客户需求定制，提供部分或全系统实施选项${cite(solutionIds.loss)}。`
+  ]) {
+    const result = await scopedSolutionAnswer(build);
+    assert.equal(result.data.ai.generated, true, result.data.ai.reason);
+    assert.deepEqual(result.data.sources.map(source => source.id), [solutionIds.loss]);
+  }
+});
+
+test('multiple solutions retain separately attributed capabilities and genuinely shared customization', async () => {
+  for (const build of [
+    cite => `Energy Loss Reduction offers partial or full implementation ${cite(solutionIds.loss)}; Wi-SUN is customized to client requirements ${cite(solutionIds.wisun)}; Cellular AMI offers global coverage ${cite(solutionIds.cell)}.`,
+    cite => `线损治理方案支持部分或全系统实施${cite(solutionIds.loss)}，Wi-SUN方案可定制${cite(solutionIds.wisun)}，预付费方案自动管理能源数据${cite(solutionIds.prepay)}。`,
+    cite => `Both solutions can be customized to client requirements ${cite(solutionIds.loss)}${cite(solutionIds.wisun)}.`,
+    cite => `这两种方案均可定制${cite(solutionIds.loss)}${cite(solutionIds.wisun)}。`,
+    cite => `Cellular AMI offers global coverage ${cite(solutionIds.cell)}. Energy Loss Reduction can be customized to client requirements ${cite(solutionIds.loss)}.`,
+    cite => `Cannot confirm customization or partial/full implementation for Cellular from this excerpt ${cite(solutionIds.cell)}. Energy Loss Reduction offers partial or full implementation ${cite(solutionIds.loss)}.`,
+    cite => `无法确认蜂窝方案支持定制或部分实施${cite(solutionIds.cell)}。线损治理方案可定制${cite(solutionIds.loss)}。`
+  ]) {
+    const result = await scopedSolutionAnswer(build);
+    assert.equal(result.data.ai.generated, true, `${build(id => `[${id}]`)} => ${result.data.ai.reason}`);
+    assert.ok(result.data.sources.length >= 2);
+  }
 });
 
 test('retrieval remains available without an AI key or when inference fails', async () => {

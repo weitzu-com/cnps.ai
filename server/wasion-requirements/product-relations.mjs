@@ -200,6 +200,20 @@ export const SOLUTION_RELATION_SPEC=Object.freeze({
 });
 
 function quoteAt(record,field,index){const value=index==null?record?.[field]:record?.[field]?.[index];if(typeof value!=='string'||!value.trim())throw new Error(`Missing reviewed evidence field ${record?.slug||record?.url}: ${field}[${index}]`);return value;}
+
+// Separate application choices, not interchangeable models or an integration claim.
+export const MULTI_UTILITY_PORTFOLIO=Object.freeze([
+ {id:'lxc-ultrasonic-water-meter',utility:'water',label:'Ultrasonic water metering',reason:'Ultrasonic measurement for DN15–DN25 water service connections.',proof:{field:'features',index:0}},
+ {id:'i-110-series-smart-water-meter',utility:'water',label:'Mechanical water metering',reason:'Multi-jet mechanical measurement for DN15–DN32 water service connections.',proof:{field:'features',index:0}},
+ {id:'product-zg-d-1-6-4-smart-residential-gas-meter',utility:'gas',label:'Residential gas metering',reason:'Diaphragm gas measurement for G1.6–G4 residential service.',proof:{field:'features',index:0}}
+].map(item=>Object.freeze({...item,proof:Object.freeze(item.proof)})));
+export function buildMultiUtilityPortfolio(products){
+ const byId=new Map(products.map(p=>[p.id,p]));
+ return MULTI_UTILITY_PORTFOLIO.map(item=>{
+  const product=byId.get(item.id)||null;
+  return {...item,product,kind:'application-portfolio-selection',evidence:product?[{url:product.url,quote:quoteAt(product,item.proof.field,item.proof.index)}]:[]};
+ });
+}
 const officialSolutionSources={
  'ami-solution':'https://en.wasion.com/soluPage/1.html',
  'meter-to-cash-solutions':'https://en.wasion.com/soluPage/Energy-Pro.html',
