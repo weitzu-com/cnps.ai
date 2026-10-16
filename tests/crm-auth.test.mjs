@@ -114,6 +114,39 @@ test('provider outages identify the failing step without logging credentials, co
   assert.equal((await checking.request('/api/crm?view=session')).status,401);
 });
 
+test('failure logs identify a whitelisted function region without changing the public response', async () => {
+  const h = harness();
+  h.env.VERCEL_REGION = 'sin1';
+  h.failSms();
+  const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+  assert.equal(response.status, 503);
+  assert.deepEqual(h.failures, [{ stage: 'sms-send', category: 'unclassified', functionRegion: 'sin1' }]);
+  assert.deepEqual(response.json(), { error: '短信发送服务暂不可用，请稍后重试。', code: 'CRM_AUTH_UNAVAILABLE', stage: 'sms-send' });
+  assert.ok(!response.text.includes('functionRegion'));
+  assert.ok(!response.text.includes('sin1'));
+});
+
+test('unknown and hostile region values are omitted without reading private fields', async () => {
+  let privateReads = 0;
+  const hostile = new Proxy({}, { get() { privateReads++; throw new Error('private environment value'); } });
+  for (const value of ['sin1-private-environment-value', 'sfo1::sin1', 'SIN1', 'dev1', '', null, 1, hostile]) {
+    const h = harness();
+    h.env.VERCEL_REGION = value;
+    h.failSms();
+    const response = await h.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } });
+    assert.equal(response.status, 503);
+    assert.deepEqual(h.failures, [{ stage: 'sms-send', category: 'unclassified' }]);
+    assert.ok(!JSON.stringify([h.failures, response.json()]).includes('private-environment-value'));
+    assert.ok(!response.text.includes('functionRegion'));
+  }
+  const throwing = harness();
+  Object.defineProperty(throwing.env, 'VERCEL_REGION', { get() { throw new Error('private environment getter'); } });
+  throwing.failSms();
+  assert.equal((await throwing.request('/api/crm', { method: 'POST', body: { action: 'send', phone: adminPhone, consent: true } })).status, 503);
+  assert.deepEqual(throwing.failures, [{ stage: 'sms-send', category: 'unclassified' }]);
+  assert.equal(privateReads, 0);
+});
+
 test('only explicitly approved admin bypasses directory; original proposal allowlist is not CRM authorization', async () => {
   const h = harness();
   const requests = [customerPhone, '18900003333', '18500004444', '18300005555'];
@@ -623,7 +656,10 @@ test('SMS failure categories stay in server logs while client responses, cooldow
       : { action: 'send', phone: adminPhone, consent: true } });
     assert.equal(response.status, 503);
     assert.deepEqual(response.json(), { error: stage === 'sms-send' ? '短信发送服务暂不可用，请稍后重试。' : '短信验证服务暂不可用，请稍后重新获取验证码。', code: 'CRM_AUTH_UNAVAILABLE', stage });
-    assert.deepEqual(h.failures, [{ stage, category: 'timeout', reason: 'ETIMEDOUT' }]);
+    assert.equal(h.failures.length, 1);
+    const { transport, ...failure } = h.failures[0];
+    assert.deepEqual(failure, { stage, category: 'timeout', reason: 'ETIMEDOUT' });
+    assert.deepEqual({ ...transport, elapsedMs: 0 }, { observed: false, requestCount: 0, elapsedMs: 0, lastStage: 'unknown' });
     assert.equal(response.headers['set-cookie'], undefined);
     assert.equal(storedSession(h), undefined);
     const output = JSON.stringify([h.failures, response.json()]);
