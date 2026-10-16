@@ -1,7 +1,10 @@
+import {createVolcOtpSms} from './volc-otp-sms.mjs';
 import Dypnsapi from '@alicloud/dypnsapi20170525';
 import OpenApi from '@alicloud/openapi-client';
 const Client = Dypnsapi.default || Dypnsapi;
-export function createSms(env) {
+export function createSms(env, options={}) {
+  if(env.CRM_AUTH_SMS_PROVIDER==='volcengine')return createVolcOtpSms(env,{...options,purpose:'proposal'});
+  if(env.CRM_AUTH_SMS_PROVIDER && env.CRM_AUTH_SMS_PROVIDER!=='aliyun')throw Error('Unsupported auth SMS provider');
   for (const name of ['ALIYUN_ACCESS_KEY_ID','ALIYUN_ACCESS_KEY_SECRET','ALIYUN_SMS_SIGN_NAME','ALIYUN_SMS_TEMPLATE_CODE']) {
     if (!env[name]) throw new Error('SMS not configured');
   }

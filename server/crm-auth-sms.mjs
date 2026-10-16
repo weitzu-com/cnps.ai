@@ -1,3 +1,4 @@
+import {createVolcOtpSms} from './volc-otp-sms.mjs';
 import Dypnsapi from '@alicloud/dypnsapi20170525';
 import OpenApi from '@alicloud/openapi-client';
 import { observeCrmSmsTransport } from './crm-sms-transport.mjs';
@@ -48,7 +49,10 @@ async function providerCall(callback, validate = result => result) {
 // proposal SMS; a separate SchemeName prevents the two verification code pools
 // from authorizing one another. OutId is only a tracing identifier.
 // https://help.aliyun.com/zh/pnvs/developer-reference/api-dypnsapi-2017-05-25-checksmsverifycode
-export function createCrmSms(env, { client: injectedClient } = {}) {
+export function createCrmSms(env, options = {}) {
+  if(env.CRM_AUTH_SMS_PROVIDER==='volcengine')return createVolcOtpSms(env,{...options,purpose:'crm'});
+  if(env.CRM_AUTH_SMS_PROVIDER && env.CRM_AUTH_SMS_PROVIDER!=='aliyun')throw Error('Unsupported auth SMS provider');
+  const {client:injectedClient}=options;
   for (const name of ['ALIYUN_ACCESS_KEY_ID', 'ALIYUN_ACCESS_KEY_SECRET', 'ALIYUN_SMS_SIGN_NAME', 'ALIYUN_SMS_TEMPLATE_CODE']) {
     if (!env[name]) throw new Error('SMS not configured');
   }
