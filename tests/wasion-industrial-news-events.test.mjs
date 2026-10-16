@@ -91,9 +91,10 @@ test('all 198 Requirements pages retain approved content with reviewed homepage 
     assert.ok(html.includes('href="http://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
     assert.ok(!html.includes('href="https://www.wasion.com/"'), slug);
     assert.ok(!html.includes('href="https://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
-    // Only the reviewed homepage-card CSS changes. Reversing those exact
+    // Only the reviewed homepage-card and hero framing CSS changes. Reversing those exact
     // geometry declarations must recover the complete previous 198-page HTML.
     const previousHtml = html
+      .replace('.wr-hero-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;', '.wr-hero-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;')
       .replace('.wr-offering-tile-media{aspect-ratio:8/5;', '.wr-offering-tile-media{height:13rem;')
       .replace('.wr-offering-tile-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;', '.wr-offering-tile-media img{width:100%;height:100%;object-fit:cover;');
     assert.notEqual(previousHtml, html, slug);
@@ -114,8 +115,8 @@ test('all 198 Requirements pages retain approved content with reviewed homepage 
   // its RPMA row remains under the original Alarm and Event logs parent.
   // The other197 complete outputs, all styles/scripts and the grids match.
   assert.equal(hash(JSON.stringify(priorRows)), 'a269ed4e54f6c9c10ef8444785a8a0f5eecdd463bb7e217284195be9d1b5ddd7');
-  // Five actual local viewport reviews confirm all four device groups remain visible.
-  assert.equal(hash(JSON.stringify(rows)), 'c9130685eeb2dd1d8e952a65100b594d424b2720e5fd50c17bb321f45267503f');
+  // Five local matrix views and 20 local hero views confirm complete devices and caption framing.
+  assert.equal(hash(JSON.stringify(rows)), 'a3e303626045b405e7e7eee35c1dcf77fd347452b9e1de080686627983be077d');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
