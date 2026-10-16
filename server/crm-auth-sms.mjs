@@ -10,6 +10,8 @@ export const CRM_SMS_SCHEME = 'cnpscrm';
 // properties must never become log fields at the authentication boundary.
 const failureCategories = new WeakMap();
 const failureCodes = new Map([
+  ...['BUSINESS_LIMIT_CONTROL', 'FREQUENCY_FAIL'].map(code => [code, 'rate-limit']),
+  ...['MOBILE_NUMBER_ILLEGAL', 'INVALID_PARAMETERS', 'FUNCTION_NOT_OPENED'].map(code => [code, 'configuration']),
   ...['ETIMEDOUT', 'ESOCKETTIMEDOUT', 'ConnectionTimeoutError', 'ResponseTimeoutError', 'TimeoutError', 'RequestTimeout'].map(code => [code, 'timeout']),
   ...['ECONNRESET', 'ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN', 'EPIPE', 'NetworkError'].map(code => [code, 'network']),
   ...['InvalidCredentials', 'InvalidAccessKeyId.NotFound', 'InvalidAccessKeyId.Inactive', 'SignatureDoesNotMatch', 'InvalidSecurityToken.Expired'].map(code => [code, 'authentication']),

@@ -17,24 +17,24 @@ const clientScript = html => {
   return scripts[0][1];
 };
 
-// Captured from the unmodified 825d74a renderer, before the Industrial login
-// decoration. Fixed byte lengths and SHA-256 retain the complete original JS,
-// including whitespace, rather than restating selected implementation lines.
+// Renderer snapshots refreshed for the intentional CRM SMS deadline/body-abort
+// fix (2026-10-15). Fixed byte lengths and SHA-256 still cover the full client
+// script and generic HTML; behavioral timeout tests live in crm-login.test.mjs.
 const scriptBaselines = [
-  [{ returnTo: '/demo/wasion' }, 10027, '9dc653ba2904e9ee92327ebcbe6d80f33cb2db72341e353868a7170be67cb7ff'],
-  [{ returnTo: '/demo/wasion/search?q=I-110+%26+AMI#results' }, 10058, '3128d40d38c50c47c609f97209dc70bba3170ac41d7c16bf0e69f91c1f651e9c'],
-  [{ returnTo: '/demo/wasion/styles/classic/search?q=I-110+%26+AMI' }, 10065, '44d296fffc817eb315befce91d13566c5fc2b859fa20cec6e26656554ce763ab'],
-  [{ returnTo: '/demo/wasion/styles/atmospheric/search?q=I-110+%26+AMI' }, 10069, '723f4b264ab246c8ab83292c828c940b429326db6b8a1fc4ddad41e68404850d'],
-  [{ returnTo: '/demo/wasion/styles/planhat/search?q=I-110+%26+AMI' }, 10065, 'bba6b48e47ff8579e08ff28d008f6365f01b0a506f2ffc8c215915b4de6cdbf4'],
-  [{ returnTo: '/demo/wasion/styles/orderful/search?q=I-110+%26+AMI' }, 10066, 'e542a00608351877869ce306061d82ab22747b96f5c8106a4503369ca4f49d45'],
-  [{ returnTo: '/demo/wasion/styles/industrial/search?q=I-110+%26+AMI' }, 10068, 'd96dab664e72054fd28084a416f134bb3fd9a643a4081bd8f850e4594d2fb859'],
-  [{ returnTo: '/demo/wasion/search', resumeQuestion: '客户询问 I-110 <script> & protocols' }, 10033, '9ff1d516955dd8794e42cc415b9251fab347b442f09236d9e34674c1ac63e051'],
-  [{ returnTo: '/demo/wasion/styles/orderful/search', resumeQuestion: 'aMeter300 <script> & IDIS 2.0' }, 10049, '711a8fbdd9e73c9c36febda3592dad6f1f7592773138c3325f319d97a8b85cb4']
+  [{"returnTo":"/demo/wasion"}, 10671, 'd0d8279c335068aa7e8598b33c81da754524f98d2873f5d6fec93a4630b945e1'],
+  [{"returnTo":"/demo/wasion/search?q=I-110+%26+AMI#results"}, 10702, '94223f7add3c55f364a096d8457338f0af68db555238d928a34070340225d0c0'],
+  [{"returnTo":"/demo/wasion/styles/classic/search?q=I-110+%26+AMI"}, 10709, 'a783638af4eff7fff8b828e2ecdfe48a10ad4a691f2383a1ac03bd83171af697'],
+  [{"returnTo":"/demo/wasion/styles/atmospheric/search?q=I-110+%26+AMI"}, 10713, '53ef7411bd1986eb6c74b7a1d7fc75fcb45071cf8c0cd9f6fec350636e164a47'],
+  [{"returnTo":"/demo/wasion/styles/planhat/search?q=I-110+%26+AMI"}, 10709, '83c55c3404ac316f1cad8629620f6dcb18305e63c68c995a6f6ca044d104a4a2'],
+  [{"returnTo":"/demo/wasion/styles/orderful/search?q=I-110+%26+AMI"}, 10710, 'b0bb0d3c25f3e321c65a1ca43165debff176146c2ee23cb8d21cc8f197a577ba'],
+  [{"returnTo":"/demo/wasion/styles/industrial/search?q=I-110+%26+AMI"}, 10712, 'bdb275e80037f5b991892b8fd3f0a657a56fe0eb4f87dd1b93c19ed274e564bb'],
+  [{"returnTo":"/demo/wasion/search","resumeQuestion":"客户询问 I-110 <script> & protocols"}, 10677, 'ed7c9e1c18cce266cc9770f6637ee4916f72d648811bade3a7d5c9942fc0e578'],
+  [{"returnTo":"/demo/wasion/styles/orderful/search","resumeQuestion":"aMeter300 <script> & IDIS 2.0"}, 10693, '5e1228264cefa28c52740536e5162371df772a112ed972ee69358a2511c2c18e']
 ];
 const genericBaselines = [
-  [undefined, 19574, 'f8c7d0ef96c990e5a72b7ca668432520242913e3885f3d392c0513927810b1bb'],
-  ['/workspace', 19582, '3906aa6bdcd638ad28b8a537fd641fd5222bf9b0413893005571b7adfbfdf17a'],
-  ['/w', 19574, 'b6663459e26727b064a39637bc162633c25ce70a01386ba9a463acfa6bb51323']
+  [undefined, 20218, 'a5af025c923739c6a495b5b3aee73807637f50c5148bd7f80394320af82b910a'],
+  ["/workspace", 20226, '2d415550d27315aaa0df568b4e415ce346aafca9d06bc1adfb125eef85c587ee'],
+  ["/w", 20218, 'ba79ce3dfacbf9228ff0cee7f6890fe311f21ef6583d63a20d32f48e1bffcd4a']
 ];
 const controlIds = ['intro-title', 'loading', 'session-check-status', 'login', 'phone', 'phone-hint', 'code', 'send', 'code-hint', 'consent', 'submit', 'status', 'session', 'session-title', 'session-phone', 'session-role', 'session-expiry', 'logout', 'session-status', 'retry-session'];
 
@@ -53,7 +53,7 @@ test('only valid Wasion destinations receive the scoped Industrial login theme',
   }
 });
 
-test('Industrial login decoration preserves every original client-script byte for canonical, styled, query and POST targets', () => {
+test('Industrial login client-script snapshots cover canonical, styled, query and POST targets', () => {
   for (const [options, bytes, digest] of scriptBaselines) {
     const script = clientScript(crmLoginPage(nonce, options));
     assert.equal(Buffer.byteLength(script), bytes, options.returnTo);
@@ -62,7 +62,7 @@ test('Industrial login decoration preserves every original client-script byte fo
   }
 });
 
-test('generic CRM and proposal login HTML remain byte-identical to the original renderer', () => {
+test('generic CRM and proposal login HTML match the reviewed renderer snapshots', () => {
   for (const [returnTo, bytes, digest] of genericBaselines) {
     const html = crmLoginPage(nonce, { returnTo });
     assert.equal(Buffer.byteLength(html), bytes, String(returnTo));

@@ -672,3 +672,67 @@ test('SMS failures discard untrusted provider payloads and do not retry sends',a
  }
  assert.equal(new CrmSmsFailure('unknown','private fallback').reason,'provider-rejected');
 });
+
+test('documented Dypnsapi rejection codes survive safely through SDK and auth diagnostics without refund or retry', async () => {
+  const env = {ALIYUN_ACCESS_KEY_ID: 'fixture', ALIYUN_ACCESS_KEY_SECRET: 'fixture', ALIYUN_SMS_SIGN_NAME: 'fixture', ALIYUN_SMS_TEMPLATE_CODE: 'fixture'};
+  for (const [code, category] of [
+    ['BUSINESS_LIMIT_CONTROL', 'rate-limit'], ['FREQUENCY_FAIL', 'rate-limit'],
+    ['MOBILE_NUMBER_ILLEGAL', 'configuration'], ['INVALID_PARAMETERS', 'configuration'], ['FUNCTION_NOT_OPENED', 'configuration']
+  ]) for (const kind of ['response', 'exception']) {
+    let calls = 0;
+    const privateData = {message: `private ${adminPhone} 123456`, requestId: 'private-request', accessKeySecret: 'private-secret', model: {verifyCode: '123456'}};
+    const client = {async sendSmsVerifyCode() {
+      calls++;
+      if (kind === 'exception') throw Object.assign(new Error(privateData.message), privateData, {code});
+      return {body: {...privateData, code, success: false}};
+    }};
+    const sms = createCrmSms(env, {client});
+    const h = harness({smsFactoryOverride: () => sms});
+    const input = {method: 'POST', body: {action: 'send', phone: adminPhone, consent: true}};
+    const response = await h.request('/api/crm', input);
+    assert.equal(response.status, 503);
+    assert.deepEqual(h.failures, [{stage: 'sms-send', category, reason: code}]);
+    assert.equal(response.headers['set-cookie'], undefined);
+    assert.equal(h.values.size, 0, 'no challenge or session on rejection');
+    assert.equal(h.limits.size, 5);
+    assert.ok([...h.limits.values()].every(value => value.count === 1), 'keep all reserved cost budgets');
+    for (const value of [code, adminPhone, '123456', 'private']) assert.ok(!response.text.includes(value));
+    assert.doesNotMatch(JSON.stringify(h.failures), /private|123456|18700001111/);
+    h.advance(59000);
+    const retry = await h.request('/api/crm', input);
+    assert.equal(retry.status, 429);
+    assert.equal(retry.json().code, 'SMS_COOLDOWN');
+    assert.equal(retry.json().retryAfterSeconds, 1);
+    assert.equal(calls, 1, 'no resend on rejection or cooldown');
+    assert.ok([...h.limits.values()].every(value => value.count === 1));
+    // Only exact documented codes are permitted, never arbitrary suffixes or objects.
+    assert.equal(new CrmSmsFailure(code + ' ' + adminPhone).reason, 'provider-rejected');
+    assert.equal(new CrmSmsFailure({toString() { throw new Error('must not stringify'); }}).reason, 'provider-rejected');
+  }
+});
+
+test('pending SMS sends reserve quota once and keep server cooldown on slow success or timeout', async () => {
+  for (const outcome of ['success', 'timeout']) {
+    let finish, fail, calls = 0;
+    const env = {ALIYUN_ACCESS_KEY_ID: 'fixture', ALIYUN_ACCESS_KEY_SECRET: 'fixture', ALIYUN_SMS_SIGN_NAME: 'fixture', ALIYUN_SMS_TEMPLATE_CODE: 'fixture'};
+    const client = {sendSmsVerifyCode() { calls++; return new Promise((resolve, reject) => { finish = resolve; fail = reject; }); }};
+    const h = harness({smsFactoryOverride: () => createCrmSms(env, {client})});
+    const input = {method: 'POST', body: {action: 'send', phone: adminPhone, consent: true}};
+    const pending = h.request('/api/crm', input);
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(calls, 1); assert.equal(h.values.size, 0);
+    h.advance(16000);
+    const duplicate = await h.request('/api/crm', input);
+    assert.equal(duplicate.status, 429); assert.equal(duplicate.json().retryAfterSeconds, 44);
+    if (outcome === 'success') finish({body: {code: 'OK', success: true}});
+    else fail(Object.assign(new Error('private timeout'), {code: 'ETIMEDOUT'}));
+    const response = await pending;
+    assert.equal(response.status, outcome === 'success' ? 200 : 503);
+    assert.equal(storedSession(h), undefined);
+    if (outcome === 'success') assert.ok(response.json().challenge);
+    else { assert.equal(h.values.size, 0); assert.equal(response.headers['set-cookie'], undefined); }
+    assert.equal((await h.request('/api/crm', input)).status, 429);
+    assert.equal(calls, 1);
+    assert.ok([...h.limits.values()].every(value => value.count === 1));
+  }
+});

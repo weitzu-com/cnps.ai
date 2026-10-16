@@ -11,13 +11,18 @@ test('the real SMS SDK tolerates a response beyond five seconds and still saniti
     ALIYUN_SMS_SIGN_NAME: 'loopback-test-sign', ALIYUN_SMS_TEMPLATE_CODE: 'loopback-test-template'
   };
   const phone = '18700001111';
-  let received = 0, transportCalls = 0, timeoutEvents = 0, forceTimeout = false;
+  let received = 0, transportCalls = 0, timeoutEvents = 0, forceTimeout = false, rejectionCode, rejectionStatus;
   const sdkTimeouts = [];
   const timers = new Set();
   const server = http.createServer((request, response) => {
     received++;
     request.resume();
     if (forceTimeout) return; // Keep the real socket idle until Node emits timeout.
+    if (rejectionCode) {
+      response.writeHead(rejectionStatus, {'content-type': 'application/json'});
+      response.end(JSON.stringify({Code: rejectionCode, Success: false, Message: `private ${phone} 123456`, RequestId: 'private-request', Model: {VerifyCode: '123456'}}));
+      return;
+    }
     const timer = setTimeout(() => {
       timers.delete(timer);
       response.writeHead(200, { 'content-type': 'application/json' });
@@ -80,4 +85,25 @@ test('the real SMS SDK tolerates a response beyond five seconds and still saniti
   assert.equal(transportCalls, 2, 'timeout must not retry or duplicate the provider request');
   assert.deepEqual(sdkTimeouts, [10000, 10000], 'the SDK must pass the full response budget to Node');
   t.diagnostic(`Loopback response delay: 5300ms; observed success: ${Math.round(elapsed)}ms; requests: ${received}; real timeout events: ${timeoutEvents}.`);
+
+  // Exercise both generated SDK response parsing and HTTP-error exceptions,
+  // rather than assuming the injected-client shape matches the real SDK.
+  forceTimeout = false;
+  for (const [code, category] of [
+    ['BUSINESS_LIMIT_CONTROL', 'rate-limit'], ['FREQUENCY_FAIL', 'rate-limit'],
+    ['MOBILE_NUMBER_ILLEGAL', 'configuration'], ['INVALID_PARAMETERS', 'configuration'], ['FUNCTION_NOT_OPENED', 'configuration']
+  ]) for (const status of [200, 400]) {
+    rejectionCode = code; rejectionStatus = status;
+    const before = transportCalls;
+    await assert.rejects(() => sms.send(phone, 'loopback-rejection'), error => {
+      assert.equal(error.reason, code);
+      assert.equal(crmSmsFailureCategory(error), category);
+      assert.equal(error.message, 'SMS provider unavailable');
+      assert.equal(error.cause, undefined);
+      assert.equal(JSON.stringify(error), '{}');
+      return true;
+    });
+    assert.equal(transportCalls, before + 1, 'a rejected send must not retry');
+    assert.equal(received, transportCalls);
+  }
 });
