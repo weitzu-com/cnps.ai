@@ -88,11 +88,12 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
     assert.ok(!main(html).includes('class="win-page'));
     return [slug, hash(html)];
   });
-  // Advanced from the independently reproduced e0f24ba baseline for the
-  // reviewed 2026-10-16 product relations, bilingual evidence search, responsive
-  // interactions, visual fixes and source-backed certificate metadata. Raw
-  // source records and retained Industrial HTML/client snapshots stay frozen.
-  assert.equal(hash(JSON.stringify(rows)), 'd0c6178d89f23a30b04264604bc5f9a36763d7d0d69e54a78391d1016278cd7c');
+  // Advanced from d0c6178d after the reviewed 2026-10-16 word-safe excerpts,
+  // uncropped source artwork and explicit multi-utility application portfolio.
+  // Four affected pages passed twenty local viewport/image checks, including
+  // natural card and scene-image flow. Raw source records and retained
+  // Industrial HTML/client snapshots stay frozen; this is a fixed golden.
+  assert.equal(hash(JSON.stringify(rows)), '81d5cd1d42e0031792104954060655b3b4bc94d900d0e1a4970bc6d11f9ee646');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
