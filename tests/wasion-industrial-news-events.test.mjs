@@ -75,11 +75,12 @@ test('all 450 complete script sets and 444 non-target full HTML pages retain the
   assert.equal(hash(JSON.stringify(unaffected)), '7af9be9a778af728eca51a611cef817e147028e6a1829657bfa06adfc721939f');
 });
 
-test('all 198 default Requirements pages retain their complete approved HTML', () => {
+test('all 198 Requirements pages retain approved content with reviewed homepage card geometry', () => {
   assert.equal(Object.keys(ALL_WASION_STYLES).length, 6);
   assert.equal(WASION_DEMO_ROUTES.length, 90);
   assert.equal(REQUIREMENTS_ROUTES.length, 198);
   assert.deepEqual(new Set(ALL_WASION_DEMO_ROUTES), new Set(REQUIREMENTS_ROUTES));
+  const priorRows = [];
   const rows = REQUIREMENTS_ROUTES.map(slug => {
     const html = renderWasionDemoPage(nonce, { slug });
     assert.equal(typeof html, 'string', slug);
@@ -90,6 +91,13 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
     assert.ok(html.includes('href="http://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
     assert.ok(!html.includes('href="https://www.wasion.com/"'), slug);
     assert.ok(!html.includes('href="https://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
+    // Only the reviewed homepage-card CSS changes. Reversing those exact
+    // geometry declarations must recover the complete previous 198-page HTML.
+    const previousHtml = html
+      .replace('.wr-offering-tile-media{aspect-ratio:8/5;', '.wr-offering-tile-media{height:13rem;')
+      .replace('.wr-offering-tile-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;', '.wr-offering-tile-media img{width:100%;height:100%;object-fit:cover;');
+    assert.notEqual(previousHtml, html, slug);
+    priorRows.push([slug, hash(previousHtml)]);
     return [slug, hash(html)];
   });
   // Advanced from 9417e42f for source-preserving parameter grids, five visible
@@ -105,7 +113,9 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
   // The next clean955 comparison adds only I110's source-attribution notice:
   // its RPMA row remains under the original Alarm and Event logs parent.
   // The other197 complete outputs, all styles/scripts and the grids match.
-  assert.equal(hash(JSON.stringify(rows)), 'a269ed4e54f6c9c10ef8444785a8a0f5eecdd463bb7e217284195be9d1b5ddd7');
+  assert.equal(hash(JSON.stringify(priorRows)), 'a269ed4e54f6c9c10ef8444785a8a0f5eecdd463bb7e217284195be9d1b5ddd7');
+  // Five actual local viewport reviews confirm all four device groups remain visible.
+  assert.equal(hash(JSON.stringify(rows)), 'c9130685eeb2dd1d8e952a65100b594d424b2720e5fd50c17bb321f45267503f');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
