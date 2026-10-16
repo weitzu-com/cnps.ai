@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "boundary": "Published wording requiring manufacturer confirmation. Correct units and values are not inferred.",
+  "products": {
+    "product-zw32-12-outdoor-high-voltage-smart-vacuum-circuit-breaker": {
+      "sourceURL": "https://en.wasion.com/proIntpRel/Outdoor-High-Voltage-Smart-Vacuum-Circuit-Breaker.html",
+      "officialBodySha256": "81c8720d60e3e88d7e8431fded14668e9725f77a3a7316a073fedad62229d17f",
+      "rows": [
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 1,
+          "cells": [
+            "Rated Voltage",
+            "kA",
+            "12"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 2,
+          "cells": [
+            "Rated insulation level",
+            "1 min power frequency withstand voltage",
+            "kA",
+            "42"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 3,
+          "cells": [
+            "Lighting impulse withstand voltage(peak)",
+            "kA",
+            "75"
+          ]
+        }
+      ]
+    },
+    "product-zw20-12-outdoor-high-voltage-smart-vacuum-circuit-breaker": {
+      "sourceURL": "https://en.wasion.com/proIntpRel/24.html",
+      "officialBodySha256": "b4368b40d3f8877da148f4374f18268e221700bba4e85ab7a75f690225fb5003",
+      "rows": [
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 1,
+          "cells": [
+            "Rated Voltage",
+            "kA",
+            "12"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 2,
+          "cells": [
+            "Rated insulation level",
+            "1 min power frequency withstand voltage",
+            "kA",
+            "42"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 3,
+          "cells": [
+            "Lighting impulse withstand voltage(peak)",
+            "kA",
+            "75"
+          ]
+        }
+      ]
+    },
+    "product-ws-fl-12-sf6-gas-insulated-ring-main-unit": {
+      "sourceURL": "https://en.wasion.com/proIntpRel/SF6-Gas-Insulated-Ring-Main-Unit.html",
+      "officialBodySha256": "72def228da49def0be0281945d8da467db93b2e2207d3b33cb6279e9000c3687",
+      "rows": [
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 9,
+          "cells": [
+            "Rated short-time withstand current -4s",
+            "kV",
+            "20",
+            "",
+            "20/25"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 10,
+          "cells": [
+            "Rated peak withstand current",
+            "kV",
+            "50",
+            "",
+            "50/63"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 11,
+          "cells": [
+            "Rated short-circuit making current (peak)",
+            "kV",
+            "50",
+            "100",
+            "50/63"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 13,
+          "cells": [
+            "Mechanical endurance",
+            "kA",
+            "5000",
+            "5000",
+            "10000"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 14,
+          "cells": [
+            "Internal arc test (IAC)",
+            "Times",
+            "20",
+            "20",
+            "20(25)"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 15,
+          "cells": [
+            "Rated pressure of SF6 gas (20℃)",
+            "kA/0.5sMPa",
+            "0.04",
+            "0.04",
+            "0.04"
+          ]
+        }
+      ]
+    },
+    "product-kyn28-12-high-voltage-metal-clad-switchgear": {
+      "sourceURL": "https://en.wasion.com/proIntpRel/High-Voltage-Metal-Clad-Switchgear.html",
+      "officialBodySha256": "36ad448b26f57b1ebded5499d5450dc6a568c320f33b60ee46a8251d1bc421dd",
+      "rows": [
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 8,
+          "cells": [
+            "Rated peak withstand current",
+            "kV",
+            "40,50,63,80,100,125"
+          ]
+        },
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 9,
+          "cells": [
+            "Rated short-circuit withstand current",
+            "kV",
+            "16,20,25,31.5,40,50"
+          ]
+        }
+      ]
+    },
+    "product-jyl-60-fault-indicator-distribution-line-fault-detectors-technology": {
+      "sourceURL": "https://en.wasion.com/proIntpRel/JYL-60-Fault-Indicator.html",
+      "officialBodySha256": "e1c55d7b397d25684dbfa44ef3e53728ea3298802dfc8f43025861e4433189aa",
+      "rows": [
+        {
+          "sourceTableIndex": 0,
+          "sourceRowIndex": 4,
+          "cells": [
+            "Metering Precision",
+            "Insufficient gas warning"
+          ]
+        }
+      ]
+    }
+  }
+}

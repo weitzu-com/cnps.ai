@@ -66,9 +66,13 @@ test('static images and search catalog do not offer baked video play buttons, an
     const hero=all(tree(page(slug)),node=>hasClass(node,'wr-hero-backdrop'))[0];
     assert.equal(hero.attrs.src,'/assets/wasion-requirements/'+filename,slug);
   }
-  const resources=stripRaw(page('collateral-videos'));
-  assert.match(resources,/Play video/);
-  assert.match(resources,/wasion-company-film-official\.mp4/);
+  const videoLinks=[...stripRaw(page('collateral-videos')).matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
+    .filter(([, ,body])=>body.replace(/<[^>]*>/g,'').trim()==='Play video')
+    .map(([,attrs])=>decode(attrs.match(/href="([^"]*)"/)[1]));
+  assert.deepEqual(videoLinks.sort(),[
+    'https://en.wasion.com/public/uploads/files/20230718/about.mp4',
+    'https://en.wasion.com/public/uploads/files/20240206/G3-PLC%20Hybrid%20explained%20video.mp4'
+  ]);
 });
 
 test('09/16 requirements is the canonical design and retained designs have explicit route bases', () => {
@@ -325,6 +329,22 @@ class FakeElement {
   emit(name,event={}){this.listeners.get(name)?.({currentTarget:this,preventDefault(){},...event});}
 }
 function clientContext(roots={}){return {document:{hidden:false,getElementById:()=>null,querySelector:()=>null,querySelectorAll:selector=>roots[selector]||[],addEventListener(){}},matchMedia:()=>({matches:true,addEventListener(){}}),URLSearchParams,location:{search:''},setTimeout,clearTimeout,setInterval,clearInterval};}
+
+test('open dialogs wrap native Tab at both boundaries without focusing hidden or disabled controls', () => {
+  const dialog=new FakeElement();dialog.open=true;
+  const first=new FakeElement(),middle=new FakeElement(),last=new FakeElement(),hidden=new FakeElement(),disabled=new FakeElement();
+  for(const el of [first,middle,last,hidden,disabled]){el.tabIndex=0;el.getClientRects=()=>[{}];}
+  hidden.getClientRects=()=>[];disabled.disabled=true;
+  dialog.children.set('a[href],button,input,select,textarea,[tabindex]',[first,middle,last,hidden,disabled]);
+  const context=clientContext({dialog:[dialog]});context.getComputedStyle=()=>({visibility:'visible'});
+  for(const el of [first,middle,last])el.focus=()=>{context.document.activeElement=el;};
+  runInNewContext(BASE_CLIENT,context);
+  let prevented=0;const tab=(shiftKey=false)=>dialog.emit('keydown',{key:'Tab',shiftKey,preventDefault(){prevented++;}});
+  context.document.activeElement=last;tab();assert.equal(context.document.activeElement,first);assert.equal(prevented,1);
+  tab(true);assert.equal(context.document.activeElement,last);assert.equal(prevented,2);
+  context.document.activeElement=middle;tab();assert.equal(context.document.activeElement,middle);assert.equal(prevented,2);
+  dialog.open=false;context.document.activeElement=last;tab();assert.equal(prevented,2);
+});
 
 test('catalogue and resource filters combine facets, expose empty recovery, reset and append fresh records', () => {
   const root=new FakeElement({limit:'2'}),form=new FakeElement(),q=new FakeElement({facet:'q'}),topic=new FakeElement({facet:'topic'}),reset=new FakeElement(),more=new FakeElement(),count=new FakeElement(),empty=new FakeElement();

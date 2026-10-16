@@ -6,9 +6,17 @@ import assetMap from './assets-map.json' with {type:'json'};
 import enriched from './enriched-products.json' with {type:'json'};
 import {PRODUCT_ASSIGNMENTS,PRODUCT_FAMILIES,LEAF_CONTENT_GAPS,buildSolutionRelations,buildOfficialSourceRelations,PRODUCT_CASE_RELATIONS,PRODUCT_COMPARISONS} from './product-relations.mjs';
 import officialEvidence from './official-evidence.json' with {type:'json'};
+import parameterTableEvidence from './parameter-tables.json' with {type:'json'};
 
 export const PAGES=corpus.pages;
 export const cleanTitle=p=>String(p?.title||'').replace(/ - (Content Page|Content|Relevant Product|Newsroom|IEC Smart Meters|IEC Prepaid Meters|ANSI Meters|Cellular Communication|Wi-SUN RF Mesh)$/,'');
+const PRODUCT_FOCUS_LABELS=Object.freeze({
+ 'product-snms-smart-network-management-system':'Network management software',
+ 'product-zw32-12-outdoor-high-voltage-smart-vacuum-circuit-breaker':'Circuit breaker',
+ 'product-zw20-12-outdoor-high-voltage-smart-vacuum-circuit-breaker':'Circuit breaker',
+ 'product-wpvi-tph-6000-12000-bh-us-smart-inverter-solution':'Smart inverter'
+});
+export const productFocusLabel=p=>PRODUCT_FOCUS_LABELS[p?.id||p?.slug]||p?.type||'Wasion product';
 export const slugify=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 export const page=slug=>PAGES.find(p=>p.slug===slug);
 export const asset=url=>assetMap[url]||url||'';
@@ -45,7 +53,7 @@ export const PRODUCTS=[...all.values()].filter((p,i,a)=>a.findIndex(x=>x.slug===
  if(!assignment)throw new Error(`Product family not reviewed: ${p.slug}`);
  const family=PRODUCT_FAMILIES[assignment.familyId];
  if(family.catalog!==p.catalog)throw new Error(`Product portfolio mismatch: ${p.slug}`);
- return {...p,id:p.slug,familyId:assignment.familyId,familyLabel:family.label,leafIds:assignment.leafIds,familyEvidence:{url:p.url,statement:assignment.basis},caseRelations:PRODUCT_CASE_RELATIONS[p.slug]||[],comparison:PRODUCT_COMPARISONS[p.slug]||null};
+ return {...p,id:p.slug,parameterTables:parameterTableEvidence.products[p.slug]?.tables||[],familyId:assignment.familyId,familyLabel:family.label,leafIds:assignment.leafIds,familyEvidence:{url:p.url,statement:assignment.basis},caseRelations:PRODUCT_CASE_RELATIONS[p.slug]||[],comparison:PRODUCT_COMPARISONS[p.slug]||null};
 });
 const leaf=(label,catalog)=>{const slug='category-'+slugify(label),productIds=PRODUCTS.filter(p=>p.leafIds.includes(slug)).map(p=>p.id),externalModels=(officialEvidence.familyModels||[]).filter(p=>p.familySlug===slug);return {label,slug,catalog,productIds,externalModels,status:productIds.length?'published-models':externalModels.length?'official-external-models':'request-information',contentGap:externalModels.length?'These two additional models have verified official technical pages. They are external references, outside the 86 local product-detail records. No direct model PDF is supplied.':LEAF_CONTENT_GAPS[slug]||''};};
 export const LEAF_CATEGORIES=[

@@ -86,14 +86,23 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
     assert.match(html, /<body class="wd-style-requirements /);
     assert.ok(!html.includes(INDUSTRIAL_NEWS_EVENTS_CSS));
     assert.ok(!main(html).includes('class="win-page'));
+    assert.ok(html.includes('href="https://www.wasion.cn/"'), slug);
+    assert.ok(html.includes('href="http://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
+    assert.ok(!html.includes('href="https://www.wasion.com/"'), slug);
+    assert.ok(!html.includes('href="https://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
     return [slug, hash(html)];
   });
-  // Advanced from 81d5cd1d for three exact-model source clarification notes
-  // and the AMI catalogue edition notice. Both published values/labels remain
-  // visible with a confirmation request; no raw parameter is changed. The
-  // preceding excerpt/artwork/utility fixes keep their separate twenty-view
-  // local evidence. Industrial/source/client snapshots stay frozen.
-  assert.equal(hash(JSON.stringify(rows)), 'e31e57541e3d6779e7ff189ec87c83c550a59c0aeb64b7182e9e20f8096f4410');
+  // Advanced from 9417e42f for source-preserving parameter grids, five visible
+  // source-wording notices, their shared scroll/contrast styling, and four
+  // exact product-ID display focus corrections. A clean f152 archive with
+  // only those explicit focus helper edits matched all198 outputs after the
+  // business CSS and86 parameter sections were replaced. All1499 source rows
+  // and2606 cells retain their original spans and text.
+  // Earlier source/keyboard/visual evidence stays separately frozen.
+  // A later clean56f65a9 comparison advanced de2f41e7 only by removing the
+  // unused film dialog: all198 pages lacked any opener, and the real Media
+  // Kit inline video, styles, scripts and visible content remain identical.
+  assert.equal(hash(JSON.stringify(rows)), 'c5916b5eed7999fc9996d75df2aa15e395b696af97543cbf0f561b93b06b4fb8');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
