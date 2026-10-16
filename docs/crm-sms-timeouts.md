@@ -72,6 +72,10 @@ events remain unknown; a reused socket does not acquire fictional DNS/TCP/TLS
 events. Trusted summaries are associated through a module-owned WeakMap,
 never provider-supplied diagnostic fields. Listeners are removed after every
 operation. No transport functions are replaced or global agent altered.
+The private failure event also records `functionRegion` only when the trusted
+`VERCEL_REGION` exactly matches the fixed official compute-region whitelist;
+missing, unknown or malformed values are omitted. This separates actual
+execution from the platform log's possible ingress-region field.
 
 This observation changes no timeout, request, retry, quota, authorization or
 public response. Node's built-in channels are experimental, so missing
@@ -80,3 +84,13 @@ exercise real Node DNS, TCP, reuse and timeout events and the installed SDK;
 they do not establish phone delivery. Only close the incident after evidence
 from an actual normal verification flow, keeping provider acceptance, handset
 receipt, successful verification and protected page access separate.
+
+A temporary preview of `cef01a4` was measured at 14:39 UTC. Runtime
+`VERCEL_REGION` matched each sin1/sfo1/iad1 function and Node v24.21.0. Native
+and installed httpx requests received HTTP 400. An installed-SDK generic call
+with `authType: Anonymous`, no credentials and a fixed nonexistent non-SMS
+Action received HTTP 404 in all three regions. The observer recorded actual
+DNS, TCP, TLS and response events and exactly one SDK request. This validates
+the observer in the deployed runtime; it does not exercise a signed production
+SMS operation or identify the earlier timeout's cause. All temporary probe
+entry points and region configuration are removed from the merge candidate.
