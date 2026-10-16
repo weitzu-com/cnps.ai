@@ -53,3 +53,30 @@ Temporary preview probes were removed before merge. If this connection issue
 recurs, use credential-free phase measurements from the deployed runtime; never
 log raw SDK errors or enable `httpx` header/body debugging. Region changes ship
 through a PR merged to `main`, as documented in `AGENTS.md`.
+
+## 2026-10-16 recurrence: observe the actual request
+
+The deployment containing main `ca27e4b` still configured `api/crm.js` in
+`sin1`. Existing production failures at 12:23, 12:25 and 14:13 UTC reported
+`sms-send / timeout / ETIMEDOUT`. Fresh anonymous measurements at 14:21 UTC
+from the prior preview's hkg1, sin1 and iad1 functions all reached an HTTP
+response. These observations do not identify the phase of the production
+request or prove a new regional outage. A log's ingress region must not be
+substituted for the function's actual `VERCEL_REGION`.
+
+The SMS provider call now uses `AsyncLocalStorage` and Node's
+`http.client.request.created` diagnostic channel to observe only requests to
+the fixed provider host. The private failure log can include bounded phase
+times, actual HTTP status, socket reuse, and DNS success/failure. Missing
+events remain unknown; a reused socket does not acquire fictional DNS/TCP/TLS
+events. Trusted summaries are associated through a module-owned WeakMap,
+never provider-supplied diagnostic fields. Listeners are removed after every
+operation. No transport functions are replaced or global agent altered.
+
+This observation changes no timeout, request, retry, quota, authorization or
+public response. Node's built-in channels are experimental, so missing
+observations cannot establish transport success or failure. Loopback tests
+exercise real Node DNS, TCP, reuse and timeout events and the installed SDK;
+they do not establish phone delivery. Only close the incident after evidence
+from an actual normal verification flow, keeping provider acceptance, handset
+receipt, successful verification and protected page access separate.

@@ -4,6 +4,7 @@ import http from 'node:http';
 import https from 'node:https';
 import { performance } from 'node:perf_hooks';
 import { createCrmSms, crmSmsFailureCategory } from '../server/crm-auth-sms.mjs';
+import { crmSmsTransportFailure } from '../server/crm-sms-transport.mjs';
 
 test('the real SMS SDK tolerates a response beyond five seconds and still sanitizes a genuine transport timeout without retries', { timeout: 15000 }, async t => {
   const env = {
@@ -46,8 +47,9 @@ test('the real SMS SDK tolerates a response beyond five seconds and still saniti
     assert.equal(options.host, 'dypnsapi.aliyuncs.com');
     sdkTimeouts.push(options.timeout);
     const request = realHttpRequest({
-      ...options, host: '127.0.0.1', hostname: '127.0.0.1', port: server.address().port,
-      protocol: 'http:', agent: false,
+      ...options, host: 'dypnsapi.aliyuncs.com', hostname: 'dypnsapi.aliyuncs.com', port: server.address().port,
+      protocol: 'http:', agent: false, family: 4, autoSelectFamily: false,
+      lookup: (_hostname, _options, callback) => setImmediate(() => callback(null, '127.0.0.1', 4)),
       // Exercise the genuine Node timeout event quickly in the failure case;
       // the successful 5.3s case above uses the production timeout unchanged.
       ...(forceTimeout ? { timeout: 75 } : {})
@@ -69,6 +71,15 @@ test('the real SMS SDK tolerates a response beyond five seconds and still saniti
   await assert.rejects(() => sms.send(phone, 'loopback-timeout'), error => {
     assert.equal(error.message, 'SMS provider unavailable');
     assert.equal(crmSmsFailureCategory(error), 'timeout');
+    const transport = crmSmsTransportFailure(error);
+    assert.equal(transport.observed, true);
+    assert.equal(transport.requestCount, 1);
+    assert.equal(transport.lastStage, 'tcp-connected');
+    assert.equal(transport.reusedSocket, false);
+    assert.equal(transport.family, 4);
+    assert.equal(typeof transport.timeoutMs, 'number');
+    assert.equal(transport.secureConnectMs, undefined, 'redirected plain loopback is not a TLS proof');
+    assert.equal(transport.httpStatus, undefined);
     assert.equal(error.cause, undefined);
     assert.deepEqual(Object.keys(error), []);
     assert.equal(JSON.stringify(error), '{}');

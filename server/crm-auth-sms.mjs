@@ -1,5 +1,6 @@
 import Dypnsapi from '@alicloud/dypnsapi20170525';
 import OpenApi from '@alicloud/openapi-client';
+import { observeCrmSmsTransport } from './crm-sms-transport.mjs';
 
 const Client = Dypnsapi.default || Dypnsapi;
 import { CrmSmsFailure } from './crm-sms-failure.mjs';
@@ -26,17 +27,21 @@ const failureFor = (code, fallback) => {
 };
 export const crmSmsFailureCategory = error => failureCategories.get(error) || 'unclassified';
 
-async function providerCall(callback) {
-  try { return await callback(); }
-  catch (error) {
-    // Read only exact codes/names, never stringify an SDK error or inspect its
-    // request, response, message, cause or diagnostic data.
-    let code;
-    try { code = error?.code; } catch {}
-    // The SDK's httpx transport marks connection/read timeouts by name only.
-    try { if (!failureCodes.has(code) && error?.name === 'RequestTimeoutError') code = 'ETIMEDOUT'; } catch {}
-    throw failureFor(code, 'transport-unavailable');
-  }
+async function providerCall(callback, validate = result => result) {
+  return observeCrmSmsTransport(async () => {
+    let result;
+    try { result = await callback(); }
+    catch (error) {
+      // Read only exact codes/names, never stringify an SDK error or inspect its
+      // request, response, message, cause or diagnostic data.
+      let code;
+      try { code = error?.code; } catch {}
+      // The SDK's httpx transport marks connection/read timeouts by name only.
+      try { if (!failureCodes.has(code) && error?.name === 'RequestTimeoutError') code = 'ETIMEDOUT'; } catch {}
+      throw failureFor(code, 'transport-unavailable');
+    }
+    return validate(result);
+  });
 }
 
 // Same account, restricted RAM credentials, approved signature and template as
@@ -56,12 +61,13 @@ export function createCrmSms(env, { client: injectedClient } = {}) {
   const base = (phone, id) => ({ countryCode: '86', phoneNumber: phone, schemeName: CRM_SMS_SCHEME, outId: `crm-${id}` });
   return {
     async send(phone, id) {
-      const { body } = await providerCall(() => client.sendSmsVerifyCode(new Dypnsapi.SendSmsVerifyCodeRequest({
+      await providerCall(() => client.sendSmsVerifyCode(new Dypnsapi.SendSmsVerifyCodeRequest({
         ...base(phone, id), signName: env.ALIYUN_SMS_SIGN_NAME, templateCode: env.ALIYUN_SMS_TEMPLATE_CODE,
         templateParam: JSON.stringify({ code: '##code##', min: '5' }), codeLength: 6, validTime: 300,
         duplicatePolicy: 1, interval: 60, codeType: 1, returnVerifyCode: false, autoRetry: 0
-      })));
-      if (body?.code !== 'OK' || body.success !== true) throw failureFor(body?.code);
+      })), ({ body }) => {
+        if (body?.code !== 'OK' || body.success !== true) throw failureFor(body?.code);
+      });
     },
     async verify(phone, code, id) {
       const { body } = await providerCall(() => client.checkSmsVerifyCode(new Dypnsapi.CheckSmsVerifyCodeRequest({

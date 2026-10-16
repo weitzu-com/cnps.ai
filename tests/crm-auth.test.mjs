@@ -623,7 +623,10 @@ test('SMS failure categories stay in server logs while client responses, cooldow
       : { action: 'send', phone: adminPhone, consent: true } });
     assert.equal(response.status, 503);
     assert.deepEqual(response.json(), { error: stage === 'sms-send' ? '短信发送服务暂不可用，请稍后重试。' : '短信验证服务暂不可用，请稍后重新获取验证码。', code: 'CRM_AUTH_UNAVAILABLE', stage });
-    assert.deepEqual(h.failures, [{ stage, category: 'timeout', reason: 'ETIMEDOUT' }]);
+    assert.equal(h.failures.length, 1);
+    const { transport, ...failure } = h.failures[0];
+    assert.deepEqual(failure, { stage, category: 'timeout', reason: 'ETIMEDOUT' });
+    assert.deepEqual({ ...transport, elapsedMs: 0 }, { observed: false, requestCount: 0, elapsedMs: 0, lastStage: 'unknown' });
     assert.equal(response.headers['set-cookie'], undefined);
     assert.equal(storedSession(h), undefined);
     const output = JSON.stringify([h.failures, response.json()]);

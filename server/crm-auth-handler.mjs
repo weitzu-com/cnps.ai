@@ -4,6 +4,7 @@ import { digest, encrypt, decrypt, keyBytes } from './proposal-crypto.mjs';
 import { normalizePhone } from './proposal-handler.mjs';
 import { SMS_PHONE_DAILY_LIMIT, SMS_GLOBAL_DAILY_LIMIT, SMS_GLOBAL_MONTHLY_LIMIT } from './sms-policy.mjs';
 import { crmSmsFailureCategory } from './crm-auth-sms.mjs';
+import { crmSmsTransportFailure } from './crm-sms-transport.mjs';
 
 export const CRM_SESSION_COOKIE = '__Host-cnps_crm';
 export const CRM_CHALLENGE_COOKIE = '__Host-cnps_crm_challenge';
@@ -278,7 +279,8 @@ export function createCrmAuthHandler({ env, storeFactory, smsFactory, loadMember
       // Log only fixed stages/categories/codes, never provider messages, phone
       // numbers, credentials, cookies, challenge IDs or verification codes.
       const smsFailure = ['sms-send', 'sms-verify'].includes(failureStage);
-      try { reportFailure({ stage: failureStage, ...(smsFailure ? { category: crmSmsFailureCategory(failure) } : {}), ...(failure instanceof CrmSmsFailure ? { reason: failure.reason } : {}) }); } catch {}
+      const transport = smsFailure ? crmSmsTransportFailure(failure) : undefined;
+      try { reportFailure({ stage: failureStage, ...(smsFailure ? { category: crmSmsFailureCategory(failure) } : {}), ...(failure instanceof CrmSmsFailure ? { reason: failure.reason } : {}), ...(transport ? { transport } : {}) }); } catch {}
       const error = failureStage === 'sms-send' ? '短信发送服务暂不可用，请稍后重试。'
         : failureStage === 'sms-verify' ? '短信验证服务暂不可用，请稍后重新获取验证码。'
         : '访问服务暂不可用，请稍后重试或联系项目对接人。';
