@@ -92,14 +92,14 @@ test('all 198 default Requirements pages retain their complete approved HTML', (
     assert.ok(!html.includes('href="https://website.wasionholdings.wisdomir.com/en/ir_ann.php"'), slug);
     return [slug, hash(html)];
   });
-  // Advanced from e31e5754 for the shared dialog's native Tab/Shift+Tab wrap
-  // and two official external destinations: the
-  // official CN site is wasion.cn; the publisher's investor page uses HTTP
-  // (the forced HTTPS URL fails certificate-name validation). An independent
-  // clean 0268 archive comparison confirmed these literal href replacements
-  // and the exact shared-client replacement are the complete difference on
-  // all198 pages. Earlier clarification/visual evidence stays separate.
-  assert.equal(hash(JSON.stringify(rows)), '9417e42fea1549a80ab90fdbeb03812cc0eed574ce49eb8036557db7fbe9a3d7');
+  // Advanced from 9417e42f for source-preserving parameter grids, five visible
+  // source-wording notices, their shared scroll/contrast styling, and four
+  // exact product-ID display focus corrections. A clean f152 archive with
+  // only those explicit focus helper edits matched all198 outputs after the
+  // business CSS and86 parameter sections were replaced. All1499 source rows
+  // and2606 cells retain their original spans and text.
+  // Earlier source/keyboard/visual evidence stays separately frozen.
+  assert.equal(hash(JSON.stringify(rows)), 'de2f41e776dae2a71c1abc65811ccb268d44f635a2943210d2138a6d614ae8b0');
 });
 
 test('fifteen populated, empty and hostile search query outputs remain byte-identical in all five styles', () => {
