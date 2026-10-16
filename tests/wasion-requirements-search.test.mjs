@@ -24,6 +24,8 @@ test('all 86 exact official product titles rank first in backend, embedded brows
     const browser=context.ranker(catalog,product.title);
     assert.equal(backend.results[0]?.id,product.slug,product.title+' backend');
     assert.equal(browser[0]?.id,product.slug,product.title+' browser');
+    assert.deepEqual(backend.results.map(source=>source.id),[product.slug],product.title+' exact query excludes unrelated generic-word hits');
+    assert.deepEqual(Array.from(browser,source=>source.id),[product.slug],product.title+' embedded fallback exact result set');
     const html=wasionDemoPage('search-fixture',{slug:'search',query:product.title});
     assert.ok(stripScripts(html).includes('href="/demo/wasion/'+product.slug+'"'),product.title+' rendered destination');
     for(const source of backend.results){assert.equal(source.url,sourceById.get(source.id)?.url);assert.equal(new URL(source.url).origin,'https://en.wasion.com');}
@@ -154,4 +156,23 @@ test('embedded improved search remains nonce-scoped and parses when the question
     assert.match(attributes,/nonce="search-fixture"/);
     if(!attributes.includes('application/ld+json'))assert.doesNotThrow(()=>new Script(script));
   }
+});
+
+test('general catalogue requests return only pages with the matching available file; named missing-model documents remain findable',()=>{
+  for(const question of ['Where can I download the Wasion Electricity Meters catalogue?','威胜电表目录在哪里下载？']){
+    const results=retrieveWasionSources(question,{limit:122}).results;
+    assert.ok(results.length>0);
+    for(const source of results)assert.ok(source.downloads.some(file=>file.title==='Electricity Meters'),question+' '+source.id);
+  }
+  assert.equal(retrieveWasionSources('DDS102 datasheet').results[0]?.id,'product-dds102-single-phase-energy-meter');
+});
+
+test('named model document requests retain exact missing-file paths, including nonnumeric abbreviations',()=>{
+ const catalog=embedded(wasionDemoPage('named-documents',{slug:'search'}));
+ for(const [question,id] of [['HMPM datasheet','product-hmpm-for-the-android-platform-to-set-parameters-read-copy-data-from-meters-with-hhu'],['SNMS manual','product-snms-smart-network-management-system'],['Large Power Unit datasheet','wasion-metering-cabinet-large-power-unit']]){
+  for(const results of [retrieveWasionSources(question,{limit:122}).results,rankRequirementsSearchPages(catalog,question)]){
+   assert.equal(results[0]?.id,id,question);
+   assert.deepEqual(results.filter(source=>source.category==='Products').map(source=>source.id),[id],question+' no unrelated products');
+  }
+ }
 });

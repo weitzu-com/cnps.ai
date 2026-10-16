@@ -171,13 +171,16 @@ export function rankRequirementsSearchPages(pages, question) {
   const available = new Map(pages.map(source => [source.id, [...new Set(modelTokens(sourceText(source)))]]));
   if (requested.some(model => ![...available.values()].some(models => models.includes(model)))) return [];
   const resourceIntent = /\b(download|catalog(?:ue)?|datasheet|manual|documents?)\b|下载|目录|资料|规格书|手册/i.test(question);
+  const downloadIntent = /\b(download|catalog(?:ue)?|datasheet|manual|documents?)\b|下载|目录|规格书|手册/i.test(question);
   const solutionIntent = /\bsolutions?\b|方案/.test(query);
   const certificateIntent = /certif|\b(?:listed|listing|approved|approval|compliant|compliance|conforms?|conformity|conformant|recognized|recognised|accredited|rated)\b|认证|证书|资质|通过|符合|获证|列名|获批|合规/i.test(question);
   const requestedProtocols = tokens.filter(token => ['sts','lorawan','dlms','cosem'].includes(token));
   const categoryIds = new Set(['products','electricity-meters','telecommunications','system-software','water-gas-meters','intelligent-power-distribution','renewable-energy']);
+  const exactProductIds = new Set(pages.filter(source => source.category === 'Products' && !categoryIds.has(source.id) && normal(source.title) === query).map(source => source.id));
   const namedProducts = pages.filter(source => source.category === 'Products' && !categoryIds.has(source.id) && normal(source.title).length >= 3 && terms(query, normal(source.title)));
   const longestName = Math.max(0, ...namedProducts.map(source => normal(source.title).length));
   const namedIds = new Set(namedProducts.filter(source => normal(source.title).length === longestName).map(source => source.id));
+  const namedPrefixes = new Set(pages.filter(source => source.category === 'Products' && !categoryIds.has(source.id) && /^[A-Z]{3,12}$/.test(String(source.title).split(' ')[0]) && terms(query, String(source.title).split(' ')[0])).map(source => source.id));
   const asksMeters = /\bmeters?\b|\bmetering\b|电表|电能表|水表|气表/.test(query);
   const asksStorage = /\b(?:energy storage|battery|batteries|bess)\b|储能|电池/.test(query);
   const uplinkIntent = /\bDL\s*\/\s*UL\b|\buplink\b|\bdata\s+rate\b/i.test(question);
@@ -198,9 +201,21 @@ export function rankRequirementsSearchPages(pages, question) {
   const frequency = new Map(tokens.map(token => [token, pages.filter(source => terms(normal(sourceText(source)), token)).length]));
   return pages.filter(source => source.id !== 'home').map(source => {
     const title = normal(source.title), body = normal(sourceText(source)), models = available.get(source.id);
+    if (exactProductIds.size && !exactProductIds.has(source.id)) return { source, score: 0 };
+    // A general document request must lead to an available relevant file,
+    // while a named model can still expose its honest missing-document path.
+    const titleModels = modelTokens(source.title);
+    const namedDocumentProduct = source.category === 'Products' && !categoryIds.has(source.id) && (namedIds.has(source.id) || namedPrefixes.has(source.id) || requested.some(model => !/^(?:ul|iec|iso|ansi|en|din)\d/.test(model) && titleModels.includes(model)));
+    if (downloadIntent && !namedDocumentProduct) {
+      const documentTokens = tokens.filter(token => !/^(?:download|catalog(?:ue)?|datasheet|manual|documents?)$/.test(token));
+      const relevantDownload = (source.downloads || []).some(item => {
+        const label = normal(item.title);
+        return (!documentTokens.length && !active.length) || documentTokens.some(token => terms(label, token)) || active.some(group => group.keys.some(key => terms(label, key)));
+      });
+      if (!relevantDownload) return { source, score: 0 };
+    }
     if (requested.length && !requested.every(model => models.includes(model))) return { source, score: 0 };
     if (!requested.length && requestedProtocols.some(protocol => !terms(body, protocol))) return { source, score: 0 };
-    const titleModels = modelTokens(source.title);
     const specificProduct = source.category === 'Products' && (namedIds.has(source.id) || requested.some(model => !/^(?:ul|iec|iso|ansi|en|din)\d/.test(model) && titleModels.includes(model)));
     if (certificateIntent && !specificProduct && !certificateCodes.length && certificateSubjectTokens.length && !certificateSubjectTokens.some(token => terms(body, token))) return { source, score: 0 };
     if (certificateCodes.length && !specificProduct) {
