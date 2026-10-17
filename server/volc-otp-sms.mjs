@@ -22,7 +22,7 @@ export function createVolcOtpSms(env,{purpose='crm',redis,fetchImpl=globalThis.f
   if(await storage().set(key(phone,id),record,{ex:300,nx:true})!=='OK')throw Error('OTP challenge already exists');
   try{
    const request=signVolcSms(env,'SendSmsForAgent',{SubAccount:env.CRM_VOLC_SMS_SUB_ACCOUNT,Signature:env.CRM_VOLC_OTP_SIGN,TemplateId:env.CRM_VOLC_OTP_TEMPLATE_ID,Mobiles:phone,TemplateParam:JSON.stringify({code})},now());
-   const response=await fetchImpl(request.url,{method:'POST',headers:request.headers,body:request.body,redirect:'error',signal:AbortSignal.timeout(10000)});
+   const response=await fetchImpl(request.url,{method:'POST',headers:request.headers,body:request.body,redirect:'error',signal:AbortSignal.timeout(20000)});
    if(!response.ok)throw new CrmSmsFailure(undefined,'transport-unavailable');
    const result=await response.json();const ids=result?.Result?.MessageId??result?.Result?.MessageID??result?.Result?.MessageIds;
    if(result.ResponseMetadata?.Error||!Array.isArray(ids)||ids.length!==1||typeof ids[0]!=='string'||!ids[0]){
@@ -34,6 +34,6 @@ export function createVolcOtpSms(env,{purpose='crm',redis,fetchImpl=globalThis.f
     reportFailure({code,requestId,invalidMessageId:!meta.Error,rootFields:fields.filter(k=>Object.hasOwn(result,k)),resultFields:fields.filter(k=>result.Result&&Object.hasOwn(result.Result,k))});
     throw new CrmSmsFailure();
    }
-  }catch(error){await storage().del(key(phone,id)).catch(()=>{});throw error instanceof CrmSmsFailure?error:new CrmSmsFailure(undefined,'transport-unavailable');}
+  }catch(error){await storage().del(key(phone,id)).catch(()=>{});throw error instanceof CrmSmsFailure?error:new CrmSmsFailure(['TimeoutError','AbortError'].includes(error?.name)?'ETIMEDOUT':undefined,'transport-unavailable');}
  },async verify(phone,code,id){valid(phone,id);if(!/^\d{6}$/.test(code))return false;return Number(await storage().eval(ATTEMPT,[key(phone,id)],[digest(phone,id,code)]))===1;}};
 }
