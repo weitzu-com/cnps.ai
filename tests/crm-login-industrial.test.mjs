@@ -10,6 +10,9 @@ import { WASION_STYLES, wasionStyleBase } from '../server/wasion-demo-styles.mjs
 
 const nonce = 'industrial-login-fixture';
 const hash = value => createHash('sha256').update(value).digest('hex');
+// Preserve the original visual-regression baseline apart from the intentional
+// browser timeout increase beyond the auth function's 30s execution budget.
+const originalBudget = value => value.replace('controller.abort(), 35000', 'controller.abort(), 15000');
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 const clientScript = html => {
   const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)];
@@ -55,7 +58,7 @@ test('only valid Wasion destinations receive the scoped Industrial login theme',
 
 test('Industrial login decoration preserves every original client-script byte for canonical, styled, query and POST targets', () => {
   for (const [options, bytes, digest] of scriptBaselines) {
-    const script = clientScript(crmLoginPage(nonce, options));
+    const script = originalBudget(clientScript(crmLoginPage(nonce, options)));
     assert.equal(Buffer.byteLength(script), bytes, options.returnTo);
     assert.equal(hash(script), digest, options.returnTo);
     assert.doesNotThrow(() => new Script(script), options.returnTo);
@@ -64,7 +67,7 @@ test('Industrial login decoration preserves every original client-script byte fo
 
 test('generic CRM and proposal login HTML remain byte-identical to the original renderer', () => {
   for (const [returnTo, bytes, digest] of genericBaselines) {
-    const html = crmLoginPage(nonce, { returnTo });
+    const html = originalBudget(crmLoginPage(nonce, { returnTo }));
     assert.equal(Buffer.byteLength(html), bytes, String(returnTo));
     assert.equal(hash(html), digest, String(returnTo));
   }

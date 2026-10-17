@@ -123,7 +123,7 @@ export function crmLoginPage(nonce, { returnTo, resumeQuestion } = {}) {
   }
   async function request(action, data = {}) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+    const timeout = setTimeout(() => controller.abort(), 35000);
     try {
       const isSession = action === 'session';
       const response = await fetch(isSession ? '/api/crm?view=session' : '/api/crm', {
