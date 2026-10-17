@@ -6,7 +6,7 @@ const ATTEMPT=`local v=redis.call('GET',KEYS[1]);if not v then return 0 end;loca
 // A keyed digest binds code to phone, purpose, provider and browser challenge.
 // No plaintext code is persisted or returned. The outer auth flow owns ACL,
 // cookie binding, global quotas, per-IP quotas and atomic challenge consumption.
-export function createVolcOtpSms(env,{purpose='crm',redis,fetchImpl=globalThis.fetch,now=Date.now,generateCode=()=>String(randomInt(100000,1000000))}={}){
+export function createVolcOtpSms(env,{purpose='crm',redis,fetchImpl=globalThis.fetch,now=Date.now,generateCode=()=>String(randomInt(100000,1000000)),reportFailure=event=>console.warn('CNPS_VOLC_OTP_REJECTED',JSON.stringify(event))}={}){
  if(!['crm','proposal'].includes(purpose))throw Error('Invalid SMS purpose');
  for(const key of ['CRM_VOLC_SMS_ACCESS_KEY','CRM_VOLC_SMS_SECRET_KEY','CRM_VOLC_SMS_SUB_ACCOUNT','CRM_VOLC_OTP_SIGN','CRM_VOLC_OTP_TEMPLATE_ID','CNPS_PROPOSAL_SECRET'])if(!env[key])throw Error('Volc OTP not configured');
  if(!/^[a-f0-9]{64}$/i.test(env.CNPS_PROPOSAL_SECRET))throw Error('Invalid OTP secret');
@@ -25,7 +25,14 @@ export function createVolcOtpSms(env,{purpose='crm',redis,fetchImpl=globalThis.f
    const response=await fetchImpl(request.url,{method:'POST',headers:request.headers,body:request.body,redirect:'error',signal:AbortSignal.timeout(10000)});
    if(!response.ok)throw new CrmSmsFailure(undefined,'transport-unavailable');
    const result=await response.json();const ids=result?.Result?.MessageId;
-   if(result.ResponseMetadata?.Error||!Array.isArray(ids)||ids.length!==1||typeof ids[0]!=='string'||!ids[0])throw new CrmSmsFailure();
+   if(result.ResponseMetadata?.Error||!Array.isArray(ids)||ids.length!==1||typeof ids[0]!=='string'||!ids[0]){
+    const meta=result.ResponseMetadata||{},rawCode=String(meta.Error?.Code||'');
+    const knownCodes=new Set(['AccessDenied','Forbidden','InvalidAccessKeyId','SignatureDoesNotMatch','InvalidParameter','MissingParameter','InvalidAction','InvalidVersion']);
+    const code=/^\d{1,6}$/.test(rawCode)||knownCodes.has(rawCode)?rawCode:'unclassified';
+    const requestId=/^[A-Z0-9]{20,64}$/.test(meta.RequestId||'')?meta.RequestId:undefined;
+    reportFailure({code,requestId,invalidMessageId:!meta.Error});
+    throw new CrmSmsFailure();
+   }
   }catch(error){await storage().del(key(phone,id)).catch(()=>{});throw error instanceof CrmSmsFailure?error:new CrmSmsFailure(undefined,'transport-unavailable');}
  },async verify(phone,code,id){valid(phone,id);if(!/^\d{6}$/.test(code))return false;return Number(await storage().eval(ATTEMPT,[key(phone,id)],[digest(phone,id,code)]))===1;}};
 }
