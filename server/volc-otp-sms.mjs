@@ -24,13 +24,14 @@ export function createVolcOtpSms(env,{purpose='crm',redis,fetchImpl=globalThis.f
    const request=signVolcSms(env,'SendSmsForAgent',{SubAccount:env.CRM_VOLC_SMS_SUB_ACCOUNT,Signature:env.CRM_VOLC_OTP_SIGN,TemplateId:env.CRM_VOLC_OTP_TEMPLATE_ID,Mobiles:phone,TemplateParam:JSON.stringify({code})},now());
    const response=await fetchImpl(request.url,{method:'POST',headers:request.headers,body:request.body,redirect:'error',signal:AbortSignal.timeout(10000)});
    if(!response.ok)throw new CrmSmsFailure(undefined,'transport-unavailable');
-   const result=await response.json();const ids=result?.Result?.MessageId;
+   const result=await response.json();const ids=result?.Result?.MessageId??result?.Result?.MessageID??result?.Result?.MessageIds;
    if(result.ResponseMetadata?.Error||!Array.isArray(ids)||ids.length!==1||typeof ids[0]!=='string'||!ids[0]){
     const meta=result.ResponseMetadata||{},rawCode=String(meta.Error?.Code||'');
     const knownCodes=new Set(['AccessDenied','Forbidden','InvalidAccessKeyId','SignatureDoesNotMatch','InvalidParameter','MissingParameter','InvalidAction','InvalidVersion']);
     const code=/^\d{1,6}$/.test(rawCode)||knownCodes.has(rawCode)?rawCode:'unclassified';
     const requestId=/^[A-Z0-9]{20,64}$/.test(meta.RequestId||'')?meta.RequestId:undefined;
-    reportFailure({code,requestId,invalidMessageId:!meta.Error});
+    const fields=['MessageId','MessageID','MessageIds','Code','code','Error','ErrorCode','Message','ResponseMetadata','Result'];
+    reportFailure({code,requestId,invalidMessageId:!meta.Error,rootFields:fields.filter(k=>Object.hasOwn(result,k)),resultFields:fields.filter(k=>result.Result&&Object.hasOwn(result.Result,k))});
     throw new CrmSmsFailure();
    }
   }catch(error){await storage().del(key(phone,id)).catch(()=>{});throw error instanceof CrmSmsFailure?error:new CrmSmsFailure(undefined,'transport-unavailable');}
