@@ -44,7 +44,7 @@ test('titles and metas are unique across every post and locale, and the API post
     assert.match(api.locales[l].title, /Gemini/);
     assert.ok(api.locales[l].description.length <= 170, 'meta length ' + l + ' ' + api.locales[l].description.length);
   }
-  assert.match(post(slugs[1]).locales.en.title, /^TicNote card vs Lite vs Pods/);
+  assert.match(post(slugs[1]).locales.en.title, /^TicNote Card vs Lite vs Pods/);
   assert.match(post(slugs[2]).locales.en.title, /under \$150/);
 });
 
@@ -114,7 +114,8 @@ test('built journal pages carry BlogPosting schema, unique titles and locale-pre
       const posting = blocks.find((x) => x['@type'] === 'BlogPosting');
       assert.ok(posting, file + ' BlogPosting JSON-LD');
       assert.equal(posting.datePublished, '2026-09-27');
-      assert.ok(!blocks.some((x) => x['@type'] === 'FAQPage'), 'journal posts do not carry FAQPage; match the existing blog schema');
+      // Only a post that authors a `faq` block (rendered on the page) carries FAQPage; the rest keep the plain BlogPosting schema.
+      assert.equal(blocks.some((x) => x['@type'] === 'FAQPage'), Boolean(v.faq), file + ' FAQPage presence must follow the authored faq block');
       assert.match(html, new RegExp(`href="/${l}/products/ticnote"`));
       assert.doesNotMatch(html, /href="\/products\//);
       assert.match(sitemap, new RegExp(`<loc>https://www\\.cnps\\.ai/${l}/blogs/${slug}</loc>`));
