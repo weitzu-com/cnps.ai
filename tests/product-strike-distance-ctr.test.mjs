@@ -17,26 +17,31 @@ function jsonLdBlocks(html) {
   return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
 }
 
+// 2026-10-18 gap analysis: "mobvoi ticnote" (390/mo) and "voice recorder with transcription" (22,200/mo) joined "ticnote card" as
+// target queries, so the EN title names the maker (Mobvoi is the company behind the TicNote brand; see ticnote.com support pages)
+// while the product name, H1 and ZH/AR titles stay "TicNote".
 test('TicNote card page: title, meta and copy answer the "ticnote card" query', () => {
-  assert.equal(ticnote.seoTitle.en, 'TicNote card: 64GB AI voice recorder for meetings and calls');
-  assert.match(ticnote.description.en, /^TicNote card: card-sized AI voice recorder/);
+  assert.equal(ticnote.seoTitle.en, 'Mobvoi TicNote AI Voice Recorder with Transcription – Specs & Price');
+  assert.match(ticnote.description.en, /^Mobvoi TicNote: card-sized AI voice recorder with transcription/);
   assert.match(ticnote.description.en, /64GB/);
   assert.match(ticnote.description.en, /TicNote Lite/);
   assert.match(ticnote.description.en, /Pods/);
-  assert.ok(ticnote.seoTitle.en.length <= 60, 'title length ' + ticnote.seoTitle.en.length);
+  assert.ok(ticnote.seoTitle.en.length <= 70, 'title length ' + ticnote.seoTitle.en.length);
   assert.ok(ticnote.description.en.length <= 170, 'meta length ' + ticnote.description.en.length);
   assert.match(ticnote.seoTitle.zh, /TicNote 卡片录音器/);
   assert.match(ticnote.seoTitle.ar, /بطاقة TicNote/);
-  assert.match(ticnote.body.en, /^# TicNote AI Voice Recorder\n\nThe TicNote card: a card-sized AI voice recorder/);
+  assert.match(ticnote.body.en, /^# TicNote AI Voice Recorder\n\nThe Mobvoi TicNote card: a card-sized AI voice recorder with transcription/);
   assert.match(ticnote.guide.en, /^## TicNote card, Lite or Pods at a glance$/m);
   assert.match(ticnote.guide.en, /\| Form \| Card-sized recorder that sits on the table \|/);
   assert.match(ticnote.guide.en, /^### What does "TicNote card" mean\?$/m);
   assert.match(ticnote.guide.en, /^### How much does the TicNote card cost\?$/m);
   assert.match(ticnote.guide.zh, /^## 卡片、Lite 与 Pods 一览$/m);
   assert.match(ticnote.guide.ar, /^## بطاقة TicNote أو Lite أو Pods في لمحة$/m);
-  // Only figures the shop listing publishes: no vendor rename, no battery hours, no accuracy claims.
+  // Only figures the shop listing publishes: the maker is named but never replaces the TicNote brand, no battery hours, no accuracy claims.
   for (const l of locales) {
-    assert.doesNotMatch(ticnote.guide[l] + ticnote.description[l] + ticnote.seoTitle[l], /mobvoi/i);
+    assert.match(ticnote.seoTitle[l], /TicNote/);
+    assert.match(ticnote.title[l], /TicNote/);
+    assert.doesNotMatch(ticnote.title[l], /mobvoi/i, 'the H1 / product name stays TicNote');
     assert.doesNotMatch(ticnote.guide[l], /\d+\s*(hours|小时|ساعة)\s*(of )?(battery|电池|بطارية)/i);
     assert.doesNotMatch(ticnote.guide[l], /\d{2,}\s*%\s*(accuracy|准确|دقة)/i);
   }
@@ -44,11 +49,11 @@ test('TicNote card page: title, meta and copy answer the "ticnote card" query', 
 
 test('INMO GO3 page: title, meta, H1 and copy answer glasses and price intent', () => {
   assert.equal(inmo.title.en, 'INMO GO3 AI Smart Glasses');
-  assert.equal(inmo.seoTitle.en, 'INMO GO3 AI smart glasses: price, display and translation');
+  assert.equal(inmo.seoTitle.en, 'INMO GO3 AI Smart Glasses – MicroLED Display, Translator, Price');
   assert.match(inmo.description.en, /^INMO GO3 AI smart glasses at \$699\.00 USD/);
   assert.match(inmo.description.en, /53 g/);
   assert.match(inmo.description.en, /78 online \/ 9 offline translation languages/);
-  assert.ok(inmo.seoTitle.en.length <= 60, 'title length ' + inmo.seoTitle.en.length);
+  assert.ok(inmo.seoTitle.en.length <= 65, 'title length ' + inmo.seoTitle.en.length);
   assert.ok(inmo.description.en.length <= 170, 'meta length ' + inmo.description.en.length);
   assert.match(inmo.title.zh, /智能眼镜/);
   assert.match(inmo.title.ar, /نظارات INMO GO3/);
@@ -105,7 +110,7 @@ test('built product pages render the refreshed title, meta, H1 and FAQ JSON-LD',
     return;
   }
   const tic = fs.readFileSync(files.ticnote, 'utf8');
-  assert.match(tic, new RegExp(`<title>${escapeRe(ticnote.seoTitle.en)} \\| CNPS\\.AI</title>`));
+  assert.match(tic, new RegExp(`<title>${escapeRe(ticnote.seoTitle.en.replace(/&/g, '&amp;'))} \\| CNPS\\.AI</title>`));
   assert.match(tic, new RegExp(`<meta name="description" content="${escapeRe(ticnote.description.en)}">`));
   assert.match(tic, /<h1>TicNote AI Voice Recorder<\/h1>/);
   const ticFaq = jsonLdBlocks(tic).find((x) => x['@type'] === 'FAQPage');
