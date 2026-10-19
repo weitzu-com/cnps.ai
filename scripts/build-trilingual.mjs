@@ -321,13 +321,22 @@ for(const l of locales){
    const toc=headings.map(h=>`<a href="#${h.id}">${esc(h.title)}</a>`).join('');
    const meetingPost=posts.find(x=>x.slug==='meeting-ai-measure-the-finished-note');
    const edgePost=posts.find(x=>x.slug==='edge-ai-start-with-the-site');
-   const relatedItems=(g.slug==='uae-ksa-edge-ai-site-readiness'
+   const glassesPost=posts.find(x=>x.slug==='smart-glasses-one-field-task');
+   const recorderGuide=guides.find(x=>x.slug==='meeting-recorder-vs-smart-glasses-bilingual-notes');
+   // The translation-glasses buying guide points readers to the INMO GO3 product page (which owns the brand query), the one-field-task journal piece and the recorder-vs-glasses guide.
+   const relatedItems=(g.slug==='translation-glasses'
+    ?[['/products/inmo-go3',translations(legacy.find(x=>x.path==='/products/inmo-go3').title,l)],['/blogs/smart-glasses-one-field-task',glassesPost?.locales[l]?.title||glassesPost?.locales.en.title],['/guides/meeting-recorder-vs-smart-glasses-bilingual-notes',recorderGuide&&locText(recorderGuide.title,l)]]
+    :g.slug==='uae-ksa-edge-ai-site-readiness'
     ?[['/resources/edge-ai-survey',c.resources.find(x=>x.slug==='edge-ai-survey')?.title],['/blogs/edge-ai-start-with-the-site',edgePost?.locales[l]?.title||edgePost?.locales.en.title],['/solutions/edge-vision',c.solutions.find(x=>x.slug==='edge-vision')?.title]]
     :[['/resources/meeting-device-pilot',c.resources.find(x=>x.slug==='meeting-device-pilot')?.title],['/blogs/meeting-ai-measure-the-finished-note',meetingPost?.locales[l]?.title||meetingPost?.locales.en.title],['/solutions/meeting-ai',c.solutions.find(x=>x.slug==='meeting-ai')?.title]]).filter(x=>x[1]);
    const quoteSolution=g.slug==='uae-ksa-edge-ai-site-readiness'?'edge-vision':'meeting-ai';
-   const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/guides')}">${t.guides}</a><span aria-hidden="true">/</span><span>${esc(title)}</span></div><p class="eyebrow">${t.procurement}</p><h1 class="wide">${esc(h1)}</h1><p class="lead">${esc(description)}</p><div class="report-toolbar"><a class="btn" href="${download}" download>${t.download} ↓</a><button class="btn ghost" type="button" data-print>${t.print}</button>${link(l,'/request-quote?solution='+quoteSolution,t.contact,'btn ghost')}</div></div></section>`;
+   const quotePath=g.slug==='translation-glasses'?'/request-quote?product=inmo-go3':'/request-quote?solution='+quoteSolution;
+   // Guides that opt in with `faqSchema` emit FAQPage from their "## <faq heading>" section (### question / answer pairs).
+   const guideFaq=g.faqSchema?faqFromQuestions(html,t.faq):null;
+   if(g.faqSchema&&guideFaq.length<3)throw Error('Guide FAQ did not render '+l+' '+g.slug);
+   const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/guides')}">${t.guides}</a><span aria-hidden="true">/</span><span>${esc(title)}</span></div><p class="eyebrow">${t.procurement}</p><h1 class="wide">${esc(h1)}</h1><p class="lead">${esc(description)}</p><div class="report-toolbar"><a class="btn" href="${download}" download>${t.download} ↓</a><button class="btn ghost" type="button" data-print>${t.print}</button>${link(l,quotePath,t.contact,'btn ghost')}</div></div></section>`;
    const related=`<section class="section white"><div class="container"><div class="heading-row"><h2>${t.related}</h2>${link(l,'/guides',t.guides,'text-link')}</div><div class="catalog-grid three">${relatedItems.map(([p,relTitle])=>`<article class="catalog-card"><span class="tag">${t.procurement}</span><h3><a href="${route(l,p)}">${esc(relTitle)}</a></h3>${link(l,p,t.open,'text-link')}</article>`).join('')}</div></div></section>`;
-   save(l,'/guides/'+g.slug,title,description,header+`<div class="container report-layout"><details class="report-toc" open><summary>${t.contents} ⌄</summary><nav aria-label="${t.contents}">${toc}</nav></details><article class="prose report-prose">${html}</article></div>`+related,{report:true,availableLocales:itemLocales(g)});
+   save(l,'/guides/'+g.slug,title,description,header+`<div class="container report-layout"><details class="report-toc" open><summary>${t.contents} ⌄</summary><nav aria-label="${t.contents}">${toc}</nav></details><article class="prose report-prose">${html}</article></div>`+related,{report:true,availableLocales:itemLocales(g),faq:guideFaq});
   }
  }
  for(const x of compares.filter(item=>itemLocales(item).includes(l))){
