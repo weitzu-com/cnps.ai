@@ -114,7 +114,7 @@ test('indexing gate (JEV D6): with at least three authorized works the page is i
 });
 
 test('gate switches on the actual work count: fewer than three authorized works means noindex, threshold stays 3', () => {
-  const work = (n, extra = {}) => ({name: 'W' + n, url: `https://w${n}.example/`, permission: true, source: 'fixture', checkedAt: '2026-10-19', deliveredBy: 'fixture', ...extra});
+  const work = (n, extra = {}) => ({name: 'W' + n, url: `https://w${n}.example/`, permission: true, source: 'fixture', checkedAt: '2026-10-19', deliveredBy: 'fixture', permissionSource: 'fixture', ...extra});
   assert.deepEqual(webServicesGate([], 3), {rendered: [], worksRendered: false, indexable: false});
   assert.equal(webServicesGate([work(1), work(2)], 3).indexable, false);
   assert.equal(webServicesGate([work(1), work(2)], 3).worksRendered, true);
@@ -123,6 +123,8 @@ test('gate switches on the actual work count: fewer than three authorized works 
   assert.equal(webServicesGate([work(1), work(2), work(3)], 3).indexable, true);
   assert.throws(() => webServicesGate([work(1), work(2), work(3)], 2), /minAuthorizedWorks >= 3/);
   assert.throws(() => validateWorks([work(1, {source: ''})]), /source, checkedAt/);
+  assert.throws(() => validateWorks([work(1, {permissionSource: ''})]), /permissionSource/);
+  assert.equal(webServicesGate([work(1), work(2), work(3, {permissionSource: undefined})], 3).indexable, false, 'works without permissionSource do not count');
   for (const d of ['zschemi.com', 'carblon.com']) assert.throws(() => validateWorks([work(1, {url: `https://${d}/`})]), /Excluded site/);
   assert.deepEqual(EXCLUDED_WORK_DOMAINS, ['zschemi.com', 'carblon.com']);
   assert.equal(webServicesGate(data.works, data.indexing.minAuthorizedWorks).indexable, true);
@@ -159,6 +161,22 @@ test('#work lists the 13 confirmed works; zschemi and carblon never appear; ever
     for (const key of ['scope', 'deliveryScope', 'launchYear', 'launched', 'year', 'price', 'review', 'testimonial']) assert.equal(w[key], undefined, w.domain + ' ' + key);
     if (w.languages) assert.ok(w.languagesSource && /Live homepage check/.test(w.languagesSource), w.domain + ' languages verified live');
   }
+});
+
+test('owner rulings 2026-10-19: deliveredBy per site, permissionSource on every record, no "written" on the page', () => {
+  const xnFooter = ['heatexoil.com', 'gpepump.com', 'hdysecurity.com', 'bonbbytubes.com', 'rigrs.com', 'bopctrl.com'];
+  const noCredit = ['sdkmss.com', 'raizi.eu', 'renonpower.com', 'kowint.com', 'besen-group.com'];
+  for (const w of data.works) {
+    const expected = groupDomains.includes(w.domain) ? 'CNPS.AI (group company)' : xnFooter.includes(w.domain) ? 'CNPS.AI with partner XN Digital Marketing' : 'CNPS.AI or partner';
+    assert.equal(w.deliveredBy, expected, w.domain);
+    assert.equal(w.permissionSource, 'owner confirmation in chat 2026-10-19', w.domain);
+  }
+  assert.equal(xnFooter.length + noCredit.length + groupDomains.length, data.works.length);
+  // deliveredBy and permissionSource are internal: never rendered.
+  assert.ok(!html.includes('XN Digital Marketing') && !html.includes('owner confirmation'));
+  assert.ok(mainText.includes("We do not show another company's website on this page without the site owner's permission."));
+  assert.doesNotMatch(html, /\bwritten\b/i);
+  assert.doesNotMatch(JSON.stringify(data), /\bwritten\b/i);
 });
 
 test('work cards: external link rel="nofollow noopener" target=_blank, industry, languages, dated screenshot; group companies disclosed', () => {

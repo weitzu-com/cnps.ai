@@ -5,7 +5,7 @@
   ],
   "indexing": {
     "minAuthorizedWorks": 3,
-    "note": "Indexing gate (JEV ruling D6, 2026-10-19): the page is indexable and listed in sitemap.xml only while #work renders at least minAuthorizedWorks entries that carry permission === true with source, checkedAt and deliveredBy (scripts/web-services-gate.mjs). Below the threshold the build falls back to <meta name=\"robots\" content=\"noindex\"> and drops the page from the sitemap automatically."
+    "note": "Indexing gate (JEV ruling D6, 2026-10-19): the page is indexable and listed in sitemap.xml only while #work renders at least minAuthorizedWorks entries that carry permission === true with source, checkedAt, deliveredBy and permissionSource (scripts/web-services-gate.mjs). Below the threshold the build falls back to <meta name=\"robots\" content=\"noindex\"> and drops the page from the sitemap automatically."
   },
   "works": [
     {
@@ -26,8 +26,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI with partner XN Digital Marketing",
       "source": "https://heatexoil.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -50,8 +50,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI with partner XN Digital Marketing",
       "source": "https://gpepump.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -72,8 +72,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI with partner XN Digital Marketing",
       "source": "https://hdysecurity.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -101,8 +101,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI with partner XN Digital Marketing",
       "source": "https://bonbbytubes.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -125,8 +125,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI or partner",
       "source": "https://sdkmss.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -162,8 +162,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI or partner",
       "source": "https://raizi.eu/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -186,8 +186,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI with partner XN Digital Marketing",
       "source": "https://rigrs.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -208,8 +208,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI or partner",
       "source": "https://www.renonpower.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -237,8 +237,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI or partner",
       "source": "https://www.kowint.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -311,8 +311,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI or partner",
       "source": "https://www.besen-group.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -334,8 +334,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI with partner XN Digital Marketing",
       "source": "https://bopctrl.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -356,8 +356,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS group company site; CNPS.AI or partner project per owner confirmation",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI (group company)",
       "source": "https://www.cnps.ru/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     },
@@ -378,8 +378,8 @@
         "viewport": "1440x900"
       },
       "permission": true,
-      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
-      "deliveredBy": "CNPS group company site; CNPS.AI or partner project per owner confirmation",
+      "permissionSource": "owner confirmation in chat 2026-10-19",
+      "deliveredBy": "CNPS.AI (group company)",
       "source": "https://www.ifgs.ru/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
       "checkedAt": "2026-10-19"
     }
@@ -444,7 +444,7 @@
       "items": [
         "We do not promise search rankings, traffic levels or a number of inquiries. Search engines and AI assistants decide independently how they show any page.",
         "We do not invent specifications, certifications, customer names or figures. Product facts on your site come from your documents and are approved by you.",
-        "We do not show another company's website on this page without that company's written permission."
+        "We do not show another company's website on this page without the site owner's permission."
       ]
     }
   ],

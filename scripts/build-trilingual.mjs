@@ -93,11 +93,11 @@ for(const g of guides){
  }
 }
 // Website-building service page (/en/services/websites). English-only skeleton per the JEV ruling of 2026-10-19:
-// no portfolio works, no attribution, no delivery scope list and no FAQ. Any copy still written as [[PLACEHOLDER: ...]]
+// no portfolio works, no attribution, no delivery scope list and no FAQ. Any copy still marked as [[PLACEHOLDER: ...]]
 // is turned into a failed production build (VERCEL_ENV=production) by scripts/placeholder-guard.mjs.
 const webServices=fs.existsSync('content/i18n/web-services.json')?json('content/i18n/web-services.json'):null;
 // INDEXING GATE (JEV D6): the service page is indexable and listed in sitemap.xml only while #work renders at least
-// `indexing.minAuthorizedWorks` (3) works that carry written permission. WEB_SERVICES_WORKS_RENDERED and the
+// `indexing.minAuthorizedWorks` (3) works that carry the site owner's permission. WEB_SERVICES_WORKS_RENDERED and the
 // indexable flag are derived from the actual work records (scripts/web-services-gate.mjs); below the threshold the
 // page falls back to noindex and drops out of the sitemap automatically. Excluded sites (down or theme demo) fail the build.
 let WEB_SERVICES_WORKS_RENDERED=false;
