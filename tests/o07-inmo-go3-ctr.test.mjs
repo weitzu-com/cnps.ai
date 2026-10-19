@@ -6,7 +6,8 @@ import path from 'node:path';
 const slug = 'inmo-go3';
 const title = 'INMO GO3 AI Smart Glasses';
 const description =
-  'INMO GO3 AI smart glasses ($699): 53 g MicroLED translation glasses—confirm 53 g vs ≈58 g listings, language list, and one field task before you pilot.';
+  'INMO GO3 AI smart glasses ($699): ≈58 g MicroLED translation glasses, per the INMO spec page—check the language list and one field task before you pilot.';
+const inmoSpec = 'https://www.inmo.com/pages/inmo-go3-ai-glasses';
 const arGlasses = 'AR Smart Glasses';
 const fieldTask = 'Smart glasses: choose one field task first';
 const recorderGuide = 'Meeting recorder vs smart glasses for bilingual meeting notes';
@@ -24,22 +25,26 @@ test('EN description is method-toned, ≤160 chars, synced in legacy-pages', () 
   assert.ok(description.length >= 130);
   assert.equal(record.title.en, title);
   assert.equal(record.description.en, description);
-  assert.match(record.description.en, /53 g/);
-  assert.match(record.description.en, /58 g|≈58/);
+  assert.doesNotMatch(record.description.en, /53 g/);
+  assert.match(record.description.en, /≈58 g/);
 });
 
-test('ZH and AR descriptions parallel EN meaning (weight caveat + pilot path)', () => {
-  assert.match(record.description.zh, /53/);
-  assert.match(record.description.zh, /58/);
-  assert.match(record.description.ar, /53/);
-  assert.match(record.description.ar, /58/);
+test('ZH and AR descriptions parallel EN meaning (INMO weight + pilot path)', () => {
+  for (const l of ['zh', 'ar']) {
+    assert.doesNotMatch(record.description[l], /53/);
+    assert.match(record.description[l], /58 g/);
+  }
 });
 
-test('guide has weight caveat and exact sister / quote anchors', () => {
+test('guide uses INMO\'s ≈58 g with the official source, plus exact sister / quote anchors', () => {
   const g = record.guide.en;
-  assert.match(g, /53 g/);
-  assert.match(g, /≈58 g|≈ 58 g|about 58 g|~58 g/);
-  assert.match(g, /do not assume one listing overrides|without written confirmation/i);
+  assert.match(g, /≈58 g/);
+  assert.ok(g.includes(`](${inmoSpec})`), 'weight links to the INMO spec page');
+  for (const l of ['en', 'zh', 'ar']) {
+    assert.ok(record.body[l].includes(`](${inmoSpec})`), l + ' body links the INMO spec page');
+    assert.doesNotMatch(record.body[l], /^- \*\*(Weight|重量|الوزن)\*\*[:：] 53/m);
+    assert.doesNotMatch(record.guide[l], /(Shop and www list|商店与 www 标|يسرد المتجر وwww) 53/);
+  }
   assert.match(g, new RegExp(`\\[${esc(arGlasses)}\\]\\(/products/ar-smart-glasses\\)`));
   assert.match(g, new RegExp(`\\[${esc(fieldTask)}\\]\\(/blogs/smart-glasses-one-field-task\\)`));
   assert.match(g, new RegExp(`\\[${esc(recorderGuide)}\\]\\(/guides/meeting-recorder-vs-smart-glasses-bilingual-notes\\)`));
@@ -85,6 +90,6 @@ test('built EN page: new meta, H1 unchanged, editorial og, method glance, quote 
   assert.match(html, new RegExp(`href="/en/request-quote[^"]*"[^>]*>${esc(quoteAnchor)}`));
   assert.match(html, /inmo-go3-method-glance\.webp/);
   assert.match(html, /method glance|Evaluation method|Weight/i);
-  assert.match(html, /53 g/);
-  assert.match(html, /58 g|≈58/);
+  assert.match(html, /≈58 g/);
+  assert.ok(html.includes(`href="${inmoSpec}"`), 'built page links the INMO spec page');
 });
