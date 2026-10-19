@@ -12,7 +12,7 @@ const guides = JSON.parse(fs.readFileSync('content/i18n/guides.json', 'utf8')).g
 const meta = guides.find((g) => g.slug === slug);
 const pages = JSON.parse(fs.readFileSync('content/i18n/legacy-pages.json', 'utf8'));
 const inmo = pages.find((x) => x.path === '/products/inmo-go3');
-const officialHosts = ['www.inmoxr.com', 'www.evenrealities.com', 'support.evenrealities.com', 'www.meta.com', 'solosglasses.com'];
+const officialHosts = ['www.inmo.com', 'www.evenrealities.com', 'support.evenrealities.com', 'www.meta.com', 'solosglasses.com'];
 const section = (heading) => source.split('\n## ' + heading)[1].split('\n## ')[0];
 const jsonLd = (html) => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
 
@@ -40,13 +40,13 @@ test('guide body covers the query family naturally and stays neutral', () => {
   assert.ok(words.length >= 1200, 'word count ' + words.length);
 });
 
-test('comparison table: four products, six columns, every cell sourced from a manufacturer page', () => {
+test('comparison table: five products, six columns, every cell sourced from a manufacturer page', () => {
   const table = section('Comparison table (checked 19 October 2026)');
   const rows = table.split('\n').filter((line) => line.startsWith('|'));
-  assert.equal(rows[0], '| Product | Languages supported | Offline or online | How translation is shown | Battery life | Weight | Price (USD, checked 2026-10-19) |');
+  assert.equal(rows[0], '| Product | Languages supported | Offline or online | How translation is shown | Battery life | Weight | Price (checked 2026-10-19) |');
   const body = rows.slice(2);
-  assert.equal(body.length, 4);
-  const names = ['INMO GO3', 'Even Realities Even G1', 'Ray-Ban Meta (Gen 3)', 'solos AirGo V2 (Prime 2)'];
+  assert.equal(body.length, 5);
+  const names = ['INMO GO3', 'Even Realities Even G2', 'Ray-Ban Meta (Gen 3)', 'Meta Ray-Ban Display', 'solos AirGo V2 (Prime 2)'];
   body.forEach((row, i) => {
     const cells = row.split(' | ').map((c) => c.replace(/^\| ?| ?\|$/g, ''));
     assert.equal(cells.length, 7, 'cell count in row ' + i);
@@ -58,11 +58,20 @@ test('comparison table: four products, six columns, every cell sourced from a ma
     }
   });
   // Figures the manufacturers do not publish are marked Unknown, never estimated.
-  assert.match(body[1], /\| Unknown \(\[source checked\]\(https:\/\/www\.evenrealities\.com\/g1\)\) \|/);
-  assert.match(body[3], /\| Unknown \(\[source checked\]\(https:\/\/solosglasses\.com\/pages\/general-frequently-asked-questions\)\) \|/);
-  assert.match(body[3], /\| Unknown \(\[source checked\]\(https:\/\/solosglasses\.com\/products\/prime-2-smartglasses-solos-airgo%E2%84%A2-v2\)\) \|/);
+  assert.match(body[4], /\| Unknown \(\[source checked\]\(https:\/\/solosglasses\.com\/pages\/general-frequently-asked-questions\)\) \|/);
+  assert.match(body[4], /\| Unknown \(\[source checked\]\(https:\/\/solosglasses\.com\/products\/prime-2-smartglasses-solos-airgo%E2%84%A2-v2\)\) \|/);
+  // The caption column states plainly whether each Meta model shows in-lens captions or is audio only.
+  const captionCell = (row) => row.split(' | ')[3];
+  assert.match(captionCell(body[2]), /^Audio only, no display/);
+  assert.match(captionCell(body[3]), /^In-lens captions/);
+  assert.match(body[3], /currently supports English, French, Italian, and Spanish/);
+  assert.match(body[3], /\$799 \(USD\)/);
+  assert.match(body[3], /help\/ai-glasses\/1541544971106476/);
+  // Even G1 is discontinued: footnote only, no row.
+  assert.ok(!body.some((row) => /Even G1/.test(row)));
+  assert.match(table, /Even G1 is discontinued\.\*\* .*https:\/\/www\.evenrealities\.com\/products\/g1-a/);
   assert.match(body[0], /\$699\.00 regular, \$509\.00 sale price/);
-  assert.match(body[2], /\$449 \(Wayfarer\)/);
+  assert.match(body[2], /\$449 \(Wayfarer, USD\)/);
   assert.match(table, /US dollars \(USD\)/);
 });
 
@@ -70,7 +79,8 @@ test('FAQ answers cite their source and the INMO GO3 product page links back to 
   const faq = section('Common questions');
   assert.ok((faq.match(/^### /gm) || []).length >= 3);
   assert.match(faq, /Meta Help Center/);
-  assert.match(faq, /Even Support Center/);
+  assert.match(faq, /Even Realities translation page/);
+  assert.match(faq, /Meta Ray-Ban Display/);
   assert.match(inmo.guide.en, /\[translation glasses buying guide\]\(\/guides\/translation-glasses\)/);
   assert.match(inmo.guide.zh, /\(\/en\/guides\/translation-glasses\)/);
   assert.match(inmo.guide.ar, /\(\/en\/guides\/translation-glasses\)/);
