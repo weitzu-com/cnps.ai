@@ -89,6 +89,22 @@
         "en": "Meeting recorder vs smart glasses for bilingual meeting notes",
         "ar": "مسجّل الاجتماعات مقابل النظارات الذكية لمحاضر ثنائية اللغة"
       }
+    },
+    {
+      "slug": "translation-glasses",
+      "locales": ["en"],
+      "category": "Procurement",
+      "faqSchema": true,
+      "audience": "Travellers, front-desk and trade-show teams comparing glasses that translate conversations",
+      "title": {
+        "en": "Translation glasses: a neutral buying guide and comparison"
+      },
+      "description": {
+        "en": "Compare AI translation glasses on languages, offline mode, how captions appear, battery, weight and price, with every figure linked to the maker's own page."
+      },
+      "h1": {
+        "en": "Translation glasses: how to choose, with a sourced comparison"
+      }
     }
   ]
 }
