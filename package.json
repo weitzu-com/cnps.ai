@@ -17,5 +17,8 @@
     "@alicloud/openapi-client": "0.4.15",
     "@upstash/redis": "1.39.0",
     "marked": "^17.0.1"
+  },
+  "devDependencies": {
+    "path-to-regexp": "6.3.0"
   }
 }
