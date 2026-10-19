@@ -1,11 +1,389 @@
 {
   "path": "/services/websites",
-  "locales": ["en"],
+  "locales": [
+    "en"
+  ],
   "indexing": {
     "minAuthorizedWorks": 3,
-    "note": "Indexing gate (JEV ruling D6, 2026-10-19): the page ships with <meta name=\"robots\" content=\"noindex\"> and stays out of sitemap.xml until at least minAuthorizedWorks entries in `works` carry written permission (permission === true with source, checkedAt and deliveredBy). The build enforces this; do not bypass it by editing the HTML."
+    "note": "Indexing gate (JEV ruling D6, 2026-10-19): the page is indexable and listed in sitemap.xml only while #work renders at least minAuthorizedWorks entries that carry permission === true with source, checkedAt and deliveredBy (scripts/web-services-gate.mjs). Below the threshold the build falls back to <meta name=\"robots\" content=\"noindex\"> and drops the page from the sitemap automatically."
   },
-  "works": [],
+  "works": [
+    {
+      "name": "Heatex",
+      "domain": "heatexoil.com",
+      "url": "https://heatexoil.com/",
+      "industry": "Shell-and-tube and air-cooled heat exchangers",
+      "languages": [
+        "en",
+        "ar",
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 15:06 (UTC+8): hreflang + WPML language switcher",
+      "relationship": "project",
+      "screenshot": {
+        "file": "heatexoil-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://heatexoil.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "GPE Oil Machinery",
+      "domain": "gpepump.com",
+      "url": "https://gpepump.com/",
+      "industry": "Mud pumps, plunger pumps and parts for oilfields",
+      "languages": [
+        "en",
+        "ar",
+        "es",
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:49 (UTC+8): hreflang + WPML language switcher",
+      "relationship": "project",
+      "screenshot": {
+        "file": "gpepump-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://gpepump.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "HDY Security",
+      "domain": "hdysecurity.com",
+      "url": "https://hdysecurity.com/",
+      "industry": "Wire mesh and security fencing",
+      "languages": [
+        "en",
+        "ar"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 15:04 (UTC+8): WPML language switcher (no hreflang tags)",
+      "relationship": "project",
+      "screenshot": {
+        "file": "hdysecurity-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://hdysecurity.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "Bonbby Tube",
+      "domain": "bonbbytubes.com",
+      "url": "https://bonbbytubes.com/",
+      "industry": "Custom stainless steel and medical tubes",
+      "languages": [
+        "en",
+        "ar",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "nl",
+        "pt",
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:49 (UTC+8): hreflang + GTranslate language switcher",
+      "relationship": "project",
+      "screenshot": {
+        "file": "bonbbytubes-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://bonbbytubes.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "SDKM",
+      "domain": "sdkmss.com",
+      "url": "https://sdkmss.com/",
+      "industry": "Prefabricated steel structure buildings",
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:50 (UTC+8): hreflang + WPML language switcher",
+      "relationship": "project",
+      "screenshot": {
+        "file": "sdkmss-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://sdkmss.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "Raizi",
+      "domain": "raizi.eu",
+      "url": "https://raizi.eu/",
+      "industry": "Professional tile tools",
+      "languages": [
+        "en",
+        "bg",
+        "cs",
+        "de",
+        "el",
+        "es",
+        "fr",
+        "hu",
+        "it",
+        "ko",
+        "lt",
+        "lv",
+        "nl",
+        "pl",
+        "pt",
+        "ru",
+        "sk"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:50 (UTC+8): GTranslate language switcher (no hreflang tags)",
+      "relationship": "project",
+      "screenshot": {
+        "file": "raizi-eu",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://raizi.eu/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "RIGRS",
+      "domain": "rigrs.com",
+      "url": "https://rigrs.com/",
+      "industry": "Drilling rigs and workover rigs",
+      "languages": [
+        "en",
+        "ar",
+        "es",
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:51 (UTC+8): hreflang + WPML language switcher",
+      "relationship": "project",
+      "screenshot": {
+        "file": "rigrs-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://rigrs.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "Renon Power",
+      "domain": "renonpower.com",
+      "url": "https://www.renonpower.com/",
+      "industry": "Battery energy storage systems",
+      "languages": [
+        "en",
+        "es"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:52 (UTC+8): GTranslate language switcher (no hreflang tags, no html lang)",
+      "relationship": "project",
+      "screenshot": {
+        "file": "renonpower-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://www.renonpower.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "Kowint Energy",
+      "domain": "kowint.com",
+      "url": "https://www.kowint.com/",
+      "industry": "LiFePO4 battery energy storage",
+      "languages": [
+        "en",
+        "ar",
+        "de",
+        "es",
+        "fr",
+        "it",
+        "ja",
+        "pt",
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:54 (UTC+8): GTranslate language switcher (no hreflang tags)",
+      "relationship": "project",
+      "screenshot": {
+        "file": "kowint-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://www.kowint.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "BESEN",
+      "domain": "besen-group.com",
+      "url": "https://www.besen-group.com/",
+      "industry": "AC EV charging equipment (EVSE)",
+      "languages": [
+        "en",
+        "be",
+        "bg",
+        "bs",
+        "ca",
+        "co",
+        "cs",
+        "cy",
+        "da",
+        "de",
+        "el",
+        "es",
+        "et",
+        "fi",
+        "fr",
+        "fy",
+        "ga",
+        "gd",
+        "gl",
+        "he",
+        "hmn",
+        "hr",
+        "hu",
+        "hy",
+        "id",
+        "is",
+        "it",
+        "ka",
+        "ko",
+        "lb",
+        "lt",
+        "lv",
+        "mg",
+        "mk",
+        "ms",
+        "mt",
+        "ne",
+        "nl",
+        "no",
+        "pl",
+        "pt",
+        "ro",
+        "sk",
+        "sl",
+        "sm",
+        "sr",
+        "st",
+        "sv",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "xh",
+        "zu"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:55 (UTC+8): hreflang + GTranslate language switcher",
+      "relationship": "project",
+      "screenshot": {
+        "file": "besen-group-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://www.besen-group.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "DongSu",
+      "domain": "bopctrl.com",
+      "url": "https://bopctrl.com/",
+      "industry": "Well control equipment: BOP control systems and blowout preventers",
+      "languages": [
+        "en",
+        "es",
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:55 (UTC+8): hreflang + WPML language switcher",
+      "relationship": "project",
+      "screenshot": {
+        "file": "bopctrl-com",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS.AI or partner (XN Digital Marketing)",
+      "source": "https://bopctrl.com/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "CNPS",
+      "domain": "cnps.ru",
+      "url": "https://www.cnps.ru/",
+      "industry": "Oil and gas production equipment",
+      "languages": [
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:56 (UTC+8): html lang=\"ru\"; no hreflang tags or language switcher",
+      "relationship": "group",
+      "label": "CNPS group company",
+      "screenshot": {
+        "file": "cnps-ru",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS group company site; CNPS.AI or partner project per owner confirmation",
+      "source": "https://www.cnps.ru/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    },
+    {
+      "name": "IFGS",
+      "domain": "ifgs.ru",
+      "url": "https://www.ifgs.ru/",
+      "industry": "Fiberglass pipes, joints and tanks",
+      "languages": [
+        "ru"
+      ],
+      "languagesSource": "Live homepage check 2026-10-19 14:56 (UTC+8): html lang=\"ru-RU\"; the En link in the switcher leads to a separate domain (ifgs.com), not a language version of this site",
+      "relationship": "group",
+      "label": "CNPS group company",
+      "screenshot": {
+        "file": "ifgs-ru",
+        "capturedAt": "2026-10-19",
+        "viewport": "1440x900"
+      },
+      "permission": true,
+      "permissionSource": "Owner confirmation in chat, 2026-10-19 14:44 (UTC+8): all listed sites are CNPS.AI or partner projects and may be shown publicly under the name CNPS.AI",
+      "deliveredBy": "CNPS group company site; CNPS.AI or partner project per owner confirmation",
+      "source": "https://www.ifgs.ru/ — industry from /workspace/cnps-portfolio/portfolio-facts.csv (field check 2026-10-19 13:38–14:05 UTC+8); languages and screenshot from live check",
+      "checkedAt": "2026-10-19"
+    }
+  ],
   "title": "Export B2B Website Building for Manufacturers",
   "description": "Website building for manufacturers that export: product, specification and company pages built from your own documents, for overseas buyers to evaluate.",
   "eyebrow": "Website building",
@@ -38,11 +416,26 @@
       "title": "How we work",
       "intro": "Each step ends with something you can check before the next one starts.",
       "steps": [
-        {"title": "Collect your materials", "text": "Catalogs, specification sheets, certificates you are allowed to publish, photos and any existing website content."},
-        {"title": "Structure products and specifications", "text": "Agree product categories, the fields each product page carries and how specification tables read. Gaps and conflicting figures go back to you to resolve."},
-        {"title": "Draft and approve", "text": "Pages are drafted from your materials. You check and approve every product fact before anything is published."},
-        {"title": "Launch", "text": "Publish the approved pages, then confirm that they load, link to each other and can be crawled."},
-        {"title": "Agree next steps", "text": "Walk through the live pages with you and agree what changes next. Any ongoing support is agreed per project."}
+        {
+          "title": "Collect your materials",
+          "text": "Catalogs, specification sheets, certificates you are allowed to publish, photos and any existing website content."
+        },
+        {
+          "title": "Structure products and specifications",
+          "text": "Agree product categories, the fields each product page carries and how specification tables read. Gaps and conflicting figures go back to you to resolve."
+        },
+        {
+          "title": "Draft and approve",
+          "text": "Pages are drafted from your materials. You check and approve every product fact before anything is published."
+        },
+        {
+          "title": "Launch",
+          "text": "Publish the approved pages, then confirm that they load, link to each other and can be crawled."
+        },
+        {
+          "title": "Agree next steps",
+          "text": "Walk through the live pages with you and agree what changes next. Any ongoing support is agreed per project."
+        }
       ]
     },
     {
@@ -54,5 +447,11 @@
         "We do not show another company's website on this page without that company's written permission."
       ]
     }
-  ]
+  ],
+  "workSection": {
+    "id": "work",
+    "title": "Selected work",
+    "heroLabel": "See selected work",
+    "note": "Works delivered by CNPS.AI and partners. Screenshots were captured on 19 October 2026; each site is run by its owner and may have changed since."
+  }
 }

@@ -5,6 +5,7 @@ import { editorialComponents } from './editorial-components.mjs';
 import { createSemanticVisuals } from './semantic-visuals.mjs';
 import { analyticsSnippet, applyAnalytics, GA_MEASUREMENT_ID } from './lib/analytics.mjs';
 import {locales,languageNames,ui,categoryKey} from '../web/ui.mjs';
+import {validateWorks,webServicesGate} from './web-services-gate.mjs';
 const out='dist', dev=process.argv.includes('--draft'), root='https://www.cnps.ai';
 const read=p=>fs.readFileSync(p,'utf8');
 const json=p=>JSON.parse(read(p));
@@ -95,27 +96,30 @@ for(const g of guides){
 // no portfolio works, no attribution, no delivery scope list and no FAQ. Any copy still written as [[PLACEHOLDER: ...]]
 // is turned into a failed production build (VERCEL_ENV=production) by scripts/placeholder-guard.mjs.
 const webServices=fs.existsSync('content/i18n/web-services.json')?json('content/i18n/web-services.json'):null;
-// Sites excluded by the JEV ruling (down, theme demo, third-party attribution) can never be listed as works.
-const excludedWorkDomains=['zschemi.com','carblon.com','cnps.ru'];
-// INDEXING GATE (JEV D6): the service page stays `noindex` and out of sitemap.xml until #work renders at least
-// `indexing.minAuthorizedWorks` (3) works that carry written permission. The skeleton renders no works, so
-// WEB_SERVICES_WORKS_RENDERED stays false; only the follow-up PR that renders #work may flip it.
-const WEB_SERVICES_WORKS_RENDERED=false;
+// INDEXING GATE (JEV D6): the service page is indexable and listed in sitemap.xml only while #work renders at least
+// `indexing.minAuthorizedWorks` (3) works that carry written permission. WEB_SERVICES_WORKS_RENDERED and the
+// indexable flag are derived from the actual work records (scripts/web-services-gate.mjs); below the threshold the
+// page falls back to noindex and drops out of the sitemap automatically. Excluded sites (down or theme demo) fail the build.
+let WEB_SERVICES_WORKS_RENDERED=false;
 let webServicesIndexable=false;
+let webServicesWorks=[];
 if(webServices){
  if(JSON.stringify(webServices.locales)!=='["en"]')throw Error('Website-building service page is English-only');
  for(const f of ['path','title','description','h1','lead','eyebrow','serviceType'])if(!webServices[f]||!String(webServices[f]).trim())throw Error('Incomplete website-building service page '+f);
  if([...webServices.description].length>160)throw Error('Website-building service meta description exceeds 160 characters');
  // The FAQ section was removed (owner facts unconfirmed); the page emits Service JSON-LD only, never FAQPage.
  if('faq' in webServices||'faqTitle' in webServices)throw Error('Website-building service page has no FAQ section; remove faq/faqTitle');
- const works=webServices.works||[];
+ const works=validateWorks(webServices.works||[]);
  for(const w of works){
-  if(w.permission!==true||!w.source||!w.checkedAt||!w.deliveredBy)throw Error('Website-building work needs written permission, source, checkedAt and deliveredBy: '+(w.url||w.name));
-  if(excludedWorkDomains.some(d=>String(w.url||'').includes(d)))throw Error('Excluded site listed as website-building work: '+w.url);
+  if(!w.name||!w.domain||!/^https:\/\//.test(w.url||'')||!w.industry)throw Error('Website-building work needs name, domain, https url and industry: '+(w.url||w.name));
+  const shot=w.screenshot;
+  if(!shot?.file||!/^\d{4}-\d{2}-\d{2}$/.test(shot.capturedAt||''))throw Error('Website-building work needs a dated screenshot: '+w.domain);
+  for(const size of [640,1280]){const f='web/assets/portfolio/'+shot.file+'-'+size+'.webp';if(!fs.existsSync(f))throw Error('Missing portfolio screenshot '+f);if(fs.statSync(f).size>120*1024)throw Error('Portfolio screenshot over 120 KB: '+f);}
  }
- const minWorks=webServices.indexing?.minAuthorizedWorks;
- if(!Number.isInteger(minWorks)||minWorks<3)throw Error('Website-building indexing gate needs minAuthorizedWorks >= 3');
- webServicesIndexable=WEB_SERVICES_WORKS_RENDERED&&works.length>=minWorks;
+ const gate=webServicesGate(works,webServices.indexing?.minAuthorizedWorks);
+ webServicesWorks=gate.rendered;
+ WEB_SERVICES_WORKS_RENDERED=gate.worksRendered;
+ webServicesIndexable=gate.indexable;
 }
 const editorialAssets=json('content/i18n/editorial-assets.json');
 if(new Set(posts.map(p=>editorialAssets[p.image]?.file)).size!==posts.length)throw Error('Every journal article needs a distinct cover');
@@ -395,7 +399,18 @@ for(const l of locales){
   // Service schema: provider is the CNPS.AI Organization; no offers, price, areaServed, Review or AggregateRating (JEV D11).
   const serviceLd={'@context':'https://schema.org','@type':'Service',name:w.title,serviceType:w.serviceType,description:w.description,url:root+route(l,p),inLanguage:l,provider:{'@type':'Organization',name:'CNPS.AI',url:root}};
   const aside=`<aside class="side-stack"><div class="side-panel dark"><p class="eyebrow">CNPS.AI</p><h2>${esc(w.cta.label)}</h2><p>${t.ctaText}</p>${link(l,w.cta.path,t.contact,'btn aqua')}</div></aside>`;
-  save(l,p,w.title,w.description,hero(l,p,w.h1,w.lead,`<div class="actions">${link(l,w.cta.path,w.cta.label,'btn')}</div>`,w.eyebrow)+`<div class="container article-layout"><article class="prose">${w.sections.map(sectionHtml).join('')}</article>${aside}</div>`,{availableLocales:itemLocales(w),localeFallback:p,extraLd:[serviceLd],robots:webServicesIndexable?null:'noindex'});
+  // #work: one card per authorized work. Facts come from the work record only (name, domain, field-verified industry,
+  // live-verified languages, dated screenshot); no delivery scope, launch year, reviews or prices.
+  const works=webServicesWorks,ws=w.workSection||{};
+  const languageName=new Intl.DisplayNames(['en'],{type:'language'});
+  const shotDate=d=>new Date(d+'T00:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+  const languagesHtml=x=>{if(!x.languages?.length)return '';const names=x.languages.map(c=>languageName.of(c));return `<p class="card-meta work-languages"><span>Site languages:</span> ${names.length>9?`<details><summary>${esc(names.slice(0,3).join(', '))} and ${names.length-3} more</summary>${esc(names.join(', '))}</details>`:esc(names.join(', '))}</p>`;};
+  const workCard=x=>`<article class="catalog-card work-card" data-domain="${esc(x.domain)}"><div class="card-image work-shot"><img src="/assets/portfolio/${esc(x.screenshot.file)}-1280.webp" srcset="/assets/portfolio/${esc(x.screenshot.file)}-640.webp 640w, /assets/portfolio/${esc(x.screenshot.file)}-1280.webp 1280w" sizes="(max-width: 760px) 100vw, 400px" width="1280" height="800" loading="lazy" decoding="async" alt="${esc(`Homepage of ${x.domain} (${x.name}), screenshot captured ${shotDate(x.screenshot.capturedAt)}`)}"></div>${x.label?`<span class="tag">${esc(x.label)}</span>`:''}<h3>${esc(x.name)}</h3><p>${esc(x.industry)}</p>${languagesHtml(x)}<p class="card-meta">Screenshot captured <time datetime="${esc(x.screenshot.capturedAt)}">${esc(shotDate(x.screenshot.capturedAt))}</time></p><a class="text-link" href="${esc(x.url)}" rel="nofollow noopener" target="_blank">${esc(x.domain)}${arrow}</a></article>`;
+  const workHtml=works.length?`<section class="section white work-section" aria-labelledby="work"><div class="container"><h2 id="work">${esc(ws.title||'Selected work')}</h2>${ws.note?`<p class="notice">${esc(ws.note)}</p>`:''}<div class="catalog-grid three work-grid">${works.map(workCard).join('')}</div></div></section>`:'';
+  // ItemList of CreativeWork (url, name, about = industry); creator is the CNPS.AI Organization. No Review or AggregateRating.
+  const worksLd=works.length?{'@context':'https://schema.org','@type':'ItemList',name:ws.title||'Selected work',url:root+route(l,p)+'#work',numberOfItems:works.length,itemListElement:works.map((x,i)=>({'@type':'ListItem',position:i+1,item:{'@type':'CreativeWork',name:x.name,url:x.url,about:x.industry,creator:{'@type':'Organization',name:'CNPS.AI',url:root}}}))}:null;
+  const heroActions=`<div class="actions">${link(l,w.cta.path,w.cta.label,'btn')}${works.length?`<a class="btn ghost" href="#work">${esc(ws.heroLabel||'See selected work')}</a>`:''}</div>`;
+  save(l,p,w.title,w.description,hero(l,p,w.h1,w.lead,heroActions,w.eyebrow)+`<div class="container article-layout"><article class="prose">${w.sections.map(sectionHtml).join('')}</article>${aside}</div>`+workHtml,{availableLocales:itemLocales(w),localeFallback:p,extraLd:[serviceLd,worksLd].filter(Boolean),robots:webServicesIndexable?null:'noindex'});
  }
  save(l,'/404',t.notFound,t.notFoundText,hero(l,'/404',t.notFound,t.notFoundText,link(l,'',t.home)));
 }
@@ -446,7 +461,7 @@ if(!dev){
 const sitemap=allPages.filter(x=>!x.path.endsWith('/404')&&x.sitemap!==false).map(p=>{const suffix=p.path.replace(/^\/(en|zh|ar)/,'')||'/';const dest=suffix==='/'?'':suffix;const available=p.availableLocales||locales;const links=available.map(l=>`<xhtml:link rel="alternate" hreflang="${l==='zh'?'zh-CN':l}" href="${root+route(l,dest)}"/>`).join('');const xdef=available.includes('en')?`<xhtml:link rel="alternate" hreflang="x-default" href="${root+route('en',dest)}"/>`:'';return `<url><loc>${root+p.path}</loc>${links}${xdef}</url>`;}).join('\n');
 fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemap}\n</urlset>\n`);
 fs.writeFileSync(path.join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://www.cnps.ai/sitemap.xml\n');
-fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English and Arabic method guides live at /en/guides and /ar/guides. FastGPT method compares live at /en/fastgpt/compare and /ar/fastgpt/compare. FastGPT method guides live at /en/fastgpt/guides and /ar/fastgpt/guides. Industry references are distinguished from CNPS deliveries.\n');
+fs.writeFileSync(path.join(out,'llms.txt'),'# CNPS.AI\n\nChinese intelligent hardware and practical AI applications for business buyers.\n\nLanguages: [English](https://www.cnps.ai/en), [中文](https://www.cnps.ai/zh), [العربية](https://www.cnps.ai/ar).\n\nProducts, solutions, case references, resources, the journal (/en/blogs, /zh/blogs, /ar/blogs) and inquiry forms are available in all three languages. English and Arabic method guides live at /en/guides and /ar/guides. FastGPT method compares live at /en/fastgpt/compare and /ar/fastgpt/compare. FastGPT method guides live at /en/fastgpt/guides and /ar/fastgpt/guides. Industry references are distinguished from CNPS deliveries.\n'+(webServicesIndexable?'\nWebsite building for export manufacturers (English only), with selected work by CNPS.AI and partners: https://www.cnps.ai/en/services/websites\n':''));
 fs.copyFileSync('web/ab8aecbc192c4458854b34157e78169e.txt',path.join(out,'ab8aecbc192c4458854b34157e78169e.txt'));
 fs.mkdirSync('docs/strategy',{recursive:true});
 fs.writeFileSync('docs/strategy/trilingual-build.json',JSON.stringify({pages:allPages.length,pagesPerLanguage:paths.size,languages:locales,paths:[...paths].sort(),aliases,oldRoutes:[...new Set([...oldPages,...paths])].sort()},null,2)+'\n');
