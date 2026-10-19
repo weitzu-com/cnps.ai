@@ -43,7 +43,7 @@ test('bare /products/inmo-go3 and its shop-handle variant reach /en/products/inm
 
 test('INMO GO3 title, meta and new H2 sections target the display and translation queries with listing facts only', () => {
   assert.equal(inmo.seoTitle.en, 'INMO GO3 AI Smart Glasses – MicroLED Display, Translator, Price');
-  assert.match(inmo.description.en, /\$699\.00 USD/);
+  assert.match(inmo.description.en, /\(\$699\)/);
   assert.match(inmo.description.en, /translation glasses/);
   assert.match(inmo.guide.en, /^## Smart glasses with display$/m);
   assert.match(inmo.guide.en, /^## Translation glasses$/m);
