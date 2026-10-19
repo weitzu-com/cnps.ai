@@ -50,9 +50,10 @@ test('TicNote card page: title, meta and copy answer the "ticnote card" query', 
 test('INMO GO3 page: title, meta, H1 and copy answer glasses and price intent', () => {
   assert.equal(inmo.title.en, 'INMO GO3 AI Smart Glasses');
   assert.equal(inmo.seoTitle.en, 'INMO GO3 AI Smart Glasses – MicroLED Display, Translator, Price');
-  assert.match(inmo.description.en, /^INMO GO3 AI smart glasses at \$699\.00 USD/);
+  assert.match(inmo.description.en, /^INMO GO3 AI smart glasses \(\$699\):/);
   assert.match(inmo.description.en, /53 g/);
-  assert.match(inmo.description.en, /78 online \/ 9 offline translation languages/);
+  assert.match(inmo.description.en, /≈58 g/);
+  assert.match(inmo.description.en, /language list/);
   assert.ok(inmo.seoTitle.en.length <= 65, 'title length ' + inmo.seoTitle.en.length);
   assert.ok(inmo.description.en.length <= 170, 'meta length ' + inmo.description.en.length);
   assert.match(inmo.title.zh, /智能眼镜/);
