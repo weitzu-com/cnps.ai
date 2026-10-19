@@ -543,6 +543,16 @@
       "permanent": false
     },
     {
+      "source": "/zh/services/:path*",
+      "destination": "/en/services/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/ar/services/:path*",
+      "destination": "/en/services/:path*",
+      "permanent": false
+    },
+    {
       "source": "/en/resources/fastgpt-cnps-global-growth-bilingual",
       "destination": "/en/resources/fastgpt-cnps-global-growth",
       "permanent": true

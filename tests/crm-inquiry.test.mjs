@@ -111,3 +111,28 @@ test('Redis adapter uses atomic Lua claims/transitions and a namespace independe
  const calls=[],redis={async eval(script,keys,args){calls.push({script,keys,args});if(script.includes("kind='owned'"))return JSON.stringify({kind:'owned',record:{phase:'crm-pending'}});return 1;}};
  const store=createInquiryStore({}, {redis});assert.equal((await store.claim('opaque','owner',{phase:'crm-pending',envelope:'encrypted'},0)).kind,'owned');assert.equal(await store.advance('opaque','owner','crm-pending','hubspot-ready',1),true);assert.equal(await store.reserve([{name:'global-day',max:50,ttl:86400}]),true);assert.ok(calls.every(call=>call.keys.every(key=>key.startsWith('cnps:crm:inquiry:v1:'))));assert.match(calls[0].script,/hubspot-sending/);assert.match(calls[1].script,/record.owner~=ARGV\[1\]/);assert.match(calls[2].script,/redis.call\('INCR'/);
 });
+
+// Website-building service page (/en/services/websites) preselects workflow=website-building on /request-quote.
+// Every delivery below goes to the in-memory harness (mocked native CRM and HubSpot forward); nothing leaves the process.
+test('website-building workflow is whitelisted server-side and reaches the mocked CRM and HubSpot brief',async()=>{
+ const h=harness(),input={...body,values:{...body.values,workflow:'website-building',need:'An English product website for our pump catalog.'},tracking:{...body.tracking,workflow:'website-building'},context:{pageUri:'https://www.cnps.ai/en/request-quote?workflow=website-building',pageName:'Request quotation'}};
+ const normalized=normalizeInquiry(input,new Set(['https://www.cnps.ai']));assert.equal(normalized.values.workflow,'website-building');assert.equal(normalized.context.product,undefined);
+ const r=await h.request(input);assert.equal(r.status,200);assert.deepEqual(r.json(),{ok:true,submitted:true});assert.equal(h.nativeCalls(),1);assert.equal(h.forwards(),1);
+ const message=h.payloads[0].fields.find(field=>field.name==='message').value;assert.match(message,/Workflow: website-building/);assert.equal(h.payloads[0].fields.length,6);
+});
+
+test('near-miss website workflows are rejected before any CRM or HubSpot delivery',async()=>{
+ const h=harness();
+ for(const workflow of ['website','websites','website_building','Website-Building','website-building-pro','website building'])assert.equal((await h.request({...body,values:{...body.values,workflow}})).status,400,workflow);
+ assert.equal(h.nativeCalls(),0);assert.equal(h.forwards(),0);
+ // `?product=` stays limited to catalog slugs, so the service page cannot be tagged as a product.
+ assert.equal((await h.request({...body,context:{...body.context,product:'website-building'}})).status,400);assert.equal(h.nativeCalls(),0);
+});
+
+test('general inquiry forms offer the website-building option in every locale; the FastGPT form does not',()=>{
+ for(const locale of ['en','zh','ar'])for(const page of ['request-quote','contact']){
+  const html=fs.readFileSync(`dist/${locale}/${page}.html`,'utf8');
+  assert.ok(html.includes(`<option value="website-building">${ui(locale).websiteBuilding}</option>`),locale+' '+page);
+ }
+ for(const locale of ['en','zh','ar'])assert.ok(!fs.readFileSync(`dist/${locale}/fastgpt/contact.html`,'utf8').includes('website-building'),locale+' fastgpt contact');
+});

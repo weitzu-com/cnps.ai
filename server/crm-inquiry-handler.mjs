@@ -5,7 +5,7 @@ import {crmInquiryConsent, crmInquiryConsentVersion, inquiryProductSlug} from '.
 import productCatalog from '../content/i18n/product-assets.json' with {type: 'json'};
 
 const RECORD_TTL_NOTE = 'Encrypted intake state expires after 30 days; native CRM contacts follow the customer retention policy.';
-const WORKFLOWS = new Set(['technical-knowledge','support-triage','rfq-intake','another-workflow','distribution','other','knowledge-assistants','meeting-ai','edge-vision','voice-prototypes','robotics-research']);
+const WORKFLOWS = new Set(['technical-knowledge','support-triage','rfq-intake','another-workflow','distribution','other','knowledge-assistants','meeting-ai','edge-vision','voice-prototypes','robotics-research','website-building']);
 const PRODUCTS = new Set(productCatalog.map(product => product.slug));
 const allowedValues = ['name','email','company','phone','region','workflow','need','systems','consent'];
 const keys = (value, allowed) => Object.keys(value).every(key => allowed.includes(key));

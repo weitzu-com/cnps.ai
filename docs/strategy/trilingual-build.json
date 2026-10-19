@@ -1,6 +1,6 @@
 {
-  "pages": 257,
-  "pagesPerLanguage": 90,
+  "pages": 258,
+  "pagesPerLanguage": 91,
   "languages": [
     "en",
     "zh",
@@ -82,6 +82,7 @@
     "/resources/ufactory-xarm-production-line-checklist",
     "/resources/voice-prototype",
     "/returns",
+    "/services/websites",
     "/shipping",
     "/solutions",
     "/solutions/edge-vision",
@@ -181,6 +182,7 @@
     "/resources/ufactory-xarm-production-line-checklist",
     "/resources/voice-prototype",
     "/returns",
+    "/services/websites",
     "/shipping",
     "/solutions",
     "/solutions/edge-vision",

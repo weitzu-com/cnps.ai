@@ -1,0 +1,58 @@
+{
+  "path": "/services/websites",
+  "locales": ["en"],
+  "indexing": {
+    "minAuthorizedWorks": 3,
+    "note": "Indexing gate (JEV ruling D6, 2026-10-19): the page ships with <meta name=\"robots\" content=\"noindex\"> and stays out of sitemap.xml until at least minAuthorizedWorks entries in `works` carry written permission (permission === true with source, checkedAt and deliveredBy). The build enforces this; do not bypass it by editing the HTML."
+  },
+  "works": [],
+  "title": "Export B2B Website Building for Manufacturers",
+  "description": "Website building for manufacturers that export: product, specification and company pages built from your own documents, for overseas buyers to evaluate.",
+  "eyebrow": "Website building",
+  "h1": "Export-ready B2B websites for manufacturers",
+  "lead": "We turn your product catalog, specifications and company facts into a website that overseas buyers can read, compare and act on.",
+  "cta": {
+    "label": "Discuss a website project",
+    "path": "/request-quote?workflow=website-building"
+  },
+  "serviceType": "Website building for manufacturers",
+  "sections": [
+    {
+      "id": "who-this-is-for",
+      "title": "Who this is for",
+      "intro": "Manufacturers selling industrial products abroad who already have a catalog, specification sheets or PDFs, but no website a buyer can evaluate on their own.",
+      "items": [
+        "You sell to distributors, contractors or procurement teams outside your home market.",
+        "Your product information lives in brochures, PDFs, spreadsheets or your sales team's inbox.",
+        "Buyers keep asking pre-sale questions that a clear product page could answer.",
+        "You want every product fact on the site to come from your own documents."
+      ]
+    },
+    {
+      "id": "what-we-build",
+      "title": "What we build",
+      "intro": "We build corporate websites for export manufacturers; the scope, including pages, languages, hosting and ongoing support, is agreed for each project, so send us an inquiry describing what you need."
+    },
+    {
+      "id": "how-we-work",
+      "title": "How we work",
+      "intro": "Each step ends with something you can check before the next one starts.",
+      "steps": [
+        {"title": "Collect your materials", "text": "Catalogs, specification sheets, certificates you are allowed to publish, photos and any existing website content."},
+        {"title": "Structure products and specifications", "text": "Agree product categories, the fields each product page carries and how specification tables read. Gaps and conflicting figures go back to you to resolve."},
+        {"title": "Draft and approve", "text": "Pages are drafted from your materials. You check and approve every product fact before anything is published."},
+        {"title": "Launch", "text": "Publish the approved pages, then confirm that they load, link to each other and can be crawled."},
+        {"title": "Agree next steps", "text": "Walk through the live pages with you and agree what changes next. Any ongoing support is agreed per project."}
+      ]
+    },
+    {
+      "id": "what-we-dont-promise",
+      "title": "What we don't promise",
+      "items": [
+        "We do not promise search rankings, traffic levels or a number of inquiries. Search engines and AI assistants decide independently how they show any page.",
+        "We do not invent specifications, certifications, customer names or figures. Product facts on your site come from your documents and are approved by you.",
+        "We do not show another company's website on this page without that company's written permission."
+      ]
+    }
+  ]
+}
