@@ -8,9 +8,9 @@ import {pathToRegexp} from 'path-to-regexp';
 import {enforcePlaceholderGuard, findPlaceholders, PLACEHOLDER_MARKER} from '../scripts/placeholder-guard.mjs';
 
 // Website-building service page skeleton at /en/services/websites (plan-v0 §5–§8 and the JEV ruling of 2026-10-19).
-// The skeleton carries no portfolio works, attribution or delivery scope. "What we build" and FAQ answers are
-// [[PLACEHOLDER: ...]] markers that block a production build. The page is noindex and outside the sitemap until #work
-// shows at least three works with written permission. These checks read the content file and the built dist/ output.
+// The page carries no portfolio works, attribution, delivery scope list or FAQ. "What we build" is one neutral sentence
+// and no [[PLACEHOLDER: ...]] marker remains, so a production build passes; the placeholder guard still blocks any
+// future marker. The page is noindex and outside the sitemap until #work shows at least three works with written permission. These checks read the content file and the built dist/ output.
 const data = JSON.parse(fs.readFileSync('content/i18n/web-services.json', 'utf8'));
 const vercel = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
 const buildSource = fs.readFileSync('scripts/build-trilingual.mjs', 'utf8');
@@ -132,7 +132,7 @@ test('page copy contains no attribution, delivery scope, prices, reviews, numeri
   }
 });
 
-test('real copy covers Hero, Who this is for, How we work and What we don\'t promise; What we build and FAQ answers are placeholders', () => {
+test('real copy covers Hero, Who this is for, What we build, How we work and What we don\'t promise; no FAQ section', () => {
   const section = (id) => data.sections.find((s) => s.id === id);
   assert.ok(data.h1 && data.lead && !data.h1.includes(PLACEHOLDER_MARKER) && !data.lead.includes(PLACEHOLDER_MARKER));
   for (const id of ['who-this-is-for', 'how-we-work', 'what-we-dont-promise']) {
@@ -142,15 +142,32 @@ test('real copy covers Hero, Who this is for, How we work and What we don\'t pro
     assert.ok((s.items || s.steps).length >= 3, id);
     assert.ok(main.includes(`<h2 id="${id}">`), id + ' rendered');
   }
-  assert.match(section('what-we-build').placeholder, /^\[\[PLACEHOLDER: .+\]\]$/);
-  assert.equal(section('what-we-build').items, undefined);
-  assert.ok(data.faq.length >= 3);
-  for (const f of data.faq) { assert.match(f.answer, /^\[\[PLACEHOLDER: .+\]\]$/); assert.ok(mainText.includes(f.question)); }
-  assert.equal((main.match(/\[\[PLACEHOLDER/g) || []).length, data.faq.length + 1);
+  // "What we build" is a single neutral sentence: no capability list, no steps, no placeholder.
+  const build = section('what-we-build');
+  assert.deepEqual(Object.keys(build).sort(), ['id', 'intro', 'title']);
+  assert.equal(build.intro, 'We build corporate websites for export manufacturers; the scope, including pages, languages, hosting and ongoing support, is agreed for each project, so send us an inquiry describing what you need.');
+  assert.equal(build.intro.split(/[.!?](?:\s|$)/).filter(Boolean).length, 1, 'exactly one sentence');
+  const buildHtml = main.match(/<h2 id="what-we-build">[\s\S]*?(?=<h2 |<\/article>)/)[0];
+  assert.ok(buildHtml.includes(`<p>${build.intro}</p>`), 'sentence rendered');
+  assert.doesNotMatch(buildHtml, /<(?:ul|ol|li)\b/, 'no capability list');
+  // FAQ removed entirely.
+  assert.equal(data.faq, undefined);
+  assert.equal(data.faqTitle, undefined);
+  assert.ok(!main.includes('id="common-questions"'));
+  assert.doesNotMatch(main, /<h3>/);
   assert.match(main, /href="\/en\/request-quote\?workflow=website-building"/);
 });
 
-test('JSON-LD: Service with provider Organization CNPS.AI, no offers/price/areaServed, no Review, no FAQPage while placeholders remain', () => {
+test('no [[PLACEHOLDER]] and no FAQPage remain in the content file, the rendered page or the dist output', () => {
+  assert.ok(!JSON.stringify(data).includes(PLACEHOLDER_MARKER), 'content/i18n/web-services.json');
+  assert.ok(!html.includes(PLACEHOLDER_MARKER), pageFile);
+  assert.ok(!html.includes('data-placeholder'), 'no placeholder notice element');
+  assert.ok(!html.includes('FAQPage'), 'no FAQPage on the page');
+  assert.deepEqual(ld.map((x) => x['@type']).filter((t) => t !== 'WebPage'), ['Service'], 'Service is the only page-specific structured data');
+  assert.deepEqual(findPlaceholders('dist'), [], 'dist/ is free of placeholder markers');
+});
+
+test('JSON-LD: Service with provider Organization CNPS.AI, no offers/price/areaServed, no Review, no FAQPage', () => {
   const service = ld.find((x) => x['@type'] === 'Service');
   assert.ok(service, 'Service schema');
   assert.deepEqual(service.provider, {'@type': 'Organization', name: 'CNPS.AI', url: 'https://www.cnps.ai'});
@@ -183,8 +200,8 @@ test('placeholder guard: production build fails while a marker remains, preview 
   } finally {
     fs.rmSync(dir, {recursive: true, force: true});
   }
-  // The real build output still carries the skeleton placeholders, so a production build of this branch is blocked.
-  assert.equal(spawnSync(process.execPath, ['scripts/placeholder-guard.mjs', '--dir', 'dist'], {env: {...process.env, VERCEL_ENV: 'production'}}).status, 1);
+  // The real build output carries no placeholder markers, so the guard lets a production build of this branch through.
+  assert.equal(spawnSync(process.execPath, ['scripts/placeholder-guard.mjs', '--dir', 'dist'], {env: {...process.env, VERCEL_ENV: 'production'}}).status, 0);
   assert.equal(spawnSync(process.execPath, ['scripts/placeholder-guard.mjs', '--dir', 'dist'], {env: {...process.env, VERCEL_ENV: 'preview'}}).status, 0);
   assert.match(JSON.parse(fs.readFileSync('package.json', 'utf8')).scripts.build, /&& node scripts\/placeholder-guard\.mjs$/);
 });

@@ -92,8 +92,8 @@ for(const g of guides){
  }
 }
 // Website-building service page (/en/services/websites). English-only skeleton per the JEV ruling of 2026-10-19:
-// no portfolio works, no attribution, no delivery scope; "What we build" and FAQ answers are [[PLACEHOLDER: ...]]
-// markers, which scripts/placeholder-guard.mjs turns into a failed production build (VERCEL_ENV=production).
+// no portfolio works, no attribution, no delivery scope list and no FAQ. Any copy still written as [[PLACEHOLDER: ...]]
+// is turned into a failed production build (VERCEL_ENV=production) by scripts/placeholder-guard.mjs.
 const webServices=fs.existsSync('content/i18n/web-services.json')?json('content/i18n/web-services.json'):null;
 // Sites excluded by the JEV ruling (down, theme demo, third-party attribution) can never be listed as works.
 const excludedWorkDomains=['zschemi.com','carblon.com','cnps.ru'];
@@ -104,8 +104,10 @@ const WEB_SERVICES_WORKS_RENDERED=false;
 let webServicesIndexable=false;
 if(webServices){
  if(JSON.stringify(webServices.locales)!=='["en"]')throw Error('Website-building service page is English-only');
- for(const f of ['path','title','description','h1','lead','eyebrow','serviceType','faqTitle'])if(!webServices[f]||!String(webServices[f]).trim())throw Error('Incomplete website-building service page '+f);
+ for(const f of ['path','title','description','h1','lead','eyebrow','serviceType'])if(!webServices[f]||!String(webServices[f]).trim())throw Error('Incomplete website-building service page '+f);
  if([...webServices.description].length>160)throw Error('Website-building service meta description exceeds 160 characters');
+ // The FAQ section was removed (owner facts unconfirmed); the page emits Service JSON-LD only, never FAQPage.
+ if('faq' in webServices||'faqTitle' in webServices)throw Error('Website-building service page has no FAQ section; remove faq/faqTitle');
  const works=webServices.works||[];
  for(const w of works){
   if(w.permission!==true||!w.source||!w.checkedAt||!w.deliveredBy)throw Error('Website-building work needs written permission, source, checkedAt and deliveredBy: '+(w.url||w.name));
@@ -390,14 +392,10 @@ for(const l of locales){
    +(s.intro?`<p>${esc(s.intro)}</p>`:'')
    +(s.items?`<ul>${s.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'')
    +(s.steps?`<ol class="service-steps">${s.steps.map(x=>`<li><strong>${esc(x.title)}</strong><br>${esc(x.text)}</li>`).join('')}</ol>`:'');
-  const faqHtml=`<h2 id="common-questions">${esc(w.faqTitle)}</h2>`+w.faq.map(f=>`<h3>${esc(f.question)}</h3>${f.answer.includes('[[PLACEHOLDER')?placeholder(f.answer):`<p>${esc(f.answer)}</p>`}`).join('');
-  // FAQPage is emitted only once every answer is real copy; placeholder answers never reach structured data.
-  const faqReady=w.faq.length>=3&&w.faq.every(f=>f.answer&&!f.answer.includes('[[PLACEHOLDER'));
-  const faq=faqReady?w.faq.map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}})):null;
   // Service schema: provider is the CNPS.AI Organization; no offers, price, areaServed, Review or AggregateRating (JEV D11).
   const serviceLd={'@context':'https://schema.org','@type':'Service',name:w.title,serviceType:w.serviceType,description:w.description,url:root+route(l,p),inLanguage:l,provider:{'@type':'Organization',name:'CNPS.AI',url:root}};
   const aside=`<aside class="side-stack"><div class="side-panel dark"><p class="eyebrow">CNPS.AI</p><h2>${esc(w.cta.label)}</h2><p>${t.ctaText}</p>${link(l,w.cta.path,t.contact,'btn aqua')}</div></aside>`;
-  save(l,p,w.title,w.description,hero(l,p,w.h1,w.lead,`<div class="actions">${link(l,w.cta.path,w.cta.label,'btn')}</div>`,w.eyebrow)+`<div class="container article-layout"><article class="prose">${w.sections.map(sectionHtml).join('')}${faqHtml}</article>${aside}</div>`,{availableLocales:itemLocales(w),localeFallback:p,faq,extraLd:[serviceLd],robots:webServicesIndexable?null:'noindex'});
+  save(l,p,w.title,w.description,hero(l,p,w.h1,w.lead,`<div class="actions">${link(l,w.cta.path,w.cta.label,'btn')}</div>`,w.eyebrow)+`<div class="container article-layout"><article class="prose">${w.sections.map(sectionHtml).join('')}</article>${aside}</div>`,{availableLocales:itemLocales(w),localeFallback:p,extraLd:[serviceLd],robots:webServicesIndexable?null:'noindex'});
  }
  save(l,'/404',t.notFound,t.notFoundText,hero(l,'/404',t.notFound,t.notFoundText,link(l,'',t.home)));
 }

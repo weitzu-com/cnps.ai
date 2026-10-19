@@ -31,7 +31,7 @@
     {
       "id": "what-we-build",
       "title": "What we build",
-      "placeholder": "[[PLACEHOLDER: What we build — scope list (page types, languages, hosting, maintenance) pending owner confirmation, plan Q4/Q5]]"
+      "intro": "We build corporate websites for export manufacturers; the scope, including pages, languages, hosting and ongoing support, is agreed for each project, so send us an inquiry describing what you need."
     },
     {
       "id": "how-we-work",
@@ -54,12 +54,5 @@
         "We do not show another company's website on this page without that company's written permission."
       ]
     }
-  ],
-  "faqTitle": "Common questions",
-  "faq": [
-    {"question": "What materials do I need to start?", "answer": "[[PLACEHOLDER: answer pending owner confirmation, plan Q5]]"},
-    {"question": "Who owns the domain, hosting and content?", "answer": "[[PLACEHOLDER: answer pending owner confirmation, plan Q5]]"},
-    {"question": "What happens after launch?", "answer": "[[PLACEHOLDER: answer pending owner confirmation, plan Q5]]"},
-    {"question": "Which languages can you deliver?", "answer": "[[PLACEHOLDER: answer pending owner confirmation, plan Q2/Q5]]"}
   ]
 }
