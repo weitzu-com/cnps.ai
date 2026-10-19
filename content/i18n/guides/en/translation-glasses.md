@@ -27,7 +27,7 @@ Prices are the list prices on each manufacturer's US store in US dollars (USD) o
 
 Notes on the table:
 
-- **INMO GO3 weight.** INMO's [specification page](https://www.inmo.com/pages/inmo-go3-ai-glasses) gives ≈58 g, and the [CNPS.AI shop listing](https://shop.cnps.ai/products/inmo-go3-ai-smart-glasses-53g-microled-ar-glasses-with-ai-translator-hot-swap-battery-camera) now also says ≈58 g. Our [INMO GO3 product page](/products/inmo-go3) and the shop's web address still show an older 53 g figure that we could not trace to any INMO source. We use the manufacturer's figure here.
+- **INMO GO3 weight.** The table uses ≈58 g from INMO's [specification page](https://www.inmo.com/pages/inmo-go3-ai-glasses).
 - **Even G1 is discontinued.** Even Realities' G1 page says ["Even G1 is no longer available for purchase"](https://www.evenrealities.com/products/g1-a). Existing devices stay supported. The table uses the current model, Even G2.
 - **Meta has two models here.** Ray-Ban Meta (Gen 3) has no display and gives you the translation as audio. Meta Ray-Ban Display shows captions in the lens, currently for four languages. Read the two rows separately.
 - **Battery figures are not comparable.** Each brand measures a different activity: translation, mixed daily use, photos and AI queries, or music. Read the activity next to each number.
