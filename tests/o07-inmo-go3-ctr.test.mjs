@@ -44,7 +44,16 @@ test('guide uses INMO\'s ≈58 g with the official source, plus exact sister / q
     assert.ok(record.body[l].includes(`](${inmoSpec})`), l + ' body links the INMO spec page');
     assert.doesNotMatch(record.body[l], /^- \*\*(Weight|重量|الوزن)\*\*[:：] 53/m);
     assert.doesNotMatch(record.guide[l], /(Shop and www list|商店与 www 标|يسرد المتجر وwww) 53/);
+    assert.doesNotMatch(record.body[l], /\*\*(Weight note|重量说明|ملاحظة الوزن)\*\*/);
+    assert.doesNotMatch(record.body[l], /earlier (version|53)|早前写的 53|نسخة سابقة.*53/);
+    assert.doesNotMatch(record.guide[l], /earlier 53|早前写的 53|53 g الذي ظهر سابقاً/);
+    const stripShop = (s) => s.replace(/https:\/\/shop\.cnps\.ai\/products\/[^\s)]+/g, '');
+    assert.doesNotMatch(stripShop(record.body[l]), /53\s*g|53g/);
+    assert.doesNotMatch(stripShop(record.guide[l]), /53\s*g|53g/);
   }
+  assert.match(record.body.en, /≈58 g \(manufacturer claimed\)/);
+  assert.match(record.body.zh, /约 58 g（厂商标称）/);
+  assert.match(record.body.ar, /≈58 g \(حسب ادعاء الشركة المصنعة\)/);
   assert.match(g, new RegExp(`\\[${esc(arGlasses)}\\]\\(/products/ar-smart-glasses\\)`));
   assert.match(g, new RegExp(`\\[${esc(fieldTask)}\\]\\(/blogs/smart-glasses-one-field-task\\)`));
   assert.match(g, new RegExp(`\\[${esc(recorderGuide)}\\]\\(/guides/meeting-recorder-vs-smart-glasses-bilingual-notes\\)`));
