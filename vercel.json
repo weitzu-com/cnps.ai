@@ -253,6 +253,16 @@
       "permanent": true
     },
     {
+      "source": "/products/:slug(iflytek.*)",
+      "destination": "https://shop.cnps.ai/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
+      "permanent": true
+    },
+    {
+      "source": "/en/products/:slug(iflytek.*)",
+      "destination": "https://shop.cnps.ai/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
+      "permanent": true
+    },
+    {
       "source": "/products/ticnote-ai-voice-recorder",
       "destination": "/en/products/ticnote",
       "permanent": true
