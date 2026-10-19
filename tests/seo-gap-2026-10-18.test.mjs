@@ -53,7 +53,7 @@ test('INMO GO3 title, meta and new H2 sections target the display and translatio
   assert.match(inmo.guide.ar, /^## نظارات الترجمة$/m);
   // The two sections reuse only figures the shop listing publishes (body "From the shop listing").
   const section = inmo.guide.en.split('## Smart glasses with display')[1].split('## How it differs')[0];
-  const facts = { '640 × 480': '640 × 480', '1500 nits': '1500 nits', '30° field of view': '30°', '53 g': '53 g', '78 source': '78 source', '98+ target': '98+ target', '9 languages': '9 languages', 'Bluetooth 5.4': 'Bluetooth 5.4', '2.4G Wi-Fi': 'Wi-Fi 2.4G' };
+  const facts = { '640 × 480': '640 × 480', '1500 nits': '1500 nits', '30° field of view': '30°', '≈58 g': '≈58 g', '78 source': '78 source', '98+ target': '98+ target', '9 languages': '9 languages', 'Bluetooth 5.4': 'Bluetooth 5.4', '2.4G Wi-Fi': 'Wi-Fi 2.4G' };
   for (const [phrase, listing] of Object.entries(facts)) {
     assert.ok(section.includes(phrase), 'section should carry listing fact ' + phrase);
     assert.ok(inmo.body.en.includes(listing), 'fact must come from the listing: ' + listing);

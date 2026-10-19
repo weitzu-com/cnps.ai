@@ -51,14 +51,13 @@ test('INMO GO3 page: title, meta, H1 and copy answer glasses and price intent', 
   assert.equal(inmo.title.en, 'INMO GO3 AI Smart Glasses');
   assert.equal(inmo.seoTitle.en, 'INMO GO3 AI Smart Glasses – MicroLED Display, Translator, Price');
   assert.match(inmo.description.en, /^INMO GO3 AI smart glasses \(\$699\):/);
-  assert.match(inmo.description.en, /53 g/);
   assert.match(inmo.description.en, /≈58 g/);
   assert.match(inmo.description.en, /language list/);
   assert.ok(inmo.seoTitle.en.length <= 65, 'title length ' + inmo.seoTitle.en.length);
   assert.ok(inmo.description.en.length <= 170, 'meta length ' + inmo.description.en.length);
   assert.match(inmo.title.zh, /智能眼镜/);
   assert.match(inmo.title.ar, /نظارات INMO GO3/);
-  assert.match(inmo.body.en, /^# INMO GO3 AI Smart Glasses\n\nINMO GO3 AI smart glasses: 53 g MicroLED AR glasses/);
+  assert.match(inmo.body.en, /^# INMO GO3 AI Smart Glasses\n\nINMO GO3 AI smart glasses: ≈58 g MicroLED AR glasses/);
   assert.match(inmo.guide.en, /^## INMO GO3 price: what the listing shows and how to weigh it$/m);
   assert.match(inmo.guide.en, /^## Which use-cases fit INMO GO3, and which do not$/m);
   assert.match(inmo.guide.en, /\| Colour images, drawings or video in view \| Not a fit \|/);
@@ -93,7 +92,7 @@ test('related pages carry natural internal links with descriptive anchors', () =
   const hub = page('/products');
   assert.match(compare.body.en, /\| {2}\| \[TicNote card\]\(\/products\/ticnote\) \|/);
   assert.match(compare.body.en, /\[INMO GO3 AI smart glasses\]\(\/products\/inmo-go3\)/);
-  assert.match(hub.body.en, /\[INMO GO3 AI smart glasses\]\(\/products\/inmo-go3\) weigh 53 g/);
+  assert.match(hub.body.en, /\[INMO GO3 AI smart glasses\]\(\/products\/inmo-go3\) weigh ≈58 g/);
   const post = journal.posts.find((p) => p.slug === 'smart-glasses-one-field-task');
   for (const l of locales) assert.match(post.locales[l].body, new RegExp(`\\]\\(/${l}/products/inmo-go3\\)`));
   assert.equal((post.locales.en.body.match(/\/en\/products\/inmo-go3/g) || []).length, 1, 'one light link, not a link farm');
