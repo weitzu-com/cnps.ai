@@ -1,11 +1,24 @@
 For a public-sector AI hardware project, your first decision is not whether a device looks capable. It is whether one traceable evidence packet can pass five gates: declared use and accountable owners; exact hardware identity; data and subcontractor mapping; destination and lifecycle evidence; and controlled acceptance. For China-origin hardware, keep every claim tied to the named entity, SKU, version, destination, and representative pilot.
 
+## Public-sector method glance
+
+You can treat this table as the one-screen version of the page: each row is one gate below, and a gate is closed only when the right-hand column is true for the exact configuration and use you declare. This method was reviewed on 21 October 2026. It organises evidence and owners; it does not state what your jurisdiction requires.
+
+| Gate | Evidence object | Close it when |
+| --- | --- | --- |
+| 1. Purpose | Purpose and impact record | public task, affected people, human review and fallback are written; every owner is named; applicable reviews are recorded with owner and date |
+| 2. Identity | Identity sheet | contracting, manufacturing, after-sales and invoicing entities, SKU, regional variant, hardware revision and firmware match one configuration |
+| 3. Data | Data and subcontractor map | every input, storage point, cloud service, support session and disclosed subcontractor is mapped with location and an owner who can revoke access |
+| 4. Lifecycle | Destination and lifecycle register | each destination document has issuer, scope, version and covered SKU; supply, update, repair and change-notice routes are written |
+| 5. Control | Control and acceptance record | audit access, exit rehearsal, deletion evidence and a representative pilot on the frozen SKU and version are recorded |
+
+A gate with no evidence or no owner is a hold, not a pass.
+
+![Five-gate public-sector method: Purpose / Identity / Data / Lifecycle / Control — no fake seals](/assets/resources/ai-procurement-checklist-public-sector-five-gates.webp)
+
 ## How this public-sector route differs from the enterprise checklist
 
 You use this route when a public body needs evidence for a service or controlled trial. The [AI procurement checklist for enterprise buyers](https://www.cnps.ai/en/resources/ai-procurement-checklist) covers the broader enterprise China-to-customer path. This page adds public-sector questions on purpose, impact, data protection, equality, transparency, audit, change, exit, and accountable acceptance. It does not decide what your jurisdiction requires; confirm destination- and use-specific obligations with responsible officials or advisers.
-
-
-![Five-gate public-sector method: Purpose / Identity / Data / Lifecycle / Control — no fake seals](/assets/resources/ai-procurement-checklist-public-sector-five-gates.webp)
 
 ## Gate 1. Declare the public task and name every owner
 
@@ -49,6 +62,8 @@ Run a representative pilot against the frozen SKU and version under real conditi
 | Destination and lifecycle register | Which destination evidence applies, and how do supply, repair, updates, and notice work? | Responsible official or adviser plus contract owner |
 | Control and acceptance record | What audit, exit, deletion, and pilot evidence closes the declared scope? | Contract and acceptance owners |
 
+![Evidence packet and owners: five evidence objects linked to accountable owners — no evidence or no owner means hold](/assets/resources/ai-procurement-checklist-public-sector-evidence-owners.webp)
+
 Stop when a critical line has no evidence or owner. Holds include an undefined SKU or entity, an incomplete data route, an undisclosed provider, an unowned destination question, a missing repair or change route, an unrehearsed exit, or an unrepresentative pilot. A hold is unresolved evidence, not an official determination.
 
 ## FAQ
@@ -75,6 +90,6 @@ Use the frozen SKU, version, accessories, data path, and intended operating envi
 
 ### When should you contact CNPS about the hardware path?
 
-Use [Start a conversation](https://www.cnps.ai/en/request-quote) when you can share the destination, declared task, exact or candidate configuration, data constraints, required document list, support and repair expectations, pilot conditions, and named decision owners. Ask for gaps to be answered in writing. CNPS can discuss a sourcing requirement, while destination-specific obligations and acceptance decisions remain with your responsible officials and advisers.
+Send your requirement through [Request a quotation for devices or a pilot.](https://www.cnps.ai/en/request-quote) when you can share the destination, declared task, exact or candidate configuration, data constraints, required document list, support and repair expectations, pilot conditions, and named decision owners. Ask for gaps to be answered in writing. CNPS can discuss a sourcing requirement, while destination-specific obligations and acceptance decisions remain with your responsible officials and advisers.
 
 You should leave this checklist with a versioned packet, not a general assurance: one declared public task, named owners, exact entity and hardware identity, mapped data and subcontractors, destination-specific questions, a documented supply and repair route, change and audit controls, an exit rehearsal, and representative acceptance evidence. Keep every unresolved item open, and ask responsible officials or advisers to confirm obligations that depend on destination and use.
