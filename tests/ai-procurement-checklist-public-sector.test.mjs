@@ -11,7 +11,7 @@ const zhMeta = catalog.zh.resources.find((r) => r.slug === slug);
 const arMeta = catalog.ar.resources.find((r) => r.slug === slug);
 const title = 'AI procurement checklist for public sector: China-origin hardware path';
 const description =
-  'Public-sector AI hardware checklist: verify entity, SKU, data, subcontractors, destination evidence, service path, change control, audit, exit and pilot.';
+  'AI procurement checklist for public sector: five evidence gates for China-origin hardware — owners, exact SKU, data, destination, audit, exit and pilot.';
 
 test('EN public-sector checklist uses locked title, meta, and no body H1', () => {
   assert.ok(enMeta, 'EN catalog entry');
@@ -23,6 +23,7 @@ test('EN public-sector checklist uses locked title, meta, and no body H1', () =>
   assert.doesNotMatch(source, /^# /m);
   assert.match(source, /^For a public-sector AI hardware project/);
   for (const heading of [
+    'Public-sector method glance',
     'How this public-sector route differs from the enterprise checklist',
     'Gate 1. Declare the public task and name every owner',
     'Gate 2. Freeze the entity, SKU, version, and physical configuration',
@@ -37,7 +38,7 @@ test('EN public-sector checklist uses locked title, meta, and no body H1', () =>
   assert.equal((source.match(/www\.cnps\.ai\/en\/resources\/ai-procurement-checklist(?!-)/g) || []).length, 1);
   assert.equal((source.match(/www\.cnps\.ai\/en\/request-quote/g) || []).length, 1);
   assert.match(source, /\[AI procurement checklist for enterprise buyers\]/);
-  assert.match(source, /\[Start a conversation\]/);
+  assert.match(source, /\[Request a quotation for devices or a pilot\.\]/);
   assert.match(
     source,
     /!\[Five-gate public-sector method: Purpose \/ Identity \/ Data \/ Lifecycle \/ Control — no fake seals\]\(\/assets\/resources\/ai-procurement-checklist-public-sector-five-gates\.webp\)/
