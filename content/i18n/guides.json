@@ -2,7 +2,10 @@
   "guides": [
     {
       "slug": "gulf-arabic-english-meeting-notes-pilot",
-      "locales": ["en", "ar"],
+      "locales": [
+        "en",
+        "ar"
+      ],
       "category": "Procurement",
       "audience": "UAE and KSA team leads running bilingual meetings",
       "title": {
@@ -20,7 +23,10 @@
     },
     {
       "slug": "gulf-meeting-consent-and-privacy-test",
-      "locales": ["en", "ar"],
+      "locales": [
+        "en",
+        "ar"
+      ],
       "category": "Procurement",
       "audience": "UAE and KSA team leads freezing consent before a recorder rollout",
       "title": {
@@ -38,7 +44,10 @@
     },
     {
       "slug": "china-to-gulf-ai-recording-sourcing",
-      "locales": ["en", "ar"],
+      "locales": [
+        "en",
+        "ar"
+      ],
       "category": "Procurement",
       "audience": "UAE and KSA teams and distributors sourcing China AI recording hardware",
       "title": {
@@ -56,7 +65,10 @@
     },
     {
       "slug": "uae-ksa-edge-ai-site-readiness",
-      "locales": ["en", "ar"],
+      "locales": [
+        "en",
+        "ar"
+      ],
       "category": "Procurement",
       "audience": "UAE and KSA integrators and site owners planning camera-based edge AI",
       "title": {
@@ -74,7 +86,10 @@
     },
     {
       "slug": "meeting-recorder-vs-smart-glasses-bilingual-notes",
-      "locales": ["en", "ar"],
+      "locales": [
+        "en",
+        "ar"
+      ],
       "category": "Procurement",
       "audience": "UAE and KSA teams choosing recorder vs glasses form for bilingual notes",
       "title": {
@@ -82,8 +97,8 @@
         "ar": "مسجّل الاجتماعات مقابل النظارات الذكية لمحاضر ثنائية اللغة"
       },
       "description": {
-        "en": "Choose by form and consent optics first — visible recorder vs wearable glasses — then prove bilingual quality on a scorecard before bulk buy.",
-        "ar": "اختر أولاً حسب الشكل ومظهر الموافقة — مسجّل ظاهر مقابل نظارات تُرتدى — ثم أثبت الجودة الثنائية اللغة على بطاقة تقييم قبل الشراء بالجملة."
+        "en": "Choose by form and consent optics first — meeting recorder vs smart glasses — then bilingual scorecard. Checked 23 Oct 2026.",
+        "ar": "اختر حسب الشكل ومظهر الموافقة أولاً — مسجّل مقابل نظارات ذكية — ثم بطاقة تقييم ثنائية اللغة. رُوجعت 23 أكتوبر 2026."
       },
       "h1": {
         "en": "Meeting recorder vs smart glasses for bilingual meeting notes",
@@ -92,7 +107,9 @@
     },
     {
       "slug": "translation-glasses",
-      "locales": ["en"],
+      "locales": [
+        "en"
+      ],
       "category": "Procurement",
       "faqSchema": true,
       "audience": "Travellers, front-desk and trade-show teams comparing glasses that translate conversations",
