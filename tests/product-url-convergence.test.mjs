@@ -56,7 +56,7 @@ test('built output never publishes a bare /products URL', () => {
   const xml = fs.readFileSync(sitemap, 'utf8');
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
   assert.ok(locs.some((u) => u === 'https://www.cnps.ai/en/products/ticnote'));
-  const bare = locs.filter((u) => !/^https:\/\/www\.cnps\.ai\/(en|zh|ar)(\/|$)/.test(u));
+  const bare = locs.filter((u) => !/^https:\/\/www\.cnps\.ai\/(en|zh|ar|ru|kk)(\/|$)/.test(u));
   assert.deepEqual(bare, [], 'sitemap contains locale-less URLs');
   for (const l of locales) {
     const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : path.join(dir, e.name)));

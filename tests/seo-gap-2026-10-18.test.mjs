@@ -125,27 +125,35 @@ test('titles and metas stay unique across the three pages and their siblings', (
   assert.equal(metas.size, expected, 'meta collision');
 });
 
-test('built output: sitemap lists only /en /zh /ar URLs with reciprocal hreflang, pages self-canonicalize, schema is present', { skip: !built && 'build output not present' }, () => {
+test('built output: sitemap lists only locale-prefixed URLs with reciprocal hreflang, pages self-canonicalize, schema is present', { skip: !built && 'build output not present' }, () => {
   const xml = fs.readFileSync('dist/sitemap.xml', 'utf8');
   const entries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
   const locs = entries.map((e) => e.match(/<loc>([^<]+)<\/loc>/)[1]);
-  assert.deepEqual(locs.filter((u) => !/^https:\/\/www\.cnps\.ai\/(en|zh|ar)(\/|$)/.test(u)), [], 'sitemap contains locale-less URLs');
+  assert.deepEqual(locs.filter((u) => !/^https:\/\/www\.cnps\.ai\/(en|zh|ar|ru|kk)(\/|$)/.test(u)), [], 'sitemap contains locale-less URLs');
   assert.ok(!locs.includes(root + '/products/inmo-go3'), 'bare /products/inmo-go3 must not be in the sitemap');
-  for (const route of ['/products/inmo-go3', '/products/ticnote', '/blogs/ticnote-card-vs-lite-vs-pods']) {
-    const wanted = locales.map((l) => `${root}/${l}${route}`);
+  // Beachhead (ru/kk) adds product hreflang; blogs stay parity-only (en/zh/ar).
+  const routeLocales = {
+    '/products/inmo-go3': ['en', 'zh', 'ar', 'ru', 'kk'],
+    '/products/ticnote': ['en', 'zh', 'ar', 'ru', 'kk'],
+    '/blogs/ticnote-card-vs-lite-vs-pods': ['en', 'zh', 'ar'],
+  };
+  const hreflangTags = { en: 'en', zh: 'zh-CN', ar: 'ar', ru: 'ru', kk: 'kk' };
+  for (const [route, routeLocs] of Object.entries(routeLocales)) {
+    const wanted = routeLocs.map((l) => `${root}/${l}${route}`);
+    const expectedTags = [...routeLocs.map((l) => hreflangTags[l]), 'x-default'].sort();
     for (const l of locales) {
       const loc = `${root}/${l}${route}`;
       const entry = entries.find((e) => e.includes(`<loc>${loc}</loc>`));
       assert.ok(entry, 'sitemap entry missing for ' + loc);
       const alternates = [...entry.matchAll(/hreflang="([^"]+)" href="([^"]+)"/g)].map((m) => [m[1], m[2]]);
-      assert.deepEqual(alternates.map((a) => a[0]).sort(), ['ar', 'en', 'x-default', 'zh-CN']);
+      assert.deepEqual(alternates.map((a) => a[0]).sort(), expectedTags);
       assert.deepEqual(alternates.filter((a) => a[0] !== 'x-default').map((a) => a[1]).sort(), [...wanted].sort(), loc + ' hreflang set differs');
       assert.equal(alternates.find((a) => a[0] === 'x-default')[1], `${root}/en${route}`);
 
       const html = fs.readFileSync(path.join('dist', l, route + '.html'), 'utf8');
       assert.match(html, new RegExp(`<link rel="canonical" href="${escapeRe(loc)}">`), loc + ' canonical must be self-referencing');
       const links = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">/g)].map((m) => [m[1], m[2]]);
-      assert.deepEqual(links.map((a) => a[0]).sort(), ['ar', 'en', 'x-default', 'zh-CN'], loc + ' head hreflang set');
+      assert.deepEqual(links.map((a) => a[0]).sort(), expectedTags, loc + ' head hreflang set');
       assert.deepEqual(links.filter((a) => a[0] !== 'x-default').map((a) => a[1]).sort(), [...wanted].sort(), loc + ' head hreflang targets');
       assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/);
     }

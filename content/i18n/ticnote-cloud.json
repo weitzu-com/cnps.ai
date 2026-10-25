@@ -1,25 +1,59 @@
 {
   "path": "/products/ticnote-cloud",
   "locales": [
-    "en"
+    "en",
+    "ru",
+    "kk"
   ],
   "source": "https://userguide.ticnote.com/subscription-plans",
   "sourceLabel": "source=userguide",
-  "title": "TicNote Cloud plans",
-  "description": "Compare TicNote Cloud Free, Standard, Pro, Business and Enterprise minutes. Userguide list prices; inquire — shop subscription checkout coming soon.",
-  "eyebrow": "TicNote Cloud",
-  "h1": "TicNote Cloud plans — minutes, tiers and how to inquire",
-  "lead": "An English comparison of TicNote Cloud subscription tiers for buyers evaluating cloud-only upgrades versus hardware bundles. List prices below are from the official TicNote userguide (source=userguide). CNPS.AI shop subscription checkout is coming soon; use Inquire for Cloud Pro and Business.",
+  "title": {
+    "en": "TicNote Cloud plans",
+    "ru": "Планы TicNote Cloud",
+    "kk": "TicNote Cloud жоспарлары"
+  },
+  "description": {
+    "en": "Compare TicNote Cloud Free, Standard, Pro, Business and Enterprise minutes. Userguide list prices; inquire — shop subscription checkout coming soon.",
+    "ru": "Сравнение планов TicNote Cloud Free, Standard, Pro, Business и Enterprise. Цены userguide; запрос — покупка подписки в магазине скоро.",
+    "kk": "TicNote Cloud Free, Standard, Pro, Business және Enterprise жоспарларын салыстыру. Userguide бағалары; сұрау — дүкенде жазылым жақында."
+  },
+  "eyebrow": {
+    "en": "TicNote Cloud",
+    "ru": "TicNote Cloud",
+    "kk": "TicNote Cloud"
+  },
+  "h1": {
+    "en": "TicNote Cloud plans — minutes, tiers and how to inquire",
+    "ru": "Планы TicNote Cloud — минуты, уровни и как запросить",
+    "kk": "TicNote Cloud жоспарлары — минуттар, деңгейлер және қалай сұрау керек"
+  },
+  "lead": {
+    "en": "An English comparison of TicNote Cloud subscription tiers for buyers evaluating cloud-only upgrades versus hardware bundles. List prices below are from the official TicNote userguide (source=userguide). CNPS.AI shop subscription checkout is coming soon; use Inquire for Cloud Pro and Business.",
+    "ru": "Сравнение уровней подписки TicNote Cloud для оценки облачного апгрейда. Цены ниже — из официального userguide (source=userguide). Оформление подписки в магазине CNPS.AI скоро; для Cloud Pro и Business используйте запрос.",
+    "kk": "Бұлт жаңартуын бағалау үшін TicNote Cloud жазылым деңгейлерін салыстыру. Төмендегі бағалар — ресми userguide-тан (source=userguide). CNPS.AI дүкенінде жазылым жақында; Cloud Pro және Business үшін сұрауды пайдаланыңыз."
+  },
   "cta": {
-    "label": "Inquire about Cloud Pro or Business",
+    "label": {
+      "en": "Inquire about Cloud Pro or Business",
+      "ru": "Запросить Cloud Pro или Business",
+      "kk": "Cloud Pro немесе Business сұрау"
+    },
     "path": "/contact"
   },
   "secondaryCta": {
-    "label": "Official subscription plans",
+    "label": {
+      "en": "Official subscription plans",
+      "ru": "Официальные планы подписки",
+      "kk": "Ресми жазылым жоспарлары"
+    },
     "href": "https://userguide.ticnote.com/subscription-plans"
   },
   "hardwareCta": {
-    "label": "Hardware + 1-Year Pro bundles",
+    "label": {
+      "en": "Hardware + 1-Year Pro bundles",
+      "ru": "Комплекты оборудование + 1 год Pro",
+      "kk": "Жабдық + 1 жыл Pro жиынтықтары"
+    },
     "path": "/pro-plan"
   },
   "plans": [
@@ -29,7 +63,11 @@
       "minutes": "300 min/month",
       "monthly": "$0",
       "annual": "—",
-      "cta": "Informational only — no checkout",
+      "cta": {
+        "en": "Informational only — no checkout",
+        "ru": "Только информация — без оформления",
+        "kk": "Тек ақпарат — рәсімдеу жоқ"
+      },
       "sellable": false
     },
     {
@@ -38,7 +76,11 @@
       "minutes": "600 min/month (hardware gift)",
       "monthly": "Included with hardware",
       "annual": "—",
-      "cta": "Not sold alone",
+      "cta": {
+        "en": "Not sold alone",
+        "ru": "Отдельно не продаётся",
+        "kk": "Жеке сатылмайды"
+      },
       "sellable": false
     },
     {
@@ -47,9 +89,17 @@
       "minutes": "1,500 + 600 hardware bonus",
       "monthly": "$12.99",
       "annual": "$119",
-      "cta": "Inquire",
+      "cta": {
+        "en": "Inquire",
+        "ru": "Запросить",
+        "kk": "Сұрау"
+      },
       "sellable": false,
-      "note": "Informational list price (source=userguide). Not a live shop checkout."
+      "note": {
+        "en": "Informational list price (source=userguide). Not a live shop checkout.",
+        "ru": "Справочная цена (source=userguide). Это не живой checkout магазина.",
+        "kk": "Анықтамалық баға (source=userguide). Бұл дүкеннің тікелей checkout-ы емес."
+      }
     },
     {
       "id": "business",
@@ -57,9 +107,17 @@
       "minutes": "6,000 + 600 hardware bonus",
       "monthly": "$29.99",
       "annual": "$299",
-      "cta": "Inquire",
+      "cta": {
+        "en": "Inquire",
+        "ru": "Запросить",
+        "kk": "Сұрау"
+      },
       "sellable": false,
-      "note": "Informational list price (source=userguide). Not a live shop checkout."
+      "note": {
+        "en": "Informational list price (source=userguide). Not a live shop checkout.",
+        "ru": "Справочная цена (source=userguide). Это не живой checkout магазина.",
+        "kk": "Анықтамалық баға (source=userguide). Бұл дүкеннің тікелей checkout-ы емес."
+      }
     },
     {
       "id": "enterprise",
@@ -67,15 +125,27 @@
       "minutes": "Custom",
       "monthly": "RFQ",
       "annual": "RFQ",
-      "cta": "sales@cnps.ai",
+      "cta": {
+        "en": "sales@cnps.ai",
+        "ru": "sales@cnps.ai",
+        "kk": "sales@cnps.ai"
+      },
       "sellable": false
     }
   ],
   "sections": [
     {
       "id": "who-this-is-for",
-      "title": "Who this page is for",
-      "intro": "Buyers who already use TicNote hardware, or who want more transcription minutes and Shadow AI capacity without buying another device, and need a clear comparison before asking CNPS.AI for Cloud Pro or Business.",
+      "title": {
+        "en": "Who this page is for",
+        "ru": "Для кого эта страница",
+        "kk": "Бұл бет кімге арналған"
+      },
+      "intro": {
+        "en": "Buyers who already use TicNote hardware, or who want more transcription minutes and Shadow AI capacity without buying another device, and need a clear comparison before asking CNPS.AI for Cloud Pro or Business.",
+        "ru": "Для покупателей, которым нужно сравнение облачных уровней перед запросом Cloud Pro или Business у CNPS.AI.",
+        "kk": "CNPS.AI-ден Cloud Pro немесе Business сұрау алдында бұлт деңгейлерін салыстыру керек сатып алушыларға."
+      },
       "items": [
         "Teams comparing Free / Standard entitlements with paid Pro or Business upgrades",
         "Procurement leads who need userguide list prices labelled as informational, not as a live cart quote",
@@ -84,8 +154,16 @@
     },
     {
       "id": "checkout-status",
-      "title": "Checkout status on CNPS.AI",
-      "intro": "Online checkout for standalone Cloud Pro and Cloud Business on shop.cnps.ai is coming soon. Until then, this page is explanatory only: there is no shop checkout button for cloud plans, and list prices must not be treated as a live cart quote.",
+      "title": {
+        "en": "Checkout status on CNPS.AI",
+        "ru": "Статус оформления на CNPS.AI",
+        "kk": "CNPS.AI-де рәсімдеу күйі"
+      },
+      "intro": {
+        "en": "Online checkout for standalone Cloud Pro and Cloud Business on shop.cnps.ai is coming soon. Until then, this page is explanatory only: there is no shop checkout button for cloud plans, and list prices must not be treated as a live cart quote.",
+        "ru": "Онлайн-оформление Cloud Pro и Business на shop.cnps.ai скоро. До этого страница только справочная: нет кнопки покупки облачных планов.",
+        "kk": "shop.cnps.ai сайтында Cloud Pro және Business онлайн рәсімдеу жақында. Оған дейін бет тек анықтамалық: бұлт жоспарларын сатып алу түймесі жоқ."
+      },
       "items": [
         "Inquire via the contact form or mailto:sales@cnps.ai for Cloud Pro and Business",
         "Read the official plan definitions on the TicNote userguide",
@@ -94,8 +172,16 @@
     },
     {
       "id": "device-bound-annual",
-      "title": "Device-bound annual rates (hardware owners)",
-      "intro": "After you activate eligible TicNote hardware, the TicNote app may show a discounted annual rate for Pro ($79/yr) and Business ($239/yr) versus the standalone annual list prices above. Those device-bound rates are not separate shop variants on CNPS.AI. See the existing hardware product pages and the hardware-bundle Pro plan page.",
+      "title": {
+        "en": "Device-bound annual rates (hardware owners)",
+        "ru": "Годовая ставка, привязанная к устройству",
+        "kk": "Құрылғыға байланған жылдық тариф"
+      },
+      "intro": {
+        "en": "After you activate eligible TicNote hardware, the TicNote app may show a discounted annual rate for Pro ($79/yr) and Business ($239/yr) versus the standalone annual list prices above. Those device-bound rates are not separate shop variants on CNPS.AI. See the existing hardware product pages and the hardware-bundle Pro plan page.",
+        "ru": "После активации подходящего оборудования приложение TicNote может показать сниженную годовую ставку Pro ($79/год) и Business ($239/год). Это не отдельные варианты магазина на CNPS.AI.",
+        "kk": "Сәйкес жабдықты белсендіргеннен кейін TicNote қолданбасы Pro ($79/жыл) және Business ($239/жыл) төмендетілген жылдық тарифті көрсетуі мүмкін. Бұл CNPS.AI дүкеніндегі бөлек нұсқалар емес."
+      },
       "items": [
         "TicNote card recorder product page: /products/ticnote",
         "TicNote Lite product page: /products/ticnote-lite",
@@ -104,12 +190,24 @@
     },
     {
       "id": "top-ups",
-      "title": "Minutes and Shadow AI top-ups",
-      "intro": "Minutes / Shadow AI top-ups: inquire. Pack denominations are not published as confirmed CNPS.AI list prices on this site."
+      "title": {
+        "en": "Minutes and Shadow AI top-ups",
+        "ru": "Докупка минут и Shadow AI",
+        "kk": "Минуттар мен Shadow AI толықтыру"
+      },
+      "intro": {
+        "en": "Minutes / Shadow AI top-ups: inquire. Pack denominations are not published as confirmed CNPS.AI list prices on this site.",
+        "ru": "Докупка минут / Shadow AI: по запросу. Номиналы пакетов на этом сайте как подтверждённые цены CNPS.AI не публикуются.",
+        "kk": "Минут / Shadow AI толықтыру: сұрау бойынша. Пакет номиналдары осы сайтта расталған CNPS.AI бағасы ретінде жарияланбайды."
+      }
     },
     {
       "id": "footnotes",
-      "title": "Footnotes",
+      "title": {
+        "en": "Footnotes",
+        "ru": "Сноски",
+        "kk": "Ескертпелер"
+      },
       "items": [
         "List prices: source=userguide (https://userguide.ticnote.com/subscription-plans). Prefer userguide USD for the .com channel.",
         "EU store monthly may be higher (Pro $19.99 / Business $39.99). Regional checkout differs from userguide.",
@@ -120,8 +218,20 @@
     }
   ],
   "card": {
-    "tag": "Cloud plans",
-    "title": "TicNote Cloud",
-    "description": "Compare Free, Standard, Pro, Business and Enterprise cloud minutes. Inquire for Cloud Pro and Business — shop subscription checkout coming soon."
+    "tag": {
+      "en": "Cloud plans",
+      "ru": "Облачные планы",
+      "kk": "Бұлт жоспарлары"
+    },
+    "title": {
+      "en": "TicNote Cloud",
+      "ru": "TicNote Cloud",
+      "kk": "TicNote Cloud"
+    },
+    "description": {
+      "en": "Compare Free, Standard, Pro, Business and Enterprise cloud minutes. Inquire for Cloud Pro and Business — shop subscription checkout coming soon.",
+      "ru": "Сравните минуты Free, Standard, Pro, Business и Enterprise. Запрос для Pro и Business — оформление подписки в магазине скоро.",
+      "kk": "Free, Standard, Pro, Business және Enterprise минуттарын салыстырыңыз. Pro және Business үшін сұрау — дүкенде жазылым жақында."
+    }
   }
 }
