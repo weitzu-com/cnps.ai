@@ -1,0 +1,127 @@
+{
+  "path": "/products/ticnote-cloud",
+  "locales": [
+    "en"
+  ],
+  "source": "https://userguide.ticnote.com/subscription-plans",
+  "sourceLabel": "source=userguide",
+  "title": "TicNote Cloud plans",
+  "description": "Compare TicNote Cloud Free, Standard, Pro, Business and Enterprise minutes. Userguide list prices; inquire — shop subscription checkout coming soon.",
+  "eyebrow": "TicNote Cloud",
+  "h1": "TicNote Cloud plans — minutes, tiers and how to inquire",
+  "lead": "An English comparison of TicNote Cloud subscription tiers for buyers evaluating cloud-only upgrades versus hardware bundles. List prices below are from the official TicNote userguide (source=userguide). CNPS.AI shop subscription checkout is coming soon; use Inquire for Cloud Pro and Business.",
+  "cta": {
+    "label": "Inquire about Cloud Pro or Business",
+    "path": "/contact"
+  },
+  "secondaryCta": {
+    "label": "Official subscription plans",
+    "href": "https://userguide.ticnote.com/subscription-plans"
+  },
+  "hardwareCta": {
+    "label": "Hardware + 1-Year Pro bundles",
+    "path": "/pro-plan"
+  },
+  "plans": [
+    {
+      "id": "free",
+      "name": "Free",
+      "minutes": "300 min/month",
+      "monthly": "$0",
+      "annual": "—",
+      "cta": "Informational only — no checkout",
+      "sellable": false
+    },
+    {
+      "id": "standard",
+      "name": "Standard (Plus)",
+      "minutes": "600 min/month (hardware gift)",
+      "monthly": "Included with hardware",
+      "annual": "—",
+      "cta": "Not sold alone",
+      "sellable": false
+    },
+    {
+      "id": "pro",
+      "name": "Pro",
+      "minutes": "1,500 + 600 hardware bonus",
+      "monthly": "$12.99",
+      "annual": "$119",
+      "cta": "Inquire",
+      "sellable": false,
+      "note": "Informational list price (source=userguide). Not a live shop checkout."
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "minutes": "6,000 + 600 hardware bonus",
+      "monthly": "$29.99",
+      "annual": "$299",
+      "cta": "Inquire",
+      "sellable": false,
+      "note": "Informational list price (source=userguide). Not a live shop checkout."
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "minutes": "Custom",
+      "monthly": "RFQ",
+      "annual": "RFQ",
+      "cta": "sales@cnps.ai",
+      "sellable": false
+    }
+  ],
+  "sections": [
+    {
+      "id": "who-this-is-for",
+      "title": "Who this page is for",
+      "intro": "Buyers who already use TicNote hardware, or who want more transcription minutes and Shadow AI capacity without buying another device, and need a clear comparison before asking CNPS.AI for Cloud Pro or Business.",
+      "items": [
+        "Teams comparing Free / Standard entitlements with paid Pro or Business upgrades",
+        "Procurement leads who need userguide list prices labelled as informational, not as a live cart quote",
+        "Hardware buyers who already see device-bound annual rates in the TicNote app after activation"
+      ]
+    },
+    {
+      "id": "checkout-status",
+      "title": "Checkout status on CNPS.AI",
+      "intro": "Online checkout for standalone Cloud Pro and Cloud Business on shop.cnps.ai is coming soon. Until then, this page is explanatory only: there is no shop checkout button for cloud plans, and list prices must not be treated as a live cart quote.",
+      "items": [
+        "Inquire via the contact form or mailto:sales@cnps.ai for Cloud Pro and Business",
+        "Read the official plan definitions on the TicNote userguide",
+        "For hardware + 1-Year Pro SKUs already sold on shop.cnps.ai, use the Pro plan page and the TicNote / Lite product pages"
+      ]
+    },
+    {
+      "id": "device-bound-annual",
+      "title": "Device-bound annual rates (hardware owners)",
+      "intro": "After you activate eligible TicNote hardware, the TicNote app may show a discounted annual rate for Pro ($79/yr) and Business ($239/yr) versus the standalone annual list prices above. Those device-bound rates are not separate shop variants on CNPS.AI. See the existing hardware product pages and the hardware-bundle Pro plan page.",
+      "items": [
+        "TicNote card recorder product page: /products/ticnote",
+        "TicNote Lite product page: /products/ticnote-lite",
+        "Hardware 1-Year Pro bundles explained on /pro-plan"
+      ]
+    },
+    {
+      "id": "top-ups",
+      "title": "Minutes and Shadow AI top-ups",
+      "intro": "Minutes / Shadow AI top-ups: inquire. Pack denominations are not published as confirmed CNPS.AI list prices on this site."
+    },
+    {
+      "id": "footnotes",
+      "title": "Footnotes",
+      "items": [
+        "List prices: source=userguide (https://userguide.ticnote.com/subscription-plans). Prefer userguide USD for the .com channel.",
+        "EU store monthly may be higher (Pro $19.99 / Business $39.99). Regional checkout differs from userguide.",
+        "CNPS.AI shop subscription checkout coming soon. Do not treat this page as a live shop quote.",
+        "Standard (Plus) is a hardware entitlement, not sold separately.",
+        "Enterprise is RFQ only: sales@cnps.ai."
+      ]
+    }
+  ],
+  "card": {
+    "tag": "Cloud plans",
+    "title": "TicNote Cloud",
+    "description": "Compare Free, Standard, Pro, Business and Enterprise cloud minutes. Inquire for Cloud Pro and Business — shop subscription checkout coming soon."
+  }
+}

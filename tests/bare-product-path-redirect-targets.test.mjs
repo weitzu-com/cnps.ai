@@ -12,6 +12,7 @@ import { pathToRegexp } from 'path-to-regexp';
 const vercel = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
 const products = JSON.parse(fs.readFileSync('content/i18n/product-assets.json', 'utf8'));
 const legacy = JSON.parse(fs.readFileSync('content/i18n/legacy-pages.json', 'utf8'));
+const ticnoteCloud = JSON.parse(fs.readFileSync('content/i18n/ticnote-cloud.json', 'utf8'));
 const redirects = vercel.redirects;
 const redirect = (source) => redirects.find((r) => r.source === source);
 const catchAll = redirect('/products/:path*');
@@ -25,7 +26,8 @@ const builtPages = fs.existsSync('dist/en/products');
 function wwwProductPageExists(destination) {
   const m = destination.match(/^\/en(\/products(?:\/[a-z0-9-]+)?)$/);
   if (!m) return false;
-  if (!legacy.some((x) => x.path === m[1])) return false;
+  const known = legacy.some((x) => x.path === m[1]) || (ticnoteCloud.path === m[1]);
+  if (!known) return false;
   if (builtPages) {
     const file = m[1] === '/products' ? 'dist/en/products.html' : path.join('dist/en', m[1] + '.html');
     if (!fs.existsSync(file)) return false;

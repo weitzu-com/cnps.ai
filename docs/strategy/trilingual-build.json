@@ -1,6 +1,6 @@
 {
-  "pages": 258,
-  "pagesPerLanguage": 91,
+  "pages": 259,
+  "pagesPerLanguage": 92,
   "languages": [
     "en",
     "zh",
@@ -64,6 +64,7 @@
     "/products/compare",
     "/products/inmo-go3",
     "/products/ticnote",
+    "/products/ticnote-cloud",
     "/products/ticnote-lite",
     "/products/ticnote-pods-4g",
     "/products/ticnote-pods-wifi",
@@ -163,6 +164,7 @@
     "/products/compare",
     "/products/inmo-go3",
     "/products/ticnote",
+    "/products/ticnote-cloud",
     "/products/ticnote-lite",
     "/products/ticnote-pods-4g",
     "/products/ticnote-pods-wifi",
