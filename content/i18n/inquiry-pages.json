@@ -3,75 +3,101 @@
     "title": {
       "en": "Request a quote for devices, distribution or a pilot",
       "zh": "索取报价：设备、渠道批量或试点",
-      "ar": "اطلب عرض سعر للأجهزة أو التوزيع أو تجربة تجريبية"
+      "ar": "اطلب عرض سعر للأجهزة أو التوزيع أو تجربة تجريبية",
+      "ru": "Запросить коммерческое предложение CNPS.AI",
+      "kk": "CNPS.AI коммерциялық ұсынысын сұрау"
     },
     "description": {
       "en": "Request a quotation from CNPS.AI for intelligent devices, distribution volumes or a clearly scoped AI pilot. Tell us the product, destination and quantity so we can confirm availability, the exact variant and terms.",
       "zh": "向 CNPS.AI 索取智能硬件、渠道批量或范围明确的 AI 试点的报价。告诉我们产品、目的地和数量，以便确认供应情况、准确型号与条款。",
-      "ar": "اطلب عرض سعر من CNPS.AI للأجهزة الذكية أو كميات التوزيع أو تجربة ذكاء اصطناعي محددة النطاق. أخبرنا بالمنتج والوجهة والكمية لنؤكد التوفر والإصدار المحدد والشروط."
+      "ar": "اطلب عرض سعر من CNPS.AI للأجهزة الذكية أو كميات التوزيع أو تجربة ذكاء اصطناعي محددة النطاق. أخبرنا بالمنتج والوجهة والكمية لنؤكد التوفر والإصدار المحدد والشروط.",
+      "ru": "Запросите коммерческое предложение по устройствам и пилотам CNPS.AI: модели, объём, страна назначения и срок. Ответим на рабочую почту.",
+      "kk": "CNPS.AI құрылғылары мен пилоттары бойынша коммерциялық ұсыныс сұраңыз: үлгілер, көлем, мақсатты ел және мерзім. Жұмыс поштасына жауап береміз."
     },
     "h1": {
       "en": "Request a quotation for devices or a pilot.",
       "zh": "为设备或试点索取报价。",
-      "ar": "اطلب عرض سعر للأجهزة أو لتجربة تجريبية."
+      "ar": "اطلب عرض سعر للأجهزة أو لتجربة تجريبية.",
+      "ru": "Запросите коммерческое предложение.",
+      "kk": "Коммерциялық ұсыныс сұраңыз."
     },
     "lead": {
       "en": "Share the product, solution or volume you want priced and we will reply with availability, the exact variant and the information still needed for a formal quotation.",
       "zh": "说明需要报价的产品、方案或数量，我们会回复目的地供应情况、准确型号，以及正式报价还需补充的信息。",
-      "ar": "شارك المنتج أو الحل أو الكمية التي تريد تسعيرها، وسنرد بالتوفر والإصدار المحدد والمعلومات المتبقية اللازمة لعرض سعر رسمي."
+      "ar": "شارك المنتج أو الحل أو الكمية التي تريد تسعيرها، وسنرد بالتوفر والإصدار المحدد والمعلومات المتبقية اللازمة لعرض سعر رسمي.",
+      "ru": "Когда известны продукт или задача, объём и желаемые сроки — эта форма быстрее общего контакта.",
+      "kk": "Өнім немесе тапсырма, көлем және қалаулы мерзім белгілі болса — бұл пішін жалпы байланыстан жылдамырақ."
     },
     "intro": {
       "en": "Use this form when you already know what you need priced. Prices, destination supply and exact editions are confirmed in the quotation, not on this page.",
       "zh": "如果你已明确需要报价的内容，请使用此表单。价格、目的地供应和准确版本以报价为准，而非本页。",
-      "ar": "استخدم هذا النموذج إذا كنت تعرف مسبقاً ما تريد تسعيره. تُؤكَّد الأسعار والتوفر في وجهتك والإصدارات المحددة في عرض السعر، وليس في هذه الصفحة."
+      "ar": "استخدم هذا النموذج إذا كنت تعرف مسبقاً ما تريد تسعيره. تُؤكَّد الأسعار والتوفر في وجهتك والإصدارات المحددة في عرض السعر، وليس في هذه الصفحة.",
+      "ru": "Для общего знакомства используйте [контакт](/contact). Cloud — только запрос, без покупки подписки в магазине.",
+      "kk": "Жалпы танысу үшін [байланысты](/contact) пайдаланыңыз. Cloud — тек сұрау, дүкенде жазылым сатып алу жоқ."
     },
     "sections": [
       {
         "title": {
           "en": "What a quotation needs",
           "zh": "报价需要哪些信息",
-          "ar": "ما يحتاجه عرض السعر"
+          "ar": "ما يحتاجه عرض السعر",
+          "ru": "Что нужно для предложения",
+          "kk": "Ұсынысқа не керек"
         },
         "body": {
           "en": "- **Model and option**: for example \"TicNote Gray / with 1-Year Pro Plan\" or \"Pods 4G Pearl White / Pods Only\". If you are unsure, describe the task and we will suggest the variant.\n- **Quantity**: per model. The shop does not publish volume pricing, so quantity directly affects the quotation.\n- **Destination country and delivery city**: these determine availability, shipping method and who bears duties and taxes.\n- **Required date**: when you need the devices and whether split deliveries are acceptable.\n- **Purpose**: team use, a pilot or distribution for resale. Distribution terms differ from a purchase for your own use.\n- **Special requirements**: data-processing location, prescription lenses, specific language support, invoicing and payment method.\n",
           "zh": "- **型号与选项**：例如\"TicNote 灰色 / 含 1 年 Pro 套餐\"或\"Pods 4G 珍珠白 / 仅 Pods\"。不确定选项时，写下任务，我们会建议对应的变体。\n- **数量**：按型号分别列出。商店未公布批量价格，数量会直接影响报价。\n- **目的国家或地区与收货城市**：决定供应情况、运输方式、关税与税费的承担方式。\n- **需求日期**：希望收到设备的时间，以及是否可以分批。\n- **用途**：团队自用、试点、还是分销转售。分销合作的条款与自用采购不同。\n- **特殊要求**：数据处理位置、处方镜片、特定语言支持、发票与付款方式。\n",
-          "ar": "- **الطراز والخيار**: مثلاً \"TicNote رمادي / مع خطة Pro لسنة\" أو \"Pods 4G أبيض لؤلؤي / السماعات فقط\". إن لم تكن متأكداً، صِف المهمة وسنقترح الإصدار.\n- **الكمية**: لكل طراز. لا ينشر المتجر أسعار الكميات، فالكمية تؤثر مباشرة في عرض السعر.\n- **بلد الوجهة ومدينة التسليم**: تحدد التوفر وطريقة الشحن ومن يتحمل الرسوم والضرائب.\n- **التاريخ المطلوب**: متى تحتاج إلى الأجهزة وهل التسليم على دفعات مقبول.\n- **الغرض**: استخدام الفريق، أو تجربة، أو توزيع لإعادة البيع. تختلف شروط التوزيع عن الشراء للاستخدام الخاص.\n- **متطلبات خاصة**: موقع معالجة البيانات، عدسات طبية، دعم لغات محددة، الفوترة وطريقة الدفع.\n"
+          "ar": "- **الطراز والخيار**: مثلاً \"TicNote رمادي / مع خطة Pro لسنة\" أو \"Pods 4G أبيض لؤلؤي / السماعات فقط\". إن لم تكن متأكداً، صِف المهمة وسنقترح الإصدار.\n- **الكمية**: لكل طراز. لا ينشر المتجر أسعار الكميات، فالكمية تؤثر مباشرة في عرض السعر.\n- **بلد الوجهة ومدينة التسليم**: تحدد التوفر وطريقة الشحن ومن يتحمل الرسوم والضرائب.\n- **التاريخ المطلوب**: متى تحتاج إلى الأجهزة وهل التسليم على دفعات مقبول.\n- **الغرض**: استخدام الفريق، أو تجربة، أو توزيع لإعادة البيع. تختلف شروط التوزيع عن الشراء للاستخدام الخاص.\n- **متطلبات خاصة**: موقع معالجة البيانات، عدسات طبية، دعم لغات محددة، الفوترة وطريقة الدفع.\n",
+          "ru": "Модель или задача, ориентировочное количество, страна назначения и срок. Этого достаточно для первого ответа.",
+          "kk": "Үлгі немесе тапсырма, болжалды мөлшер, мақсатты ел және мерзім. Алғашқы жауапқа осы жеткілікті."
         }
       },
       {
         "title": {
           "en": "How the quotation is prepared",
           "zh": "报价流程",
-          "ar": "كيف يُعَد عرض السعر"
+          "ar": "كيف يُعَد عرض السعر",
+          "ru": "Как готовится предложение",
+          "kk": "Ұсыныс қалай дайындалады"
         },
         "body": {
           "en": "1. **Availability check**: we first verify that the chosen model and option can be supplied to your destination and whether lithium-battery shipping or network-version limits (for example the North America version of Pods 4G) apply.\n2. **Missing information**: if fields are missing, we ask by work email rather than quoting on assumptions.\n3. **Formal quotation**: model, quantity, unit price, validity period, delivery method and payment terms. The written document governs; prices on this site and the shop listings are for reference only.\n4. **Purchase order**: after you confirm the quotation, execution proceeds on a purchase order or written confirmation. Distribution arrangements carry separate partnership terms.\n\nA quotation does not promise transcription accuracy, translation quality or battery-life figures. Verify such figures through a trial or written confirmation before ordering.\n",
           "zh": "1. **确认供应**：我们先核对所选型号与选项在你的目的地是否可供应、是否受锂电池运输或网络版本（例如 Pods 4G 的北美版本）限制。\n2. **补齐信息**：如有缺失字段，我们通过工作邮箱询问，而不是凭假设报价。\n3. **出具正式报价**：包含型号、数量、单价、有效期、交付方式与付款条款。报价以书面文件为准，本页与商品页面的价格仅供参考。\n4. **采购订单**：确认报价后，以采购订单或书面确认进入执行。分销合作会另附合作条款。\n\n我们不会在报价中承诺任何转写准确率、翻译质量或续航数值。需要验证的参数，请在下单前通过试用或书面确认取得。\n",
-          "ar": "1. **التحقق من التوفر**: نتحقق أولاً من إمكانية توريد الطراز والخيار المختارَين إلى وجهتك وما إذا كانت قيود شحن بطاريات الليثيوم أو إصدار الشبكة (مثل إصدار أمريكا الشمالية من Pods 4G) تنطبق.\n2. **المعلومات الناقصة**: إذا كانت هناك حقول ناقصة، نسأل عبر بريد العمل بدلاً من التسعير على افتراضات.\n3. **عرض السعر الرسمي**: الطراز والكمية وسعر الوحدة ومدة الصلاحية وطريقة التسليم وشروط الدفع. الوثيقة الكتابية هي المعتمدة؛ أسعار هذا الموقع وصفحات المتجر للمرجع فقط.\n4. **أمر الشراء**: بعد تأكيدك لعرض السعر، يبدأ التنفيذ بأمر شراء أو تأكيد كتابي. تحمل ترتيبات التوزيع شروط شراكة منفصلة.\n\nلا يعد عرض السعر بدقة تفريغ نصي أو جودة ترجمة أو أرقام عمر بطارية. تحقق من هذه الأرقام عبر تجربة أو تأكيد كتابي قبل الطلب.\n"
+          "ar": "1. **التحقق من التوفر**: نتحقق أولاً من إمكانية توريد الطراز والخيار المختارَين إلى وجهتك وما إذا كانت قيود شحن بطاريات الليثيوم أو إصدار الشبكة (مثل إصدار أمريكا الشمالية من Pods 4G) تنطبق.\n2. **المعلومات الناقصة**: إذا كانت هناك حقول ناقصة، نسأل عبر بريد العمل بدلاً من التسعير على افتراضات.\n3. **عرض السعر الرسمي**: الطراز والكمية وسعر الوحدة ومدة الصلاحية وطريقة التسليم وشروط الدفع. الوثيقة الكتابية هي المعتمدة؛ أسعار هذا الموقع وصفحات المتجر للمرجع فقط.\n4. **أمر الشراء**: بعد تأكيدك لعرض السعر، يبدأ التنفيذ بأمر شراء أو تأكيد كتابي. تحمل ترتيبات التوزيع شروط شراكة منفصلة.\n\nلا يعد عرض السعر بدقة تفريغ نصي أو جودة ترجمة أو أرقام عمر بطارية. تحقق من هذه الأرقام عبر تجربة أو تأكيد كتابي قبل الطلب.\n",
+          "ru": "Мы сверяем наличие и условия поставки, затем отправляем ответ на рабочую почту. Итоговые цены — в официальном предложении.",
+          "kk": "Қолжетімділік пен жеткізу шарттарын тексеріп, жұмыс поштасына жауап жібереміз. Соңғы бағалар — ресми ұсыныста."
         }
       },
       {
         "title": {
           "en": "Before you ask for a quotation",
           "zh": "询价前值得先做的事",
-          "ar": "قبل أن تطلب عرض سعر"
+          "ar": "قبل أن تطلب عرض سعر",
+          "ru": "Перед запросом предложения",
+          "kk": "Ұсыныс сұрау алдында"
         },
         "body": {
           "en": "- **Read the comparison first**: [TicNote models side by side](/products/compare) lists each model's published storage, colours and bundles, as well as the figures the shop does not publish.\n- **Decide whether to trial first**: before a volume purchase, buying one unit for a two-week trial is usually safer than placing a large order directly. See [Plan an AI meeting-device pilot](/resources/meeting-device-pilot).\n- **Check the policies**: the [shipping policy](/shipping) lists the destinations the shop serves; the [returns policy](/returns) explains the limits on ear-worn products and the Pro digital service.\n- **Prepare what your internal approval needs**: if you require supplier documents, invoicing details or a specific payment method, say so in the form.\n",
           "zh": "- **先看对比页**：[TicNote 型号并排对比](/products/compare)列出了各型号已公布的存储、颜色和组合，以及商店没有公布的参数。\n- **决定是否先试用**：批量采购前，先买一台做两周试用通常比直接下大单更稳妥。方法见[规划 AI 会议设备试点](/resources/meeting-device-pilot)。\n- **核对政策**：[配送政策](/shipping)列出了商店可配送的目的地；[退货政策](/returns)说明了耳戴式产品与 Pro 数字服务的限制。\n- **准备内部审批所需的信息**：如需要供应商资料、发票抬头或付款方式，请在表单中一并说明。\n",
-          "ar": "- **اقرأ المقارنة أولاً**: تسرد [مقارنة طرازات TicNote](/products/compare) السعة والألوان والباقات المنشورة لكل طراز، والأرقام التي لا ينشرها المتجر.\n- **قرّر إن كنت ستجرّب أولاً**: قبل الشراء بالكمية، يكون شراء وحدة واحدة لتجربة أسبوعين أكثر أماناً عادةً من طلب كبير مباشر. راجع [خطّط لتجربة أجهزة اجتماعات بالذكاء الاصطناعي](/resources/meeting-device-pilot).\n- **راجع السياسات**: تسرد [سياسة الشحن](/shipping) الوجهات التي يخدمها المتجر؛ وتوضح [سياسة الإرجاع](/returns) قيود المنتجات التي تُلبس في الأذن وخدمة Pro الرقمية.\n- **جهّز ما تحتاجه موافقتك الداخلية**: إذا كنت تحتاج إلى مستندات المورّد أو بيانات الفوترة أو طريقة دفع محددة، فاذكر ذلك في النموذج.\n"
+          "ar": "- **اقرأ المقارنة أولاً**: تسرد [مقارنة طرازات TicNote](/products/compare) السعة والألوان والباقات المنشورة لكل طراز، والأرقام التي لا ينشرها المتجر.\n- **قرّر إن كنت ستجرّب أولاً**: قبل الشراء بالكمية، يكون شراء وحدة واحدة لتجربة أسبوعين أكثر أماناً عادةً من طلب كبير مباشر. راجع [خطّط لتجربة أجهزة اجتماعات بالذكاء الاصطناعي](/resources/meeting-device-pilot).\n- **راجع السياسات**: تسرد [سياسة الشحن](/shipping) الوجهات التي يخدمها المتجر؛ وتوضح [سياسة الإرجاع](/returns) قيود المنتجات التي تُلبس في الأذن وخدمة Pro الرقمية.\n- **جهّز ما تحتاجه موافقتك الداخلية**: إذا كنت تحتاج إلى مستندات المورّد أو بيانات الفوترة أو طريقة دفع محددة، فاذكر ذلك في النموذج.\n",
+          "ru": "Сверьте модель на [странице продуктов](/products). Для облачных минут откройте [TicNote Cloud](/products/ticnote-cloud).",
+          "kk": "Үлгіні [өнімдер бетінен](/products) тексеріңіз. Бұлт минуттары үшін [TicNote Cloud](/products/ticnote-cloud) ашыңыз."
         }
       },
       {
         "title": {
           "en": "Common questions",
           "zh": "常见问题",
-          "ar": "الأسئلة الشائعة"
+          "ar": "الأسئلة الشائعة",
+          "ru": "Частые вопросы",
+          "kk": "Жиі қойылатын сұрақтар"
         },
         "body": {
           "en": "### Is there a volume or distributor discount?\n\nThe shop does not publish volume pricing. Provide model, quantity, destination and purpose in the form; price is confirmed in the formal quotation.\n\n### Can I get a quotation for a single unit for a trial?\n\nYes. A single unit can also be bought directly at shop.cnps.ai; if you need a formal quotation document for internal approval, say so in the form.\n\n### Does the quotation include duties and taxes?\n\nThe quotation states the delivery method and who bears the costs. The shop's default is that import duties, taxes and clearance fees are borne by the recipient unless stated otherwise; see the [shipping policy](/shipping).\n\n### How long is a quotation valid?\n\nThe validity period stated in the quotation document applies. Prices can change with shop promotions, exchange rates and availability.\n",
           "zh": "### 有批量或经销折扣吗？\n\n商店未公布批量价格。请在表单中提供型号、数量、目的地和用途，价格以正式报价为准。\n\n### 可以只报价一台用于试用吗？\n\n可以。单台采购也可以直接在 shop.cnps.ai 结账；如果你需要正式报价文件用于内部审批，请在表单中说明。\n\n### 报价包含关税和税费吗？\n\n报价会说明交付方式与费用承担方式。商店的默认规则是除非明确说明，否则进口关税、税费与清关费用由收件人承担，详见[配送政策](/shipping)。\n\n### 报价的有效期多长？\n\n以报价文件中标明的有效期为准。价格可能随商店促销、汇率与供应情况变化。\n",
-          "ar": "### هل يوجد خصم للكميات أو للموزعين؟\n\nلا ينشر المتجر أسعار الكميات. قدّم الطراز والكمية والوجهة والغرض في النموذج؛ يُؤكَّد السعر في عرض السعر الرسمي.\n\n### هل يمكنني الحصول على عرض سعر لوحدة واحدة للتجربة؟\n\nنعم. يمكن أيضاً شراء وحدة واحدة مباشرة من shop.cnps.ai؛ وإذا كنت تحتاج إلى وثيقة عرض سعر رسمية للموافقة الداخلية، فاذكر ذلك في النموذج.\n\n### هل يتضمن عرض السعر الرسوم والضرائب؟\n\nيوضح عرض السعر طريقة التسليم ومن يتحمل التكاليف. القاعدة الافتراضية للمتجر أن رسوم الاستيراد والضرائب ورسوم التخليص يتحملها المستلم ما لم يُذكر خلاف ذلك؛ راجع [سياسة الشحن](/shipping).\n\n### ما مدة صلاحية عرض السعر؟\n\nتنطبق مدة الصلاحية المذكورة في وثيقة عرض السعر. قد تتغير الأسعار مع عروض المتجر وأسعار الصرف والتوفر.\n"
+          "ar": "### هل يوجد خصم للكميات أو للموزعين؟\n\nلا ينشر المتجر أسعار الكميات. قدّم الطراز والكمية والوجهة والغرض في النموذج؛ يُؤكَّد السعر في عرض السعر الرسمي.\n\n### هل يمكنني الحصول على عرض سعر لوحدة واحدة للتجربة؟\n\nنعم. يمكن أيضاً شراء وحدة واحدة مباشرة من shop.cnps.ai؛ وإذا كنت تحتاج إلى وثيقة عرض سعر رسمية للموافقة الداخلية، فاذكر ذلك في النموذج.\n\n### هل يتضمن عرض السعر الرسوم والضرائب؟\n\nيوضح عرض السعر طريقة التسليم ومن يتحمل التكاليف. القاعدة الافتراضية للمتجر أن رسوم الاستيراد والضرائب ورسوم التخليص يتحملها المستلم ما لم يُذكر خلاف ذلك؛ راجع [سياسة الشحن](/shipping).\n\n### ما مدة صلاحية عرض السعر؟\n\nتنطبق مدة الصلاحية المذكورة في وثيقة عرض السعر. قد تتغير الأسعار مع عروض المتجر وأسعار الصرف والتوفر.\n",
+          "ru": "### Это заказ в магазине?\n\nНет. Это запрос коммерческого предложения. Покупки устройств — на shop.cnps.ai.\n\n### Cloud Pro можно купить здесь?\n\nНет. Подписка Cloud в магазине пока недоступна; используйте запрос.\n\n### Нужен ли НДС / Инкотермс?\n\nУкажите страну и предпочтения в поле потребности — уточним в ответе.",
+          "kk": "### Бұл дүкен тапсырысы ма?\n\nЖоқ. Бұл коммерциялық ұсыныс сұрауы. Құрылғы сатып алу — shop.cnps.ai сайтында.\n\n### Cloud Pro-ны осында сатып алуға бола ма?\n\nЖоқ. Cloud жазылымы дүкенде әзірге жоқ; сұрауды пайдаланыңыз.\n\n### ҚҚС / Инкотермс керек пе?\n\nҚажеттілік өрісінде ел мен қалауыңызды көрсетіңіз — жауапта нақтылаймыз."
         }
       }
     ]
@@ -80,27 +106,37 @@
     "title": {
       "en": "Contact CNPS.AI about devices, wholesale or support",
       "zh": "联系 CNPS.AI：设备、批发与支持",
-      "ar": "تواصل مع CNPS.AI بشأن الأجهزة أو الجملة أو الدعم"
+      "ar": "تواصل مع CNPS.AI بشأن الأجهزة أو الجملة أو الدعم",
+      "ru": "Связаться с CNPS.AI по устройствам, опту или поддержке",
+      "kk": "CNPS.AI-мен құрылғылар, көтерме немесе қолдау бойынша байланысу"
     },
     "description": {
       "en": "Contact the CNPS.AI team about Chinese intelligent devices and AI applications: product questions, wholesale and distribution, support, or a first exploratory conversation. We reply to your work email.",
       "zh": "联系 CNPS.AI 团队，咨询中国智能硬件与 AI 应用：产品问题、渠道与批发、支持，或首次探索性沟通。我们会通过工作邮箱回复。",
-      "ar": "تواصل مع فريق CNPS.AI بشأن الأجهزة الذكية وتطبيقات الذكاء الاصطناعي من الصين: أسئلة المنتجات، البيع بالجملة والتوزيع، الدعم، أو محادثة استكشافية أولى. نرد عبر بريدك الإلكتروني للعمل."
+      "ar": "تواصل مع فريق CNPS.AI بشأن الأجهزة الذكية وتطبيقات الذكاء الاصطناعي من الصين: أسئلة المنتجات، البيع بالجملة والتوزيع، الدعم، أو محادثة استكشافية أولى. نرد عبر بريدك الإلكتروني للعمل.",
+      "ru": "Свяжитесь с командой CNPS.AI по китайским интеллектуальным устройствам и ИИ: продукты, опт, поддержка или первый разговор. Ответим на рабочую почту.",
+      "kk": "CNPS.AI командасымен қытай ақылды құрылғылары мен ЖИ бойынша байланысыңыз: өнімдер, көтерме, қолдау немесе алғашқы әңгіме. Жұмыс поштасына жауап береміз."
     },
     "h1": {
       "en": "Start a conversation with CNPS.AI.",
       "zh": "与 CNPS.AI 开始一次沟通。",
-      "ar": "ابدأ محادثة مع CNPS.AI."
+      "ar": "ابدأ محادثة مع CNPS.AI.",
+      "ru": "Начните разговор с CNPS.AI.",
+      "kk": "CNPS.AI-мен әңгімені бастаңыз."
     },
     "lead": {
       "en": "For general questions, wholesale and distribution enquiries, or when you are not yet sure which product or solution fits your team.",
       "zh": "适用于一般咨询、渠道与批发合作，或尚不确定哪款产品或方案适合团队的情况。",
-      "ar": "للأسئلة العامة واستفسارات الجملة والتوزيع، أو إذا لم تحدد بعد المنتج أو الحل المناسب لفريقك."
+      "ar": "للأسئلة العامة واستفسارات الجملة والتوزيع، أو إذا لم تحدد بعد المنتج أو الحل المناسب لفريقك.",
+      "ru": "Для общих вопросов, опта и дистрибуции или если вы ещё не уверены, какой продукт подходит команде.",
+      "kk": "Жалпы сұрақтар, көтерме және дистрибуция үшін немесе командаға қай өнім сәйкес екені әлі белгісіз болса."
     },
     "intro": {
       "en": "If you already have a specific product and quantity in mind, the quotation form is the faster route. FastGPT knowledge-base projects have their own form.",
       "zh": "如果已经明确具体产品和数量，报价表单会更快。FastGPT 知识库项目请使用专用表单。",
-      "ar": "إذا كان لديك منتج وكمية محددان، فنموذج عرض السعر هو الطريق الأسرع. ولمشاريع قاعدة معرفة FastGPT نموذج خاص بها."
+      "ar": "إذا كان لديك منتج وكمية محددان، فنموذج عرض السعر هو الطريق الأسرع. ولمشاريع قاعدة معرفة FastGPT نموذج خاص بها.",
+      "ru": "Если уже известны продукт и количество, быстрее форма запроса коммерческого предложения.",
+      "kk": "Өнім мен мөлшер белгілі болса, коммерциялық ұсыныс сұрау пішіні жылдамырақ."
     },
     "links": [
       {
@@ -108,7 +144,9 @@
         "label": {
           "en": "Request a quote",
           "zh": "索取报价",
-          "ar": "اطلب عرض سعر"
+          "ar": "اطلب عرض سعر",
+          "ru": "Запросить предложение",
+          "kk": "Ұсыныс сұрау"
         }
       },
       {
@@ -116,7 +154,9 @@
         "label": {
           "en": "FastGPT pilot form",
           "zh": "FastGPT 试点表单",
-          "ar": "نموذج تجربة FastGPT"
+          "ar": "نموذج تجربة FastGPT",
+          "ru": "Каталог продуктов",
+          "kk": "Өнім каталогы"
         }
       }
     ],
@@ -125,48 +165,64 @@
         "title": {
           "en": "What this form is for",
           "zh": "适合通过此表单沟通的事项",
-          "ar": "ما الغرض من هذا النموذج"
+          "ar": "ما الغرض من هذا النموذج",
+          "ru": "Для чего эта форма",
+          "kk": "Бұл пішін не үшін"
         },
         "body": {
           "en": "- **Product selection**: you are not yet sure whether a TicNote recorder, the Pods earbuds or one of the two AR glasses fits your team. Describe the task and the environment rather than a model.\n- **Distribution and wholesale**: you want to distribute the devices sold by CNPS.AI in your market. The shop does not publish volume pricing, so terms are discussed separately.\n- **After-sales and support**: order, shipping or usage questions about a device you already bought. Include the order number, product name and a description of the issue; the shop has no separate help-desk URL, and this form reaches the same inbox as [sales@cnps.ai](mailto:sales@cnps.ai).\n- **A first exploratory conversation**: for example, how CNPS helps Chinese intelligent hardware and AI applications reach your market, before any concrete project exists.\n\nIf you already know the model and quantity, use the [quotation form](/request-quote). FastGPT knowledge-base or workflow projects have their [own form](/fastgpt/contact).\n",
           "zh": "- **产品选型**：还不确定 TicNote 录音器、Pods 耳机或两款 AR 眼镜中哪一款适合你的团队。请描述任务与使用环境，而不是型号。\n- **渠道与批发**：希望在你的市场分销 CNPS.AI 销售的设备。商店未公布批量价格，合作条款需要单独沟通。\n- **售后与支持**：已购买设备的订单、配送或使用问题。请附上订单号、产品名称和问题说明；商店没有独立的服务台网址，此表单与 [sales@cnps.ai](mailto:sales@cnps.ai) 是同一条通道。\n- **首次探索性沟通**：例如想了解 CNPS 如何协助中国智能硬件与 AI 应用进入你的市场，但尚无具体项目。\n\n已经确定型号和数量的，请直接使用[报价表单](/request-quote)；FastGPT 知识库或工作流项目请使用[专用表单](/fastgpt/contact)。\n",
-          "ar": "- **اختيار المنتج**: لست متأكداً بعد إن كان مسجّل TicNote أو سماعات Pods أو إحدى نظارتَي AR يناسب فريقك. صِف المهمة والبيئة بدلاً من الطراز.\n- **التوزيع والجملة**: تريد توزيع الأجهزة التي تبيعها CNPS.AI في سوقك. لا ينشر المتجر أسعار الكميات، فتُناقَش الشروط على حدة.\n- **ما بعد البيع والدعم**: أسئلة عن الطلب أو الشحن أو الاستخدام لجهاز اشتريته. أدرج رقم الطلب واسم المنتج ووصف المشكلة؛ لا يملك المتجر عنوان مكتب مساعدة منفصل، ويصل هذا النموذج إلى نفس صندوق [sales@cnps.ai](mailto:sales@cnps.ai).\n- **محادثة استكشافية أولى**: مثلاً، كيف تساعد CNPS الأجهزة الذكية وتطبيقات الذكاء الاصطناعي الصينية على الوصول إلى سوقك، قبل وجود مشروع محدد.\n\nإذا كنت تعرف الطراز والكمية، فاستخدم [نموذج عرض السعر](/request-quote). ولمشاريع قاعدة المعرفة أو سير العمل في FastGPT [نموذج خاص](/fastgpt/contact).\n"
+          "ar": "- **اختيار المنتج**: لست متأكداً بعد إن كان مسجّل TicNote أو سماعات Pods أو إحدى نظارتَي AR يناسب فريقك. صِف المهمة والبيئة بدلاً من الطراز.\n- **التوزيع والجملة**: تريد توزيع الأجهزة التي تبيعها CNPS.AI في سوقك. لا ينشر المتجر أسعار الكميات، فتُناقَش الشروط على حدة.\n- **ما بعد البيع والدعم**: أسئلة عن الطلب أو الشحن أو الاستخدام لجهاز اشتريته. أدرج رقم الطلب واسم المنتج ووصف المشكلة؛ لا يملك المتجر عنوان مكتب مساعدة منفصل، ويصل هذا النموذج إلى نفس صندوق [sales@cnps.ai](mailto:sales@cnps.ai).\n- **محادثة استكشافية أولى**: مثلاً، كيف تساعد CNPS الأجهزة الذكية وتطبيقات الذكاء الاصطناعي الصينية على الوصول إلى سوقك، قبل وجود مشروع محدد.\n\nإذا كنت تعرف الطراز والكمية، فاستخدم [نموذج عرض السعر](/request-quote). ولمشاريع قاعدة المعرفة أو سير العمل في FastGPT [نموذج خاص](/fastgpt/contact).\n",
+          "ru": "Общие вопросы по устройствам TicNote и INMO, дистрибуции и первому знакомству с CNPS.AI.\n\nДля облачных планов см. также [TicNote Cloud](/products/ticnote-cloud).",
+          "kk": "TicNote және INMO құрылғылары, дистрибуция және CNPS.AI-мен алғашқы танысу бойынша жалпы сұрақтар.\n\nБұлт жоспарлары үшін [TicNote Cloud](/products/ticnote-cloud) қараңыз."
         }
       },
       {
         "title": {
           "en": "What happens after you send it",
           "zh": "提交后会发生什么",
-          "ar": "ماذا يحدث بعد الإرسال"
+          "ar": "ماذا يحدث بعد الإرسال",
+          "ru": "Что происходит после отправки",
+          "kk": "Жібергеннен кейін не болады"
         },
         "body": {
           "en": "1. The form is delivered to the CNPS.AI sales inbox and we reply to the work email you provide. You can switch to email at [sales@cnps.ai](mailto:sales@cnps.ai) or phone +86 183 5463 9099 at any time.\n2. The first reply is usually a few clarifying questions: the task, where it happens, how many users, the destination country and the timeline you have in mind. This avoids advice that does not match the real requirement.\n3. If the requirement is already clear, we move to the quotation process; if a trial or evaluation is needed first, we say plainly which figures we can verify and which need a separate assessment.\n4. This page does not provide prices, destination availability or the exact variant; those are confirmed in the shop or a formal quotation. We do not promise performance results before a representative test.\n",
           "zh": "1. 表单内容会发送到 CNPS.AI 的销售邮箱，我们通过你填写的工作邮箱回复。你也可以随时改用邮件 [sales@cnps.ai](mailto:sales@cnps.ai) 或电话 +86 183 5463 9099。\n2. 第一次回复通常是几个澄清问题：任务是什么、在哪里使用、有多少使用者、目的国家或地区、期望的时间安排。这样做是为了避免给出与实际需求不符的建议。\n3. 如果需求已经明确，我们会引导到报价流程；如果还需要试用或评估，我们会如实说明哪些参数可以核实、哪些需要另行评估。\n4. 本页不提供价格、目的地供应和准确型号，这些信息以商店或正式报价为准。我们不会在沟通中承诺任何测试前的性能结果。\n",
-          "ar": "1. يُسلَّم النموذج إلى صندوق مبيعات CNPS.AI ونرد على بريد العمل الذي تقدّمه. يمكنك التحول إلى البريد [sales@cnps.ai](mailto:sales@cnps.ai) أو الهاتف +86 183 5463 9099 في أي وقت.\n2. الرد الأول عادةً بضعة أسئلة توضيحية: المهمة، ومكان تنفيذها، وعدد المستخدمين، وبلد الوجهة، والجدول الزمني الذي تفكر فيه. هذا يجنّب نصائح لا تطابق الاحتياج الحقيقي.\n3. إذا كان الاحتياج واضحاً، ننتقل إلى عملية عرض السعر؛ وإذا لزمت تجربة أو تقييم أولاً، نوضح بصراحة الأرقام التي يمكننا التحقق منها وتلك التي تحتاج إلى تقييم منفصل.\n4. لا تقدّم هذه الصفحة أسعاراً أو توفراً في الوجهة أو الإصدار المحدد؛ تُؤكَّد تلك في المتجر أو في عرض سعر رسمي. لا نعد بنتائج أداء قبل اختبار تمثيلي.\n"
+          "ar": "1. يُسلَّم النموذج إلى صندوق مبيعات CNPS.AI ونرد على بريد العمل الذي تقدّمه. يمكنك التحول إلى البريد [sales@cnps.ai](mailto:sales@cnps.ai) أو الهاتف +86 183 5463 9099 في أي وقت.\n2. الرد الأول عادةً بضعة أسئلة توضيحية: المهمة، ومكان تنفيذها، وعدد المستخدمين، وبلد الوجهة، والجدول الزمني الذي تفكر فيه. هذا يجنّب نصائح لا تطابق الاحتياج الحقيقي.\n3. إذا كان الاحتياج واضحاً، ننتقل إلى عملية عرض السعر؛ وإذا لزمت تجربة أو تقييم أولاً، نوضح بصراحة الأرقام التي يمكننا التحقق منها وتلك التي تحتاج إلى تقييم منفصل.\n4. لا تقدّم هذه الصفحة أسعاراً أو توفراً في الوجهة أو الإصدار المحدد؛ تُؤكَّد تلك في المتجر أو في عرض سعر رسمي. لا نعد بنتائج أداء قبل اختبار تمثيلي.\n",
+          "ru": "Мы подтверждаем получение и отвечаем на рабочую почту. Повторно отправлять форму не нужно.",
+          "kk": "Алуды растап, жұмыс поштасына жауап береміз. Пішінді қайта жіберудің қажеті жоқ."
         }
       },
       {
         "title": {
           "en": "What helps us reply usefully",
           "zh": "沟通前可以准备的信息",
-          "ar": "ما يساعدنا على الرد بشكل مفيد"
+          "ar": "ما يساعدنا على الرد بشكل مفيد",
+          "ru": "Что помогает дать полезный ответ",
+          "kk": "Пайдалы жауапқа не көмектеседі"
         },
         "body": {
           "en": "- **A one-sentence task**: for example \"record the weekly department meeting and produce action items\" or \"show translated captions at exhibition reception\".\n- **The environment**: meeting room, classroom, outdoors, vehicles; network conditions; the users' languages and accents.\n- **Scale and timing**: approximate number of users, destination country and when you would like to start.\n- **Existing constraints**: data-processing location requirements, compliance limits on recording or cameras, budget range.\n- **For distribution**: your market, existing channels, the models of interest and whether you already sell similar products.\n\nDo not include confidential documents, passwords or sensitive personal data in the form. If files need to be exchanged, we agree the method by email.\n",
           "zh": "- **一句话的任务描述**：例如\"记录每周部门会并生成行动事项\"或\"在展会接待中显示翻译字幕\"。\n- **使用环境**：会议室、课堂、户外、车辆；网络条件；使用者的语言与口音。\n- **规模与时间**：大致的使用者数量、目的国家或地区、希望开始的时间。\n- **已有的约束**：数据处理位置要求、录音或摄像头的合规限制、预算区间。\n- **批发合作**：你所在的市场、现有渠道、感兴趣的型号，以及是否已有类似产品的销售经验。\n\n请不要在表单中提供机密文件、密码或敏感个人资料。需要交换文件时，我们会在邮件中约定方式。\n",
-          "ar": "- **مهمة في جملة واحدة**: مثلاً \"تسجيل اجتماع القسم الأسبوعي وإنتاج بنود العمل\" أو \"عرض تسميات مترجمة في استقبال المعرض\".\n- **البيئة**: قاعة اجتماعات، فصل، الخارج، مركبات؛ ظروف الشبكة؛ لغات المستخدمين ولهجاتهم.\n- **الحجم والتوقيت**: العدد التقريبي للمستخدمين، وبلد الوجهة، ووقت البدء المرغوب.\n- **القيود القائمة**: متطلبات موقع معالجة البيانات، وقيود الامتثال على التسجيل أو الكاميرات، ونطاق الميزانية.\n- **للتوزيع**: سوقك، وقنواتك الحالية، والطرازات التي تهمك، وما إذا كنت تبيع منتجات مشابهة بالفعل.\n\nلا تُدرج مستندات سرية أو كلمات مرور أو بيانات شخصية حساسة في النموذج. إذا لزم تبادل ملفات، نتفق على الطريقة عبر البريد.\n"
+          "ar": "- **مهمة في جملة واحدة**: مثلاً \"تسجيل اجتماع القسم الأسبوعي وإنتاج بنود العمل\" أو \"عرض تسميات مترجمة في استقبال المعرض\".\n- **البيئة**: قاعة اجتماعات، فصل، الخارج، مركبات؛ ظروف الشبكة؛ لغات المستخدمين ولهجاتهم.\n- **الحجم والتوقيت**: العدد التقريبي للمستخدمين، وبلد الوجهة، ووقت البدء المرغوب.\n- **القيود القائمة**: متطلبات موقع معالجة البيانات، وقيود الامتثال على التسجيل أو الكاميرات، ونطاق الميزانية.\n- **للتوزيع**: سوقك، وقنواتك الحالية، والطرازات التي تهمك، وما إذا كنت تبيع منتجات مشابهة بالفعل.\n\nلا تُدرج مستندات سرية أو كلمات مرور أو بيانات شخصية حساسة في النموذج. إذا لزم تبادل ملفات، نتفق على الطريقة عبر البريد.\n",
+          "ru": "Укажите страну, задачу, предполагаемый объём и срок. Не присылайте пароли и конфиденциальные вложения.",
+          "kk": "Елді, тапсырманы, болжалды көлем мен мерзімді көрсетіңіз. Құпия сөздер мен құпия тіркемелерді жібермеңіз."
         }
       },
       {
         "title": {
           "en": "Common questions",
           "zh": "常见问题",
-          "ar": "الأسئلة الشائعة"
+          "ar": "الأسئلة الشائعة",
+          "ru": "Частые вопросы",
+          "kk": "Жиі қойылатын сұрақтар"
         },
         "body": {
           "en": "### Can I ask for a price here?\n\nYou can, but if you already know the model, quantity and destination, the [quotation form](/request-quote) carries those fields straight into the process and is faster. This form suits cases where you are still choosing or want to discuss a partnership first.\n\n### Can I email or call instead of using the form?\n\nYes. Email [sales@cnps.ai](mailto:sales@cnps.ai), phone +86 183 5463 9099, address Yunhe Road 336, Dongying, Shandong 257091, China. The form simply reminds you to include the information we will ask for in the first round anyway.\n\n### Something is wrong with a device I bought. Whom do I contact?\n\nUse this form or the sales email, with the order number, product name and a description of the issue. Obtain written instructions before returning anything; see the [returns policy](/returns).\n\n### How is the information in the form used?\n\nTo answer your inquiry and prepare the follow-up conversation. See the [privacy policy](/privacy). Do not include confidential documents or sensitive personal data.\n",
           "zh": "### 可以直接在这里询价吗？\n\n可以，但如果你已经知道型号、数量和目的地，[报价表单](/request-quote)会把这些字段直接带入流程，更快。此表单更适合还在选型或需要先讨论合作方式的情况。\n\n### 不填表单，直接发邮件或打电话可以吗？\n\n可以。邮箱 [sales@cnps.ai](mailto:sales@cnps.ai)，电话 +86 183 5463 9099，地址：中国山东省东营市运河路 336 号，邮编 257091。表单的好处是提醒你补齐我们第一轮一定会问的信息。\n\n### 我买的设备出了问题，应该找谁？\n\n请通过此表单或销售邮箱联系，附上订单号、产品名称和问题说明。寄回任何物品前请先取得书面指引，详见[退货政策](/returns)。\n\n### 表单里的信息会被如何使用？\n\n用于回复你的咨询并准备后续沟通。详见[隐私政策](/privacy)。请不要在表单中提供机密文件或敏感个人资料。\n",
-          "ar": "### هل يمكنني طلب سعر هنا؟\n\nيمكنك، لكن إذا كنت تعرف الطراز والكمية والوجهة، فإن [نموذج عرض السعر](/request-quote) ينقل تلك الحقول مباشرة إلى العملية وهو أسرع. يناسب هذا النموذج الحالات التي ما زلت فيها تختار أو تريد مناقشة شراكة أولاً.\n\n### هل يمكنني إرسال بريد أو الاتصال بدلاً من النموذج؟\n\nنعم. البريد [sales@cnps.ai](mailto:sales@cnps.ai)، الهاتف +86 183 5463 9099، العنوان: طريق Yunhe رقم 336، Dongying، Shandong 257091، الصين. النموذج يذكّرك فقط بإدراج المعلومات التي سنطلبها في الجولة الأولى على أي حال.\n\n### هناك مشكلة في جهاز اشتريته. بمن أتصل؟\n\nاستخدم هذا النموذج أو بريد المبيعات، مع رقم الطلب واسم المنتج ووصف المشكلة. احصل على تعليمات كتابية قبل إرجاع أي شيء؛ راجع [سياسة الإرجاع](/returns).\n\n### كيف تُستخدم المعلومات في النموذج؟\n\nللرد على استفسارك وإعداد المحادثة التالية. راجع [سياسة الخصوصية](/privacy). لا تُدرج مستندات سرية أو بيانات شخصية حساسة.\n"
+          "ar": "### هل يمكنني طلب سعر هنا؟\n\nيمكنك، لكن إذا كنت تعرف الطراز والكمية والوجهة، فإن [نموذج عرض السعر](/request-quote) ينقل تلك الحقول مباشرة إلى العملية وهو أسرع. يناسب هذا النموذج الحالات التي ما زلت فيها تختار أو تريد مناقشة شراكة أولاً.\n\n### هل يمكنني إرسال بريد أو الاتصال بدلاً من النموذج؟\n\nنعم. البريد [sales@cnps.ai](mailto:sales@cnps.ai)، الهاتف +86 183 5463 9099، العنوان: طريق Yunhe رقم 336، Dongying، Shandong 257091، الصين. النموذج يذكّرك فقط بإدراج المعلومات التي سنطلبها في الجولة الأولى على أي حال.\n\n### هناك مشكلة في جهاز اشتريته. بمن أتصل؟\n\nاستخدم هذا النموذج أو بريد المبيعات، مع رقم الطلب واسم المنتج ووصف المشكلة. احصل على تعليمات كتابية قبل إرجاع أي شيء؛ راجع [سياسة الإرجاع](/returns).\n\n### كيف تُستخدم المعلومات في النموذج؟\n\nللرد على استفسارك وإعداد المحادثة التالية. راجع [سياسة الخصوصية](/privacy). لا تُدرج مستندات سرية أو بيانات شخصية حساسة.\n",
+          "ru": "### Чем /ru отличается от cnps.ru?\n\nwww.cnps.ai/ru — бренд и оборудование. Отраслевой нефтегаз — на cnps.ru.\n\n### Как быстро вы отвечаете?\n\nОбычно в рабочие дни на указанную рабочую почту.\n\n### Можно ли обсудить Cloud Pro?\n\nДа. Укажите интерес к оборудованию или Cloud и перейдите со [страницы Cloud](/products/ticnote-cloud).",
+          "kk": "### /kk cnps.ru-дан қалай ерекшеленеді?\n\nwww.cnps.ai/kk — бренд және жабдық. Салалық мұнай-газ — cnps.ru сайтында.\n\n### Қаншалықты тез жауап бересіздер?\n\nӘдетте жұмыс күндері көрсетілген жұмыс поштасына.\n\n### Cloud Pro-ны талқылауға бола ма?\n\nИә. Жабдық немесе Cloud қызығушылығын көрсетіңіз және [Cloud бетінен](/products/ticnote-cloud) өтіңіз."
         }
       }
     ]

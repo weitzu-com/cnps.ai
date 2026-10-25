@@ -30,7 +30,7 @@ const syncLanguageHash=()=>document.querySelectorAll('a[data-language]').forEach
 addEventListener('hashchange',syncLanguageHash);document.addEventListener('cnps:section-change',syncLanguageHash);
 let ctaCount=0;
 for(const a of document.querySelectorAll('a[href]')){
- let u;try{u=new URL(a.href,location.href);}catch{continue;}if(u.origin!==location.origin||a.dataset.language||!/^\/(en|zh|ar)(\/|$)/.test(u.pathname))continue;
+ let u;try{u=new URL(a.href,location.href);}catch{continue;}if(u.origin!==location.origin||a.dataset.language||!/^\/(en|zh|ar|ru|kk)(\/|$)/.test(u.pathname))continue;
  for(const k of campaignKeys)u.searchParams.delete(k);for(const [k,v]of Object.entries(campaign))u.searchParams.set(k,v);
  if(u.pathname.includes('/fastgpt')||u.pathname.includes('/request-quote')){
   const source=pageSource;
@@ -84,7 +84,7 @@ async function initializeForm(){
  const tracking=()=>sanitizeTracking({...campaign,...details});
  const product=inquiryProductSlug(query.get('product'));
  const values=()=>({...Object.fromEntries(new FormData(form)),consent:form.elements.consent.checked});
- function buildBrief(v){const subject=locale==='zh'?'CNPS 项目询盘':locale==='ar'?'استفسار مشروع CNPS':'CNPS project inquiry';const details=[[t.name,clean(v.name,100)],[t.workEmail,clean(v.email,254)],[t.phone,clean(v.phone,40)],[t.company,clean(v.company,150)],[t.region,clean(v.region,100)],[t.interest,form.elements.workflow.selectedOptions[0]?.text||''],[t.need,clean(v.need,1600)],[t.systems,clean(v.systems,600)]];return subject+'\n\n'+details.map(([k,v])=>k+': '+v).join('\n\n')+'\n\nCNPS.AI — '+locale+'\n'+Object.entries(tracking()).map(([k,v])=>k+': '+v).join('\n')+(product?'\nProduct: '+product:'');}
+ function buildBrief(v){const subject=locale==='zh'?'CNPS 项目询盘':locale==='ar'?'استفسار مشروع CNPS':locale==='ru'?'Запрос проекта CNPS':locale==='kk'?'CNPS жоба сұрауы':'CNPS project inquiry';const details=[[t.name,clean(v.name,100)],[t.workEmail,clean(v.email,254)],[t.phone,clean(v.phone,40)],[t.company,clean(v.company,150)],[t.region,clean(v.region,100)],[t.interest,form.elements.workflow.selectedOptions[0]?.text||''],[t.need,clean(v.need,1600)],[t.systems,clean(v.systems,600)]];return subject+'\n\n'+details.map(([k,v])=>k+': '+v).join('\n\n')+'\n\nCNPS.AI — '+locale+'\n'+Object.entries(tracking()).map(([k,v])=>k+': '+v).join('\n')+(product?'\nProduct: '+product:'');}
  function showDraft(v,message){brief=buildBrief(v);briefText.value=brief;document.getElementById('email-draft').href=`mailto:sales@cnps.ai?subject=${encodeURIComponent((form.dataset.kind==='fastgpt'?'FastGPT':'CNPS.AI')+' — '+clean(v.company,100))}&body=${encodeURIComponent(brief)}`;output.hidden=false;briefStatus.textContent=message;briefText.focus();}
  function validBrief(){
   for(const name of ['name','company','region'])form.elements[name].setCustomValidity(clean(form.elements[name].value)?'':t.meaningful);

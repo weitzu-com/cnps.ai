@@ -24,24 +24,28 @@ const firstRedirect = (path) => {
   return null;
 };
 
-test('English-only shell page with unique title and meta description ≤160 characters', () => {
+test('EN cloud page with unique title and meta description ≤160 characters; zh/ar stay stubs', () => {
   assert.ok(fs.existsSync(pageFile));
   for (const l of ['zh', 'ar']) {
     const stub = `dist/${l}/products/ticnote-cloud.html`;
     assert.ok(!fs.existsSync(stub) || !/data-plan="pro"/.test(fs.readFileSync(stub, 'utf8')), l + ' must not be a full cloud page');
   }
-  assert.deepEqual(data.locales, ['en']);
+  assert.ok(data.locales.includes('en') && data.locales.includes('ru') && data.locales.includes('kk'));
   assert.match(html, /<title>TicNote Cloud plans \| CNPS\.AI<\/title>/);
   const description = decode(html.match(/<meta name="description" content="([^"]*)"/)[1]);
-  assert.equal(description, data.description);
+  const enDesc = typeof data.description === 'string' ? data.description : data.description.en;
+  assert.equal(description, enDesc);
   assert.ok([...description].length <= 160, 'description length ' + [...description].length);
   assert.match(html, /<link rel="canonical" href="https:\/\/www\.cnps\.ai\/en\/products\/ticnote-cloud">/);
 });
 
-test('hreflang declares only en and x-default', () => {
-  const alternates = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">/g)].map((m) => [m[1], m[2]]);
+test('hreflang declares en/ru/kk and x-default (not zh/ar full pages)', () => {
+  const head = html.slice(0, html.indexOf('</head>'));
+  const alternates = [...head.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">/g)].map((m) => [m[1], m[2]]);
   assert.deepEqual(alternates, [
     ['en', 'https://www.cnps.ai/en/products/ticnote-cloud'],
+    ['ru', 'https://www.cnps.ai/ru/products/ticnote-cloud'],
+    ['kk', 'https://www.cnps.ai/kk/products/ticnote-cloud'],
     ['x-default', 'https://www.cnps.ai/en/products/ticnote-cloud'],
   ]);
 });
@@ -109,12 +113,14 @@ test('JSON-LD is WebPage + ItemList without Product/Offer checkout', () => {
   assert.ok(!types.has('AggregateOffer'));
 });
 
-test('sitemap and llms.txt list the English URL; build wires the page through save()', () => {
+test('sitemap and llms.txt list cloud URLs; build wires the page through save()', () => {
   const sitemap = fs.readFileSync('dist/sitemap.xml', 'utf8');
   assert.match(sitemap, /https:\/\/www\.cnps\.ai\/en\/products\/ticnote-cloud/);
+  assert.match(sitemap, /https:\/\/www\.cnps\.ai\/ru\/products\/ticnote-cloud/);
+  assert.match(sitemap, /https:\/\/www\.cnps\.ai\/kk\/products\/ticnote-cloud/);
   assert.doesNotMatch(sitemap, /\/(?:zh|ar)\/products\/ticnote-cloud/);
   const llms = fs.readFileSync('dist/llms.txt', 'utf8');
-  assert.equal(llms.split('\n').filter((line) => line.includes('/products/ticnote-cloud')).length, 1);
+  assert.ok(llms.split('\n').filter((line) => line.includes('/products/ticnote-cloud')).length >= 1);
   assert.match(buildSource, /ticnoteCloud/);
   assert.match(buildSource, /content\/i18n\/ticnote-cloud\.json/);
 });

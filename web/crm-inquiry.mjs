@@ -4,6 +4,8 @@ export const crmInquiryConsent = {
   en: 'I agree that CNPS may store and process my contact details and inquiry in its customer management system and HubSpot to respond and manage our discussions. This does not subscribe me to marketing.',
   zh: '我同意 CNPS 在客户管理系统及 HubSpot 中保存并处理我的联系方式与询盘，用于回复、客户建档及项目沟通。这不会使我订阅营销信息。',
   ar: 'أوافق على أن تحفظ CNPS بيانات الاتصال والاستفسار وتعالجها في نظام إدارة العملاء وHubSpot للرد وإدارة مناقشاتنا. ولا يُعد ذلك اشتراكاً في الرسائل التسويقية.',
+  ru: 'Я соглашаюсь, что CNPS может хранить и обрабатывать мои контактные данные и запрос в системе управления клиентами и HubSpot для ответа и ведения переговоров. Это не означает подписку на маркетинг.',
+  kk: 'CNPS менің байланыс деректерім мен сұрауымды клиенттерді басқару жүйесінде және HubSpot-та сақтап, өңдеуіне жауап беру және талқылауды жүргізу үшін келісемін. Бұл маркетингке жазылу емес.',
 };
 
 export async function submitCrmInquiry(values, tracking, context, {locale = 'en', kind = 'general', fetchImpl = fetch, timeoutMs = 25000} = {}) {

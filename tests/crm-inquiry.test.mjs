@@ -96,7 +96,7 @@ test('all currently published inquiry workflow options are accepted, with no new
  for(const item of catalog.en.solutions)assert.doesNotThrow(()=>normalizeInquiry({...body,values:{...body.values,workflow:item.slug}},new Set(['https://www.cnps.ai'])));
  assert.doesNotThrow(()=>normalizeInquiry({...body,values:{...body.values,phone:''}},new Set(['https://www.cnps.ai'])));
  const p=inquiryHubSpotPayload(normalizeInquiry(body,new Set(['https://www.cnps.ai'])),config);assert.equal(p.fields.some(row=>row.name==='phone'),false);
- for(const locale of ['en','zh','ar'])assert.equal(ui(locale).consent,crmInquiryConsent[locale]);
+ for(const locale of ['en','zh','ar','ru','kk'])assert.equal(ui(locale).consent,crmInquiryConsent[locale]);
 });
 
 test('public endpoint supports POST only and exposes no lookup or upstream exception text',async()=>{
