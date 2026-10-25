@@ -243,6 +243,21 @@
       "permanent": true
     },
     {
+      "source": "/products/ticnote-cloud",
+      "destination": "/en/products/ticnote-cloud",
+      "permanent": true
+    },
+    {
+      "source": "/ar/products/ticnote-cloud",
+      "destination": "/en/products/ticnote-cloud",
+      "permanent": false
+    },
+    {
+      "source": "/zh/products/ticnote-cloud",
+      "destination": "/en/products/ticnote-cloud",
+      "permanent": false
+    },
+    {
       "source": "/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
       "destination": "https://shop.cnps.ai/products/iflytek-dual-screen-translator-2-0-the-ultimate-business-translation-tool",
       "permanent": true
