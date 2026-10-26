@@ -2,6 +2,18 @@
 
 适用于评估录音设备的团队管理者与经销商。产品规格、订阅条款和供货情况必须按确切商品及目的地确认。
 
+## 会议设备试点方法速览
+
+在购买硬件或下经销订单前，用五项核对把本枢纽转成可移交的试点清单（2026 年 10 月 26 日复核）。
+
+1. **代表性试用** — 选择能代表预期用户的小组：真实会议语言、发言人口音、会议室大小与远程通话安排；使用已授权录音，并按场景告知、取得同意。
+2. **记录结果** — 在获批准的企业系统中记录设备与套餐、测试条件、输出质量、审核投入、采用情况、数据流程与恢复；勿把敏感会议内容放入公开反馈表。
+3. **团队归属** — 询问账号与订阅是否可转移、是否有团队管理功能，以及员工离职后由谁控制录音。经销订单应在大批量承诺前取得书面条款。
+4. **报价摘要** — 提供目的地、预计数量、用途、语言、时间安排，以及是否先要样品。商品在售不代表适合所有团队。
+5. **下一姊妹页** — 海湾阿英操作规程见会议纪要试点；形态优先见录音器对智能眼镜；在对比页建立候选清单，再索取报价。
+
+![会议设备试点方法速览：五项核对 — 代表性试用、记录结果、团队归属、报价摘要、下一姊妹页](/assets/resources/meeting-device-pilot-method-glance.webp)
+
 ## 选择有代表性的试用
 
 选择能够代表预期用户的小组。纳入真实会议语言、发言人口音、会议室大小和远程通话安排。使用已授权录音，并按场景提供适当告知、取得同意。
@@ -32,6 +44,8 @@
 
 提供目的地、预计数量、用途、语言、时间安排，以及是否先要样品。CNPS 现有目录有助于建立候选清单；商品在售不代表适合所有团队。
 
-海湾地区阿英双语会议纪要的操作规程（知情同意、质量核对与行动项归属）见[英文方法页](/en/guides/gulf-arabic-english-meeting-notes-pilot)。
+海湾地区阿英双语会议纪要的操作规程（知情同意、质量核对与行动项归属）见 [Run a Gulf Arabic–English meeting-notes pilot in two weeks](/en/guides/gulf-arabic-english-meeting-notes-pilot)。
 
-[比较现有产品](/products/compare) · [申请团队报价](/request-quote?solution=meeting-ai)
+当开放问题是形态优先——桌面录音器还是可穿戴眼镜——见 [Meeting recorder vs smart glasses for bilingual meeting notes](/en/guides/meeting-recorder-vs-smart-glasses-bilingual-notes)。
+
+[TicNote 型号并排对比](/products/compare) · [为设备或试点索取报价。](/request-quote?solution=meeting-ai)
