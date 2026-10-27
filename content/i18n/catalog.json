@@ -288,7 +288,7 @@
         "title": "Scope a document-grounded AI assistant",
         "category": "Applications",
         "audience": "IT leaders and service providers",
-        "description": "Prepare a fixed evaluation set, document permissions, citations and a useful acceptance test."
+        "description": "Scope a document-grounded AI assistant: permissions, citations, human review, fixed eval set and acceptance. As of 27 Oct 2026."
       },
       {
         "slug": "edge-ai-survey",
@@ -1465,7 +1465,7 @@
         "title": "定义基于文档的 AI 助手",
         "category": "Applications",
         "audience": "IT 负责人和服务商",
-        "description": "准备固定评估题集、文档权限、引用与实用验收测试。"
+        "description": "基于文档的 AI 助手试点方法（截至 2026 年 10 月 27 日）：权限、引用、人工复核、评估题集与验收。"
       },
       {
         "slug": "edge-ai-survey",
@@ -2676,7 +2676,7 @@
         "title": "حدد نطاق مساعد ذكاء اصطناعي يستند إلى المستندات",
         "category": "Applications",
         "audience": "قادة تقنية المعلومات ومقدمو الخدمات",
-        "description": "أعد مجموعة تقييم ثابتة وصلاحيات المستندات والاستشهادات واختبار قبول مفيداً."
+        "description": "طريقة مساعد مستندات (حتى 27 أكتوبر 2026): صلاحيات، استشهادات، مراجعة بشرية، مجموعة تقييم وقبول."
       },
       {
         "slug": "edge-ai-survey",
