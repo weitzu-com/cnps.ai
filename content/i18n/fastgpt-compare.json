@@ -2,15 +2,18 @@
   "compares": [
     {
       "slug": "fastgpt-vs-chatgpt-enterprise",
-      "locales": ["en", "ar"],
+      "locales": [
+        "en",
+        "ar"
+      ],
       "category": "Applications",
       "title": {
         "en": "When to use FastGPT instead of ChatGPT for cited, reviewed answers on your documents",
         "ar": "متى تستخدم FastGPT بدل ChatGPT لإجابات موثّقة ومراجعة على مستنداتك"
       },
       "description": {
-        "en": "Compare FastGPT and ChatGPT for enterprise knowledge: permissions, citations, and human review — without fake benchmarks.",
-        "ar": "قارن FastGPT وChatGPT لمعرفة المؤسسات: الصلاحيات والاستشهادات والمراجعة البشرية — دون معايير أداء مختلقة."
+        "en": "Compare FastGPT vs ChatGPT as methods: permissions, citations, human review, two-week evaluate, when each fits. As of 28 Oct 2026.",
+        "ar": "قارن FastGPT وChatGPT منهجاً (حتى 28 أكتوبر 2026): صلاحيات، استشهادات، مراجعة بشرية، تقييم لأسبوعين، ومتى يكفي كل منهما."
       },
       "h1": {
         "en": "FastGPT vs ChatGPT for permissioned enterprise knowledge",
