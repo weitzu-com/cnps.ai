@@ -158,5 +158,13 @@
       "zh": "概念配图：无品牌文档叠层连向权限锁、引用卡与复核勾 — 知识试点方法主图，无商标规格",
       "ar": "مخطط تصوري: كومة مستندات بلا علامة مربوطة بقفل صلاحيات وبطاقة استشهاد وعلامة مراجعة — صورة طريقة تجربة المعرفة، بلا شعارات أو مواصفات"
     }
+  },
+  "fastgpt-vs-chatgpt-enterprise": {
+    "file": "fastgpt-vs-chatgpt-enterprise",
+    "alt": {
+      "en": "Concept diagram: two method columns (permissioned corpus vs connected-app dots) linked to a citation card and review check — enterprise compare hero, no logos or specs",
+      "zh": "概念配图：两列方法（权限语料 vs 连接应用点）连向引用卡与复核勾 — 企业对比主图，无商标规格",
+      "ar": "مخطط تصوري: عمودان منهجيّان (مجموعة بصلاحيات مقابل نقاط تطبيقات) مربوطان ببطاقة استشهاد وعلامة مراجعة — صورة مقارنة مؤسسية، بلا شعارات أو مواصفات"
+    }
   }
 }

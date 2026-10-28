@@ -15,7 +15,7 @@ const meta = compares.find((x) => x.slug === slug);
 const vercel = fs.readFileSync('vercel.json', 'utf8');
 
 test('FastGPT vs ChatGPT compare stays a method page', () => {
-  assert.ok(words.length >= 1200 && words.length <= 1800, 'word count ' + words.length);
+  assert.ok(words.length >= 1200 && words.length <= 2050, 'word count ' + words.length); // O14 method glance raises ceiling
   assert.ok(meta, 'fastgpt-compare.json entry');
   assert.deepEqual(meta.locales, ['en', 'ar']);
   assert.equal(meta.h1.en, 'FastGPT vs ChatGPT for permissioned enterprise knowledge');
@@ -42,8 +42,8 @@ test('FastGPT vs ChatGPT compare stays a method page', () => {
   assert.match(source, /This is not “always FastGPT/);
   assert.match(source, /not independently audited/);
   assert.match(source, /written proposal/);
-  assert.match(source, /\[partner\]\(\/fastgpt\)/);
-  assert.match(source, /\/fastgpt\/contact/);
+  assert.match(source, /CNPS scopes FastGPT as a partner/); // O14: hub linked once with live H1 in closing, not paraphrased partner
+  assert.doesNotMatch(source, /\/fastgpt\/contact/); // O14: do not stack contact + request-quote money CTAs in body
   assert.match(source, /\/resources\/knowledge-pilot/);
   assert.match(source, /help\.openai\.com/);
   assert.match(source, /doc\.fastgpt\.io/);
@@ -83,8 +83,8 @@ test('FastGPT vs ChatGPT Arabic twin is MSA and mirrors EN structure', () => {
   assert.match(arSource, /هذا ليس «FastGPT دائماً»/);
   assert.match(arSource, /لم تدقّقها CNPS بشكل مستقل/);
   assert.match(arSource, /مقترح مكتوب/);
-  assert.match(arSource, /\[شريكاً\]\(\/fastgpt\)/);
-  assert.match(arSource, /\/fastgpt\/contact/);
+  assert.match(arSource, /تحدد CNPS نطاق FastGPT بصفتها شريكاً/); // O14: hub linked once with live H1 in closing, not paraphrased partner
+  assert.doesNotMatch(arSource, /\/fastgpt\/contact/); // O14: do not stack contact + request-quote money CTAs in body
   assert.match(arSource, /\/resources\/knowledge-pilot/);
   assert.match(arSource, /help\.openai\.com/);
   assert.match(arSource, /doc\.fastgpt\.io/);
@@ -111,7 +111,7 @@ test('built English and Arabic compare pages are in the sitemap with hreflang', 
   assert.match(html, /<h1 class="wide">FastGPT vs ChatGPT for permissioned enterprise knowledge<\/h1>/);
   assert.match(html, /role="note"/);
   assert.match(html, /When to use FastGPT instead of ChatGPT for cited, reviewed answers on your documents/);
-  assert.match(html, /without fake benchmarks/);
+  assert.match(html, /As of 28 Oct 2026/);
   assert.match(html, /<div class="table-scroll"/);
   assert.match(html, /href="\/en\/fastgpt"/);
   assert.match(html, /href="\/en\/fastgpt\/contact"/);

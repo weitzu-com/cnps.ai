@@ -409,7 +409,7 @@ for(const l of parityLocales){
   let html=markdown(text.replace(/^# .+\n/,''),l);
   html=html.replace(/^(<p>[\s\S]*?)(?=<h2)/,'<div class="notice" role="note">$1</div>');
   const header=`<section class="page-hero"><div class="container"><div class="crumb"><a href="${route(l)}">${t.home}</a><span aria-hidden="true">/</span><a href="${route(l,'/fastgpt')}">FastGPT</a><span aria-hidden="true">/</span><span>${esc(title)}</span></div><p class="eyebrow">CNPS × FASTGPT</p><h1 class="wide">${esc(h1)}</h1><p class="lead">${esc(description)}</p><div class="actions">${link(l,'/fastgpt/contact',t.contact)}${link(l,'/resources/fastgpt-cnps-global-growth',t.read,'btn ghost')}</div></div></section>`;
-  save(l,'/fastgpt/compare/'+x.slug,title,description,header+`<div class="container article-layout"><article class="prose">${html}</article>${side(l,'/fastgpt/contact')}</div>`,{report:true,availableLocales:itemLocales(x),localeFallback:'/fastgpt'});
+  const compareOpts={report:true,availableLocales:itemLocales(x),localeFallback:'/fastgpt'};if(x.slug==='fastgpt-vs-chatgpt-enterprise')compareOpts.socialImage=editorial.socialImage('fastgpt-vs-chatgpt-enterprise');save(l,'/fastgpt/compare/'+x.slug,title,description,header+`<div class="container article-layout"><article class="prose">${html}</article>${side(l,'/fastgpt/contact')}</div>`,compareOpts);
  }
  for(const x of fastgptGuides.filter(item=>itemLocales(item).includes(l))){
   headingId=0;

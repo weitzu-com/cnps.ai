@@ -4,9 +4,21 @@ Compare FastGPT and ChatGPT for permissioned enterprise knowledge by **access co
 
 **ChatGPT company knowledge** is a strong fit when answers should follow each user’s existing SaaS permissions across connected apps. OpenAI describes it as respecting those source permissions and, when citations or source links appear, using them to verify.
 
-A **FastGPT-shaped pilot**, as CNPS scopes it, starts from a bounded approved corpus, explicit dataset and app permissions, clickable source chunks, and a designed review step before answers are used.
+A **FastGPT-shaped pilot**, as CNPS scopes it, starts from a bounded approved corpus, explicit dataset and app permissions, clickable source chunks, and a designed review step before use.
 
-CNPS scopes FastGPT as a [partner](/fastgpt). This page does not invent benchmarks. There is no checkout on this site.
+CNPS scopes FastGPT as a partner. This page does not invent benchmarks. There is no checkout on this site.
+
+## Enterprise compare method glance
+
+Five checks before you pick a stack or invent a score (checked 28 October 2026).
+
+1. **Permissions** — Workspace admin versus dataset (or app) roles; treat share links as access; never expand access to make a demo look complete.
+2. **Citations** — Open the exact passage; a file name alone is not enough for a number, condition or revision.
+3. **Human review** — Gate before customer commitments, safety steps, prices, access decisions or records another team will trust; missing evidence is a handoff.
+4. **Two-week evaluate** — One workflow, one owner; score the checked answer (correctness under review, review minutes, access incidents, cost drivers) — not the first draft.
+5. **When each fits** — ChatGPT company knowledge often fits SaaS-permissioned exploration; a FastGPT-shaped workflow fits a bounded approved corpus with designed review — not “always FastGPT.”
+
+![Enterprise compare method glance: five checks — permissions, citations, human review, two-week evaluate, when each fits](/assets/resources/fastgpt-vs-chatgpt-enterprise-method-glance.webp)
 
 ## A fair baseline — what both can do
 
@@ -18,7 +30,7 @@ FastGPT is an open-source knowledge and workflow platform. Its docs describe tea
 
 ## Decision matrix
 
-Read the columns as methods, not as a ranking. “Generic ChatGPT” means company knowledge and ordinary chat as OpenAI ships them. “FastGPT-shaped” means how CNPS scopes a pilot — not every FastGPT install.
+Read the columns as methods, not as a ranking. “Generic ChatGPT” means company knowledge and ordinary chat as OpenAI ships them. “FastGPT-shaped” means how CNPS scopes a pilot — not every install.
 
 | Need | Generic ChatGPT (company knowledge / chat) | FastGPT-shaped workflow (as CNPS scopes) |
 |---|---|---|
@@ -31,29 +43,29 @@ Read the columns as methods, not as a ranking. “Generic ChatGPT” means compa
 
 ## Permissions checklist before either pilot
 
-Never expand access to make a demo look complete. If a question needs a document the asker should not see, the useful result is a refusal or a handoff — not a broader share.
+Never expand access to make a demo look complete. If a question needs a document the asker should not see, the useful result is a refusal or a handoff.
 
 Write down **workspace administration** versus **per-dataset (or per-app) permission**. On ChatGPT, administrators decide whether company knowledge and individual apps are available; each member still only sees what their connected account already allows. On FastGPT, [team, app and dataset roles](https://doc.fastgpt.io/en/guide/workspace/team/team_roles_permissions) separate using an app, editing a dataset, and managing collaborators. Do not treat “the admin turned it on” as “everyone may read every collection.”
 
 Treat a **share link as access**. Record who holds it and what they can see. FastGPT documents a citation-visibility setting for anonymous share links: visitors may see cited fragments only. ChatGPT answers can be copied outside the original file’s permission model. If any link leaves the named user list, write that down before the first question.
 
-Check stale and contradictory versions before ingestion. Retrieving last year’s revision B as current is still a miss. The [knowledge-pilot worksheet](/resources/knowledge-pilot) uses authorized samples, named owners, and access-restriction questions in the test set.
+Check stale and contradictory versions before ingestion. Retrieving last year’s revision B as current is still a miss. The [Scope a document-grounded AI assistant](/resources/knowledge-pilot) worksheet uses authorized samples, named owners, and access-restriction questions in the test set.
 
 ## Citations and evidence
 
 A citation is useful when a reviewer can open the exact passage and see whether it supports the sentence. A file name or a nearby chunk is not enough if the claim is a number, a condition, or a revision.
 
-On ChatGPT, use the source links company knowledge provides and confirm they reach the material you need. OpenAI asks you to review the answer and any source links before relying on them. Do not assume every reply exposes a clickable paragraph.
+On ChatGPT, use the source links company knowledge provides and confirm they reach the material you need. OpenAI asks you to review the answer and source links before relying on them. Do not assume every reply exposes a clickable paragraph.
 
-On a FastGPT-shaped workflow, an openable chunk is part of the review path. FastGPT documents clicking a citation to open the highlighted passage, and a “citation content only” mode on some share links. Set that visibility on purpose.
+On a FastGPT-shaped workflow, an openable chunk is part of the review path. FastGPT documents clicking a citation to open the highlighted passage, and a “citation content only” mode on some share links.
 
-Fail modes in either stack: the cited passage does not support the statement; the system answers from general model knowledge when the corpus is silent; a share or copy exposes more than the named audience should see; two approved documents disagree and the answer hides the conflict. Those are evaluation findings, not vendor scores.
+Fail modes in either stack: the cited passage does not support the statement; the system answers from general model knowledge when the corpus is silent; a share exposes more than the named audience should see; two approved documents disagree and the answer hides the conflict. Those are evaluation findings, not vendor scores.
 
 ## Human review
 
 Human review is mandatory when the answer will change a customer commitment, a safety step, a price, an access decision, or a record another team will trust — and when the corpus does not contain enough evidence. Missing information should become a prompt to a person, not a fluent guess.
 
-CNPS scopes the intended FastGPT path the same way as the illustration on [the FastGPT hub](/fastgpt):
+CNPS scopes the intended FastGPT path the same way as the illustration on the FastGPT hub:
 
 1. Start with an approved product manual, revision B, and service knowledge reviewed by your team.
 2. Use a FastGPT workflow to retrieve, check and prepare.
@@ -69,7 +81,7 @@ Run one workflow. Do not connect every system you own.
 
 **Scope.** Name the owner, the approved corpus, the users in the test, and the current way of working. Use non-confidential samples only. Do not put production secrets, credentials or live customer files into an inquiry or a folder wider than the access list.
 
-**Hard questions.** Write a small set: routine facts the documents should answer, comparisons across two approved sources, questions with missing evidence, and questions that test access. Keep the difficult items. The [knowledge-pilot](/resources/knowledge-pilot) worksheet is a starting method.
+**Hard questions.** Write a small set: routine facts the documents should answer, comparisons across two approved sources, questions with missing evidence, and questions that test access. Keep the difficult items. The knowledge-pilot worksheet is a starting method.
 
 **Measure under review.** Score the checked answer, not the first draft:
 
@@ -78,7 +90,7 @@ Run one workflow. Do not connect every system you own.
 - Access incidents — any retrieval or share outside the named audience.
 - Cost drivers — hosting or SaaS seats, model usage, ingestion, and the people who review.
 
-Agree sample size, baseline and thresholds with the owner before you start. No performance outcome is guaranteed. When you contact CNPS, send the task, the systems involved, and what a useful result would look like — not credentials or production customer data.
+Agree sample size, baseline and thresholds with the owner before you start. No performance outcome is guaranteed. When you contact CNPS, send the task, the systems involved, and what a useful result looks like — not credentials or production customer data.
 
 ## When ChatGPT is enough — and when a FastGPT-shaped workflow fits
 
@@ -87,8 +99,8 @@ This is not “always FastGPT.”
 **ChatGPT company knowledge is often enough when**
 
 - The useful answer should follow each user’s existing permissions across Slack, Drive, SharePoint or similar apps.
-- Your team already works in ChatGPT Business, Enterprise or Edu, and can live with OpenAI SaaS plus each app’s residency rules.
-- Review can be a person reading a sourced chat before they act, without a separate workflow to operate.
+- Your team already works in ChatGPT Business, Enterprise or Edu and can live with OpenAI SaaS plus each app’s residency rules.
+- Review can be a person reading a sourced chat before they act.
 - You are exploring what the organisation already knows, not certifying a single approved manual.
 
 **A FastGPT-shaped workflow is worth scoping when**
@@ -96,26 +108,26 @@ This is not “always FastGPT.”
 - You can name a bounded, approved document set and a person who owns it.
 - You need explicit dataset and app permissions, including what a share link may reveal.
 - Reviewers must click through to the cited chunk and treat missing evidence as a handoff.
-- Self-host or residency options need to be discussed in the same proposal as the workflow.
+- Self-host or residency options belong in the same proposal as the workflow.
 - You want one measurable owner, a two-week evaluation, and a written path from pilot to implementation.
 
-Many teams keep ChatGPT for everyday questions and still run a FastGPT-shaped pilot on one governed document family. Those are compatible choices.
+Many teams keep ChatGPT for everyday questions and still run a FastGPT-shaped pilot on one governed document family.
 
 ## FAQ
 
 **Is this a model benchmark?** No. It is a method compare. We do not publish — or invent — accuracy, latency or win-rate numbers for FastGPT versus ChatGPT.
 
-**Do FastGPT case percentages on this site prove FastGPT wins?** No. Those figures are published by FastGPT. CNPS has not independently audited them and does not promise the same outcome. See the [reference library](/fastgpt/cases).
+**Do FastGPT case percentages on this site prove FastGPT wins?** No. Those figures are published by FastGPT. CNPS has not independently audited them and does not promise the same outcome. See the [FastGPT reference library](/fastgpt/cases).
 
-**What does a FastGPT-shaped workflow cost?** Pricing is a written proposal after scope. Platform licensing, model usage and implementation services are identified separately where applicable. This site has no price table and no checkout.
+**What does a FastGPT-shaped workflow cost?** Pricing is a written proposal after scope. Platform licensing, model usage and implementation services are identified separately. This site has no price table and no checkout.
 
-**Can we start in our own environment?** Yes, that can be assessed. Model endpoints, parsing, storage, backups and integrations belong in the scope review. A self-hosted application may still send data to a third-party model.
+**Can we start in our own environment?** Yes. Model endpoints, parsing, storage, backups and integrations belong in the scope review. A self-hosted application may still send data to a third-party model.
 
 ## Plan a pilot
 
-If the decision is a bounded corpus, visible citations and review before use, start from the [FastGPT hub](/fastgpt) and [plan a pilot](/fastgpt/contact). Tell us the task, the systems involved, and what a useful result looks like. Bring a process owner and non-confidential examples.
+If the decision is a bounded corpus, visible citations and review before use, start from [Put your business knowledge to work.](/fastgpt). Tell us the task, the systems involved, and what a useful result looks like. Bring a process owner and non-confidential examples.
 
-[Plan a pilot](/fastgpt/contact) · [sales@cnps.ai](mailto:sales@cnps.ai) · [Request a quotation](/request-quote?solution=knowledge-assistants)
+[Request a quotation for devices or a pilot.](/request-quote?solution=knowledge-assistants) · [sales@cnps.ai](mailto:sales@cnps.ai)
 
 CNPS is a FastGPT partner. Licensing and implementation are defined in your written proposal. Reference cases are published by FastGPT; CNPS has not independently audited them.
 
