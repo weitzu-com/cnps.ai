@@ -89,7 +89,7 @@ A useful enquiry is a work item. Include at least:
 | Timeline | Queue and supply checks |
 | Constraints | Language, offline need, data questions; budget optional |
 
-Share those details through [Start a conversation](https://www.cnps.ai/en/request-quote), or email **sales@cnps.ai** / call **+86 183 5463 9099**. Expect candidate options, key unknowns, and proposed acceptance steps — not only a unit price.
+Share those details through [Request a quotation for devices or a pilot.](https://www.cnps.ai/en/request-quote), or email **sales@cnps.ai** / call **+86 183 5463 9099**. Expect candidate options, key unknowns, and proposed acceptance steps — not only a unit price.
 
 ## FAQ
 

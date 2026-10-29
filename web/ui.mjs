@@ -38,6 +38,8 @@ const copy = {
   resources: {en: "Resources", zh: "资料中心", ar: "الموارد", ru: "Материалы", kk: "Материалдар"},
   guides: {en: "Guides", zh: "方法指南", ar: "الأدلة", ru: "Методики", kk: "Әдістемелер"},
   contact: {en: "Start a conversation", zh: "洽谈项目", ar: "لنتحدث عن مشروعك", ru: "Связаться с нами", kk: "Бізбен байланысу"},
+  // Links to /request-quote. Must match content/i18n/inquiry-pages.json "/request-quote".h1.
+  quote: {en: "Request a quotation for devices or a pilot.", zh: "为设备或试点索取报价。", ar: "اطلب عرض سعر للأجهزة أو لتجربة تجريبية.", ru: "Запросите коммерческое предложение.", kk: "Коммерциялық ұсыныс сұраңыз."},
   menu: {en: "Menu", zh: "菜单", ar: "القائمة", ru: "Меню", kk: "Мәзір"},
   close: {en: "Close", zh: "关闭", ar: "إغلاق", ru: "Закрыть", kk: "Жабу"},
   skip: {en: "Skip to content", zh: "跳至正文", ar: "انتقل إلى المحتوى", ru: "К содержимому", kk: "Мазмұнға өту"},
