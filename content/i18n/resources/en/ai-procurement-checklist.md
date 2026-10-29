@@ -126,7 +126,7 @@ A useful enquiry is a work item, not an inbox greeting. Include at least:
 | Timeline | Queue and supply checks |
 | Constraints | Language, offline, data, budget guidance optional |
 
-Share those details through [Start a conversation](https://www.cnps.ai/en/request-quote), or email **sales@cnps.ai** / call **+86 183 5463 9099**. Sales should return candidate options, key unknowns, and proposed next acceptance steps — not only a unit price.
+Share those details through [Request a quotation for devices or a pilot.](https://www.cnps.ai/en/request-quote), or email **sales@cnps.ai** / call **+86 183 5463 9099**. Sales should return candidate options, key unknowns, and proposed next acceptance steps — not only a unit price.
 
 ## China-origin supplier vs generic AI checklist
 
