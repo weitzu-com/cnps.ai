@@ -16,12 +16,12 @@ const wholesale = JSON.parse(fs.readFileSync('content/i18n/legacy-pages.json', '
 const playbook = fs.readFileSync('content/i18n/reports/china-ai-export-playbook.en.md', 'utf8');
 
 test('China→Gulf AI recording sourcing guide stays a method page', () => {
-  assert.ok(words.length >= 1200 && words.length <= 1800, 'word count ' + words.length);
+  assert.ok(words.length >= 1200 && words.length <= 2100, 'word count ' + words.length); // O15 method glance raises ceiling
   assert.ok(meta, 'guides.json entry');
   assert.deepEqual(meta.locales, ['en', 'ar']);
   assert.equal(meta.title.en, 'Source China AI recording hardware for UAE/KSA without skipping the pilot');
   assert.equal(meta.h1.en, 'Source China AI recording hardware for UAE/KSA without skipping the pilot');
-  assert.match(meta.description.en, /Define the workflow, score China vendors on processing location and Gulf support/);
+  assert.match(meta.description.en, /China→Gulf AI recording sourcing method/); // O15 dated method meta
   assert.match(source, /^# Source China AI recording hardware for UAE\/KSA without skipping the pilot/m);
   assert.match(source, /A Gulf team sourcing China AI recording hardware for UAE\/KSA should lock the workflow/);
   assert.match(source, /Retail TicNote pages are for single-unit shoppers/);
@@ -41,12 +41,12 @@ test('China→Gulf AI recording sourcing guide stays a method page', () => {
   assert.match(source, /test, do not trust the brochure/);
   assert.match(source, /Support, spares, warranty, RMA into the Gulf/);
   assert.match(source, /Firmware and account admin/);
-  assert.match(source, /www\.cnps\.ai\/en\/guides\/gulf-arabic-english-meeting-notes-pilot/);
-  assert.match(source, /www\.cnps\.ai\/en\/guides\/gulf-meeting-consent-and-privacy-test/);
+  assert.match(source, /\[Run a Gulf Arabic–English meeting-notes pilot in two weeks\]\(\/guides\/gulf-arabic-english-meeting-notes-pilot\)/); // O15 exact live H1, once
+  assert.match(source, /\[Consent and privacy test before a Gulf meeting-recorder rollout\]\(\/guides\/gulf-meeting-consent-and-privacy-test\)/); // O15 exact live H1, once
   assert.match(source, /shop\.cnps\.ai\/collections\/all-ticnote-products/);
-  assert.match(source, /\[explore a partnership\]\(\/wholesale\)/);
-  assert.match(source, /\[request a quotation\]\(\/request-quote\?solution=meeting-ai\)/);
-  assert.match(source, /\[contact CNPS\]\(\/contact\)/);
+  assert.match(source, /\[Ask about wholesale\]\(\/wholesale\)/); // O15 exact live H1
+  assert.match(source, /\[Request a quotation for devices or a pilot\.\]\(\/request-quote\?solution=meeting-ai\)/); // O15 exact live H1 once
+  assert.doesNotMatch(source, /\/contact/); // O15: do not stack contact + request-quote money CTAs
   assert.match(source, /partnership sourcing method, not a product catalog/);
   assert.match(source, /does not run checkout/);
   assert.match(source, /will not invent a number/);
@@ -86,10 +86,10 @@ test('China→Gulf sourcing Arabic twin is MSA and mirrors EN structure', () => 
   assert.match(arSource, /خيار الإقامة/);
   assert.match(arSource, /انسحاب من التدريب|الانسحاب من التدريب/);
   assert.match(arSource, /shop\.cnps\.ai\/collections\/all-ticnote-products/);
-  assert.match(arSource, /\[استكشف شراكة\]\(\/wholesale\)/);
-  assert.match(arSource, /\[اطلب عرض سعر\]\(\/request-quote\?solution=meeting-ai\)/);
-  assert.match(arSource, /\[تجربة محاضر اجتماعات عربية خليجية–إنجليزية\]\(\/guides\/gulf-arabic-english-meeting-notes-pilot\)/);
-  assert.match(arSource, /\[اختبار الموافقة والخصوصية\]\(\/guides\/gulf-meeting-consent-and-privacy-test\)/);
+  assert.match(arSource, /\[استفسر عن البيع بالجملة\]\(\/wholesale\)/); // O15 exact live H1
+  assert.match(arSource, /\[اطلب عرض سعر للأجهزة أو لتجربة تجريبية\.\]\(\/request-quote\?solution=meeting-ai\)/); // O15 exact live H1
+  assert.match(arSource, /\[أدر تجربة محاضر اجتماعات عربية خليجية–إنجليزية في أسبوعين\]\(\/guides\/gulf-arabic-english-meeting-notes-pilot\)/);
+  assert.match(arSource, /\[اختبار الموافقة والخصوصية قبل طرح مسجّل اجتماعات في الخليج\]\(\/guides\/gulf-meeting-consent-and-privacy-test\)/);
   assert.doesNotMatch(arSource, /add to cart|buy now/i);
   assert.doesNotMatch(arSource, /duty rate of \d|lead time of \d/);
   assert.doesNotMatch(arSource, /A Gulf team sourcing China AI recording hardware for UAE\/KSA should lock the workflow/);
@@ -109,11 +109,11 @@ test('built English and Arabic sourcing guides are in the sitemap with hreflang'
   const arHtml = fs.readFileSync(arPath, 'utf8');
   assert.match(html, /<h1 class="wide">Source China AI recording hardware for UAE\/KSA without skipping the pilot<\/h1>/);
   assert.match(html, /role="note"/);
-  assert.match(html, /Define the workflow, score China vendors on processing location and Gulf support/);
+  assert.match(html, /China→Gulf AI recording sourcing method/); // O15 meta
   assert.match(html, /shop\.cnps\.ai\/collections\/all-ticnote-products/);
   assert.match(html, /href="\/en\/wholesale"/);
   assert.match(html, /href="\/en\/request-quote\?solution=meeting-ai"/);
-  assert.match(html, /href="\/en\/contact"/);
+  // O15: body drops /contact money CTA stack; footer still has contact — do not assert absence on full html
   assert.match(html, /hreflang="ar" href="https:\/\/www\.cnps\.ai\/ar\/guides\/china-to-gulf-ai-recording-sourcing"/);
   assert.match(arHtml, /lang="ar"/);
   assert.match(arHtml, /dir="rtl"/);

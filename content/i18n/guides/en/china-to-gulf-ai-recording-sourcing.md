@@ -4,6 +4,18 @@ A Gulf team sourcing China AI recording hardware for UAE/KSA should lock the wor
 
 This page is a partnership sourcing method, not a product catalog. It does not run checkout, publish duty rates or lead times, or rank brands with invented scores. TicNote is one capture option; the same gates apply to any China recording stack you evaluate.
 
+## China→Gulf sourcing method glance
+
+Five checks before a China→Gulf recording bulk PO (checked 30 October 2026).
+
+1. **Workflow brief** — Job, languages, people, and pass rule before vendor talk.
+2. **Consent Week 0** — Consent and privacy pack before capture.
+3. **Vendor written stack** — Processing location, residency, training opt-out, Gulf support and RMA.
+4. **Sample on scorecard** — Bilingual pilot scorecard; not a quiet demo.
+5. **Roles before PO** — Distributor, end customer, and CNPS named; then scale.
+
+![China→Gulf sourcing method glance — workflow, consent Week 0, vendor stack, scorecard sample, roles before PO](/assets/resources/china-to-gulf-ai-recording-sourcing-method-glance.webp)
+
 ## Define the job before the PO
 
 Write one workflow before anyone talks quantity. A purchase order that says “AI recorders for the office” is not a requirement. Name the meeting types, the languages you speak, who reviews the note, and what a useful finished note looks like.
@@ -19,7 +31,7 @@ Lock four facts in one brief:
 
 Name the exclusions in the same brief. Covert recording, HR investigations, legal strategy, privileged counsel and sessions treated as confidential beyond ordinary minutes stay out of scope. Those labels are operating boundaries, not legal advice. If a session might be excluded, do not record it.
 
-Do not start vendor scoring until that brief exists. Hardware is secondary. The [Gulf Arabic–English meeting-notes pilot](https://www.cnps.ai/en/guides/gulf-arabic-english-meeting-notes-pilot) owns the two-week scorecard. The [consent and privacy test](https://www.cnps.ai/en/guides/gulf-meeting-consent-and-privacy-test) is the Week 0 gate. This page is how to talk to China vendors after those methods, without skipping the pilot.
+Do not start vendor scoring until that brief exists. Hardware is secondary. [Run a Gulf Arabic–English meeting-notes pilot in two weeks](/guides/gulf-arabic-english-meeting-notes-pilot) owns the two-week scorecard. Consent Week 0 is the privacy gate (linked in Sample before scale). This page is how to talk to China vendors after those methods, without skipping the pilot.
 
 A first inquiry to CNPS needs destination (UAE, KSA, or both), languages, team size or sample quantity, whether you are an end customer or a distributor, and whether guests sit outside your organisation — not confidential minutes.
 
@@ -56,12 +68,12 @@ A sample is a scored workflow, not a box that “seems fine.” Order the smalle
 
 Run two existing methods. Do not invent a third scorecard.
 
-1. Freeze consent, access, retention and vendor residency questions with the [consent and privacy test](https://www.cnps.ai/en/guides/gulf-meeting-consent-and-privacy-test). No capture until that pack is written and accepted.
-2. Score Arabic, English and switch-point meaning-critical errors, time-to-correct, and owned action items with the [Gulf Arabic–English meeting-notes pilot](https://www.cnps.ai/en/guides/gulf-arabic-english-meeting-notes-pilot).
+1. Freeze consent, access, retention and vendor residency questions with [Consent and privacy test before a Gulf meeting-recorder rollout](/guides/gulf-meeting-consent-and-privacy-test). No capture until that pack is written and accepted.
+2. Score Arabic, English and switch-point meaning-critical errors, time-to-correct, and owned action items with the Gulf Arabic–English meeting-notes pilot linked above.
 
 Pass means both protocols held and the finished note produced confirmed owners. Fail means you stop, narrow the meeting types, change the capture path, or walk away. Correctable errors can inform the pilot; they do not justify a bulk PO.
 
-Keep evaluation files in an approved system. Share destination, languages and quantity band with a vendor — not confidential minutes. If you want a TicNote sample after the workflow is defined, say so in a [quotation request](/request-quote?solution=meeting-ai). Do not treat a retail cart as the sample process.
+Keep evaluation files in an approved system. Share destination, languages and quantity band with a vendor — not confidential minutes. If you want a TicNote sample after the workflow is defined, use the quotation request linked at the end. Do not treat a retail cart as the sample process.
 
 ## Delivery responsibilities
 
@@ -75,15 +87,15 @@ Write who does what before the PO. Three roles show up in Gulf recording deals. 
 
 Name who issues the PO, who is importer of record, who pays destination charges, who holds spares, who applies firmware, and who the user calls when a device fails. If two parties each think the other owns RMA, do not scale.
 
-For a broader purchasing frame see the [AI procurement checklist](/resources/ai-procurement-checklist). For China AI export and delivery roles see the [China AI export playbook](/resources/china-ai-export-playbook).
+For a broader purchasing frame see [AI procurement checklist for enterprise buyers](/resources/ai-procurement-checklist). For China AI export and delivery roles see [China AI export playbook for overseas buyers](/resources/china-ai-export-playbook).
 
 ## Retail shop vs sourcing conversation
 
 Two doors, two jobs. Mixing them is how teams skip the pilot.
 
-**Retail shop.** Single-unit shoppers who have already chosen a SKU complete purchase on [shop.cnps.ai](https://shop.cnps.ai). The live TicNote range is on the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). Confirm destination, plan and listing before any order. This site does not take payment and does not rank Lite against Pods.
+**Retail shop.** Single-unit shoppers who have already chosen a SKU complete purchase on shop.cnps.ai. The live TicNote range is on [Collection: All TicNote Products](https://shop.cnps.ai/collections/all-ticnote-products). Confirm destination, plan and listing before any order. This site does not take payment and does not rank Lite against Pods.
 
-**Sourcing conversation.** Multi-unit teams, distributors and anyone who needs samples, channel terms, warranty into the Gulf, or a written processing-location answer use [wholesale](/wholesale), [request a quotation](/request-quote?solution=meeting-ai) or [contact](/contact). No volume prices are published.
+**Sourcing conversation.** Multi-unit teams, distributors and anyone who needs samples, channel terms, warranty into the Gulf, or a written processing-location answer use [Ask about wholesale](/wholesale) or the quotation request at the end. No volume prices are published.
 
 Use the shop for one listed unit after the workflow question is settled. Use the sourcing conversation when you are still scoring vendors, running a sample, or naming who owns RMA. A cart cannot hold a scorecard.
 
@@ -97,8 +109,8 @@ Use the shop for one listed unit after the workflow question is settled. Use the
 
 **Is TicNote the only option?** TicNote is the catalog CNPS already lists. The method still applies to another China recorder. This page will not rank third-party brands.
 
-**Shop or partnership?** One listed unit for a known SKU: [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). Samples, multi-unit or channel terms: [wholesale](/wholesale) or a [quotation](/request-quote?solution=meeting-ai).
+**Shop or partnership?** One listed unit for a known SKU: the TicNote collection linked above. Samples, multi-unit or channel terms: wholesale linked above, or the quotation request below.
 
 ## Explore a partnership
 
-If you want help locking the workflow, scoring a China vendor pack, or requesting a sample after the consent and quality gates — [explore a partnership](/wholesale), [request a quotation](/request-quote?solution=meeting-ai) or [contact CNPS](/contact). Share country, languages, role and a sample quantity. For a single listed unit after the method holds, use the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). Purchases complete on shop.cnps.ai.
+If you want help locking the workflow, scoring a China vendor pack, or requesting a sample after the consent and quality gates — [Request a quotation for devices or a pilot.](/request-quote?solution=meeting-ai). Share country, languages, role and a sample quantity. For a single listed unit after the method holds, use the TicNote collection linked above. Purchases complete on shop.cnps.ai.
