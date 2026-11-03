@@ -6,17 +6,29 @@ Consent, in this protocol, means calendar-invite disclosure plus a spoken start-
 
 Quality is useful only when it becomes action. Score Arabic, English and mid-sentence switches on meaning-critical errors and on the time needed to correct them. Ship a note from the pilot only if the corrected record reliably yields an action, an owner and a due date inside the window your team agreed in Week 0.
 
+## Gulf Arabic–English pilot method glance
+
+Five checks before a Gulf Arabic–English meeting-notes hardware buy (checked 3 November 2026).
+
+1. **Consent Week 0** — Invite language, spoken script, access list and retention before capture.
+2. **Capture design** — Real bilingual sessions; measure capture → transcript → correction → actions.
+3. **Scorecard AR·EN·switch** — Meaning-critical errors by language and switch; minutes-to-correct.
+4. **Actions with owners** — Human-checked note; owner + due date confirmed before wider share.
+5. **Hardware only after pass** — Devices wait until the workflow scorecard passes.
+
+![Gulf Arabic–English pilot method glance — Consent Week 0, capture design, scorecard AR·EN·switch, actions with owners, hardware after pass](/assets/resources/gulf-arabic-english-meeting-notes-pilot-method-glance.webp)
+
 ## What “done” looks like
 
 “Done” is a two-week test a UAE or KSA team can repeat. You should be able to show the meeting types in scope, that every recording used the same notice and access rules, a scorecard covering Arabic-heavy, English-heavy and code-switching samples, and notes a reviewer turned into owned, dated actions. Hardware waits until that pack exists.
 
 Write the success rule before Week 1: a reviewer can produce a shareable note whose action lines name an owner and a due date, and those owners confirm the assignment. If the current capture method cannot do that, adding devices will not fix the workflow.
 
-Name the exclusions in the same document. This protocol does not cover covert recording, HR investigations, legal strategy, privileged counsel sessions, or meetings a participant would treat as confidential beyond ordinary minutes. Those labels are scope boundaries, not legal advice. If a session might be excluded, do not record it — ask the business owner and, where needed, counsel before the invite goes out. Also exclude quiet one-speaker demonstrations. The finished, checked note is the unit of evaluation, as in the [meeting-device pilot worksheet](/resources/meeting-device-pilot) and [Meeting AI: measure the finished note](/blogs/meeting-ai-measure-the-finished-note).
+Name the exclusions in the same document. This protocol does not cover covert recording, HR investigations, legal strategy, privileged counsel sessions, or meetings a participant would treat as confidential beyond ordinary minutes. Those labels are scope boundaries, not legal advice. If a session might be excluded, do not record it — ask the business owner and, where needed, counsel before the invite goes out. Also exclude quiet one-speaker demonstrations. The finished, checked note is the unit of evaluation, as in [Plan an AI meeting device pilot](/resources/meeting-device-pilot).
 
 ## Week 0 — Consent and privacy gate
 
-Week 0 is a gate: no capture until invite language, verbal script, access list, retention default and vendor questions are written down and accepted by the pilot owner. See also the [consent and privacy test](/guides/gulf-meeting-consent-and-privacy-test).
+Week 0 is a gate: no capture until invite language, verbal script, access list, retention default and vendor questions are written down and accepted by the pilot owner. See also [Consent and privacy test before a Gulf meeting-recorder rollout](/guides/gulf-meeting-consent-and-privacy-test).
 
 **Calendar invite.** State that the session may be recorded to produce internal meeting notes; name the languages you expect (Gulf Arabic and English, including switching); say who will see audio, transcript and summary; and tell people how to object — reply to the invite, or say so at the start.
 
@@ -28,7 +40,7 @@ Week 0 is a gate: no capture until invite language, verbal script, access list, 
 
 **Vendor questions.** Ask where audio and text are processed and stored, whether subprocessors see content, whether a residency option exists, how deletion works, and who can export or reassign an account. These are procurement questions, not a PDPL interpretation. If the answer is vague, do not start Week 1 on that vendor.
 
-Keep the Week 0 pack in an approved system. An inquiry to CNPS needs destination, languages, team size and timeline — not confidential minutes. See [privacy](/privacy) and [request a quotation](/request-quote?solution=meeting-ai).
+Keep the Week 0 pack in an approved system. An inquiry to CNPS needs destination, languages, team size and timeline — not confidential minutes.
 
 ## Week 1 — Capture design
 
@@ -38,7 +50,7 @@ Pick three to five recurring sessions that mix Gulf Arabic and English the way y
 
 Stay device-agnostic for the first pass. Use whatever already records with consent — a table recorder, earbuds, a laptop, a room system — as long as capture is visible and you can collect audio, a transcript and a summary inside the access list. Measure the whole path: capture, transfer, transcript, summary, correction, action extraction.
 
-After two or three sessions you will know whether capture is the bottleneck (distance, overlap, missing remote audio) or whether correction and ownership are. Only then consider a dedicated recorder. TicNote is one capture option; choose a SKU on the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). This page does not rank models and does not run checkout. Confirm destination, plan and listing before any order. Compare form factors on [AI meeting devices](/solutions/meeting-ai) and [Equip my team](/products) after the workflow passes.
+After two or three sessions you will know whether capture is the bottleneck (distance, overlap, missing remote audio) or whether correction and ownership are. Only then consider a dedicated recorder. TicNote is one capture option; choose a SKU on [Collection: All TicNote Products](https://shop.cnps.ai/collections/all-ticnote-products). This page does not rank models and does not run checkout. Confirm destination, plan and listing before any order. Form-factor trade-offs sit on [Meeting recorder vs smart glasses for bilingual meeting notes](/guides/meeting-recorder-vs-smart-glasses-bilingual-notes) after the workflow question is clear.
 
 Keep Week 1 samples inside the Week 0 rules. Do not widen the audience because a summary “looks useful.”
 
@@ -67,7 +79,7 @@ For every candidate action, record four fields: the action in one line; the owne
 
 Human review happens before share. The reviewer checks decisions, numbers, names, conditions and open questions, then sends the action list only to people on the access list plus the named owners. Owners confirm or correct the assignment. Unconfirmed lines stay in the pilot pack.
 
-If the team already tracks work elsewhere, copy confirmed lines by an approved export. Do not connect a new transcription account to a company-wide task board during the test. The [finished-note method](/blogs/meeting-ai-measure-the-finished-note) is the same idea: measure the checked record, not the first draft.
+If the team already tracks work elsewhere, copy confirmed lines by an approved export. Do not connect a new transcription account to a company-wide task board during the test. Measure the checked record, not the first draft.
 
 ## Gulf-specific checks
 
@@ -76,6 +88,8 @@ Treat Gulf Arabic as the language you hear, not as a generic “Arabic” toggle
 External guests change consent. The invite and verbal script must include them. If a guest objects, stop. If a guest joins late, repeat the script. Do not record guests on a personal account.
 
 Data residency and PDPL questions belong to counsel and the security owner. Ask vendors the residency and deletion questions in Week 0, then escalate those answers. This protocol does not interpret a statute or certify a hosting region. If counterparties are government-adjacent or regulated, add their recording rules to the exclusion list. When in doubt, take unrecorded minutes.
+
+When the workflow passes and you still need China hardware into UAE/KSA, use [Source China AI recording hardware for UAE/KSA without skipping the pilot](/guides/china-to-gulf-ai-recording-sourcing) — do not skip this scorecard to rush a PO.
 
 ## Copy-paste checklist
 
@@ -89,7 +103,7 @@ Data residency and PDPL questions belong to counsel and the security owner. Ask 
 8. Capture with consent using the current method first; keep files inside the access list.
 9. Fill the scorecard: dialect or switch density, speaker count, meaning-critical errors by AR / EN / switch, time-to-correct, ship or no-ship.
 10. Turn each shipped note into actions with owner, due date and source-utterance language; require owner confirmation before wider share.
-11. Decide hardware only after the workflow passes; if you want a TicNote, open the [collection](https://shop.cnps.ai/collections/all-ticnote-products) and confirm the listing — do not rank SKUs from this page.
+11. Decide hardware only after the workflow passes; if you want a TicNote, open the collection linked above and confirm the listing — do not rank SKUs from this page.
 12. Write a one-page decision: proceed, narrow the meeting types, change the capture path, or stop.
 
 ## FAQ
@@ -98,10 +112,10 @@ Data residency and PDPL questions belong to counsel and the security owner. Ask 
 
 **Cloud or on-prem?** Ask where audio and text are processed, who can reach them, and how deletion is proven. If you lack a required residency option, do not start Week 1 on that stack. This page does not certify a topology.
 
-**When should we buy devices?** After the scorecard and action-ownership rule pass. If correction or consent fails, fix the workflow first. Devices come from the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products) or a quotation; this site does not take payment.
+**When should we buy devices?** After the scorecard and action-ownership rule pass. If correction or consent fails, fix the workflow first. Devices come from the TicNote collection linked above or a quotation; this site does not take payment.
 
-**Pods or Lite?** Do not decide from a method page. Open the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products) or [Equip my team](/products) and confirm the exact SKU. This guide will not rank them.
+**Pods or Lite?** Do not decide from a method page. Open the TicNote collection linked above and confirm the exact SKU. This guide will not rank them.
 
 ## Request a scoped next step
 
-If you want help designing the two-week pack — languages, destination, sample size, or a device shortlist after the workflow passes — [contact CNPS](/contact) or [request a quotation](/request-quote?solution=meeting-ai). Share country, team size, languages and whether guests are external. For hardware after the protocol holds, use [Equip my team](/products) or the [TicNote collection](https://shop.cnps.ai/collections/all-ticnote-products). Purchases complete on shop.cnps.ai.
+If you want help designing the two-week pack — languages, destination, sample size, or a device shortlist after the workflow passes — [Ask about wholesale](/wholesale) or [Request a quotation for devices or a pilot.](/request-quote?solution=meeting-ai). Share country, team size, languages and whether guests are external. For hardware after the protocol holds, use the TicNote collection linked above. Purchases complete on shop.cnps.ai.

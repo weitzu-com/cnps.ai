@@ -12,7 +12,7 @@ const guides = JSON.parse(fs.readFileSync('content/i18n/guides.json', 'utf8')).g
 const meta = guides.find((g) => g.slug === slug);
 
 test('Gulf meeting-notes guide stays a method page', () => {
-  assert.ok(words.length >= 1400 && words.length <= 2000, 'word count ' + words.length);
+  assert.ok(words.length >= 1400 && words.length <= 2400, 'word count ' + words.length); // O16 method glance raises ceiling
   assert.ok(meta, 'guides.json entry');
   assert.deepEqual(meta.locales, ['en', 'ar']);
   assert.equal(meta.h1.en, 'Run a Gulf Arabic–English meeting-notes pilot in two weeks');
