@@ -76,8 +76,8 @@
         "ar": "جاهزية موقع الذكاء الاصطناعي الطرفي في الإمارات/السعودية قبل اختيار الصندوق"
       },
       "description": {
-        "en": "Map lighting, FOV, network, power, latency budget, and who reviews exceptions on the real UAE/KSA site before selecting edge hardware.",
-        "ar": "ارسم الإضاءة وFOV والشبكة والطاقة وميزانية الكمون ومن يراجع الاستثناءات على الموقع الفعلي في الإمارات/السعودية قبل اختيار أجهزة الطرف."
+        "en": "UAE/KSA edge site method: lighting/FOV, network, power, latency budget, exception review on the real site before you pick a box. As of 4 Nov 2026.",
+        "ar": "منهج جاهزية موقع طرفي إمارات/سعودية (حتى 4 نوفمبر 2026): إضاءة/FOV، شبكة، طاقة، ميزانية كمون، مراجعة استثناءات على الموقع الفعلي قبل اختيار الصندوق."
       },
       "h1": {
         "en": "UAE/KSA edge AI site readiness before you pick a box",
