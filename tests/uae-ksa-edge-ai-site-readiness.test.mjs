@@ -21,12 +21,12 @@ function vercelDest(sourcePath) {
 }
 
 test('UAE/KSA edge AI site readiness guide stays a method page', () => {
-  assert.ok(words.length >= 1000 && words.length <= 1500, 'word count ' + words.length);
+  assert.ok(words.length >= 1000 && words.length <= 2000, 'word count ' + words.length); // O17 method glance raises ceiling
   assert.ok(meta, 'guides.json entry');
   assert.deepEqual(meta.locales, ['en', 'ar']);
   assert.equal(meta.title.en, 'UAE/KSA edge AI site readiness before you pick a box');
   assert.equal(meta.h1.en, 'UAE/KSA edge AI site readiness before you pick a box');
-  assert.match(meta.description.en, /Map lighting, FOV, network, power, latency budget, and who reviews exceptions/);
+  assert.equal(meta.description.en, 'UAE/KSA edge site method: lighting/FOV, network, power, latency budget, exception review on the real site before you pick a box. As of 4 Nov 2026.');
   assert.match(source, /^# UAE\/KSA edge AI site readiness before you pick a box/m);
   assert.match(source, /Map scene, connectivity, power, and who reviews exceptions on the real UAE\/KSA site before selecting edge hardware or signing acceptance\./);
   assert.match(source, /Gulf-named readiness checklist/);
@@ -51,9 +51,9 @@ test('UAE/KSA edge AI site readiness guide stays a method page', () => {
   assert.match(source, /Escalate answers to counsel/);
   assert.match(source, /\/resources\/edge-ai-survey/);
   assert.match(source, /\/blogs\/edge-ai-start-with-the-site/);
-  assert.match(source, /\[explore a partnership\]\(\/wholesale\)/);
-  assert.match(source, /\[request a quotation\]\(\/request-quote\?solution=edge-vision\)/);
-  assert.match(source, /\[contact CNPS\]\(\/contact\)/);
+  assert.match(source, /\[Ask about wholesale\]\(\/wholesale\)/);
+  assert.match(source, /\[Request a quotation for devices or a pilot\.\]\(\/request-quote\?solution=edge-vision\)/);
+  assert.doesNotMatch(source, /\/contact/); // O17: no body contact stack with request-quote
   assert.match(source, /does not run checkout/);
   assert.match(survey, /\/guides\/uae-ksa-edge-ai-site-readiness/);
   assert.match(checklist, /\/guides\/uae-ksa-edge-ai-site-readiness/);
@@ -93,10 +93,10 @@ test('UAE/KSA edge readiness Arabic twin is MSA and mirrors EN structure', () =>
   assert.match(arSource, /موقع الاستدلال/);
   assert.match(arSource, /ارفع الإجابات إلى المستشار/);
   assert.match(arSource, /ليست استشارة قانونية وليست رأياً في PDPL/);
-  assert.match(arSource, /\[مسح موقع الذكاء الاصطناعي الطرفي\]\(\/resources\/edge-ai-survey\)/);
-  assert.match(arSource, /\[استكشف شراكة\]\(\/wholesale\)/);
-  assert.match(arSource, /\[اطلب عرض سعر\]\(\/request-quote\?solution=edge-vision\)/);
-  assert.match(arSource, /\[تواصل مع CNPS\]\(\/contact\)/);
+  assert.match(arSource, /\[استبيان موقع الذكاء الاصطناعي الطرفي\]\(\/resources\/edge-ai-survey\)/);
+  assert.match(arSource, /\[استفسر عن البيع بالجملة\]\(\/wholesale\)/);
+  assert.match(arSource, /\[اطلب عرض سعر للأجهزة أو لتجربة تجريبية\.\]\(\/request-quote\?solution=edge-vision\)/);
+  assert.doesNotMatch(arSource, /\/contact/); // O17: no body contact stack
   assert.match(arSource, /ولا يوجد دفع على هذا الموقع/);
   assert.doesNotMatch(arSource, /add to cart|buy now/i);
   assert.doesNotMatch(arSource, /Map scene, connectivity, power/);

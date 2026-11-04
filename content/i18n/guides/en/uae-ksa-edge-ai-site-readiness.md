@@ -2,7 +2,19 @@
 
 Map scene, connectivity, power, and who reviews exceptions on the real UAE/KSA site before selecting edge hardware or signing acceptance.
 
-This page is a Gulf-named readiness checklist that extends the generic [edge AI site survey](/resources/edge-ai-survey). It is a method, not a product catalog. It does not run checkout, invent latency numbers, or rank brands. It is not legal advice and not a PDPL opinion. Escalate legal and privacy questions to counsel.
+This page is a Gulf-named readiness checklist that extends the generic [The edge AI site survey](/resources/edge-ai-survey). It is a method, not a product catalog. It does not run checkout, invent latency numbers, or rank brands. It is not legal advice and not a PDPL opinion. Escalate legal and privacy questions to counsel.
+
+## UAE/KSA edge site method glance
+
+Five site checks before you shortlist an edge box for UAE or KSA (checked 4 November 2026).
+
+1. **Lighting / FOV** — Day, dusk, night, glare, height, distance, and occlusion on the named cameras.
+2. **Network** — Path from camera to compute to alert; disconnect behavior and who may reach the device.
+3. **Power** — Source, PoE or local supply, enclosure heat, and restore after a cut.
+4. **Latency budget** — Agreed time from a real event to a usable alert a named person will act on.
+5. **Exception review** — Who sees alerts, who may open video, where inference runs, and who reviews exceptions in writing.
+
+![UAE/KSA edge site method glance — Lighting/FOV, Network, Power, Latency budget, Exception review](/assets/resources/uae-ksa-edge-ai-site-readiness-method-glance.webp)
 
 ## Why the site beats the model brochure
 
@@ -14,10 +26,10 @@ The brochure cannot see glass at noon, a floodlit yard at 02:00, or a truck that
 
 Lock four facts before a box is shortlisted:
 
-1. **Task.** What must be visible, and what a person should do when it is.
-2. **Place.** Which cameras, heights, and distances on the named UAE or KSA site — not a sister facility.
-3. **Path.** Where frames are processed, where alerts land, and who is on shift to act.
-4. **Pass rule.** What the real-site test must show, including night, glare, and ordinary empty periods.
+1. Task. What must be visible, and what a person should do when it is.
+2. Place. Which cameras, heights, and distances on the named UAE or KSA site — not a sister facility.
+3. Path. Where frames are processed, where alerts land, and who is on shift to act.
+4. Pass rule. What the real-site test must show, including night, glare, and ordinary empty periods.
 
 A first inquiry needs destination, site and camera count, the intended task, whether existing cameras stay, network and power notes, and a local integration owner. Do not upload personal or sensitive video.
 
@@ -26,7 +38,7 @@ A first inquiry needs destination, site and camera count, the intended task, whe
 Walk the real site with the generic survey in hand. Fill the Gulf columns below in writing. A blank cell is a reason not to pick hardware yet.
 
 | Check | Record on the UAE/KSA site | Fail if |
-|---|---|---|
+| --- | --- | --- |
 | Lighting | Day, dusk, night, and glare per camera | The brief assumes “good lighting” or copies a lab still |
 | FOV | Height, lens, distance, occlusion, existing CCTV | Cameras are “to be confirmed” or treated as interchangeable |
 | Network | Path from camera to compute to alert; disconnect and remote support | The quote is silent on outage, or remote access is only verbal |
@@ -51,16 +63,16 @@ Name who sees alerts, who may open video, and where inference runs, before any s
 
 Write, in an approved system:
 
-1. **Alert audience.** Named roles. Who gets the first ping, who can dismiss it, and who is copied after hours.
-2. **Video access.** Who may open live view, clips, and stored files. A share link is access.
-3. **Exception review.** What counts as an exception, who reviews it, and in which language — often English, Gulf Arabic, or both.
-4. **Inference location.** On the camera, on an on-site box, in a named region, or on a service that leaves the destination you named. “Edge” on a slide is not a location.
-5. **Vendor remote access.** Whether a supplier can reach the device, for what purpose, and who authorizes a session.
-6. **Retention and deletion.** How long clips and alerts are kept, where they live, and who can delete them.
-7. **Training use.** Whether site video or alerts train models, and whether you can opt out in writing.
-8. **Exclusions.** Covert capture and views counsel has flagged stay out of scope. Those labels are operating boundaries, not a legal opinion. If a view might be excluded, do not process it in the pilot.
+1. Alert audience. Named roles. Who gets the first ping, who can dismiss it, and who is copied after hours.
+2. Video access. Who may open live view, clips, and stored files. A share link is access.
+3. Exception review. What counts as an exception, who reviews it, and in which language — often English, Gulf Arabic, or both.
+4. Inference location. On the camera, on an on-site box, in a named region, or on a service that leaves the destination you named. “Edge” on a slide is not a location.
+5. Vendor remote access. Whether a supplier can reach the device, for what purpose, and who authorizes a session.
+6. Retention and deletion. How long clips and alerts are kept, where they live, and who can delete them.
+7. Training use. Whether site video or alerts train models, and whether you can opt out in writing.
+8. Exclusions. Covert capture and views counsel has flagged stay out of scope. Those labels are operating boundaries, not a legal opinion. If a view might be excluded, do not process it in the pilot.
 
-If any line is blank, do not sign acceptance. Verbal answers do not count. Keep sensitive footage out of a first vendor inquiry. See [privacy](/privacy). This page will not say what UAE or KSA law requires. It will not certify a stack against a named privacy statute. Counsel owns that reading. Your job is to produce written facts they can review.
+If any line is blank, do not sign acceptance. Verbal answers do not count. Keep sensitive footage out of a first vendor inquiry. See [Privacy policy](/privacy). This page will not say what UAE or KSA law requires. It will not certify a stack against a named privacy statute. Counsel owns that reading. Your job is to produce written facts they can review.
 
 ## Acceptance test on the real site
 
@@ -89,6 +101,6 @@ Rescope is a smaller task, a different camera, a later window, or a decision tha
 
 ## Related reading and next conversation
 
-Use the generic [edge AI site survey](/resources/edge-ai-survey) as the capture sheet. Read [Edge AI starts with the site, not the box](/blogs/edge-ai-start-with-the-site) for the planning argument. Scope the solution path on [Edge AI for a defined camera task](/solutions/edge-vision). This Gulf checklist does not replace those pages.
+Use the generic edge AI site survey linked above as the capture sheet. Read the site-before-box planning argument linked above. Scope the solution path on [Edge AI for a defined camera task](/solutions/edge-vision). This Gulf checklist does not replace those pages.
 
-If you can name the destination, the task, the site conditions, and who reviews exceptions, [explore a partnership](/wholesale), [request a quotation](/request-quote?solution=edge-vision), or [contact CNPS](/contact). Share country, site and camera count, intended task, network and power notes, and the local integration owner. Do not send sensitive video. There is no checkout on this site.
+If you can name the destination, the task, the site conditions, and who reviews exceptions, [Ask about wholesale](/wholesale) or [Request a quotation for devices or a pilot.](/request-quote?solution=edge-vision). Share country, site and camera count, intended task, network and power notes, and the local integration owner. Do not send sensitive video. There is no checkout on this site.
