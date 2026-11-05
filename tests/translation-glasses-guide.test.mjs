@@ -34,7 +34,7 @@ test('guide body covers the query family naturally and stays neutral', () => {
     assert.ok(count >= 1 && count <= 3, phrase + ' appears ' + count + ' times');
   }
   assert.match(source, /\*\*Disclosure:\*\* CNPS\.AI sells INMO GO3/);
-  assert.match(source, /\[INMO GO3\]\(\/products\/inmo-go3\)/);
+  assert.match(source, /\[INMO GO3 AI Smart Glasses\]\(\/products\/inmo-go3\)/);
   assert.doesNotMatch(source, /\b(worst|terrible|inferior|overpriced|#1)\b/i);
   const words = source.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g) || [];
   assert.ok(words.length >= 1200, 'word count ' + words.length);

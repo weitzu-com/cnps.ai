@@ -190,5 +190,13 @@
       "zh": "概念配图：相机视场连向网络路径与现场边缘盒及例外复核勾选 — 阿联酋/沙特边缘站点就绪主图，无商标规格",
       "ar": "مخطط تصوري: مجال رؤية كاميرا إلى مسار شبكة إلى صندوق طرفي في الموقع إلى علامة مراجعة استثناءات — صورة جاهزية موقع طرفي إمارات/سعودية، بلا شعارات أو مواصفات"
     }
+  },
+  "translation-glasses": {
+    "file": "translation-glasses",
+    "alt": {
+      "en": "Concept diagram: glasses frame to caption strip to language/offline path to battery and reply-channel check — translation glasses hero, no logos or specs",
+      "zh": "概念配图：眼镜框连向字幕条、语言/离线路径与电池及回复通道勾选 — 翻译眼镜主图，无商标规格",
+      "ar": "مخطط تصوري: إطار نظارات إلى شريط تعليقات إلى مسار لغة/غير متصل إلى بطارية وعلامة قناة الرد — صورة نظارات الترجمة، بلا شعارات أو مواصفات"
+    }
   }
 }
