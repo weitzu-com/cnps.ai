@@ -22,9 +22,9 @@ const title = {
   ar: 'بطاقة TicNote أو Lite أو Pods (2026): أي مسجّل ذكي تشتري',
 };
 const description = {
-  en: 'TicNote Card ($139.99, 64GB) vs Lite ($99.99) vs Pods earbuds ($219.99+), checked 22 Oct 2026. Verdict: Card for meetings, Lite on a budget, Pods on the move.',
-  zh: 'TicNote 卡片（$139.99，64GB）vs Lite（$99.99）vs Pods 耳机（$219.99 起），价格复核于 2026 年 10 月 22 日。结论：会议室选卡片，预算优先选 Lite，通话与移动中选 Pods。',
-  ar: 'بطاقة TicNote ($139.99، 64GB) مقابل Lite ($99.99) مقابل Pods (من $219.99)، رُوجعت 22 أكتوبر 2026. الخلاصة: البطاقة للاجتماعات، وLite للميزانية، وPods للتنقل.',
+  en: 'TicNote Card ($139.99, 64GB) vs Lite ($99.99) vs Pods earbuds ($219.99+), checked 6 Nov 2026. Verdict: Card for meetings, Lite on a budget, Pods on the move.',
+  zh: 'TicNote 卡片（$139.99，64GB）vs Lite（$99.99）vs Pods 耳机（$219.99 起），价格复核于 2026 年 11 月 6 日。结论：会议室选卡片，预算优先选 Lite，通话与移动中选 Pods。',
+  ar: 'بطاقة TicNote ($139.99، 64GB) مقابل Lite ($99.99) مقابل Pods (من $219.99)، رُوجعت 6 نوفمبر 2026. الخلاصة: البطاقة للاجتماعات، وLite للميزانية، وPods للتنقل.',
 };
 // Live H1s fetched 2026-10-22 (Asia/Shanghai).
 const anchors = {
@@ -73,7 +73,7 @@ test('title (= H1), cover, date and FAQ unchanged', () => {
   assert.match(post.locales.en.body, /^TicNote Card is the card-sized TicNote AI Voice Recorder/);
 });
 
-test('meta leads with TicNote Card, keeps the verdict, carries the 22 Oct 2026 check, ≤160', () => {
+test('meta leads with TicNote Card, keeps the verdict, carries the 6 Nov 2026 check, ≤160', () => {
   for (const l of locales) {
     const d = post.locales[l].description;
     assert.equal(d, description[l]);
@@ -81,7 +81,7 @@ test('meta leads with TicNote Card, keeps the verdict, carries the 22 Oct 2026 c
   }
   assert.ok(description.en.startsWith('TicNote Card'));
   assert.match(description.en, /Verdict:/);
-  assert.match(description.en, /22 Oct 2026/);
+  assert.match(description.en, /6 Nov 2026/);
 });
 
 test('every body anchor equals the live target H1, each href once, one shop link', () => {
@@ -100,9 +100,9 @@ test('every body anchor equals the live target H1, each href once, one shop link
     assert.ok(hrefs.includes(SHOP));
     assert.doesNotMatch(body, /shop\.cnps\.ai\/blogs\//, l + ' must not link the shop sister article');
   }
-  assert.match(post.locales.en.body, /re-checked unchanged on 22 October 2026/);
-  assert.match(post.locales.zh.body, /2026 年 10 月 22 日复核未变/);
-  assert.match(post.locales.ar.body, /22 أكتوبر 2026/);
+  assert.match(post.locales.en.body, /re-checked unchanged on 6 November 2026/);
+  assert.match(post.locales.zh.body, /2026 年 11 月 6 日复核未变/);
+  assert.match(post.locales.ar.body, /6 نوفمبر 2026/);
 });
 
 test('glance facts are only figures the body already states', () => {
