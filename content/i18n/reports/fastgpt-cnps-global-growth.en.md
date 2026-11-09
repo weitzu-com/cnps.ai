@@ -1,6 +1,6 @@
 Use this playbook when you need to decide whether — and how — to put FastGPT to work in an international enterprise workflow with CNPS.AI as the implementation partner. It gives you the buyer decision path, three bounded pilot packages, a draft acceptance set, licensing and data checks, budget formulas, a ninety-day plan with release gates, and ready-to-use English templates with a procurement FAQ.
 
-**Page summary as of 12 October 2026.** The 28 chapters below are the complete English edition of the research dated 2026-09-03; the research dates and documented revisions are unchanged, and the translation is not new research. Amounts are pre-tax planning assumptions in US dollars, not quotations. The eight cases are references published by FastGPT, not CNPS customer projects.
+**Page summary as of 9 November 2026.** The 28 chapters below are the complete English edition of the research dated 2026-09-03; the research dates and documented revisions are unchanged, and the translation is not new research. Amounts are pre-tax planning assumptions in US dollars, not quotations. The eight cases are references published by FastGPT, not CNPS customer projects.
 
 ## Start here: what this playbook gives you
 

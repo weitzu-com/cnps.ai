@@ -31,7 +31,7 @@ test('EN first screen sits above the unchanged translated report', () => {
   const start = enSource.indexOf('## Start here: what this playbook gives you');
   assert.ok(start >= 0 && h1 > start);
   assert.match(enSource.slice(0, h1), /^Use this playbook when you need to decide/);
-  assert.match(enSource.slice(0, h1), /Page summary as of 12 October 2026/);
+  assert.match(enSource.slice(0, h1), /Page summary as of 9 November 2026/);
   assert.match(enSource, /translation is not new research/);
   assert.match(enSource, /This localization is not new research/);
   assert.deepEqual([...enSource.matchAll(/^# .+$/gm)].map((m) => m[0]), ['# FastGPT × CNPS.AI: Global Growth and Delivery Playbook']);
