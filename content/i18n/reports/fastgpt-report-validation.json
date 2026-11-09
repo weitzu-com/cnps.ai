@@ -22,13 +22,14 @@
     "Arabic translates the English-messaging, X-draft and template examples; headings clarify that these are Arabic renderings of the English originals.",
     "Arabic code-diagram labels localized while preserving its flow and system identifiers.",
     "Proper names, repository paths, API/event identifiers, source URLs, numeric values and source dates retained.",
-    "2026-10-12: EN-only first-screen reader summary added above the report H1; translated body unchanged."
+    "2026-10-12: EN-only first-screen reader summary added above the report H1; translated body unchanged.",
+    "2026-11-09: EN first-screen page-summary date bumped 12 October 2026 → 9 November 2026; translated body unchanged."
   ],
   "files": [
     {
       "language": "en",
       "path": "content/i18n/reports/fastgpt-cnps-global-growth.en.md",
-      "sha256": "aebca3deeda915b3af287e4adbed11195783877f7f2d9ab9a3a46287a3a6a8e1",
+      "sha256": "3fce4f85b6e7037ad8fc96c4c89e382a8aa0e76aa7b74051c5eb281c44d6bbff",
       "characters": 90795,
       "source_blocks": 267,
       "substantive_blocks": 239,
