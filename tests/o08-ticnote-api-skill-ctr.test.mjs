@@ -91,7 +91,7 @@ test('every body anchor equals the live target H1 and each href appears once', (
     assert.ok(hrefs.includes(shopApi), l + ' missing shop install sister');
     assert.match(body, /2026/);
   }
-  assert.match(post.locales.en.body, /re-checked on 20 October 2026/);
+  assert.match(post.locales.en.body, /re-checked on 10 November 2026/);
   assert.doesNotMatch(post.locales.en.body, /\]\(\/en\/products\/ticnote\)[\s\S]*\]\(\/en\/products\/ticnote\)/);
 });
 
