@@ -2,6 +2,8 @@ Use this playbook to turn a China-origin AI interest into a **buyer-ready path**
 
 CNPS.AI is a China-origin brand publishing TicNote recording hardware and related resources for overseas buyers. This page is the **decision edition** of the China AI export / global expansion research: it explains how overseas procurement works when the supply path starts in China. Amounts, conversion rates, and schedules labeled as planning assumptions in the chapters below are **not** CNPS historical performance or live quotations. Industry references (for example vendor-published cases) are not claims that CNPS delivered those projects.
 
+The buyer first screen and sister URLs were re-checked on 12 November 2026. The 32 research chapters below keep their 3 September 2026 V22 research date; this refresh is not new research.
+
 ## Start here (first screen)
 
 ### What you get from this playbook
@@ -47,7 +49,7 @@ Use it when you are:
 
 Skip treating this as a finished commercial offer. Public pages must not invent brand authorization, inventory depth, enterprise subscription guarantees, overseas repair SLAs, or accuracy percentages CNPS has not published. Unconfirmed items belong in the quotation conversation.
 
-Brand context and product entry points live on [CNPS.AI](https://www.cnps.ai/). For published TicNote form factors and plan options before you assume an enterprise pack, compare the live store collection: [All TicNote Products](https://shop.cnps.ai/collections/all-ticnote-products).
+Brand context and product entry points live on [AI with purpose. Built for people.](https://www.cnps.ai/en). For published TicNote form factors and plan options before you assume an enterprise pack, compare the live store collection: [Collection: All TicNote Products](https://shop.cnps.ai/collections/all-ticnote-products).
 
 ## What “China AI export” means here
 
@@ -199,7 +201,7 @@ The smallest unit of a viable transaction is a specific requirement, a set of ve
 
 ## Page 02 | CNPS's current assets and gaps
 
-Direct access on 2026-09-03 confirmed that www.cnps.ai was a product website displaying TicNote recording devices, earbuds, and smart glasses, with purchases directed to shop.cnps.ai. The wholesale page published sales@cnps.ai and a telephone number, but no volume price tiers. Existing strengths include clear product entry points, a purchase path, and an identifiable sales contact. [Existing website](https://www.cnps.ai) · [Wholesale entry point](https://www.cnps.ai/wholesale)
+Direct access on 2026-09-03 confirmed that www.cnps.ai was a product website displaying TicNote recording devices, earbuds, and smart glasses, with purchases directed to shop.cnps.ai. The wholesale page published sales@cnps.ai and a telephone number, but no volume price tiers. Existing strengths include clear product entry points, a purchase path, and an identifiable sales contact. Existing website · [Ask about wholesale](https://www.cnps.ai/en/wholesale)
 
 The current gap is the organization of information needed for business procurement: which model fits which team; how pilot success is assessed; what software, training, and support cost beyond the hardware; and when to buy samples directly versus request project assessment. Filling these gaps is closer to generating orders than indiscriminately uploading 100 AI products.
 
@@ -359,7 +361,7 @@ Such projects suit cooperation with local integrators. Customer contracts should
 
 ## Page 12 | Existing product entry points: TicNote and smart glasses
 
-CNPS already has recording-device and smart-glasses entry points, so completing business procurement information around these products should be a priority. Specifications, subscriptions, prices, and regional availability depend on the relevant SKU page and a confirmed written quotation. [Product catalog](https://www.cnps.ai/products) · [Model comparison](https://www.cnps.ai/products/compare). For UAE/KSA recording hardware, use the [China→Gulf sourcing method](https://www.cnps.ai/en/guides/china-to-gulf-ai-recording-sourcing) before a bulk PO.
+CNPS already has recording-device and smart-glasses entry points, so completing business procurement information around these products should be a priority. Specifications, subscriptions, prices, and regional availability depend on the relevant SKU page and a confirmed written quotation. [Meet your next intelligent tool.](https://www.cnps.ai/en/products) · [TicNote models side by side](https://www.cnps.ai/en/products/compare). For UAE/KSA recording hardware, follow the Gulf sourcing method already linked in the first screen before a bulk PO.
 
 Create separate guidance for a 10-person sales team, a 20-person training department, and channel sample purchases. Customers need to assess recording conditions, transcription languages, team accounts, export capabilities, subscription ownership, and after-sales responsibility. Enterprise buying is not necessarily a larger retail order: account administration and device reassignment may determine suitability.
 

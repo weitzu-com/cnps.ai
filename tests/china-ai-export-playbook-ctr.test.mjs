@@ -6,7 +6,11 @@ import path from 'node:path';
 const slug = 'china-ai-export-playbook';
 const title = 'China AI export playbook for overseas buyers';
 const description =
-  'China AI export playbook: freeze the job, pick a pilot package, demand SKU-matched evidence, then enquire — CNPS.AI buyer map to the full research edition.';
+  'China AI export playbook (checked 12 Nov 2026): freeze the job, pick a pilot package, demand SKU-matched evidence, then enquire.';
+const zhDescription =
+  '中国 AI 出海行动方案（2026年11月12日复核）：先冻结任务，再选可试点的服务包，索取与 SKU 匹配的证据，然后询盘。';
+const arDescription =
+  'دليل تصدير الذكاء الاصطناعي الصيني (رُوجع في 12 تشرين الثاني/نوفمبر 2026): جمّد المهمة، اختر حزمة قابلة للتجربة، واطلب أدلة مطابقة للـ SKU، ثم استفسر.';
 const enSource = fs.readFileSync(`content/i18n/reports/${slug}.en.md`, 'utf8');
 const zhSource = fs.readFileSync(`content/i18n/reports/${slug}.zh.md`, 'utf8');
 const arSource = fs.readFileSync(`content/i18n/reports/${slug}.ar.md`, 'utf8');
@@ -29,6 +33,8 @@ test('EN playbook catalog ships buyer-intent title and meta, not translated-edit
   assert.doesNotMatch(enMeta.description, /Complete translated edition/i);
   assert.equal(zhMeta.title, '中国 AI：CNPS 全球拓展行动方案');
   assert.equal(arMeta.title, 'الذكاء الاصطناعي الصيني: خطة CNPS للتوسع العالمي');
+  assert.equal(zhMeta.description, zhDescription);
+  assert.equal(arMeta.description, arDescription);
   const cover = editorialAssets[slug];
   assert.equal(cover.file, slug);
   assert.match(cover.alt.en, /no fake certificates/);
@@ -62,6 +68,23 @@ test('EN first-screen module sits above retained V22 long report', () => {
   assert.match(enSource, /chapter-cluster hints/);
   assert.doesNotMatch(enSource, /#1 in (the )?Gulf|market share|WER\s*\d|word-error rate of \d/i);
   assert.doesNotMatch(enSource.slice(0, v22), /\b\d{2,}\s*%\s*(accuracy|win rate)/i);
+
+  assert.match(enSource, /re-checked on 12 November 2026/);
+  assert.match(enSource, /this refresh is not new research/);
+  assert.match(enSource, /\[Collection: All TicNote Products\]\(https:\/\/shop\.cnps\.ai\/collections\/all-ticnote-products\)/);
+  assert.match(enSource, /\[AI with purpose\. Built for people\.\]\(https:\/\/www\.cnps\.ai\/en\)/);
+  assert.match(enSource, /\[Ask about wholesale\]\(https:\/\/www\.cnps\.ai\/en\/wholesale\)/);
+  assert.match(enSource, /\[Meet your next intelligent tool\.\]\(https:\/\/www\.cnps\.ai\/en\/products\)/);
+  assert.match(enSource, /\[TicNote models side by side\]\(https:\/\/www\.cnps\.ai\/en\/products\/compare\)/);
+  assert.equal((enSource.match(/china-to-gulf-ai-recording-sourcing/g) || []).length, 1);
+  assert.doesNotMatch(enSource, /\[All TicNote Products\]/);
+  assert.doesNotMatch(enSource, /\[CNPS\.AI\]\(https:\/\/www\.cnps\.ai\/?\)/);
+  assert.doesNotMatch(enSource, /\[Existing website\]/);
+  assert.doesNotMatch(enSource, /\[Wholesale entry point\]/);
+  assert.doesNotMatch(enSource, /\[Product catalog\]/);
+  assert.doesNotMatch(enSource, /\[Model comparison\]/);
+  assert.doesNotMatch(enSource, /\[China→Gulf sourcing method\]/);
+
 });
 
 test('ZH and AR retain V22 bodies without invented first-screen translations', () => {
