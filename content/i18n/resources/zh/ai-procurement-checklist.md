@@ -32,10 +32,10 @@
 
 记录输入、配置、测试条件、成功指标与失败情况，并纳入困难样本。测试前约定验收标准，明确列出不包含的工作。
 
-若摄像现场在阿联酋或沙特，请先阅读英文页 [UAE/KSA edge AI site readiness](/en/guides/uae-ksa-edge-ai-site-readiness)，再选择边缘硬件。
+若摄像现场在阿联酋或沙特，请先阅读英文页 [UAE/KSA edge AI site readiness before you pick a box](/en/guides/uae-ksa-edge-ai-site-readiness)，再选择边缘硬件。
 
 ## 准备询价
 
 提供公司、目的地国家、任务、试点数量或用户人数、目标时间与主要限制。供货情况、商业条款和实施范围在报价阶段确认。
 
-[准备询价](/request-quote) · [探索解决方案](/solutions)
+[为设备或试点索取报价。](/request-quote) · [合适的方案，始于正确的问题。](/solutions)

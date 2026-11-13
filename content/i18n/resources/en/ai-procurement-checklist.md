@@ -2,6 +2,8 @@ Define the business task, the evidence you will trust, the exact SKU and region,
 
 This page is the CNPS.AI **China → buyer** **AI procurement checklist** for **enterprise** buyers (as of **8 October 2026**). It is written for foreign and enterprise buyers evaluating a China-origin device supplier (for example TicNote recording hardware published on CNPS.AI), not a generic consulting checklist. Availability, commercial terms, and implementation scope are confirmed during quotation. Industry references elsewhere on this site are not claims that CNPS delivered those projects.
 
+The eight-step method and sister URLs were re-checked on 13 November 2026. The 8 October 2026 research date is unchanged; this refresh is not a new checklist.
+
 If you need the public-body path instead, use the sister page once: [AI procurement checklist for public sector: China-origin hardware path](https://www.cnps.ai/en/resources/ai-procurement-checklist-public-sector).
 
 ## Who this checklist is for
@@ -29,7 +31,7 @@ Write the task in one paragraph before you open a catalog:
 - Destination country, languages, working environment, and data constraints?
 - What would make the project unsuitable even if a demonstration looks good?
 
-A product category, a SKU name, or a demo video is not a complete requirement. CNPS positions itself as an entry point to select, validate, and coordinate procurement of Chinese AI applications and hardware — the website helps you define the problem first; supply and after-sales are confirmed before they become contractual commitments. Start from the brand hub if you are still choosing a path: [CNPS.AI](https://www.cnps.ai/).
+A product category, a SKU name, or a demo video is not a complete requirement. CNPS positions itself as an entry point to select, validate, and coordinate procurement of Chinese AI applications and hardware — the website helps you define the problem first; supply and after-sales are confirmed before they become contractual commitments. Start from the brand hub if you are still choosing a path: [AI with purpose. Built for people.](https://www.cnps.ai/en).
 
 **Enquiry-ready inputs:** company · destination country · task in one sentence · user or site count · target timeline · hard constraints (language, offline need, data residency questions).
 
@@ -58,7 +60,7 @@ China-origin hardware often ships with **region-specific** radios, plugs, langua
 - Record firmware, app, and subscription ownership: who pays monthly minutes or seats, who can reassign devices, who can export or delete data
 - Ask what happens when the network fails or a connected service ends
 
-For TicNote retail SKUs published by CNPS, compare live form factors and plan options on the store collection before you assume an enterprise pack: [All TicNote Products](https://shop.cnps.ai/collections/all-ticnote-products). Enterprise buying is not always a larger retail cart — account administration and device reassignment may decide suitability.
+For TicNote retail SKUs published by CNPS, compare live form factors and plan options on the store collection before you assume an enterprise pack: [Collection: All TicNote Products](https://shop.cnps.ai/collections/all-ticnote-products). Enterprise buying is not always a larger retail cart — account administration and device reassignment may decide suitability.
 
 **Enquiry-ready inputs:** candidate SKU(s) · destination country · languages to test · offline / connected preference · who owns the subscription.
 

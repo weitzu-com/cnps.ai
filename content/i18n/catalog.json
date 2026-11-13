@@ -274,7 +274,7 @@
         "title": "AI procurement checklist for enterprise buyers",
         "category": "Procurement",
         "audience": "Procurement and project owners",
-        "description": "AI procurement checklist for enterprise buyers (as of Oct 2026): freeze the job, match evidence to SKU/region, price TCO, pilot with acceptance, then enquire."
+        "description": "AI procurement checklist for enterprise buyers (checked 13 Nov 2026): freeze the job, match SKU/region evidence, price TCO, pilot with acceptance, then enquire."
       },
       {
         "slug": "meeting-device-pilot",
@@ -1451,7 +1451,7 @@
         "title": "企业买家的 AI 采购清单",
         "category": "Procurement",
         "audience": "采购与项目负责人",
-        "description": "比较报价前，明确任务、证据、完整成本与责任。"
+        "description": "企业买家的 AI 采购清单（2026年11月13日复核）：先冻结任务，再匹配 SKU/地区证据，核算完整成本，以验收做试点，然后询盘。"
       },
       {
         "slug": "meeting-device-pilot",
@@ -2662,7 +2662,7 @@
         "title": "قائمة شراء الذكاء الاصطناعي للمشتري المؤسسي",
         "category": "Procurement",
         "audience": "مسؤولو المشتريات والمشروعات",
-        "description": "حدد المهمة والأدلة والتكلفة الكاملة والمسؤوليات قبل مقارنة عرض السعر."
+        "description": "قائمة شراء الذكاء الاصطناعي للمشتري المؤسسي (رُوجعت في 13 تشرين الثاني/نوفمبر 2026): جمّد المهمة، طابق أدلة الـ SKU/المنطقة، احسب التكلفة الكاملة، جرّب بقبول، ثم استفسر."
       },
       {
         "slug": "meeting-device-pilot",
