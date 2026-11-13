@@ -12,7 +12,7 @@ const enMeta = catalog.en.resources.find((r) => r.slug === slug);
 const zhMeta = catalog.zh.resources.find((r) => r.slug === slug);
 const arMeta = catalog.ar.resources.find((r) => r.slug === slug);
 const title = 'AI procurement checklist for enterprise buyers';
-const description = 'AI procurement checklist for enterprise buyers (as of Oct 2026): freeze the job, match evidence to SKU/region, price TCO, pilot with acceptance, then enquire.';
+const description = 'AI procurement checklist for enterprise buyers (checked 13 Nov 2026): freeze the job, match SKU/region evidence, price TCO, pilot with acceptance, then enquire.';
 
 test('EN AI procurement checklist uses GSC title, meta, and China→buyer body', () => {
   assert.ok(enMeta, 'EN catalog entry');
@@ -47,9 +47,9 @@ test('EN AI procurement checklist uses GSC title, meta, and China→buyer body',
   assert.match(source, /8 October 2026/);
   const mirror = fs.readFileSync(path.join('content/resources', slug + '.md'), 'utf8');
   assert.equal(mirror, source);
-  assert.match(source, /shop\.cnps\.ai\/collections\/all-ticnote-products/);
+  assert.match(source, /\[Collection: All TicNote Products\]\(https:\/\/shop\.cnps\.ai\/collections\/all-ticnote-products\)/);
   assert.match(source, /www\.cnps\.ai\/en\/request-quote/);
-  assert.match(source, /\[CNPS\.AI\]\(https:\/\/www\.cnps\.ai\/\)/);
+  assert.match(source, /\[AI with purpose\. Built for people\.\]\(https:\/\/www\.cnps\.ai\/en\)/);
   assert.match(source, /sales@cnps\.ai/);
   assert.match(source, /\+86 183 5463 9099/);
   assert.match(source, /!\[Eight China-to-buyer procurement steps from job freeze to enquiry — diagram, no fake seals\]\(\/assets\/resources\/ai-procurement-checklist-8-steps\.webp\)/);
