@@ -8,6 +8,8 @@ A **FastGPT-shaped pilot**, as CNPS scopes it, starts from a bounded approved co
 
 CNPS scopes FastGPT as a partner. This page does not invent benchmarks. There is no checkout on this site.
 
+The compare method and sister URLs were re-checked on 16 November 2026. The 28 October 2026 research date is unchanged; this refresh is not a new comparison.
+
 ## Enterprise compare method glance
 
 Five checks before you pick a stack or invent a score (checked 28 October 2026).

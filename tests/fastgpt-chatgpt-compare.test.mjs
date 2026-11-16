@@ -111,7 +111,7 @@ test('built English and Arabic compare pages are in the sitemap with hreflang', 
   assert.match(html, /<h1 class="wide">FastGPT vs ChatGPT for permissioned enterprise knowledge<\/h1>/);
   assert.match(html, /role="note"/);
   assert.match(html, /When to use FastGPT instead of ChatGPT for cited, reviewed answers on your documents/);
-  assert.match(html, /As of 28 Oct 2026/);
+  assert.match(html, /checked 16 Nov 2026/);
   assert.match(html, /<div class="table-scroll"/);
   assert.match(html, /href="\/en\/fastgpt"/);
   assert.match(html, /href="\/en\/fastgpt\/contact"/);
