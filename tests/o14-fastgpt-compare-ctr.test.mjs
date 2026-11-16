@@ -12,8 +12,8 @@ const build = fs.readFileSync('scripts/build-trilingual.mjs', 'utf8');
 const assets = JSON.parse(fs.readFileSync('content/i18n/editorial-assets.json', 'utf8'));
 
 const META = {
-  en: 'Compare FastGPT vs ChatGPT as methods: permissions, citations, human review, two-week evaluate, when each fits. As of 28 Oct 2026.',
-  ar: 'قارن FastGPT وChatGPT منهجاً (حتى 28 أكتوبر 2026): صلاحيات، استشهادات، مراجعة بشرية، تقييم لأسبوعين، ومتى يكفي كل منهما.',
+  en: 'Compare FastGPT vs ChatGPT as methods (checked 16 Nov 2026): permissions, citations, human review, two-week evaluate, when each fits.',
+  ar: 'قارن FastGPT وChatGPT منهجاً (رُوجعت في 16 نوفمبر 2026): صلاحيات، استشهادات، مراجعة بشرية، تقييم لأسبوعين، ومتى يكفي كل منهما.',
 };
 
 const EN_LINKS = [
