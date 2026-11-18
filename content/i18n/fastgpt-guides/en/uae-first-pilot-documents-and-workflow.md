@@ -2,7 +2,7 @@
 
 Name one owner, one approved corpus, one workflow, and a hard-question set before any FastGPT build; measure checked answers, not first drafts.
 
-A UAE first pilot is a bounded knowledge-assistant evaluation: one team, one document family you may use, one task that already costs time, and a written pass rule. CNPS scopes FastGPT as a [partner](/fastgpt). This page does not invent benchmarks. FastGPT-published case percentages on this site are vendor-published; CNPS has not independently audited them. There is no checkout on this site. Use the [knowledge-pilot worksheet](/resources/knowledge-pilot) for the general method; this page names the UAE pack — documents plus one measurable workflow.
+A UAE first pilot is a bounded knowledge-assistant evaluation: one team, one document family you may use, one task that already costs time, and a written pass rule. CNPS scopes FastGPT as a partner. This page does not invent benchmarks. FastGPT-published case percentages on this site are vendor-published; CNPS has not independently audited them. There is no checkout on this site. Re-checked on 18 November 2026; the guidance on this URL is unchanged. Use [Scope a document-grounded AI assistant](/resources/knowledge-pilot) for the general method; this page names the UAE pack — documents plus one measurable workflow.
 
 ## What “one measurable workflow” means
 
@@ -39,7 +39,7 @@ A Dubai or Abu Dhabi operations, facilities or after-sales team hunts an approve
 
 **Pass.** The reviewed answer cites a passage the reviewer can open; that passage supports the sentence; a missing fact becomes a prompt to a person, not a fluent guess; a stale revision is a miss. **Fail.** The model answers from general knowledge, cites a nearby file that does not contain the claim, or the asker retrieves a document outside their access list.
 
-See [Find answers in technical documents](/fastgpt/solutions/technical-knowledge).
+See [Find answers in technical documents.](/fastgpt/solutions/technical-knowledge)
 
 ### Support handoff
 
@@ -47,7 +47,7 @@ A UAE office IT desk or a Gulf distributor queue handles routine questions from 
 
 **Pass.** Routine items have a supporting citation; exceptions produce a handoff packet a colleague can act on; account, safety and commercial commitments stay with authorized staff; access is not expanded for the demo. **Fail.** The assistant invents a policy, skips the handoff, or shows a contractor a collection they should not open.
 
-See [Route support requests with context](/fastgpt/solutions/support-triage).
+See [Route support requests with context.](/fastgpt/solutions/support-triage)
 
 ### RFQ brief
 
@@ -55,11 +55,11 @@ Sales receives inquiries from UAE or KSA buyers — often English RFQs against a
 
 **Pass.** Required fields are extracted or flagged missing; matches use only approved product data; a person confirms price, substitutes, availability and delivery; no commercial number is invented. **Fail.** The brief fills gaps from model memory, treats a similar part as the requested part, or is sent to the buyer before review.
 
-See [Turn RFQs into reviewable briefs](/fastgpt/solutions/rfq-intake). Do not start with all three.
+See [Turn RFQs into reviewable briefs.](/fastgpt/solutions/rfq-intake) Do not start with all three.
 
 ## Hard-question set
 
-Write the questions before you tune. Keep the difficult items. The [knowledge-pilot](/resources/knowledge-pilot) worksheet proposes routine facts, comparisons, missing evidence and access tests — a method, not a measured UAE result. Include all four kinds:
+Write the questions before you tune. Keep the difficult items. The knowledge-pilot worksheet proposes routine facts, comparisons, missing evidence and access tests — a method, not a measured UAE result. Include all four kinds:
 
 **Routine.** Facts the approved corpus should answer in the language you froze — a step in a Dubai site SOP, a warranty line in the approved FAQ, or a field on a sample RFQ.
 
@@ -106,9 +106,9 @@ Read the method compare — permissions, citations and review, not a model score
 
 ## Plan a pilot
 
-If you can name the owner, the approved corpus, the one workflow and the hard-question set, start from the [FastGPT hub](/fastgpt) and [plan a pilot](/fastgpt/contact). Tell us the task, the systems involved, and what a useful reviewed result looks like.
+If you can name the owner, the approved corpus, the one workflow and the hard-question set, start from [Put your business knowledge to work.](/fastgpt). Tell us the task, the systems involved, and what a useful reviewed result looks like.
 
-[Plan a pilot](/fastgpt/contact) · [sales@cnps.ai](mailto:sales@cnps.ai) · [Request a quotation](/request-quote?solution=knowledge-assistants)
+[sales@cnps.ai](mailto:sales@cnps.ai) · [Request a quotation for devices or a pilot.](/request-quote?solution=knowledge-assistants)
 
 CNPS is a FastGPT partner. Licensing and implementation are defined in your written proposal. Reference cases are published by FastGPT; CNPS has not independently audited them.
 

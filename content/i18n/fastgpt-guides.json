@@ -2,15 +2,18 @@
   "guides": [
     {
       "slug": "uae-first-pilot-documents-and-workflow",
-      "locales": ["en", "ar"],
+      "locales": [
+        "en",
+        "ar"
+      ],
       "category": "Applications",
       "title": {
         "en": "Pick documents and one workflow for a UAE FastGPT first pilot",
         "ar": "اختر المستندات وسير عمل واحداً لتجربة FastGPT أولى في الإمارات"
       },
       "description": {
-        "en": "Choose one approved corpus, one measurable workflow, and a hard-question set for a UAE FastGPT knowledge-assistant pilot — measure checked answers, not first drafts.",
-        "ar": "اختر مجموعة مستندات معتمدة واحدة، وسير عمل قابلاً للقياس، ومجموعة أسئلة صعبة لتجربة مساعد معرفة FastGPT في الإمارات — قِس الإجابات المراجعة لا المسودات الأولى."
+        "en": "UAE FastGPT first-pilot method (checked 18 Nov 2026): one approved corpus, one measurable workflow, hard-question set; measure checked answers, not first drafts.",
+        "ar": "طريقة تجربة FastGPT الأولى في الإمارات (رُوجعت في 18 نوفمبر 2026): مجموعة معتمدة، سير عمل قابل للقياس، أسئلة صعبة — قِس الإجابات المراجعة لا المسودات الأولى."
       },
       "h1": {
         "en": "Pick documents and one workflow for a UAE FastGPT first pilot",
