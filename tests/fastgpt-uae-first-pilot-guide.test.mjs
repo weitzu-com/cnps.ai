@@ -27,7 +27,7 @@ test('UAE FastGPT first-pilot guide stays a method page', () => {
   assert.deepEqual(meta.locales, ['en', 'ar']);
   assert.equal(meta.title.en, 'Pick documents and one workflow for a UAE FastGPT first pilot');
   assert.equal(meta.h1.en, 'Pick documents and one workflow for a UAE FastGPT first pilot');
-  assert.match(meta.description.en, /Choose one approved corpus, one measurable workflow, and a hard-question set/);
+  assert.equal(meta.description.en, 'UAE FastGPT first-pilot method (checked 18 Nov 2026): one approved corpus, one measurable workflow, hard-question set; measure checked answers, not first drafts.');
   assert.match(source, /^# Pick documents and one workflow for a UAE FastGPT first pilot/m);
   assert.match(source, /Name one owner, one approved corpus, one workflow, and a hard-question set before any FastGPT build; measure checked answers, not first drafts\./);
   for (const heading of [
@@ -56,8 +56,10 @@ test('UAE FastGPT first-pilot guide stays a method page', () => {
   assert.match(source, /not independently audited/);
   assert.match(source, /no checkout/);
   assert.match(source, /written proposal/);
-  assert.match(source, /\[partner\]\(\/fastgpt\)/);
-  assert.match(source, /\/fastgpt\/contact/);
+  assert.match(source, /CNPS scopes FastGPT as a partner\./);
+  assert.doesNotMatch(source, /\[partner\]\(\/fastgpt\)/);
+  assert.doesNotMatch(source, /\/fastgpt\/contact/);
+  assert.match(source, /\[Put your business knowledge to work\.\]\(\/fastgpt\)/);
   assert.match(source, /\/resources\/knowledge-pilot/);
   assert.match(source, /\/fastgpt\/compare\/fastgpt-vs-chatgpt-enterprise/);
   assert.match(source, /\/fastgpt\/solutions\/technical-knowledge/);
@@ -108,8 +110,10 @@ test('UAE FastGPT first-pilot Arabic twin is MSA and mirrors EN structure', () =
   assert.match(arSource, /لم تدقّقها CNPS بشكل مستقل/);
   assert.match(arSource, /ولا يوجد دفع على هذا الموقع/);
   assert.match(arSource, /مقترح مكتوب/);
-  assert.match(arSource, /\[شريكاً\]\(\/fastgpt\)/);
-  assert.match(arSource, /\/fastgpt\/contact/);
+  assert.match(arSource, /تحدد CNPS نطاق FastGPT بصفتها شريكاً/);
+  assert.doesNotMatch(arSource, /\[شريكاً\]\(\/fastgpt\)/);
+  assert.doesNotMatch(arSource, /\/fastgpt\/contact/);
+  assert.match(arSource, /\[ضع معرفة مؤسستك في خدمة العمل\.\]\(\/fastgpt\)/);
   assert.match(arSource, /\/resources\/knowledge-pilot/);
   assert.match(arSource, /\/fastgpt\/compare\/fastgpt-vs-chatgpt-enterprise/);
   assert.match(arSource, /هذا ليس «FastGPT دائماً»/);
