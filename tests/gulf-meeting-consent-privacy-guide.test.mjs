@@ -14,12 +14,12 @@ const vercel = fs.readFileSync('vercel.json', 'utf8');
 const pilot = fs.readFileSync('content/i18n/guides/en/gulf-arabic-english-meeting-notes-pilot.md', 'utf8');
 
 test('Gulf consent/privacy guide stays a method page', () => {
-  assert.ok(words.length >= 1000 && words.length <= 1500, 'word count ' + words.length);
+  assert.ok(words.length >= 1000 && words.length <= 1600, 'word count ' + words.length); // N11 short 19 Nov re-check + live-H1 anchors nudge 1494→1524
   assert.ok(meta, 'guides.json entry');
   assert.deepEqual(meta.locales, ['en', 'ar']);
   assert.equal(meta.title.en, 'Consent and privacy test before a Gulf meeting-recorder rollout');
   assert.equal(meta.h1.en, 'Consent and privacy test before a Gulf meeting-recorder rollout');
-  assert.match(meta.description.en, /Freeze invite disclosure, a start script, stop-on-objection/);
+  assert.equal(meta.description.en, 'Gulf meeting-recorder consent method (checked 19 Nov 2026): freeze invite disclosure, start script, stop-on-objection, access and retention, and vendor residency questions.');
   assert.match(source, /^# Consent and privacy test before a Gulf meeting-recorder rollout/m);
   assert.match(source, /Before rolling out TicNote or any meeting recorder in a Gulf enterprise/);
   assert.match(source, /This is an operating protocol, not a PDPL opinion/);
@@ -43,9 +43,10 @@ test('Gulf consent/privacy guide stays a method page', () => {
   assert.match(source, /سنبدأ التسجيل لإعداد ملاحظات داخلية/);
   assert.match(source, /shop\.cnps\.ai\/blogs\/news\/ticnote-lite-vs-pods-wifi-uae-meetings-lectures/);
   assert.match(source, /www\.cnps\.ai\/en\/guides\/gulf-arabic-english-meeting-notes-pilot/);
-  assert.match(source, /\[contact CNPS\]\(\/contact\)/);
-  assert.match(source, /\[request a quotation\]\(\/request-quote\?solution=meeting-ai\)/);
-  assert.match(source, /\[Equip my team\]\(\/products\)/);
+  assert.match(source, /\[Start a conversation with CNPS\.AI\.\]\(\/contact\)/);
+  assert.match(source, /\[Request a quotation for devices or a pilot\.\]\(\/request-quote\?solution=meeting-ai\)/);
+  assert.match(source, /\[Meet your next intelligent tool\.\]\(\/products\)/);
+  assert.doesNotMatch(source, /\[Equip my team\]\(\/products\)/);
   assert.match(source, /not legal counsel|not an opinion on PDPL/i);
   assert.match(source, /does not rank SKUs|does not rank hardware/i);
   assert.match(source, /does not run checkout|does not take payment/i);
@@ -88,10 +89,11 @@ test('Gulf consent/privacy Arabic twin is MSA and mirrors EN structure', () => {
   assert.match(arSource, /سنبدأ التسجيل لإعداد ملاحظات داخلية/);
   assert.match(arSource, /مثال فقط، وليست ترجمة رسمية/);
   assert.match(arSource, /shop\.cnps\.ai\/blogs\/news\/ticnote-lite-vs-pods-wifi-uae-meetings-lectures/);
-  assert.match(arSource, /\[تواصل مع CNPS\]\(\/contact\)/);
-  assert.match(arSource, /\[اطلب عرض سعر\]\(\/request-quote\?solution=meeting-ai\)/);
-  assert.match(arSource, /\[تجهيز فريقي\]\(\/products\)/);
-  assert.match(arSource, /\[تجربة محاضر اجتماعات عربية خليجية–إنجليزية\]\(\/guides\/gulf-arabic-english-meeting-notes-pilot\)/);
+  assert.match(arSource, /\[ابدأ محادثة مع CNPS\.AI\.\]\(\/contact\)/);
+  assert.match(arSource, /\[اطلب عرض سعر للأجهزة أو لتجربة تجريبية\.\]\(\/request-quote\?solution=meeting-ai\)/);
+  assert.match(arSource, /\[تعرّف إلى أداتك الذكية القادمة\.\]\(\/products\)/);
+  assert.doesNotMatch(arSource, /\[تجهيز فريقي\]\(\/products\)/);
+  assert.match(arSource, /\[أدر تجربة محاضر اجتماعات عربية خليجية–إنجليزية في أسبوعين\]\(\/guides\/gulf-arabic-english-meeting-notes-pilot\)/);
   assert.match(arSource, /Residency/);
   assert.match(arSource, /Subprocessors/);
   assert.doesNotMatch(arSource, /add to cart|buy now/i);
@@ -113,7 +115,7 @@ test('built English and Arabic consent/privacy guides are in the sitemap with hr
   const arHtml = fs.readFileSync(arPath, 'utf8');
   assert.match(html, /<h1 class="wide">Consent and privacy test before a Gulf meeting-recorder rollout<\/h1>/);
   assert.match(html, /role="note"/);
-  assert.match(html, /Freeze invite disclosure, a start script, stop-on-objection/);
+  assert.match(html, /Gulf meeting-recorder consent method \(checked 19 Nov 2026\)/);
   assert.match(html, /shop\.cnps\.ai\/blogs\/news\/ticnote-lite-vs-pods-wifi-uae-meetings-lectures/);
   assert.match(html, /href="\/en\/contact"/);
   assert.match(html, /href="\/en\/request-quote\?solution=meeting-ai"/);
