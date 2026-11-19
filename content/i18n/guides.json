@@ -34,8 +34,8 @@
         "ar": "اختبار الموافقة والخصوصية قبل طرح مسجّل اجتماعات في الخليج"
       },
       "description": {
-        "en": "Freeze invite disclosure, a start script, stop-on-objection, access and retention, and vendor residency questions before you roll out meeting recorders in a Gulf enterprise.",
-        "ar": "ثبّت الإفصاح في الدعوة، ونص البدء، وقاعدة التوقف عند الاعتراض، وقائمة الوصول والاحتفاظ، وأسئلة إقامة البيانات لدى المورّد قبل طرح مسجّلات الاجتماعات في مؤسسة خليجية."
+        "en": "Gulf meeting-recorder consent method (checked 19 Nov 2026): freeze invite disclosure, start script, stop-on-objection, access and retention, and vendor residency questions.",
+        "ar": "طريقة موافقة مسجّل اجتماعات الخليج (رُوجعت في 19 نوفمبر 2026): ثبّت الإفصاح في الدعوة، ونص البدء، والتوقف عند الاعتراض، والوصول والاحتفاظ، وأسئلة إقامة البيانات قبل الطرح."
       },
       "h1": {
         "en": "Consent and privacy test before a Gulf meeting-recorder rollout",

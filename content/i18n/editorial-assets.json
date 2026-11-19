@@ -206,5 +206,13 @@
       "zh": "概念配图：已核准文档叠层经一条青色工作流连向带引用的复核卡 — 阿联酋 FastGPT 首次试点主图，无商标规格",
       "ar": "مخطط تصوري: كومة مستندات معتمدة مربوطة بمسار عمل واحد سماوي إلى بطاقة مراجعة مستشهد بها — صورة تجربة FastGPT الأولى في الإمارات، بلا شعارات أو مواصفات"
     }
+  },
+  "gulf-meeting-consent-and-privacy-test": {
+    "file": "gulf-meeting-consent-and-privacy-test",
+    "alt": {
+      "en": "Concept diagram: invite-and-script cards in front of an unstarted meeting recorder, with access/retention and vendor-residency checks — Gulf meeting consent hero, no logos or specs",
+      "zh": "概念配图：邀请与开场脚本卡片置于尚未启动的会议录音器前，并附访问/留存与供应商驻留核对 — 海湾会议同意主图，无商标规格",
+      "ar": "مخطط تصوري: بطاقات الدعوة ونص البدء أمام مسجّل اجتماعات لم يُشغَّل بعد، مع علامات الوصول والاحتفاظ وإقامة البيانات لدى المورّد — صورة موافقة اجتماعات الخليج، بلا شعارات أو مواصفات"
+    }
   }
 }

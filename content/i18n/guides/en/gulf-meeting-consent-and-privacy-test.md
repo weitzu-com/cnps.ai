@@ -2,7 +2,7 @@
 
 Before rolling out TicNote or any meeting recorder in a Gulf enterprise, freeze invite disclosure, a start-of-meeting consent script, stop-on-objection rules, an access and retention list, and written vendor answers on where audio goes — then run a short privacy test on real meetings with guests. This is an operating protocol, not a PDPL opinion.
 
-This page deepens Week 0 of the live Gulf pilot. It does not rewrite the two-week scorecard. It is not legal counsel. It does not rank hardware and does not run checkout.
+This page deepens Week 0 of the live Gulf pilot. It does not rewrite the two-week scorecard. It is not legal counsel. It does not rank hardware and does not run checkout. Re-checked on 19 November 2026; the guidance on this URL is unchanged.
 
 ## Why hardware needs the same bar as meeting bots
 
@@ -25,7 +25,7 @@ Write the pack in an approved system before any file exists. The pilot owner acc
 9. Account owner and approved system (not a personal inbox).
 10. Guest rule: external guests appear on the invite and hear the verbal script.
 
-If any line is blank, the privacy test has not started. Keep confidential minutes out of a first vendor inquiry. See [privacy](/privacy).
+If any line is blank, the privacy test has not started. Keep confidential minutes out of a first vendor inquiry. See [Privacy policy](/privacy).
 
 ## Invite language and start-of-meeting script
 
@@ -71,7 +71,7 @@ Escalate the answers to counsel and the security owner.
 
 Open-ear capture is easier to miss than a recorder on the table. The privacy bar does not drop. If the room cannot see the device, the invite and the spoken start have to do more work. Repeat the script when someone joins. If your policy wants disclosed, visible capture for client guests, do not treat an in-ear form as equivalent to a table device.
 
-This page does not rank SKUs and does not open checkout. Choose form factor only after the privacy pack is frozen. For UAE meetings and lectures, the shop chooser explains table versus open-ear form — not a purchase recommendation from www.cnps.ai: [TicNote Lite vs Pods WiFi for UAE meetings and lectures](https://shop.cnps.ai/blogs/news/ticnote-lite-vs-pods-wifi-uae-meetings-lectures). Confirm destination and listing on shop.cnps.ai before any order. After this test and the two-week pilot pass, compare form factors on [AI meeting devices](/solutions/meeting-ai) and [Equip my team](/products). Purchases complete on shop.cnps.ai.
+This page does not rank SKUs and does not open checkout. Choose form factor only after the privacy pack is frozen. For UAE meetings and lectures, the shop chooser explains table versus open-ear form — not a purchase recommendation from www.cnps.ai: [TicNote Lite vs Pods WiFi for UAE meetings and lectures](https://shop.cnps.ai/blogs/news/ticnote-lite-vs-pods-wifi-uae-meetings-lectures). Confirm destination and listing on shop.cnps.ai before any order. After this test and the two-week pilot pass, compare form factors on [AI meeting devices for teams](/solutions/meeting-ai) and Equip my team. Purchases complete on shop.cnps.ai.
 
 ## Pass or fail: ready to roll out devices
 
@@ -85,6 +85,6 @@ Ready to roll out devices means this privacy test passed. Hardware waits until t
 
 ## After the privacy test
 
-When the pack passes, run the full bilingual method: [Gulf Arabic–English meeting-notes pilot](https://www.cnps.ai/en/guides/gulf-arabic-english-meeting-notes-pilot). That page owns the two-week scorecard and owned action items. This page stays the consent and privacy gate.
+When the pack passes, run the full bilingual method: [Run a Gulf Arabic–English meeting-notes pilot in two weeks](https://www.cnps.ai/en/guides/gulf-arabic-english-meeting-notes-pilot). That page owns the two-week scorecard and owned action items. This page stays the consent and privacy gate.
 
-If you want help freezing the pack — destination, languages, guest mix, or a device shortlist after the workflow passes — [contact CNPS](/contact) or [request a quotation](/request-quote?solution=meeting-ai). Share country, team size and languages. For hardware after both protocols hold, use [Equip my team](/products). This site does not take payment.
+If you want help freezing the pack — destination, languages, guest mix, or a device shortlist after the workflow passes — [Start a conversation with CNPS.AI.](/contact) or [Request a quotation for devices or a pilot.](/request-quote?solution=meeting-ai). Share country, team size and languages. For hardware after both protocols hold, use [Meet your next intelligent tool.](/products). This site does not take payment.
